@@ -122,8 +122,7 @@
  \qquad
  Gwena\"el Joret\footnote{D\'epartement d'Informatique, Universit\'e libre de Bruxelles, Belgium ({\tt gwenael.joret@ulb.be}). G.\ Joret is supported by the Belgian National Fund for Scientific Research (FNRS) and by the Australian Research Council.}
  \qquad
- Cyril Gavoille
- \qquad
+ Cyril Gavoille\qquad
  Piotr Micek\footnote{Department of Theoretical Computer Science, Jagiellonian University, Kraków, Poland (\texttt{piotr.micek@uj.edu.pl}). Research supported
  the National Science Center of Poland under grant UMO-2018/31/G/ST1/03718 within the BEETHOVEN program.}
  \qquad
@@ -171,7 +170,7 @@ Several minor-closed classes of graphs admit $(\log n+o(\log n))$-bit adjacency 
 Until now, one collection of graph classes that was conspicuously absent from this list is the classes of $K_t$-minor-free graphs for $t\ge 6$. Indeed, \citet{dujmovic.esperet.ea:adjacency} leave this as an open problem.  Since it is known that $K_t$-minor-free graphs do not have product stucture, some new idea is needed.  In the current work, we resolve this question:
 
 \begin{thm}\label{main_result}
-  Every proper minor-closed family of graphs $\mathcal{G}$ admits a (\log n+o(\log n))$-bit adjacency labelling scheme.
+  Every proper minor-closed family of graphs $\mathcal{G}$ admits a $(\log n+o(\log n))$-bit adjacency labelling scheme.
 \end{thm}
 
 
@@ -185,7 +184,7 @@ For each $x\in V(T)$, let $T_x$ denote the subtree of $T$ induced by $x$ and all
 
 \subsection{Shannon Codes}
 
-In most of the following we'll be sloppy and make labels for vertices that have several parts and not discuss how an adjacency-testing procedure can split  a label into its various parts.  This is ok, because in the end the labels we make this way will have parts whose total length is at most $\log n+ o(\log n)$ and that are made up of at most $\epsilon\log n$ parts.  This means that we can encode the splitting into parts using $(\log n + o(\log n))\cdot O(H(\epsilon))$ bits, where $H(\epsilon)=\epsilon \log (1/\epsilon)+(1-\epsilon)\log(1/1-\epsilon)$ is the entropy of $\operatorname{Bernoulli}(\epsilon)$ distribution.  The important thing is that $\lim_{\epsilon\rightarrow 0} H(\epsilon)=0$ and we will get to choose $\epsilon$ to be decreasing function of $n$.  More on this at the end.
+In most of the following we'll be sloppy and make labels for vertices that have several parts and not discuss how an adjacency-testing procedure can split  a label into its various parts.  This is ok, because in the end the labels we make this way will have parts whose total length is at most $\ell:= \log n+ o(\log n)$ and that are made up of at most $\epsilon\ell$ parts.  This means that we can encode the splitting into parts using $\ell\cdot O(H(\epsilon))$ bits, where $H(\epsilon)=\epsilon \log (1/\epsilon)+(1-\epsilon)\log(1/1-\epsilon)\le 2\epsilon\log(1/\epsilon)$ for $\epsilon\le 1/4$. We will get to choose $\epsilon$ to be decreasing function of $n$.  More on this at the end.
 
 
 \begin{lem}\label{shannon_code}
@@ -261,7 +260,7 @@ to denote the subgraph of the torso $\torso{G}{B_i}$ induced by all vertices tha
 
 \pat{The statement of \cref{path_family} might be too coarse. When we apply it, not all the vertices need to pay the extra $O(k\log\log n)$ term. When we apply it, each $\torso{G}{B_i}$ we be defined by (a small set of) subtree of the Robertson-Seymour tree. Only the vertices in the root bag of this subtree will need to pay the extra $O(k\log\log n)$.  Vertices in other bags will not have to pay the extra $O(k\log\log n)$ until reaching some lower level of recursion. }
 
-Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.  What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$. 
+Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.  What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$.
 
 
 \begin{proof}
