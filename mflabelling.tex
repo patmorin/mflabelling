@@ -194,6 +194,9 @@ In most of the following we'll be sloppy and make labels for vertices that have 
 
 \subsection{Vertex-Disjoint Unions of Graphs}
 
+
+The following lemma is not strictly necessary. In fact, it is a special case of \cref{path_family}, below.  We include this lemma and its proof because it provides a good warm-up and highlights some of subtleties of \cref{path_family} .
+
 \begin{lem}\label{vertex_disjoint_union}
   Let $\mathcal{G}$ be a graph class that admits a $(\log n+g(n))$-bit adjacency labelling scheme.  Let $\mathcal{G}^+$ be the class of graphs that contains a graph $G$ if and only if $G$ is the union of pairwise vertex-disjoint members of $\mathcal{G}$.  Then $\mathcal{G}^+$ admits a $(\log n+1+g(n))$-bit labelling scheme.
 \end{lem}
@@ -258,12 +261,14 @@ to denote the subgraph of the torso $\torso{G}{B_i}$ induced by all vertices tha
    Let $\mathcal{G}$ be a graph family that admits a $(\log n+ g(n))$-bit adjacency labelling scheme.  Let $k>0$ be an integer and let $\mathcal{G}^\star$ be the graph family that contains a graph $G$ if and only if there exists a path decomposition $B_1,\ldots,B_r$ of $G$ of adhesion-width at most $k$ and such that $G[B_i]^{\downarrow}\in\mathcal{G}$, for each $i\in\{1,\ldots,r\}$.  Then $G^\star$ admits a $(\log n + g(n) + O(1+k\log\log n))$-bit adjacency labelling scheme.
 \end{lem}
 
-\pat{The statement of \cref{path_family} might be too coarse. When we apply it, not all the vertices need to pay the extra $O(k\log\log n)$ term. When we apply it, each $\torso{G}{B_i}$ we be defined by (a small set of) subtree of the Robertson-Seymour tree. Only the vertices in the root bag of this subtree will need to pay the extra $O(k\log\log n)$.  Vertices in other bags will not have to pay the extra $O(k\log\log n)$ until reaching some lower level of recursion. }
+\pat{The statement of \cref{path_family} might be too coarse. When we apply it, not all the vertices need to pay the extra $O(k\log\log n)$ term. In our application, each $\torso{G}{B_i}$ we be defined by (a small set of) subtrees of the Robertson-Seymour tree. Only the vertices in the root bag of this subtree will need to pay the extra $O(k\log\log n)$.  Vertices in other bags will not have to pay the extra $O(k\log\log n)$ until reaching some lower level of recursion. }
 
-Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.  What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$.
+Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.
+
+What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$.
 
 
-\begin{proof}
+\begin{proof}[Proof of \cref{path_family}]
   Let $G$ be an $n$-vertex graph in $\mathcal{G}^\star$ and let $B_1,\ldots,B_r$ be a path decomposition of $G$ that shows $G\in\mathcal{G}^\star$ and that minimizes $r$.
   Let $A_1:=\emptyset$ and let $A_i:=B_i\setminus B_{i-1}$, for each $i\in\{2,\ldots,r\}$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i):=|B_i\setminus A_i|=|V(\dtorso{G}{B_i})|$.  Note that the minimality of $r$ implies that $\omega(i)=|B_i\setminus A_i|\ge 1$ for each $i\in\{1,\ldots,r\}$.  Observe that the total weight is
   \[
@@ -331,59 +336,89 @@ Before proving \cref{path_family}, we make a few remarks.  First, we observe tha
     Each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \alpha\Omega$.
   \end{proof}
 
-\subsection{The Graph Minor Structure Theorem}
+  \subsection{The Graph Minor Structure Theorem}
 
-\pat{Copy definitions from somewhere.}
-
-
-\begin{thm}[Graph Minor Structure Theorem]\label{gmst}
-  Let $\mathcal{G}$ be a proper minor-closed family of graphs. Then there exists $k:=k_\mathcal{G}$ such that each graph $G\in\mathcal{G}$ has a tree decomposition $\mathcal{T}$ of adhesion-width at most $k$ in which each torso of $\mathcal{T}$ is a $k$-almost embeddable graph.
-\end{thm}
+  \pat{Copy definitions from somewhere.}
 
 
-
-\subsection{Weighted Adjacency Labelling Schemes}
-
-Let $g:\N\to\R$.  A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, and each assignment $\omega:V(G)\to\R^+$ of positive weights to the vertices of $G$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G,\omega})$ such that,
-\begin{itemize}
-  \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
-  \item for each $v\in V(G)$, $|\lambda(v)|\le \log \Omega-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
-\end{itemize}
-The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
-
-A labelling $\lambda$ of $G$ is \defin{clique-encoding} if there exists a function $\alpha:(\{0,1\}^*)^2\times\N\to\{0,1\}$ such that, for each inclusion-maximal clique $K\subseteq G$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\alpha(\lambda(v_1),\lambda(w), i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ for $v_1$ contains enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.
-
-We will make use of the following result, which can be obtained using the techniques of \citet{dujmovic.esperet.ea:adjacency}.
-
-\pat{We will have to prove this.}
-
-\begin{thm}
-  The class of $k$-almost-embeddable graphs admits a clique-encoding weighted $o(\log n)$-waste adjacency-labelling scheme.
-\end{thm}
-
-
-\subsection{Putting It Together(?)}
-
-Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  As with path decompositions, let $\dtorso{G}{B_x}:=\torso{G}{B_x}-A_x$.
-
-% For each $v\in V(G)$, let $a(v)$ be the mininim-depth node $x$ of $T$ such that $v\in B_x$.  Observe that $B_x\setminus A_x=a^{-1}(x)$ for each $x\in V(T)$.
-% For each node $x\in V(T)$, let $V_x:=\bigcup_{y\in V(T_x)} B_y$.  We distinguish between two cases.
-
-Define the weight function $\omega_T:V(T)\to\N$ by $\omega_T(x):=|B_x\setminus A_x|$.  Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega_T$ and some (small) $\alpha\in (0,1)$ to obtain a set $X\subseteq V(T)$.  For each $x\in X$ and each $y\in N_T(x)\setminus X$, choose a maximal clique $A^+_y$ in $\torso{G}{B_x}$ that contains $A_y$. For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $C_K:=\{y\in N_T(x)\setminus X:K=A^+_y\}$.  We say that $K$ is \defin{heavy} if $\sum_{y\in C_K}\omega_T(y) > \alpha n$. We say that $y\in N_T(x)\setminus X$ is \defin{burdensome} if $A^+_y$ is heavy.  Let
-\[
-   X^+ := X\cup \{y\in N_T(x)\setminus X:\text{$y$ is burdensome}\}
-\]
-
-\begin{lem}
-  The graph $\torso{G}{X^+}:=\bigcup_{x\in X^+}\torso{G}{B_x}$ has a path decomposition $B_1,\ldots,B_r$ of adhesion-width less than $2k/\alpha$ in which $\dtorso{G}{B_i}$ the union of pairwise vertex-disjoint $k$-almost embeddable graphs, for each $i\in\{1,\ldots,r\}$.
-\end{lem}
-
-\begin{proof}[Proof sketch]
-  For each $i\in\N$, let $B_i := \bigcup_{x\in X^+:\depth_T(x)=i-1} B_x$. This path decomposition works because there are less than $1/\alpha$ heavy maximal cliques in $\bigcup_{x\in X:\depth_T(x)=i-1}\torso{G}{B_x}$.  Thus, $A_i:=B_{i-1}\cap B_i$ consists of vertices belonging to adhesions between pairs of nodes in $X$ (there are less than $1/\alpha$ of these since $X$ contains less than $1/\alpha$ nodes of $T$-depth $i$) and adhesions contained in heavy cliques of $\bigcup_{x\in X:\depth_T(x)=i-1}\torso{G}{B_x}$ (there are less than $1/\alpha$ of these).
-\end{proof}
+  \begin{thm}[Graph Minor Structure Theorem]\label{gmst}
+    Let $\mathcal{G}$ be a proper minor-closed family of graphs. Then there exists $k:=k_\mathcal{G}$ such that each graph $G\in\mathcal{G}$ has a tree decomposition $\mathcal{T}$ of adhesion-width at most $k$ in which each torso of $\mathcal{T}$ is a $k$-almost embeddable graph.
+  \end{thm}
 
 
 
+  \subsection{Weighted Adjacency Labelling Schemes}
+
+  Let $g:\N\to\R$.  A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, and each assignment $\omega:V(G)\to\R^+$ of positive weights to the vertices of $G$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G,\omega})$ such that,
+  \begin{itemize}
+    \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
+    \item for each $v\in V(G)$, $|\lambda(v)|\le \log \Omega-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
+  \end{itemize}
+  The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
+
+  A labelling $\lambda$ of $G$ is \defin{clique-encoding} if there exists a function $\kappa:(\{0,1\}^*)^2\times\N\to\{0,1\}$ such that, for each inclusion-maximal clique $K\subseteq G$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\kappa(\lambda(v_1),\lambda(w), i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ for $v_1$ contains enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.
+
+  We will make use of the following result, which can be obtained using the techniques of \citet{dujmovic.esperet.ea:adjacency}.
+
+  \pat{We will have to prove this.}
+
+  \begin{thm}
+    The class of $k$-almost-embeddable graphs admits a clique-encoding weighted $o(\log n)$-waste adjacency-labelling scheme.
+  \end{thm}
+
+
+  \subsection{Putting It Together(?)}
+
+  Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  Observe that $\{B_x\setminus A_x:x\in V(T)\}$ is a partition of $V(G)$.  As with path decompositions, let $G[B_x]^\downarrow:=G[B_x]-A_x$ and let $\dtorso{G}{B_x}:=\torso{G}{B_x}-A_x$.
+
+  For each node $y$ of $T$ and each $T$-ancestor $x$ of $y$, define  $A_{yx}:=A_y\cap B_x$ and define $A^+_{yx}$ to be some maximal clique in $\torso{G}{B_y}$ that contains $A_{yx}$.
+  % Let $y_0,\ldots,y_t$ be the path in $T$ from $y_0=x$ to the root $r$ of $T$.  For each $i\in\{1,\ldots,t\}$, $A^+_{xy_i}$ is a maximal clique in $\torso{G}{B_{y_i}}$ that contains $A_x$
+
+
+  % If $A_{yx}$ is empty then $A^+_{yx}:=\emptyset$, otherwise $A^+_{yx}$ is a maximal clique in $\torso{G}{B_x}^{\downarrow}$ that contains $A_{yx}$.
+
+
+  Define the weight function $\omega_T:V(T)\to\N$ by $\omega_T(x):=|B_x\setminus A_x|$. Observe that $\Omega:=\sum_{x\in V(T)}\omega(x)=n$. Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega_T$ and some (small) $\alpha\in (0,1)$ to obtain a set $X\subseteq V(T)$. Recall that, for a node $y$ of $T$, $T_y$ denotes the subtree of $T$ induced by all $T$-descendants of $y$ (including $y$).  For each node $y$ of $T$, let $\omega(T_y):=\sum_{z\in V(T_y)} \omega(T_y)$. For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $C_K:=\{y\in N_T(x)\setminus X:K=A^+_{yx}\}$.  Observe that all the nodes in $C_K$ are $T$-children of $x$. For a node $x\in X$ and a maximal clique $K$ in $\torso{G}{B_x}$, we say that $K$ is \defin{heavy} if $\sum_{y\in C_K}\omega_T(T_y) > \alpha n$.
+
+  \begin{clm}\label{few_heavy}
+    Let $d$ be an integer and let $X_d:=\{x\in X:\depth_T(x)=d\}$.  Then the number of heavy maximal cliques in $\bigcup_{x\in X_d}\torso{G}{B_x}^\downarrow$ is less than $1/\alpha$.
+  \end{clm}
+
+  \begin{proof}
+    Let $\mathcal{K}$ be the set of heavy maximal cliques in $\bigcup_{x\in X_d}\torso{G}{B_x}$.  For each $K\in\mathcal{K}$,  $\sum_{y\in C_K}\omega(T_y)>\alpha n$ and the subtrees in $\{T_y:y\in C_K\}$ are pairwise vertex disjoint.  For distinct cliques $K,L\in\mathcal{K}$, $\bigcup_{y\in C_K} T_y$ and $\bigcup_{y\in C_L} T_y$ are vertex disjoint.  Therefore,
+    \[
+      |\mathcal{K}|\alpha n
+        < \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\omega(T_y)
+        = \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\sum_{z\in V(T_y)}\omega(z)
+        \le \sum_{y\in V(T)}\omega(y)
+        \le n \enspace .
+    \]
+    Dividing both sides of this inequality by $\alpha n$ gives $|\mathcal{K}|\le 1/\alpha$.
+  \end{proof}
+
+  We say that a node $y\in N_T(X)$ whose $T$-parent $x\in X$ is \defin{burdensome} if $A^+_{yx}$ is heavy.  Let
+  \[
+     X^+ := X\cup \{y\in N_T(X):\text{$y$ is burdensome}\}
+  \]
+  For each $x\in X^+$, define $T^-_x$ to be the component of $T-(X^+\setminus\{x\})$ that contains $x$, define $V^-_x:=\bigcup_{y\in V(T^-_x)}B_y$.
+  For each $i\in\N$, let $X^+_i:=\{x\in X^+:\depth_T(x)=i-1\}$ and let $X_i:=X^+_i\cap X$.
+  For each $i\in\N$, let $B_i := \bigcup_{x\in X^+_i} V^-_x$.  Let $\mathcal{B}:=(B_i:i\in\N)$
+
+  \begin{clm}
+    $\mathcal{B}$ is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$.
+  \end{clm}
+
+  \begin{proof}
+    That $\mathcal{B}$ gives a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X^+_i$, the $T$-parent of $x$ is in $X^+_{i-1}$.
+
+    Now we show that the adhesion-width of $\mathcal{B}$ is less than $2k/\alpha$.  Fix $i\in\N$ and let $A_i:=B_{i-1}\cap B_i$.  We need to show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_{i-1}$, $y\in X^+_i$ and $xy$ is an edge of $T$. (Recall that each node $y\in X^+_{i}\setminus X$ is a $T$-child of some node $x\in X$.)  We say that $v$ is of Type~1 if $y\in X_i$ and $v$ is of Type~2 if $y\in X^+_i\setminus X_i$.
+
+    The number of Type~1 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_i$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_i$. The number of Type~2 vertices in $A_i$ is at most $k/\alpha$ because each such vertex belongs to a heavy maximal clique in $\torso{G}{B_x}$ for some $x\in X_{i-1}$.  By \cref{few_heavy}, the number of heavy maximal cliques in $\bigcup_{x\in X_{i-1}}\torso{B}{B_x}$ is less than $1/\alpha$ and each such clique has size at most $k$.\todo{Make sure we bound the maximum clique size in the definition of $k$-almost-embeddable graphs}
+
+    Therefore $A_i$ contains less than $k/\alpha$ Type~1 vertices and less than $k/\alpha$ Types~2 vertices, so $|A_i|<2k/\alpha$.
+  \end{proof}
+
+  The purpose of everything we have done so far is to ensure
 
 \bibliographystyle{plainurlnat}
 \bibliography{mflabelling}
