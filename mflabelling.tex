@@ -223,13 +223,13 @@ The following lemma is not strictly necessary. In fact, it is a special case of 
 We make use of the following classical result on Alphabetic Binary Trees:
 
 
-\begin{lem}\label{shannon_fano_elias}
+\begin{lem}\label{shannon_fano_elias_tree}\label{shannon_fano_elias}
   Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a rooted ordered binary tree $T_\omega$ whose leaves, in order, are the integer $\{1,\ldots,r\}$ and such that $\depth_{T_\omega}(i)\le \log\Omega - \log\omega(i) + 2$.
 \end{lem}
 
 In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge of $T_\alpha$ a zero or one depending on whether the edge joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T_\alpha$ as a binary string with the following properties:
 
-\begin{cor}\label{shannon_fano_elias_cor}
+\begin{cor}\label{shannon_fano_elias_code}\label{shannon_fano_elias_cor}
   Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a function $\rho:\{1,\ldots,r\}\to \{0,1\}^\star$ such that
   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
     \item $|\rho(i)|\le \log\Omega - \log\omega(i)+2$ for each $i\in\{1,\ldots,r\}$ and
@@ -356,36 +356,40 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
   \end{itemize}
   The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
 
-  A labelling $\lambda$ of $G$ is \defin{clique-encoding} if there exists a function $\kappa:(\{0,1\}^*)^2\times\N\to\{0,1\}$ such that, for each inclusion-maximal clique $K\subseteq G$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\kappa(\lambda(v_1),\lambda(w), i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ for $v_1$ contains enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.
+  A labelling $\lambda$ of a graph $Q$ is \defin{clique-encoding} if there exists a function $\kappa:(\{0,1\}^*)^2\times\N\to\{0,1\}$ such that, for each inclusion-maximal clique $K\subseteq Q$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\kappa(\lambda(v_1),\lambda(w), i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ for $v_1$ contains enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.  We require furthermore that the mapping $K\mapsto v_1$ is injective. \pat{Not necessarily injective, but constant-to-one.}
 
   We will make use of the following result, which can be obtained using the techniques of \citet{dujmovic.esperet.ea:adjacency}.
 
   \pat{We will have to prove this.}
 
-  \begin{thm}
-    The class of $k$-almost-embeddable graphs admits a clique-encoding weighted $o(\log n)$-waste adjacency-labelling scheme.
+  \begin{thm}\label{weighted}
+    Let $Q$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $Q$.  Then $G$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also a clique-encoding labelling of $Q$.
   \end{thm}
 
 
   \subsection{Putting It Together(?)}
 
-  Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  Observe that $\{B_x\setminus A_x:x\in V(T)\}$ is a partition of $V(G)$.  As with path decompositions, let $G[B_x]^\downarrow:=G[B_x]-A_x$ and let $\dtorso{G}{B_x}:=\torso{G}{B_x}-A_x$.
+  Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  Observe that $\{B_x\setminus A_x:x\in V(T)\}$ is a partition of $V(G)$.
 
-  For each node $y$ of $T$ and each $T$-ancestor $x$ of $y$, define  $A_{yx}:=A_y\cap B_x$ and define $A^+_{yx}$ to be some maximal clique in $\torso{G}{B_y}$ that contains $A_{yx}$.
-  % Let $y_0,\ldots,y_t$ be the path in $T$ from $y_0=x$ to the root $r$ of $T$.  For each $i\in\{1,\ldots,t\}$, $A^+_{xy_i}$ is a maximal clique in $\torso{G}{B_{y_i}}$ that contains $A_x$
+  % As with path decompositions, let $G[B_x]^\downarrow:=G[B_x]-A_x$ and let $\dtorso{G}{B_x}:=\torso{G}{B_x}-A_x$.
 
+  An edge $vw$ of $G$ is an \defin{apex edge} if $w\in B_x\setminus A_x$ and $v\in A_x$, for some $x\in V(T)$.  When this happens, we say that $v$ \defin{hegemonizes} $w$.  Since $|A_x|\le k$ for each $x\in V(T)$, each vertex $w$ of $G$ is hegemonized by at most $k$ vertices.
 
-  % If $A_{yx}$ is empty then $A^+_{yx}:=\emptyset$, otherwise $A^+_{yx}$ is a maximal clique in $\torso{G}{B_x}^{\downarrow}$ that contains $A_{yx}$.
+  We will first describe a labelling scheme for the (Utopian) graph $G^-:=\bigcup_{x\in V(T)} G[B_x\setminus A_x]$ in which all apex edges have been removed (so no vertex hegemonizes any other vertex).
+  With no further requirements, obtaining a $(\log n+o(\log n))$-bit  adjacency labelling scheme for $G^-$ is easy, since $G^-$ is the union of pairwise vertex-disjoint graphs, each of which is $k$-almost embeddable.  The labelling scheme for $k$-almost-embeddable graphs in \cite{dujmovic.esperet.ea:adjacency} and \cref{vertex_disjoint_union} immediately give a $(\log n+o(\log n))$-bit adjacency labelling scheme for $G^{\downarrow}$.  However, the labels assigned by this scheme are not helpful for testing the presence of apex edges, so it will not solve the original problem.  Instead, we describe a more complicated labelling scheme for $G^-$ that can be extended to an adjacency labelling scheme for $G$. This extension will be relatively simple, requiring only that the label of a vertex $w\in B_x$ be extended with an additional $O(k\log\log n)$ bits that are used to help identify the at most $k$ vertices in $A_x$ that hegemonize $w$.
 
+  Define the weight function $\omega:V(T)\to\N$ by $\omega(x):=|B_x\setminus A_x|$. Observe that $\sum_{x\in V(T)}\omega(x)=n$. Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega$ and some (small) $\alpha\in (0,1)$ to obtain a set $X_0\subseteq V(T)$.
 
-  Define the weight function $\omega_T:V(T)\to\N$ by $\omega_T(x):=|B_x\setminus A_x|$. Observe that $\Omega:=\sum_{x\in V(T)}\omega(x)=n$. Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega_T$ and some (small) $\alpha\in (0,1)$ to obtain a set $X\subseteq V(T)$. Recall that, for a node $y$ of $T$, $T_y$ denotes the subtree of $T$ induced by all $T$-descendants of $y$ (including $y$).  For each node $y$ of $T$, let $\omega(T_y):=\sum_{z\in V(T_y)} \omega(T_y)$. For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $C_K:=\{y\in N_T(x)\setminus X:K=A^+_{yx}\}$.  Observe that all the nodes in $C_K$ are $T$-children of $x$. For a node $x\in X$ and a maximal clique $K$ in $\torso{G}{B_x}$, we say that $K$ is \defin{heavy} if $\sum_{y\in C_K}\omega_T(T_y) > \alpha n$.
+  For each node $y$ of $T$ with $T$-parent $x$, define $A^+_{y}$ to be the vertex set of some maximal clique in $\torso{G}{B_x}$ that contains all the vertices in $A_{y}$. This is well-defined since, by definition, the vertices in $A_y$ induce a clique in $\torso{G}{B_x}$. \pat{It's possible that we don't get to choose $A^+_y$, but that it is defined by the product structure of $\torso{G}{B_x}$. That would also be ok.}
+
+  For any subgraph $U$ of $T$, use the shorthand $\omega(U):=\sum_{z\in V(U)} \omega(z)$.  Recall that, for a node $y$ of $T$, $T_y$ denotes the subtree of $T$ induced by all $T$-descendants of $y$ (including $y$). For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_{0,K}}:=\{y\in N_T(x)\setminus X_0:V(K)=A^+_{x}\}$.  Observe that all the nodes in $C_{0,K}$ are $T$-children of $x$. For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, define the weight of $K$ as $\omega_0(K):=\sum_{y\in C_{0,K}}\omega(T_y)$.  We say that a maximal clique $K$ is \defin{heavy} if $\omega_0(K)>\alpha n$.
 
   \begin{clm}\label{few_heavy}
-    Let $d$ be an integer and let $X_d:=\{x\in X:\depth_T(x)=d\}$.  Then the number of heavy maximal cliques in $\bigcup_{x\in X_d}\torso{G}{B_x}^\downarrow$ is less than $1/\alpha$.
+    Let $d$ be an integer and let $X_{0,d}:=\{x\in X_0:\depth_T(x)=d\}$.  Then the number of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$ is less than $1/\alpha$.
   \end{clm}
 
   \begin{proof}
-    Let $\mathcal{K}$ be the set of heavy maximal cliques in $\bigcup_{x\in X_d}\torso{G}{B_x}$.  For each $K\in\mathcal{K}$,  $\sum_{y\in C_K}\omega(T_y)>\alpha n$ and the subtrees in $\{T_y:y\in C_K\}$ are pairwise vertex disjoint.  For distinct cliques $K,L\in\mathcal{K}$, $\bigcup_{y\in C_K} T_y$ and $\bigcup_{y\in C_L} T_y$ are vertex disjoint.  Therefore,
+    Let $\mathcal{K}$ be the set of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$.  For each $K\in\mathcal{K}$,  $\sum_{y\in C_{0,K}}\omega(T_y)>\alpha n$ and the subtrees in $\{T_y:y\in C_{0,K}\}$ are pairwise vertex disjoint.  For distinct cliques $K,L\in\mathcal{K}$, $\bigcup_{y\in C_K} T_y$ and $\bigcup_{y\in C_L} T_y$ are vertex disjoint.  Therefore,
     \[
       |\mathcal{K}|\alpha n
         < \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\omega(T_y)
@@ -396,29 +400,87 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
     Dividing both sides of this inequality by $\alpha n$ gives $|\mathcal{K}|\le 1/\alpha$.
   \end{proof}
 
-  We say that a node $y\in N_T(X)$ whose $T$-parent $x\in X$ is \defin{burdensome} if $A^+_{yx}$ is heavy.  Let
+  We say that a node $y\in N_T(X)$ whose $T$-parent $x\in X$ is \defin{burdensome} if $A^+_{x}$ is the vertex set of a heavy maximal clique in $\torso{G}{B_x}$.  Let
   \[
-     X^+ := X\cup \{y\in N_T(X):\text{$y$ is burdensome}\}
+     X := X_0\cup \{y\in N_T(X_0):\text{$y$ is burdensome}\}
   \]
-  For each $x\in X^+$, define $T^-_x$ to be the component of $T-(X^+\setminus\{x\})$ that contains $x$, define $V^-_x:=\bigcup_{y\in V(T^-_x)}B_y$.
-  For each $i\in\N$, let $X^+_i:=\{x\in X^+:\depth_T(x)=i-1\}$ and let $X_i:=X^+_i\cap X$.
-  For each $i\in\N$, let $B_i := \bigcup_{x\in X^+_i} V^-_x$.  Let $\mathcal{B}:=(B_i:i\in\N)$
+  For each $x\in X$, define $T^-_x$ to be the component of $T-(X\setminus\{x\})$ that contains $x$, define $V^-_x:=\bigcup_{y\in V(T^-_x)}B_y$.
+  For each $i\in\N$, let $X_i:=\{x\in X:\depth_T(x)=i-1\}$ and let $X_{0,i}:=X_i\cap X_0$.
+  For each $i\in\N$, let $B_i := \bigcup_{x\in X_i} V^-_x$ and let $r:=\max\{i\in\N:B_i\neq\emptyset\}$. Let $A_0:=\emptyset$ and let $A_i:=B_{i-1}\cap B_i$ for each $i\in\{2,\ldots,r\}$.
 
   \begin{clm}
-    $\mathcal{B}$ is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$.
+    $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$.
   \end{clm}
 
   \begin{proof}
-    That $\mathcal{B}$ gives a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X^+_i$, the $T$-parent of $x$ is in $X^+_{i-1}$.
+    That $B_1,\ldots,B_r$ is a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X_i$, the $T$-parent of $x$ is in $X_{i-1}$.
 
-    Now we show that the adhesion-width of $\mathcal{B}$ is less than $2k/\alpha$.  Fix $i\in\N$ and let $A_i:=B_{i-1}\cap B_i$.  We need to show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_{i-1}$, $y\in X^+_i$ and $xy$ is an edge of $T$. (Recall that each node $y\in X^+_{i}\setminus X$ is a $T$-child of some node $x\in X$.)  We say that $v$ is of Type~1 if $y\in X_i$ and $v$ is of Type~2 if $y\in X^+_i\setminus X_i$.
+    Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Fix $i\in\{1,\ldots,r\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_{0,i-1}$, $y\in X_i$ and $xy$ is an edge of $T$. (Recall that each node $y\in X\setminus X_0$ is a $T$-child of some node $x\in X_0$.)  We say that $v$ is of Type~0 if $y\in X_{0,i}$ and $v$ is of Type~1 if $y\in X_i\setminus X_0$.
 
-    The number of Type~1 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_i$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_i$. The number of Type~2 vertices in $A_i$ is at most $k/\alpha$ because each such vertex belongs to a heavy maximal clique in $\torso{G}{B_x}$ for some $x\in X_{i-1}$.  By \cref{few_heavy}, the number of heavy maximal cliques in $\bigcup_{x\in X_{i-1}}\torso{B}{B_x}$ is less than $1/\alpha$ and each such clique has size at most $k$.\todo{Make sure we bound the maximum clique size in the definition of $k$-almost-embeddable graphs}
+    The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0,i}$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0,i}$. The number of Type~2 vertices in $A_i$ is at most $k/\alpha$ because each such vertex belongs to a heavy maximal clique in $\torso{G}{B_x}$ for some $x\in X_{0,i-1}$.  By \cref{few_heavy}, the number of heavy maximal cliques in $\bigcup_{x\in X_{0,i-1}}\torso{B}{B_x}$ is less than $1/\alpha$ and each such clique has size at most $k$.\todo{Make sure we bound the maximum clique size in the definition of $k$-almost-embeddable graphs}
 
-    Therefore $A_i$ contains less than $k/\alpha$ Type~1 vertices and less than $k/\alpha$ Types~2 vertices, so $|A_i|<2k/\alpha$.
+    Therefore $A_i$ contains less than $k/\alpha$ Type~0 vertices and less than $k/\alpha$ Types~1 vertices, so $|A_i|<2k/\alpha$.
   \end{proof}
 
-  The purpose of everything we have done so far is to ensure
+  For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_K}:=\{y\in N_T(x)\setminus X:V(K)=A_{y}\}$.  Define $\omega(K)=\sum_{y\in C_K}\omega(T_y)$.
+  The main difference between the sets $X$ and $X_0$ is that $X$ has no heavy cliques.
+
+  \begin{clm}
+    $\omega(K) \le \alpha n$ for each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$.
+  \end{clm}
+
+  \begin{proof}
+    Assume, for the sake of contradiction that $\omega(K) > \alpha n$ for some $x\in X$ and some maximal clique $K$ in $\torso{G}{B_x}$.  Then $\omega(T_x)\ge \omega(K)>\alpha n$. Therefore $x\in X_0$, by the definition of $X_0$.  Then $\omega_0(K)\ge\omega(K)>\alpha n$.  Therefore $K$ is a heavy maximal clique in $\torso{G}{B_x}$.  By definition $X\supseteq X_0\cup C_{0,K}$.  But then $C_{K}\subseteq C_{0,K}\setminus X=\emptyset$, so $\omega(K)=0$, contradicting the assumption that $\omega(K)>\alpha n$.
+  \end{proof}
+
+
+  We can now begin to describe the parts of the labels used in the labelling scheme for $G^-$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|B_i\setminus A_i|$.  Note that $\sum_{i=1}^r\omega(i) = n$.  Apply \cref{shannon_fano_elias_tree,shannon_fano_elias_code} to $\{1,\ldots,r\}$ with weights defined by $\omega$, and let $T_\omega$ be the resulting binary tree and $\rho:\{1,\ldots,r\}\to\{0,1\}^*$ be the resulting prefix-free code.
+  Observe that $\sum_{i=1}^r\omega(i)=n$.
+
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
+    \item\label{rho_part} For each $i\in\{1,\ldots,r\}$ and each $v\in B_i\setminus A_i$, the label for $v$ contains a part $\rho(v):=\rho(i)$. This part has length at most $\log n-\log\omega(i) + 2$.
+  \end{enumerate}
+
+  Let $v\in V(G)$. Let $a(v):=\min\{i\in\{1,\ldots,r\}:v\in B_i\}$ and let $b(v):=\max\{i\in\{1,\ldots,r\}:v\in B_i\}$.  Then $a(v)$ and $b(v)$ are leaves in $T_\omega$.  Define $q(v)$ to be the lowest common ancestor of $a(v)$ and $b(v)$ in $T_\omega$.  We claim that  $|q^{-1}(x)|< 2k/\alpha$ for each internal node $x$ of $T_\omega$.  Indeed, for each internal node $x$ of $T_\omega$, if $i$ is the minimum leaf in the subtree rooted at the right child of $x$ then the left child of $x$ is the root of a subtree that contains the leaf $i-1$.  Then, every vertex in $q^{-1}(x)$ is in the set $A_i$.  Therefore $|q^{-1}(x)|\le |A_i|< 2k/\alpha$.
+
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{1}
+    \item\label{flag_part} For each $v\in V(G)$, the label for $v$ contains one bit $t(v)$ that indicates if $a(v)=b(v)$.
+    \item\label{lca_part} For each $v\in V(G)$, if $a(v)\neq b(v)$, then the label of $v$ contains $\depth_{T_\omega}(q(v))$. This part has length $O(\log\log n)$.
+    \item\label{colour_part} For each $v\in V(G)$, if $a(v)\neq b(v)$, then the label of $v$ contains an integer $\varphi(v)$ that is distinct from $\varphi(w)$ for each $w\in q^{-1}(q(v))$.  This part has length $\lceil\log |q^{-1}(q(v))|\le \lceil \log (2k/\alpha)\rceil$.
+  \end{enumerate}
+
+  For each $x\in X$, define $T^-_x$ to be the component of $T-(X\setminus\{x\})$ that contains $x$.  For each $i\in\{1,\ldots,r\}$ and each $x\in X_i^+$, define $\omega_i(x):=\omega(T^-_x)$. Note that $\sum_{x\in X_i}\omega_i(x)=|B_i\setminus A_i|=\omega(i)$. For each $i\in\{1,\ldots,r\}$,  apply \cref{shannon_code} with weights defined by $\omega_i$, and let $\pi_i:X^+_i\to\{0,1\}^*$  be the resulting prefix-free code.
+
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{4}
+    \item\label{pi_part} For each $i\in\{1,\ldots,r\}$, each $x\in X^+_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains a part $\pi(v):=\pi_i(x)$. This part has length at most $\log \omega(i)-\log\omega_i(x)$.
+  \end{enumerate}
+
+  Let $i\in\{1,\ldots,r\}$ and $x\in X_i$. Let $\mathcal{K}_x$ denote the set of maximal cliques in $\torso{G}{B_x}$ and, for each $v\in B_x\setminus A_x$, let $\mathcal{K}_v:=\{K\in\mathcal{K}_x:v\in V(K)\}$. For each $v\in B_x\setminus A_x$, define $\omega(v):=\sum_{K\in\mathcal{K}_v}\omega(K)$.  Since each maximal clique in $\mathcal{K}_x$ contains at most $k$ vertices, we have $\sum_{v\in B_x\setminus A_x}\omega(v)=\sum_{v\in B_x\setminus A_x}\sum_{K\in\mathcal{K}_v}\omega(K)\le k\sum_{K\in\mathcal{K}_x}\omega(K)\le k\omega_i(x)$.
+
+  For each $x\in X$, let $Q_x:=\torso{G}{B_x}-A_x$.
+  Apply the weighted labelling scheme in \cref{weighted} to the graphs $Q_x$ and $G[B_x-A_x]$ with vertex weights defined by $\omega$ to obtain a weighted adjacency labelling of $G[B_x-A_x]$ that is clique-encoding for $Q_x$.
+  We now distinguish between two kinds of vertices in $G$.
+   contains the following parts:
+
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{5}
+    \item\label{dejmmw_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains $\lambda(v)$.
+
+    For each $i\in\{1,\ldots,r\}$, each $x\in X_i$, each maximal clique $K$ in $\torso{G}{B_x}$, each $y\in C_K$, each $z\in V(T_y)$, and each $w\in B_z-A_z$, the label for $w$ contains $\lambda(K)$.  More precisely, the label for $w$ contains the label of the vertex $v_1\in V(K)$ that uniquely identifies $K$.
+
+    This part has length at most $\log (k\omega_i(x))-\log\omega(v)+O(\sqrt{\log n})$.
+
+    \item For each $i\in\{1,\ldots,r\}$, each $x\in X_i$, each maximal clique $K$ in $\torso{G}{B_x}$ the subgraph $G[\bigcup_{y\in C_K}\bigcup_{z\in V(T_y)} (B_z\setminus A_z)]$ is labelled recursively.
+  \end{enumerate}
+
+  In this labelling, there are $\log_{1/\alpha} n$ levels of recursion, where level $i$ consists of subgraphs each of size at most $\alpha^i n$.  At each layer, there is a waste of $O(\sqrt{\log n})$.  When a vertex stops, there is a one-time waste (from \ref{colour_part}) of $\log(2k/\alpha)$. So the label length is
+  \[
+    \log n + \frac{\log n\cdot \sqrt{\log n}}{\log 1/\alpha} + \log(1/\alpha)
+  \]
+  If we take $\alpha=2^{-(\log n)^{3/4}}$ then this becomes
+  \[
+  \log n + \frac{\log n\cdot \sqrt{\log n}}{(\log n)^{3/4}} + (\log n)^{3/4} = \log n + O((\log n)^{3/4})
+  \]
+
 
 \bibliographystyle{plainurlnat}
 \bibliography{mflabelling}
