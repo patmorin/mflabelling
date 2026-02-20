@@ -23,8 +23,6 @@
 \newcommand{\torso}[2]{{#1}\langle{#2}\rangle}
 \DeclareMathOperator{\depth}{depth}
 
-% password: KYdj!bbXvNMfRW8
-
 
 %% so that cleveref outputs Theorems 3--5
 \newcommand{\crefrangeconjunction}{--}
@@ -118,14 +116,13 @@
 
 \title{\MakeUppercase{\boldmath Adjacency labelling for minor-closed graph families}}
 
-%\title{\MakeUppercase{\boldmath Planar graphs are contained in $\tilde{O}(\sqrt{n})$-blowups of fans}}
-
-%Fan-Partitions of Planar Graphs (and Beyond)  \newline by Local Sparsification and Volume-Preserving Embeddings}}
 
 \author{
  Vida Dujmovi{\'c}\,\footnote{School of Computer Science and Electrical Engineering, University of Ottawa, Ottawa, Canada (\texttt{vida.dujmovic@uottawa.ca}). Research supported by NSERC and a University of Ottawa Research Chair.}
  \qquad
  Gwena\"el Joret\footnote{D\'epartement d'Informatique, Universit\'e libre de Bruxelles, Belgium ({\tt gwenael.joret@ulb.be}). G.\ Joret is supported by the Belgian National Fund for Scientific Research (FNRS) and by the Australian Research Council.}
+ \qquad
+ Cyril Gavoille
  \qquad
  Piotr Micek\footnote{Department of Theoretical Computer Science, Jagiellonian University, Kraków, Poland (\texttt{piotr.micek@uj.edu.pl}). Research supported
  the National Science Center of Poland under grant UMO-2018/31/G/ST1/03718 within the BEETHOVEN program.}
@@ -159,9 +156,24 @@
 \newpage
 \tableofcontents
 
-
 \newpage
 \section{Introduction}
+
+Let $f:\N\to\R$.  A graph family $\mathcal{G}$ admits an \defin{$f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G}$ such that,
+\begin{itemize}
+  \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
+  \item for each $v\in V(G)$, $|\lambda(v)|\le f(n)$.
+\end{itemize}
+The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
+
+Several minor-closed classes of graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs. In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.  Many of these results are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free, and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
+
+Until now, one collection of graph classes that was conspicuously absent from this list is the classes of $K_t$-minor-free graphs for $t\ge 6$. Indeed, \citet{dujmovic.esperet.ea:adjacency} leave this as an open problem.  Since it is known that $K_t$-minor-free graphs do not have product stucture, some new idea is needed.  In the current work, we resolve this question:
+
+\begin{thm}\label{main_result}
+  Every proper minor-closed family of graphs $\mathcal{G}$ admits a (\log n+o(\log n))$-bit adjacency labelling scheme.
+\end{thm}
+
 
 \section{Background}
 
@@ -171,7 +183,38 @@
 
 For each $x\in V(T)$, let $T_x$ denote the subtree of $T$ induced by $x$ and all $T$-descendants of $x$.
 
+\subsection{Shannon Codes}
 
+In most of the following we'll be sloppy and make labels for vertices that have several parts and not discuss how an adjacency-testing procedure can split  a label into its various parts.  This is ok, because in the end the labels we make this way will have parts whose total length is at most $\log n+ o(\log n)$ and that are made up of at most $\epsilon\log n$ parts.  This means that we can encode the splitting into parts using $(\log n + o(\log n))\cdot O(H(\epsilon))$ bits, where $H(\epsilon)=\epsilon \log (1/\epsilon)+(1-\epsilon)\log(1/1-\epsilon)$ is the entropy of $\operatorname{Bernoulli}(\epsilon)$ distribution.  The important thing is that $\lim_{\epsilon\rightarrow 0} H(\epsilon)=0$ and we will get to choose $\epsilon$ to be decreasing function of $n$.  More on this at the end.
+
+
+\begin{lem}\label{shannon_code}
+  Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a prefix-free code $\pi:\{1,\ldots,n\}\to\{0,1\}^*$ such that $|\pi(i)|\le \log\Omega-\log\omega(i)+1$ for each $i\in\{1,\ldots,r\}$.
+\end{lem}
+
+
+\subsection{Vertex-Disjoint Unions of Graphs}
+
+\begin{lem}\label{vertex_disjoint_union}
+  Let $\mathcal{G}$ be a graph class that admits a $(\log n+g(n))$-bit adjacency labelling scheme.  Let $\mathcal{G}^+$ be the class of graphs that contains a graph $G$ if and only if $G$ is the union of pairwise vertex-disjoint members of $\mathcal{G}$.  Then $\mathcal{G}^+$ admits a $(\log n+1+g(n))$-bit labelling scheme.
+\end{lem}
+
+\begin{proof}
+  Let $G$ be an $n$-vertex graph in $\mathcal{G}^+$ and let $G_1,\ldots,G_r$ be pairwise vertex-disjoint graphs in $\mathcal{G}$ such that $G:=\bigcup_{i=1}^r G_i$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|V(G_i)|$ and observe that $\Omega:=\sum_{i=1}^r \omega(i)=|V(G)|=n$.  Apply \cref{shannon_code} to $\omega$ to obtain a prefix-free code $\pi$.  For each $i\in\{1,\ldots,r\}$ and each vertex $v$ of $G_i$, the label for $v$ has three parts:
+  \begin{enumerate}[nosep,nolistsep,label=(PS\arabic*)]
+    \item The codeword $\pi(v):=\pi(i)$.  This takes $|\pi(i)|\le \log n - \log\omega(i)+1$ bits.
+    \item The adjacency label $\lambda(v)$ for the vertex $v$ in the graph $G_i$.  Since $G_i\in\mathcal{G}$ $|\lambda(v)|\le\log |V(G_i)|+g(|V(G_i)|)=\log\omega(i)+g(\omega(i))\le \log\omega(i)+g(n)$.
+  \end{enumerate}
+  The total length of the label for $v$ is then $\log n + 1 + g(n)$.
+
+  Given the labels for two vertices $v$ and $w$ of $G$, we can then test if $vw\in E(G)$ as follows:
+  \begin{enumerate}[nosep,nolistsep,label=(TS\arabic*)]
+    \item If $\pi(v)\neq\pi(w)$ then $v$ is a vertex of $G_i$ and $w$ is a vertex of $G_j$ for some $i\neq j$. In this case, we immediately conclude that $vw\not\in E(G)$.
+    \item Otherwise, $v$ and $w$ are both vertices of $G_i$. In this case we can use $\lambda(v)$ and $\lambda(w)$ to test if $vw\in E(G_i)$. \qedhere
+  \end{enumerate}
+
+
+\end{proof}
 
 \subsection{Alphabetic Binary Trees and Shannon-Fano-Elias Codes}
 
@@ -206,19 +249,19 @@ The \defin{adhesion-width} of a path decomposition $B_1,\ldots,B_r$ is $\max\{|B
 
 
 
-For a path decomposition $B_1,\ldots,B_r$ of a graph $G$, we use the conventions $B_0:=B_{r+1}:=\emptyset$.  Then, for each $i\in\{1,\ldots,r\}$, $\torso{G}{B_i}$ (the \defin{torso} of $B_i$) denotes the supergraph of $G[B_i]$ obtained adding all edges between all pairs of vertices in $B_{i-1}\cap B_i$ and all pairs of vertices in $B_{i}\cap B_{i+1}$. We use the notation
+For a path decomposition $B_1,\ldots,B_r$ of a graph $G$, we use the conventions $B_0:=B_{r+1}:=\emptyset$.  Then, for each $i\in\{1,\ldots,r\}$, $\mathdefin{G[B_i]^\downarrow}:=G[B_i\setminus B_{i-1}]$ and \defin{$\torso{G}{B_i}$} (the \defin{torso} of $B_i$) denotes the supergraph of $G[B_i]$ obtained adding all edges between all pairs of vertices in $B_{i-1}\cap B_i$ and all pairs of vertices in $B_{i}\cap B_{i+1}$. We use the notation
 \[
   \mathdefin{\dtorso{G}{B_i}} = \torso{G}{B_i}-(B_{i-1}\cap B_i)
 \]
 to denote the subgraph of the torso $\torso{G}{B_i}$ induced by all vertices that are not contained in $B_{i-1}$.
 
 \begin{lem}\label{path_family}
-   Let $\mathcal{G}$ be a graph family that admits a $(\log n+ g(n))$-bit adjacency labelling scheme.  Let $k>0$ be an integer and let $\mathcal{G}^\star$ be the graph family that contains a graph $G$ if and only if there exists a path decomposition $B_1,\ldots,B_r$ of $G$ of adhesion-width at most $k$ and such that $\dtorso{G}{B_i}\in\mathcal{G}$, for each $i\in\{1,\ldots,r\}$.  Then $G^\star$ admits a $(\log n + g(n) + O(k\log\log n)$-bit adjacency labelling scheme.
+   Let $\mathcal{G}$ be a graph family that admits a $(\log n+ g(n))$-bit adjacency labelling scheme.  Let $k>0$ be an integer and let $\mathcal{G}^\star$ be the graph family that contains a graph $G$ if and only if there exists a path decomposition $B_1,\ldots,B_r$ of $G$ of adhesion-width at most $k$ and such that $G[B_i]^{\downarrow}\in\mathcal{G}$, for each $i\in\{1,\ldots,r\}$.  Then $G^\star$ admits a $(\log n + g(n) + O(1+k\log\log n))$-bit adjacency labelling scheme.
 \end{lem}
 
 \pat{The statement of \cref{path_family} might be too coarse. When we apply it, not all the vertices need to pay the extra $O(k\log\log n)$ term. When we apply it, each $\torso{G}{B_i}$ we be defined by (a small set of) subtree of the Robertson-Seymour tree. Only the vertices in the root bag of this subtree will need to pay the extra $O(k\log\log n)$.  Vertices in other bags will not have to pay the extra $O(k\log\log n)$ until reaching some lower level of recursion. }
 
-Before proving \cref{path_family}, we first point out a subtlety in the definition of $G^\star$. For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved'' by assumption.  However, for $i\ge 2$, the graph $G[B_i]$ contains the additional vertices in the adhesion $A_i:=B_i\cap B_{i-1}$. There is absolutely no restriction on the adjacency between vertices in $\dtorso{G}{B_i}$ and the vertices in $A_i$: Each vertex in $A_i$ can be adjacent to any subset of the vertices in $B_{i}\setminus A_i$.
+Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.  What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$. 
 
 
 \begin{proof}
@@ -244,9 +287,9 @@ Before proving \cref{path_family}, we first point out a subtlety in the definiti
     \]
     where $b(v,a)$ is a single bit indicating whether or not $va\in E(G)$.  This part of the label has length $O(\log\log n+ \log k + 1)$.  Since $|A_i|\le k$, this part of the label has size $O(k\log\log n)$.
   \end{enumerate}
-  Thus, in total, the total length of the label for $v$ is $\log n+g(\omega(i)+O(k\log\log n)\le \log n + g(n) + O(k\log\log n)$. \pat{Fussy point: You also need $O(\log\log n)$ bookkeeping to keep track of $|\rho(v)|$}
+  Thus, in total, the total length of the label for $v$ is $\log n+g(\omega(i)+O(k\log\log n)\le \log n + g(n) + O(k\log\log n)$.
 
-  We now show that these labels are sufficient to perform adjacency testing $G$.  Given the labels of two vertices $v$ and $w$ in $G$ we proceed as follows:
+  We now show that these labels are sufficient to perform adjacency testing for $G$.  Given the labels of two vertices $v$ and $w$ in $G$ we proceed as follows:
   \begin{enumerate}[nosep,label=(T\arabic*)]
     \item\label{in_torso_test} If $\rho(v)=\rho(w)$ then $v$ and $w$ are both vertices of $\dtorso{G}{B_i}$. In this case, we test if $v$ and $w$ are adjacent using $\lambda(v)$ and $\lambda(w)$.
     \item\label{apex_test} Otherwise, we may assume without loss of generality that $\rho(v)$ is lexicographically less than $\rho(w)$.  This implies that $v\in B_i\setminus A_i$ and $w\in B_j\setminus A_j$, for some $i < j$.  In this case, the only way in which $v$ and $w$ could be adjacent in $G$ is if $v\in A_{j}$.  Before continuing, we check if $\nu(v)=1$. If not, then $v\not\in A_\ell$ for any $\ell\in\{1,\ldots,r\}$, so $v\not\in A_j$ and we immediately conclude that $vw\not\in E(G)$.  Otherwise $v\in A_\ell$ for at least one $\ell\in\{1,\ldots,r\}$ and the label of $v$ has non-empty parts \ref{q_depth} and \ref{q_colour}.  If $v\in A_{j}$ then \ref{apex_up} of the label for $w$ will contain the triple $(\depth_{T_\alpha}(q(v)),\varphi(v),b(v,w))$. However, the existence of this triple is not sufficient to guarantee that $vw\in E(G)$ since $T$ may have many nodes of depth $d:=\depth_{T_\alpha}(q(v))$ and only one of these is the node $q(v)$. To eliminate this ambiguity, we verify that the length-$d$ prefix of $\rho(v)$ and the length-$d$ prefix of $\rho(w)$ match.
