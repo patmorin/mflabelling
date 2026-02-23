@@ -439,7 +439,7 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
   Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  Observe that $\{B_x\setminus A_x:x\in V(T)\}$ is a partition of $V(G)$.
 
 
-  Define the weight function $\omega:V(T)\to\N$ by $\omega(x):=|B_x\setminus A_x|$. Observe that $\sum_{x\in V(T)}\omega(x)=n$.  Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega$ and some (small) $\alpha\in (0,1)$ to obtain a set $X_0\subseteq V(T)$.
+  % Define the weight function $\omega:V(T)\to\N$ by $\omega(x):=|B_x\setminus A_x|$. Observe that $\sum_{x\in V(T)}\omega(x)=n$.  Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega$ and some (small) $\alpha\in (0,1)$ to obtain a set $X_0\subseteq V(T)$.
 
 
 
@@ -451,58 +451,58 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
   We will first describe a labelling scheme for the (Utopian) graph $G^-:=\bigcup_{x\in V(T)} G[B_x\setminus A_x]$ in which all apex edges have been removed (so no vertex hegemonizes any other vertex). With no further requirements, obtaining a $(\log n+o(\log n))$-bit  adjacency labelling scheme for $G^-$ is easy, since $G^-$ is the union of pairwise vertex-disjoint graphs, each of which is $k$-almost embeddable.  The labelling scheme for $k$-almost-embeddable graphs in \cite{dujmovic.esperet.ea:adjacency} and \cref{vertex_disjoint_union} immediately give a $(\log n+o(\log n))$-bit adjacency labelling scheme for $G^{\downarrow}$.  However, the labels assigned by this scheme are not helpful for testing the presence of apex edges, so it will not solve the original problem.  Instead, we describe a more complicated labelling scheme for $G^-$ that can be extended to an adjacency labelling scheme for $G$. This extension will be relatively simple, requiring only that the label of a vertex $w\in B_x$ be extended with an additional $O(k\log\log n)$ bits that are used to help identify the at most $k$ vertices in $A_x$ that hegemonize $w$.
 
 
-  For each node $y$ of $T$ with $T$-parent $x$, define $A^+_{y}$ to be the vertex set of some maximal clique in $\torso{G}{B_x}$ that contains all the vertices in $A_{y}$. This is well-defined since, by definition, the vertices in $A_y$ induce a clique in $\torso{G}{B_x}$. \pat{It's possible that we don't get to choose $A^+_y$, but that it is defined by the product structure of $\torso{G}{B_x}$. That would also be ok.}
+  % For each node $y$ of $T$ with $T$-parent $x$, define $A^+_{y}$ to be the vertex set of some maximal clique in $\torso{G}{B_x}$ that contains all the vertices in $A_{y}$. This is well-defined since, by definition, the vertices in $A_y$ induce a clique in $\torso{G}{B_x}$. \pat{It's possible that we don't get to choose $A^+_y$, but that it is defined by the product structure of $\torso{G}{B_x}$. That would also be ok.}
 
-  For any subgraph $U$ of $T$, use the shorthand $\omega(U):=\sum_{z\in V(U)} \omega(z)$.  Recall that, for a node $y$ of $T$, $T_y$ denotes the subtree of $T$ induced by all $T$-descendants of $y$ (including $y$). For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_{0,K}}:=\{y\in N_T(x)\setminus X_0:V(K)=A^+_{x}\}$.  Observe that all the nodes in $C_{0,K}$ are $T$-children of $x$. For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, define the weight of $K$ as $\omega_0(K):=\sum_{y\in C_{0,K}}\omega(T_y)$.  We say that a maximal clique $K$ is \defin{heavy} if $\omega_0(K)>\alpha n$.
+  % For any subgraph $U$ of $T$, use the shorthand $\omega(U):=\sum_{z\in V(U)} \omega(z)$.  Recall that, for a node $y$ of $T$, $T_y$ denotes the subtree of $T$ induced by all $T$-descendants of $y$ (including $y$). For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_{0,K}}:=\{y\in N_T(x)\setminus X_0:V(K)=A^+_{x}\}$.  Observe that all the nodes in $C_{0,K}$ are $T$-children of $x$. For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, define the weight of $K$ as $\omega_0(K):=\sum_{y\in C_{0,K}}\omega(T_y)$.  We say that a maximal clique $K$ is \defin{heavy} if $\omega_0(K)>\alpha n$.
 
-  \begin{clm}\label{few_heavy}
-    Let $d$ be an integer and let $X_{0,d}:=\{x\in X_0:\depth_T(x)=d\}$.  Then the number of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$ is less than $1/\alpha$.
-  \end{clm}
-
-  \begin{proof}
-    Let $\mathcal{K}$ be the set of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$.  For each $K\in\mathcal{K}$,  $\sum_{y\in C_{0,K}}\omega(T_y)>\alpha n$ and the subtrees in $\{T_y:y\in C_{0,K}\}$ are pairwise vertex disjoint.  For distinct cliques $K,L\in\mathcal{K}$, $\bigcup_{y\in C_K} T_y$ and $\bigcup_{y\in C_L} T_y$ are vertex disjoint.  Therefore,
-    \[
-      |\mathcal{K}|\alpha n
-        < \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\omega(T_y)
-        = \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\sum_{z\in V(T_y)}\omega(z)
-        \le \sum_{y\in V(T)}\omega(y)
-        \le n \enspace .
-    \]
-    Dividing both sides of this inequality by $\alpha n$ gives $|\mathcal{K}|\le 1/\alpha$.
-  \end{proof}
-
-  We say that a node $y\in N_T(X)$ whose $T$-parent $x\in X$ is \defin{burdensome} if $A^+_{x}$ is the vertex set of a heavy maximal clique in $\torso{G}{B_x}$.  Let
-  \[
-     X := X_0\cup \{y\in N_T(X_0):\text{$y$ is burdensome}\}
-  \]
-  For each $x\in X$, define $T^-_x$ to be the component of $T-(X\setminus\{x\})$ that contains $x$, define $V^-_x:=\bigcup_{y\in V(T^-_x)}B_y$.
-  For each $i\in\N$, let $X_i:=\{x\in X:\depth_T(x)=i-1\}$ and let $X_{0,i}:=X_i\cap X_0$.
-  For each $i\in\N$, let $B_i := \bigcup_{x\in X_i} V^-_x$ and let $r:=\max\{i\in\N:B_i\neq\emptyset\}$. Let $A_0:=\emptyset$ and let $A_i:=B_{i-1}\cap B_i$ for each $i\in\{2,\ldots,r\}$.
-
-  \begin{clm}
-    $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$.
-  \end{clm}
-
-  \begin{proof}
-    That $B_1,\ldots,B_r$ is a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X_i$, the $T$-parent of $x$ is in $X_{i-1}$.
-
-    Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Fix $i\in\{1,\ldots,r\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_{0,i-1}$, $y\in X_i$ and $xy$ is an edge of $T$. (Recall that each node $y\in X\setminus X_0$ is a $T$-child of some node $x\in X_0$.)  We say that $v$ is of Type~0 if $y\in X_{0,i}$ and $v$ is of Type~1 if $y\in X_i\setminus X_0$.
-
-    The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0,i}$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0,i}$. The number of Type~2 vertices in $A_i$ is at most $k/\alpha$ because each such vertex belongs to a heavy maximal clique in $\torso{G}{B_x}$ for some $x\in X_{0,i-1}$.  By \cref{few_heavy}, the number of heavy maximal cliques in $\bigcup_{x\in X_{0,i-1}}\torso{B}{B_x}$ is less than $1/\alpha$ and each such clique has size at most $k$.\todo{Make sure we bound the maximum clique size in the definition of $k$-almost-embeddable graphs}
-
-    Therefore $A_i$ contains less than $k/\alpha$ Type~0 vertices and less than $k/\alpha$ Types~1 vertices, so $|A_i|<2k/\alpha$.
-  \end{proof}
-
-  For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_K}:=\{y\in N_T(x)\setminus X:V(K)=A_{y}\}$.  Define $\omega(K)=\sum_{y\in C_K}\omega(T_y)$.
-  The main difference between the sets $X$ and $X_0$ is that $X$ has no heavy cliques.
-
-  \begin{clm}
-    $\omega(K) \le \alpha n$ for each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$.
-  \end{clm}
-
-  \begin{proof}
-    Assume, for the sake of contradiction that $\omega(K) > \alpha n$ for some $x\in X$ and some maximal clique $K$ in $\torso{G}{B_x}$.  Then $\omega(T_x)\ge \omega(K)>\alpha n$. Therefore $x\in X_0$, by the definition of $X_0$.  Then $\omega_0(K)\ge\omega(K)>\alpha n$.  Therefore $K$ is a heavy maximal clique in $\torso{G}{B_x}$.  By definition $X\supseteq X_0\cup C_{0,K}$.  But then $C_{K}\subseteq C_{0,K}\setminus X=\emptyset$, so $\omega(K)=0$, contradicting the assumption that $\omega(K)>\alpha n$.
-  \end{proof}
+  % \begin{clm}\label{few_heavy}
+  %   Let $d$ be an integer and let $X_{0,d}:=\{x\in X_0:\depth_T(x)=d\}$.  Then the number of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$ is less than $1/\alpha$.
+  % \end{clm}
+  %
+  % \begin{proof}
+  %   Let $\mathcal{K}$ be the set of heavy maximal cliques in $\bigcup_{x\in X_{0,d}}\torso{G}{B_x}$.  For each $K\in\mathcal{K}$,  $\sum_{y\in C_{0,K}}\omega(T_y)>\alpha n$ and the subtrees in $\{T_y:y\in C_{0,K}\}$ are pairwise vertex disjoint.  For distinct cliques $K,L\in\mathcal{K}$, $\bigcup_{y\in C_K} T_y$ and $\bigcup_{y\in C_L} T_y$ are vertex disjoint.  Therefore,
+  %   \[
+  %     |\mathcal{K}|\alpha n
+  %       < \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\omega(T_y)
+  %       = \sum_{K\in\mathcal{K}}\sum_{y\in C_K}\sum_{z\in V(T_y)}\omega(z)
+  %       \le \sum_{y\in V(T)}\omega(y)
+  %       \le n \enspace .
+  %   \]
+  %   Dividing both sides of this inequality by $\alpha n$ gives $|\mathcal{K}|\le 1/\alpha$.
+  % \end{proof}
+  %
+  % We say that a node $y\in N_T(X)$ whose $T$-parent $x\in X$ is \defin{burdensome} if $A^+_{x}$ is the vertex set of a heavy maximal clique in $\torso{G}{B_x}$.  Let
+  % \[
+  %    X := X_0\cup \{y\in N_T(X_0):\text{$y$ is burdensome}\}
+  % \]
+  % For each $x\in X$, define $T^-_x$ to be the component of $T-(X\setminus\{x\})$ that contains $x$, define $V^-_x:=\bigcup_{y\in V(T^-_x)}B_y$.
+  % For each $i\in\N$, let $X_i:=\{x\in X:\depth_T(x)=i-1\}$ and let $X_{0,i}:=X_i\cap X_0$.
+  % For each $i\in\N$, let $B_i := \bigcup_{x\in X_i} V^-_x$ and let $r:=\max\{i\in\N:B_i\neq\emptyset\}$. Let $A_0:=\emptyset$ and let $A_i:=B_{i-1}\cap B_i$ for each $i\in\{2,\ldots,r\}$.
+  %
+  % \begin{clm}
+  %   $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$.
+  % \end{clm}
+  %
+  % \begin{proof}
+  %   That $B_1,\ldots,B_r$ is a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X_i$, the $T$-parent of $x$ is in $X_{i-1}$.
+  %
+  %   Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Fix $i\in\{1,\ldots,r\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_{0,i-1}$, $y\in X_i$ and $xy$ is an edge of $T$. (Recall that each node $y\in X\setminus X_0$ is a $T$-child of some node $x\in X_0$.)  We say that $v$ is of Type~0 if $y\in X_{0,i}$ and $v$ is of Type~1 if $y\in X_i\setminus X_0$.
+  %
+  %   The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0,i}$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0,i}$. The number of Type~2 vertices in $A_i$ is at most $k/\alpha$ because each such vertex belongs to a heavy maximal clique in $\torso{G}{B_x}$ for some $x\in X_{0,i-1}$.  By \cref{few_heavy}, the number of heavy maximal cliques in $\bigcup_{x\in X_{0,i-1}}\torso{B}{B_x}$ is less than $1/\alpha$ and each such clique has size at most $k$.\todo{Make sure we bound the maximum clique size in the definition of $k$-almost-embeddable graphs}
+  %
+  %   Therefore $A_i$ contains less than $k/\alpha$ Type~0 vertices and less than $k/\alpha$ Types~1 vertices, so $|A_i|<2k/\alpha$.
+  % \end{proof}
+  %
+  % For each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$, consider the set $\mathdefin{C_K}:=\{y\in N_T(x)\setminus X:V(K)=A_{y}\}$.  Define $\omega(K)=\sum_{y\in C_K}\omega(T_y)$.
+  % The main difference between the sets $X$ and $X_0$ is that $X$ has no heavy cliques.
+  %
+  % \begin{clm}
+  %   $\omega(K) \le \alpha n$ for each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$.
+  % \end{clm}
+  %
+  % \begin{proof}
+  %   Assume, for the sake of contradiction that $\omega(K) > \alpha n$ for some $x\in X$ and some maximal clique $K$ in $\torso{G}{B_x}$.  Then $\omega(T_x)\ge \omega(K)>\alpha n$. Therefore $x\in X_0$, by the definition of $X_0$.  Then $\omega_0(K)\ge\omega(K)>\alpha n$.  Therefore $K$ is a heavy maximal clique in $\torso{G}{B_x}$.  By definition $X\supseteq X_0\cup C_{0,K}$.  But then $C_{K}\subseteq C_{0,K}\setminus X=\emptyset$, so $\omega(K)=0$, contradicting the assumption that $\omega(K)>\alpha n$.
+  % \end{proof}
 
 
   We can now begin to describe the parts of the labels used in the labelling scheme for $G^-$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|B_i\setminus A_i|$.  Note that $\sum_{i=1}^r\omega(i) = n$.  Apply \cref{shannon_fano_elias_tree,shannon_fano_elias_code} to $\{1,\ldots,r\}$ with weights defined by $\omega$, and let $T_\omega$ be the resulting binary tree and $\rho:\{1,\ldots,r\}\to\{0,1\}^*$ be the resulting prefix-free code.
