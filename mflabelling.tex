@@ -317,11 +317,11 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
 
 
   \begin{lem}\label{low_pathwidth_separator}
-    Let $T$ be a rooted tree, let $\omega:V(T)\to\R^+$ be a weight function and let $\Omega=\sum_{x\in V(T)}\omega(x)$.  For any $0<\alpha< 1$, there exists $X\subseteq V(T)$ with the following properties:
+    Let $T$ be a rooted tree, let $\omega:V(T)\to\R^+$ be a weight function and let $\Omega=\sum_{x\in V(T)}\omega(x)$.  For any $0<\alpha< 1$, there exists $X_0\subseteq V(T)$ with the following properties:
     \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
-      \item\label{connected} $T[X]$ is connected and contains the root of $T$;
-      \item\label{skinny} $X$ contains fewer than $1/\alpha$ nodes of $T$-depth $d$, for each $d\in\N$; and
-      \item\label{light} $\omega(C):=\sum_{y\in V(C)}\omega(y)\le \alpha\Omega$ for each component $C$ of $T-X$.
+      \item\label{connected} $T[X_0]$ is connected and contains the root of $T$;
+      \item\label{skinny} $X_0$ contains fewer than $1/\alpha$ nodes of $T$-depth $d$, for each $d\in\N$; and
+      \item\label{light} $\omega(C):=\sum_{y\in V(C)}\omega(y)\le \alpha\Omega$ for each component $C$ of $T-X_0$.
     \end{enumerate}
   \end{lem}
 
@@ -335,6 +335,73 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
     \ref{light}:
     Each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \alpha\Omega$.
   \end{proof}
+
+  Let $\mathcal{T}:=(B_x:x\in V(T))$ be a rooted tree decomposition of some graph $G$.  A function $\kappa:E(G)\to 2^{V(G)}$ is a \defin{clique assignment function} for $\mathcal{T}$ if, for each edge $xy$ of $T$ where $x$ is the $T$-parent of $y$, $\kappa(xy)$ is the vertex of a maximal clique $K$ in $\torso{G}{B_x}$ whose vertex set contains $B_x\cap B_y$.  When $x\in V(T)$, $\kappa$ is a clique assignment function for $\mathcal{T}$, and $K$ is a clique with $V(K)\subseteq V(G)$, define
+  \[
+    Y_{\kappa}(x,K) := \{y\in V(T):\text{$x$ is the $T$-parent of $y$ and  $\kappa(xy)=K$}\}
+  \]
+  % \[
+  %   T_{K,\kappa} := \bigcup_{y\in Y_{K,\kappa}} T_y
+  % \]
+  % \[
+  %   G_{K,\kappa} := \bigcup_{x\in V(T_{K,\kappa})} B_x
+  % \]
+
+  \begin{lem}
+    Let $k\in\N$, let $G$ be an $n$-vertex graph containing no clique on $k+1$ vertices, let $\mathcal{T}:=(B_x:x\in V(T))$ be a rooted tree decomposition of $G$ of adhesion-width at most $k$, and let $\kappa$ be a clique assignment function for $\mathcal{T}$.  Then, for any $\alpha\in(0,1)$ there exists a set $X\subseteq V(T)$ such that
+    \begin{enumerate}[label=(\alph*)]
+
+      \item\label{x_connected} $T[X]$ is connected and contains the root of $T$;
+
+      \item\label{x_adhesion} $\mathcal{P}:=(\{\bigcup_{x\in L_i(T)\cap X} B_x\})_{i\ge 0}$\todo{Notation: $L_i(T):=\{x\in v(T):\depth_T(x)=i$} is a path decomposition of $G$ of adhesion-width less than $2k/\alpha$; and
+
+      \item\label{x_alpha} $\left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|\le \alpha n$ for each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$.
+    \end{enumerate}
+  \end{lem}
+
+  \begin{proof}
+    Let $G$, $\mathcal{T}:=(B_x:x\in V(T))$, and $\kappa$ be defined as in the statement of the lemma.
+    Let $r$ be the root of $T$. Define $\omega(r):=|B_r|$.  For each node $y\in V(T)\setminus r$, define $\omega(y):=|B_y\setminus B_x|$, where $x$ is the with $T$-parent of $y$.  Let $X_0$ be the subset of $V(T)$ obtained by applying \cref{low_pathwidth_separator} to $T$ and $\omega$.
+    % Then $X_0$ is connected and contains the root of $T$.
+
+    For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, define \[
+       \omega(x,K):=\left|\bigcup_{y\in Y_{\kappa}(x,K)}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right| \enspace .
+    \]
+    Let
+    \[
+      X := X_0\cup\bigcup_{x\in X_0}\{y\in N_T(x)\setminus X_0:\omega(K.x)>\alpha n,\, \kappa(xy)=K\} \enspace .
+    \]
+    We now show that $X$ satisfies the conditions of the lemma.
+
+    \noindent\ref{x_connected}: $T[X]$ contains the root of $T$ because $X_0$ contains the root of $T$. $T[X]$ is connected because $T[X_0]$ is connected and each vertex $y\in X_0\setminus X$ has a $T$-parent in $X_0$.
+
+    \noindent\ref{x_adhesion}:  For each $i\ge 0$, let $B_i:=\bigcup_{x\in L_{i-1}(T)\cap X} B_x$ and let $r:=\max\{i\ge 1:B_i\neq\emptyset\}$.  We must show that $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width at most $2k/\alpha$. That $B_1,\ldots,B_r$ is a path decomposition of $G$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $x\in X_i$, the $T$-parent of $x$ is in $X_{i-1}$.
+
+    Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Let $A_1:=\emptyset$ and let $A_i:=B_{i}\cap B_{i-1}$ for each $i\in\{2,\ldots,r\}$. Fix $i\in\{1,\ldots,r\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_0\cap L_{i-1}(T)$, $y\in L_i(T)$ and $xy$ is an edge of $T$. We say that $v$ is of Type~0 if $y\in X_{0}$ and $v$ is of Type~1 if $y\in X\setminus X_0$.  The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0}\cap L_i(T)$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0}$.
+
+    To show that the number of Type~1 vertices in $A_i$ is at most $k/\alpha$, we show that the number of maximal cliques $K$ in $\torso{G}{B_x}$ with $\omega(x,K)>\alpha n$ is less than $1/\alpha$. This is sufficient, since each Type~1 vertex in $A_i$ belongs to a maximal clique $K$ in $\torso{G}{B_x}$ with $\omega(x,K)>\alpha n$, and each maximal clique in $\torso{G}{B_x}$ has size at most $k$.
+
+    Let $\{K_1,\dots,K_s\}$ be the set of maximal cliques in $\torso{G}{B_x}$ with $\omega(x,K)>\alpha n$. For each $p\in\{1,\ldots,s\}$, and each maximal clique $K$ in $\torso{G}{B_x}$, the vertex set $C_{x,K_p}:=\bigcup_{y\in Y_{\kappa}(x.K_p)}\bigcup_{z\in V(T_y)}\setminus V(K_p)$ has size greater than $\alpha n$.  For each $1\le p < q\le r$,  $C_{x,K_p}$ and $C_{x,K_q}$ are disjoint.  Therefore,
+    \[
+      n\ge\left|\bigcup_{p=1}^s C_{x,K_p}\right| = \sum_{p=1}^{s} |C_{x,K_p}| > s\alpha n \enspace .
+    \]
+    Dividing both sides by $\alpha n$ shows that $s < 1/\alpha$.
+
+    \noindent\ref{x_alpha}: Assume,for the sake of contradiction, that $\left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|> \alpha n$ for some $x\in X$ and some maximal clique $K$ in $\torso{G}{B_x}$.  Then,
+    \[ \left|\bigcup_{z\in V(T_x)}B_z\right|\ge \omega(x,K)
+    = \left|\bigcup_{y\in Y_{\kappa}(x,K)}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|
+    \ge \left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right| > \alpha n \enspace .
+    \]
+    Therefore, $x\in X_0$.  Then, by definition, every vertex in $Y_{\kappa}(x,K)$ is in $X$.  But then
+    \[
+      \left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|=|\emptyset|=0 \enspace ,
+    \]
+    contradicting our initial assumption.
+  \end{proof}
+
+
+
+
 
   \subsection{The Graph Minor Structure Theorem}
 
@@ -367,18 +434,22 @@ What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G
   \end{thm}
 
 
-  \subsection{Putting It Together(?)}
+  \subsection{Slabbing the Robertson-Seymour Tree Decomposition}
 
   Let $\mathcal{G}$ be a proper minor closed family of graphs. Let $G$ be an $n$-vertex member of $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree-decomposition of $G$ guaranteed by \cref{gmst}.  Choose an arbitrary node $r\in V(T)$ and root $T$ at $r$.  Define $A_r:=\emptyset$ and for each $x\in V(T)\setminus\{r\}$, define $A_r:=B_x\cap B_y$, where $y$ is the $T$-parent of $x$.  Observe that $\{B_x\setminus A_x:x\in V(T)\}$ is a partition of $V(G)$.
 
+
+  Define the weight function $\omega:V(T)\to\N$ by $\omega(x):=|B_x\setminus A_x|$. Observe that $\sum_{x\in V(T)}\omega(x)=n$.  Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega$ and some (small) $\alpha\in (0,1)$ to obtain a set $X_0\subseteq V(T)$.
+
+
+
+
   % As with path decompositions, let $G[B_x]^\downarrow:=G[B_x]-A_x$ and let $\dtorso{G}{B_x}:=\torso{G}{B_x}-A_x$.
 
-  An edge $vw$ of $G$ is an \defin{apex edge} if $w\in B_x\setminus A_x$ and $v\in A_x$, for some $x\in V(T)$.  When this happens, we say that $v$ \defin{hegemonizes} $w$.  Since $|A_x|\le k$ for each $x\in V(T)$, each vertex $w$ of $G$ is hegemonized by at most $k$ vertices.
+  An edge $vw$ of $G$ is an \defin{apex edge} if $w\in B_x\setminus A_x$ and $v\in A_x$, for some $x\in V(T)$. When this happens, we say that $v$ \defin{hegemonizes} $w$.  Since $|A_x|\le k$ for each $x\in V(T)$, each vertex $w$ of $G$ is hegemonized by at most $k$ vertices.
 
-  We will first describe a labelling scheme for the (Utopian) graph $G^-:=\bigcup_{x\in V(T)} G[B_x\setminus A_x]$ in which all apex edges have been removed (so no vertex hegemonizes any other vertex).
-  With no further requirements, obtaining a $(\log n+o(\log n))$-bit  adjacency labelling scheme for $G^-$ is easy, since $G^-$ is the union of pairwise vertex-disjoint graphs, each of which is $k$-almost embeddable.  The labelling scheme for $k$-almost-embeddable graphs in \cite{dujmovic.esperet.ea:adjacency} and \cref{vertex_disjoint_union} immediately give a $(\log n+o(\log n))$-bit adjacency labelling scheme for $G^{\downarrow}$.  However, the labels assigned by this scheme are not helpful for testing the presence of apex edges, so it will not solve the original problem.  Instead, we describe a more complicated labelling scheme for $G^-$ that can be extended to an adjacency labelling scheme for $G$. This extension will be relatively simple, requiring only that the label of a vertex $w\in B_x$ be extended with an additional $O(k\log\log n)$ bits that are used to help identify the at most $k$ vertices in $A_x$ that hegemonize $w$.
+  We will first describe a labelling scheme for the (Utopian) graph $G^-:=\bigcup_{x\in V(T)} G[B_x\setminus A_x]$ in which all apex edges have been removed (so no vertex hegemonizes any other vertex). With no further requirements, obtaining a $(\log n+o(\log n))$-bit  adjacency labelling scheme for $G^-$ is easy, since $G^-$ is the union of pairwise vertex-disjoint graphs, each of which is $k$-almost embeddable.  The labelling scheme for $k$-almost-embeddable graphs in \cite{dujmovic.esperet.ea:adjacency} and \cref{vertex_disjoint_union} immediately give a $(\log n+o(\log n))$-bit adjacency labelling scheme for $G^{\downarrow}$.  However, the labels assigned by this scheme are not helpful for testing the presence of apex edges, so it will not solve the original problem.  Instead, we describe a more complicated labelling scheme for $G^-$ that can be extended to an adjacency labelling scheme for $G$. This extension will be relatively simple, requiring only that the label of a vertex $w\in B_x$ be extended with an additional $O(k\log\log n)$ bits that are used to help identify the at most $k$ vertices in $A_x$ that hegemonize $w$.
 
-  Define the weight function $\omega:V(T)\to\N$ by $\omega(x):=|B_x\setminus A_x|$. Observe that $\sum_{x\in V(T)}\omega(x)=n$. Apply \cref{low_pathwidth_separator} to $T$ with the weight function $\omega$ and some (small) $\alpha\in (0,1)$ to obtain a set $X_0\subseteq V(T)$.
 
   For each node $y$ of $T$ with $T$-parent $x$, define $A^+_{y}$ to be the vertex set of some maximal clique in $\torso{G}{B_x}$ that contains all the vertices in $A_{y}$. This is well-defined since, by definition, the vertices in $A_y$ induce a clique in $\torso{G}{B_x}$. \pat{It's possible that we don't get to choose $A^+_y$, but that it is defined by the product structure of $\torso{G}{B_x}$. That would also be ok.}
 
