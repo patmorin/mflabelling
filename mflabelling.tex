@@ -587,10 +587,13 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
       \item\label{pi_part} For each $i\in\{1,\ldots,r\}$, each $x\in X^+_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains a part $\pi(v):=\pi_i(x)$. This part has length at most $\log \omega(i)-\log\omega_i(x)$.
     \end{enumerate}
 
-    Let $i\in\{1,\ldots,r\}$ and $x\in X_i$. Let $\mathcal{K}_x$ denote the set of maximal cliques in $\torso{G}{B_x}$ and, for each $v\in B_x\setminus A_x$, let $\mathcal{K}_v:=\{K\in\mathcal{K}_x:v\in V(K)\}$. For each $v\in B_x\setminus A_x$, define $\omega(v):=\sum_{K\in\mathcal{K}_v}\omega(K)$.  Since each maximal clique in $\mathcal{K}_x$ contains at most $k$ vertices, we have $\sum_{v\in B_x\setminus A_x}\omega(v)=\sum_{v\in B_x\setminus A_x}\sum_{K\in\mathcal{K}_v}\omega(K)\le k\sum_{K\in\mathcal{K}_x}\omega(K)\le k\omega_i(x)$.
+    For any graph $H$, let $\mathcal{K}(H)$ denote the set of cliques in $H$.
+    % For each $x\in X$, let $\mathcal{K}_x$ denote the set of cliques in $\torso{G}{B_x}-A_x$.
+    For each $x\in X$, we will apply \cref{weighted} to the $k$-almost-embeddable graph $\torso{G}{B_x}-A_x$. \Cref{weighted} provides a supergraph $Q_x$ of $\torso{G}{B_x}$ and a mapping $\zeta$ that maps each clique $K$ in $\torso{G}{B_x}$ onto a clique $\zeta(K)$ in $Q_x$ that contains $K$.  We now explain how to assign weights to vertices of $\torso{G}{B_x}$ to use in \cref{weighted}. For each $x\in X$ and each clique $K$ in $\torso{G}{B_x}-A_x$, let $Y^-_{\kappa}(x,K):=Y_{\kappa}(x,K)\setminus X$ and let $\omega^{-}(x,K):=\sum_{y\in Y'_{\kappa}(x,K)}\omega(T_{y})$.  For $x\in X$, and each $v\in B_x\setminus A_x$, let $\mathcal{K}_v:=\{K\in\mathcal{K}(\torso{G}{B_x}-A_x):v\in V(K)\}$. Finally, for each $x\in X$ and each $v\in B_x\setminus A_x$, define $\omega(v):=\sum_{K\in\mathcal{K}_v}\omega(x,K)$.
+    For each $x\in X$, each clique in $Q_x$ contains at most $k$ vertices, so $\sum_{v\in B_x\setminus A_x}\omega(v)=\sum_{v\in B_x\setminus A_x}\sum_{K\in\mathcal{K}_v}\omega^-(x,K)\le k\sum_{K\in\mathcal{K}_x}\omega^-(x,K)\le k\omega_i(x)$.
 
     % For each $x\in X$, let $Q_x:=\torso{G}{B_x}-A_x$.
-    Apply the weighted labelling scheme in \cref{weighted} to the graphs $Q_x$ and $G[B_x-A_x]$ with vertex weights defined by $\omega$ to obtain a weighted adjacency labelling of $G[B_x-A_x]$ that is clique-encoding for $Q_x$.
+    Now we apply the weighted labelling scheme in \cref{weighted} to the graphs $Q_x$ and $G[B_x]-A_x$ with vertex weights defined by $\omega^-$ to obtain a weighted adjacency labelling of $G[B_x]-A_x$ that is clique-encoding for $Q_x$.
     % We now distinguish between two kinds of vertices in $G$.
      % contains the following parts:
 
