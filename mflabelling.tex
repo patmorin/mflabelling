@@ -115,6 +115,8 @@
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\GG}{\mathcal{G}}
 
+\newtheorem{fact}{Fact}
+
 \title{\MakeUppercase{\boldmath Adjacency labelling for minor-closed graph families}}
 
 
@@ -150,7 +152,7 @@
 
 
 \begin{abstract}
-  We'll see.
+  We show that, for every integer $t\ge 1$, there exists a $(1+o(1))\log n$-bit adjacency labelling scheme for the class of $K_t$-minor-free graphs. Equivalently, for every integer $t\ge 1$, there exists an $n^{1+o(1)}$-vertex graph $U_{n,t}$ that contains every $n$-vertex $K_t$-minor-free graph as an induced subgraph.
 \end{abstract}
 
 \newpage
@@ -159,23 +161,58 @@
 \newpage
 \section{Introduction}
 
-Let $f:\N\to\R$.  A graph family $\mathcal{G}$ admits an \defin{$f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G}$ such that,
+Let $f:\N\to\N$.  A graph family $\mathcal{G}$ \defin{admits an $f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G}$ such that,
 \begin{itemize}
   \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
   \item for each $v\in V(G)$, $|\lambda(v)|\le f(n)$.
 \end{itemize}
-The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
+The function $\tau$ is called an \defin{adjacency tester} and the function $\lambda$ is called a (vertex) \defin{labelling} of $G$.
 
-Several minor-closed classes of graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs. In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.  Many of these results are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free, and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
+A graph $U$ is (induced) \defin{universal} for a set $S$ of graphs if, for each $G\in S$, $U$ contains an induced subgraph that is ismorphic to $G$.  Let $p:\N\to\N$. A graph family $\mathcal{G}$ \defin{admits $p(n)$-vertex universal graphs} if, for each positive integer $n$, there exists a $p(n)$-vertex graph $U_n$ that is universal for the set of $n$-vertex graphs in $\mathcal{G}$.   A classic observation is the following equivalence between adjacency labelling schemes and universal graphs:
 
-Until now, one collection of graph classes that was conspicuously absent from this list is the classes of $K_t$-minor-free graphs for $t\ge 6$. Indeed, \citet{dujmovic.esperet.ea:adjacency} leave this as an open problem.  Since it is known that $K_t$-minor-free graphs do not have product stucture, some new idea is needed.  In the current work, we resolve this question:
+\begin{fact}
+  A graph family $\mathcal{G}$ admits an $f(n)$-bit adjacency-labelling scheme if and only if $\mathcal{G}$ admits $2^{f(n)}$-vertex universal graphs.
+\end{fact}
 
-\begin{thm}\label{main_result}
-  Every proper minor-closed family of graphs $\mathcal{G}$ admits a $(\log n+o(\log n))$-bit adjacency labelling scheme.
+Several minor-closed classes of graphs admit $(1+o(1))\log n$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs:\footnote{A graph $H$ is an \defin{apex graph} if $H$ contains a vertex $v$ such that $H-v$ is planar.  A graph family $\mathcal{G}$ is \defin{apex-minor-free} if there exists an apex graph $H$ such that no graph in $\mathcal{G}$ contains $H$ as a minor.}
+
+\begin{thm}[\citet{dujmovic.esperet.ea:adjacency}]\label{apex_minor_free}
+  For each fixed apex graph $H$, the class of $H$-minor-free graphs
+  \begin{itemize}[nosep,nolistsep]
+    \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+
+    \item admits $n^{1+o(1)}$-vertex universal graphs.
+  \end{itemize}
 \end{thm}
 
+In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.  Many of these results are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free, and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
 
-\section{Background}
+One collection of graph classes that is conspicuously absent from this list is the class of $K_t$-minor-free graphs for any $t\ge 6$.  Indeed, if such a result is true for every fixed positive integer $t$, then this would remove the requirement, in \cref{apex_minor_free}, that the graph $H$ be an apex graph.\footnote{Since $K_t$ contains every $t$-vertex graph as a minor, every $H$-minor-free graph is a $K_{|V(H)|}$-minor-free graph.  Any result for the class of $K_t$-minor-free graphs implies the result for $H$-minor-free graphs for any $t$-vertex graph $H$.}
+The best known result in this direction is obtained by combining a $(1+o(1))\log n$-bit labelling scheme of \citet{gavoille.labourel:shorter} for bounded treewidth graphs with a result of \citet{devos.ding.ea:excluding} which states that edges of each $K_t$-minor-free graph can be partitioned into two graphs, each having bounded treewidth:
+
+\begin{thm}[\citet{gavoille.labourel:shorter} with \citet{devos.ding.ea:excluding}]\label{old_best}
+  For each fixed graph $H$, the class of $H$-minor-free graphs
+  \begin{itemize}[nosep,nolistsep]
+    \item admits a $(2+o(1))\log n$-bit adjacency labelling scheme; and
+
+    \item admits $n^{2+o(1)}$-vertex universal graphs.
+  \end{itemize}
+\end{thm}
+
+\citet{dujmovic.esperet.ea:adjacency} state the problem of reducing the constant from $2$ to $1$ in \cref{old_best} as an open problem.  Unlike apex-minor-free graphs, $H$-minor-free graphs do not necessarily have product structure, which rules out the use of the most powerful tool in the adjacency-labelling toolbox.  In the current work, we resolve this open problem:
+
+\begin{thm}\label{main_result}
+  For each fixed graph $H$, the class of $H$-minor-free graphs
+  \begin{itemize}[nosep,nolistsep]
+    \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+
+    \item admits $n^{1+o(1)}$-vertex universal graphs.
+  \end{itemize}
+\end{thm}
+
+\pat{Say something about the proof techniques}
+
+\section{Building Blocks}
 
 
 Let $T$ be a rooted tree and let $r$ denote the root of $T$. For each $x\in V(T)$, the \defin{$x$-to-root path} \defin{$P_T(x)$} is the path in $T$ from $x$ to $r$.  For each $x\in V(T)$, the \defin{$T$-depth} \defin{$\depth_T(x)$}  is the number of edges in $P_T(x)$.  For each $i\in\N$, the \defin{$i$-th layer} of $T$ is $\mathdefin{L_i(T)}:=\{x\in V(T):\depth_T(x)=i\}$.  For each $x\in V(T)$ and each $a\in V(P_T(x))$ (including $x$),  the vertex $a$ is a $T$-ancestor of $x$ and $x$ is a \defin{$T$-descendant} of $a$.  For each $x\in V(T)$, \defin{$T_x$} denotes the subtree of $T$ induced by all $T$-descendants of $x$ (including $x$).
@@ -443,7 +480,7 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
 
 
 
-  \subsection{Weighted Adjacency Labelling Schemes}
+  \subsection{Weighted Adjacency and Clique-Encoding Labelling Schemes}
 
   Let $g:\N\to\R$.  A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, and each assignment $\omega:V(G)\to\R^+$ of positive weights to the vertices of $G$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G,\omega})$ such that,
   \begin{itemize}
@@ -465,7 +502,7 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
 
   \pat{Note to self: Be careful with the order of quantifiers in \cref{weighted}.  We can't have $Q$ depend on the weight function $\omega$ that we choose for $G_Q$.}
 
-  \subsection{Putting it All Together}
+  \section{The Proof}
 
   \begin{proof}[Proof of \cref{main_result}]
     Let $\mathcal{G}$ be a proper minor-closed graph class.  Let $G$ be an $n$-vertex graph in $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(G))$ be a tree decomposition of $G$ described by \cref{gmst}. Root $T$ at an arbirary vertex $r$.  Define $A_r:=\emptyset$ and, for each edge $xy$ of $T$ where $x$ is the parent of $y$, define $A_y:=B_x\cap B_y$.  Since $\mathcal{T}$ comes from an application of \cref{gmst}, $|A_y|\le k$ for each $y\in V(T)$.
