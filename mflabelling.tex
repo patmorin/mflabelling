@@ -38,11 +38,12 @@
 \renewcommand{\geq}{\geqslant}
 \renewcommand{\leq}{\leqslant}
 
-\newcommand{\david}[1]{{\color{orange} David: #1}}
-\newcommand{\vida}[1]{{\color{pink} Vida: #1}}
-\newcommand{\pat}[1]{\textcolor{Blue}{Pat: #1}}
-\newcommand{\gwen}[1]{\textcolor{Purple}{Gwen: #1}}
-\newcommand{\piotr}[1]{\textcolor{red}{Piotr: #1}}
+\newcommand{\david}[1]{{\color{orange} DW: #1}}
+\newcommand{\vida}[1]{{\color{pink} VD: #1}}
+\newcommand{\pat}[1]{\textcolor{Blue}{PaMo: #1}}
+\newcommand{\gwen}[1]{\textcolor{Purple}{GJ: #1}}
+\newcommand{\gwen}[1]{\textcolor{Green}{CG: #1}}
+\newcommand{\piotr}[1]{\textcolor{red}{PiMi: #1}}
 
 % \numberwithin{equation}{lem}
 
@@ -467,7 +468,12 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
   \begin{proof}[Proof of \cref{main_result}]
     Let $\mathcal{G}$ be a proper minor-closed graph class.  Let $G$ be an $n$-vertex graph in $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(G))$ be a tree decomposition of $G$ described by \cref{gmst}. Root $T$ at an arbirary vertex $r$.  Define $A_r:=\emptyset$ and, for each edge $xy$ of $T$ where $x$ is the parent of $y$, define $A_y:=B_x\cap B_y$.  Since $\mathcal{T}$ comes from an application of \cref{gmst}, $|A_y|\le k$ for each $y\in V(T)$.
 
-    Let $g(n)\in o(\log n)$ be a function that describes the waste in the labelling scheme of \cref{weighted}.    Let $h(n)$ be any function in $\omega(g(n))\cap o(\log n)$ and fix $\alpha:=2^{-h(n)}$.  What follows below is a proof by induction on $n$.  Within this inductive proof, the value of $\alpha$ does not change, even when the number of vertices in the inductive subproblem decreases.
+    Let $g(n)\in o(\log n)$ be a function that describes the waste in the labelling scheme of \cref{weighted}.    Let $\alpha:=2^{-\sqrt{(g(n)/k)\log n}$. (The reason for this choice of $\alpha$ is that
+    \[
+        k\log(1/\alpha)=\frac{g(n)\log n}{\log(1/\alpha)} = \sqrt{k\cdot g(n)\log n}\in o(\log n) ,
+    \]
+    for any fixed $k$.
+    What follows below is a proof by induction on $n$.  Within this inductive proof, the value of $\alpha$ does not change, even when the number of vertices in the inductive subproblem decreases.
 
     We introduce a slightly stronger inductive hypothesis. We show the existence of an adjacency labelling scheme for $G$ with labelling $\lambda:V(G)\to\{0,1\}^*$ with the following property: For each $y\in V(T)$ and each $v\in B_y\setminus A_y$,
     \[
@@ -475,10 +481,9 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
     \]
     where $c$ is a constant, independent of $n$.    This leads to a maximum label length of
     \begin{align*}
-       & \log n + \frac{g(n)\log n}{h(n)} + O(h(n)\,k\log k) + ck\log\log n \\
-       & = \log n + (k\log k)\cdot o(\log n) = \log n + o(\log n) \enspace ,
+       & \log n + \sqrt{g(n)\log n} + O\left(k\log k + k\sqrt{g(n)\log n}\right) + ck\log\log n \\
+       & = \log n + o(\log n) + O(k\log k) \enspace .
     \end{align*}
-    for any fixed $k$.
 
     First we consider the base case, when $n\le k/\alpha$. To handle this case, we make use of the fact that $G$ is $k$-degenerate. By \cref{degenerate_labelling_scheme}, $G$ has a $O(k\log(k/\alpha))$-bit adjacency labelling scheme.
 
