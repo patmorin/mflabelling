@@ -139,247 +139,140 @@
 
 \begin{document}
 
-\maketitle
-
-% \gwen{Another option for the title: Planar graphs as blowups of fans}
-%
-% \pat{Planar graphs in blowups of fans(?)}
-%
-% \david{I think `Planar graphs as blowups of fans' reads better than `Planar graphs in blowups of fans', whereas the latter is more accurate. I would weakly lean towards `Planar graphs in blowups of fans'}
-%
-% \pat{Near rootish blowups of fans contain all planar graphs}
-% \david{what does rootish mean, or is it another joke?} \pat{No, not a joke.  Just a way to avoid a square root symbol in a title.} \david{when I read this, I had no idea ``rootish'' refered to square root of $n$.}
+  \maketitle
 
 
-\begin{abstract}
-  We show that, for every integer $t\ge 1$, there exists a $(1+o(1))\log n$-bit adjacency labelling scheme for the class of $K_t$-minor-free graphs. Equivalently, for every integer $t\ge 1$, there exists an $n^{1+o(1)}$-vertex graph $U_{n,t}$ that contains every $n$-vertex $K_t$-minor-free graph as an induced subgraph.
-\end{abstract}
+  \begin{abstract}
+    We show that, for every integer $t\ge 1$, there exists a $(1+o(1))\log n$-bit adjacency labelling scheme for the class of $K_t$-minor-free graphs. Equivalently, for every integer $t\ge 1$, there exists an $n^{1+o(1)}$-vertex graph $U_{n,t}$ that contains every $n$-vertex $K_t$-minor-free graph as an induced subgraph.
+  \end{abstract}
 
-\newpage
-\tableofcontents
+  \newpage
+  \tableofcontents
 
-\newpage
-\section{Introduction}
+  \newpage
+  \section{Introduction}
 
-Let $f:\N\to\N$.  A graph family $\mathcal{G}$ \defin{admits an $f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G}$ such that,
-\begin{itemize}
-  \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
-  \item for each $v\in V(G)$, $|\lambda(v)|\le f(n)$.
-\end{itemize}
-The function $\tau$ is called an \defin{adjacency tester} and the function $\lambda$ is called a (vertex) \defin{labelling} of $G$.
-
-A graph $U$ is (induced) \defin{universal} for a set $S$ of graphs if, for each $G\in S$, $U$ contains an induced subgraph that is ismorphic to $G$.  Let $p:\N\to\N$. A graph family $\mathcal{G}$ \defin{admits $p(n)$-vertex universal graphs} if, for each positive integer $n$, there exists a $p(n)$-vertex graph $U_n$ that is universal for the set of $n$-vertex graphs in $\mathcal{G}$.   A classic observation is the following equivalence between adjacency labelling schemes and universal graphs:
-
-\begin{fact}
-  A graph family $\mathcal{G}$ admits an $f(n)$-bit adjacency-labelling scheme if and only if $\mathcal{G}$ admits $2^{f(n)}$-vertex universal graphs.
-\end{fact}
-
-Several minor-closed classes of graphs admit $(1+o(1))\log n$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs:\footnote{A graph $H$ is an \defin{apex graph} if $H$ contains a vertex $v$ such that $H-v$ is planar.  A graph family $\mathcal{G}$ is \defin{apex-minor-free} if there exists an apex graph $H$ such that no graph in $\mathcal{G}$ contains $H$ as a minor.}
-
-\begin{thm}[\citet{dujmovic.esperet.ea:adjacency}]\label{apex_minor_free}
-  For each fixed apex graph $H$, the class of $H$-minor-free graphs
-  \begin{itemize}[nosep,nolistsep]
-    \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
-
-    \item admits $n^{1+o(1)}$-vertex universal graphs.
+  Let $f:\N\to\N$.  A graph family $\mathcal{G}$ \defin{admits an $f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G}$ such that,
+  \begin{itemize}
+    \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
+    \item for each $v\in V(G)$, $|\lambda(v)|\le f(n)$.
   \end{itemize}
-\end{thm}
+  The function $\tau$ is called an \defin{adjacency tester} and the function $\lambda$ is called a (vertex) \defin{labelling} of $G$.
 
-In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.  Many of these results are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free, and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
+  A graph $U$ is (induced) \defin{universal} for a set $S$ of graphs if, for each $G\in S$, $U$ contains an induced subgraph that is ismorphic to $G$.  Let $p:\N\to\N$. A graph family $\mathcal{G}$ \defin{admits $p(n)$-vertex universal graphs} if, for each positive integer $n$, there exists a $p(n)$-vertex graph $U_n$ that is universal for the set of $n$-vertex graphs in $\mathcal{G}$.   A classic observation is the following equivalence between adjacency labelling schemes and universal graphs:
 
-One collection of graph classes that is conspicuously absent from this list is the class of $K_t$-minor-free graphs for any $t\ge 6$.  Indeed, if such a result is true for every fixed positive integer $t$, then this would remove the requirement, in \cref{apex_minor_free}, that the graph $H$ be an apex graph.\footnote{Since $K_t$ contains every $t$-vertex graph as a minor, every $H$-minor-free graph is a $K_{|V(H)|}$-minor-free graph.  Any result for the class of $K_t$-minor-free graphs implies the result for $H$-minor-free graphs for any $t$-vertex graph $H$.}
-The best known result in this direction is obtained by combining a $(1+o(1))\log n$-bit labelling scheme of \citet{gavoille.labourel:shorter} for bounded treewidth graphs with a result of \citet{devos.ding.ea:excluding} which states that edges of each $K_t$-minor-free graph can be partitioned into two graphs, each having bounded treewidth:
+  \begin{fact}
+    A graph family $\mathcal{G}$ admits an $f(n)$-bit adjacency-labelling scheme if and only if $\mathcal{G}$ admits $2^{f(n)}$-vertex universal graphs.
+  \end{fact}
 
-\begin{thm}[\citet{gavoille.labourel:shorter} with \citet{devos.ding.ea:excluding}]\label{old_best}
-  For each fixed graph $H$, the class of $H$-minor-free graphs
-  \begin{itemize}[nosep,nolistsep]
-    \item admits a $(2+o(1))\log n$-bit adjacency labelling scheme; and
+  Several minor-closed classes of graphs admit $(1+o(1))\log n$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs:\footnote{A graph $H$ is an \defin{apex graph} if $H$ contains a vertex $v$ such that $H-v$ is planar.  A graph family $\mathcal{G}$ is \defin{apex-minor-free} if there exists an apex graph $H$ such that no graph in $\mathcal{G}$ contains $H$ as a minor.}
 
-    \item admits $n^{2+o(1)}$-vertex universal graphs.
-  \end{itemize}
-\end{thm}
+  \begin{thm}[\citet{dujmovic.esperet.ea:adjacency}]\label{apex_minor_free}
+    For each fixed apex graph $H$, the class of $H$-minor-free graphs
+    \begin{itemize}[nosep,nolistsep]
+      \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
 
-\citet{dujmovic.esperet.ea:adjacency} state the problem of reducing the constant from $2$ to $1$ in \cref{old_best} as an open problem.  Unlike apex-minor-free graphs, $H$-minor-free graphs do not necessarily have product structure, which rules out the use of the most powerful tool in the adjacency-labelling toolbox.  In the current work, we resolve this open problem:
+      \item admits $n^{1+o(1)}$-vertex universal graphs.
+    \end{itemize}
+  \end{thm}
 
-\begin{thm}\label{main_result}
-  For each fixed graph $H$, the class of $H$-minor-free graphs
-  \begin{itemize}[nosep,nolistsep]
-    \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+  In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.
 
-    \item admits $n^{1+o(1)}$-vertex universal graphs.
-  \end{itemize}
-\end{thm}
+  One collection of graph classes that is conspicuously absent from this list is the class of $K_t$-minor-free graphs for any $t\ge 6$.  Indeed, if such a result is true for every fixed positive integer $t$, then this would remove the requirement, in \cref{apex_minor_free}, that the graph $H$ be an apex graph.\footnote{Since $K_t$ contains every $t$-vertex graph as a minor, every $H$-minor-free graph is a $K_{|V(H)|}$-minor-free graph.  Any result for the class of $K_t$-minor-free graphs implies the result for $H$-minor-free graphs for any $t$-vertex graph $H$.}
+  The best known result in this direction is obtained by combining a $(1+o(1))\log n$-bit labelling scheme of \citet{gavoille.labourel:shorter} for bounded treewidth graphs with a result of \citet{devos.ding.ea:excluding} which states that edges of each $K_t$-minor-free graph can be partitioned into two graphs, each having bounded treewidth:
 
-\pat{Say something about the proof techniques}
+  \begin{thm}[\citet{gavoille.labourel:shorter} with \citet{devos.ding.ea:excluding}]\label{old_best}
+    For each fixed graph $H$, the class of $H$-minor-free graphs
+    \begin{itemize}[nosep,nolistsep]
+      \item admits a $(2+o(1))\log n$-bit adjacency labelling scheme; and
 
-\section{Building Blocks}
+      \item admits $n^{2+o(1)}$-vertex universal graphs.
+    \end{itemize}
+  \end{thm}
+
+  \citet{dujmovic.esperet.ea:adjacency} state the problem of reducing the constant from $2$ to $1$ in \cref{old_best} as an open problem.  In the current work, we resolve this open problem:
+
+  \begin{thm}\label{main_result}
+    For each fixed graph $H$, the class of $H$-minor-free graphs
+    \begin{itemize}[nosep,nolistsep]
+      \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+
+      \item admits $n^{1+o(1)}$-vertex universal graphs.
+    \end{itemize}
+  \end{thm}
 
 
-Let $T$ be a rooted tree and let $r$ denote the root of $T$. For each $x\in V(T)$, the \defin{$x$-to-root path} \defin{$P_T(x)$} is the path in $T$ from $x$ to $r$.  For each $x\in V(T)$, the \defin{$T$-depth} \defin{$\depth_T(x)$}  is the number of edges in $P_T(x)$.  For each $i\in\N$, the \defin{$i$-th layer} of $T$ is $\mathdefin{L_i(T)}:=\{x\in V(T):\depth_T(x)=i\}$.  For each $x\in V(T)$ and each $a\in V(P_T(x))$ (including $x$),  the vertex $a$ is a $T$-ancestor of $x$ and $x$ is a \defin{$T$-descendant} of $a$.  For each $x\in V(T)$, \defin{$T_x$} denotes the subtree of $T$ induced by all $T$-descendants of $x$ (including $x$).
+  Many recent results in this area are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free (\cref{apex_minor_free}), and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
 
-
-A \defin{tree decomposition} of a graph $G$ is a collection $(B_x:x\in V(T))$ of vertices subsets of $G$ indexed by the vertices of a tree $T$ such that
-\begin{enumerate*}[label=(\alph*)]
-  \item for each $v\in V(G)$, $T[\{x\in V(T):v\in B_x\}]$ is a non-empty connected subtree of $T$; and
-  \item for each $vw\in E(G)$, $\{v,w\}\subseteq B_x$ for some $x\in V(T)$.
-\end{enumerate*}
-The \defin{adhesion-width} of a tree decomposition $(B_x:x\in V(T))$ is $\max\{|B_x\cap B_y|:xy\in E(T)\}$.  For a tree decomposition $(B_x:x\in V(T))$ of a graph $G$, the \defin{torso} of $x\in V(T)$, denoted \defin{$\torso{G}{B_x}$} is the supergraph of $G[B_x]$ obtained by adding an edge between $v$ and $w$ for each $\{\{v,w\}\in\binom{B_x\cap B_y}{2}$ and each $y\in N_T(x)$.\footnote{The notation $\torso{G}{B_x}$ introduces some minor ambiguity since the definition of $\torso{G}{B_x}$ depends on $(B_y:y\in N_T(x))$, but the notation makes no reference to the tree decomposition $(B_z:z\in V(T))$.  When we use this notation, the tree decomposition will always be obvious from context.}
-
-When $P$ is path, a tree-decomposition $(B_x:x\in V(P))$ of a graph $G$ is called a \defin{path-decomposition} of $G$.  In this case, we simplify notation by assuming that $P:=1,2,\ldots,r$ and write ``$B_1,\ldots,B_r$ is a path decomposition of $G$.''
-
-
-\subsection{Degenerate Labelling Schemes}
-
-A graph $G$ is $d$-degenerate if every subgraph of $G$ contains a vertex of degree at most $d$. A graph class $\mathcal{G}$ is $d$-degenerate if every graph in $\mathcal{G}$ is $d$-degenerate. We make use of the following result, which was first used by ?? to find $O(\log n)$-bit adjacency labelling schemes for planar graphs:
-
-\begin{thm}\label{degenerate_labelling_scheme}
-  For each $d\in\N$, there exists a $\lceil((d+1)\log n\rceil$-bit adjacency labelling scheme for the class of $d$-degenerate graphs.
-\end{thm}
+  However, unlike apex-minor-free graphs, $H$-minor-free graphs do not necessarily have product structure, which rules out the use of the most powerful tool in the adjacency-labelling toolbox. \pat{Say something about the proof techniques}
 
 
 
 
-\subsection{Shannon and Shannon-Fano-Elias Codes}
-
-% In most of the following we'll be sloppy and make labels for vertices that have several parts and not discuss how an adjacency-testing procedure can split  a label into its various parts.  This is ok, because in the end the labels we make this way will have parts whose total length is at most $\ell:= \log n+ o(\log n)$ and that are made up of at most $\epsilon\ell$ parts.  This means that we can encode the splitting into parts using $\ell\cdot O(H(\epsilon))$ bits, where $H(\epsilon)=\epsilon \log (1/\epsilon)+(1-\epsilon)\log(1/1-\epsilon)\le 2\epsilon\log(1/\epsilon)$ for $\epsilon\le 1/4$. We will get to choose $\epsilon$ to be decreasing function of $n$.  More on this at the end.
-
-A \defin{code} for a set $S$ is a function $\lambda:S\to\{0,1\}^*$ that maps each element in $S$ to a binary string.  A code is \defin{prefix-free} if $\lambda(x)$ is not a prefix of $\lambda(y)$ for any distinct $x,y\in S$.
-
-We make use of the following result on Shannon Codes:
+  \section{Building Blocks}
 
 
-\begin{lem}\label{shannon_code}
-  Let $S$ be a non-empty set, let $\omega:S\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a prefix-free code $\pi:S\to\{0,1\}^*$ such that $|\pi(x)|\le \log\Omega-\log\omega(i)+1$ for each $x\in S$.
-\end{lem}
+  Let $T$ be a rooted tree and let $r$ denote the root of $T$. For each $x\in V(T)$, the \defin{$x$-to-root path} \defin{$P_T(x)$} is the path in $T$ from $x$ to $r$.  For each $x\in V(T)$, the \defin{$T$-depth} \defin{$\depth_T(x)$} is the number of edges in $P_T(x)$. For each $i\in\N^+$, the \defin{$i$-th layer} of $T$ is $\mathdefin{L_i(T)}:=\{x\in V(T):\depth_T(x)=i-1\}$. (Note the ${}-1$ in this definition, which ensures that the layers are numbered with positive integers.)  For each $x\in V(T)$ and each $a\in V(P_T(x))$ (including $x$),  the vertex $a$ is a $T$-ancestor of $x$ and $x$ is a \defin{$T$-descendant} of $a$.  For each $x\in V(T)$, \defin{$T_x$} denotes the subtree of $T$ induced by all $T$-descendants of $x$ (including $x$).  For each edge $xy$ of $T$ where $x$ is a $T$-ancestor of $y$, we say that $x$ is the \defin{$T$-parent} of $y$ and $y$ is a \defin{$T$-child} of $x$.  For any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$ is the node in $\bigcap_{x\in S}P_T(x)$ of maximum $T$-depth.
 
 
-% \subsection{Vertex-Disjoint Unions of Graphs}
-%
-%
-% The following lemma is not strictly necessary. In fact, it is a special case of \cref{path_family}, below.  We include this lemma and its proof because it provides a good warm-up and highlights some of subtleties of \cref{path_family} .
-%
-% \begin{lem}\label{vertex_disjoint_union}
-%   Let $\mathcal{G}$ be a graph class that admits a $(\log n+g(n))$-bit adjacency labelling scheme.  Let $\mathcal{G}^+$ be the class of graphs that contains a graph $G$ if and only if $G$ is the union of pairwise vertex-disjoint members of $\mathcal{G}$.  Then $\mathcal{G}^+$ admits a $(\log n+1+g(n))$-bit labelling scheme.
-% \end{lem}
-%
-% \begin{proof}
-%   Let $G$ be an $n$-vertex graph in $\mathcal{G}^+$ and let $G_1,\ldots,G_r$ be pairwise vertex-disjoint graphs in $\mathcal{G}$ such that $G:=\bigcup_{i=1}^r G_i$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|V(G_i)|$ and observe that $\Omega:=\sum_{i=1}^r \omega(i)=|V(G)|=n$.  Apply \cref{shannon_code} to $\omega$ to obtain a prefix-free code $\pi$.  For each $i\in\{1,\ldots,r\}$ and each vertex $v$ of $G_i$, the label for $v$ has three parts:
-%   \begin{enumerate}[nosep,nolistsep,label=(PS\arabic*)]
-%     \item The codeword $\pi(v):=\pi(i)$.  This takes $|\pi(i)|\le \log n - \log\omega(i)+1$ bits.
-%     \item The adjacency label $\lambda(v)$ for the vertex $v$ in the graph $G_i$.  Since $G_i\in\mathcal{G}$ $|\lambda(v)|\le\log |V(G_i)|+g(|V(G_i)|)=\log\omega(i)+g(\omega(i))\le \log\omega(i)+g(n)$.
-%   \end{enumerate}
-%   The total length of the label for $v$ is then $\log n + 1 + g(n)$.
-%
-%   Given the labels for two vertices $v$ and $w$ of $G$, we can then test if $vw\in E(G)$ as follows:
-%   \begin{enumerate}[nosep,nolistsep,label=(TS\arabic*)]
-%     \item If $\pi(v)\neq\pi(w)$ then $v$ is a vertex of $G_i$ and $w$ is a vertex of $G_j$ for some $i\neq j$. In this case, we immediately conclude that $vw\not\in E(G)$.
-%     \item Otherwise, $v$ and $w$ are both vertices of $G_i$. In this case we can use $\lambda(v)$ and $\lambda(w)$ to test if $vw\in E(G_i)$. \qedhere
-%   \end{enumerate}
-%
-%
-% \end{proof}
+  A \defin{tree decomposition} of a graph $G$ is a collection $(B_x:x\in V(T))$ of subsets of vertices of $G$ indexed by the nodes of a tree $T$ such that
+  \begin{enumerate*}[label=(\alph*)]
+    \item for each $v\in V(G)$, $T[\{x\in V(T):v\in B_x\}]$ is a non-empty connected subtree of $T$; and
+    \item for each $vw\in E(G)$, $\{v,w\}\subseteq B_x$ for some $x\in V(T)$.
+  \end{enumerate*}
+  The \defin{adhesion-width} of a tree decomposition $(B_x:x\in V(T))$ is $\max\{|B_x\cap B_y|:xy\in E(T)\}$.  For a tree decomposition $(B_x:x\in V(T))$ of a graph $G$, the \defin{torso} of $x\in V(T)$, denoted \defin{$\torso{G}{B_x}$} is the supergraph of $G[B_x]$ obtained by adding an edge between $v$ and $w$ for each $\{\{v,w\}\in\binom{B_x\cap B_y}{2}$ and each $y\in N_T(x)$.\footnote{The notation $\torso{G}{B_x}$ introduces some minor ambiguity since the definition of $\torso{G}{B_x}$ depends on $(B_y:y\in N_T(x))$, but the notation makes no reference to the tree decomposition $(B_z:z\in V(T))$.  When we use this notation, the tree decomposition will always be obvious from context.}
 
-% \subsection{Alphabetic Binary Trees and Shannon-Fano-Elias Codes}
+  When $P$ is path, a tree-decomposition $(B_x:x\in V(P))$ of a graph $G$ is called a \defin{path-decomposition} of $G$.  In this case, we simplify notation by assuming that $P:=1,2,\ldots,r$ and write ``$B_1,\ldots,B_r$ is a path decomposition of $G$.''
 
-A \defin{rooted ordered binary tree} is a rooted tree with at least two leaves in which each non-leaf node has two children, a \defin{left} child, and a \defin{right} child.
-A rooted ordered binary tree $T$ induces an ordering on the the leaves of $T$ in which the leaf descendants  of the left child of $x$ precede the leaf descendants of the right child of $x$ for each non-leaf node $x$ of $T$.
-We make use of the following classical result on Alphabetic Binary Trees:
+  Throughout this section, we will use weight functions $\omega:S\to\R^+$ to assign positive weights to members of a set $S$. When $X$ is a subset of $S$, we use the shorthand $\omega(X):=\sum_{x\in S}\omega(x)$.  When $S:=V(G)$ is the vertex set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\omega(H):=\sum_{x\in V(H)}\omega(x)$.
 
 
-\begin{lem}\label{shannon_fano_elias_tree}\label{shannon_fano_elias}
-  Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a rooted ordered binary tree $T_\omega$ whose leaves, in order, are the integer $\{1,\ldots,r\}$ and such that $\depth_{T_\omega}(i)\le \log\Omega - \log\omega(i) + 2$.
-\end{lem}
+  \subsection{Degenerate Labelling Schemes}
 
-In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge of $T_\alpha$ a zero or one depending on whether the edge joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T_\alpha$ as a binary string with the following properties:
+  A graph $G$ is $d$-degenerate if every subgraph of $G$ contains a vertex of degree at most $d$. A graph class $\mathcal{G}$ is $d$-degenerate if every graph in $\mathcal{G}$ is $d$-degenerate. We make use of the following result, which was first used by ?? to find $O(\log n)$-bit adjacency labelling schemes for planar graphs:
 
-\begin{cor}\label{shannon_fano_elias_code}\label{shannon_fano_elias_cor}
-  Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a function $\rho:\{1,\ldots,r\}\to \{0,1\}^\star$ such that
-  \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-    \item $|\rho(i)|\le \log\Omega - \log\omega(i)+2$ for each $i\in\{1,\ldots,r\}$ and
-    \item $\rho(i)$ is lexicographically less than $\rho(j)$ for each $1\le i < j\le r$.
-  \end{enumerate}
-\end{cor}
-
-
-
-\subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
-
-% A \defin{path decomposition} of a graph $G$ is a sequence $B_1,\ldots,B_r$ of vertex subsets of $G$ such that
-% \begin{enumerate*}[label=(\roman*)]
-%   \item for each $vw\in E(G)$, $\{v,w\}\subseteq B_i$ for some $i\in\{1,\ldots,r\}$; and
-%   \item for each $1\le i < j\le r$, $B_i\cap B_j=\bigcap_{\ell=i}^j B_\ell$.
-% \end{enumerate*}
-% The \defin{adhesion-width} of a path decomposition $B_1,\ldots,B_r$ is $\max\{|B_i\cap B_{i+1}|:i\in\{1,\ldots,r-1\}\}$.
-
-%
-%
-%
-% For a path decomposition $B_1,\ldots,B_r$ of a graph $G$, we use the conventions $B_0:=B_{r+1}:=\emptyset$.  Then, for each $i\in\{1,\ldots,r\}$, $\mathdefin{G[B_i]^\downarrow}:=G[B_i\setminus B_{i-1}]$ and \defin{$\torso{G}{B_i}$} (the \defin{torso} of $B_i$) denotes the supergraph of $G[B_i]$ obtained adding all edges between all pairs of vertices in $B_{i-1}\cap B_i$ and all pairs of vertices in $B_{i}\cap B_{i+1}$. We use the notation
-% \[
-%   \mathdefin{\dtorso{G}{B_i}} = \torso{G}{B_i}-(B_{i-1}\cap B_i)
-% \]
-% to denote the subgraph of the torso $\torso{G}{B_i}$ induced by all vertices that are not contained in $B_{i-1}$.
-%
-% \begin{lem}\label{path_family}
-%    Let $\mathcal{G}$ be a graph family that admits a $(\log n+ g(n))$-bit adjacency labelling scheme.  Let $k>0$ be an integer and let $\mathcal{G}^\star$ be the graph family that contains a graph $G$ if and only if there exists a path decomposition $B_1,\ldots,B_r$ of $G$ of adhesion-width at most $k$ and such that $G[B_i]^{\downarrow}\in\mathcal{G}$, for each $i\in\{1,\ldots,r\}$.  Then $G^\star$ admits a $(\log n + g(n) + O(1+k\log\log n))$-bit adjacency labelling scheme.
-% \end{lem}
-%
-% \pat{The statement of \cref{path_family} might be too coarse. When we apply it, not all the vertices need to pay the extra $O(k\log\log n)$ term. In our application, each $\torso{G}{B_i}$ we be defined by (a small set of) subtrees of the Robertson-Seymour tree. Only the vertices in the root bag of this subtree will need to pay the extra $O(k\log\log n)$.  Vertices in other bags will not have to pay the extra $O(k\log\log n)$ until reaching some lower level of recursion. }
-%
-% Before proving \cref{path_family}, we make a few remarks.  First, we observe that setting $k=0$ implies a (slightly weaker) version of \cref{vertex_disjoint_union} that replaces ${}+1$ with ${}+O(1)$.  Second, we point out a subtlety in the definition of $G^\star$ that is easily missed on a first reading and is crucial for dealing with the most difficult part of the problem for proper minor-closed graph families (apex vertices coming from distant-ancestor torsos). For each $i\in\{1,\ldots,r\}$, $\dtorso{G}{B_i}$ is ``well-behaved,'' meaning that it has a $(\log n+g(n))$-bit adjacency labelling scheme.  However, for $j\ge 2$, the graph $G[B_j]$ contains the additional vertices in the adhesion $A_j:=B_j\cap B_{j-1}$. There is absolutely no restriction on the adjacency between vertices in $B_j\setminus A_j$ and the vertices in $A_j$: Each vertex $v$ in $A_j$ can be adjacent to any vertex $w$ in $B_{j}\setminus A_j$.
-%
-% What makes this challenging is that a vertex in $v\in A_j$ can be a vertex of $G[B_{i}]^\downarrow$ for any $i\in\{1,\ldots,j-1\}$.  To deal with this, the same code $\rho(v)=\rho(i)$ that is used to show that $v$ is a vertex of $G[B_{i}]^\downarrow$ must also be used (in conjunction with $\rho(w)=\rho(j)$ to show that $v\in A_j$. To accomplish this label of $w$ contain an additional $O(\log\log n)$ bits for each $v\in A_j$.
-%
-%
-% \begin{proof}[Proof of \cref{path_family}]
-%   Let $G$ be an $n$-vertex graph in $\mathcal{G}^\star$ and let $B_1,\ldots,B_r$ be a path decomposition of $G$ that shows $G\in\mathcal{G}^\star$ and that minimizes $r$.
-%   Let $A_1:=\emptyset$ and let $A_i:=B_i\setminus B_{i-1}$, for each $i\in\{2,\ldots,r\}$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i):=|B_i\setminus A_i|=|V(\dtorso{G}{B_i})|$.  Note that the minimality of $r$ implies that $\omega(i)=|B_i\setminus A_i|\ge 1$ for each $i\in\{1,\ldots,r\}$.  Observe that the total weight is
-%   \[
-%     \Omega:=\sum_{i=1}^r\omega(i)=\sum_{i=1}^r|B_i\setminus A_i|=|V(G)|=n \enspace .
-%   \]
-%   Apply \cref{shannon_fano_elias,shannon_fano_elias_cor} to $\omega$ let $\rho:\{1,\ldots,r\}\to\{0,1\}^*$ be the encoding of the integers $1,\ldots,r$ obtained from the binary tree $T_\omega$.  Since $\Omega=n$ and $\omega(i)\ge 1$,   $\depth_{T_\alpha}(i)\le \log \Omega-\log\omega(i) + 2 \le \log n -\log 1 + 2=\log n + 2$ for each $i\in\{1,\ldots,r\}$.
-%
-%   For each $v\in V(G)$, let $a(v):=\min\{i\in\{1,\ldots,r\}:v\in B_i\}$ and let $b(v):=\max\{i\in\{1,\ldots,r\}:v\in B_i\}$.  Observe that $B_i\setminus A_i=a^{-1}(i)$, for each $i\in\{1,\ldots,r\}$.  For ech $v\in V(G)$, let $q(v)$ be the lowest common $T_\omega$-ancestor of $a(v)$ and $b(v)$.  We claim that, for each non-leaf node $x$ of $T_\omega$, $|q^{-1}(x)|\le k$.  Indeed, each non-leaf node $x$ of $T_\omega$ has a left child $x_0$ and a right child $x_1$.  The leaves of $T_{x_0}$ are the integers $1,\ldots,i$ and the leaves of $T_{x_1}$ are the integers $i+1,\ldots,r$.  Thus, for any $v\in q^{-1}(x)$, $a(v)\le i$ and $b(v)\ge i+1$.  Therefore $v\in A_{i+1}$. Therefore $|q^{-1}(x)|\le |A_{i+1}|\le k$.
-%
-%   For each $i\in\{1,\ldots,r\}$ and each $v\in B_i\setminus A_i$, we assign a multi-part label to $v$ as follows:
-%   \begin{enumerate}[nosep,label=(P\arabic*)]
-%     \item The label $\rho(v):=\rho(i)=\rho(a(v))$ describing the root-to-$i$ path in $T_\omega$.  This label has length at most $\log\Omega-\log\omega(i)+2=\log n-\log\omega(i)+2$.
-%     \item The label $\lambda(v)$ assigned to $v$ by the labelling scheme for $\dtorso{G}{B_i}$ which is in the class $\mathcal{G}$. This label has length $\log(|B_i\setminus A_i|)+g(|B_i\setminus A_i|)=\log \omega(i)+g(\omega(i))$.
-%     \item A single bit $\nu(v)$ that indicates whether or not $a(v)=b(v)$.
-%     \item\label{q_depth} (If $a(v)\neq b(v)$) the integer $\depth_{T_\alpha}(q(v))$.  The maximum depth of any node in $T_\alpha$ is at most $\log n+2$, so this part of the label has length $O(\log\log n)$.
-%     \item\label{q_colour} (If $a(v)\neq b(v)$) an integer $\varphi(v)\in\{1,\ldots,k\}$ that is distinct from $\varphi(w)$ for each $w\in q^{-1}(q(v))$.  This part of the label has length $O(\log k)$.
-%     \item\label{apex_up} For each $a\in A_i$, the triple
-%     \[
-%       [\depth_{T_\alpha}(q(a)),\quad \varphi(a),\quad b(v,a)]
-%     \]
-%     where $b(v,a)$ is a single bit indicating whether or not $va\in E(G)$.  This part of the label has length $O(\log\log n+ \log k + 1)$.  Since $|A_i|\le k$, this part of the label has size $O(k\log\log n)$.
-%   \end{enumerate}
-%   Thus, in total, the total length of the label for $v$ is $\log n+g(\omega(i)+O(k\log\log n)\le \log n + g(n) + O(k\log\log n)$.
-%
-%   We now show that these labels are sufficient to perform adjacency testing for $G$.  Given the labels of two vertices $v$ and $w$ in $G$ we proceed as follows:
-%   \begin{enumerate}[nosep,label=(T\arabic*)]
-%     \item\label{in_torso_test} If $\rho(v)=\rho(w)$ then $v$ and $w$ are both vertices of $\dtorso{G}{B_i}$. In this case, we test if $v$ and $w$ are adjacent using $\lambda(v)$ and $\lambda(w)$.
-%     \item\label{apex_test} Otherwise, we may assume without loss of generality that $\rho(v)$ is lexicographically less than $\rho(w)$.  This implies that $v\in B_i\setminus A_i$ and $w\in B_j\setminus A_j$, for some $i < j$.  In this case, the only way in which $v$ and $w$ could be adjacent in $G$ is if $v\in A_{j}$.  Before continuing, we check if $\nu(v)=1$. If not, then $v\not\in A_\ell$ for any $\ell\in\{1,\ldots,r\}$, so $v\not\in A_j$ and we immediately conclude that $vw\not\in E(G)$.  Otherwise $v\in A_\ell$ for at least one $\ell\in\{1,\ldots,r\}$ and the label of $v$ has non-empty parts \ref{q_depth} and \ref{q_colour}.  If $v\in A_{j}$ then \ref{apex_up} of the label for $w$ will contain the triple $(\depth_{T_\alpha}(q(v)),\varphi(v),b(v,w))$. However, the existence of this triple is not sufficient to guarantee that $vw\in E(G)$ since $T$ may have many nodes of depth $d:=\depth_{T_\alpha}(q(v))$ and only one of these is the node $q(v)$. To eliminate this ambiguity, we verify that the length-$d$ prefix of $\rho(v)$ and the length-$d$ prefix of $\rho(w)$ match.
-%
-%     To summarize, we iterate through the (at most $k$) parts of \ref{apex_up} of the label of $w$ in order to test the following conditions for each $a\in A_{j}$:
-%     \begin{enumerate}[nosep,nolistsep]
-%       \item Let $d:=\depth_{T_\alpha}(a)$. Is $\depth_{T_\alpha}(q(v))=d$?
-%       \item Are first $d$ bits of $\rho(w)$ equal to the first $d$ bits of $\rho(v)$?
-%       \item Does $\varphi(a)=\varphi(v)$?
-%       \item Is $b(v,a)=1$?
-%     \end{enumerate}
-%     The answer to all of the first three questions is yes if and only if $a=v$. The answer to the last question is yes if and only $va\in E(G)$.  Thus, the answer to all four questions is yes for exactly one $a\in A_j$ if and only if $vw\in E(G)$.
-%   \end{enumerate}
-%   Since every edge of $G$ incident to $w$ is an either an edge of $\dtorso{G}{B_{a(w)}}$ (check by \ref{in_torso_test}) or an edge $va$ with $a\in A_i$ (checked by \ref{apex_test}), this correctly determines if $vw\in E(G)$ using only the labels for $v$ and $w$. \end{proof}
-%
+  \begin{thm}\label{degenerate_labelling_scheme}
+    For each $d\in\N$, there exists a $\lceil(d+1)\log n\rceil$-bit adjacency labelling scheme for the class of $d$-degenerate graphs.
+  \end{thm}
 
 
 
 
+  \subsection{Shannon and Shannon-Fano-Elias Codes}
+
+  A \defin{code} for a set $S$ is a function $\lambda:S\to\{0,1\}^*$ that maps each element in $S$ to a binary string.  A code is \defin{prefix-free} if $\lambda(x)$ is not a prefix of $\lambda(y)$ for any distinct $x,y\in S$.
+
+  We make use of the following result on Shannon Codes:
+
+
+  \begin{lem}\label{shannon_code}
+    Let $S$ be a non-empty set, let $\omega:S\to\R^+$, and let $\Omega:=\sum_{x\in S}\omega(x)$.  Then there exists a prefix-free code $\pi:S\to\{0,1\}^*$ such that $|\pi(x)|\le \log\Omega-\log\omega(x)+1$ for each $x\in S$.
+  \end{lem}
+
+  A \defin{rooted ordered binary tree} is a rooted tree with at least two leaves in which each non-leaf node has two children, a \defin{left} child, and a \defin{right} child.  A rooted ordered binary tree $T$ induces an ordering on the the leaves of $T$ in which the leaf descendants  of the left child of $x$ precede the leaf descendants of the right child of $x$ for each non-leaf node $x$ of $T$. We make use of the following classical result on Alphabetic Binary Trees:
+
+
+  \begin{lem}\label{shannon_fano_elias_tree}\label{shannon_fano_elias}
+    Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a rooted ordered binary tree $T_\omega$ whose leaves, in order, are the integers $\{1,\ldots,r\}$ and such that $\depth_{T_\omega}(i)\le \log\Omega - \log\omega(i) + 2$.
+  \end{lem}
+
+  In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge of $T_\alpha$ a zero or one depending on whether the edge joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T_\alpha$ as a binary string with the following properties:
+
+  \begin{cor}\label{shannon_fano_elias_code}\label{shannon_fano_elias_cor}
+    Let $r$ be an integer, let $\omega:\{1,\ldots,r\}\to\R^+$, and let $\Omega:=\sum_{i=1}^r\omega(i)$.  Then there exists a function $\rho:\{1,\ldots,r\}\to \{0,1\}^\star$ such that
+    \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
+      \item $|\rho(i)|\le \log\Omega - \log\omega(i)+2$ for each $i\in\{1,\ldots,r\}$ and
+      \item $\rho(i)$ is lexicographically less than $\rho(j)$ for each $1\le i < j\le r$.
+    \end{enumerate}
+  \end{cor}
+
+
+
+  \subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
 
 
   \begin{lem}\label{low_pathwidth_separator}
-    Let $T$ be a rooted tree, let $\omega:V(T)\to\R^+$ be a weight function and let $\Omega=\sum_{x\in V(T)}\omega(x)$.  For any $0<\alpha< 1$, there exists $X_0\subseteq V(T)$ with the following properties:
+    Let $T$ be a rooted tree, let $\omega:V(T)\to\R^+$ be a weight function and let $\Omega=\sum_{x\in V(T)}\omega(x)$, let $\alpha\in(0,1)$, and let $X_0:=\{x\in V(T):\omega(T_x)>\alpha\Omega\}$.  Then
     \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
       \item\label{connected} $T[X_0]$ is connected and contains the root of $T$;
       \item\label{skinny} $|X_0\cap L_i(T)|\le 1/\alpha$, for each $i\in\N$; and
@@ -388,9 +281,6 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
   \end{lem}
 
   \begin{proof}
-    For each subgraph $C$ of $T$, let $\omega(C):=\sum_{y\in V(C)}\omega(y)$.
-    Define $X_0:=\{x\in V(T): \omega(T_x)>\alpha\Omega\}$. We now show that $X_0$ satisfies the conditions of the lemma.
-
     \noindent\ref{connected}:  Since $\alpha <1$, $X_0$ contains the root $r$ of $T$, since $\omega(T_r)=\omega(T)=\Omega>\alpha\Omega$.  For each $y\in X_0\setminus\{r\}$, $X_0$ contains the $T$-parent $x$ of $y$ since $\omega(T_x)\ge \omega(x)+\omega(T_y)>\omega(T_y)>\alpha\Omega$.  Therefore $T[X]$ contains the root $r$ of $T$ and, for each non-root node $y\in X$, $X$ contains the parent of $y$. Thus $T[X]$ is connected.
 
     \noindent\ref{skinny}:
@@ -400,7 +290,9 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
     Each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$ whose $T$-parent is in $X$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \alpha\Omega$.
   \end{proof}
 
-  Let $\mathcal{T}:=(B_x:x\in V(T))$ be a rooted tree decomposition of some graph $G$.  A function $\kappa:E(G)\to 2^{V(G)}$ is a \defin{clique assignment function} for $\mathcal{T}$ if, for each edge $xy$ of $T$ where $x$ is the $T$-parent of $y$, $\kappa(xy)$ is the vertex of a maximal clique $K$ in $\torso{G}{B_x}$ whose vertex set contains $B_x\cap B_y$.  When $x\in V(T)$, $\kappa$ is a clique assignment function for $\mathcal{T}$, and $K$ is a clique with $V(K)\subseteq V(G)$, define
+  \pat{I think we'll eventually be able to do away with the clique assignment function $\kappa$ below, but I will wait to see the final statement of \cref{weighted} before removing it.}
+
+  Let $\mathcal{T}:=(B_x:x\in V(T))$ be a rooted tree decomposition of some graph $G$.  A function $\kappa:E(T)\to 2^{V(G)}$ is a \defin{clique assignment function} for $\mathcal{T}$ if, for each edge $xy$ of $T$ where $x$ is the $T$-parent of $y$, $\kappa(xy)$ a clique $K$ in $\torso{G}{B_x}$ whose vertex set contains $B_x\cap B_y$.  For each $x\in V(T)$, each clique assignment function $\kappa$ for $\mathcal{T}$, and each clique $K$ in $\torso{G}{B_x}$, define
   \[
     Y_{\kappa}(x,K) := \{y\in V(T):\text{$x$ is the $T$-parent of $y$ and  $\kappa(xy)=K$}\}
   \]
@@ -411,18 +303,17 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
 
       \item\label{x_connected} $T[X]$ is connected and contains the root of $T$;
 
-      \item\label{x_adhesion} $\mathcal{P}:=\left(\bigcup_{x\in L_0(T)\cap X} B_x\right)_{i\in\N}$ is a path decomposition of $G[\bigcup_{x\in X}B_x]$ of adhesion-width less than $2k/\alpha$; and
+      \item\label{x_adhesion} $\mathcal{P}:=\left(\bigcup_{x\in L_i(T)\cap X} B_x\right)_{i\in\N}$ is a path decomposition of $G[\bigcup_{x\in X}B_x]$ of adhesion-width less than $2k/\alpha$; and
 
-      \item\label{x_alpha} $\left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|\le \alpha n$ for each $x\in X$ and each maximal clique $K$ in $\torso{G}{B_x}$.
+      \item\label{x_alpha} $\left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|\le \alpha n$ for each $x\in X$ and each clique $K$ in $\torso{G}{B_x}$.
     \end{enumerate}
   \end{lem}
 
   \begin{proof}
     Let $G$, $\mathcal{T}:=(B_x:x\in V(T))$, and $\kappa$ be defined as in the statement of the lemma.
-    Let $r$ be the root of $T$. Define $\omega(r):=|B_r|$ and, for each $y\in V(T)\setminus \{r\}$, define $\omega(y):=|B_y\setminus B_x|$, where $x$ is the with $T$-parent of $y$.  Let $X_0$ be the subset of $V(T)$ obtained by applying \cref{low_pathwidth_separator} to $T$ and $\omega$.
-    For each subgraph $C$ of $T$, let $\omega(C)=\sum_{y\in V(C)}\omega(y)$.  Observe that, for each $y\in V(T)$, $\omega(T_y)=|\bigcup_{z\in V(T_y)}B_z\setminus (B_x\cap B_y)|$, where $x$ is the $T$-parent of $y$.  Therefore, $X_0$ contains each $x\in V(T)$ such that $\omega(T_x)>\alpha n$.
+    Let $r$ be the root of $T$. Define $\omega(r):=|B_r|$ and, for each $y\in V(T)\setminus \{r\}$, define $\omega(y):=|B_y\setminus B_x|$, where $x$ is the $T$-parent of $y$. Note that $\sum_{y\in V(T)}\omega(y)=n$.  Let $X_0:=\{x\in V(T):\omega(T_x)>\alpha n\}$, as in \cref{low_pathwidth_separator}.
 
-
+    % Observe that, for each $y\in V(T)$, $\omega(T_y)=|\bigcup_{z\in V(T_y)}B_z\setminus (B_x\cap B_y)|$, where $x$ is the $T$-parent of $y$.  Therefore, $X_0$ contains each $x\in V(T)$ such that $\omega(T_x)>\alpha n$.
 
     For each $x\in X_0$ and each maximal clique $K$ in $\torso{G}{B_x}$, define \[
        \omega(x,K):=\left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X_0}\medspace \bigcup_{z\in V(T_y)}B_z\setminus V(K)\right| = \sum_{y\in Y_{\kappa}(x,K)\setminus X_0}\omega(T_y)  \enspace .
@@ -433,13 +324,13 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
     \]
     We now show that $X$ satisfies the conditions of the lemma.
 
-    \noindent\ref{x_connected}: $T[X]$ contains the root of $T$ because $X_0$ contains the root of $T$. $T[X]$ is connected because $T[X_0]$ is connected and each vertex $y\in X_0\setminus X$ has a $T$-parent in $X_0$.
+    \noindent\ref{x_connected}: $T[X]$ contains the root of $T$ because $X_0\subseteq X$ contains the root of $T$. $T[X]$ is connected because $T[X_0]$ is connected and each vertex $y\in X_0\setminus X$ has a $T$-parent in $X_0$.
 
-    \noindent\ref{x_adhesion}:  For each $i\ge 0$, let $B_i:=\bigcup_{x\in L_{i-1}(T)\cap X} B_x$ and let $r:=\max\{i\ge 1:B_i\neq\emptyset\}$.  We must show that $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width at most $2k/\alpha$. That $B_1,\ldots,B_r$ is a path decomposition of $G[\bigcup_{x\in X} B_x]$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $y\in X\cap L_i(T)$, the $T$-parent $x$ of $y$ is in $X\cap L_{i-1}(T)$.
+    \noindent\ref{x_adhesion}:  For each $i\ge 0$, let $B_i:=\bigcup_{x\in L_{i}(T)\cap X} B_x$ and let $r:=\max\{i\ge 1:B_i\neq\emptyset\}$.  We must show that $B_1,\ldots,B_r$ is a path decomposition of $G[\bigcup_{x\in X}B_x]$ of adhesion-width at most $2k/\alpha$. That $B_1,\ldots,B_r$ is a path decomposition of $G[\bigcup_{x\in X} B_x]$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $y\in X\cap L_i(T)$, the $T$-parent $x$ of $y$ is in $X\cap L_{i-1}(T)$.
 
     Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Let $A_1:=\emptyset$ and let $A_i:=B_{i}\cap B_{i-1}$ for each $i\in\{2,\ldots,r\}$. Fix $i\in\{1,\ldots,r\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_0\cap L_{i-1}(T)$, $y\in L_i(T)$ and $xy$ is an edge of $T$. We say that $v$ is of Type~0 if $y\in X_{0}$ and $v$ is of Type~1 if $y\in X\setminus X_0$.  The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0}\cap L_i(T)$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0}$.
 
-    All that remains is to show that the number of Type~1 vertices in $A_i$ is at most $k/\alpha$. Say that a $(x,K)$ is a \defin{heavy pair} if $x\in X\cap L_{i-1}(T)$, $K$ is a maximal clique in $\torso{G}{B_x}$ and $\omega(x,K)>\alpha n$. We will show that the number of heavy pairs is less than $1/\alpha$. This is sufficient, since each Type~1 vertex in $A_i$ belongs to a maximal clique $K$ in $\bigcup_{x\in X\cap L_{i-1}(T)}\torso{G}{B_x}$ with $\omega(x,K)>\alpha n$, and each maximal clique in $\torso{G}{B_x}$ has size at most $k$.
+    All that remains is to show that the number of Type~1 vertices in $A_i$ is at most $k/\alpha$. Say  a $(x,K)$ is a \defin{heavy pair} if $x\in X\cap L_{i-1}(T)$, $K$ is a clique in $\torso{G}{B_x}$ and $\omega(x,K)>\alpha n$. We will show that the number of heavy pairs is less than $1/\alpha$. This is sufficient, since each Type~1 vertex in $A_i$ belongs to a clique $K$ in $\bigcup_{x\in X\cap L_{i-1}(T)}\torso{G}{B_x}$ with $\omega(x,K)>\alpha n$, and each maximal clique in $\torso{G}{B_x}$ has size at most $k$.
 
     Let $\mathcal{K}$ be the set of heavy pairs. For each $(x,K)\in\mathcal{K}$, define $C_{x,K}:=\bigcup_{y\in Y_{\kappa}(x,K)}\bigcup_{z\in V(T_y)}B_z\setminus V(K)$.  Then $|C_{x,K}|=\omega(x,K)>\alpha n$.  Furthermore, for two distinct heavy pairs $(x,K),(x',K')\in \mathcal{K}$, $C_{x,K}$ and $C_{x',K'}$ are disjoint.  Therefore,
     \[
@@ -449,18 +340,17 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
 
     \noindent\ref{x_alpha}: Assume, for the sake of contradiction, that
     \begin{equation}
-       \left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\medspace \bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|> \alpha n \label{contra}
+       \left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X}\medspace \bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|> \alpha n \label{contra}
     \end{equation}
     for some $x\in X$ and some maximal clique $K$ in $\torso{G}{B_x}$.  Then, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
     \[
       \omega(x,K)
-       = \left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X_0}\medspace\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|
-       \ge \left|\bigcup_{y\in Y_{\kappa}(x,K)\setminus X}\medspace\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|
-       > \alpha n \enspace . \\
+       = \sum_{y\in Y_{\kappa}(x,K)\setminus X_0}\omega(T_y)
+       \ge \sum_{y\in Y_{\kappa}(x,K)\setminus X}\omega(T_y)
     \]
     Then, by definition, every vertex in $Y_{\kappa}(x,K)$ is in $X$, so
     \[
-      \left|\bigcup_{y\in Y_{K,\kappa}(x)\setminus X}\medspace\bigcup_{z\in V(T_y)}B_z\setminus V(K)\right|=|\emptyset|=0 \enspace ,
+      \sum_{y\in Y_{\kappa}(x,K)\setminus X} \omega(T_y)=|\emptyset|=0 \enspace ,
     \]
     contradicting \eqref{contra}.
   \end{proof}
@@ -487,7 +377,7 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
     \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
     \item for each $v\in V(G)$, $|\lambda(v)|\le \log \Omega-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
   \end{itemize}
-  The function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
+  Again, the function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
 
   A labelling $\lambda$ of a graph $Q$ is \defin{$p$-clique-encoding} if there exists a function $\tau':(\{0,1\}^*)^3\times\N\to\{0,1\}$ such that, for each maximal clique $K\subseteq Q$, there exists a bitstring $\mu(K)$ of length at most $p$ and an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\tau'(\lambda(v_1),\lambda(w),\mu(K),i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ and the additional bitstring $\mu(K)$ contain enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.
 
@@ -507,7 +397,7 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
   \begin{proof}[Proof of \cref{main_result}]
     Let $\mathcal{G}$ be a proper minor-closed graph class.  Let $G$ be an $n$-vertex graph in $\mathcal{G}$ and let $\mathcal{T}:=(B_x:x\in V(G))$ be a tree decomposition of $G$ described by \cref{gmst}. Root $T$ at an arbirary vertex $r$.  Define $A_r:=\emptyset$ and, for each edge $xy$ of $T$ where $x$ is the parent of $y$, define $A_y:=B_x\cap B_y$.  Since $\mathcal{T}$ comes from an application of \cref{gmst}, $|A_y|\le k$ for each $y\in V(T)$.
 
-    Let $g(n)\in o(\log n)$ be a function that describes the waste in the labelling scheme of \cref{weighted} and define $\mathdefin{\alpha}:=2^{-\sqrt{(g(n)/k)\log n}}$.
+    Let $g(n)\in o(\log n)$ be a function that upper bounds the waste in the weighted adjacency labelling scheme of \cref{weighted} and define $\mathdefin{\alpha}:=2^{-\sqrt{(g(n)/k)\log n}}$.
     % The reason for this choice of $\alpha$ is that
     % \[
     %     k\log(1/\alpha)=\frac{g(n)\log n}{\log(1/\alpha)} = \sqrt{k\cdot g(n)\log n}\in o(\log n) ,
@@ -546,7 +436,7 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
 
     % For each $x\in V(T)$ consider the application of \cref{weighted} to the graph $G[B_x]-A_x$ with supergraph $Q_x:=\torso{G}{B_x}-A_x$.  For each $x\in V(T)$ and each $T$-child $y$ of $x$, $K_y:=Q[A_y\setminus A_x]$ is a clique.  Set $\kappa(y,K_y)$ to be a maximal clique in $Q$ that contains $K_y$. \pat{Come back to this.}
 
-    Apply \cref{low_adhesion_separator} to the graph $G$ with tree decomposition $\mathcal{T}$ with clique assignment function $\kappa$ to obtain $X\subseteq V(T)$ and a path decomposition $B^-_1,\ldots,B^-_r$  of $G[\bigcup_{x\in X} B_x]$ of adhesion-width at most $2k/\alpha$.  For each $x\in X$, let $T^-_x$ be the component of $T-(X\setminus\{x\})$ that contains $x$.  For each $i\in\{1,\ldots,r\}$, define $X_i:=X\cap L_i(T)$ and define $B_i:=\bigcup_{x\in X_i}\bigcup_{y\in T^-_x} (B_y\setminus A_y)$. Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,r\}$, let $A_i:=B_i\setminus B_{i-1}$.
+    Apply \cref{low_adhesion_separator} to the graph $G$ with tree decomposition $\mathcal{T}$ and clique assignment function $\kappa$ to obtain $X\subseteq V(T)$ and a path decomposition $B^-_1,\ldots,B^-_r$  of $G[\bigcup_{x\in X} B_x]$ of adhesion-width at most $2k/\alpha$.  For each $x\in X$, let $T^-_x$ be the component of $T-(X\setminus\{x\})$ that contains $x$.  For each $i\in\{1,\ldots,r\}$, define $X_i:=X\cap L_i(T)$ and define $B_i:=\bigcup_{x\in X_i}\bigcup_{y\in T^-_x} (B_y\setminus A_y)$. Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,r\}$, let $A_i:=B_i\setminus B_{i-1}$.
     Observe that $B_{i-1}\cap B_i=B^-_{i-1}\cap B^-_{i}$ for each $i\in\{2,\ldots,r\}$, so $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width at most $2k/\alpha$.
 
     We now describe the parts of the labels used in the labelling scheme for $G$.  For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|B_i\setminus A_i|$.  Note that $\sum_{i=1}^r\omega(i) = n$.  Apply \cref{shannon_fano_elias_tree,shannon_fano_elias_code} to $\{1,\ldots,r\}$ with weights defined by $\omega$. Let $T_\omega$ be the resulting binary tree and $\rho:\{1,\ldots,r\}\to\{0,1\}^*$ be the resulting prefix-free code.
@@ -563,10 +453,10 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
       \item\label{colour_part} For each $v\in V(G)$, if $a(v)\neq b(v)$, then the label of $v$ contains an integer $\varphi(v)$ that is distinct from $\varphi(w)$ for each $w\in q^{-1}(q(v))$.  This part has length $\lceil\log |q^{-1}(q(v))|\le \lceil \log (2k/\alpha)\rceil$.
     \end{enumerate}
 
-    For each $i\in\{1,\ldots,r\}$ and each $x\in X_i$, define $\omega_i(x):=\omega(T^-_x)$. Note that $\sum_{x\in X_i}\omega_i(x)=|B_i\setminus A_i|=\omega(i)$. For each $i\in\{1,\ldots,r\}$,  apply \cref{shannon_code} with weights defined by $\omega_i$, and let $\pi_i:X^+_i\to\{0,1\}^*$  be the resulting prefix-free code.
+    For each $i\in\{1,\ldots,r\}$ and each $x\in X_i$, define $\omega_i(x):=\omega(T^-_x)$. Note that $\sum_{x\in X_i}\omega_i(x)=|B_i\setminus A_i|=\omega(i)$. For each $i\in\{1,\ldots,r\}$,  apply \cref{shannon_code} with weights defined by $\omega_i$, and let $\pi_i:X_i\to\{0,1\}^*$  be the resulting prefix-free code.
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{4}
-      \item\label{pi_part} For each $i\in\{1,\ldots,r\}$, each $x\in X^+_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains a part $\pi(v):=\pi_i(x)$. This part has length at most $\log \omega(i)-\log\omega_i(x)$.
+      \item\label{pi_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains a part $\pi(v):=\pi_i(x)$. This part has length at most $\log \omega(i)-\log\omega_i(x)$.
     \end{enumerate}
 
     For each $x\in X$, we now apply \cref{weighted} to the $k$-almost-embeddable graphs $\torso{G}{B_x}-A_x$ and $G[B_x]-A_x$ to get a labelling $\lambda_x:V(Q_x)\to\{0,1\}^*$ of some supergraph $Q_x$ of $\torso{G}{B_x}-A_x$ that allows for adjacency testing in $G[B_x]-A_x$ and that is $O(k\log\log n)$-clique-encoding for $Q_y$. For each clique $K$ in $\torso{G}{B_x}$, there is a maximal clique $\kappa'(K)$ in $Q_x$ that contains $K$.
@@ -590,16 +480,23 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{5}
       \item\label{dejmmw_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains $\lambda_x(v)$.
 
-      For each $i\in\{1,\ldots,r\}$, each $x\in X$, each $y\in N_T(x)\setminus X$, each $z\in V(T_y)$, and each $w\in B_z-A_z$, the label for $w$ contains $\lambda(\kappa'(\kappa(xy)))$.  More precisely, the label for $w$ contains $\lambda_x(v_1)$ and $\mu(\kappa'(\kappa(xy)))$ as in the definition of clique-encoding labellings.  This part has length at most $O(\log (k\cdot\omega_i(x)-\log\omega(v))+g(n)$.
+      For each $i\in\{1,\ldots,r\}$, each $x\in X$, each $y\in N_T(x)\setminus X$, each $z\in V(T_y)$, and each $w\in B_z-A_z$, the label for $w$ contains $\lambda(\kappa'(\kappa(xy)))$.  More precisely, the label for $w$ contains $\lambda_x(v_1)$ and $\mu(\kappa'(\kappa(xy)))$ as in the definition of clique-encoding labellings.  This part has length at most
+      \begin{align*}
+        \log (k\cdot\omega_i(x))-\log\omega(v_1)+g(n)
+        & \le \log \omega_i(x)-\log\omega(\kappa(xy))+g(n) + O(\log k) \\
+        & \le \log \omega_i(x)-\log |V(G(x,\kappa(xy)))|+g(n) + O(\log k) \enspace .
+      \end{align*}
 
-      \item\label{recursive_part} For each $x\in X$, each maximal clique $K$ in $\torso{G}{B_x}$ the subgraph $G_{x,K}:=G[\bigcup_{y\in Y_{x,K}\setminus X}\medspace\bigcup_{z\in V(T_y)} (B_z\setminus A_z)]$ is labelled recursively.  For each vertex $v\in V(G_{x,K})$ this part of the label is called $R(v)$.  By the inductive hypothesis,
+      \item\label{recursive_part} For each $x\in X$, and each maximal clique $K$ in $\torso{G}{B_x}$ the subgraph
+      \[ G_{x,K}:=G\left[\bigcup_{y\in Y_{x,K}\setminus X}\medspace\bigcup_{z\in V(T_y)} (B_z\setminus A_z)\right]
+      \]
+      is labelled recursively.  For each vertex $v\in V(G_{x,K})$ this part of the label is called $R(v)$.  By the inductive hypothesis,
       \begin{align*}
         |R(v)|
-        & \le \log |V(G_{x,K})|+\frac{g(n)\log(\alpha n)}{\log(1/\alpha)}+ c|A_z\setminus A_x|\log\log n \\
-        & = \log\omega(x,K) + \frac{g(n)\log n}{\log(1/\alpha)}-g(n)+ c|A_z\setminus A_x|\log\log n \\
-        & \le \log\omega(w) + \frac{g(n)\log n}{\log(1/\alpha)}-g(n)+ c|A_z\setminus A_x|\log\log n \enspace ,
+        & \le \log |V(G_{x,K})|+\frac{g(n)\log(\alpha n)}{\log(1/\alpha)}+ ck|A_z\setminus A_x|\log\log n \\
+        & = \log\omega(x,K) + \frac{g(n)\log(n)}{\log(1/\alpha)} -g(n) + ck|A_z\setminus A_x|\log\log n \\
+        & = \log\omega(x,K) + \sqrt{k\cdot g(n)\log n} -g(n) + ck|A_z\setminus A_x|\log\log n \enspace .
       \end{align*}
-      where $w$ is any vertex in $V(K)$.
     \end{enumerate}
     Finally, after doing any recursive labelling in \ref{recursive_part}, we augment some of the labels.
 
@@ -618,10 +515,21 @@ In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Eli
       \end{enumerate}
     \end{enumerate}
 
-    Before discussing the adjacency testing procedure, we first analyze the lengths of the labels. For each $x\in X$ and each $v\in V(T^-_x)$ the total length of parts \ref{flag_part}--\ref{dejmmw_part} is
+    Before discussing the adjacency testing procedure, we first analyze the lengths of the labels.
+    % For each $x\in X$ and each $v\in B_x\setminus A_x$,
+
+    Let $x\in X$ and $v\in V(T^-_x)$. The total length of parts \ref{flag_part}--\ref{pi_part} of $v$'s label is
     \[
-      \log n - \log\omega(i) + \log\omega(i) - \log\omega_i(x) + \log(k\cdot\omega_i(x))-\log\omega(x,K) + \log\omega(x,K) + ....
+      \log n - \log\omega_i(x)
     \]
+    If $v\in B_x\setminus A_x$, then part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) $
+
+    If $v\in A_x$, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n) + \log(k/\alpha)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) + \log(k/\alpha) \le \log n + \sqrt{k\cdot g(n)\log n} + |$
+
+    Let $w$ be of $G(x,K)$ for some clique $K$ in $\torso{G}{B_x}$.  Then there exists a $T$-child $y$ of $x$ such that $w\in B_z\setminus A_z$ for some $z\in V(T_y)$.  In this case, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega^-(x,K) + g(n)$.  The label
+
+    in $V(T^-_x)\setminus B_x$ and let $y$ be child of $v$
+
   \end{proof}
 
 
