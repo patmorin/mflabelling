@@ -360,7 +360,7 @@
     \begin{equation}
        \left|\bigcup_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\medspace \bigcup_{z\in V(T_y)}B_z\setminus V(K)\right| > \alpha n \enspace . \label{contra}
     \end{equation}
-    for some $x\in X$ and some clique $K$ in $\torso{G}{B_x}$.  Equivalently, $\sum_{y\inY_{\mathcal{T}}(x,K)\setminus X}\omega(T_y) > \alpha n$.  Therefore, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
+    for some $x\in X$ and some clique $K$ in $\torso{G}{B_x}$.  Equivalently, $\sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega(T_y) > \alpha n$.  Therefore, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
     \[
       \omega(x,K)
        = \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X_0}\omega(T_y)
@@ -550,7 +550,7 @@
     The next part of the label is only for vertices that are not in $\bigcup_{x\in X}(B_x\setminus A_x)$. For each $x\in X$, each clique $K$ in $\torso{G}{B_x}$, there is a subgraph $G[V^-_{x,K}]$ with at most $\alpha n$ vertices.  We recursively label the vertices in this subgraph to obtain a labelling $\lambda_{x,K}$.
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{6}
-      \item\label{recursive_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$,  each clique $K$ in $\torso{G}{B_x}$ and each vertex $w\in V^_{x,k}$, the label for $w$ includes $\lambda_{x,K}(w)$.  Let $z$ be the node of $T$ such that $w\in B_z$.  (So $z\neq x$ is a $T$-descendant of $x$.)  By the inductive hypothesis,
+      \item\label{recursive_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$,  each clique $K$ in $\torso{G}{B_x}$ and each vertex $w\in V^-_{x,k}$, the label for $w$ includes $\lambda_{x,K}(w)$.  Let $z$ be the node of $T$ such that $w\in B_z$.  (So $z\neq x$ is a $T$-descendant of $x$.)  By the inductive hypothesis,
       \begin{align*}
         |\lambda_{x,K}(w)|
         & \le \log |V^-_{x,K}|+\frac{g(n)\log(\alpha n)}{\log(1/\alpha)}+ ck|A_z\setminus A_x|(\log k/\alpha)+k\log\log n) \\
