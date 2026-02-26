@@ -379,18 +379,33 @@
   \end{itemize}
   Again, the function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
 
-  A labelling $\lambda$ of a graph $Q$ is \defin{$p$-clique-encoding} if there exists a function $\tau':(\{0,1\}^*)^3\times\N\to\{0,1\}$ such that, for each maximal clique $K\subseteq Q$, there exists a bitstring $\mu(K)$ of length at most $p$ and an ordering $v_1,\ldots,v_k$ of $V(K)$ such that, for each $w\in V(G)$ and each $i\in\N$, $\tau'(\lambda(v_1),\lambda(w),\mu(K),i)=1$ if and only if $w=v_i$.   In words, the label $\lambda(v_1)$ and the additional bitstring $\mu(K)$ contain enough information to recognize $\lambda(v_i)$ for each $i\in\{1,\ldots,k\}$.
-
-  We will make use of the following result, which can be obtained using the techniques of \citet{dujmovic.esperet.ea:adjacency}.
-
+  For a graph $G$, let $K(G)$ denote the set of cliques in $G$.  A \defin{clique labelling} of a graph $G$ is a function $\lambda:V(G)\cup K(G)\to\{0,1\}^*$. (Note that a clique labelling $\lambda$ of $G$ distinguishes between vertices of $G$ and $1$-vertex cliques in $G$; $\lambda(v)$ is not necessarily equal to $\lambda(G[\{v\}])$.) A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste mixed encodings} if there exists two functions:
+  \begin{enumerate}
+      \item $\tau:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
+      \item $\mu:(\{0,1\}^*)^2\times\N\to\{0,1\}$ (the \defin{membership tester})
+  \end{enumerate}
+  such that, for each $n\in\N$, each $n$-vertex graph $G^+$ in $\mathcal{G}$, each subgraph $G$ of $G^+$, and each weight function $\omega:V(G^+)\to\R^+$, there exists clique labelling $\lambda$ of $G^+$ such that
+  \begin{enumerate}
+    \item for each $v,w\in V(G)$, $\tau(\lambda(v),\lambda(w))=1$ if and only if $vw\in E(G)$; 
+    % \item for each $v\in V(G)$, $|\lambda(v)|\le \log \omega(V(G))-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
+    \item for each $v\in V(G^+)$, $|\lambda(v)|\le \log \omega(G) - \log\omega(v) + g(n)$
+    \item for each clique $K$ in $G^+$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that for each vertex $v\in V(G^+)$, $\mu(\lambda(K),\lambda(v),i)=1$ if and only if $v=v_i$; and
+    \item for each clique $K$ of $G$ $|\lambda(K)|\le \log \omega(G) - \log\min\{\omega(v):v\in V(K)\} + g(n)$.
+  \end{enumerate}
 
   \begin{thm}\label{weighted}
-    Let $\langle G\rangle$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $\langle G\rangle$.  Then there exists a $O(n)$-vertex supergraph $Q$ of $\langle G\rangle$ with clique-number at most $2k$ such that the graph $G_Q$ with vertex set $V(G_Q):=V(Q)$ and edge set $E(G_Q):=E(G)\cap E(Q)$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also an $O(k\log\log n)$-clique-encoding labelling of $Q$.
+    For each fixed positive integer $k$, the class of $k$-almost-embeddable graphs admits weighted $o(\log n)$-waste mixed encodings.
+    % Let $\langle G\rangle$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $\langle G\rangle$.  Then there exists a $O(n)$-vertex supergraph $Q$ of $\langle G\rangle$ with clique-number at most $2k$ such that the graph $G_Q$ with vertex set $V(G_Q):=V(Q)$ and edge set $E(G_Q):=E(G)\cap E(Q)$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also an $O(k\log\log n)$-clique-encoding labelling of $Q$.
   \end{thm}
 
-  \pat{Note to coauthors: This is the weakest statement I could come up with that would be sufficient for us.  As a result, it may be more complicated than necessary.  In particular, the supergraph $Q$ and the intermediate graph $G_Q$ may be unnecessary. Perhaps we can just find a labelling that is an adacency labelling for $G$ that is also clique encoding for $\langle G\rangle$.}
 
-  \pat{Note to self: Be careful with the order of quantifiers in \cref{weighted}.  We can't have $Q$ depend on the weight function $\omega$ that we choose for $G_Q$.}
+  % \begin{thm}\label{weighted}
+  %   Let $\langle G\rangle$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $\langle G\rangle$.  Then there exists a $O(n)$-vertex supergraph $Q$ of $\langle G\rangle$ with clique-number at most $2k$ such that the graph $G_Q$ with vertex set $V(G_Q):=V(Q)$ and edge set $E(G_Q):=E(G)\cap E(Q)$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also an $O(k\log\log n)$-clique-encoding labelling of $Q$.
+  % \end{thm}
+
+  % \pat{Note to coauthors: This is the weakest statement I could come up with that would be sufficient for us.  As a result, it may be more complicated than necessary.  In particular, the supergraph $Q$ and the intermediate graph $G_Q$ may be unnecessary. Perhaps we can just find a labelling that is an adacency labelling for $G$ that is also clique encoding for $\langle G\rangle$.}
+
+  % \pat{Note to self: Be careful with the order of quantifiers in \cref{weighted}.  We can't have $Q$ depend on the weight function $\omega$ that we choose for $G_Q$.}
 
   \section{The Proof}
 
@@ -473,19 +488,19 @@
     For each $x\in X$, each clique in $Q_x$ contains at most $2k$ vertices, so $\sum_{v\in B_x\setminus A_x}\omega_x(v)=|V(Q_x)|+\sum_{v\in B_x\setminus A_x}\sum_{K\in\mathcal{K}_v}\omega^-(x,K)\le O(|B_x\setminus A_x|)+ k\sum_{K\in\mathcal{K}_x}\omega^-(x,K)\le (2k+O(1))\omega_i(x)$.
 
     % For each $x\in X$, let $Q_x:=\torso{G}{B_x}-A_x$.
-    Now we apply the weighted labelling scheme in \cref{weighted} to the graphs $\torso{G}{B_x}$ and $G[B_x]-A_x$ with vertex weights defined by $\omega_x:V(Q_x)\to\N$.  This gives a weighted adjacency labelling $\lambda_x$ of the intermediate graph $G_{Q_x}$. The labelling $\lambda_x$ is also $O(k\log\log n)$-clique encoding $Q_x$.  Since the intermediate graph $G_{Q_x}$ contains $G[B_x]-A_x$ as an induced subgraph, $\lambda_x$ is also an adjacency labelling of $G[B_x]-A_x$.
+    Now we apply the weighted labelling scheme in \cref{weighted} to the graphs $\torso{G}{B_x}$ and $G[B_x]-A_x$ with vertex weights defined by $\omega_x:V(Q_x)\to\N$.  This gives a mixed labelling $\lambda_x$ of $\torso{G}{B_x}$.  
     % We now distinguish between two kinds of vertices in $G$.
      % contains the following parts:
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{5}
       \item\label{dejmmw_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains $\lambda_x(v)$.
 
-      For each $i\in\{1,\ldots,r\}$, each $x\in X$, each $y\in N_T(x)\setminus X$, each $z\in V(T_y)$, and each $w\in B_z-A_z$, the label for $w$ contains $\lambda(\kappa'(\kappa(xy)))$.  More precisely, the label for $w$ contains $\lambda_x(v_1)$ and $\mu(\kappa'(\kappa(xy)))$ as in the definition of clique-encoding labellings.  This part has length at most
+      For each $i\in\{1,\ldots,r\}$, each $x\in X$, each $y\in N_T(x)\setminus X$, each $z\in V(T_y)$, and each $w\in B_z-A_z$, the label for $w$ contains the clique label $\lambda_x(A_y):=\lambda_x(\torso{G}{B_x}[A_y])$.\todo{Define this abuse of notation sooner.}  This part of $v$'s label has length at most
       \begin{align*}
-        \log (k\cdot\omega_i(x))-\log\omega(v_1)+g(n)
-        & \le \log \omega_i(x)-\log\omega(\kappa(xy))+g(n) + O(\log k) \\
-        & \le \log \omega_i(x)-\log |V(G(x,\kappa(xy)))|+g(n) + O(\log k) \enspace .
-      \end{align*}
+        \log (k\cdot\omega_i(x))-\log\min\{\omega(w):w\in A_y\} + g(n) 
+        % & \le \log \omega_i(x)-\log\omega(\kappa(xy))+g(n) + O(\log k) \\
+        & \le \log \omega_i(x)-\log |V(G(x,A_y))|+g(n)  \enspace .
+      \end{align*}\todo{Define $G(x,A_y)$ sooner}
 
       \item\label{recursive_part} For each $x\in X$, and each maximal clique $K$ in $\torso{G}{B_x}$ the subgraph
       \[ G_{x,K}:=G\left[\bigcup_{y\in Y_{x,K}\setminus X}\medspace\bigcup_{z\in V(T_y)} (B_z\setminus A_z)\right]
@@ -502,16 +517,16 @@
 
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{7}
-      \item\label{apex_edges} For each $x\in X$ and, each $z\in V(T^-_x)$ and each $w\in B_z\setminus A_z$, the label for $w$ will contain a part for each vertex $v\in A_z$.
+      \item\label{apex_edges} For each $x\in X$ and, each $z\in V(T^-_x)$ and each $w\in B_z\setminus A_z$, the label for $w$ will contain a part for each vertex $v\in A_z$.  The label for $w$ contains two bits indicating which of the following cases applies:
 
       \begin{enumerate}
-        \item If $v\in A_x$, then $a(v)<i$ and $b(v)\ge i$. Therefore $q(a(v))$ is a $T_\omega$-ancestor of $i$.  In this case, the label for $w$ contains $\depth_{T_\alpha}(q(a(v))$ and $\varphi(v)$.
+        \item If $v\in A_x$, then $a(v)<i$ and $b(v)\ge i$. Therefore $q(a(v))$ is a $T_\omega$-ancestor of $i$.  In this case, the label for $w$ contains $\depth_{T_\alpha}(q(a(v))$ and $\varphi(v)$. This part of $w$'s label has length $\log(k/\alpha) + O(\log\log n)$.
 
         \item If $v\in B_x\setminus A_x$ and $z= x$ then $v$ and $w$ are both vertices in $G[B_x]-A_x$. In this case, \ref{dejmmw_part} already contains enough information to test the presence of the edge $vw$.
 
-        \item If $v\in B_x\setminus A_x$ and $z\neq x$, then $z$ is a strict $T$-descendant of $x$.  Let $y$ be the $T$-child of $x$ that is a $T$-ancestor of $z$.  In this case, part \ref{dejmmw_part} of the label for $w$ contains the label for the clique $K_y$ that contains $v$.  We augment the label for $w$ with $O(\log\log n)$ bits indicating this, and $O(\log k)$ bits needed to identify $v$ from \ref{dejmmw_part}.
-
-        \item If $v\not\in B_x$, then $v$ and $w$ are both vertices of $G_{x,K}$ for some clique $K$ in $\torso{G}{B_x}-A_x$.  In this case, \ref{recursive_part} contains enough information to the presence of the edge $vw$.
+        \item If $v\in B_x\setminus A_x$ and $z\neq x$, then $z$ is a strict $T$-descendant of $x$.  Let $y$ be the $T$-child of $x$ that is a $T$-ancestor of $z$.  In this case, part \ref{dejmmw_part} of the label for $w$ contains the label $\lambda_x(K_y)$ for the clique $K_y:=\torso{G}{B_x}[A_y]$, which contains $v$.  By the definition of mixed labellings, there exists an ordering $v_1,\ldots,v_{k'}$ of $V(K_y)$. Let $i\in\{1,\ldots,k'\}$ be the unique index such that $v=v_i$.  In this case, the label for $w$ contains $O(\log k)$ bits to store the value of $i$. 
+        
+        \item If $v\not\in B_x$, then $v$ and $w$ are both vertices in the same recursive subproblem considered when defining \ref{recursive_part} of both $v$ and $w$'s label. 
       \end{enumerate}
     \end{enumerate}
 
