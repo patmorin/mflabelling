@@ -360,9 +360,7 @@
     \begin{equation}
        \left|\bigcup_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\medspace \bigcup_{z\in V(T_y)}B_z\setminus V(K)\right| > \alpha n \enspace . \label{contra}
     \end{equation}
-    for some $x\in X$ and some clique $K$ in $\torso{G}{B_x}$.  Equivalently, $\sum_{y\inY_{\mathcal{T}}(x,K)\setminus X}\omega(T_y) > \alpha n$.
-
-      Then, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
+    for some $x\in X$ and some clique $K$ in $\torso{G}{B_x}$.  Equivalently, $\sum_{y\inY_{\mathcal{T}}(x,K)\setminus X}\omega(T_y) > \alpha n$.  Therefore, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
     \[
       \omega(x,K)
        = \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X_0}\omega(T_y)
@@ -445,7 +443,7 @@
     To make the induction work, we require a slightly stronger statement of \cref{main_result}. We show the existence of a fixed constant $c>0$ and an adjacency labelling scheme for $G$ with labelling $\lambda:V(G)\to\{0,1\}^*$ that has the following property: For each $y\in V(T)$ and each $v\in B_y\setminus A_y$,
     \begin{equation}
       |\lambda(v)|
-      & \le \log n + \frac{g(n)\log n}{\log (1/\alpha)} + c|A_y|\left(\log (k/\alpha) +k\log\log n\right) + ck\log(k/\alpha) \enspace .\label{solution}
+      \le \log n + \frac{g(n)\log n}{\log (1/\alpha)} + c|A_y|\left(\log (k/\alpha) +k\log\log n\right) + ck\log(k/\alpha) \enspace .\label{solution}
     \end{equation}
     where $c$ is a constant, independent of $n$.    Proving this is sufficient since $|A_y|\le k$, so
     \begin{align*}
