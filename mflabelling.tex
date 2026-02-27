@@ -436,7 +436,7 @@
     \[
       \mathdefin{\alpha}:=2^{-\sqrt{k\cdot g(n_0)\cdot\log n_0}} \enspace .
     \]
-    Note that, for any fixed $k$, $\sqrt{k\cdot g(n)\cdot\log n}\in o(\log n)$.\footnote{Indeed, $ $\lim_{n\to\infty}\sqrt{g(n)\cdot\log n}/\log n=\lim_{n\to\infty}\sqrt{g(n)/\log n}=\sqrt{\lim_{n\to\infty}g(n)/\log n}=\lim_{x\to 0^+}\sqrt{x}=0$.}
+    Note that, for any fixed $k$, $\sqrt{k\cdot g(n)\cdot\log n}\in o(\log n)$.\footnote{Indeed, $\lim_{n\to\infty}\sqrt{g(n)\cdot\log n}/\log n=\lim_{n\to\infty}\sqrt{g(n)/\log n}=\sqrt{\lim_{n\to\infty}g(n)/\log n}=\lim_{x\to 0^+}\sqrt{x}=0$.}
 
     Below, we describe a recursive labelling procedure in which each invocation is applied to a subgraph $G$ of $G_0$.  Within this procedure, the value of $\alpha$ does not change, even when the number $n$ of vertices in $G$ is (much) smaller than $n_0$.
 
@@ -552,7 +552,7 @@
       \end{align*}
     \end{enumerate}
 
-    The next part of our labels is only for vertices that are not in $\bigcup_{x\in X}(B_x\setminus A_x)$. For each $x\in X$, each clique $K$ in $\torso{G}{B_x}$, the subgraph $G':=G[V^-_{x,K}]$ has at most $\alpha n$ vertices.  The subgraph $G'$ has a tree decomposition $(B'_z:z\in V(T'))$ obtained as follows: Let $T'$ be the tree obtained from the forest $\bigcup_{y\in Y_{\mathcal{T}}}\setminus X$ T_y$ by adding a new vertex $x'$ and adding the edge $x'y$ for each node $y\in Y_{\mathcal{T}}}\setminus X$.  Set $B'_{x'}:=\emptyset$ and set $B'_z:=B_z\setminus B_x$ for each $z\in V(T')\setminus\{x'\}$.  We recursively label the vertices in $G'$ using the tree decomposition $\mathcal{T}'$ to obtain a labelling $\lambda_{x,K}:V^-_{x,K}\to\{0,1\}^*$.
+    The next part of our labels is only for vertices that are not in $\bigcup_{x\in X}(B_x\setminus A_x)$. For each $x\in X$, each clique $K$ in $\torso{G}{B_x}$, the subgraph $G':=G[V^-_{x,K}]$ has at most $\alpha n$ vertices.  The subgraph $G'$ has a tree decomposition $(B'_z:z\in V(T'))$ obtained as follows: Let $T'$ be the tree obtained from the forest $\bigcup_{y\in Y_{\mathcal{T}}}\setminus X$ by adding a new vertex $x'$ and adding the edge $x'y$ for each node $y\in Y_{\mathcal{T}}\setminus X$.  Set $B'_{x'}:=\emptyset$ and set $B'_z:=B_z\setminus B_x$ for each $z\in V(T')\setminus\{x'\}$.  We recursively label the vertices in $G'$ using the tree decomposition $\mathcal{T}'$ to obtain a labelling $\lambda_{x,K}:V^-_{x,K}\to\{0,1\}^*$.
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{6}
       \item\label{recursive_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$,  each clique $K$ in $\torso{G}{B_x}-A_x$ and each vertex $w\in V^-_{x,k}$, the label for $w$ includes $\lambda_{x,K}(w)$.  Let $z$ be the node of $T$ such that $w\in B_z$.  (So $z\neq x$ is a $T$-descendant of $x$.)  By the inductive hypothesis,
