@@ -562,33 +562,61 @@
     The final part of our labels is used so that, for each $x\in X$, each $T$-descendant $z$ of $x$, and each $w\in B_z$, the label of $w$ contains enough information to identify the label of $v$, for each $v\in A_x\cap B_z$.
 
     \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{7}
-      \item\label{apex_edges} For each $x\in X$ and, each $z\in V(T^-_x)$ and each $w\in B_z\setminus A_z$, the label for $w$ will contain a part for each vertex $v\in A_z$.  The label for $w$ contains two bits indicating which of the following cases applies:
+      \item\label{apex_edges} For each $x\in X$ and, each $z\in V(T^-_x)$ and each $w\in B_z\setminus A_z$, the label for $w$ will contain a part for each vertex $v\in B_z\cap B_x$.  This part of $w$'s label contains one bit indicating whether $vw\in E(G)$ and two bits indicating which of the following cases applies:
 
-      \begin{enumerate}
-        \item If $v\in A_x$, then $a(v)<i$ and $b(v)\ge i$. Therefore $q(a(v))$ is a $T_\omega$-ancestor of $i$.  In this case, the label for $w$ contains $\depth_{T_\alpha}(q(a(v))$ and $\varphi(v)$. This part of $w$'s label has length $\log(k/\alpha) + O(\log\log n)$.
+      \begin{enumerate}[nosep,nolistsep,label=(P8\alph*)]
+        \item\label{q_part} If $v\in A_x$, then $a(v)<i$ and $b(v)\ge i$. Therefore $q(a(v))$ is a $T_\omega$-ancestor of $i$.  In this case, the label for $w$ contains $\depth_{T_\alpha}(q(v))$ and $\varphi(v)$. This part of $w$'s label has length $c(\log(k/\alpha) + \log\log n)$.
 
-        \item If $v\in B_x\setminus A_x$ and $z= x$ then $v$ and $w$ are both vertices in $G[B_x]-A_x$. In this case, \ref{dejmmw_part} already contains enough information to test the presence of the edge $vw$.
+        \item\label{nothing_part} If $v\in B_x\setminus A_x$ and $z= x$ then $v$ and $w$ are both vertices in $G[B_x]-A_x$. In this case, \ref{dejmmw_part} already contains enough information to test the presence of the edge $vw$, so no additional information is included in $w$'s label.
 
-        \item If $v\in B_x\setminus A_x$ and $z\neq x$, then $z$ is a strict $T$-descendant of $x$.  Let $y$ be the $T$-child of $x$ that is a $T$-ancestor of $z$.  In this case, part \ref{dejmmw_part} of the label for $w$ contains the label $\lambda_x(K)$ for the clique $K_y:=\torso{G}{B_x}[A_y]$, which contains $v$.  By the definition of mixed labellings, there exists an ordering $v_1,\ldots,v_{k'}$ of $V(K_y)$. Let $i\in\{1,\ldots,k'\}$ be the unique index such that $v=v_i$.  In this case, the label for $w$ contains $O(\log k)$ bits to store the value of $i$.
+        \item\label{clique_part} If $v\in B_x\setminus A_x$ and $z\neq x$, then $z$ is a strict $T$-descendant of $x$.  Let $y$ be the $T$-child of $x$ that is a $T$-ancestor of $z$.  In this case, part \ref{dejmmw_part} of the label for $w$ contains the label $\lambda_x(K)$ for the clique $K_y:=\torso{G}{B_x}[A_y]$, which contains $v$.  By the definition of mixed labellings, there exists an ordering $v_1,\ldots,v_{k'}$ of $V(K_y)$ such that $\mu(\lambda_x(v),\lambda_x(K),i)=1$ if and only if $v=v_i$. Let $\iota(v)\in\{1,\ldots,k'\}$ be the unique index such that $v=v_{\iota(v)}$.  In this case, the label for $w$ contains $c\log k$ bits to store $\iota(v)$.
 
-        \item If $v\not\in B_x$, then $v$ and $w$ are both vertices in the same recursive subproblem considered when defining \ref{recursive_part} of both $v$ and $w$'s label.
+        \item If $v\not\in B_x$, then $v$ and $w$ are both vertices in the same recursive subproblem considered when defining \ref{recursive_part} of both $v$ and $w$'s label.  In this case, no additional information is included in $w$'s label.
       \end{enumerate}
     \end{enumerate}
 
     Before discussing the adjacency testing procedure, we first analyze the lengths of the labels.
-    % For each $x\in X$ and each $v\in B_x\setminus A_x$,
 
-    Let $x\in X$ and $v\in V(T^-_x)$. The total length of parts \ref{flag_part}--\ref{pi_part} of $v$'s label is
-    \[
-      \log n - \log\omega_i(x)
-    \]
-    If $v\in B_x\setminus A_x$, then part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) $
+    BORING
 
-    If $v\in A_x$, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n) + \log(k/\alpha)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) + \log(k/\alpha) \le \log n + \sqrt{k\cdot g(n)\log n} + |$
+    Given the labels of two vertices $v$ and $w$ in $G$, the adjacency testing function works as follows:
+    \begin{enumerate}
+      \item Compare $\rho(v)$ and $\rho(w)$.
+      \begin{enumerate}
+        \item If $\rho(v)\neq \rho(w)$ then assume, without loss of generality, that $\rho(v)$ is lexicographically smaller than $\rho(w)$.  This means that $v\in B_i\setminus A_i$ and $w\in B_j\setminus A_j$ for some $1\le i < j\le r$.  This implies that $v\in V^-_{x'}\setminus A_{x'}$ for some $x'\in X_i$. Let $z$ be the unique node of $T$ such that $w\in B_z\setminus A_z$.   In this case, $v$ and $w$ can only be adjacent if $v\in A_x\cap A_z$. First we check, using Part~\ref{flag_part} if $a(v)=b(v)$. If so, then $v\not\in A_x$, so we can immediately deduce that $vw\not\in E(G)$.
 
-    Let $w$ be of $G(x,K)$ for some clique $K$ in $\torso{G}{B_x}$.  Then there exists a $T$-child $y$ of $x$ such that $w\in B_z\setminus A_z$ for some $z\in V(T_y)$.  In this case, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega^-(x,K) + g(n)$.  The label
+        Now assume that $a(v)<b(v)$.  The pair $(q(v),\varphi(v))$ uniquely identifies $v$ in the set $\{v\in V(G):a(v)\neq b(v)\}\supseteq A_x$.  The path $P_{T_\omega}(q(v))$ uniquely identifies $q(v)$ in the set $V(T_\omega)$.  Part~\ref{lca_part} of $v$'s label contains $d:=\depth__{T_\omega}(q(v))$.  The first $d$ bits of $\rho(v)$ describes the path $P_{T_\omega}(q(v))$, and \ref{colour_part} of $v$'s label contains $\varphi(v)$.
 
-    in $V(T^-_x)\setminus B_x$ and let $y$ be child of $v$
+        For each $v'\in A_x\cap A_z$, Part~\ref{q_part} of $w$'s label contains $\depth_{T_\omega}(q(v'))$ and $\varphi(v')$.  If $\depth_{T_\omega}(q(v'))\neq d=\depth_{T_\omega}(q(v))$ then we can immediately conclude that $q(v)\neq q(v')$, so $v\neq v'$.  Otherwise, the first $d$ bits of $\rho(w)$ describe $P_{T_\omega}(q(v'))$.  Therefore, for each $v'\in A_x\cap A_z$, we can test if $v'=v$ by checking if the first $d$ bits of $\rho(w)$ and the first $d$-bits of $\rho(v)$ are equal and if $\varphi(v')=\varphi(v)$.  If $v'=v$ for some $v'\in A_x\cap A_z$ then a bit in part~\ref{apex_edges} of $w$'s label indicates whether or not the edge $v'w=vw\in E(G)$.
+
+        \item If $\rho(v) = \rho(w)$, then $v,w\in B_i\setminus A_i$ for some $i\in\{1,\ldots,r\}$.  In this case, we compare $\pi_i(v)$ and $\pi_i(w)$.  If $\pi_i(v)\neq\pi_i(w)$, then $v\in V^-_x\setminus A_x$ and $w\in V^-_{x'}\setminus A_{x'}$ for distinct $x,x'\in X_i=L_i(T)\cap X$.  In this case we can immediately conclude that $vw\not\in E(G)$.
+
+        Now suppose $\pi_i(v)=\pi_i(w)$, which implies that $v,w\in V^-_x$ for some $x\in X_i$. In this case, we inspect the two bits of part \ref{apex_edges} of $v$'s and $w$'s labels.  Up to renaming $v$ and $w$, there are three possibilities:
+        \begin{enumerate}
+          \item $v\in B_x\setminus A_x$ and $w\in B_x\setminus A_x$.  In this case $v$ and $w$ are both vertices in the graph $G[B_x]$ and we can test for the presence of the edge $vw$ using $\lambda_x(v)$ and $\lambda_x(w)$ from part~\ref{dejmmw_part}.
+          \item $v\in B_x\setminus A_x$ and $w\in V^-_x\setminus B_x$.  In this $w\in B_x\setminus A_z$ for some $T$-descendant $z\neq x$ of $x$.  Let $y$ be the $T$-child of $x$ on the path from $x$ to $z$.  In this case $v$ and $w$ can only be adjacent if $v\in B_z\cap B_x$.
+
+          Part~\ref{dejmmw_part_b} of $w$'s label contains $\lambda_x(K)$, where $K=\torso{G}{B_x}[A_y]$.
+          Part~\ref{clique_part} of $w$'s label contains, for each $v'\in B_z\cap B_y$ the index $i$ of $v'$ in the clique $K$. For each $v'in A_x\cap A_z$, the mixed labelling scheme for $\torso{G}{B_x}$ includes a testing function $\mu_x$ such that $\mu_x(\lambda(v),\lambda(k),i)=1$ if and only if $v'=v$.  If $v'=v$ for some $v'\in A_x\cap A_z$ then an additional bit in part~\ref{apex_edges} of $w$'s label indicates whether the edge $v'w=vw\in E(G)$.  If $v'\neq v$ for any $v'\in B_z\cap B_x$, then $v\not\in V(K)=A_y$, so $vw\not\in E(G)$.
+
+          \item $v\in V^-_x\setminus B_x$ and $w\in V^-_x\setminus B_x$.  In this case, we compare $\lambda_x(v)$ and $\lambda_x(w)$.  If $\lambda_x(v)\neq\lambda_x(w)$ then $v\in V^-_{x,K}$ and $w\in V^-_{x,K'}$ for distinct cliques $K$ and $K'$ in $\torso{G}{B_x}$, in which case we can immediately conclude that $vw\not\in E(G)$.
+          If $\lambda_x(v)=\lambda_x(w)$ then $v$ and $w$ are both vertices of $G_{x,K}$ for some clique $K$ in \torso{G}{B_x}$.  In this case, we can test for the presence of the edge $vw$ in $G_{x,K}$ using $\lambda_{x,K}(v)$ and $\lambda_{x,K}(w)$.
+        \end{enumerate}
+      \end{enumerate}
+    \end{enumerate}
+    % % For each $x\in X$ and each $v\in B_x\setminus A_x$,
+    %
+    % Let $x\in X$ and $v\in V(T^-_x)$. The total length of parts \ref{flag_part}--\ref{pi_part} of $v$'s label is
+    % \[
+    %   \log n - \log\omega_i(x)
+    % \]
+    % If $v\in B_x\setminus A_x$, then part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) $
+    %
+    % If $v\in A_x$, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n) + \log(k/\alpha)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) + \log(k/\alpha) \le \log n + \sqrt{k\cdot g(n)\log n} + |$
+    %
+    % Let $w$ be of $G(x,K)$ for some clique $K$ in $\torso{G}{B_x}$.  Then there exists a $T$-child $y$ of $x$ such that $w\in B_z\setminus A_z$ for some $z\in V(T_y)$.  In this case, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega^-(x,K) + g(n)$.  The label
+    %
+    % in $V(T^-_x)\setminus B_x$ and let $y$ be child of $v$
 
   \end{proof}
 
