@@ -506,15 +506,8 @@ of bags where the order of the bags corresponds to the order of the vertices in 
 
   A rooted tree-decomposition $\mathcal{T}:=(B_x:x\in V(T))$ of a graph $G$ is $b$-skinny if $|L_i(T)|\le b$ for each $i\in\N$.
 
-  \begin{lem}
-    Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that contains every graph that has a $b$-skinny tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.  Then $\mathcal{G}'$ admits a weighted $(g_1'(n),g_2'(n))$-waste mixed labelling scheme, where
-    \[ g'_1(n) = g_1(n) + {?} \]
-    \[ g'_2(n) = g_2(n) + k\log (bk) \]
-  \end{lem}
 
-  \begin{proof}
-    Let $G$ be a graph $\mathcal{G}'$, so $G$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$
-  \end{proof}
+  \pat{Express \cref{low_pathwidth_separator} in terms of a tree-decomposition of height $\log_{1/\alpha} n$ where each bag has a $b$-skinny tree-decomposition.....}
 
   \subsection{Weighted Adjacency and Clique-Encoding Labelling Schemes}
 
@@ -584,6 +577,17 @@ of bags where the order of the bags corresponds to the order of the vertices in 
     The third part of $\ell(w)$ has length at most $|A_z\cap B_r|\cdot (g_2(n) + O(\log\log n))$, so the length of $\ell(w)$ satisfies \eqref{strong_strong}.
 
     \pat{TODO: Explain Adjacency Testing}
+  \end{proof}
+
+
+  \begin{lem}
+    Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that contains every graph that has a $b$-skinny tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.  Then $\mathcal{G}'$ admits a weighted $(g_1'(n),g_2'(n))$-waste mixed labelling scheme, where
+    \[ g'_1(n) = g_1(n) + {?} \]
+    \[ g'_2(n) = g_2(n) + k\log (bk) \]
+  \end{lem}
+
+  \begin{proof}
+    Let $G$ be a graph $\mathcal{G}'$, so $G$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$
   \end{proof}
 
 
