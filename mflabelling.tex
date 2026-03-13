@@ -173,7 +173,7 @@ labelindent=.2em, leftmargin=*, widest=iii,}
 
 %\david{Suggested title: Optimal adjacency labelling for minor-closed classes of graphs}
 %\piotr{I think the shorter version has some elegance. Also, our labelling is optimal up to the lower order term. I would vote to stay with the current title.}
-%\pat{I would also keep optimal out of the title}
+%\pat{I would also keep opti mal out of the title}
 
 \begin{abstract}
 We show that every proper minor-closed class of graphs admits
@@ -524,15 +524,53 @@ of bags where the order of the bags corresponds to the order of the vertices in 
     \item for each $v,w\in V(G)$, $A(\lambda(v),\lambda(w))=1$ if and only if $vw\in E(G)$;
     % \item for each $v\in V(G)$, $|\lambda(v)|\le \log \omega(V(G))-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
     \item for each $v\in V(G^+)$, $|\mu(v)|\le \log \omega(G) - \log\omega(v) + g_1(n)$
-    \item for each clique $K$ in $\mathcal{K}$ and each vertex $v$ of $K$, there exists a binary string $\kappa(K,v)$ of length at most $g_2(n)$ such that, for each vertex $v'\in V(G^+)$, $\mu(\lambda(K),\lambda(v'),\kappa(K,v))=1$ if and only if $v=v'$; and
-    \item for each clique $K$ in $\mathcal{K}$, $|\mu(K)|\le \log \omega(G) - \log\min\{\omega(v):v\in V(K)\} + g_1(n)$.
+    \item\label{clique_id} for each clique $K$ in $\mathcal{K}$ and each vertex $v$ of $K$, there exists a binary string $\kappa(K,v)$ of length at most $g_2(n)$ such that, for each vertex $v'\in V(G^+)$, $M(\mu(K),\mu(v'),\kappa(K,v))=1$ if and only if $v=v'$; and
+    \item for each clique $K$ in $\mathcal{K}$, $|\mu(K)|\le \log \omega(G) - \log(\min_{v\in V(K)}(\omega(v))) + g_1(n)$.
   \end{enumerate}
+  It is worth pointing out that the string $\kappa(K,v)$ from point~\ref{clique_id} is not necessarily part of any label of any vertex or clique in $G^+$.  Point~\ref{clique_id} only requires that such a string exists for each clique $K$ and each vertex $v$ of $G^+$.
+
+  For weighted mixed labelling schemes we have this analogue of \cref{disjoint_union} for dealing with vertex disjoint unions of graphs:
+
+  \begin{lem}\label{disjoint_union_ii}
+    Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.  Then $\mathcal{G}'$ admits a admits a weighted $(g'_1(n),g_2(n))$-waste mixed labelling scheme where $g'_1(n)=g_1(n)+O(\log\log n)$.
+  \end{lem}
+
+  \begin{proof}
+    There are no surprises here.
+    This proof is almost identical to the proof of \cref{disjoint_union}. The only difference is that it requires verifying extra conditions in the definition of weighted mixed labelling scheme.
+    Let $G^+$ be a graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, let $\mathcal{K}$ be a set of cliques in $G^+$, and let $\omega:V(G)\to\N^+$ be a weight function.  By definition, $G^+:=\bigcup_{i=1}^m G^+_i$, where $G^+_1,\ldots,G^+_m$ are pairwise vertex-disjoint members of $\mathcal{G}$. Therefore, $G:=\bigcup_{i=1}^m G_i$, where $G_i:=G[V(G^+_i)]$ is a spanning subgraph of $G^+_i$.
+    For each $i\in\{1,\ldots,m\}$, let $\mathcal{K}_i:=\{K\in\mathcal{K}:K\subseteq G^+_i\}$.
+
+    Let $\omega:\{1,\ldots,m\}\to\N$ be the weight function defined by $\omega(i)=\omega(G^+_i)$.  Apply \cref{shannon_code} with $S:=\{1,\ldots,m\}$ and weight function $\omega$ to obtain a prefix-free code $\pi:\{1,\ldots,m\}\to\{0,1\}^*$ where $|\pi_i(v)|\le\log \omega(G^+)-\log \omega(G^+_i)+1$, for each $i\in\{1,\ldots,m\}$.  For each $i\in\{1,\ldots,m\}$ and each $x\in V(G^+_i)\cup \mathcal{K}_i$, define $\pi(x):=\pi(i)$.
+
+    For each $i\in\{1,\ldots,m\}$, define weight function $\omega_i:V(G^+_i)\to\N^+$ by restricting $\omega:V(G^+)\to\N^+$ to the vertices of $G^+_i$.
+    For each $i\in\{1,\ldots,m\}$, let $\mu_i:V(G^+_i)\cup\mathcal{K}_i\to \{0,1\}^*$ be the mixed labelling of $G_i^+$, $G_i$, and $\mathcal{K}_i$ using the weight function $\omega_i$ as in the definition of weighted mixed labellings.
+
+    We obtain a mixed labelling $\mu:V(G^+)\cup\mathcal{K}$ as follows:
+    \begin{enumerate}
+     \item For each $i\in\{1,\ldots,m\}$ and each $v\in V(G_i)$,  $\mu(v):=(\pi(i), \mu_i(v))$, so
+     \[ |\mu(v)|\le |\pi(v)| + |\mu_i(v)| + O(\log\log n) = \log\omega(G^+)-\log\omega(v)+g_1(n)+O(\log\log n) \enspace .
+     \]
+     \item For each $i\in\{1,\ldots,m\}$ and each $K\in \mathcal{K}_i$,  $\mu(v):=(\pi(i), \mu_i(K))$, so .
+     \[ |\mu(K)|\le |\pi(K)| + |\mu_i(K)| + O(\log\log n) = \log\omega(G^+)-\log\left(\min_{v\in V(K)}(\omega(v))\right)+g_1(n)+O(\log\log n) \enspace .
+     \]
+    \end{enumerate}
+    Given the labels $\mu(v)$ and $\mu(w)$ for two vertices $v,w\in V(G)$, adjacency testing can be done by first using $\pi(v)$ to check that $v$ and $w$ belong to the same subgraph $G_i$ and then using $A(\mu_i(v),\mu_i(w))$.
+
+    For each $i\in\{1,\ldots,m\}$, each $v\in V(G_i^+)$, and each $K\in\mathcal{K}_i$, there exists a string $\kappa_i(K,v)$ of length at most $g_2(n)$ such that, for each $v'\in V(G^+_i)$,  $M(\mu_i(K),\mu_i(v'),\kappa_i(K,v))=1$ if and only if $v'=v$.
+    % For each $i\in\{1,\ldots,m\}$ and each clique $K\in\mathcal{K}_i$, and each $v\in V(K)$, let $\kappa(K,v):=\kappa_i(K,v)$.
+    Given $\mu(K)$, $\mu(v')$ and $\kappa_i(K,v)$ for some $K\in\mathcal{K}$, some $v'\in V(G^+)$ and some $v\in V(G^+)$, we can do membership testing by first checking that $K$ and $v'$ are in the same subgraph $G^+_i$ using $\pi(K)$ and $\pi(v')$ and then evaluating $M(\mu_i(K),\mu_i(v'),\kappa(K,v))$.
+  \end{proof}
+
+
+
+
 
 
   \begin{lem}
      Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that contains, for each $n\in\N$, every $n$-vertex graph that has a tree-decomposition $\mathcal{T}:=(T,(B_x,x\in V(T))$ of adhesion-width at most $k(n)$, where $\height(T)\le h(n)$ and each torso of $\mathcal{T}$ belongs to $\mathcal{G}$.  Then $\mathcal{G}'$ admits an $f(n)$-bit labelling scheme, where
      \[
-       f(n) = \log n + h(n)\cdot g_1(n) + k(n)\cdot g_2(n) + O((h(n)+k(n))\log\log n)$
+       f(n) = \log n + h(n)\cdot g_1(n) + k(n)\cdot g_2(n) + O((h(n)+k(n))\log\log n)
      \]
   \end{lem}
 
@@ -556,7 +594,7 @@ of bags where the order of the bags corresponds to the order of the vertices in 
     Let $\mu_r:B_r\to\{0,1\}^*$ be a weighted $g(n)$-waste mixed labelling of $\torso{G}{B_r}$ and $G[B_r]$ with using weight function $\omega$.  Then, for each $v\in B_r$, $|\mu(v)|\le \log \omega(B_r)-\log\omega(v)+g(n)\le \log n - \log \omega(v) + g(n)+O(\log k+\log\log n)$.  For $v\in B_r$, $\mu(v)$ is the entire label of $v$.
 
     For each $z\in V(T)$, let $C_z:=B_z\setminus B_r$.
-    Let $K\in \mathcal{K}$ and $y\in Y_K$.  Define $V_y:=\bigcup_{z\in V(T_y)} B_z\setminus B_r$, and $G_y:=G[V_y]$.  Then $\mathcal{T}_y:=\{T_y, C_z:\z\in V(T_y)}$ is a tree-decomposition of $G_y$ and and $\height(T_y)\le h-1$. Apply induction on $G_y$ to get an adjacency labelling $\ell_y:B_y\to\{0,1\}^*$.  For each $z\in V(T_y)$ and each $w\in C_z\setminus A_z$,
+    Let $K\in \mathcal{K}$ and $y\in Y_K$.  Define $V_y:=\bigcup_{z\in V(T_y)} B_z\setminus B_r$, and $G_y:=G[V_y]$.  Then $\mathcal{T}_y:=\{T_y, C_z:z\in V(T_y)\}$ is a tree-decomposition of $G_y$ and and $\height(T_y)\le h-1$. Apply induction on $G_y$ to get an adjacency labelling $\ell_y:B_y\to\{0,1\}^*$.  For each $z\in V(T_y)$ and each $w\in C_z\setminus A_z$,
     \begin{align*}
        |\ell_y(w)| & \le \log |V_y| \\
        & \quad {} + h\cdot(g_1(n) + O(\log\log n)) \\
@@ -572,22 +610,35 @@ of bags where the order of the bags corresponds to the order of the vertices in 
 
     For each $K\in\mathcal{K}$, each $y\in Y_K$, each $z\in V(T_y)$, and each $w\in C_z\setminus A_z$, we assign the label
     \[
-       \ell(w) := (\mu(K),\quad \ell_K(w),\quad (\kappa(v,K): v\in B_z\cap B_r\cap N_G(w)} )
+       \ell(w) := (\mu(K),\quad \ell_K(w),\quad (\kappa(v,K): v\in B_z\cap B_r\cap N_G(w)\} )
     \]
     The third part of $\ell(w)$ has length at most $|A_z\cap B_r|\cdot (g_2(n) + O(\log\log n))$, so the length of $\ell(w)$ satisfies \eqref{strong_strong}.
 
-    \pat{TODO: Explain Adjacency Testing}
+    \pat{TODO: Explain  Adjacency Testing}
   \end{proof}
 
 
   \begin{lem}
-    Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that contains every graph that has a $b$-skinny tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.  Then $\mathcal{G}'$ admits a weighted $(g_1'(n),g_2'(n))$-waste mixed labelling scheme, where
+    Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1(n),g_2(n))$-waste mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs consisting of every graph that has a $b$-skinny tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.  Then $\mathcal{G}'$ admits a weighted $(g_1'(n),g_2'(n))$-waste mixed labelling scheme, where
     \[ g'_1(n) = g_1(n) + {?} \]
     \[ g'_2(n) = g_2(n) + k\log (bk) \]
   \end{lem}
 
   \begin{proof}
-    Let $G$ be a graph $\mathcal{G}'$, so $G$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$
+    Let $G$ be a graph $\mathcal{G}'$ and let $\omega:V(G)\to\N$ be a weight function. By definition, $G$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$.  For each $i\in\N$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Let $p:=\max\{j\in\N: B_j\neq\emptyset\}$.  Then $B_1,\ldots,B_p$ is a path decomposition of $G$ of adhesion-width at most $kb$. Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,p\}$, let $A_i:=B_i\cap B_{i-1}$.
+
+    Define the weight function $\omega:\{1,\ldots,p\}\to\N^+$ by $\omega(i):=\omega(B_i\setminus A_i)$. Apply \cref{shannon_fano_elias_tree} and \cref{shannon_fano_elias_code} to the set $S:=\{1,\ldots,p\}$ with weight function $\omega$, and let $T_\omega$ and $\rho:S\to\{0,1\}^*$ be the resulting binary tree and code, respectively.
+
+    For each $i\in\{1,\ldots,p\}$, let $G_i^+:=\bigcup_{x\in L_i(T)}\torso{G}{B_x}-A_i$, let $G_i:=\bigcup_{x\in L_i}G[B_x]-A_i$, and let $\mathcal{K}_i:=\{K-A_i:K\in\mathcal{K}\}\setminus\{\emptyset\}$.\footnote{Here, $\emptyset$ is used to denote the graph (clique) with no vertices, which is we do not want to appear in $\mathcal{K}_i$.}  For each $i\in\{1,\ldots,p\}$, apply \cref{disjoint_union_ii} to $G_i^+$, $G_i$, and $\mathcal{K}_i$ with weight function $\omega_i$ to obtain a mixed labelling $\mu_i:V(G^+_i)\cup\mathcal{K}\to\{0,1\}^*$.
+
+    The codes $\rho$ and $\mu_1,\ldots,\mu_p$ are sufficient to assign labels to the vertices of $G$ and obtain a labelling that allows adjacency testing in $G_0:=\bigcup_{i=1}^p(G_i)$ and membership testing for any clique $K\cap \bigcup_{i=1}^p\mathcal{K}_i$.  We still need to do more to deal with edges $vw\in E(G)$ with $w\in B_i\setminus A_i$ and $v\in A_i$ and for cliques $K\in\mathcal{K}$ with $V(K)\cap A_i\neq\emptyset$. \pat{Continue here.}
+
+
+
+    % For each $i\in\{1,\ldots,p\}$, define the weight function $\omega_i:L_i(T)\to\N^+$ by $\omega(x):=\omega(B_x)$.  For each $i\in\{1,\ldots,p\}$, apply \cref{shannon_code} to the set $L_i(T)$ with weight function $\omega_i$ to get a prefix-free code $\pi_i:L_i(T)\to\{0,1\}^*$.
+
+
+
   \end{proof}
 
 
