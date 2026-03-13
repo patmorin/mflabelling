@@ -625,20 +625,24 @@ of bags where the order of the bags corresponds to the order of the vertices in 
   \end{lem}
 
   \begin{proof}
-    Let $G$ be a graph $\mathcal{G}'$ and let $\omega:V(G)\to\N$ be a weight function. By definition, $G$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$.  For each $i\in\N$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Let $p:=\max\{j\in\N: B_j\neq\emptyset\}$.  Then $B_1,\ldots,B_p$ is a path decomposition of $G$ of adhesion-width at most $kb$. Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,p\}$, let $A_i:=B_i\cap B_{i-1}$.
+    Let $G$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, let $\mathcal{K}$ be a set of cliques in $G^+$, and let $\omega:V(G^+)\to\N^+$ be a weight function.
+    By definition, $G^+$ has a $b$-skinny tree decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso belongs to $\mathcal{G}$.  For each $i\in\N$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Let $p:=\max\{j\in\N: B_j\neq\emptyset\}$.  Then $B_1,\ldots,B_p$ is a path decomposition of $G$ of adhesion-width at most $kb$.
+    % By definition, $G^+$ has a path decomposition $B_1,\ldots,B_p$ in which each torso belongs to $\mathcal{G}$.
+    Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,p\}$, let $A_i:=B_i\cap B_{i-1}$.
 
-    Define the weight function $\omega:\{1,\ldots,p\}\to\N^+$ by $\omega(i):=\omega(B_i\setminus A_i)$. Apply \cref{shannon_fano_elias_tree} and \cref{shannon_fano_elias_code} to the set $S:=\{1,\ldots,p\}$ with weight function $\omega$, and let $T_\omega$ and $\rho:S\to\{0,1\}^*$ be the resulting binary tree and code, respectively.
+    Define the weight function $\omega:\{1,\ldots,p\}\to\N^+$ by $\omega(i):=\omega(B_i\setminus A_i)$.  Since $\{B_i\setminus A_i:i\in\{1,\ldots,n\}\}$ is a partition of $V(G)$,  $\sum_{i=1}^p\omega(i)=\omega(G^+)$. Apply \cref{shannon_fano_elias_tree} and \cref{shannon_fano_elias_code} to the set $S:=\{1,\ldots,p\}$ with weight function $\omega$, and let $T_\omega$ and $\rho:S\to\{0,1\}^*$ be the resulting binary tree and code, respectively.
 
-    For each $i\in\{1,\ldots,p\}$, let $G_i^+:=\bigcup_{x\in L_i(T)}\torso{G}{B_x}-A_i$, let $G_i:=\bigcup_{x\in L_i}G[B_x]-A_i$, and let $\mathcal{K}_i:=\{K-A_i:K\in\mathcal{K}\}\setminus\{\emptyset\}$.\footnote{Here, $\emptyset$ is used to denote the graph (clique) with no vertices, which is we do not want to appear in $\mathcal{K}_i$.}  For each $i\in\{1,\ldots,p\}$, apply \cref{disjoint_union_ii} to $G_i^+$, $G_i$, and $\mathcal{K}_i$ with weight function $\omega_i$ to obtain a mixed labelling $\mu_i:V(G^+_i)\cup\mathcal{K}\to\{0,1\}^*$.
+    For each $i\in\{1,\ldots,p\}$, let $G_i^+:=\bigcup_{x\in L_i(T)}\torso{G}{B_x}-A_i$, let $G_i:=\bigcup_{x\in L_i}G[B_x]-A_i$, and let $\mathcal{K}_i:=\{K-A_i:K\in\mathcal{K}\}\setminus\{\emptyset\}$.\footnote{Here, $\emptyset$ is used to denote the graph (clique) with no vertices, which is we do not want to appear in $\mathcal{K}_i$.}  For each $i\in\{1,\ldots,p\}$, apply \cref{disjoint_union_ii} to $G_i^+$, $G_i$, and $\mathcal{K}_i$ with weight function $\omega_i$ to obtain a mixed labelling $\mu_i:V(G^+_i)\cup\mathcal{K}\to\{0,1\}^*$, which includes a string $\kappa_i(K,v)$ for each $K\in\mathcal{K}_i$ and $v\in V(K)$.
 
-    The codes $\rho$ and $\mu_1,\ldots,\mu_p$ are sufficient to assign labels to the vertices of $G$ and obtain a labelling that allows adjacency testing in $G_0:=\bigcup_{i=1}^p(G_i)$ and membership testing for any clique $K\cap \bigcup_{i=1}^p\mathcal{K}_i$.  We still need to do more to deal with edges $vw\in E(G)$ with $w\in B_i\setminus A_i$ and $v\in A_i$ and for cliques $K\in\mathcal{K}$ with $V(K)\cap A_i\neq\emptyset$. \pat{Continue here.}
+    The codes $\rho$ and $\mu_1,\ldots,\mu_p$ are sufficient to assign labels to the vertices of $G$ and obtain a labelling that allows adjacency testing in $G_0:=\bigcup_{i=1}^p(G_i)$ and membership testing for any clique $K\cap \bigcup_{i=1}^p\mathcal{K}_i$.  We still need to do more to deal with edges $vw\in E(G)$ with $w\in B_i\setminus A_i$ and $v\in A_i$ and for cliques $K\in\mathcal{K}$ with $V(K)\cap A_i\neq\emptyset$.
 
+    Let $A:=\bigcup_{i=1}^p A_i$.  For each vertex $v\in A$, let $a(v):=\min\{i:v\in B_i\}$ and $b(v):=\max\{i:v\in B_i\}$.  Note that, for each $i\in\{1,\ldots,p\}$ and each $v\in A_i$, $a(v)\le i-1$ and $b(v)\ge i$, so $a(v)$ and $b(v)$ are two different leaves of $T_\omega$.  Let $x_{T_\omega}:A\to V(T_\omega)$ be the function defined by  $x_{T_\omega}(v):=\lca_{T_\omega}(a(v),b(v))$.  We claim that, for each $x\in V(T)$, $|x_{T_\omega}^{-1}(x)|\le kb$. If $x$ is a node of $T_\omega$ with less than two children then $x_{T_\omega}^{-1}(x)=\emptyset$, so assume that $x$ has at least two children.  Then the smallest leaf $T_\omega$-descendant of the right child of $x$ is $i$ and the largest leaf $T_\omega$-descendant of the left child of $x$ is $i-1$, for some $i\in\{2,\ldots,p\}$.  is a leaf of $T_\omega$ this is obvious, so assume that $x$ is an internal node of $T_\omega$.  For each $v\in x_{T_\omega}^{-1}(x)$, $a(v)\le i-1$ and $b(v)\ge i$, so $v\in B_{i-1}$ and $v\in B_i$.  Therefore $|x_{T_\omega}^{-1}(x)|\le |B_{i-1}\cap B_i|\le bk$, since $B_1,\ldots,B_p$ has adhesion-width at most $bk$.
 
+    For each $v\in A$, assign a colour $\varphi(v)\in\{1,\ldots,kb\}$ that is different from $\varphi(v')$ for each $v'\in x_{T_\omega}^{-1}(x_{\omega}(v))$.  For each $v\in A$, let $\kappa(v)$ be a binary string of length $\log(kb)+O(\log\log n)$ that encodes $\varphi(v)$ and $\depth_{T_\omega}(x_{T_\omega}(v))$.  Observe that, for any $v,v'\in A$, $\kappa(v) = \kappa(v')$ if and only if $v=v'$.
 
-    % For each $i\in\{1,\ldots,p\}$, define the weight function $\omega_i:L_i(T)\to\N^+$ by $\omega(x):=\omega(B_x)$.  For each $i\in\{1,\ldots,p\}$, apply \cref{shannon_code} to the set $L_i(T)$ with weight function $\omega_i$ to get a prefix-free code $\pi_i:L_i(T)\to\{0,1\}^*$.
+    For each $i\in\{1,\ldots,p\}$ and each $w\in B_i\setminus A_i$, let $\alpha(w):=(\kappa(v):v\in N_G(w)\cap A_i)$.  (This will be used so that $w$ can recognize its neighbours in $A_i$.)
 
-
-
+    For each $K\in\mathcal{K}$
   \end{proof}
 
 
