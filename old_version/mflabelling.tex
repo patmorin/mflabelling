@@ -1,0 +1,1571 @@
+\documentclass{patmorin}
+\listfiles
+\usepackage{pat}
+\usepackage{paralist}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% \usepackage{paralist}
+\usepackage[inline]{enumitem}
+\usepackage{bbm}  % needed for \mathbbm{1}
+% \usepackage{logix}
+\usepackage{halloweenmath}
+\usepackage{stmaryrd}
+\usepackage{todonotes}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{comment}
+\usepackage{thm-restate}
+\usepackage{bbm}
+%\piotr{added packages}
+\usepackage{mathtools}
+%\piotr{end of added packages}
+
+
+\DeclareMathOperator{\height}{height}
+
+\newcommand{\dtorso}[2]{{#1}\langle{#2}\rangle^{\downarrow}}
+\newcommand{\torso}[2]{{#1}\langle{#2}\rangle}
+\DeclareMathOperator{\depth}{depth}
+
+
+\usepackage[multiple]{footmisc}
+
+%% so that cleveref outputs Theorems 3--5
+\newcommand{\crefrangeconjunction}{--}
+
+% etoolbox allows for robust commands that don't need \protect, e.g.
+% \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
+% \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
+\usepackage{etoolbox}
+
+% david proposes the following additions
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+
+\newcommand{\david}[1]{{\color{orange} DW: #1}}
+\newcommand{\vida}[1]{{\color{pink} VD: #1}}
+\newcommand{\pat}[1]{\textcolor{Blue}{PaMo: #1}}
+\newcommand{\gwen}[1]{\textcolor{Purple}{GJ: #1}}
+\newcommand{\cyril}[1]{\textcolor{Green}{CG: #1}}
+\newcommand{\piotr}[1]{\textcolor{red}{PiMi: #1}}
+
+% \numberwithin{equation}{lem}
+
+
+\newenvironment{clmproof}{\noindent\emph{Proof of Claim:}}{\hfill\rule{1ex}{1ex}}
+
+\usepackage[longnamesfirst,numbers,sort&compress]{natbib}
+\setlength{\bibsep}{0.4ex plus 0.2ex minus 0.2ex}
+
+\usepackage[mathlines]{lineno}
+\setlength{\linenumbersep}{2em}
+% \linenumbers
+% \rightlinenumbers
+% \linenumbers
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+ \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+ \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+ \renewenvironment{#1}%
+    {\linenomath\csname old#1\endcsname}%
+    {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+ \patchAmsMathEnvironmentForLineno{#1}%
+ \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+
+
+% Taken from
+% https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
+\definecolor{linkblue}{rgb}{0, 0.337, 0.227}
+\newcommand{\defin}[1]{\emph{\textcolor{brightmaroon}{#1}}}
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\makeatother
+\newcommand{\mathdefin}[1]{\mathcolor{brightmaroon}{#1}}
+% \newcommand{\mathdefin}[1]{\color{brightmaroon}#1}}
+\setlength{\parskip}{1ex}
+
+% Document-specific commands and math operators
+\DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\pw}{pw}
+\DeclareMathOperator{\bw}{bw}
+\DeclareMathOperator{\td}{td}
+\DeclareMathOperator{\lca}{lca}
+%\DeclareMathOperator{\rtw}{rtw}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\mindist}{min-dist}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\ld}{ld}
+\DeclareMathOperator{\polylog}{polylog}
+\DeclareMathOperator{\evol}{Evol}
+\DeclareMathOperator{\ivol}{Ivol}
+\DeclareMathOperator{\tvol}{Tvol}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\GG}{\mathcal{G}}
+
+%\piotr{some of my macros}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\calT}{\mathcal{T}}
+
+\DeclarePairedDelimiter\set{\{}{\}}
+\newcommand{\PMtorso}{\mathrm{torso}}
+
+% Use Cref for equations
+\crefformat{equation}{#2(#1)#3}
+\let\eqref\cref
+\crefformat{subsection}{Subsection #2#1#3}
+\crefformat{subsubsection}{Subsubsection #2#1#3}
+
+
+\setenumerate{label=\textup{(\roman*)}, noitemsep, topsep=0pt,
+labelindent=.2em, leftmargin=*, widest=iii,}
+\setitemize{noitemsep, topsep=-\parskip, labelindent=.2em, leftmargin=*, widest=iii,}
+
+
+%\piotr{end of my macros}
+
+\newtheorem{fact}{Fact}
+
+
+\title{\MakeUppercase{\boldmath  Adjacency labelling for minor-closed classes of graphs}}
+
+\author{
+ Vida Dujmovi{\'c}\,\footnote{School of Computer Science and Electrical Engineering, University of Ottawa, Ottawa, Canada (\texttt{vida.dujmovic@uottawa.ca}). Research supported by NSERC and a University of Ottawa Research Chair.}
+ \qquad
+ Gwena\"el Joret\footnote{D\'epartement d'Informatique, Universit\'e libre de Bruxelles, Belgium ({\tt gwenael.joret@ulb.be}). G.\ Joret is supported by the Belgian National Fund for Scientific Research (FNRS) and by the Australian Research Council.}
+ \qquad
+ Cyril Gavoille\footnote{LaBRI, University of Bordeaux, France (\texttt{gavoille@labri.fr}). This work is supported by the French ANR Projets ENEDISC (ANR-24-CE48-7768-01) and TEMPOGRAL (ANR-22-CE48-0001).}\qquad
+ Piotr Micek\footnote{Department of Theoretical Computer Science, Jagiellonian University, Kraków, Poland (\texttt{piotr.micek@uj.edu.pl}). Research supported
+ the National Science Center of Poland under grant UMO-2018/31/G/ST1/03718 within the BEETHOVEN program.}
+ \qquad
+ Pat Morin\footnote{School of Computer Science, Carleton University, Ottawa, Canada (\texttt{morin@scs.carleton.ca}). Research supported by NSERC.}
+ \qquad
+ David~R.~Wood\footnote{School of Mathematics, Monash University, Melbourne, Australia (\texttt{david.wood@monash.edu}). Research supported by the Australian Research Council and by NSERC.}
+ }
+
+\date{}
+
+
+\begin{document}
+\maketitle
+
+
+%\david{Suggested title: Optimal adjacency labelling for minor-closed classes of graphs}
+%\piotr{I think the shorter version has some elegance. Also, our labelling is optimal up to the lower order term. I would vote to stay with the current title.}
+%\pat{I would also keep optimal out of the title}
+
+\begin{abstract}
+We show that every proper minor-closed class of graphs admits
+a $(1+o(1))\log n$-bit adjacency labelling scheme. Equivalently, for every proper minor-closed class $\mathcal{G}$ and every positive integer $n$ there exists an $n^{1+o(1)}$-vertex graph $U$ such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.
+\david{Add something like... Both results are optimal, and improve upon a long sequence of results.}
+\piotr{I am fine either way. How about the others?}  \pat{I would leave that out. Both assertions (optimality and being an improvement) are debatable.}
+%    \david{I would add ... Equivalently, for any proper minor-closed class $\mathcal{G}$ and integer $n$ there exists an $n^{1+o(1)}$-vertex graph that contains every $n$-vertex graph in $\mathcal{G}$ as an induced subgraph.}    \piotr{OK. I slightly reworded it. Is it fine?} \david{yes}
+  \end{abstract}
+
+  \newpage
+  \tableofcontents
+
+  \newpage
+  \section{Introduction}
+Let $\calG$ be a class of graphs and let $f:\NN\to\NN$ be a function.
+We say that $\calG$ admits an \defin{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\set{0,1}^*)^2\to\set{0,1}$
+% , called an \defin{adjacency tester,}
+such that for all positive integers $n$, for every $n$-vertex graph $G\in\calG$, there exists a function $\ell: V(G)\to\set{0,1}^*$ such that
+$|\ell(v)|\leq f(n)$ for each vertex $v$ in $G$, and such that
+for every two vertices $u$, $v$ in $G$,
+\[
+A(\ell(u),\ell(v))=\begin{cases}
+0&\textrm{if $uv\notin E(G)$},\\
+1&\textrm{if $uv\in E(G)$}.
+\end{cases}
+\]
+In this paper we prove the following result.
+%Note that all logarithms in this paper are of base two.
+
+% \begin{thm}
+% \label{thm:intro:main:v1}
+% For every graph positive integer $t$,
+% the class of $K_t$-minor-free graphs has
+% a $(1+o(1))\log n$-bit adjacency labelling scheme.
+% \end{thm}
+
+% \begin{thm}
+% \label{thm:intro:main:v2}
+% For every graph $H$,
+% the class of $H$-minor-free graphs has
+% a $(1+o(1))\log n$-bit adjacency labelling scheme.
+% \end{thm}
+
+\begin{thm}
+\label{thm:intro:main:v3}\label{main_result}
+Any proper minor-closed class of graphs admits
+a $(1+o(1))\log n$-bit adjacency labelling scheme.\footnote{This paper is about labelling the vertices of a graph with binary strings.  All logarithms are base-$2$.}
+\end{thm}
+
+%Since every proper minor-closed class of graphs excludes $K_t$ as a minor for some value of $t$, in fact we only show that for every positive integer $t$ the class of $K_t$-minor-free graphs has a $f(n)$-bit adjacency labelling scheme, where $f(n)\in(1+o(1))\log n$ and the dependence on $t$ goes only to $o(\log n)$ term.
+
+%\david{I suggest we delete this paragraph and the footnote on page 6. In all the theorem statements just refer to a proper minor-closed class. We don't discuss the dependence on the excluded minor, so we don't need to mention an excluded minor.} \piotr{OK, I see your point. I commented it out and I inserted one sentence at the beginning of the next paragraph. What do you think?}
+
+
+Note that all the dependence on the fixed proper minor-closed class in~\cref{thm:intro:main:v3} is in the $o(\log n)$ term. Also, \cref{thm:intro:main:v3} is optimal up to the $o(\log n)$ term,
+which is $\Oh\left((\log n)^{3/4}\right)$.
+The proof of~\cref{thm:intro:main:v3} is constructive. For any fixed minor-closed class $\calG$, there is a polynomial-time algorithm that takes a graph $G\in\calG$ as input and constructs the labelling $\ell:V(G)\to\{0,1\}^*$. Furthermore, the decoder $A$ for the class $\cal G$ can be implemented in constant time on a realistic model of computation.\footnote{In particular, on a computer with $O(\log n)$-bit words that supports standard arithmetic, bitwise boolean, and shift operations as well as some variant of the most-significant bit or count-leading-zeros instruction. This includes every personal computer that can be purchased today.}
+% Considering an adjacency labelling scheme for a class $\calG$, the proof gives a constant time algorithm for the decoder, i.e.\ function $A$, and polynomial time algorithm for the encoder, i.e.\ function $\ell$ for each $G\in \calG$.
+
+An alternative, but equivalent, interpretation of~\cref{thm:intro:main:v3} is that
+for every proper minor-closed class $\calG$,
+for every positive integer $n$,
+there exists a graph $U$ with $n^{1+o(1)}$ vertices such that every $n$-vertex graph from $\calG$ is isomorphic to an induced subgraph of $U$.
+See~\cref{ssec:universal-graphs}.
+\subsection{State of the art}
+\label{ssec:state-of-art}
+Adjacency labeling schemes were introduced by Kannan, Naor, and Rudich~\cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and independently by Muller~\cite{muller:local} in his PhD thesis, both in the late 1980s.
+Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research.
+Here we review results most relevant to the current work, namely results on trees, bounded treewidth graphs, and planar
+graphs.
+
+Let us start with a simple example to better grasp the notion of the labelling scheme.
+%Consider the class of all forests.
+Given an $n$-vertex forest $F$,
+for each component of $F$ fix an arbitrary vertex to be a root of $F$, and assign each vertex of $F$ with an identifier, i.e.\ a number in $\set{0,\ldots,n-1}$.
+For each nonroot vertex $v$ of $F$,
+let the label of $v$ be
+the pair consisting of its identifier and the identifier of its parent.
+For each root vertex $v$ of $F$,
+let the label of $v$ be
+the pair consisting of its identifier on both coordinates.
+Clearly, given two labels of vertices in $F$,
+a test of adjacency is simply to verify whether an identifier of one vertex is equal to a stored identifier of the parent of the other vertex.
+This constitutes a $\lceil\log(n^2)\rceil=\lceil2\log n\rceil$-bit adjacency labelling scheme for forests.
+There is a fascinating series of results improving on this simple scheme for forests. Chung~\cite{chung:universal} gave an adjacency labelling scheme for $n$-vertex forests with each label of length $\log n +\Oh(\log\log n)$.
+Alstrup and Rauhe~\cite{alstrup.rauhe:improved} devised a scheme with labels of length $\log n+\Oh(\log^*n)$.
+Finally, Alstrup, Dahlgaard, and Knudsen~\cite{alstrup.dahlgaard.ea:optimal} gave a $(\log n + \Oh(1))$-bit adjacency labelling scheme for forests, which is optimal up to the $\Oh(1)$ term.
+Indeed, consider an $n$-vertex graph with no two vertices of the same neighborhood (e.g. a path for $n\geq4$).
+We conclude that, in any adjacency labelling scheme,
+the labels of the vertices must be all different and therefore one label must be of length at least $\lceil\log n\rceil$.
+
+Gavoille and Labourel \cite{gavoille.labourel:shorter} presented
+a $(1+o(1))\log n$-bit adjacency labelling scheme for graphs of bounded treewidth.
+This is particularly relevant to the topic of this paper because of the following famous application of the Graph Minor Structure Theorem:
+DeVos, Ding, Oporowski, Sanders, Reed, Seymour, and Vertigan~\cite{devos2004} showed that every graph
+in a proper minor-closed class can be edge $2$-coloured so that each monochromatic subgraph
+has bounded treewidth.
+Therefore, given a proper minor-closed class of graphs $\calG$,
+for each $G$ in $\calG$, we can fix such a $2$-coloring of edges of $G$, say with red and blue.
+Now for each $G$ in $\calG$, each vertex of $G$ gets a label which is a concatenatenation of two labels given by the adjacency labelling schemes for the red subgraph of $G$ and for the blue subgraph of $G$. Thus, all labels are of length $(2+o(1))\log n$.
+Given two labels of vertices in $G$,
+a test of adjacency is simply to test whether there is a blue edge and whether there is a red edge.
+This gives a $(2+o(1))\log n$-bit adjacency labelling scheme for a fixed proper minor-closed class of graphs, which remained the best-known scheme up to the present work.
+
+Planar graphs are a prominent example of a proper minor-closed class of graphs and there is a long history of research
+on their adjacency labelling schemes.
+Since planar graphs are $5$-degenerate,
+they admit a simple $\lceil6\log n\rceil$-bit adjacency labelling scheme, which was already observed by Muller~\cite{muller:local}.
+Kannan, Naor, and Rudich~\cite{kannan.naor.ea:implicit} use a similar approach that makes use of the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $\lceil4\log n\rceil$.
+Of course, the later result of Gavoille and Labourel~\cite{gavoille.labourel:shorter} also applies and gives a scheme with labels of length $(2+o(1))\log n$.
+The most recent breakthrough came with the application of the product structure theorem for planar graphs by Dujmovi\'c, Joret, Micek, Morin, Ueckerdt, and Wood~\cite{dujmovic.joret.ea:planar}.
+Bonamy, Gavoille, and Pilipczuk~\cite{BGP22} recognized that the product structure is particularly useful for adjacency labelling scheme and broke the barrier of $(2+o(1))\log n$ introducing a scheme with labels of length $(\frac{4}{3}+o(1))\log n$.
+Finally, Dujmovi\'c, Esperet, Joret, Micek, and Morin~\cite{dujmovic.esperet.ea:adjacency} also based on the product structure theorem gave a $(1+o(1))\log n$-bit adjacency labelling scheme for planar graphs, which is optimal up to the lower order term.
+
+The proof of Dujmovi\'c~\emph{et~al.}~\cite{dujmovic.esperet.ea:adjacency} works for  graphs embeddable on any fixed surface, and generally for any proper minor-closed class excluding a fixed apex graph. Here a graph $X$ is \defin{apex} if $X-a$ is planar for some vertex $a\in V(X)$ (or $V(X)=\emptyset$). Such apex-minor-free classes are the limit of this approach (since a minor-closed class $\mathcal{G}$ has `product structure' if and only if some apex graph is not in $\mathcal{G}$). For example, prior to the present work, the best result for $K_6$-minor-free graphs was the $(2+o(1))\log n$-bit adjacency labelling scheme of Gavoille and Labourel~\cite{gavoille.labourel:shorter}.
+
+
+
+\subsection{Universal graphs}
+\label{ssec:universal-graphs}
+\subsection{Outline of the paper}
+\label{ssec:outline}
+\subsection{Overview of the proof}
+\label{ssec:overview}
+
+A tree-decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ of a graph $G$ is \defin{$b$-skinny} if the path-decomposition $(\bigcup_{x\in L_i(T)} B_x)_{i\in\N}$ has adhesion-width at most $b$.  Let $\mathcal{S}_{b,k}$ be the class of graphs that have $b$-skinny tree-decompositions of adhesion-width at most $k$.
+
+For any non-decreasing function $g:\N\to\N$, let \defin{$\mathcal{M}_g$} be the class of graphs that admits a weighted $g(n)$-waste mixed labelling scheme.
+
+$\mathcal{G}_{k,a}$ are the subgraphs of $(H\times P) \oplus K_a$, where $\tw(H)\le k$.
+
+For a graph class $\mathcal{G}$, \defin{$\mathcal{G}^*$} is the class of graphs having tree-decompositions whose torsos are in $\mathcal{G}$.  Note that, if all graphs in $\mathcal{G}^*$ have clique number at most $k$, then the tree-decompositions used to show that some graph is in $\mathcal{G}^*$ has adhesion at most $k$.
+
+For $h:\N\to\N$ and a graph class $\mathcal{G}$, define $\mathcal{G}^h$ to be the graph class containing, for each $n\in\N$, all $n$-vertex graphs $G$ that have a tree-decomposition $\mathcal{T}:=(T,(B_x:x\in V(T)))$ in which each torso is a member of $\mathcal{G}$.
+
+\begin{enumerate}[label=(\arabic*)]
+    \item If $G$ has a tree-decomposition $\mathcal{T}:=(T, (B_x:x\in V(T))$ of adhesion-width $k$, then $G$ has a tree-decomposition $\mathcal{T}':=(T',(B'_x:x\in V(T')))$ of adhesion-width at most $k$ in which $\height(T')\le\log_{b} n$ in which each torso $\torso{G}{B_x}$ has a tree-decomposition $\mathcal{T}_x:=(T^x:B_y:y\in V(T^x))$ in which $T^x$ is a \defin{$2kb$-skinny} subtree of $T$.
+    \item For every minor-closed graph class $\mathcal{G}$, there exists positive integers $k,a$ such that $\mathcal{G}\subseteq \mathcal{G}^*_{k,a}$.
+    \item For every fixed $k,a$, $\mathcal{G}_{k,a}\subseteq\mathcal{M}_g$ where $g(n)\in O(\sqrt{\log n})$ (appendix).
+    \item\label{skinny_tree} \pat{This isn't quite right.}  $\mathcal{G}_{b,k}\cap\mathcal{M}_g\subseteq \mathcal{M}_{g'}$, for some $g'(n)=g(n)+O(\log b+\log\log n)$.
+    \item $(\mathcal{M}_g)^h\subseteq \mathcal{L}_{g'}$ where $g'(n)\in O(h(n)\cdot g(n)+\log h)$.
+\end{enumerate}
+
+
+
+\david{We need to explain where this $(\log n)^{3/4}$ term comes from}
+\piotr{Sure. We must prove it and we can discuss it in the proof overview.}
+
+\david{We need to mention the results we are using to conclude the proof is constructive and there is a polynomial time encoder, especially results for computing the output of the graph minor structure theorem.}
+\pat{I'll have to check this, but it should be true.  The adjacency tester basically performs a longest-common-prefix query on the labels and then $O(k+a)$ applications of the adjacency testing/clique membership procedure for product structured graphs.}
+\piotr{Yes. We need to mention all this. I think only in the proof overview.}
+
+
+
+
+  \section{Building blocks}
+
+Let \defin{$\NN$} be the set of all nonnegative integers and let \defin{$\NN^+$} be the set of all positive integers.
+
+  In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex set of $G$, \defin{$E(G)$} denotes the edge set of $G$, and \defin{$K(G)$} denotes the set of cliques in $G$, where a \defin{clique} is a set of pairwise adjacent vertices. For standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
+
+
+  Let $T$ be a rooted tree and let $r$ be the root of $T$. For each $x\in V(T)$, we define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$ and the \defin{$T$-depth} of $x$, denoted \defin{$\depth_T(x)$}, is the number of edges in $P_T(x)$.
+  The maximum $T$-depth of a vertex in $T$ is the \defin{height} of $T$, denoted \defin{$\height(T)$}.
+  For each $y\in V(T)$ and each $x\in V(P_T(x))$ (including $y$),  the vertex $x$ is a $T$-ancestor of $y$ and $y$ is a \defin{$T$-descendant} of $x$.  For each $x\in V(T)$, we define \defin{$T_x$} to be the subtree of $T$ induced by all $T$-descendants of $x$.
+  For each edge $xy$ of $T$ where $x$ is a $T$-ancestor of $y$, we say that $x$ is the \defin{$T$-parent} of $y$ and $y$ is a \defin{$T$-child} of $x$.  For any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$ is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
+  For each $i\in\N_1$, the \defin{$i$-th layer} of $T$ is $\mathdefin{L_i(T)}:=\{x\in V(T):\depth_T(x)=i-1\}$.
+  Thus, the root of $T$ is the only vertex in $L_1$.
+
+
+
+A \defin{tree decomposition} of a graph $G$ is a pair $(T,(B_x \mid x \in V(T)))$,
+where $T$ is a tree and $B_x \subseteq V(G)$ for every $x \in V(T)$, with the
+following properties:
+\begin{enumerate}
+	\item for every vertex $u$ in $G$, the subgraph of $T$ induced by $\{x \in V(T) \mid u \in B_x\}$ is non-empty and connected; and
+	\item for every edge $uv$ in $G$, there exists $x\in V(T)$ such that $u,v\in B_x$.
+\end{enumerate}
+
+
+We call the sets $B_x$ the \defin{bags} of the tree decomposition and the sets $B_x\cap B_y$ for all distinct $x,y\in V(T)$, the \defin{adhesions} of the tree decomposition.
+The \defin{width} of a tree decomposition is the maximum size of a bag minus one.
+The \defin{adhesion-width} of a tree decomposition is the maximum size of an adhesion.
+
+Let $G$ be a graph,
+let $\calT=(T,(B_x \mid x\in V(T)))$ be a tree decomposition of $G$, and let $x$ be a vertex of $T$.
+The \defin{torso} of $x$, denoted \defin{$\torso{G}{B_x}$},
+ is the graph with the vertex set $B_x$ and two distinct vertices $u$, $v$ are adjacent
+  if $uv \in E(G)$, or there exists $y \in N_T(x)$ such that $u,v \in B_x \cap B_y$.\footnote{The notation $\torso{G}{B_x}$ introduces some minor ambiguity since the definition of $\torso{G}{B_x}$ depends on $(B_y:y\in N_T(x))$, but the notation makes no reference to the tree decomposition $(B_z:z\in V(T))$.  When we use this notation, the tree decomposition will always be obvious from context.}
+
+
+%  \piotr{I don't like this ambiguity in the definition of torso. We can do better. Here is my proposition.} \david{The ambiguity in the beautiful notation $\torso{G}{B_x}$, which is explained in the footnote, is justified when compared to $\PMtorso_{G,\mathcal{W}}(W_x)$.} \pat{Boy, $\PMtorso_{G,\mathcal{W}}(W_x)$ is really a mouthful, and I don't like that it pushes $G$ into the subscript.  If it was an issue (which I don't think it is in this paper) I would probably choose something like $\torso{G}{B_x}_\mathcal{T}$ or $\torso{G}{\mathcal{T},B_x}$ or $\torso{\mathcal{T}}{G,B_x}$ or even $\torso{\mathcal{T}}{B_x}$ if $G$ is understood.  It is becoming an issue in another paper of mine, where we're starting to get expressions like $\torso{\torso{G}{B_x}}{C_y}$.  Even there, I would be hesitant to use $\PMtorso_{\PMtorso_{G,\mathcal{T}}(B_x),\mathcal{T}_x}(C_y)$ over $\torso{\torso{G}{B_x}_\mathcal{T}}{C_y}_{\mathcal{T}_x}$.  (See why I don't like pushing $G$ into the subscript?)}
+%  \piotr{Point taken. Indeed, I also don't like to put stuff into subscript. Could we find a common ground with: $\torso{G}{\mathcal{T},B_x}$?}
+%  \piotr{or perhaps $\torso{G}{\mathcal{T},x}$?}  \pat{The last one is not bad, but does it matter for this paper?  Things are relatively simple.}
+%  \piotr{OK. I keep reading and later we will get back to this.}
+
+  A tree-decomposition $(T,(B_x \mid x\in V(T)))$ is \defin{rooted} if $T$ is a rooted tree.
+  Let $\calT=(T,(B_x \mid x\in V(T)))$ be a rooted tree decomposition of some graph $G$.  A node $y\in V(T)$ is \defin{redundant} if $y$ is the root of $T$ and $B_y$ is empty or if $y$ is a non-root node of $T$ and $B_y\subseteq B_x$, where $x$ is the $T$-parent of $y$.  A tree-decomposition is \defin{non-redundant} if it has no redundant nodes.
+  It is straightforward to eliminate redundant nodes from a rooted tree-decomposition $\calT=(T,(B_x \mid x\in V(T)))$.  If the root $r$ of $T$ is redundant, then let $x\in V(T)$ be such that $B_x$ contains at least one vertex, $v$, and $\depth_T(x)$ is minimum.  Adding $v$ to $B_z$ for each $z\in P_T(x)$ results in a tree-decomposition in which $r$ is not redundant.  If there exists $y\in V(T)\setminus\{r\}$ that is redundant then $y$ can be contracted into its $T$-parent to obtain a tree-decomposition with one less redundant bag.  If the width and adhesion-width of the original tree-decomposition $\mathcal{T}$ are each at least one, then this process does not increase the width or adhesion-width of $\calT$.
+
+  % A tree decomposition $(B_x:x\in v(T))$ is \defin{normal} if, for any two edges $e:=xy$ and $e':=x'y'$ of $T$, $B_x\cap B_y=B_{x'}\cap B_{y'}$ implies that $e$ and $e'$ are incident to a common node of $T$.  We note that, for any tree decomposition $\mathcal{T}:=(B_x:x\in V(T))$ of a graph $G$ there exists a tree $T'$ with $V(T')=V(T)$ such that $\mathcal{T}':=(B_x:x\in V(T'))$ is a normal tree decomposition of $G$.\pat{Decide if we want to use this definition.  It would allow us to replace notations like $Y_\mathcal{T}(x,K)$ and $\omega_x(K)$ with $Y_\mathcal{T}(K)$ and $\omega(K)$.  I'm not sure that it's a good idea.}
+
+Let $G$ be a graph and $\calT=(T,(B_x \mid x\in V(T)))$ be a tree decomposition of $G$.
+If $T$ is a path, then $\calT$ is
+a \defin{path decomposition} of $G$.
+In this paper, we denote a path decomposition of $G$ simply as a sequence $(W_1, W_2, \dots, W_m)$
+of bags where the order of the bags corresponds to the order of the vertices in the underlying path.
+
+  \subsection{Weight functions}
+
+  For a set $S$, a \defin{weight function} over $S$ is a mapping $\omega:S\to\R^+$ of the elements of $S$ onto positive real numbers.  When $X$ is a subset of $S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in S}\omega(x)$.  When $S:=V(G)$ is the vertex set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\sum_{x\in V(H)}\omega(x)$.
+
+  Non-redundant rooted tree decompositions define a useful weight function over the nodes of their indexing trees.
+  Let $G$ be a graph and let $\mathcal{T}=(T,(B_x \mid x\in V(T)))$ be a non-redundant rooted tree decomposition.
+  Let $r$ be the root of $T$.
+  We define $\mathdefin{\omega_\mathcal{T}(r)}:=|B_r|$ and, for each non-root vertex $y$ of $T$, we define   $\mathdefin{\omega_{\mathcal{T}}(y)} = |B_y\setminus B_x|$ where $x$ is the $T$-parent of $y$.  This defines a weight function $\omega_\mathcal{T}:V(T)\to \N$ with total weight $\sum_{x\in V(T)}\omega_\mathcal{T}(x)=|V(G)|$.
+
+
+
+  \subsection{Labelling schemes for graphs of bounded degeneracy}
+
+  A graph $G$ is \defin{$d$-degenerate} if every non-empty subgraph of $G$ contains a vertex of degree at most $d$. A graph class $\mathcal{G}$ is $d$-degenerate if every graph in $\mathcal{G}$ is $d$-degenerate. We make use of the following result, which was first used by \citet{muller:local} to find $\lceil6\log n\rceil$-bit adjacency labelling schemes for planar graphs:
+
+  \begin{thm}[\cite{muller:local}]
+  \label{degenerate_labelling_scheme}
+    For each $d\in\N$, there exists a $\lceil(d+1)\log n\rceil$-bit adjacency labelling scheme for the class of $d$-degenerate graphs.
+  \end{thm}
+
+  \subsection{Shannon and Shannon--Fano--Elias Codes}
+
+  A \defin{code} for a set $S$ is an injective function $\lambda:S\to\{0,1\}^*$ that maps each element in $S$ to a distinct binary string.  A code is \defin{prefix-free} if $\lambda(x)$ is not a prefix of $\lambda(y)$ for all distinct $x,y\in S$.
+  We make use of the following fundamental result by Shannon.
+  \begin{lem}[\citep{shannon:mathematical}]\label{shannon_code}
+    Let $S$ be a non-empty set and let $\omega:S\to\R^+$.  Then there exists a prefix-free code $\pi:S\to\{0,1\}^*$ such that $|\pi(x)|\le \log\omega(S)-\log\omega(x)+1$ for each $x\in S$.
+  \end{lem}
+
+  A rooted tree $T$ is a \defin{binary tree} if each node of $T$ has at most two children among which at most one is the \defin{left child} and at most one is the \defin{right child}.
+  A binary tree $T$ is \defin{full} if for every node $x$ of $T$,
+  either $x$ has two children or $x$ has no children.
+  A full binary tree $T$ is \defin{complete} if all the leaves of $T$ have the same depth in $T$.
+  Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children then all the leaf descendants of the left child of $x$ precede all the leaf descendants of the right child of $x$.
+
+
+  The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again later.
+
+
+    \begin{lem}\label{shannon_fano_elias_tree}\label{shannon_fano_elias}
+    Let $S$ be a linearly ordered set and let $\omega:S\to\N^+$. Then there exists a binary tree $T$ such that $S$ is the set of leaves of $T$,
+    the linear order on $S$ agrees with the left-to-right-order of the leaves in $T$, and for each $x\in S$
+    \[
+    \depth_{T}(x)\le \log\omega(S) - \log\omega(x) + 3.
+    \]
+  \end{lem}
+
+
+   \begin{proof}
+     Let $h:=\lceil\log\omega(S)\rceil$.
+     Let $T$ be the tree obtained from a complete binary tree of height $h$, so with $2^h$ leaves, by repeatedly removing a leaf of $T$ until $T$ has exactly $\omega(S)$ leaves.
+     For each $x\in S$, define the $\omega(x)$-element set
+     \[  S_{\omega}[x]:=\{\,\,(x,1),\,(x,2),\,\ldots\,,\,(x,\omega(x))\,\,\} \]
+     and let $S_\omega:=\bigcup_{x\in S}S_{\omega}[x]$.  Then $|S_\omega|=\omega(S)$.  Treat $S_{\omega}$ as a linearly ordered set by using lexicographic order and rename the leaves of $T$, in order, with elements of $S_{\omega}$.
+
+     % We claim that, for each $x\in S$, $T$ will contain a complete binary tree $T[x]$ of height at least $\lfloor\log(\omega(x)/2)\rfloor\ge \log\omega(x) - 1$ whose leaves all contain $x$.  To see why this is so, c
+
+     Let $x\in S$.
+     If $\omega(x)=1$ then define $r_x:=(x,1)$, which is a leaf of $T$.
+     Now suppose that $\omega(x)\geq2$.
+     Consider the lowest common $T$-ancestor $y$ of $S_{\omega}[x]$.
+     Thus, $y$ is an internal node of $T$ and
+     $y$ has a child $z$ in $T$ such that $T_z$ has at least $q\geq\omega(x)/2$ leaves in $S_{\omega}[x]$.
+     If $z$ is the left child of $y$, then these are the $q$ right-most leaves in $T_z$, otherwise these are the $q$ left-most leaves in $T_z$.  In either case, $T_z$ contains a subtree $T[x]$ of height at least $\lfloor\log q\rfloor\ge \log\omega(x) - 2$ whose leaves are all in $S_{\omega}[x]$.
+     Let $r_x$ be the root of $T[x]$.  Since $\height(T)\ge \depth_T(r_x)+\height(T_{r_x})$, we have
+
+      \piotr{I stopped here. Goodnight.}  \pat{Looks good so far. Thanks!}
+
+     \[
+     \depth_T(r_x)\le \height(T)-\height(T_{r_x})\le \log\omega(S) -\log\omega(x) + 3.
+     \]
+
+     Let $X:=\{r_x:x\in S\}$ and observe that no node in $X$ is a $T$-ancestor of any other node in $X$. Then $T_\omega:=\bigcup_{x\in S}P_T(x)$ is a rooted ordered binary tree and each leaf of $T_\omega$ is a node $r_x$ with $\depth_{T_\omega}(r_x)\le \log\omega(S)-\log\omega(x)+3$, for some $x\in S$.  Renaming each leaf $r_x$ of $T_\omega$ with $x$ gives the desired tree $T_\omega$.
+   \end{proof}
+
+
+
+
+  In coding theory, some variant of \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of $T_\alpha$ a 0 or 1 depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T_\omega$ as a binary string with the following properties:
+
+  \begin{cor}\label{shannon_fano_elias_code}\label{shannon_fano_elias_cor}
+    Let $S$ be a totally ordered set and let $\omega:S\to\N$.  Then there exists a code $\rho:S\to \{0,1\}^\star$ for $S$ such that:
+    \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
+      \item $|\rho(x)|\le \log\omega(S) - \log\omega(x)+3$ for each $x\in S$, and
+      \item $\rho(x)$ is lexicographically less than $\rho(y)$ for each $x,y\in S$ with $x< y$.
+    \end{enumerate}
+  \end{cor}
+
+
+
+  \subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
+
+  In this section we develop one of the main tools used in our proof of \cref{main_result}, but first we explain why this tool is needed.
+
+  It is well-known that a balanced separator of $G$ can be obtained from one bag of a tree-decomposition \cite{robertson.seymour:graph_minors_ii}. That is, for every $n$-vertex graph $G$ and every tree-decomposition $\mathcal{T}:=(B_x:x\in V(T))$ of $G$, there exists $x\in V(T)$ such that each component of $G-B_x$ has at most $n/2$ vertices.  This result and its generalizations are incredibly useful for divide-and-conquer strategies that apply recursion/induction on substantially smaller subproblems defined by some partition of the components of $G-B_x$.  For example, the fact that each component of $G-B_x$ has at most $n/2$ vertices implies that these components can be partitioned among two subgraphs $G_1$ and $G_2$ each having at most $2n/3$ vertices.
+
+  For our adjacency labelling problem, there are restrictions on the way in which the components of $G-B_x$ can be partitioned into subproblems. We must treat two components $C_1$ and $C_2$ of $G-B_x$ as part of the same subproblem if $N_G(V(C_1))=N_G(V(C_2))$.  To see why this is an issue, consider a star graph $G$ with a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of width $1$.  Then the central vertex $r$ appears in every bag of $\mathcal{T}$. Thus, for any bag $B_x$ of $\mathcal{T}$, each component $C$ of $G-B_x$ has $N_G(V(C))=\{r\}$, so all these components would need to be treated as a single subproblem---with $n-2$ vertices!  Allowing more bags does not help:  For any $X\subseteq V(T)$, $G-\bigcup_{x\in X} B_x$ leaves us with one subproblem containing $n-|X|-1$ vertices.
+
+  Thus, we cannot hope to make a suitable separator by taking the union of a bounded number of bags of $\mathcal{T}$.
+  Instead, we have to settle for a separator defined by a set $X$ of bags in $\mathcal{T}$ that can be partitioned into sets $X_1,\ldots,X_p$ such such that $(\bigcup_{x\in X_i}B_{x})_{i=1}^p$ is a low adhesion-width path-decomposition of $G[\bigcup_{x\in X} B_x]$.  In addition to this, we need a parameter $\alpha$ that trades off the adhesion-width of of the path-decomposition against the maximum size of any subproblem.    We start with a simple low path-adhesion-width separator that does not fully satisfy our requirements:
+
+
+  \pat{Say something about the similar objects used in \url{https://www.mimuw.edu.pl/~bojan/upload/conflicsBojanczykP16.pdf} and \url{https://arxiv.org/html/2601.05195v1}}
+
+
+  \begin{lem}\label{low_pathwidth_separator}
+    Let $T$ be a rooted tree, let $\omega:V(T)\to\R^+$, let $\alpha\in(0,1)$, and let $X_0:=\{x\in V(T):\omega(T_x)>\alpha\cdot\omega(T)\}$.  Then:
+    \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
+      \item\label{connected} $T[X_0]$ is connected and contains the root of $T$;
+      \item\label{skinny} $|X_0\cap L_i(T)|< 1/\alpha$, for each $i\in\N$; and
+      \item\label{light} $\omega(C)\le \alpha\cdot\omega(T)$ for each component $C$ of $T-X_0$.
+    \end{enumerate}
+  \end{lem}
+
+  \begin{proof}
+    \noindent\ref{connected}:  Let $r$ be the root of $T$.  Since $\alpha <1$, $\omega(T_r)=\omega(T)>\alpha\cdot\omega(T)$, so $X_0$ contains the root $r$.  For each $y\in X_0\setminus\{r\}$, $X_0$ contains the $T$-parent, $x$, of $y$ since $\omega(T_x)\ge \omega(x)+\omega(T_y)>\omega(T_y)>\alpha\cdot\omega(T)$.  Therefore $T[X]$ contains the root $r$ of $T$ and, for each $y\in X\setminus\{r\}$, $X$ contains the $T$-parent of $y$. Thus $T[X]$ is connected.
+
+    \noindent\ref{skinny}:
+    Let $X_i:=X\cap L_i(T)$ for each $i\in\N$.  For each $i\in\N$, the subtrees in $\{T_x:x\in X_i\}$ are pairwise vertex-disjoint, so $\omega(T) \ge \sum_{x\in X_i} \omega(T_x)> |X_i|\cdot\alpha\cdot\omega(T)$.  Rewriting this inequality gives $|X_i|<1/\alpha$ for each $i\in\N$.
+
+    \noindent\ref{light}:
+    Each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$ whose $T$-parent is in $X$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \alpha\cdot\omega(T)$.
+  \end{proof}
+
+  % \pat{I think we'll eventually be able to do away with the clique assignment function $\kappa$ below, but I will wait to see the final statement of \cref{weighted} before removing it.}
+
+
+
+
+
+  For a rooted tree decomposition $\mathcal{T}:=(B_x:x\in V(T))$ of a graph $G$, a node $x\in V(T)$, and a clique $K$ in $\torso{G}{B_x}$, define
+  % A function $\kappa:E(T)\to 2^{V(G)}$ is a \defin{clique assignment function} for $\mathcal{T}$ if, for each edge $xy$ of $T$ where $x$ is the $T$-parent of $y$, $\kappa(xy)$ a clique $K$ in $\torso{G}{B_x}$ whose vertex set contains $B_x\cap B_y$.
+  % For each $x\in V(T)$, each clique assignment function $\kappa$ for $\mathcal{T}$, and each clique $K$ in $\torso{G}{B_x}$, define
+  \[
+    \mathdefin{Y_{\mathcal{T}}(x,K)} := \{y\in V(T):\text{$B_x\cap B_y=V(K)$, $x$ is the $T$-parent of $y$}\} \enspace .
+  \]
+  In words, $Y_{\mathcal{T}}(x,K)$ contains the $T$-children of $x$ that adhere to $x$ at the adhesion $V(K)$.
+  % are the cild
+  % for each $x\in V(T)$ and each clique $K$ in $\torso{G}{B_x}$.\footnote{We may assume, without loss of generality, that $y$ is a $T$-child of $x$ for each $x\in V(T)$, each clique $K$ in $\torso{G}{B_x}$, and each $y\in Y_\mathcal{T}(x,K)$}
+
+  \begin{lem}\label{low_adhesion_separator}
+    Let $k\in\N$, let $G$ be an $n$-vertex graph containing no clique on $k+1$ vertices, and let $\mathcal{T}:=(B_x:x\in V(T))$ be a rooted tree decomposition of $G$ of adhesion-width at most $k$.  Then, for any $\alpha\in(0,1)$ there exists a set $X\subseteq V(T)$ such that
+    \begin{enumerate}[label=(\alph*)]
+
+      \item\label{x_connected} $T[X]$ is connected and contains the root of $T$;
+
+      \item\label{x_adhesion} $\mathcal{P}:=\left(\bigcup_{x\in L_i(T)\cap X} B_x\right)_{i\in\N}$ is a path decomposition of $G[\bigcup_{x\in X}B_x]$ of adhesion-width less than $2k/\alpha$; and
+
+      \item\label{x_alpha} $\sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega_\mathcal{T}(T_y)\le \alpha n$ for each $x\in X$ and each clique $K$ in $\torso{G}{B_x}$.
+    \end{enumerate}
+  \end{lem}
+
+  \begin{proof}
+    Let $k$, $G$, $n$ and $\mathcal{T}:=(B_x:x\in V(T))$ be defined as in the statement of the lemma.
+    Let $r$ be the root of $T$. Let $A_r:=\emptyset$ and, for each $y\in V(T)\setminus\{r\}$, let $A_y:=B_y\cap B_x$, where $x$ is the $T$-parent of $y$.  For each $y\in V(T)$, define $\omega(y):=|B_y\setminus A_y|=\omega_\mathcal{T}(y)$. Recall that $\sum_{y\in V(T)}\omega(y)=n$.  Let $X_0:=\{x\in V(T):\omega(T_x)>\alpha n\}$, as in \cref{low_pathwidth_separator}.
+
+    % Observe that, for each $y\in V(T)$, $\omega(T_y)=|\bigcup_{z\in V(T_y)}B_z\setminus (B_x\cap B_y)|$, where $x$ is the $T$-parent of $y$.  Therefore, $X_0$ contains each $x\in V(T)$ such that $\omega(T_x)>\alpha n$.
+
+    For each $x\in X_0$ and each clique $K$ in $\torso{G}{B_x}$, define
+    \[
+       \omega(x,K):=\sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X_0}\omega(T_y)  \enspace .
+    \]
+    Let
+    \[
+       \mathcal{P} := \{(x,K):x\in V(T)\, K\in K(\torso{G}{B_x}),\, \omega(x,K)>\alpha n\}
+    \]
+    and
+    \[
+      X := X_0\cup\bigcup_{x\in X_0}\bigcup_{(x,K)\in\mathcal{P}} Y_\mathcal{T}(x,K)
+      % \bigcup_{K\in K(\torso{G}{B_x})}
+      % \{y\in Y_{\mathcal{T}}(x,K):K\in K(\torso{G}{B_x}),\, \omega(x,K)>\alpha n\}.
+    \]
+    We now show that $X$ satisfies the conditions of the lemma.
+
+    \noindent\ref{x_connected}: $T[X]$ contains the root of $T$ because $X_0\subseteq X$ contains the root of $T$. $T[X]$ is connected because $T[X_0]$ is connected and each vertex $y\in X_0\setminus X$ has a $T$-parent in $X_0$.
+
+    \noindent\ref{x_adhesion}:  For each $i\ge 1$, let $B_i:=\bigcup_{x\in L_{i}(T)\cap X} B_x$ and let $p:=\max\{i\ge 1:B_i\neq\emptyset\}$.  We must show that $B_1,\ldots,B_p$ is a path decomposition of $G[\bigcup_{x\in X}B_x]$ of adhesion-width at most $2k/\alpha$. That $B_1,\ldots,B_p$ is a path decomposition of $G[\bigcup_{x\in X} B_x]$ follows from the fact that $T$ is a tree decomposition of $G$ and that, for each $i\ge 2$ and each $y\in X\cap L_i(T)$, the $T$-parent $x$ of $y$ is in $X\cap L_{i-1}(T)$.
+
+    Now we show that the adhesion-width of $B_1,\ldots,B_r$ is less than $2k/\alpha$.  Let $A_1:=\emptyset$ and let $A_i:=B_{i}\cap B_{i-1}$ for each $i\in\{2,\ldots,p\}$. Fix $i\in\{1,\ldots,p\}$.  We must show that $|A_i|<2k/\alpha$.  Let $v\in A_i$. Then $v$ is contained in $A_y=B_x\cap B_y$, where $x\in X_0\cap L_{i-1}(T)$, $y\in X\cap L_i(T)$ and $xy$ is an edge of $T$. We say that $v$ is of Type~0 if $y\in X_{0}$ and $v$ is of Type~1 if $y\in X\setminus X_0$.  The number of Type~0 vertices in $A_i$ is less than $k/\alpha$ since the number of nodes in $X_{0}\cap L_i(T)$ is less than $1/\alpha$ and $|A_y|\le k$ for each $y\in X_{0}$.
+
+    All that remains is to show that the number of Type~1 vertices in $A_i$ is at most $k/\alpha$.  We will show that $|\mathcal{P}|<1/\alpha$. This is sufficient since the number of Type~1 vertices is $|\bigcup_{(x,K)\in\mathcal{P}} V(K)|\le k\cdot|\mathcal{P}|$.
+
+    The sets in $\{Y_{\mathcal{T}(x,K)}:(x,K)\in\mathcal{P}\}$ are pairwise disjoint and each is a subset of $L_i(T)$.   Therefore,
+    \begin{align*}
+        n = \omega(T)
+        & \ge \sum_{y\in L_i(T)} \omega(T_y) \\
+        & \ge \sum_{(x,K)\in\mathcal{P}}\sum_{y\in Y_\mathcal{T}(x,K)\setminus X_0}\omega(T_y) \\
+        & = \sum_{(x,K)\in\mathcal{P}}\omega(x,K) \\
+        & > |\mathcal{P}|\cdot\alpha\cdot n \enspace .
+    \end{align*}
+    Dividing both sides by $\alpha n$ shows that $|\mathcal{P}| < 1/\alpha$.
+
+    \noindent\ref{x_alpha}: Let $x\in X$ and $K\in K(\torso{G}{B_x})$.  If $(x,K)\in\mathcal{P}$ \pat{Continue......} Assume, for the sake of contradiction, that
+    \begin{equation}
+       \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega_\mathcal{T}(T_y)
+       = \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega(T_y)
+       > \alpha n \enspace . \label{contra}
+    \end{equation}
+    for some $x\in X$ and some clique $K$ in $\torso{G}{B_x}$.  Equivalently, $\sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega(T_y) > \alpha n$.  Therefore, $\omega(T_x) \ge \omega(x,K) > \alpha n$, so $x\in X_0$. Furthermore,
+    \[
+      \omega(x,K)
+       = \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X_0}\omega(T_y)
+       \ge \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X}\omega(T_y)
+    \]
+    The definition of $X$ then implies that $Y_{\mathcal{T}}(x,K)\subseteq X$, so
+    \[
+      \sum_{y\in Y_{\mathcal{T}}(x,K)\setminus X} \omega(T_y)=\sum_{y\in \emptyset}\omega(T_y)=0 \enspace ,
+    \]
+    contradicting \eqref{contra}.
+  \end{proof}
+
+  \subsection{Graph Minor Product Structure Theorem}
+
+%  \pat{Copy definition of $k$-almost-embeddable graph here.  Make sure that the definition stipulates that these graphs are $k$-degenerate and therefore the maximum clique size is $k$.  ($K_t$-minor-free graphs are $O(t^{3/2})$-degenerate).} \david{ I have pasted in the definition, but I think we don't need almost-embeddability}
+
+%The graph minor structure theorem of \citet{RS-XVI} shows that every $K_t$-minor-free graph has a tree-decomposition where each torso can be constructed using three ingredients: graphs on surfaces, vortices, and apex vertices. To describe this formally, we need the following definitions.
+
+%Let $G_0$ be a graph embedded in a surface $\Sigma$. A closed disc $D$ in $\Sigma$ is \defin{$G_0$-clean} if its only points of intersection with $G_0$ are vertices of $G_0$ that lie on the boundary of $D$. Let $x_1,\dots,x_b$ be the vertices of $G_0$ on the boundary of $D$ in the order around $D$. A \defin{$D$-vortex} (with respect to $G_0$) of a graph $H$ is a path-decomposition $(B_1,\dots,B_b)$ of $H$ such that $x_i\in B_i$ for each $i\in[b]$, and $V(G_0\cap H)=\{x_1,\dots,x_b\}$.
+
+%For integers $g,p,a\geq0$ and $k\geq1$, a graph $G$ is \defin{$(g,p,k,a)$-almost-embeddable} if for some set $A\subseteq V(G)$ with $|A|\leq a$, there are graphs $G_0,G_1,\dots,G_p$ such that: \begin{itemize} \item $G-A = G_{0} \cup G_{1} \cup \cdots \cup G_p$, \item $G_{1}, \dots, G_p$ are pairwise vertex-disjoint, \item $G_{0}$ is embedded in a surface $\Sigma$ of Euler genus at most $g$, \item there are $p$ pairwise disjoint $G_0$-clean closed discs $D_1,\dots,D_p$ in $\Sigma$, and \item for $i\in[p]$, there is a $D_i$-vortex $(B_1,\dots,B_{b_i})$ of $G_i$ of width at most $k$. \end{itemize}
+%The vertices in $A$ are called \defin{apex} vertices---they can be adjacent to any vertex in $G$. A graph is \defin{$\ell$-almost-embeddable} if it is $(g,p,k,a)$-almost-embeddable for some $g,p,k,a\leq \ell$.
+
+
+
+ % \pat{Also define $(a,k)$-almost embeddable graphs, which are $k$-almost embeddable graphs with at most $a$ major apex vertices.}
+
+
+%  \begin{thm}[\protect Graph Minor Structure Theorem~\citep{RS-XVI}]\label{gmst}   For each graph $H$, there exists an integer $k$ such that every $H$-minor-free graph $G$ has a tree decomposition $\mathcal{T}$ of adhesion-width at most $k$ in which each torso of $\mathcal{T}$ is a $k$-almost embeddable graph.  \end{thm}
+
+The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
+	${v=w}$ and ${xy \in E(B)}$, or
+	${x=y}$ and ${vw \in E(A)}$, or
+	${vw \in E(A)}$ and~${xy \in E(B)}$. The \defin{complete join} of $A$ and $B$, denoted by~${A\oplus B}$, is the graph obtained from the disjoint union of $A$ and $B$ by adding all edges $vw$ with $v\in V(A)$ and $w\in V(B)$.
+
+For an integer $k\geq 0$, let \defin{$\mathcal{G}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$. This definition includes various classes of interest. For example, \citet{dujmovic.joret.ea:planar} showed that
+$\mathcal{G}_{8}$ incudes all planar graphs. For integers $k,a\geq 0$, let \defin{$\mathcal{G}_{k,a}$} be the class of graphs that are isomorphic to a subgraph of $(H\boxtimes P)\oplus K_a$ for some graph $H$ with treewidth at most $k$ and for some path $P$. And let \defin{$\mathcal{G}^*_{k,a}$} be the class of graphs that have a tree decomposition in which each torso is in $\mathcal{G}_{k,a}$,
+
+A key ingredient in our proof is the following variant of the Robertson--Seymour Graph Minor Structure Theorem, due to \citet{dujmovic.joret.ea:planar}.
+
+  \begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
+  \label{gmpst}
+  % \david{Just use the second option}
+  % For each graph $H$ there exists integers $k,a\geq 0$ such that every $H$-minor-free graph is in $\mathcal{G}^*_{k,a}$.\\
+  % OR\\
+  For any proper minor-closed class $\mathcal{G}$ there exists integers $k,a\geq 0$ such that $\mathcal{G} \subseteq \mathcal{G}^*_{k,a}$.
+% OR\\
+% For each integer $t\geq 5$ there exists an integer $k\geq 0$ such that every $K_t$-minor-free graph is in $\mathcal{G}^*_{k,t-5}$.
+  \end{thm}
+
+The following is our main technical result, which with  \cref{gmpst}, implies \cref{main_result}.
+
+\begin{thm}
+\label{MainTechnicalStatement}
+For fixed integers $k,a\geq 0$, $\mathcal{G}^*_{k,a}$ admits a $(1+o(1))\log n$-bit adjacency-labelling scheme.
+\end{thm}
+
+% \pat{\cref{MainTechnicalStatement} is actually a special case of a more general theorem that applies to graphs that have tree-decompositions of bounded adhesion-width whose torsos admit weighted $o(\log n)$-waste mixed labelling schemes.  I'm not sure if we want to bother with this.}
+
+We will make use of the following facts about $\mathcal{G}_{k,a}$:
+
+\begin{obs}[\citep{HW25}] \label{gka_parameters}
+    For any integers $a,k\ge 0$,  $(H\boxtimes P)\oplus K_a$ is $(3k+a+1)$-degenerate and has no clique with more than  $2k+a+2$ vertices.
+\end{obs}
+
+  In particular, any tree decomposition used to show that a graph $G$ is in the class $\mathcal{G}^*_{k,a}$ has adhesion-width at most $2k+a+2$.
+
+  \subsection{Weighted Adjacency and Clique-Encoding Labelling Schemes}
+
+  To prove \cref{MainTechnicalStatement}, we need a generalization of the adjacency labelling scheme of \citet{dujmovic.esperet.ea:adjacency} for graphs with product structure that supports weights and also assigns labels to cliques.  This motivates the following definitions.
+
+  % Let $g:\N\to\R$.  A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$, each $n$-vertex graph $G$ in $\mathcal{G}$, and each assignment $\omega:V(G)\to\R^+$ of positive weights to the vertices of $G$, there exists a function  $\lambda:V(G)\to\{0,1\}^*=\lambda_{G,\omega})$ such that,
+  % \begin{itemize}
+  %   \item for each $v,w\in V(G)$, $\tau(\lambda_\omega(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
+  %   \item for each $v\in V(G)$, $|\lambda(v)|\le \log \Omega-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
+  % \end{itemize}
+  % Again, the function $\tau$ is called an \defin{adjacency tester} and the the function $\lambda$ is called a \defin{labelling} of $G$.
+
+  % \pat{We need to update this so that the weighting and labelling only needs to apply to a subset of the cliques in $G^+$.  Otherwise we have to do something like assign a minimum unit weight to each clique and then account for that in the total weight.  Simpler to just assign weight to the cliques in $\{\torso{G}{B_x}[B_x\cap B_y\setminus A_x]: y\in N_T(x)\setminus X\}$.}
+
+  Let $G$ be a graph and let $\mathcal{K}$ be a subset of the cliques in $G$.
+  A \defin{mixed labelling} of $(G,\mathcal{K})$ is a function $\lambda:V(G)\cup \mathcal{K}\to\{0,1\}^*$.\footnote{Note that a clique labelling $\lambda$ of $G$ distinguishes between vertices of $G$ and $1$-vertex cliques in $G$; $\lambda(v)$ is not necessarily equal to $\lambda(G[\{v\}])$.} A graph family $\mathcal{G}$ admits a \defin{weighted $g(n)$-waste mixed labelling scheme} if there exists two functions:
+  \begin{enumerate}
+      \item $\tau:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
+      \item $\mu:(\{0,1\}^*)^2\times\N\to\{0,1\}$ (the \defin{membership tester})
+  \end{enumerate}
+  such that, for each $n\in\N$, each $n$-vertex graph $G^+$ in $\mathcal{G}$, each set $\mathcal{K}$ of cliques in $G^+$, each subgraph $G$ of $G^+$, and each weight function $\omega:V(G^+)\to\N^+$, there exists a mixed labelling $\lambda$ of $G^+$ such that
+  \begin{enumerate}
+    \item for each $v,w\in V(G)$, $\tau(\lambda(v),\lambda(w))=1$ if and only if $vw\in E(G)$;
+    % \item for each $v\in V(G)$, $|\lambda(v)|\le \log \omega(V(G))-\log \omega(v) + g(n)$, where $\Omega=\sum_{x\in V(G)} \omega(x)$ is the total weight of $w$.
+    \item for each $v\in V(G^+)$, $|\lambda(v)|\le \log \omega(G) - \log\omega(v) + g(n)$
+    \item for each clique $K$ in $\mathcal{K}$, there exists an ordering $v_1,\ldots,v_k$ of $V(K)$ such that for each vertex $v\in V(G^+)$, $\mu(\lambda(K),\lambda(v),i)=1$ if and only if $v=v_i$; and
+    \item for each clique $K$ in $\mathcal{K}$, $|\lambda(K)|\le \log \omega(G) - \log\min\{\omega(v):v\in V(K)\} + g(n)$.
+  \end{enumerate}
+
+% \david{remove almost-embeddability from the following}
+
+  % \begin{thm}
+  % \label{weighted}
+  % \david{I don't see the need for this result, just use \cref{weighted_product}.}
+  %   For each fixed positive integer $k$, the class of $k$-almost-embeddable graphs admits weighted $o(\log n)$-waste mixed labellings.
+  %   % Let $\langle G\rangle$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $\langle G\rangle$.  Then there exists a $O(n)$-vertex supergraph $Q$ of $\langle G\rangle$ with clique-number at most $2k$ such that the graph $G_Q$ with vertex set $V(G_Q):=V(Q)$ and edge set $E(G_Q):=E(G)\cap E(Q)$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also an $O(k\log\log n)$-clique-encoding labelling of $Q$.
+  % \end{thm}
+
+  % \cref{weighted} follows quickly from two results.
+
+  % \begin{thm}[\citet{dujmovic.joret.ea:planar}]\label{apex_free_product}
+  % \david{I think we can remove this, or just mention it in the literature review section, telling the background}
+  %   For each fixed positive integer $k$ there exists an integer $t$ such that, for each $(0,k)$-almost-embeddable graph $G$ there exists a graph $H$ of treewidth at most $t$ and a path $P$ such that $G$ is isomorphic to a subgraph of $H\boxtimes P$.
+  % \end{thm}
+
+
+  % The \defin{monotone closure} of a graph class $\mathcal{G}$ is the graph class $\mathcal{G}^*:=\{H\subseteq G:G\in\mathcal{G}\}$ that includes all subgraphs of graphs in $\mathcal{G}$.  Let $\mathcal{P}$ be the set of all (finite) paths.  For each $t\in\N$, let $\mathcal{G}_t$ be the monotone closure of $\{H\boxtimes P:\tw(H)\le t,\, P\in\mathcal{P}\}$.  (So \cref{apex_free_product} states that the class of $(0,k)$-almost-embeddable graphs is contained $\mathcal{G}_t$ for some $t$ that depends only on $k$.)
+
+  \begin{thm}\label{gk_labelling}
+    For each fixed integer $k\ge 0$, the graph class $\mathcal{G}_{k}$
+    admits a weighted $O(\sqrt{\log n})$-waste mixed labelling scheme.
+  \end{thm}
+
+  % \pat{Just write $O(\sqrt{\log n})$ in the theorem statement?} \david{Yes, I much prefer concrete estimates of lower order terms.}
+
+  \label{sketch_start}
+  \Cref{gk_labelling} is essentially a weighted extension of the $(1+o(1))\log n$-bit adjacency labelling scheme of \citet{dujmovic.esperet.ea:adjacency} for $\mathcal{G}_k$ and the B-tree variant of this scheme given by \citet{alstrup.rauhe:improved}.\footnote{The labelling of cliques needed for a mixed labelling is implicit in \cite{dujmovic.esperet.ea:adjacency}, where the label of a vertex $w$ is essentially the label of a clique $K_w$ in a supergraph of $G$. The cliques $\{K_v:v\in V(G)\}$ are chosen so that, for every edge $vw$ of $G$, $v,w\in V(K_w)$ or $v,w\in V(K_v)$.}  To obtain this generalization, we make use of the standard trick of simulating weight using multiplicity that appears in the proof of \cref{shannon_fano_elias_tree}.  Since this does not require any ideas not already in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency} we defer this to \cref{weighted_product_proof}, the bulk of which is a review of \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}.
+
+  % How this idea is applied within the labelling scheme of \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}  to show \cref{gk_labelling} is discussed
+  % in \cref{weighted_product_proof}.
+
+  % Here, we sketch the main idea and \cref{weighted_product_proof} describes, in more detail, how this idea is applied within the labelling scheme in \cite{dujmovic.esperet.ea:adjacency}.
+
+  % The main idea in \cite{dujmovic.esperet.ea:adjacency} is to treat a subgraph $G$ of $H\boxtimes P$ as a sequence of subgraphs $H_1,\ldots,H_h$ of $H$ (one for each vertex of $P$).  Each vertex $v$ of $H$ is assigned a real interval $f(v)$ and a real number $x_f(v)$ in $f(v)$. For each $i\in\{1,\ldots,h\}$, the labelling scheme uses a binary search tree $T_i$ to store $S_i:= \{x_f(v):v\in V(H_i^+)\}$, where $H_i^+$ is a carefully chosen supergraph of $H_i$.  The label for $v$ is determined by the node $x_{T_i}(v)\in V(T_i)=S_i$ of minimum $T_i$-depth such that (the interval) $f(v)$ contains (the real number) $x_{T_i}(v)$. The node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i$ and $x_f(v)\in f(v)$.  It will be useful to us that
+  % \begin{equation}
+  %   \depth_{T_i}(x_{T_i}(v))= \min\{\depth_{T_i}(x):x\in S_i,\, x\in f(v)\}\le \depth_{T_i}(x_f(v)) \enspace . \label{interval_depth}
+  % \end{equation}
+
+  % In this labelling scheme, the label for a vertex $v$ in $H_i$ has two main parts.  The first part encodes the value of $i$ and has length $\log n-\log |S_i|+o(\log n)$.  The second part, which we are now interested in, has length $\depth_{T_i}(x_{T_i}(v)) + o(\log n)$.  The search tree data structure is designed so that $\height(T_i)\le  \log |S_i| + o(\log n)$ so that the two parts of $v$'s label have total length $\log n - \log |S_i| + \height(T_i) + o(\log n)\le \log n + o(\log n)$.
+
+  % In order to prove \cref{gk_labelling}, we must be able to accept a weight function $\omega_i:V(H^+_i)\to\N^+$ for each $i\in\{1,\ldots,h\}$ and ensure that $\depth_{T_i}(x_{T_i}(v))\le\log\omega(S_i)-\log\omega(v)$ for each $v\in V(H^+_i)$.  By \cref{interval_depth}, we need only ensure that $\depth_{T_i}(x_f(v))\le\log\omega(H^+_i)-\log\omega(v)+o(\log n)$.
+  % % The binary search trees used by \citet{dujmovic.esperet.ea:adjacency}, called \defin{bulk trees}, and (to a less extent) the weight-balanced B-trees used by \citet{gawrychowski.janczewski:simpler} for this purpose have a fairly involved analysis, so we prefer to use them as a black box.
+  % Thus, the proof of \cref{gk_labelling}
+  % boils down to the following question:  Can the binary trees used in \cite{dujmovic.esperet.ea:adjacency} to store $S_1,\ldots,S_h$ be adapted to guarantee that
+  % \[ \depth_{T_i}(x_f(v))\le\log\omega(H_i^+)-\log\omega(v)+o(\log n)
+  % \]
+  % for each $i\in\{1,\ldots,h\}$ and each $v\in V(H_i^+)$?
+
+  % The binary search trees used by \citet{dujmovic.esperet.ea:adjacency}, called \defin{bulk trees}, and (to a less extent) the weight-balanced B-trees used by \citet{gawrychowski.janczewski:simpler} have a fairly involved analysis, so we prefer to use them as a black box. We are able to do so by simulating weight using multiplicity.
+  % For each $i\in\{1,\ldots,h\}$ and each $v\in V(H^+_i)$, define $S_{i,\omega}[v]:=\{(x_f(v),1),\ldots,(x_f(v),\omega(v))\}$  and define $S_{i,\omega}:=\bigcup_{v\in V(H_i^+)}S_{i,\omega}[v]$.  Treat $S_{i,\omega}$ as a totally ordered set where order is determined by lexicographic comparison.
+
+  % Instead of storing $S_i$ in $T_i$, we store $S_{i,\omega}$ for each $i\in\{1,\ldots,h\}$.  When we do this, $\height(T_i)\le \log |S_{i,\omega)}|+o(\log n)=\log \omega(H^+_i)+o(\log n)$.
+  % For each $v\in V(H_i^+)$, the values in $S_{i,\omega}[v]$ appear consecutively in the ordered set $S_{i,\omega}$.  It is not hard to show that the binary tree $T_i$ contains a (connected) subtree $T_i[v]$ that stores at least half the values in $S_{i,\omega}[v]$.  Therefore $\height(T_i[v])\ge \log (\tfrac{1}{2}|S_{i,\omega}[v]|) =\log\omega(v)-1$.  Therefore, there exists some $j\in\{1,\ldots,\omega_i(v)\}$ such that $\depth_{T_i}((x_f(v),j))\le \height(T_i)-\height(T_i[v])\le \log\omega(H_i^+) - \log\omega(v) + o(\log n)$.\footnote{In particular, the value $j$ for which the root of $T_i[v]$ stores $(x_f(v),j)$ satisfies $\depth_{T_i}((x_f(v),j))\le \height(T_i)-\height(T_i[v])$.}
+  % Therefore $\depth_{T_i}(x_{T_i}(v))\le \depth_{T_i}((x_f(v),j))\le \log\omega_i(H_i^+) - \log\omega(v) + o(\log n)$.
+
+  % In \cref{weighted_product_proof} we give more details about how all of this works using the B-tree approach in \cite{gawrychowski.janczewski:simpler}, which has several advantages over the original bulk tree construction in \cite{dujmovic.esperet.ea:adjacency}.
+
+  The addition of a constant number, $a$, of apex vertices to a graph in $\mathcal{G}_k$ to obtain a graph in $\mathcal{G}_{k,a}$ does not add much difficulty to the adjacency labelling problem, so \cref{gk_labelling} has the following relatively easy consequence:
+
+  \begin{thm}\label{gak_labelling}\label{weighted}
+    For fixed integers $a,k\ge 0$, the graph class $\mathcal{G}_{k,a}$ admits a weighted $o(\log n)$-waste mixed labelling scheme.
+  \end{thm}
+
+  \begin{proof}
+    Let $G^+,G\in\mathcal{G}_{a,k}$, $\mathcal{K}\subseteq K(G^+)$, and $\omega:V(G^+)\cup\mathcal{K}\to\N^+$ be as in the definition of mixed labelling scheme.  Then each of $G^+$ and $G$ is a subgraph of $(H\boxtimes P)\oplus K_a$.  Let $A:=V(K_a)\cap V(G^+)$ be the set of vertices in $G^+$ that map to vertices of $K_a$.  Then $G^+-A$ and $G-A$ are each in $\mathcal{G}_k$.  Apply \cref{gk_labelling}, to $G^+-A$, $G-A$, $\omega$, and $\{K-A:K\in\mathcal{K}\}$ to obtain a mixed labelling $\lambda:V(G^+-A)\to\{0,1\}^*$.  Then $|\lambda(v)|\le \log\omega(G^+-A) -\log\omega(v)+o(\log n)\le \log\omega(G^+)-\log\omega(v)+o(\log n)$ for each $v\in V(G^+-A)$.
+
+    Extend the domain of $\lambda$ to include the vertices in $A$ by setting $\lambda(v):=\varepsilon$ (the empty string), for each $v\in A$.  Let $u_1,\ldots,u_{a'}$ be an ordering of the vertices in $A$. For each $i\in\{1,\ldots,a'\}$, define $\sigma(u_i)$ to be the $\lceil\log(a+1)\rceil$-bit binary representation of $i$.  For each $v\in V(G-A)$, define $\sigma(v)$ to be a sequence of $\lceil\log(a+1)\rceil$ zero bits.  For each $v\in V(G)$ and each $i\in\{1,\ldots,a'\}$ let $b_i(v)$ be a bit that indicates if $vu_i\in E(G)$.  Finally, define $\lambda'(v):=\sigma(v),b_1(v),\ldots,b_{a'}(v),\lambda(v)$ for each $v\in V(G)$.  Then $|\lambda'(v)|=|\lambda(v)|+\lceil\log (a+1)\rceil+a \le \log\omega(G)-\log\omega(v)+o(\log n)$.
+
+    Adjacency testing in $G$ using $\lambda'$ is straightforward. For any two vertices $v$ and $w$, $\sigma(v)$ and $\sigma(w)$ can be used to determine if $v$ and/or $w$ are in $A$.  If at least one of them, say $v$, is in $A$ then $b_{\sigma(v)}(w)$ indicates whether $vw\in E(G)$.  If neither $v$ nor $w$ is in $A$, then the presence of the edge $vw$ can be tested using $\lambda(v)$ and $\lambda(w)$.
+
+    Next we extend $\lambda'(v)$ so that its domain contains the cliques in $\mathcal{K}$.  First, extend the domain of $\lambda$ so that it includes the zero-vertex clique $K_0$, by setting $\lambda(K_0):=\varepsilon$ (the empty string).
+    For each $K\in\mathcal{K}$, the labelling $\lambda$ imposes an order $v_1,\ldots,v_{k''}$ on the vertices of $K-A$. Extend this to the vertices of $K$ by appending the vertices of $V(K)\cap A$ in the order that they appear in $u_1,\ldots,u_{a}$. This assigns an ordering $v_1,\ldots,v_{k'}$ to $V(K)$ for each $K\in\mathcal{K}$.
+    For each $K\in\mathcal{K}$ and each $j\in\{1,\ldots,a\}$ let $c_i(K)$ be a single bit that indicates if $u_j\in V(K)$.  Let $\alpha(K)=|A\cap V(K)|$ and let $\beta(K)=|V(K-A)|$.  Then, for each $K\in\mathcal{K}$, define $\lambda'(K):=\alpha(K),\beta(K),c_1(K),\ldots,c_{a}(K),\lambda(K-A)$.
+
+    Now, consider some clique $K\in\mathcal{K}$.  If $V(K)\subseteq A$, then
+    \[
+       |\lambda'(K)|\le O(a + \log k) + |\lambda(K_0)| \le\log\omega(G^+) - \log\min\{\omega(v):v\in V(K)\} + o(\log n) \enspace .
+    \]
+    Otherwise,
+    \begin{align*}
+       |\lambda'(K)|
+       & \le O(a + \log k) +|\lambda(K-A)| \\
+       & \le \log\omega(G^+)-\log\min\{\omega(v):v\in V(K-A)\} + o(\log n) \\
+       & \le \log\omega(G^+)-\log\min\{\omega(v):v\in V(K)\} + o(\log n) \enspace .
+    \end{align*}
+
+    Let $K\in\mathcal{K}$, $v\in V(G^+)$, and $i\in\{1,\ldots,2k+a\}$.
+    Given $\lambda'(K)$, $\lambda'(v)$, and $i$ we can do membership testing as follows:
+    Let $v_1,\ldots,v_{k'}$ be the ordering we have assigned to the vertices of $K$.
+    \begin{itemize}
+        \item If $i> \beta(K)+\alpha(K)$ then $i > k'$ and we can immediately determine that $v\neq v_i$.
+        \item If $i \le \beta(K)$ then $v_i$ is a vertex of $G^+-A$.  If $\sigma(v)\neq 0$, then $v\in A$ and we can immediately determine that $v\neq v_i$.  Otherwise, $\lambda(K)$ and $\lambda(v)$ can be used to test if $v=v_i$.
+        \item If $\beta(K) < i \le \beta(K)+\alpha(K)$ then $v_i\in A$. In fact, $v_i=u_j$, where $j$ is the smallest integer such that $i = \beta(K) + \sum_{\ell=1}^j c_\ell(K)$.  Thus, we can determine that $v_i=u_j$ and then test if $v=v_i=u_j$ by checking if (the $\lceil\log (a+1)\rceil$-bit binary representation of) $j$ is equal to $\sigma(v)$. \qedhere
+    \end{itemize}
+  \end{proof}
+
+
+
+
+  % We use $u_x$ to define the label
+
+
+  % of simulating a (positive integer) weight of an element $\omega(x)$ in a balanced search tree by adding $\omega(x)$ copies of $x$ to the search tree.  This results in a search tree with
+
+
+  % by  proof of \cref{weighted_product} . For this reason, we defer the proof of \cref{weighted_product} to \cref{weighted_product_proof}.
+
+  % \begin{proof}[Proof of \cref{weighted}]
+  %   Let $G$ be an $n$-vertex $k$-almost-embeddable graph and let $\omega:V(G)\to\R^+$. Let $A$ be the set of $k'\le k$ apex vertices of $G$. Let $G'$ be obtained from $G$ by removing each edge incident to a vertex in $A$. Then $G'$ is a $(0,k)$-almost-embeddable graph.  By \cref{apex_free_product}, $G'\in\mathcal{G}_t$ for some $t$ that depends only on $k$.  By \cref{weighted_product} there is a labelling $\lambda:V(G')\to\{0,1\}^*$ that allows adjacency testing in $G'$ and where $|\lambda(v)|\le \log\omega(G')-\log\omega(v)+o(\log n)$ for each $v\in V(G')=V(G)$.  Let $v_1,\ldots,v_{k'}$ be an ordering of the vertices in $A$. For each $i\in\{1,\ldots,k'\}$, define $\sigma(v_i)$ to be the $\lceil\log(k+1)\rceil$-bit binary representation of $i$.  For each $v\in V(G-A)$, define $\sigma(v)$ to be a sequence of $\lceil\log(k+1)\rceil$ zero bits.  For each $v\in V(G)$ and each $i\in\{1,\ldots,k\}$ let $b_i(v)$ be a bit that indicates if $vv_i\in E(G)$.  Finally, define  $\lambda'(v):=\sigma(v),b_1(v),\ldots,b_k(v),\lambda(v)$ for each $v\in V(G)$.  Then $|\lambda'(v)|=|\lambda(v)|+\lceil\log (k+1)\rceil+k = \log\omega(G)-\log\omega(v)+o(\log n)$.
+
+  %   Adjacency testing in $G$ using $\lambda'$ is straightforward. For any two vertices $v$ and $w$, $\sigma(v)$ and $\sigma(w)$ can be used to determine if $v$ and/or $w$ are in $A$.  If at least one of them, say $v$, is in $A$ then $b_{\sigma(v)}(w)$ indicates whether $vw\in E(G)$.  If neither $v$ nor $w$ is in $A$, then the presence of the edge $vw$ can be tested using $\lambda(v)$ and $\lambda(w)$.
+  % \end{proof}
+
+
+  % \begin{thm}\label{weighted}
+  %   Let $\langle G\rangle$ be a $k$-almost embeddable $n$-vertex graph and let $G$ be a spanning subgraph of $\langle G\rangle$.  Then there exists a $O(n)$-vertex supergraph $Q$ of $\langle G\rangle$ with clique-number at most $2k$ such that the graph $G_Q$ with vertex set $V(G_Q):=V(Q)$ and edge set $E(G_Q):=E(G)\cap E(Q)$ admits a weighted $o(\log n)$-waste adjacency-labelling scheme that is also an $O(k\log\log n)$-clique-encoding labelling of $Q$.
+  % \end{thm}
+
+  % \pat{Note to coauthors: This is the weakest statement I could come up with that would be sufficient for us.  As a result, it may be more complicated than necessary.  In particular, the supergraph $Q$ and the intermediate graph $G_Q$ may be unnecessary. Perhaps we can just find a labelling that is an adacency labelling for $G$ that is also clique encoding for $\langle G\rangle$.}
+
+  % \pat{Note to self: Be careful with the order of quantifiers in \cref{weighted}.  We can't have $Q$ depend on the weight function $\omega$ that we choose for $G_Q$.}
+
+  \section{The Proof}
+
+
+  \begin{thm}\label{AbstractStatement}
+    Let $g(n)\in o(\log n)$, let $k\in\N$ and
+    let $\mathcal{G}$ be a class of graphs that admits a weighted $g(n)$-waste mixed labelling scheme, and let $\mathcal{G}^*$ be the class of $k$-degenerate graphs that have tree-decompositions of adhesion-width at most $k$ in which each torso is in $\mathcal{G}$.  Then $\mathcal{G}^*$ admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
+  \end{thm}
+
+  \Cref{MainTechnicalStatement} follows quickly from \cref{AbstractStatement}, \cref{weighted}, and \cref{gka_parameters}, as follows:  \Cref{weighted} states that, for any fixed integers $a,k\ge 0$, the graph class $\mathcal{G}:=\mathcal{G}_{k,a}$ admits a weighted $g(n)$-waste mixed labelling scheme, for $g(n)\in O(\sqrt{\log n})$.  By \cref{gka_parameters} each graph in $\mathcal{G}$ has maximum clique size at most $2k+a+2$ and is $(3k+a+1)$-degenerate.  Therefore each graph in the class $\mathcal{G}^*:=\mathcal{G}^*_{a,k}$ is $(3k+a+1)$-degenerate and has a tree-decomposition of adhesion-width at most $2k+a+2$ in which each torso is in $\mathcal{G}$.  By \cref{AbstractStatement}, the graph class $\mathcal{G}^*_{k,a}=\mathcal{G}^*$ admits a $((1+o(1))\log n$-bit adjacency labelling scheme.
+
+
+  \begin{proof}[Proof of \cref{AbstractStatement}]
+    \pat{This proof is too monolithic.  We could break it into two parts:\\[2ex]
+    1. If $G$ has a path-decomposition of small adhesion-width in which each bag has a weighted $g(n)$-waste mixed labelling scheme then $G$ has a weighted $(g(n)+O(\log\log n))$-waste mixed labelling scheme.\\[2ex]
+    2. If $G$ has a tree-decomposition of height $h(n)$ in which each bag has a weighted $g(n)$-waste mixed labelling scheme then $G$ has a $(\log n + g'(n))$-bit adjacency labelling scheme, where $g'(n)\in O(h(n)\cdot g(n)+\log\log n)$. \\[1ex]
+    }
+    Let $G_0$ be an $n_0$-vertex graph in $\mathcal{G}^*$.
+    Since $g(n)\in o(\log n)$, it follows that $\sqrt{g(n)\cdot\log n}\in o(\log n)$ for any fixed positive integer $k$.\footnote{Indeed, $\lim_{n\to\infty}\sqrt{g(n)\cdot\log n}/\log n=\lim_{n\to\infty}\sqrt{g(n)/\log n}=\sqrt{\lim_{n\to\infty}g(n)/\log n}=\lim_{x\to 0^+}\sqrt{x}=0$.}
+    Define
+    \[
+      \mathdefin{\alpha}:=2^{-\sqrt{g(n_0)\cdot\log n_0}} \enspace .
+    \]
+
+
+    Below, we describe a recursive labelling procedure in which each invocation is applied to an $n$-vertex subgraph $G$ of $G_0$.  Within this procedure, the value of $\alpha$ does not change, even when the number $n$ of vertices in $G$ is (much) smaller than $n_0$.
+
+    To make the induction work, we require a slightly stronger statement than that of \cref{MainTechnicalStatement}.  Let $x_0$ be a node of $T$, let $K_0$ be a clique in $\torso{G_0}{B_{x_0}}$, let $Y_0\subseteq Y_\mathcal{T}(x,K_0)$, let
+    \[
+       G:=G_{Y_0}:=G_0\left[\bigcup_{y\in Y_0}\medskip \bigcup_{z\in V(T_y)} B_z\setminus A_z\right]
+    \]
+    and let $n:=|V(G)|$.
+    We show the existence of a fixed constant $c>0$ and an adjacency labelling  $\lambda:V(G)\to\{0,1\}^*$ of $G$ that has the following property: For each $y\in Y_0$, each $z\in V(T_y)$ and each $w\in B_z\setminus A_z$,
+    % \begin{align*}
+    %   |\lambda(v)|
+    %   & \le \log n + \frac{g(n)\log n}{\log (1/\alpha)} \\
+    %   & \quad {} + c|A_z\setminus B_{x_0}|\left(\log (k+a)/\alpha) + \log\log n\right) \\
+    %   & \quad {} + c(k+a)\log((k+a)/\alpha) \enspace .\label{solution}
+    % \end{align*}
+    \begin{align}
+      |\lambda(v)|
+      & \le \log n + (\log_{1/\alpha} n)\cdot (g(n)+c\log k) \notag \\
+      & \quad {} + c|A_z\setminus B_{x_0}|\left(\log (k/\alpha) + \log\log n\right) \notag \\
+      & \quad {} + ck\log(k/\alpha) + c\log\log n \enspace .\label{solution}
+    \end{align}
+
+    This result applies to $G_0$ in the following way.  Augment $\mathcal{T}$ by adding a dummy node $r_0$ that is the parent of the root, $r$, of $T$ with $B_{r_0}:=\emptyset$.  Then the clique $K_0$ on zero vertices is a clique in the zero-vertex graph $\torso{G}{B_{r_0}}$, and define $Y_0:=Y_\mathcal{T}(r_0,K_0)=\{r\}$. Thus, we can apply this result with to $G=G_{Y_0}=G_0$ to obtain an adjacency labelling $\lambda$ of $G_0$. Therefore, for any fixed positive integer and $k$, \eqref{solution} becomes
+    \begin{align*}
+      |\lambda(v)|
+      & \le \log n_0 + O\left(\frac{g(n_0)\log n_0}{\log (1/\alpha)}+\log(1/\alpha)\right) \\
+      & = \log n_0 + O\left(\sqrt{g(n_0)\log n_0}\right) \\
+      & = \log n_0 + o(\log n_0) \enspace .
+    \end{align*}
+
+    \paragraph{Proof Overview:}
+    Before describing the vertex labels, we give an explanation of \cref{solution} that also serves as a sketch of the proof.  Let $z$ be a node of $T$ and let $w$ be a vertex in $B_z\setminus A_z$. We will construct a label $\lambda(w)$ for $w$ that has three parts.
+    \begin{enumerate}
+      \item The first part of $w$'s label is obtained by a recursive procedure that reduces the size of the subgraph containing $w$ by a factor of $\alpha$ at each level of recursion.  Thus, $w$ appears in at most $\log_{1/\alpha} n$ levels of recursion.  Each level of recursion extends first part of $w$'s label with an \defin{optimal part} and an \defin{overhead part}.  The lengths of the optimal parts of $w$'s label sum to $\log n$ (the first term in \eqref{solution}).  Each overhead part in $w$'s label has length at most $g(n)+c\log k$. Thus, the total length of all $\log_{1/\alpha} n$ overhead parts is $(\log_{1/\alpha} n)(g(n)+c\log k)$ (the second terms in \eqref{solution}).
+
+      \item The second part of $w$'s label is used by the adjacency testing algorithm to recognize the labels of vertices in $A_z\setminus B_{x_0}$, each of which may be adjacent to $w$. This part of $w$'s label is assigned in two stages. In the first stage, this part of $w$'s label is assigned for each vertex $v\in A_z\cap B_x\setminus B_{x_0}$, where $x$ is some $T$-ancestor of $z$ that is eliminated before recursing on a smaller subgraph $G_{x,K}$ that contains $w$.
+      For each $v\in A_z\cap B_x\setminus B_{x_0}$, this part of $w$'s label includes $c(\log(k/\alpha)+\log\log n)$ bits that make it possible to recognize the label of $v$.  This contributes a total of $c|A_z\cap B_x\setminus B_{x_0}|(\log(k/\alpha)+\log\log n)$ bits to the length of $w$'s label.
+      In the second (recursive) stage, this part of $w$'s label is assigned when recursing on a subgraph that does not contain the vertices in $B_x$. By the inductive hypothesis, this part of $w$'s label has length at most $c|A_z\setminus B_x|(\log(k/\alpha)+\log\log n)$ bits.  Thus, this part of $w$'s label has length at most $c|A_z\setminus B_{x_0}|(\log(k/\alpha)+k\log\log n)$ (the third term in \eqref{solution}).
+
+      \item \pat{Continue here: I'm in the midst of switching from adhesions of size $2k+a+2$ to adhesions of size $k$.} The recursive labelling procedure has a base case, which occurs when a subgraph has size at most $(k+a)/\alpha$.  This base case is dealt with using \cref{degenerate_labelling_scheme} along with the fact that $G$ is $3k+a+1$-degenerate (by \cref{gka_parameters}). This adds an additional $c (k+a)\log((k+a)/\alpha)$ bits to $w$'s label (the fourth term in \eqref{solution})
+    \end{enumerate}
+
+    \paragraph{The Labels:}
+    We first consider the base case of the labelling procedure, which occurs when the input graph has $n\le (k+a)/\alpha$ vertices. To handle this case, we make use of the fact that $G$ is $(3k+a+1)$-degenerate, by \cref{gka_parameters}. By \cref{degenerate_labelling_scheme}, there is an adjacency-labelling $\lambda_0:V(G)\to\{0,1\}^*$ in which each label has length $O((k+a)\log((k+a)/\alpha))$.
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{-1}
+      \item\label{zero_part} If $n\le (k+a)/\alpha$ then, for each $v\in V(G)$, the label for $v$ contains $\lambda_0(v)$.  This part of $v$'s label has length at most $\log n-\log\omega(i) + 2$.
+    \end{enumerate}
+    We note that, when $n>(k+a)/\alpha$, not every vertex in of $G$ will have a label that contains \ref{zero_part}. Some vertices of $G$ may be removed and not appear in any recursively labelled subgraphs of $G$.
+
+
+    % \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{-1}
+    %   \item When the labelling procedure recurses on a subgraph $G'$ of size at most $k/\alpha$, we apply \cref{degenerate_labelling_scheme} to $G'$ to obtain a labelling of $G'$ in which each vertex $v$ receives a label $\lambda_0(v)$ of length at most $\lceil(k+1)\log(k/\alpha)\rceil$.
+    % \end{enumerate}
+
+    We now assume that we are labelling a subgraph $G:=G_Y$ of $G_0$ with $n> (k+a)/\alpha$ vertices.    By \cref{gka_parameters}, $\mathcal{T}$ has adhesion-width at most $2k+a+2$.  Apply \cref{low_adhesion_separator} to the graph $G$ with tree decomposition $\mathcal{T}$ to obtain $X\subseteq V(T)$ and a path decomposition $B^0_1,\ldots,B^0_r$  of $G[\bigcup_{x\in X} B_x]$ of adhesion-width at most $(4k+2a+4)/\alpha$.  For each $x\in X$, let \defin{$T^-_x$} be the component of $T-(X\setminus\{x\})$ that contains $x$. For each $x\in X$, define $\mathdefin{V^-_x}:=\bigcup_{z\in V(T^-_x)}B_z\setminus A_z$.
+    For each $i\in\{1,\ldots,r\}$, define $\mathdefin{X_i}:=X\cap L_i(T)$ and define $\mathdefin{B_i}:=\bigcup_{x\in X_i}V^-_x$. Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,r\}$, let $A_i:=B_i\setminus B_{i-1}$.
+    Observe that $B_{i-1}\cap B_i=B^0_{i-1}\cap B^0_{i}$ for each $i\in\{2,\ldots,r\}$, so $B_1,\ldots,B_r$ is a path decomposition of $G$ of adhesion-width at most $(4k+2a+4)/\alpha$.
+
+    We now describe a label part that allows us to determine, for two vertices $v\in B_i\setminus A_i$ and $w\in B_j\setminus A_j$, whether $i<j$, $i>j$, or $i=j$.
+    For each $i\in\{1,\ldots,r\}$, let $\omega(i)=|B_i\setminus A_i|$.  Note that $\sum_{i=1}^r\omega(i) = n$.  Apply \cref{shannon_fano_elias_tree,shannon_fano_elias_code} with $S:=\{1,\ldots,r\}$ and weight function $\omega:S\to\N$. Let $T_\omega$ be the resulting binary tree and $\rho:\{1,\ldots,r\}\to\{0,1\}^*$ be the resulting prefix-free code.
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
+      \item\label{rho_part} For each $i\in\{1,\ldots,r\}$ and each $v\in B_i\setminus A_i$, the label for $v$ contains a part $\rho(v):=\rho(i)$. This part has length at most $\log n-\log\omega(i) + 2$.
+    \end{enumerate}
+
+    The next part of our labels is a single bit used to identify vertices that appear in $A_i$ for at least one $i\in\{2,\ldots,r\}$. Let $v$ be a vertex of $G$, let $a(v):=\min\{i\in\{1,\ldots,r\}:v\in B_i\}$ and let $b(v):=\max\{i\in\{1,\ldots,r\}:v\in B_i\}$.
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{1}
+      \item\label{flag_part} For each $v\in V(G)$, the label for $v$ contains one bit \defin{$t(v)$} that indicates if $a(v)\neq b(v)$.
+    \end{enumerate}
+
+    The next two parts of our label are only used by vertices $v$ for which $a(v)\neq b(v)$.  Let $v\in V(G)$ be such that $a(v)\neq b(v)$ (so $t(v)=1$).  Recall that $T_\omega$ is a rooted ordered binary tree whose leaves, in order, are the integers $1,\ldots,r$, so $a(v)$ and $b(v)$ are leaves of $T_\omega$.
+    Define the function $q:V(G)\to V(T_\omega)$ by setting
+    $q(v)$ to be the lowest common $T_\omega$-ancestor of $a(v)$ and $b(v)$, for each $v\in V(G)$.  We claim that  $|q^{-1}(x)|< (4k+2a+4)/\alpha$ for each non-leaf node $x$ of $T_\omega$.  Indeed, for each non-leaf node $x$ of $T_\omega$, if $i$ is the minimum leaf in the subtree rooted at the right child of $x$ then the left child of $x$ is the root of a subtree that contains the leaf $i-1$.  Thus,
+    each vertex in $w\in q^{-1}(x)$ has $a(w)\le i-1$ and $b(w)\ge i$.  Since $B_1,\ldots, B_r$ is a path-decomposition of $G$, this implies that $q^{-1}(x)\subseteq B_{i-1}\cap B_i$.  Therefore $|q^{-1}(x)|\le |B_{i-1}\cap B_i| < (4k+2a+4)/\alpha$.
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{2}
+      \item\label{lca_part} For each $v\in V(G)$, such that $a(v)\neq b(v)$, the label of $v$ contains (the binary representation of) $\depth_{T_\omega}(q(v))$. This part has length $O(\log(\height(T_\omega)))\subseteq O(\log\log n)$.
+
+      \item\label{colour_part} For each $v\in V(G)$, such that $a(v)\neq b(v)$, the label of $v$ contains (the binary representation of) a positive integer $\varphi(v)$ that is distinct from $\varphi(w)$ for each $w\in q^{-1}(q(v))$.  The largest integer needed in this labelling is $|q^{-1}(q(v))|\le (4k+2a+4)/\alpha$. Therefore, this part of the label has length $O(\log ((k+a)/\alpha))$.
+    \end{enumerate}
+
+    Parts \ref{lca_part} and \ref{colour_part} of the label for a vertex $v$ will appear in the labels of other vertices to uniquely identify $v$ among all vertices in $\{v'\in V(G):a(v')\neq b(v')\}$.
+
+    For each $i\in\{1,\ldots,r\}$, $X_i$ may contain many nodes of $T$.  The next label part is used to identify, for a vertex $v\in B_i$, the node $x\in X_i$ such that $v\in V^-_x$. For each $i\in\{1,\ldots,r\}$ and each $x\in X_i$, define $\omega_i(x):=\omega(T^-_x)=|V^-_x|$. Note that $\sum_{x\in X_i}\omega_i(x)=|B_i\setminus A_i|=\omega(i)$. For each $i\in\{1,\ldots,r\}$,  apply \cref{shannon_code} to the set $S:=X_i$ with weight function $\omega_i:X_i\to\N$, and let $\pi_i:X_i\to\{0,1\}^*$  be the resulting prefix-free code.
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{4}
+      \item\label{pi_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in V^-_x$, the label for $v$ contains a part $\pi(v):=\pi_i(x)$. This part has length at most $\log \omega(i)-\log\omega_i(x)+1$.
+    \end{enumerate}
+
+    For a node $x\in X$ and a vertex $v\in V^-_x$, the next part of $v$'s label is used to locate $v$ in the graph $\torso{G}{B_x}$.  What this means depends on whether $v\in B_x\setminus A_x$ or $v\in V^-_x\setminus B_x$.  In both cases, this part of the label comes from a mixed labelling that allows clique membership testing for some cliques in $\torso{G}{B_x}-A_x$ and allows adjacency testing in $G[B_x]-A_x$.  If $v\in B_x\setminus A_x$ this part of $v$'s label will be $\lambda_x(v)$.  If $v\in V^-_x\setminus B_x$, then $v\in\bigcup_{z\in V(T_y)}B_z\setminus B_x$ for some $T$-child $y$ of $x$.  In this case, the vertices of $B_x\cap B_y\setminus A_x$ form a clique $K$ in $\torso{G}{B_x}-A_x$ and this part of $v$'s label will be $\lambda_x(K)$.
+
+    The mixed labelling $\lambda_x$ of $\torso{G}{B_x}-A_x$ and $G[B_x]-A_x$ that we use for this part comes from \cref{weighted}, which accepts a weight function $\omega:B_x\setminus A_x\to\N$ that we now define.
+    Fix $i\in\{1,\ldots,r\}$. For each $x\in X_i$, let $\mathcal{K}_x$ be the set of cliques $K$ in $\torso{G}{B_x}-A_x$ such that $Y_\mathcal{T}(x,K)\setminus X$ is non-empty.  For each clique $K\in\mathcal{K}_x$, let
+    \[
+      \mathdefin{V^-_{x,K}}:=\bigcup_{y\in Y_\mathcal{T}(x,K)\setminus X}\bigcup_{z\in V(T_y)}B_z\setminus B_x \enspace .
+    \]
+    and
+    \[
+      \mathdefin{\omega_x(K)}:=\sum_{y\in Y_\mathcal{T}(x,K)\setminus X}\omega(T_{y})=|V^-_{x,K}| \enspace .
+    \]
+    Observe that
+    \[
+       \sum_{K\in\mathcal{K}_x}\omega_x(K) =
+       \omega(T^-_x)-\omega(x) = \omega_i(x)-\omega(x)
+    \]
+    for each $x\in X_i$.
+    The function $\omega_x$ assigns weights to some cliques in $\torso{G}{B_x}-A_x$ but \cref{weighted} requires vertex weights. For each $v\in B_x\setminus A_x$, define
+    \[
+      \mathdefin{\omega_x(v)} := 2k+a+4+\omega_x(\{K\in\mathcal{K}_x:v\in V(K)\}) \enspace .
+    \]
+    By \cref{gka_parameters}, each clique in $\torso{G}{B_x}$, and therefore each clique in $\mathcal{K}_x$, has at most $(2k+a+4)$ vertices,
+    \[
+      \omega_x(B_x\setminus A_x)=\sum_{v\in B_x\setminus A_x}\omega_x(v)\le (2k+a+4)\omega(x) + (2k+a+4)\sum_{K\in \mathcal{K}_x}\omega(K)
+        = (2k+a+4)\omega_i(x) \enspace .
+    \]
+
+    We can now apply \cref{weighted} to $\torso{G}{B_x}-A_x$, $G[B_x]-A_x$, and $\mathcal{K}_x$ with weight function $\omega_x$ to obtain a mixed labelling $\mathdefin{\lambda_x}:(B_x\setminus A_x)\cup \mathcal{K}_x\to\{0,1\}^*$.
+
+    % scheme in \cref{weighted} to the graphs $\torso{G}{B_x}$ and $G[B_x]-A_x$ with vertex weights defined by $\omega_x:V(Q_x)\to\N$.  This gives a mixed labelling $\lambda_x$ of $\torso{G}{B_x}$.
+    % We now distinguish between two kinds of vertices in $G$.
+     % contains the following parts:
+
+    \begin{enumerate}[nosep,nolistsep,label=(P6\alph*)]
+      \item\label{dejmmw_part}\label{dejmmw_part_vertex} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each $v\in B_x\setminus A_x$, the label for $v$ contains $\lambda_x(v)$. This part of $v$'s label has length at most $\log \omega_x(B_x\setminus A_x)-\log\omega_x(v)+g(n)\le \log\omega_i(x)-\log\omega_x(v)+g(n)+O(\log(k+a))$.
+
+      \item\label{dejmmw_part_b}\label{dejmmw_part_clique} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$, each clique $K$ in $\torso{G}{B_x}-A_x$, and each $w\in V^-_{x,K}$, the label for $w$ contains $\lambda_x(K)$
+
+      For each $u\in V(K)$, $\lambda_x(u)\ge\omega_x(K)=|V^-_{x,K}$. Therefore, this part of $w$'s label has length
+      % $\log \omega_x(B_x\setminus A_x)-\log\omega_x(K)+g(n)\le \log\omega_i(x)-\log|V^-_{x,K}|+c\cdot (g(n)+\log(k+a))$.
+      \begin{align*}
+        |\lambda_x(K)| & \le \log \omega_x(B_x\setminus A_x)-\log\left(\min_{u\in V(K)}\omega_x(u)\right) + g(n) \\
+        & \le \log \omega_x(B_x\setminus A_x)-\log\omega_x(K) + g(n) \\
+        & = \log \omega_x(B_x\setminus A_x)-\log|V^-_{x,K}| + g(n) \\
+        & = \log \omega_i(x)-\log |V^-_{x,K}| + g(n) +O(\log(k+a))
+      \end{align*}
+    \end{enumerate}
+
+    The next part of our labels is only for vertices that are not in $\bigcup_{x\in X}(B_x\setminus A_x)$. For each $x\in X$, each clique $K$ in $\mathcal{K}_x$, let $Y':=Y_\mathcal{T}(x,K)\setminus X$, and let $G':=G_{Y'}$.  Then $V(G')=V^-_{x,K}$ so $G'$ has $n'=|V^-_{x,K}|=\omega_x(K)$ vertices.
+    % the subgraph $G':=G[V^-_{x,K}]$ has at most $\alpha n$ vertices.  The subgraph $G'$ has a tree decomposition $(B'_z:z\in V(T'))$ obtained as follows: Let $T'$ be the tree obtained from the forest $\bigcup_{y\in Y_{\mathcal{T}}}\setminus X$ by adding a new vertex $x'$ and adding the edge $x'y$ for each node $y\in Y_{\mathcal{T}}\setminus X$.  Set $B'_{x'}:=\emptyset$ and set $B'_z:=B_z\setminus B_x$ for each $z\in V(T')\setminus\{x'\}$.
+    We recursively label the vertices in $G'$ to obtain a labelling $\lambda_{x,K}:V^-_{x,K}\to\{0,1\}^*$.
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{6}
+      \item\label{recursive_part} For each $i\in\{1,\ldots,r\}$, each $x\in X_i$,  each clique $K$ in $\mathcal{K}_x$, each $y\in Y_\mathcal{T}(x,K)\setminus X$, each $z\in V(T_y)$ and each $w\in B_z\setminus A_z$, the inductive hypothesis implies that
+      \begin{align*}
+        |\lambda_{x,K}(w)|
+        & \le \log |V^-_{x,K}|+\left(\log_{1/\alpha}|V^-_{x,K}|\right)\left(g(n) + c\log(k+a)\right) \\
+        & \quad {} + c|A_w\setminus B_x|(\log((k+a)/\alpha)+\log\log n) \\
+        & \quad {} + c(k+a)\log((k+a)/\alpha) + c\log\log n \\
+        & \le \log |V^-_{x,K}|+\left(\log_{1/\alpha}n-1\right)(g(n) + c\log((k+a)/\alpha) \\
+        & \quad {} + c|A_w\setminus B_x|(\log((k+a)/\alpha)+\log\log n) \\
+        & \quad {} + c(k+a)\log((k+a)/\alpha) + c\log\log n
+        % & = \log |V^-_{x,K}|+c\left(\frac{g(n)\log n}{\log(1/\alpha)}-g(n)+ |A_z\setminus B_x|(\log (k+a)/\alpha)+\log\log n) + (k+a)\log((k+a)/\alpha)\right) \\
+        % & = \log\omega_x(K) + \frac{g(n)\log(n)}{\log(1/\alpha)} -g(n) + ck|A_z\setminus A_x|(\log k/\alpha)+k\log\log n) \\
+        % & = \log\omega(x,K) + \sqrt{k\cdot g(n)\log n} -g(n) + ck|A_z\setminus A_x|(\log k/\alpha)+k\log\log n)
+        \enspace ,
+      \end{align*}
+      since $|V^-_{x,K}|\le \alpha n$, so $\log_{1/\alpha}|V^-_{x,K}|\le \log_{1/\alpha} n - 1$.
+    \end{enumerate}
+    The final part of our labels is used so that, for each $x\in X$, each $z\in V(T^-_x)$, and each $w\in B_z\setminus A_z$, the label for $w$ contains enough information to recognize $v$, for each $v\in A_z\cap B_x$.
+
+
+    \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{7}
+      \item\label{apex_edges} For each $x\in X$ and, each $z\in V(T^-_x)$ and each $w\in B_z\setminus A_z$, each $v\in A_z\cap B_x\setminus B_{x_0}$, this part of $w$'s label contains one bit indicating whether $vw\in E(G)$ and two bits indicating which of the following cases applies:
+
+      \begin{enumerate}[nosep,nolistsep,label=(P8\alph*)]
+        \item\label{q_part} If $v\in A_x$, then $a(v)<i$ and $b(v)\ge i$. Therefore $q(v)$ is a $T_\omega$-ancestor of $i$.  In this case, the label for $w$ contains $\varphi(v)$ and $\depth_{T_\alpha}(q(v))$ (defined in parts \ref{lca_part} and \ref{colour_part} of $v$'s label). This part of $w$'s label has length at most $c(\log((k+a)/\alpha) + \log\log n)$.
+
+        \item\label{nothing_part} If $v\in B_x\setminus A_x$ and $z=x$ then $v$ and $w$ are both vertices in $G[B_x]-A_x$. In this case, $\lambda_x(v)$ in part~\ref{dejmmw_part} of $v$'s label and $\lambda_x(w)$ in part~\ref{dejmmw_part} of $w$'s label already contains enough information to test the presence of the edge $vw$, so no additional information is included in $w$'s label.
+
+        \item\label{clique_part} If $v\in B_x\setminus A_x$ and $z\neq x$, then $z$ is a strict $T$-descendant of $x$.  In this case, $w\in V^-_{x,K}$ for some clique $K$ in $\mathcal{K}_x$ and part~\ref{dejmmw_part_clique} of $w$'s label contains the label $\lambda_x(K)$.  By the definition of mixed labellings, there exists an ordering $v_1,\ldots,v_{k'}$ of $V(K)$ such that $\mu(\lambda_x(v),\lambda_x(K),i)=1$ if and only if $v=v_i$. Let $\iota(v)\in\{1,\ldots,k'\}$ be the unique index such that $v=v_{\iota(v)}$.  In this case, the label for $w$ contains $c\log (k+a)\le c(\log((k+a)/\alpha)+\log\log n)$ bits to store $\iota(v)$.
+
+        \item If $v\not\in B_x$, then $v$ and $w$ are both vertices in $V^-_{x,K}$ for some clique $K$ in $\torso{G}{B_x}-A_x$.  In this case, the part~\ref{recursive_part} of the labels for $v$ and $w$ contain $\lambda_{x,K}(v)$ and $\lambda_{x,K}(w)$, which can be used to test for the existence of the edge $vw$ in $G[V^-_{x,K}]$. In this case, no additional information is included in $w$'s label.
+      \end{enumerate}
+    \end{enumerate}
+
+    \paragraph{Label Lengths:}  We now argue that the length of the label assigned to each vertex in satisfies the upper bound in \cref{solution}.
+
+    When $n\le (k+a)/\alpha$, the label of each vertex $v$ has length
+    \[
+        |\lambda_0(v)|\in O((k+a)\log((k+a)/\alpha))
+        \le \eqref{solution} \enspace ,
+    \]
+    because the fourth term in \eqref{solution} is $c(k+a)\log((k+a)/\alpha)$ and all other terms are non-negative.
+
+    Now we analyse the label lengths when $n> 1/\alpha$.
+    For each $i\in\{1,\ldots,r\}$, each $x\in X_i$ and each vertex $v\in V^-_x$, the label for $v$ contains $\rho(u)$ (part \ref{rho_part}), $t(u)$ (part \ref{flag_part}), and $\pi_i(u)$ (part \ref{pi_part}), which have total length at most
+    \begin{equation}
+       \log n - \log \omega_i(x) + O(1)  \label{eq:everyone}
+    \end{equation}
+
+    First we consider vertices in $\bigcup_{x\in X} B_x$.
+    Let $x\in X$, and let $u\in B_x\setminus A_x$.  If $a(u)<b(u)$ then the label for $u$ contains $\depth_{T_\omega}(q(u))$ (part \ref{lca_part}) and $\varphi(u)$ (part \ref{colour_part}), which have length
+    \begin{equation}
+      O(\log((k+a)/\alpha) + \log\log n) \label{eq:adhesions}
+    \end{equation}
+    The label for $u$ also contains $\lambda_x(u)$ (part~\ref{dejmmw_part_vertex}), of length
+    \begin{equation}
+       \log \omega_i(x) - \log \omega_x(u) + g(n) + O(\log(k+a))
+       \le \log\omega_i(x) + g(n) + c\log(k+a) \label{eq:dejmmw_vertex}
+    \end{equation}
+    Finally, the label for $u$ also contains $\varphi(v)$ and $\depth_{T_\omega}(v)$ (part~\ref{q_part}) for each $v\in A_x\setminus B_{x_0}$,\footnote{Here $u$ takes on the role of $w$ in the description of part~\ref{q_part}.} which contribute a total of at most
+    \begin{equation}
+       c|A_x\setminus B_{x_0}|(\log((k+a)/\alpha) + \log\log n)
+       \label{eq:up_in_x}
+    \end{equation}
+    to the length of $u$'s label.  So that we can compare the length of $u$'s label with \eqref{solution}, let $z:=x$, so that $u\in B_z\setminus A_w$.  Then, the total length of the label for $u\in A_x\setminus B_x$ is at most
+    \begin{align*}
+       \eqref{eq:everyone} + \eqref{eq:adhesions} + \eqref{eq:dejmmw_vertex} + \eqref{eq:up_in_x}
+       & \le
+       \log n -\log \omega_i(x) + O(1) \\
+       & \quad {} + \log\omega_i(x) + g(n) + c\log(k+a) \\
+       & \quad {}+ c|A_z\setminus B_{x_0}|\cdot (\log((k+a)/\alpha) + \log\log n) \\
+       & \quad {}+ O(\log((k+a)/\alpha)+\log\log n) \\
+       & =
+       \log n + g(n) + c\log(k+a) \\
+       & \quad {}+ c|A_z\setminus B_{x_0}|\cdot (\log((k+a)/\alpha) + \log\log n) \\
+       & \quad {}+ O(\log((k+a)/\alpha)+\log\log n) \\
+       & \le
+       \log n + \left(\log_{1/\alpha} n\right)\cdot (g(n) + c\log(k+a)) \\
+       & \quad {}+ c|A_z\setminus B_{x_0}|\cdot (\log((k+a)/\alpha) + \log\log n) & \text{(since $n> 1/\alpha$)} \\
+       & \quad {}+ c(k+a)\log((k+a)/\alpha) + c\log\log n \\
+       & = \eqref{solution} \enspace .
+    \end{align*}
+
+    Finally, we consider the length of a label for a vertex $w\in V(G)\setminus\bigcup_{x\in X}B_x$.  Let $i\in\{1,\ldots,r\}$,
+    $x\in X_i$, $K\in\mathcal{K}_x$, $y\in Y_{\mathcal{T}}(x,K)\setminus X$, $z\in V(T_y)$, and $w\in B_z\setminus A_z$.  Like all vertices, the label for $w$ has contains $\rho(w)$, $t(w)$, and $\pi(w)$ which are counted by \eqref{eq:everyone}.
+
+    For each $v\in A_z\setminus B_{x}$
+    The label of $w$ contains $\varphi(v)$ and $\depth_{T_\omega}(v)$ (part~\ref{q_part}) or $\iota(v)$ (part~\ref{clique_part}) , which contributes a total of at most
+    \begin{equation}
+        c|A_z\cap B_x\setminus B_{x_0}|\cdot(\log((k+a)/\alpha)+\log\log n)
+    \end{equation}
+    to the length of $w$'s label.
+
+    The label for $w$ also contains $\lambda_x(K)$  (part~\ref{dejmmw_part_clique}), which has length
+    \begin{align}
+        & \quad \log\omega_i(x) -\log|V^-_{x,K}| + g(n) + c\log(k+a)
+    \end{align}
+    and \ref{recursive_part}, which has length at most
+    \begin{align}
+        & \le \log |V^-_{x,K}|+\left(\log_{1/\alpha}n-1\right)(g(n) + c\log(k+a)) \notag \\
+        & \quad {} + c|A_w\setminus B_x|(\log((k+a)/\alpha)+\log\log n) \notag \\
+        & \quad {} + c(k+a)\log((k+a)/\alpha) \label{eq:c_r} \enspace .
+    \end{align}
+    Thus, each such vertex $w$ has a label of length at most
+    \begin{align*}
+              \eqref{eq:everyone} + \eqref{eq:dejmmw_vertex} + \eqref{eq:up_in_x}  + \eqref{eq:c_r}
+      & \le \log n - \log|V^-_{x,K}| + \left(\log_{1/\alpha} n-1\right)(g(n)+ c\log(k+a)) \\
+      & \quad {} + \log|V^-_{x,K} + g(n) + c\log(k+a) \\
+      & \quad {} + c|A_z\setminus B_{x}|(\log((k+a)/\alpha) + \log\log n) \\
+      & \quad {} + c|A_z\cap B_x\setminus B_{x_0}|(\log((k+a)/\alpha) + \log\log n) \\
+      & \quad {} + c(k+a)\log((k_a)/\alpha) \\
+      & = \log n + \left(\log_{1/\alpha} n\right)(g(n)+ c\log(k+a)) \\
+      & \quad {} + c|A_z\setminus B_{x_0}|(\log((k+a)/\alpha) + \log\log n) \\
+      & \quad {} + c(k+a)\log((k+a)/\alpha) \\
+      & \le \eqref{solution}
+    \end{align*}
+
+
+
+    % BOOOOOORRRRRING
+
+    % % For each $x\in X$ and each $v\in B_x\setminus A_x$,
+    %
+    % Let $x\in X$ and $v\in V(T^-_x)$. The total length of parts \ref{flag_part}--\ref{pi_part} of $v$'s label is
+    % \[
+    %   \log n - \log\omega_i(x)
+    % \]
+    % If $v\in B_x\setminus A_x$, then part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) $
+    %
+    % If $v\in A_x$, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega_x(v) + g(n) + \log(k/\alpha)$.  In this case, the total length of the label for $v$ is at most $\log n - \log\omega_x(v) + g(n) + \log(k/\alpha) \le \log n + \sqrt{k\cdot g(n)\log n} + |$
+    %
+    % Let $w$ be of $G(x,K)$ for some clique $K$ in $\torso{G}{B_x}$.  Then there exists a $T$-child $y$ of $x$ such that $w\in B_z\setminus A_z$ for some $z\in V(T_y)$.  In this case, part~\ref{dejmmw_part} of $v$'s label has length $\log\omega_i(x)-\log\omega^-(x,K) + g(n)$.  The label
+    %
+    % in $V(T^-_x)\setminus B_x$ and let $y$ be child of $v$
+
+    \paragraph{Adjacency Testing:}
+    Given the labels of two vertices $v$ and $w$ in $G$, the adjacency testing function begins by comparing $\rho(v)$ and $\rho(w)$ from part~\ref{rho_part} of their respective labels:
+    \begin{enumerate}
+      \item If $\rho(v)\neq \rho(w)$ then assume, without loss of generality, that $\rho(v)$ is lexicographically smaller than $\rho(w)$.  This means that $v\in B_i\setminus A_i$ and $w\in B_j\setminus A_j$ for some $1\le i < j\le r$.  This implies that $v\in V^-_{x'}\setminus A_{x'}$ for some $x'\in X_i$. Let $z$ be the unique node of $T$ such that $w\in B_z\setminus A_z$.   In this case, $v$ and $w$ can only be adjacent if $v\in A_x\cap A_z$. First we check, using Part~\ref{flag_part} if $a(v)=b(v)$. If so, then $v\not\in A_x$, so we can immediately deduce that $vw\not\in E(G)$.
+
+      Now assume that $a(v)<b(v)$.  The pair $(q(v),\varphi(v))$ uniquely identifies $v$ in the set $\{v\in V(G):a(v)\neq b(v)\}\supseteq A_x$.  The path $P_{T_\omega}(q(v))$ uniquely identifies $q(v)$ in the set $V(T_\omega)$.  Part~\ref{lca_part} of $v$'s label contains $d:=\depth_{T_\omega}(q(v))$.  The first $d$ bits of $\rho(v)$ describes the path $P_{T_\omega}(q(v))$, and \ref{colour_part} of $v$'s label contains $\varphi(v)$.
+
+      For each $v'\in A_x\cap A_z$, Part~\ref{q_part} of $w$'s label contains $\depth_{T_\omega}(q(v'))$ and $\varphi(v')$.  If $\depth_{T_\omega}(q(v'))\neq d=\depth_{T_\omega}(q(v))$ then we can immediately conclude that $q(v)\neq q(v')$, so $v\neq v'$.  Otherwise, the first $d$ bits of $\rho(w)$ describe $P_{T_\omega}(q(v'))$.  Therefore, for each $v'\in A_x\cap A_z$, we can test if $v'=v$ by checking if the first $d$ bits of $\rho(w)$ and the first $d$-bits of $\rho(v)$ are equal and if $\varphi(v')=\varphi(v)$.  If $v'=v$ for some $v'\in A_x\cap A_z$ then a bit in part~\ref{apex_edges} of $w$'s label indicates whether or not the edge $v'w=vw\in E(G)$.
+
+      \item If $\rho(v) = \rho(w)$, then $v,w\in B_i\setminus A_i$ for some $i\in\{1,\ldots,r\}$.  In this case, we compare $\pi_i(v)$ and $\pi_i(w)$.  If $\pi_i(v)\neq\pi_i(w)$, then $v\in V^-_x\setminus A_x$ and $w\in V^-_{x'}\setminus A_{x'}$ for distinct $x,x'\in X_i=L_i(T)\cap X$.  In this case we can immediately conclude that $vw\not\in E(G)$.
+
+      Now suppose $\pi_i(v)=\pi_i(w)$, which implies that $v,w\in V^-_x$ for some $x\in X_i$. In this case, we inspect the two bits of part \ref{apex_edges} of $v$'s and $w$'s labels.  Up to renaming $v$ and $w$, there are three possibilities:
+      \begin{enumerate}
+        \item $v\in B_x\setminus A_x$ and $w\in B_x\setminus A_x$.  In this case $v$ and $w$ are both vertices in the graph $G[B_x]$ and we can test for the presence of the edge $vw$ using $\lambda_x(v)$ and $\lambda_x(w)$ from part~\ref{dejmmw_part}.
+        \item $v\in B_x\setminus A_x$ and $w\in V^-_x\setminus B_x$.  In this case $w\in V^-_{x,K}$ for some clique $K$ in $\torso{G}{B_x}-A_x$. Part~\ref{dejmmw_part_b} of $w$'s label contains $\lambda_x(K)$.
+
+        Part~\ref{clique_part} of $w$'s label contains, for each $v'\in A_z\cap B_x\setminus A_x=A_z\cap V(K)$ the index $i:=\iota(v')$ of $v'$ in the clique $K$. For each $v'\in A_x\cap A_z$, the mixed labelling scheme for $\torso{G}{B_x}$ includes a testing function $\mu$ such that $\mu(\lambda(v),\lambda(K),i)=1$ if and only if $v'=v$.  If $v'=v$ for some $v'\in A_x\cap A_z$ then an additional bit in part~\ref{apex_edges} of $w$'s label indicates whether the edge $v'w=vw\in E(G)$.  If $v'\neq v$ for any $v'\in B_z\cap B_x$, then $v\not\in V(K)=A_y$, so $vw\not\in E(G)$.
+
+        \item $v\in V^-_x\setminus B_x$ and $w\in V^-_x\setminus B_x$.  In this case, we compare $\lambda_x(v)$ and $\lambda_x(w)$.  If $\lambda_x(v)\neq\lambda_x(w)$ then $v\in V^-_{x,K}$ and $w\in V^-_{x,K'}$ for distinct cliques $K$ and $K'$ in $\torso{G}{B_x}-A_x$, in which case we can immediately conclude that $vw\not\in E(G)$.
+        If $\lambda_x(v)=\lambda_x(w)$ then $v$ and $w$ are both in $V^-_{x,K}$ for some clique $K$ in $\torso{G}{B_x}-A_x$.  In this case, we can test for the presence of the edge $vw$ in $G_{x,K}$ using $\lambda_{x,K}(v)$ and $\lambda_{x,K}(w)$ from part~\ref{recursive_part} of their labels.\footnote{Note that $\lambda_{x,K}$ may be a labelling obtained from an application of \cref{degenerate_labelling_scheme}, which happens when $|V^-_{x,K}|\le k/\alpha$.} \qedhere
+      \end{enumerate}
+    \end{enumerate}
+  \end{proof}
+
+
+
+    % In this labelling, there are $\log_{1/\alpha} n$ levels of recursion, where level $i$ consists of subgraphs each of size at most $\alpha^i n$.  At each layer, there is a waste of $O(\sqrt{\log n})$.  When a vertex stops, there is a one-time waste (from \ref{colour_part}) of $\log(2k/\alpha)$. So the label length is
+    % \[
+    %   \log n + \frac{\log n\cdot \sqrt{\log n}}{\log 1/\alpha} + \log(1/\alpha)
+    % \]
+    % If we take $\alpha=2^{-(\log n)^{3/4}}$ then this becomes
+    % \[
+    % \log n + \frac{\log n\cdot \sqrt{\log n}}{(\log n)^{3/4}} + (\log n)^{3/4} = \log n + O((\log n)^{3/4})
+    % \]
+
+\section{Thoughts}
+
+Can we use the method of \citet{EJM23} to get (for $n$-vertex graphs in any fixed proper minor-closed class):
+\begin{itemize}
+\item a subgraph-universal graph with $(1+o(1))n$ vertices and $n^{1+o(1)}$ edges, or
+\item an induced-subgraph-universal graph with
+$n^{1+o(1)}$ vertices and $n^{1+o(1)}$ edges?
+\end{itemize}
+
+
+  \bibliographystyle{plainurlnat}
+  \bibliography{mflabelling}
+
+  \appendix
+  \crefalias{section}{appendix}
+  \section{Proof of \cref{gk_labelling}}
+  \label{weighted_product_proof}
+
+\david{I think this appendix should be written so that it is self-contained and complete. The reader should not have to read  \citet{dujmovic.esperet.ea:adjacency} to get the full proof. Overlap with \citet{dujmovic.esperet.ea:adjacency} in an appendix is okay in my view.}
+
+\pat{This appendix needs reading and cleaning up, but I've written as much I want to write it about it for now.}
+
+
+   % In this appendix, we outline the modifications to the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} needed to establish \cref{weighted_product}.
+
+   % Let $G$ be a subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P$ is a path on the vertices $1,\ldots,h$, in order.  Each vertex of $G$ is therefore a pair $(v,i)$ with $v\in V(H)$ and $i\in\{1,\ldots,h\}$.
+
+   %  \subsection{The Idea}
+
+   %  In the labelling scheme for $H\boxtimes P$, each vertex $v$ of $H$ gets mapped to an interval $f(v)$. The intersection graph of these intervals contains $H$, but has maximum clique size $O(t\log n)$.  Each vertex $v$ of $H$ also gets mapped onto a real number $x_f(v)$ that is contained in the interval $f(v)$.
+
+   %  The bulk tree/B-tree data structure $B$ then stores $X:=\{x_f(v):v\in S_i\}$ for some set $S_i$ of vertices that are relevant to layers $i$ and $i-1$ of $G\subseteq H\boxtimes P$.  The only important properties of $X$ is that $|X|\in O(|S_i|)$ and, for each $v\in S_i$, some number in $X$ intersects interval $f(x)$.
+
+   %  For a vertex $v$ in $S_i$ we map $v$ to the minimum-depth node $x_B(v)$ of $B$ that is contained in $f(v)$.  The label for $v$ then contains the root-to-$x_B(v)$ path in $B$.  The key property of this mapping is that, for any clique $K$ in $H_i:=(H\boxtimes P)[\{(v,i):v\in S_i]$, there is a single vertical path $P_K$ in $B$ that contains $\{x_B(v):v\in V(K)\}$. This path contains everything we need.  All we need to guarantee is that $P_K$ has length at most $\log\omega(S_i)-\log\min\{\omega(v,i):v\in V(K)\} + o(\log n)$.
+
+   %  \subsection{The ChatGPT Proof}
+
+   %  After a bit of a fight, ChatGPT told us what to do.  Simulate the weight of  $(v,i)$ by putting $\omega(v,i)$ copies of $x_f(v)$ into $B$.  More formally, we store $(x_f(v),1),\ldots,(x_f(v),\omega(v,i))$ in $B$ and use lexicographic comparison.
+
+   %  Now the number of nodes in $B$ is $\omega(S_i)$. Bulk trees ensure that $\height(B)\le \log\omega(S_i)+o(\log n)$. On the other hand, the minimum height of a binary tree that stores $(x_f(v),1),\ldots,(x_f(v),\omega(v,i))$ is about $\log\omega(v,i)$. Therefore, there must be a node $x^*:=(x_f(v),j)$ in $B$ with $\depth_B(x^*)\le \height(B)-\log\omega(v,i)=\log\omega(S_i)-\log\omega(v,i)+o(\log n)$.  Since $x_f(v)$ is contained in $f(v)$, we have $\depth_B(x_B(v))\le \depth_B(x^*)\le \log\omega(S_i)-\log\omega(v,i)+o(\log n)$.
+
+   %  That's it. We can use B-trees and/or bulk trees as a black box.  We get the vertex label length and the clique label length for free.  (For B-trees the height statement is something like:  For any sequence $R$ of $\omega$ consecutive leaves in a $a$-tree $B$, there is an internal node $x^*$ of $B$ of depth at most $\height(B)-\log_a(\omega)$ such that all the leaves of $T_{x^*}$ are contained in $R$.
+
+% \subsection{Duplication}
+
+%   \pat{Reorganize: First, mapping onto intervals and its three properties.  Then the trees and the supersets.}
+
+  In this appendix, we review the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improvement by \citet{alstrup.rauhe:improved} in order to show the existence of the weighted mixed labellings promised in \cref{gk_labelling}.
+  Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path.  Without loss of generality, we assume that the vertices of $P$ are the integers $1,\ldots,h$, in order.   Also without loss of generality, we assume that $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the vertices in the out-neighbourhood $N^+_H(v)$ form a clique in $H$, for each $v\in V(H)$.
+
+
+  \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
+  The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.  Each vertex $v$ of $H$ is mapped to a real interval \defin{$f(v)$}. This mapping has the following properties (for some fixed $c>0$):
+  \begin{enumerate}
+      \item\label{nested_or_disjoint} For any two vertices $v,w\in V(H)$, $f(v)\subseteq f(w)$, $f(w)\subseteq f(v)$ or $f(v)\cap f(w)=\emptyset$.
+      \item\label{intersection_subgraph} For each $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.
+      \item\label{thin} For each $x\in R$, $|\{v\in V(H):x\in f(v)\}|\le ck\log n$.
+  \end{enumerate}
+  \pat{Remove this paragraph?} The existence of such a mapping $f$ is easily established by recursive procedure  that takes an open interval $(a,b)$ and a subgraph $H'$ of $H$.  The procedure identifies a set $S$ of at most $k+1$ vertices  in $H'$ such that the components of $H'-S$ can be partitioned into two graph $H'_1$ and $H'_2$, each with at most $\tfrac{2}{3}|V(H')|$ vertices. For each $v\in S$, $f(v):=(a,b)$.  The procedure is then applied inductively to map the vertices of $H'_1$ onto subintervals of $(a,(a+b)/2)$ and then again to map the vertices of $H'_2$ onto subintervals of $((a+b)/2,b)$.
+
+  Let $I$ be the interval intersection graph with vertex set $V(I):=V(H)$ and edge set $E(I):=\{vw\in\binom{V(H)}{2}:f(v)\cap f(w)\neq\emptyset$.  Property~\ref{intersection_subgraph} implies that $H$ is a subgraph of $I$. Property~\ref{thin} implies that $H$ has no clique larger than $ck\log n$.  The graph $I$ has a proper colouring $\mathdefin{\varphi}:V(H)\to\{1,\ldots,\lfloor ck\log n\rfloor\}$ \cite{gilmore.hoffman:characterization}.  The label for each vertex $(v,i)$ of $G$ will include the $O(\log\log (tn))$-bit integer $\varphi(v)$.
+
+  \paragraph{\boldmath Mapping $V(H)$ onto points:}
+  For each vertex $v$ of $H$, let $x_f(v)$ be the midpoint of the interval $f(v)$.\footnote{Any real number $x_f(v)$ in the interior of the interval $f(v)$ would also work.}  Property~\ref{nested_or_disjoint} then implies
+  \begin{enumerate}\setcounter{enumi}{3}
+      \item\label{clique_property} For any clique $K$ in $I$, there exists $w\in V(K)$ such $x_f(w)\in f(v)$ for each $v\in V(K)$.
+  \end{enumerate}
+  Indeed, a vertex $w$ of $K$ that minimizes the length of $f(w)$ satisfies this condition.
+
+  \paragraph{\boldmath Treating $G$ as a sequence of graphs}
+
+  Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.  We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$, for each $i\in\{1,\ldots,r\}$.
+
+  The next idea in \cite{dujmovic.esperet.ea:adjacency} is to consider a sequence of subgraphs $R_1,\ldots,R_h\subseteq H\boxtimes P$, where $R_i:=(H\boxtimes P)[(v,j)\in V(G):j\in\{i-1,i,i+1\}]$. Every edge and vertex of $G$ is represented in at least one of these subgraphs, so $\bigcup_{i=1}^h R_i\supseteq G$. Each vertex of $G$ appears in at most three of these subgraphs, so $\sum_{i=2}^1 |V(R_i)|\le 3n$.
+
+  The label of any vertex $(v,i)$ of $G$ has two main parts, whose lengths sum to $\log n+o(\log n)$. The first part, $\lambda_1((v,i))$ is determined by the $P$-coordinate, $i$.  The second part, $\lambda_2((v,i))$, is obtained from a labelling of $R_i$, so it represents the $H$-coordinate, $v$.
+  % We begin by focusing on the second part.
+
+  For each $i\in\{1,\ldots,h\}$, let $\mathdefin{S_i}:=\{x_f(v):(v,j)\in V(R_i)\}$. Note that $S_i$ is a set of real numbers, for each $i\in\{1,\ldots,h\}$. Before proceeding, \cite{dujmovic.esperet.ea:adjacency} defines a sequence of supersets \defin{$S^+_1,\ldots,S^+_h$}. The exact definition of $S^+_1,\ldots,S^+_h$ is not necessary for the current discussion.  The relevant properties here are:
+  \begin{enumerate}[label=(\alph*)]
+      \item\label{plus_superset} $S^+_i\supseteq S_i$ for each $i\in\{1,\ldots,h\}$;
+      % \item\label{plus_increase} $|S^+_i| \le 2|S^+_{i-1}|$ for each $i\in\{2,\ldots,r\}$; and
+      \item\label{plus_size} there is a constant $c>0$ such that $\sum_{i=1}^h |S^+_i|\le cn$.
+  \end{enumerate}
+  We remark that the contents of the sets $S^+_1,\ldots,S^+_h$ are entirely determined by the contents of the sets $S_1,\ldots,S_h$.  (Formally, the sequence $S^+_1,\ldots,S^+_h$ is the result of applying a function $q:(2^\R)^*\to (2^\R)^*$ whose input is a sequence of sets of real numbers and whose output is a sequence of sets of real numbers. The function $q$ is universal; it does not depend on $H$, $P$, or $G$.)
+
+  With the sets $S^+_1,\ldots,S^+_h$ described, we can now discuss $\lambda_1$.
+  For each vertex $(v,i)$ of $G$, $\lambda_1((v,i))$ has length $\log n - \log |S^+_i| + O(\log\log n)$. This part is obtained by applying \cref{shannon_fano_elias_code} to the set $S:=\{1,\ldots,h\}$ using the weight function $i \mapsto |S^+_i|$ to obtain a prefix-free code $\mathdefin{\rho}:\{1,\ldots,h\}\to\{0,1\}^*$. By Property~\ref{plus_size}, $|\rho(i)|\le \log n - \log|S^+_i| + O(1)$ for each $i\in\{1,\ldots,h\}$.  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\mu(i)}$ of length $O(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\mu(i)$.  Then
+  \[
+     \mathdefin{\lambda_1((v,i))}:=(\rho(i),\mu(i))
+  \]
+  for each vertex $(v,i)$ of $G$.
+
+  \paragraph{Bulk trees:}
+  In \cite{dujmovic.esperet.ea:adjacency}, each set $S^+_i$ is stored in a binary search tree $T_i$ of height $\log|S^+_i|+o(\log n)$. As in \cref{shannon_fano_elias_code}, each node $x$ of $T_i$ is assigned a \defin{signature} \defin{$\sigma_i(x)$} that describes the describes the root-to-$x$ path $P_{T_i}(x)$ as a binary string of length $\depth_{T_i}(x)$. Note that, for any $x\in V(T_i)$:
+  \[
+    |\sigma_i(x)| \le \height(T_i) \le \log|S^+_i|+o(\log n)
+  \]
+  For each $i\in\{1,\ldots,h\}$, each vertex $(v,j)\in V(R_i)$ is mapped to the node $x_{T_i}(v)\in V(T_i)$ of minimum $T_i$-depth such that (the real number) $x_{T_i}(v)$ is contained in the (real interval) $f(v)$. The node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.
+
+  For each $(v,j)\in V(R_i)$, this defines the \defin{signature} $\sigma((v,i)):=\sigma_i(x_{T_i}(v))$.  Note that, for two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
+  \[
+     (i,\,\sigma((v,i)),\,\varphi(v)) = (i',\,\sigma((v',i')),\,\varphi(v')) \enspace .
+  \]
+
+
+  For each $i\in\{1,\ldots,h\}$ and each $(v,i)\in (V(H)\times\{i\})\cap V(G)$, define the set
+  \[
+     \mathdefin{X_{v,i}}:= \{(v,i)\}\cup \left(N_H^+(v)\times\{i-1,i,i+1\}\right)\cap V(G) \enspace .
+  \]
+  Note that, for every edge $(v,i)(w,j)$ of $G$, $(w,j)\in X_{v,i}$ (if $w\in \{v\}\cup N^+_H(v)$) or $(v,i)\in X_{w,j}$ (if $v\in \{w\}\cup N^+_H(w)$).
+  For each $(w,j)\in X_{v,i}$, we have $x_f(w)\in S_i\subseteq S^+_i=V(T_i)$. Therefore, $x_{T_i}(w)$ and $\sigma((w,i))$ are well-defined, even when $j\neq i$ and $(w,i)\not\in V(G)$.
+
+  For each $(v,i)\in (V(H)\times\{i\})\cap V(G)$, the \defin{extended signature} \defin{$\sigma^+((v,i))$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):(w,j)\in X_{v,i}\}$ of maximum length.  By property~\ref{clique_property}, every signature in $\Sigma_{v,i}$ is a prefix of $\sigma^+(v,i)$ for each vertex $(v,i)$ of $G$. The labelling scheme in \cite{dujmovic.esperet.ea:adjacency} uses this to implicitly store the signature $\sigma((w,i))$ for each $(w,j)\in X_{v,i}$ inside the label of $(v,i)$. Specifically, for each $(w,j)\in X_{v,i}$, the label for $(v,i)$ contains an additional $O(k\log\log (kn))$ bits to store
+  \begin{equation}
+     \mathdefin{\pi((v,i))}:= \left( \quad(|\sigma((w,i))|,\, \varphi(w),\, j-i,\, b(w,j))\quad :\quad (w,j)\in X_{v,i}\right) \enspace . \label{four_tuple}
+  \end{equation}
+  where $b(w,j)$ is a single bit that indicates, for each $(w,j)\in X_{v,i}$ whether or not $(v,i)(w,j)\in E(G)$.
+
+  Let $(v,i)$ and $(w,j)$ be any two vertices of $G$, and suppose we are given $\lambda_1((v,i))$, $\sigma^+((v,i))$, $\pi((v,i))$, $\lambda_1((w,j))$, $\sigma^+((w,i))$, and $\pi((w,j))$.  (The preceding sentence does not contain a typo! The occurrences of $i$ and $j$ are deliberate.) Given only these values, it is straightforward to test if $(v,i)
+  (w,j)$ is an edge of $G$.  Quickly: Using $\lambda_1((v,i))$ and $\lambda_1((w,j))$, the tester checks if $|j-i|\le 1$.  If not, then $(v,i)$ and $(w,j)$ are not adjacent in $G$.  Otherwise, assume without loss of generality that $j\in\{i-1, i\}$. Then the tester uses $\sigma^+((v,i))$, $\pi((v,i))$ and $\sigma^+((w,i))$, and $\pi((w,j))$ to check if $(w,j)\in X_{v,i}$ or $(v,i)\in X_{w,j}$.
+  If neither of these is the case then $(v,i)$ and $(w,j)$ are not adjacent in $G$.  If $(w,j)\in X_{v,i}$ then the last component of $\pi((v,i))$ is used to test if $(v,i)(w,i)\in E(G)$.  If $(v,i)\in X_{w,j}$ then the last component of $\pi((w,i))$ is used to test if $(v,i)(w,i)\in E(G)$.
+
+
+  The main challenge with this approach becomes apparent when we consider an edge of $G$ with endpoints $(v,i)$ and $(w,i-1)$.  The label for $(v,i)$ contains all the information the tester needs about $(v,i)$, but the label for $(w,i-1)$ does not contain $\sigma^+((w,i))$. Instead, it contains $\sigma^+((w,i-1))$.  The extended signature $\sigma^+((w,i-1)$ describes a path $P_{T_{i-1}}(x_{T_{i-1}}(w))$ in $T_{i-1}$, not a path in $T_i$.  To determine if $(v,i)$ and $(w,i-1)$ are adjacent in $R_i$ (and therefore $(v,i)$ and $(w,i-1)$ are potentially adjacent in $G$) the tester needs the extended signature $\sigma^+((w,i))$ that describes $P_{T_i}(x_{T_i}(w))$.  The binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) are chosen so that $\sigma^+((w,i))$ can be derived from $\sigma^+((w,i-1))$ and a \defin{transition code} \defin{$\tau((w,i-1))$} of length $o(\log n)$. The transition code $\tau((w,i-1))$ is stored as part of $(w,i-1)$'s label.
+  This is the last piece needed for the second part of the label for a vertex $(v,i)$ of $G$:
+  \[
+    \mathdefin{\lambda_2((v,i))} := \sigma^+((v,i)),\, \pi((v,i)),\, \tau((v,i))
+  \]
+  In this way, the two main parts of the label for a vertex $(v,i)$ of $G$ have length
+  \[
+      |\lambda_1((v,i))|+|\lambda_2((v,i))|
+      \le |\rho(i)| + |\sigma^+((v,i))| + o(\log n)
+      = \log n + o(\log n) \enspace .
+  \]
+
+
+
+
+%   The main challenge with this approach becomes apparent when we consider an edge of $G$ with endpoints $(v,i)$ and $(w,i-1)$.
+%   However, $\sigma((w,i-1)$ describes a path $P_{T_{i-1}}(x_{T_{i-1}}(w))$ in $T_{i-1}$, not a path in $T_i$.  To determine if $v$ and $w$ are adjacent in $R_i$ (and therefore $(v,i)$ and $(w,i-1)$ are potentially adjacent in $G$) we need the string $\sigma((w,i))$ that describes $P_{T_i}(x_{T_i}(w))$ so that we can compare this to $\sigma((v,i))$.  The binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) are chosen so that $\sigma((w,i))$ can be derived from $\sigma((w,i-1))$ and a \defin{transition code} $\tau((w,i-1))$ of length $o(\log n)$. The transition code $\tau((w,i-1))$ is stored as part of $(w,i-1)$'s label.
+% %   To achieve this, the authors in \cite{dujmovic.esperet.ea:adjacency} describe a special-purpose binary search tree data structure called a \defin{bulk tree} that is used to define the trees $T_1,\ldots,T_h$.
+
+
+
+
+
+
+%   % This is enough information to test
+
+
+
+
+
+%   % \[ \argmax_{w\in X_{v,i}}
+%   % \]
+%   % the signature $\sigma(w,i)$ of $(w,j)\in X_{v,i}$ that maximizes $|\sigma(w,i)|$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%   % Note that, for any two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
+%   % \[  (\rho(i),\sigma((v,i)),\varphi(v)) = (\rho(i'),\sigma((v',i'),\varphi(v'))
+%   % \]
+
+%   % The signature for a vertex $(v,i)$ is useful for recognizing $(v,i)$, but by increasing it slightly, we can also store the signatures of $v$'s out-neighbours.  We now make this precise.  For each vertex $(v,i)$ of $R_i$, define the set
+%   % \[
+%   %    X_{v,i}:= \left(N_H^+(v)\times\{i-1,i,i+1\}\right)\cap V(G)
+%   % \]
+%   % For each $(w,j)\in X_{v,i}$, we have $x_f(w)\in S_i\subseteq S^+_i=V(T_i)$, so $x_{T_i}(w)$ and $\sigma((w,i))$ are well-defined.  By property~\ref{clique_property}, every signature in $\Sigma_{v,i}:=\{\sigma((w,i)):(w,i)\in X_{v,i}\}$ is a prefix of the longest signature in $\Sigma_{v,i}$.
+
+%   % Let $(v,i)$ be a vertex of $G$.  Then $\lambda_2((v,i))$ is the longest signature in $\Sigma_{v,i}$.  In addition to this, for each $(w,j)\in X_{v,i}$, the label for $(v,i)$ contains and additional $O(\log\log (kn))$ bits to store tuple
+%   % \begin{equation}
+%   %    (|\sigma((w,j))|,\, \varphi(w),\, j-i,\, \mathbbm{1}_{(v,i)(w,j)\in E(G)}) \enspace . \label{four_tuple}
+%   % \end{equation}
+%   % In total, this only contributes $O(k\log\log n)$ bits to the length of the label for $(v,i)$.
+
+
+%   % The main challenge with this approach is that that $G$ may contain an edge with endpoints $(v,i)$ and $(w,i-1)$.  By the definition of $S_i$, $x_f(w)$ is contained in $S_i\subseteq S_i^+= V(T_i)$, so $x_{T_i}(w)$ is well-defined.
+
+
+
+%   However, $\sigma((w,i-1)$ describes a path $P_{T_{i-1}}(x_{T_{i-1}}(w))$ in $T_{i-1}$, not a path in $T_i$.  To determine if $v$ and $w$ are adjacent in $R_i$ (and therefore $(v,i)$ and $(w,i-1)$ are potentially adjacent in $G$) we need the string $\sigma((w,i))$ that describes $P_{T_i}(x_{T_i}(w))$ so that we can compare this to $\sigma((v,i))$.  The binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) are chosen so that $\sigma((w,i))$ can be derived from $\sigma((w,i-1))$ and a \defin{transition code} $\tau((w,i-1))$ of length $o(\log n)$. The transition code $\tau((w,i-1))$ is stored as part of $(w,i-1)$'s label.
+%   To achieve this, the authors in \cite{dujmovic.esperet.ea:adjacency} describe a special-purpose binary search tree data structure called a \defin{bulk tree} that is used to define the trees $T_1,\ldots,T_h$.
+
+%   With this tool, the rest of the details of the labels and adjacency testing are fairly straightforward.  For each vertex $(v,i)$ of $G$, define the set
+%   \[
+%      X_{v,i}:= \left(N_H^+(v)\times\{i-1,i,i+1\}\right)\cap V(G)
+%   \]
+%   For each $(w,j)\in X_{v,i}$, we have $x_f(w)\in S_i\subseteq S^+_i=V(T_i)$, so $x_{T_i}(w)$ and $\sigma((w,i))$ are well-defined.  By property~\ref{clique_property}, every signature in $\Sigma_{v,i}:=\{\sigma((w,i)):(w,i)\in X_{v,i}\}$ is a prefix of the longest signature in $\Sigma_{v,i}$.
+
+%   Let $(v,i)$ be a vertex of $G$.  Then $\lambda_2((v,i))$ is the longest signature in $\Sigma_{v,i}$.  In addition to this, for each $(w,j)\in X_{v,i}$, the label for $(v,i)$ contains and additional $O(\log\log (kn))$ bits to store tuple
+%   \begin{equation}
+%      (|\sigma((w,j))|,\, \varphi(w),\, j-i,\, \mathbbm{1}_{(v,i)(w,j)\in E(G)}) \enspace . \label{four_tuple}
+%   \end{equation}
+
+%   In total, this only contributes $O(k\log\log n)$ bits to the length of the label for $(v,i)$.
+
+%   To test adjacency between vertices $(v,i)$ and $(w,j)$, the adjacency tester begins by using $\lambda_1((v,i))$ and $\lambda_1((w,j))$ to distinguish between the following three cases:
+%   \begin{enumerate}
+%       \item If $i=j$ then $\lambda_2((v,i))$ and $\sigma((w,j))$ are used to check if $(w,i)\in X_{v,i}$. If so, then
+%   the last entry in \eqref{four_tuple} is used to determine if $(v,i)(w,j)$ is an edge of $G$.  If $(w,i)\not\in X_{v,i}$, then this test is repeated with the roles of $(v,i)$ and $(w,j)$ reversed.  If $(w,i)\not\in X_{v,i}$ and $(v,i)\not\in X_{w,i}$ then $(v,i)(w,i)$ is not an edge of $G$.
+
+%      \item If $j = i-1$, then the signature $\sigma(w,i-1)$ and the transition code $\tau(w,i-1)$ are used to recover $\sigma(w,i)$.  then $\lambda_2((v,i))$ and $\sigma((w,j))$ are used to check if $(w,i)\in X_{v,i}$. If so, then the last entry in \eqref{four_tuple} is used to determine if $(v,i)(w,j)$ is an edge of $G$.
+
+%       If $(w,i)\not\in X_{v,i}$ then we need to test if $(v,i)\in X_{w,i}$. This is equivalent to asking if $v\in N^+_H(w)$.  By \ref{clique_property}, this can only be the case if one of $\sigma((w,i))$ and $\sigma((v,i))$ is a prefix of the other.
+
+
+%   % N^+((w,i))$ or $(w,i)\in N^+((v,i))$.  If not, then the adjacency tester checks if $j\in\{i-1,i+1\}$.  If not, then these two vertices are not adjacent so assume, without loss of generality that $j=i-1$. Then the tester uses the signature $\sigma((w,i-1))$ and the transition function $\tau((w,i-1))$ to compute $\sigma((w,i))$.
+
+
+%   so, then
+
+
+
+
+
+%   Prefixes of $P_v$ contain
+%   Prefixes of this path contain $P_{T_i}(z)$ for each $z\in \{z'\in N^+(v)\cap\{z'\in $ such that $(z,i)z\in\{v\}\cup N^+(v)$.  An additional $O(k\log\log n)$ bits in the label of $(v,i)$ stores the lengths of these prefixes
+
+
+
+%   pair of distinct vertices $v$ and $w$ of $H$,  $\varphi(v)\neq\varphi(w)$
+
+%   The next idea in \cite{dujmovic.esperet.ea:adjacency} is to treat $G$ as a sequence of subgraphs $H_1,\ldots,H_h$ of $H$ (one for each vertex of $P$).  Each vertex $v$ of $H$ is assigned a real interval $f(v)$ and a real number $x_f(v)$ in $f(v)$. For each $i\in\{1,\ldots,h\}$, the labelling scheme uses a binary search tree $T_i$ to store a set $S_i^+\supset S_i:= \{x_f(v):v\in V(H_i\cup H_{i-1})\}$.\footnote{We use the convention that $H_0$ is the subgraph of $H$ with no vertices}  Each vertex $v$ of $H_i\cup H_{i-1}$ is mapped to the node $x_{T_i}(v)\in V(T_i)$ of minimum $T_i$-depth such that (the interval) $f(v)$ contains (the real number) $x_{T_i}(v)$. The node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.  It will be useful to us that
+%   \begin{equation}
+%     \depth_{T_i}(x_{T_i}(v))= \min\{\depth_{T_i}(x):x\in S_i,\, x\in f(v)\}\le \depth_{T_i}(x_f(v)) \enspace . \label{interval_depth}
+%   \end{equation}
+
+%   The sets $S_1^+,\ldots,S_h^+$ are carefully chosen supersets of $S_1,\ldots,S_h$ that have a total size $\sum_{i=1}^h |S_i^+|\in O(n)$.
+%   In this labelling scheme, the label for a vertex $v$ in $H_i$ has two main parts.  The first part, $\lambda_1(v)$ encodes the value of $i$ and has length $\log n-\log |S_i|+o(\log n)$.\footnote{$\lambda_1(v)$ is obtained from \cref{shannon_fano_elias_code} by adding $O(\log\log n)$ bits that make it possible to extract $\lambda_1(i-1)$ from $\lambda_1(i)$.}  The second part, $\lambda_2(v)$, which we are now interested in, has length $\depth_{T_i}(x_{T_i}(v)) + o(\log n)$.    The search tree data structure is designed so that $\height(T_i)\le  \log |S_i| + o(\log n)$ so that the two parts of $v$'s label have total length $\log n - \log |S_i| + \height(T_i) + o(\log n)\le \log n + o(\log n)$.  Note that this upper bound is weak and that, in general, $\depth_{T_i}(x_{T_i}(v)) \le \depth_{T_i}(x_f(v))\le \height(T_i)$.
+
+%   The main challenge with this approach is that that $H\boxtimes P$ may contain an edge $(v,i)$, $(w,i-1)$ for some $v\in V(H_i)$, $w\in V(H_{i-1})$.  By the definition of $S_i$, $x_f(w)$ appears $S_i\subseteq S_i^+= V(T_i)$, but $\lambda_2((w,i-1)$ describes a path in $T_{i-1}$, not a path in $T_i$.  To determine if $v$ and $w$ are adjacent in $H$ (and therefore $(v,i)$ and $(w,i-1)$ are potentially adjacent in $G$) we need the string $\lambda_2((w,i))$ that describes the path in $T_i$ to $x_{T_i}(w)$ so that we can compare this to $\lambda_2((v,i))$.  The binary search trees $T_1,\ldots,T_h$ (and the sets $S_1,\ldots,S_h$) are chosen so that $\lambda_2((w,i))$ can be derived from $\lambda_2((w,i-1))$ and a \defin{transition code} $\tau((w,i-1))$ of length $o(\log n)$. To achieve this, the authors in \cite{dujmovic.esperet.ea:adjacency} describe a special-purpose binary search tree data structure called a \defin{bulk tree} that is used to define the trees $T_1,\ldots,T_h$.
+
+\paragraph{B-trees:}
+
+  In \cite{alstrup.rauhe:improved}, the authors use weight-balanced B-trees to replace the (binary) bulk trees used in \cite{dujmovic.esperet.ea:adjacency}.  A \defin{B-tree} stores a set of real numbers in the leaves of a (not usually binary) tree $B$ in which all leaves have the same depth. \defin{Weight-balanced B-trees} are parameterized by a parameter $a\ge 6$.  A weight-balanced B-tree $B$ is \defin{semi-balanced} if, for each node $x$ of $B$, the number of leaves in the subtree $B_x$ is at most $6a^{\height(B_x)}$ and for each \emph{non-root} node $x$ of $B$, the number of leaves in $B_x$ is at least $\tfrac{1}{2}a^{\height(B_x)})$.
+
+  Let $B$ be a weight-balanced B-tree with $r\in \{1,\ldots,n\}$ leaves.  The weight-balance conditions guarantee that $\height(B)\le \log_a r + 1$.  The weight-balance conditions also ensure that the number of children of any node $x$ of $B$ is at most $12a$.  This implies that any root-to-leaf path in a B-tree can be encoded by a sequence of $\log_a r+1$ integers, each requiring $\lceil\log(12a)\rceil\le \log a + 5$ bits to represent, for a total of at most $\lceil\log(12a)\rceil\cdot(\log_a r+1)=\log r + O(\log_a r + \log a)$ bits.  The value of $a$ used in \cite{alstrup.rauhe:improved} is approximately $2^{\sqrt{\log n}}$, so that any root-to-leaf path in $B$ can be represented using $\log r + O(\sqrt{\log n})$ bits.
+
+  The sequence of binary search trees $T_1,\ldots,T_h$ used in \cite{alstrup.rauhe:improved} is replaced with a sequence of B-trees $B_1,\ldots,B_h$.
+  For each $i\in\{1,\ldots,h\}$,  the leaves of $B_i$ store the values in $S^+_i$.  For each $i\in\{1,\ldots,h\}$, each vertex $(v,j)\in V(R_i)$ is mapped to the lowest-common-$B_i$-ancestor $x_{B_i}(v)$ of $f(v)\cap S^+_i$.  Then, for a vertex $(v,i)$ of $G$, the signature $\sigma((v,i))$ is the encoding of  $P_{B_i}(x_{B_i}(v))$.  Then
+  \[
+    |\sigma((v,i))| \le \lceil\log (12a)\rceil\cdot(\depth_{B_i}(x_{B_i}(v))) = \lceil\log (12a)\rceil(\depth_{B_i}(\lca_{B_i}(f(v)\cap S_i))) \enspace .
+  \]
+  An upper bound on $|\sigma((v,i))|$ can be obtained by using the $\log_a |S^+_i|+1$ upper bound on $\height(B_i)$:
+  \[
+    |\sigma((v,i))|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + O(\sqrt{\log n})
+  \]
+  The main advantage of using B-trees over the bulk trees in \cite{dujmovic.esperet.ea:adjacency} is that B-trees the rebalancing operations needed to maintain the height bound result in a much simpler transition code $\tau((w,i-1))$.  This simplicity ultimately comes from the fact that, for any $p\in S_{i-1}\cap S_i$, the root-to-$p$ path $P_{B_{i-1}}(p)$ in $B_{i-1}$ and the root-to-$p$ path $P_{B_i}(p)$ in $B_i$ differ by at most a single vertex.  More precisely, a subpath $xyz$ in $P_{B_{i-1}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_i}(x)$.\footnote{There are two easily handled exceptions.  Occasionally, $P_{B_i}(x)$ is obtained by removing the first vertex of $P_{B_{i-1}}(x)$ or by adding a vertex at the beginning of $P_{B_{i-1}}(x)$.  These are easily handled distractions, so we ignore them here.}  In terms of the signature function $\sigma$, this means that the difference between these two paths can be described by an $O(\log\log_a n)$-bit integer that gives the index of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that describe where $y'$ is in the list of $x$'s children and where $z$ is in the list of $y'$'s children.\footnote{Determining $\sigma^+((w,i))$ from $\sigma^+((w,i-1))$ requires a bit more work, since it is possible that $x_{B_i}(w)\neq x_{B_{i-1}}(w)$.  This is common to both labelling schemes and does not affect the upcoming discussion. The important thing for what comes next is the definition of $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$}  As a result of this, the transition code $\tau(w,i-1)$ used for the B-trees in \cite{alstrup.rauhe:improved} is shorter (it has length $O(\sqrt{\log n})$ rather than the $O(\sqrt{\log n\log\log n})$ required by bulk trees) and, on a computer with $O(\log n)$-bit words, the translation from $\sigma^+((w,i-1))$ to $\sigma^+((w,i))$ can be done in constant time, resulting in a constant-time adjacency testing procedure.  (All of the other adjacency-testing operations for both schemes can be done in constant-time.)
+
+  Except for the new definition of the basic signature $\sigma$ and the transition function $\tau$, every other aspect of the resulting labelling scheme and adjacency testing procedure is as described in \cite{dujmovic.esperet.ea:adjacency}.
+
+  \paragraph{A weighted-labelling scheme:}
+  We now describe the changes to \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling}.  \Cref{gk_labelling} involves two graphs $G^+$ and $G$ with $G\subseteq G^+\subseteq H\boxtimes P$ and a weight function $\omega:V(G^+)\to\N$.  First, we observe that the final verification performed by the adjacency tester before confirming the presence of an edge is to check a bit that is explicitly stored to indicate the presence (or not) of this edge in $G$.  Thus, the adjacency labelling for the supergraph $G^+$ of $G$ can be made into an adjacency labelling for $G$ by changing a single bit in each label.  Thus, from this point on we assume that $G=G^+$.
+
+  We proceed exactly as in the proof of \cref{shannon_fano_elias_tree}.
+  For each $i\in\{1,\ldots,h\}$ and each $v\in (V(H)\times\{i\})\cap V(G)$, define
+  \[
+     S_{\omega,i}[v]:=\{(x_f(v),1),\,\ldots,\, (x_f(v),\omega((v,i))\}
+  \]
+  and define $S_{\omega,i}:=\bigcup_{v\in V(H_i^+)}S_{\omega,i}[v]$.  For each $i\in\{1,\ldots,h\}$, treat $S_{\omega,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\omega,i}|=\omega(G[V(H)\times\{i-1,i,i+1\}])$ for each $i\in\{1,\ldots,h\}$ and $\sum_{i=1}^h |S_{\omega,i}|\le 3\omega(G)$.
+
+  We use the convention that a real interval $(a,b)$ contains $(x,j)\in S^+_i$ if (the real interval) $(a,b)$ contains (the real number) $x$. In particular, for a vertex $v\in H$ and $i\in\{1,\ldots,h\}$, $f(v)\cap S^+_i:=\{(x,j)\in S^+_i:x\in f(v)\}$. Then, just as in the unweighted case $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$.  The only difference at this point is that we apply the machinery in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\omega,1},\ldots,S_{\omega,h}$.  This results in sets $S^+_{\omega,1},\ldots,S^+_{\omega,h}$ of total size $\sum_{i=1}^h |S^+_{\omega,i}|\in O(\omega(G))$.
+
+  This works because a B-tree of height $h$ has at most $6a^h$ leaves.
+  The node $\lca_{B_i}(S_{\omega,i}[v])$ is the root of a subtree of $B_i$ with at least $|S_{\omega,i}[v]|=\omega((v,i))$ leaves.  Therefore,
+  \begin{align*}
+     \depth_{B_i}(x_{B_i}(v))
+     & =
+     \depth_{B_i}(\lca_{B_i}(\lca(f(v)\cap S_{\omega,i}) \\
+     & \le
+     \depth_{B_i}(\lca_{B_i}(\lca(S_{\omega,i}[v])) \\
+     & \le\height(B_i)-\log_a\omega((v,i))+1 \\
+     & \le \log_a|S^+_i| - \log_a\omega((v,i)) + 2 \enspace .
+  \end{align*}
+  Then
+  \begin{align*}
+     |\lambda_2((v,i))|
+     & \le \lceil \log(12a)\rceil \depth_{B_i}(x_{B_i}(v)) \\
+     & \le \log |S^+_{\omega,i}|-\log \omega((v,i)) + O(\log_a|S^+_{\omega,i}|+ \log a) \\
+     & \le \log |S^+_{\omega,i}|-\log \omega((v,i)) + O(\sqrt{\log n})
+  \end{align*}
+  and
+  \begin{align*}
+     |\lambda_1((v,i))|+|\lambda_2((v,i))|
+     & \le \log\omega(G) - \log |S^+_{\omega,i}| + O(\log\log n) \\
+     & \quad {} + \log |S^+_{\omega,i}|-\log \omega((v,i)) + O(\sqrt{\log n}) \\
+     & = \log\omega(G) - \log\omega((v,i)) + O(\sqrt{\log n}) \enspace .
+  \end{align*}
+
+  \paragraph{Clique labelling and membership testing:}
+
+  In the preceding, we have argued that the lengths of the adjacency labels promised in \cref{gk_labelling} are achievable.  All that remains is describe the clique labels and membership testing procedure.
+
+  Let $K$ be a clique in $G=G^+$.  Then $K\subseteq R_i$ for some $i\in\{1,\ldots,h\}$.  Let $X_K:=\{v: (v,i)\in V(K)\}$.  Then $H[X_K]$ is a clique and there exists $v^*\in X_K$ such that $\{v^*\}\cup N^+_H(v^*)\supseteq X_K$.  Therefore, there exists $(v^*,i)\in V(K)$ such that $X_{v^*,i}\supseteq V(K)$. Recall that $\sigma^+((v^*,i))$ and $\pi((v^*,i))$ contain enough information to recover $\sigma((w,j))$ and $\varphi(w)$ and $j-i$ for each $(w,j)\in X_{v^*,i}$.
+
+  Order the vertices of $X_{v^*,i}$ as $(w_1,j_1),\ldots,(w_{r},j_r)$ in the same order that the information about these vertices appears in $\pi((v^*,i))$.
+  We define the clique label $\lambda(K):=(\lambda((v^*,i)), b(K))$, where $b(K):=b_1(K),\ldots,b_{|X_{v^*,i}|}(K)$ is a bit-vector that indicates, for each $p\in\{1,\ldots,3k+1\}$ whether $(w_p,j_p)\in V(K)$.  Let $(v_1,\ell_1),\ldots,(v_{|V(K)|},\ell_{|V(K)|})$ be the vertices of $K$ in the order that these vertices appear in $(w_1,j_1),\ldots,(w_{r},j_r)$.  The length of this label is
+  \begin{align*}
+     |\lambda(K)|
+     & = |\lambda(v^*,i)| + O(k) \\
+     & \le \log\omega(G) - \log\omega((v^*,i)) + O(\sqrt{\log n}) \\
+     & \le \log\omega(G) - \log\min\{\omega((w,j)):(w,j)\in V(K)\} + O(\sqrt{\log n})  \enspace .
+  \end{align*}
+
+  Given $\lambda(K)$, $\lambda((w,j))$, and an integer $i\in\{1,\ldots,|V(K)|\}$, the membership tester computes the minimum integer $\ell$ such that $\sum_{j=1}^\ell b_j(K)=i$.  Then the algorithm proceeds exactly like the adjacency testing algorithm to determine if $(w,j)=(w_\ell,j_\ell)$.
+
+
+%   % In order to prove \cref{gk_labelling}, we must be able to accept a weight function $\omega_i:V(H^+_i)\to\N^+$ for each $i\in\{1,\ldots,h\}$ and ensure that $\depth_{T_i}(x_{T_i}(v))\le\log\omega(S_i)-\log\omega(v)$ for each $v\in V(H^+_i)$.  By \cref{interval_depth}, we need only ensure that $\depth_{T_i}(x_f(v))\le\log\omega(H^+_i)-\log\omega(v)+o(\log n)$.
+%   % % The binary search trees used by \citet{dujmovic.esperet.ea:adjacency}, called \defin{bulk trees}, and (to a less extent) the weight-balanced B-trees used by \citet{gawrychowski.janczewski:simpler} for this purpose have a fairly involved analysis, so we prefer to use them as a black box.
+%   % Thus, the proof of \cref{gk_labelling}
+%   % boils down to the following question:  Can the binary trees used in \cite{dujmovic.esperet.ea:adjacency} to store $S_1,\ldots,S_h$ be adapted to guarantee that
+%   % \[ \depth_{T_i}(x_f(v))\le\log\omega(H_i^+)-\log\omega(v)+o(\log n)
+%   % \]
+%   % for each $i\in\{1,\ldots,h\}$ and each $v\in V(H_i^+)$?
+
+%   % The binary search trees used by \citet{dujmovic.esperet.ea:adjacency}, called \defin{bulk trees}, and (to a less extent) the weight-balanced B-trees used by \citet{gawrychowski.janczewski:simpler} have a fairly involved analysis, so we prefer to use them as a black box. We are able to do so by simulating weight using multiplicity.
+
+
+%   We now describe the changes needed to prove \cref{weighted}.  In this setting, the graph $G$ is a subgraph of $H\boxtimes P$ and we are given a weight function $\omega:V(G)\to\N$.  We proceed exactly as in the proof of \cref{shannon_fano_elias_tree}.
+%   For each $i\in\{1,\ldots,h\}$ and each $v\in V(H_i\cup H_{i-1})$, define $S_{\omega,i}[v]:=\{(x_f(v),1),\ldots,(x_f(v),\omega((v,i))_\omega((v,i))\}$ and define $S_{\omega,i}:=\bigcup_{v\in V(H_i^+)}S_{\omega,i}[v]$.  Treat $S_{\omega,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\omega,i}|=\omega(G[V(H)\times\{i-1,i\}])$ for each $i\in\{1,\ldots,h\}$ and $\sum_{i=1}^h |S_{\omega,i}|=2\omega(G)$.  The only difference at this point is that we apply the machinery in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\omega,1},\ldots,S_{\omega,h}$.  This results in sets $S^+_{\omega,1},\ldots,S^+_{\omega,h}$ of total size $\sum_{i=1}^h |S^+_{\omega,i}|\in O(\omega(G))$.
+
+%   A B-tree of height $h$ has at most $6a^h$ leaves.  Then $\lca_{B_i}(S_{\omega,i}[v])$ is the root of a subtree of $B_i$ with at least $|S_{\omega,i}[v]|=\omega((v,i))$ leaves.
+%   Since $x_{B_i}(v)$ is an ancestor of every node in $S_{\omega,i}[v]$, it is an ancestor of $a_v$, so
+%   Therefore,
+%   \begin{align}
+%      \depth_{B_i}(x_{B_i}(v))
+%      & \le
+%      \depth_{B_i}(\lca_{B_i}(\lca(S_{\omega,i}[v]) \\
+%      & \le\height(B_i)-\log_a\omega((v,i))+1 \\
+%      & \le \log_a|S^+_i| - \log_a\omega((v,i)) + 2 \\
+%   \end{align}
+%   Then
+%   \begin{align*}
+%      |\lambda_2((v,i))|
+%      & \le \lceil \log(12a)\rceil \depth_{B_i}(x_{B_i}(v)) \\
+%      & \le \log |S^+_{\omega,i}|-\log \omega(v) + O(\log_a|S^+_{\omega,i}|+ \log a) \\
+%      & \le \log |S^+_{\omega,i}|-\log \omega(v) + O(\sqrt{\log n})
+%   \end{align*}
+%   and
+%   \begin{align*}
+%      |\lambda_1((v,i))|+|\lambda_2((v,i))|
+%      & \le \log\omega(G) - \log |S^+_{\omega,i}| + O(\log\log n) + \log |S^+_{\omega,i}|-\log \omega((v,i)) + O(\sqrt{\log n}) \\
+%      & = \log\omega(G) - \log\omega((v,i)) + O(\sqrt{\log n}) \enspace .
+%   \end{align*}
+%   Aside from $\lambda_1(v)$ and $\lambda_2(v)$, the extra information usedby the labelling schemes in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency} has length $O(k\log\log n)$.
+
+%   \pat{Briefly discuss clique membership testing.}
+
+
+
+%   % Instead of storing $S_i$ in $T_i$, we store $S_{i,\omega}$ for each $i\in\{1,\ldots,h\}$.  When we do this, $\height(T_i)\le \log |S_{i,\omega)}|+o(\log n)=\log \omega(H^+_i)+o(\log n)$.
+%   % For each $v\in V(H_i^+)$, the values in $S_{i,\omega}[v]$ appear consecutively in the ordered set $S_{i,\omega}$.  It is not hard to show that the binary tree $T_i$ contains a (connected) subtree $T_i[v]$ that stores at least half the values in $S_{i,\omega}[v]$.  Therefore $\height(T_i[v])\ge \log (\tfrac{1}{2}|S_{i,\omega}[v]|) =\log\omega(v)-1$.  Therefore, there exists some $j\in\{1,\ldots,\omega_i(v)\}$ such that $\depth_{T_i}((x_f(v),j))\le \height(T_i)-\height(T_i[v])\le \log\omega(H_i^+) - \log\omega(v) + o(\log n)$.\footnote{In particular, the value $j$ for which the root of $T_i[v]$ stores $(x_f(v),j)$ satisfies $\depth_{T_i}((x_f(v),j))\le \height(T_i)-\height(T_i[v])$.}
+%   % Therefore $\depth_{T_i}(x_{T_i}(v))\le \depth_{T_i}((x_f(v),j))\le \log\omega_i(H_i^+) - \log\omega(v) + o(\log n)$.
+
+
+% \section{Old Intro}
+
+%   Let $f:\N\to\N$.  A graph family $\mathcal{G}$ \defin{admits an $f(n)$-bit adjacency-labelling scheme} if there is a function $\tau:(\{0,1\}^*)^2\to\{0,1\}$ such that, for each $n\in\N$ and each $n$-vertex graph $G$ in $\mathcal{G}$, there exists a function  $\lambda:V(G)\to\{0,1\}^*$ such that:
+%   \begin{itemize}
+%     \item for each $v,w\in V(G)$, $\tau(\lambda(v),\lambda(w))=1$ if and only if $vw\in E(G)$; and
+%     \item for each $v\in V(G)$, $|\lambda(v)|\le f(n)$.
+%   \end{itemize}
+%   The function $\tau$ is called an \defin{adjacency tester} and the function $\lambda$ is called a (vertex) \defin{labelling} of $G$.
+
+%   A graph $U$ is (induced) \defin{universal} for a set $S$ of graphs if, for each $G\in S$, $U$ contains an induced subgraph that is isomorphic to $G$.  Let $p:\N\to\N$. A graph family $\mathcal{G}$ \defin{admits $p(n)$-vertex universal graphs} if, for each positive integer $n$, there exists a $p(n)$-vertex graph $U_n$ that is universal for the set of $n$-vertex graphs in $\mathcal{G}$.   A classic observation is the following equivalence between adjacency labelling schemes and universal graphs:
+
+%   \begin{fact}
+%     A graph family $\mathcal{G}$ admits an $f(n)$-bit adjacency-labelling scheme if and only if $\mathcal{G}$ admits $2^{f(n)}$-vertex universal graphs.
+%   \end{fact}
+
+%   A graph $H$ is a \defin{minor} of a graph $G$ if $H$ is isomorphic to a graph that can be obtained from a subgraph of $G$ by contracting edges. A graph~$G$ is \defin{$H$-minor-free} if~$H$ is not a minor of~$G$. A graph class $\GG$ is \defin{minor-closed} if every minor of every graph in $\GG$ is in $\GG$. A graph class is \defin{proper} if it is not the class of all graphs.
+
+% %\david{Another way to structure the intro would be to state our theorem as early as possible, and then afterwards give the literature review. I think this approach would work well here.}
+
+%   Several minor-closed classes of graphs admit $(1+o(1))\log n$-bit adjacency labelling schemes, including forests, graphs of bounded treewidth, planar graphs, graphs of bounded genus, and (most generally) apex-minor-free graphs:\footnote{A graph $H$ is an \defin{apex graph} if $H$ contains a vertex $v$ such that $H-v$ is planar.  A graph family $\mathcal{G}$ is \defin{apex-minor-free} if there exists an apex graph $H$ such that no graph in $\mathcal{G}$ contains $H$ as a minor.}
+
+%   \begin{thm}[\citep{dujmovic.esperet.ea:adjacency}]\label{apex_minor_free}
+%     For each fixed apex graph $H$, the class of $H$-minor-free graphs
+%     \begin{itemize}[nosep,nolistsep]
+%       \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+%       \item admits $n^{1+o(1)}$-vertex universal graphs.
+%     \end{itemize}
+%   \end{thm}
+
+%   In addition to these, several ``beyond-planar'' graph classes including several non-minor-closed generalizations of $k$-planar graphs admit $(\log n+o(\log n))$-bit adjacency labelling schemes.
+
+%   One collection of graph classes that is conspicuously absent from this list is the class of $K_t$-minor-free graphs for any $t\ge 6$.  Indeed, if such a result is true for every fixed positive integer $t$, then this would remove the requirement, in \cref{apex_minor_free}, that the graph $H$ be an apex graph.\footnote{Since $K_t$ contains every $t$-vertex graph as a minor, every $H$-minor-free graph is a $K_{|V(H)|}$-minor-free graph.  Any result for the class of $K_t$-minor-free graphs implies the result for $H$-minor-free graphs for any $t$-vertex graph $H$.}
+%   The best known result in this direction is obtained by combining a $(1+o(1))\log n$-bit labelling scheme of \citet{gavoille.labourel:shorter} for bounded treewidth graphs with a result of \citet{devos.ding.ea:excluding} which states that edges of each $K_t$-minor-free graph can be partitioned into two graphs, each having bounded treewidth:
+
+%   \begin{thm}[\citep{gavoille.labourel:shorter} using \citep{devos.ding.ea:excluding}]\label{old_best}
+%     For each fixed graph $H$, the class of $H$-minor-free graphs
+%     \begin{itemize}[nosep,nolistsep]
+%       \item admits a $(2+o(1))\log n$-bit adjacency labelling scheme; and
+
+%       \item admits $n^{2+o(1)}$-vertex universal graphs.
+%     \end{itemize}
+%   \end{thm}
+
+%   \citet{dujmovic.esperet.ea:adjacency} state the problem of reducing the constant from $2$ to $1$ in \cref{old_best} as an open problem.  In the current work, we resolve this open problem:
+
+%   \begin{thm}\label{main_result}
+%     For each fixed graph $H$, the class of $H$-minor-free graphs
+%     \begin{itemize}[nosep,nolistsep]
+%       \item admits a $(1+o(1))\log n$-bit adjacency labelling scheme; and
+
+%       \item admits $n^{1+o(1)}$-vertex universal graphs.
+%     \end{itemize}
+%     \david{I would start these two theorems: Any proper minor-closed class admits ...}
+%   \end{thm}
+
+%   Many recent results in this area are based on an adjacency labelling scheme due to \citet{dujmovic.esperet.ea:adjacency} for graphs that have so-called ``product structure.''  Indeed, the labelling schemes for planar, bounded genus, apex-minor-free (\cref{apex_minor_free}), and all of the ``beyond planar'' graph classes follow immediately from the fact that all graphs in these graph classes have product structure.
+
+%   However, unlike apex-minor-free graphs, $H$-minor-free graphs do not necessarily have product structure, which rules out the use of the most powerful tool in the adjacency-labelling toolbox. \pat{Say something about the proof techniques}
+
+
+
+
+\end{document}
