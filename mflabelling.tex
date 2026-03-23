@@ -271,13 +271,13 @@ The proof of Dujmovi\'c~\emph{et~al.}~\cite{dujmovic.esperet.ea:adjacency} works
 
 Let $\Omega:=\sum_{v\in V(G^+)}\omega(v)$ be the total weight of vertices in $G^+$.  The efficiency of a mixed labelling is measured by three parameters
 \begin{itemize}
-    \item $g_1=\max_{v\in V(G^+)} (|\mu(v)|-(\log\Omega - \log\omega(v)))$ measures how much the lengths of vertex labels exceed the lower bound $\log\Omega-\log\omega(v)$ given by Kraft's Inequality.
+    \item $g_1=\max_{v\in V(G^+)} (|\mu(v)|-(\log\Omega - \log\omega(v)))$ measures how much the lengths of vertex labels exceed the ideal value $\log\Omega-\log\omega(v)$ that appears in Kraft's Inequality.
     \item $g_2=\max\{\kappa(K,v):K\in\mathcal{K}, v\in V(K)\}$ is the length of the longest local identifier.
-    \item $g_3=\max_{K\in\mathcal{K}} (|\mu(K)|-(\log\Omega - \log(\min_{v\in V(K)}\omega(v))))$ measures how much the lengths of clique labels exceed the lower bound given by Kraft's Inequality.
+    \item $g_3=\max_{K\in\mathcal{K}} (|\mu(K)|-(\log\Omega - \log(\min_{v\in V(K)}\omega(v))))$ measures how much the lengths of clique labels exceed the Kraft-like quantity $\log\Omega - \log(\min_{v\in V(K)}\omega(v)))$.
 \end{itemize}
 
 
-Mixed labellings generalize adjacency labellings: Any two vertex labels $\mu(v)$ and $\mu(w)$ are sufficient to perform an adjacency test between the vertices $v$ and $w$ in the subgraph $G$.  In addition to this, the labels $\mu(K)$, $\mu(v')$ and $\kappa(K,v)$ are sufficient to test if $v'=v$ for any clique $K$ in $\mathcal{K}$, any vertex $v'$ of $G^+$, and any vertex $v$ of $K$.  The idea here is that $\kappa(K,v)$ provides a short identifier for each vertex $v$ in $K$, provided that a tester also has access to the label $\mu(K)$ of the clique $K$.   A mixed labelling scheme $\mu$ is \defin{efficient} if $g_1,g_2,g_3\in o(\log n)$.  Note that, if we use the uniform weighting $\omega(v)=1$ for each $v\in V(G^+)$, then all labels in an efficient mixed labelling have length $(1+o(1))\log n$.  In particular, such a labelling is a $((1+o(1))\log n)$-bit adjacency labelling of $G$.
+Mixed labellings generalize adjacency labellings: Any two vertex labels $\mu(v)$ and $\mu(w)$ are sufficient to perform an adjacency test between the vertices $v$ and $w$ in the subgraph $G$.  In addition to this, the labels $\mu(K)$, $\mu(v')$ and $\kappa(K,v)$ are sufficient to test if $v'=v$ for any clique $K$ in $\mathcal{K}$, any vertex $v'$ of $G^+$, and any vertex $v$ of $K$.  The idea here is that $\kappa(K,v)$ provides each vertex $v$ in $K$ a short label that is only useful when $\mu(K)$ is also available.   A mixed labelling scheme $\mu$ is \defin{efficient} if $g_1,g_2,g_3\in o(\log n)$.  Note that, if we use the uniform weighting $\omega(v)=1$ for each $v\in V(G^+)$, then all labels in an efficient mixed labelling have length $(1+o(1))\log n$.  In particular, such a labelling is a $((1+o(1))\log n)$-bit adjacency labelling of $G$.
 
 Our main technical result, from which \cref{main_result} quickly follows, is stated in terms of tree-decompositions.  A \defin{tree-decomposition} of a graph $G$ is a pair $(T,(B_x \mid x \in V(T)))$,
 where $T$ is a tree and $B_x \subseteq V(G)$ for every $x \in V(T)$, with the
