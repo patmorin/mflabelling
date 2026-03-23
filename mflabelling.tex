@@ -305,9 +305,10 @@ The \defin{torso} of $x$, denoted \defin{$\torso{G}{B_x}$},
 
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.95\textwidth]{figs/t_tprime.pdf}
+      \includegraphics[width=0.95\textwidth]{figs/t_tprime.pdf} \\
+      \includegraphics[page=5,width=0.95\textwidth]{figs/t_tprime.pdf}
     \end{center}
-    \caption{The proof of \cref{PlainRealMainTechnical} works by partitioning the tree $T$ in tree-decomposition into skinny subtrees (drawn horizontally) so that contracting these gives a short tree $T'$ (drawn vertically).}
+    \caption{The proof of \cref{PlainRealMainTechnical} works by partitioning the tree $T$ in the tree-decomposition into skinny subtrees (drawn horizontally) so that contracting these gives a short tree $T'$ (drawn vertically).}
     \label{overview_fig}
   \end{figure}
 
@@ -318,7 +319,7 @@ The \defin{torso} of $x$, denoted \defin{$\torso{G}{B_x}$},
   The generalization provided by weighted mixed labelling schemes is crucial for the second step, as we now explain.
   Let $w$ be a vertex of $G$ and let $x_0,\ldots,x_s$ be the path from the root $x_0$ of the short tree $T'$ to the home node $x_s$ of $w$.  (Most of) the vertex label $\mu(w)$ is obtained by concatenating the labels $\mu_{x_0}(K_1),\ldots,\mu_{x_{s-1}}(K_s),\mu_{x_s}(w)$ where $\mu_0$ is a mixed labelling of $\torso{G}{B_{x_0}}$, $\mu_{x_i}$ is a mixed labelling of $\torso{G}{B_{x_i}}-B_{x_{i-1}}$, and $K_i$ is a clique whose vertex-set is contained in the adhesion $B_{x_{i-1}}\cap B_{x_i}$, for each $i\in\{1,\ldots,s\}$.  This serves two purposes:
   \begin{enumerate}
-      \item For two vertices $v$ and $w$, the longest common prefix of $\mu(v)$ and $\mu(w)$ can be used to determine if the home nodes for $v$ and $w$ are in an ancestor-descendant relationship (or if $v$ and $w$ have the same home node.)
+      \item For two vertices $v$ and $w$, the longest common prefix of $\mu(v)$ and $\mu(w)$ can be used to determine if the home nodes in $\mathcal{T}'$ for $v$ and $w$ are in an ancestor-descendant relationship (or if $v$ and $w$ have the same home node.)
       \item The vertex label $\mu(w)$ for $w$ can be augmented to explicitly store $\kappa(K_{x_i},v)$ for each neighbour $v$ of $w$ whose home node is a strict ancestor $x_{i}$ of $w$'s home node $x_{s}$.  Since the adhesion-width of $\mathcal{T}'$ is at most $k$, this adds at most $k\cdot g_2(n)$ to the length of $\mu(w)$.
   \end{enumerate}
   The total length of vertex labels is controlled by using the appropriate weight function $\omega_{x}$ when computing the weighted mixed labelling for the lower torso of each node $x$ of $T'$.
