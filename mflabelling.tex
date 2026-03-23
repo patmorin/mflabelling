@@ -301,13 +301,14 @@ The \defin{torso} of $x$, denoted \defin{$\torso{G}{B_x}$},
   \begin{thm}\label{PlainRealMainTechnical}
         Let $\mathcal{G}$ be a monotone graph class that admits an efficient weighted mixed labelling scheme. Then, for any fixed $k$, the family $\mathcal{G}'$ of all graphs having tree-decomposition of adhesion-width at most $k$ whose torsos are in $\mathcal{G}$ also admits an efficient mixed labelling scheme.
   \end{thm}
-  The proof of \cref{PlainRealMainTechnical} has a relatively simple high-level description (see \cref{overview_fig}).  It involves partitioning the vertices of the tree $T$ indexing a tree-decomposition into `skinny' subtrees so that contracting each of these subtrees gives a `short' tree $T'$ (\cref{b_skinny_decomp}).  Here, the skinnyness of subtrees and the shortness of $T'$ share a common parameter \defin{$b$} where increasing $b$ makes $T'$ shorter (decreases the height of $T'$) but makes the subtrees in the partition less skinny.  One can then treat $T'$ as indexing a tree-decomposition $\mathcal{T}'$ of $G$ whose torsos have skinny tree-decompositions (each defined by one of the subtrees in the partition) whose torsos admit efficient mixed labelling schemes.
+  The proof of \cref{PlainRealMainTechnical} has a relatively simple high-level description, illustrated in \cref{overview_fig}.  The first step is to partition the vertices of the tree $T$ indexing a tree-decomposition into `skinny' subtrees so that contracting each of these subtrees gives a `short' tree $T'$ (\cref{b_skinny_decomp}).  Here, the skinnyness of subtrees and the shortness of $T'$ share a common parameter \defin{$b$} where increasing $b$ makes $T'$ shorter (decreases the height of $T'$) but makes the subtrees in the partition less skinny.  One can then treat $T'$ as indexing a tree-decomposition $\mathcal{T}'$ of $G$ whose torsos have skinny tree-decompositions (each defined by one of the subtrees in the partition) whose torsos admit efficient mixed labelling schemes.
 
   \begin{figure}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figs/t_tprime.pdf}
     \end{center}
-    \caption{Proof Overview}
+    \caption{The proof of \cref{PlainRealMainTechnical} works by partitioning the tree $T$ in tree-decomposition into skinny subtrees (drawn horizontally) so that contracting these gives a short tree $T'$ (drawn vertically).}
+    \label{overview_fig}
   \end{figure}
 
   The proof then proceeds in two steps: The first step is to show that graphs that have skinny tree-decompositions whose torsos admit efficient mixed labelling schemes also have efficient mixed labelling schemes (\cref{skinny_labelling}). The second shows that graphs that have tree-decompositions of sufficiently small height  whose torsos admit efficient mixed labelling schemes also admit efficient labelling schemes (\cref{small_height}).  These are then combined to give a version of \cref{PlainRealMainTechnical} that quantifies the efficiency of the resulting weighted mixed labelling scheme (\cref{RealMainTechnical}).
