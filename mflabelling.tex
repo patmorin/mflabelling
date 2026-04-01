@@ -1582,11 +1582,11 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
      g'_1(n) & = g_1(n) + k(n)\cdot g_2(n) + \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot\log n}\right) \\
      & \quad {} + \Oh\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}(\log\log n)\right)  \\
      g'_2(n) & = g_2(n) + \Oh\left(\sqrt{\frac{g_3(n)\cdot\log n}{k(n)}}\right) + \Oh(\log\log n)  \\
-     g'_3(n) & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot\log n}\right) + O\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}(\log\log n)\right)
+     g'_3(n) & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot\log n}\right) + \Oh\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}(\log\log n)\right)
    \end{align*}
   \end{lem}
 
-  Although the expression in \cref{RealMainTechnical} looks intimidating, we will apply it with $k(n)\in \Oh(1)$ to obtain an $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+ g'_1(n) = \log n + g_1(n) + \Oh(g_2(n)) + O\left(\sqrt{\log n}\left(\sqrt{g_3(n)}+\log\log n\right)\right)$. This bound is $(1+o(1))\log n$ for any $g_1,g_2,g_3\in o(\log n)$.
+  Although the expression in \cref{RealMainTechnical} looks intimidating, we will apply it with $k(n)\in \Oh(1)$ to obtain an $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+ g'_1(n) = \log n + g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{\log n}\left(\sqrt{g_3(n)}+\log\log n\right)\right)$. This bound is $(1+o(1))\log n$ for any $g_1,g_2,g_3\in o(\log n)$.
 
   \begin{proof}[Proof of \cref{RealMainTechnical}]
     Let $G$ be an $n$-vertex graph in $\mathcal{G}'$.
@@ -1602,22 +1602,22 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
     By \cref{skinny_labelling}, the torsos of $\mathcal{T}'$ have a weighted $(g'_1(n),g'_2(n),g'_3(n))$ mixed labelling scheme, where
     \begin{align*}
      g'_1(n) & = g_1(n) + \Oh(k(n)(\log(b(n)) + \log\log n)) \\
-     & = g_1(n) + O\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + \Oh(k(n)\log\log n) \\
+     & = g_1(n) + \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + \Oh(k(n)\log\log n) \\
      g'_2(n) & = \max\{g_2(n)+\Oh(1), \Oh(\log(k(n)\cdot b(n))+\log\log n)\} \\
-          & \le g_2(n) + O\left(\sqrt{\frac{g_3(n)\cdot \log n}{k(n)}}\right) + \Oh(\log\log n) \\
+          & \le g_2(n) + \Oh\left(\sqrt{\frac{g_3(n)\cdot \log n}{k(n)}}\right) + \Oh(\log\log n) \\
      g'_3(n) & = g_3(n) + \Oh(\log\log n)
     \end{align*}
 
     By \cref{small_height}, $\mathcal{G}'$ has a weighted $(g''_1(n),g''_2(n),g''_3(n))$ mixed labelling scheme, where
     \begin{align*}
      g''_1(n) & = g'_1(n) + k(n)\cdot g'_2(n) + h(n)\cdot g'_3(n) + \Oh((1+h(n))\log\log n) \\
-       & = g_1(n) + k(n)\cdot g_2(n) + O\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) \\
-       & \quad {} + O\left((1+k(n)+h(n))\log\log n)\right) \\
+       & = g_1(n) + k(n)\cdot g_2(n) + \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) \\
+       & \quad {} + \Oh\left((1+k(n)+h(n))\log\log n)\right) \\
      g''_2(n) & = g'_2(n) + \Oh(1) \\
-       & = g_2(n) + O\left(\sqrt{\frac{g_3(n)\cdot \log n}{k(n)}}\right) + \Oh(\log\log n) \\
+       & = g_2(n) + \Oh\left(\sqrt{\frac{g_3(n)\cdot \log n}{k(n)}}\right) + \Oh(\log\log n) \\
      g''_3(n) & = (1+h(n))\cdot g'_3(n) + \Oh((1+h(n))\log\log n) \\
-       & = O\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + g_3(n) + O\left((1+h(n))\log\log n\right) \\
-       & = O\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + O\left((1+h(n))\log\log n)\right)
+       & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + g_3(n) + \Oh\left((1+h(n))\log\log n\right) \\
+       & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + \Oh\left((1+h(n))\log\log n)\right)
    \end{align*}
    Substituting $h(n) = \sqrt{k(n)\log n\, / g_3(n)}$ into the error terms yields the bounds in the lemma statement.
   \end{proof}
