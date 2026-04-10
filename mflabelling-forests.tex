@@ -90,6 +90,7 @@
 \DeclareMathOperator{\tw}{tw}
 \DeclareMathOperator{\pw}{pw}
 \DeclareMathOperator{\lca}{lca}
+\DeclareMathOperator{\lgg}{\hat{lg}}
 
 %\piotr{some of my macros}
 \newcommand{\calG}{\mathcal{G}}
@@ -526,13 +527,23 @@ Finally,
   \subsection{On Multipart Labels}
   \label{multipart}
 
-  Throughout the remainder of the paper, we will describe labelling schemes in which the labels (bitstrings) have multiple parts, of varying lengths.  We write this as $s:=\langle s_1,\ldots,s_p\rangle$, where each of $s_1,\ldots,s_p$ is a (possibly empty) bitstring, so the concatenation of $s_1,\ldots,s_p$, has length $|s|=\sum_{i=1}^p|s_p|$.  This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$, it must know the number of parts $p$ and at least $p-1$ of the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_{p}|$ and prepending these to $s$. This is most easily done using the Elias $\gamma$ encoding of positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ with $|\gamma(x)|\le \lfloor 2\log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).}  Thus, the ``true'' encoding of $s$ is $(\gamma(p),\gamma(|s_1|+1),\ldots,\gamma(|s_p|+1),s_1,\ldots,s_p)$.  Thus, in everything that follows, $\langle s_1,\ldots,s_p\rangle$ refers to the entire bitstring that encodes $p$, $|s_1|,\ldots,|s_p|$ as well as $s_1,\ldots,s_p$.
+  In many case, a label (a bitstring) will have a variable number of parts (also bitstrings), of varying lengths.  We write this as $s:=\langle s_1,\ldots,s_p\rangle$, where each of $s_1,\ldots,s_p$ is a (possibly empty) bitstring.  The concatenation of $s_1,\ldots,s_p$, has length
+  \[
+     \textstyle |s|=|s_1,\ldots,s_p|=\sum_{i=1}^p|s_p| \enspace .
+  \]
+  This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$ it must know the number of parts, $p$, and (at least $p-1$ of) the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_{p}|$ and prepending these to $s$. This is most easily done using Elias's code $\gamma:\N^+\to\{0,1\}^*$ for positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ with $|\gamma(x)|\le 2\lfloor \log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).} In our application $s_i$ may have zero length and $p$ may even be equal to zero, so that that codeword for each $x\in\N$ is $\gamma(x+1)$ and has length $2\floor{\log (x+1)}+1$.
+  In this way, we obtain a self-delimiting encoding of $s_1,\ldots,s_p$ as
+  \[  \mathdefin{\langle s_1,\ldots,s_p\rangle}:=\gamma(p),\gamma(|s_1|+1),\ldots,\gamma(|s_p|+1),s_1,\ldots,s_p \enspace ,
+  \]
+  which has length
+  \begin{equation}
+    |\langle s_1,\ldots,s_p\rangle| = \textstyle\sum_{i=1}^p|s_i|+\Oh(\lgg p) + \Oh(\sum_{i=1}^p\lgg|s_i|) \enspace , \label{encoding_cost}
+  \end{equation}
+  where $\mathdefin{\lgg x} := \log\max\{2,x\}$ (just so that $\lgg(x)$ is defined and $\lgg(x)\ge 1$ for each $x\in\N$).    The bits of $\langle s_1,\ldots,s_p\rangle$ that come from $s_1,\ldots,s_p$ are called the \defin{payload} bits and the remaining bits are called the \defin{bookkeeping} bits of $\langle s_1,\ldots,s_p\rangle$.
+  In our setting it will always be the case that $p\in o(\log n)$ and we will use \cref{obs:nice} to ensure that $|s_i|\in \Oh(\log n)$ for each $i\in[p]$.
+  Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$  is $\Oh(p\log\log n)$.
 
   \pat{TODO: Push the $\langle s_1,\ldots,s_p\rangle$ notation to other sections.}
-
-  In our setting it will always be the case that $p\in o(\log n)$ and we will use \cref{obs:nice} to ensure that $|s_i|\in \Oh(\log n)$ for each $i\in[p]$.
-  Thus, these extra bookkeeping bits increase the length of the encoding of $s$ by $\Oh(p\log\log n)$.  To avoid a series of pointless distractions, we will not discuss this extra information when describing our labels, but the calculation of label lengths will include extra terms of the form $\Oh(p\log\log n)$ that account this extra bookkeeping.
-
 
   \subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
 
@@ -1343,7 +1354,6 @@ Therefore, for each $v\in V(G)$
 
 \pat{Define closed under taking disjointunion.}
 
-\piotr{Define $F$-parent.}
 
   \begin{lem}\label{small_height}
   Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union. Let $k,h:\N\to\R^+$ be functions with $k(n),h(n)\in \Oh(\log n)$.   Let $\mathcal{G'}$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted forest-decomposition $\mathcal{F}:=(F,(B_x \mid x\in V(F)))$ such that
@@ -1359,9 +1369,9 @@ Therefore, for each $v\in V(G)$
      \begin{align*}
        g'_1(n) & = g_1(n)
              + k(n)\cdot g_2(n)
-            + h(n)\cdot g_3(n)  \; {} + (1+h(n)+k(n))\cdot\Oh(\log\log n)\enspace,\\
-       g'_2(n) & = g_2(n) + \Oh(1)\enspace,\textrm{\piotr{${}+\Oh(\log\log n)$ \pat{because of length encoding?}}} \\
-       g'_3(n) & = (1+h(n))\cdot g_3(n)  \; {}   + (1+h(n))\cdot\Oh(\log\log n)\enspace.
+            + h(n)\cdot g_3(n)  \; {} + (1+h(n)+k(n))\cdot\Oh(\lgg\lgg n)\enspace,\\
+       g'_2(n) & = g_2(n) + \Oh(1)\enspace, \\
+       g'_3(n) & = (1+h(n))\cdot g_3(n)  \; {}   + (1+h(n))\cdot\Oh(\lgg\lgg n)\enspace.
      \end{align*}
   \end{lem}
 
@@ -1493,8 +1503,9 @@ Therefore, for each $v\in V(G)$
     by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$. Therefore,
     for each $v\in B_R$
     \begin{align*}
-    |\mu(v)| &\leq |\mu_R(v)| + \Oh(\log\log n)\\
-    &\leq \log\omega(G) - \log\omega(v) + g_1(n) + \Oh(\log\log n)&\textrm{by~\eqref{eq:mu-R-bounded-in-omega}.}
+    |\mu(v)| &\leq |\mu_R(v)| + \Oh(\lgg|\mu_R(v)|) &\text{by \eqref{encoding_cost}}\\
+    &\leq |\mu_R(v)| + \Oh(\lgg\lgg n) &\text{since $|\mu_R(v)|\in\Oh(\log n)$}\\
+    &\leq \log\omega(G) - \log\omega(v) + g_1(n) + \Oh(\lgg\lgg n)&\textrm{by~\eqref{eq:mu-R-bounded-in-omega}.}
     \end{align*}
     Thus, the length of $\mu(v)$ satisfies \eqref{strong_strong}.
     %, even if $h=0$.
@@ -1508,17 +1519,14 @@ Therefore, for each $v\in V(G)$
     by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$. Therefore,
     for each $K\in \mathcal{K}_0$
     \begin{align*}
-    |\mu(K)| &\leq |\mu_R(K)| + \Oh(\log\log n)\\
-    &\leq \log\omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + \Oh(\log\log n)&\textrm{by~\eqref{mu_RK_ii}.}
+    |\mu(K)| &\leq |\mu_R(K)| + \Oh(\lgg\lgg n)\\
+    &\leq \log\omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + \Oh(\lgg\lgg n)&\textrm{by~\eqref{mu_RK_ii}.}
     \end{align*}
+    Note that the length of $\mu(K)$ satisfies the requirement on $g'_3(n)$.
 
-
-
-    Note that the length of $\mu(K)$ satisfies the requirement on $g'_3(n)$.  As with $\mu(v)$ for $v\in B_R$, this implicitly encodes the fact that $K\in\mathcal{K}_0$, i.e., that $K\subseteq B_R$.
-
-    \paragraph{\boldmath The local identifier $\kappa(K,v)$ for $K\in\mathcal{K}_0$:}
-    For each $K\in\mathcal{K}_0$ and each $v\in K$, the local identifier $\kappa_R(K,v)$ is defined by the mixed labelling $(\mu_R,\kappa_R)$.
-    For each $K\in\mathcal{K}_0$ and each $v\in K$, define $\kappa(K,v):=\kappa_R(K,v)$.  The length $|\kappa(K,v)|\le g_2(n)$ obviously satisfies the requirement on $g'_2(n)$.
+    % \paragraph{\boldmath The local identifier $\kappa(K,v)$ for $K\in\mathcal{K}_0$:}
+    % For each $K\in\mathcal{K}_0$ and each $v\in K$, the local identifier $\kappa_R(K,v)$ is defined by the mixed labelling $(\mu_R,\kappa_R)$.
+    % For each $K\in\mathcal{K}_0$ and each $v\in K$, define $\kappa(K,v):=\kappa_R(K,v)$.  The length $|\kappa(K,v)|\le g_2(n)$ obviously satisfies the requirement on $g'_2(n)$.
 
     % \pat{The clean solution to the following problem is to allow adhesions of size $0$, which means we should be willing to put a label on the empty clique. Then we can just string the vertices of each $Y_K$ into a path so that we get a tree-decomposition of $G^+_{K}$ on which we can apply induction.  This would eliminate the need for \cref{disjoint_union_iii}, or even \cref{disjoint_union_ii} (in this proof.)  It would also eliminate the need for our tree-decomposition to be upmost. }
 
@@ -1543,8 +1551,8 @@ Therefore, for each $v\in V(G)$
     By the inductive hypothesis, there exists a weighted $(g_1'(n),g_2'(n),g_3'(n))$ mixed labelling $(\mu_K,\kappa_K)$ of $(G^+_K,G_K,\mathcal{K}_K,\omega_K)$ for $(A',M')$ that also satisfies \eqref{strong_strong} for each $w\in V(G_K)$.  That is, for each $z\in V(F_K)$ and each $w\in C_z\setminus A_z$,
     \begin{align}
        |\mu_K(w)| & \le \log \omega(G_K) - \log\omega(w) + g_1(n) \notag \\
-       & \quad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n)) \label{mu_Kw} \\
-       & \quad {} + (h-1)\cdot g_3(n) + h\cdot\Oh(\log\log n) \enspace . \notag
+       & \quad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\lgg\lgg n)) \label{mu_Kw} \\
+       & \quad {} + (h-1)\cdot g_3(n) + h\cdot\Oh(\lgg\lgg n) \enspace . \notag
     \end{align}
     % \paragraph{\boldmath The subproblem labelling $\mu_K$:}
     % Recall that $K\in\mathcal{K}_r$. Define $G^+_K:=\bigcup_{y\in Y_K}G^+_y$, $G_K:=\bigcup_{y\in Y_K}G_y$, let $\mathcal{K}_K:=\bigcup_{y\in Y_K}\mathcal{K}_y$, and let $\omega_K:V(G^+_K)\to\N^+$ be the restriction of $\omega:V(G^+)\to\N^+$ to the vertices in $G^+_K$.
@@ -1566,11 +1574,10 @@ Therefore, for each $v\in V(G)$
        & \le \log \omega(G) - \log\omega(w) + g_1(n) \notag \\
        & \quad {} + |A_z\setminus B_r|
         \cdot (g_2(n) + \Oh(\log\log n)) \label{mu_rk_rw} \\
-       & \quad {} + h\cdot g_3(n) + h\cdot \Oh(\log\log n)
-       & \text{by \eqref{mu_Kw} and \eqref{psi_K}.} \notag
+       & \quad {} + h\cdot g_3(n) + h\cdot \Oh(\lgg\lgg n)
+       & \text{by \eqref{psi_K} and \eqref{mu_Kw}.} \notag
     \end{align}
-
-    For each $v\in A_z\cap B_R$, there is a clique $K\in\mathcal{K}_R$ with $K=B_R\cap B_y\supseteq A_z\cap B_R$ where $y$ is an $F$-ancestor of $z$ and an $F$-child of some $r\in R$.  Thus, for each $v\in A_z\cap B_R$, the local identifier $\kappa_R(K,v)$ is defined and has length at most $g_2(n)$.
+    Since $K\supseteq A_z\cap B_R$, the local identifier $\kappa_R(K,v)$ is defined, for each $v\in A_z\cap B_R$.
 
     For each $K\in\mathcal{K}_R$,  each $z\in V(F_K)$, and each $w\in C_z\setminus A_z$, define tuple
     \begin{align*}
@@ -1583,12 +1590,12 @@ Therefore, for each $v\in V(G)$
         |A_z\cap B_R|) +
         \Oh(\sum_{v\in
         A_z\cap B_R}
-        \log |\kappa_R(K,v)|)&\textrm{\piotr{by sth in 2.5}}\\
-        &\leq |A_z\cap B_R|\cdot g_2(n) + \Oh(\log|A_z\cap B_R|) + |A_z\cap B_R|\cdot\Oh(\log g_2(n)))\\
+        \log |\kappa_R(K,v)|)&\textrm{by \eqref{encoding_cost}}\\
+        &\leq |A_z\cap B_R|\cdot g_2(n) + \Oh(\lgg|A_z\cap B_R|) + |A_z\cap B_R|\cdot\Oh(\lgg g_2(n)))\\
         &\leq |A_z\cap B_R|\cdot g_2(n)
-        + \Oh(\log k(n)) + |A_z\cap B_R|\cdot\Oh(\log g_2(n))
+        + \Oh(\lgg k(n)) + |A_z\cap B_R|\cdot\Oh(\lgg g_2(n))
         \\
-        &\leq |A_z\cap B_R|\cdot g_2(n) +|A_z\cap B_R|\cdot \Oh(\log\log n)\enspace,
+        &\leq |A_z\cap B_R|\cdot g_2(n) +(|A_z\cap B_R|+1)\cdot \Oh(\lgg\lgg n)\enspace,
     \end{align*}
     where the last line follows by $k(n),g_2(n)\in\Oh(\log n)$.
     \pat{Should we introduce something like $\lg x = \log x$ if $x\ge 2$ and $\lg x =1$ if $x<2$?}
@@ -1600,7 +1607,7 @@ Therefore, for each $v\in V(G)$
        & \le \log \omega(G) - \log\omega(w) + g_1(n) \\
        & \quad {} + |A_z|
         \cdot (g_2(n) + \Oh(\log\log n)) \\
-       & \quad {} + h\cdot g_3(n) + (h+k+1)\cdot \Oh(\log\log n)
+       & \quad {} + h\cdot g_3(n) + (h+1)\cdot \Oh(\log\log n)
        \enspace ,&\textrm{by~\eqref{mu_rk_rw}}
     \end{align*}
     so the length of $\mu(w)$ satisfies \eqref{strong_strong}.
@@ -1617,19 +1624,30 @@ Therefore, for each $v\in V(G)$
     \paragraph{\boldmath The clique label $\mu(K)$ for $K\not\subseteq\torso{G}{B_r}$:}  What remains is to complete the labelling of the cliques in $\mathcal{K}$ and describe the local identifier $\kappa$.
     At this point, the only unlabelled cliques are those in $\mathcal{K}\setminus\mathcal{K}_0$, each of which contains at least one vertex not in $B_R$.
     For each $K\in\mathcal{K}\setminus\mathcal{K}_0$, there is exactly one clique $L\in\mathcal{K}_R$ such that $G^+_L$ contains all the vertices in $K\setminus B_R$.
-    Then $K\setminus B_R$ is a clique in $G^+_{L}$ and  $K\setminus B_R\in \mathcal{K}_{L}$. We define $\mu(K):=(\mu_R(L),\mu_{L}(K\setminus B_R))$.  Then
+    Then $K\setminus B_R$ is a clique in $G^+_{L}$ and  $K\setminus B_R\in \mathcal{K}_{L}$. We define
+    \[
+       \mu(K):=\langle\;\mu_R(L),\;\mu_{L}(K\setminus B_R)\;\rangle \enspace .
+    \]
+    Then
     \begin{align*}
      |\mu(K)|
-       & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n) \\
-       & \le \log\omega(G)-\log \psi(L) + g_3(n) + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)
+       & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log|\mu_R(L)|+\lgg|\mu_L(K\setminus B_R)|)
+       & \text{by \eqref{encoding_cost}} \\
+       & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh\left(\lgg(\log \omega(G) + g_3(n))+\lgg(\log \omega(G)+ g_3'(n))\right)
+       &  \\
+       & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh\left(\lgg(\log n + g_3(n))+\lgg(\log n+ g_3'(n))\right)
+       & \text{since $\omega$ is nice} \\
+       & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)
+       & \mspace{-180mu}\text{since $g_3(n),h(n)\in\Oh(\lgg n)$}\\
+       & \le \lgg\omega(G)-\log \psi(L) + g_3(n) + |\mu_{L}(K\setminus B_R)| + \Oh(\lgg\lgg n)
        & \text{(by \eqref{mu_RK_i})}\\
-       & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)
+       & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + \Oh(\lgg\lgg n)
        & \text{(by \eqref{psi_K})}\\
-       &\mathcolor{red}{ \le \log\omega(G) + g_3(n) - \log\min_{v\in K\setminus B_R}\omega(v) + g'_3 +  \Oh(\log\log n)) }
+       % &\mathcolor{red}{ \le \log\omega(G) + g_3(n) - \log\min_{v\in K\setminus B_R}\omega(v) + g'_3 +  \Oh(\log\log n)) }
        & \text{(by induction)} \\
-       & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}\omega(v) + (h+1)\cdot (g_3(n) +  \Oh(\log\log n))
+       & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}\omega(v) + (h+1)\cdot (g_3(n) +  \Oh(\lgg\lgg n))
        & \text{(by induction)} \\
-       & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\log\log n))  \\
+       & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\lgg\lgg n))  \\
     \end{align*}
     which satisfies the requirement for $g'_3(n)$.
     % \pat{I had to stop here.} \pat{I don't like the naked $g'_3$ above, but it's not easy to express because $g'_3$ is more like a function of $h$ than of $n$.  We could just skip to the next line.}
@@ -1647,6 +1665,7 @@ Therefore, for each $v\in V(G)$
        (2,\kappa_R(L,v)) & \text{if $v\in B_R$ and $K\not\subseteq B_R$}
      \end{cases}
      \]
+     \pat{Damn. There's an annoying issue here that I didn't see.  In Case~0, the length of the second part is $g'_2(n)$, not $g_2(n)$.  As its described here, this leads to $|\kappa(K,v)|=(h+1)+g_2(n)$.  That's because we're using a unary encoding to encode the depth of a node in $F$.  This means that $g'_2(n)$ should really be $g_2(n)+\Oh(\lg\lg n)$.  That's mildly annoying, because it complicates the definition of efficient mixed labelling.  I have to pack now and think about the best way to write this.}
      In each case, $|\kappa(K,v)|\le g_2(n)+\Oh(1)$.
 
     \paragraph{Identity testing:}  We now describe the identity tester $M'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and determines if $u=v$.  To do this, $M'$ first examines $\mu(v)$ to determine if $v\in B_R$.
