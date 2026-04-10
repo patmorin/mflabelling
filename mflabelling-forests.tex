@@ -1691,7 +1691,7 @@ Therefore, for each $v\in V(G)$
 
     \paragraph{Identity testing:}  We now describe the identity tester $M'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and determines if $u=v$.  To do this, $M'$ first examines $\mu(v)$ to determine if $v\in B_R$.
     \begin{itemize}
-      \item If $v\in B_R$ then $\mu(v)=\mu_R(v)$.  In this case $M'$ examines $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\set\minus A_z$.
+      \item If $v\in B_R$ then $\mu(v)=\mu_R(v)$.  In this case $M'$ examines $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
       \begin{itemize}
         \item If $\depth_F(z)\neq 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and  $u\not\in B_R$, so $u\neq v$.  Thus, $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
         \item If $\depth_F(z)=0$ then $z\in R$ and $u\in V(B_R)$.  In this case $\zeta(K,u)=\kappa_R(K\cap B_R,u)$. Recall that the first part of $\mu(K)$ is $\mu_R(K\cap B_R)$.  In this case,  $M'(\mu(K),\kappa(K,u),\mu(v)):=M(\mu_R(K\cap B_R),\kappa_R(K\cap B_R,u),\mu_R(v))$.
