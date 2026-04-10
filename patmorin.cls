@@ -45,9 +45,9 @@
 \setlength{\headheight}{0.200in}
 \setlength{\headsep}{0.4in}
 \setlength{\footskip}{0.500in}
-%\setlength{\parskip}{1ex}
 \setlength{\parindent}{.75cm}
-%\flushbottom
+\setlength{\parskip}{1ex}
+\flushbottom
 
 
 % Commands for typesetting affiliations and email addresses
