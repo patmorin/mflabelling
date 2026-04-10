@@ -12,11 +12,6 @@
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 % \setlength{\bibsep}{0.4ex plus 0.2ex minus 0.2ex}
 
-
-
-
-% \usepackage[multiple]{footmisc}
-
 %% so that cleveref outputs Theorems 3--5
 \newcommand{\crefrangeconjunction}{--}
 % Use Cref for equations
@@ -1597,9 +1592,8 @@ Therefore, for each $v\in V(G)$
         \\
         &\leq |A_z\cap B_R|\cdot g_2(n) +(|A_z\cap B_R|+1)\cdot \Oh(\lgg\lgg n)\enspace,
     \end{align*}
-    where the last line follows by $k(n),g_2(n)\in\Oh(\log n)$.
-    \pat{Should we introduce something like $\lg x = \log x$ if $x\ge 2$ and $\lg x =1$ if $x<2$?}
-    For each $K\in\mathcal{K}_R$,  each $z\in V(F_K)$, and each $w\in C_z\setminus A_z$, define tuple
+    where the last line follows since $k(n),g_2(n)\in\Oh(\log n)$.
+    For each $K\in\mathcal{K}_R$,  each $z\in V(F_K)$, and each $w\in C_z\setminus A_z$, define
     \begin{align*}
        \mu(w) &:= \langle\mu_R(K)\,,\, \mu_K(w)\,,\, \alpha(w) \rangle \enspace ,
     \intertext{so we have}
