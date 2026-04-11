@@ -1363,10 +1363,10 @@ Therefore, for each $v\in V(G)$
   Then $\mathcal{G}'$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
      \begin{align*}
        g'_1(n) & = g_1(n)
-             + k(n)\cdot g_2(n)
-            + h(n)\cdot g_3(n)  \; {} + (1+h(n)+k(n))\cdot\Oh(\lgg\lgg n)\enspace,\\
+             \; + \;  k(n)\cdot g_2(n)
+            \; + \; h(n)\cdot g_3(n)  \; + \; (1+h(n)+k(n))\cdot\Oh(\lgg\lgg n)\enspace,\\
        g'_2(n) & = g_2(n) + \Oh(\log\log n)\enspace, \\
-       g'_3(n) & = (1+h(n))\cdot g_3(n)  \; {}   + (1+h(n))\cdot\Oh(\lgg\lgg n)\enspace.
+       g'_3(n) & = (1+h(n))\cdot g_3(n)  \; + \;  (1+h(n))\cdot\Oh(\lgg\lgg n)\enspace. & \text{\pat{factor?}}
      \end{align*}
   \end{lem}
 
@@ -1382,7 +1382,7 @@ Therefore, for each $v\in V(G)$
     \end{equation}
     %Thus $G^+$ has a rooted forest-decomposition
     Let $\mathcal{F}:=(F,(B_x \mid x\in V(F)))$ be a rooted forest-decomposition of $G^+$ such that
-    $\mathcal{F}$ has adhesion-width $k\le k(n)$, $h:=\height(F)\le h(n)$, and
+    $\mathcal{F}$ has adhesion-width $k\le k(n)$, height $h:=\height(F)\le h(n)$, and
     for each node $x$ in $F$ the torso $\torso{G^+}{\mathcal{F},B_x}$ belongs to $\mathcal{G}$.  By \cref{tidy_forest}, we may assume that $\mathcal{F}$ is tidy.
 
     % \pat{The rest of this paragraph should be put into a lemma in the treewidth section, since we will use it more than once. (In fact, we need to use any time we want to talk about the ``weight function'' $\omega_{\mathcal{F}}$.}  Among all such forest-decompositions of $G^+$, assume that $\mathcal{F}$ lexicographically minimizes $(|V(F)|,|E(F)|)$.  This minimality assumption implies that  $\mathcal{F}$ has no empty bags.  Indeed, if $B_z=\emptyset$ for some $z\in V(F)$, then $(F-z,(B_x\mid x\in V(F-z)))$ is a rooted forest decomposition of $G^+$ that contradicts the choice of $\mathcal{F}$.  This asumption also implies that, for each edge $e=vw$ of $F$, $B_v\cap B_w\neq\emptyset$ since, otherwise, $(F-e,(B_x\mid x\in V(F-e)))$ is a rooted forest-decomposition of $G^+$ that contradicts the choice of $\mathcal{F}$.
@@ -1646,11 +1646,11 @@ Therefore, for each $v\in V(G)$
     which satisfies the requirement for $g'_3(n)$.
     % \pat{I had to stop here.} \pat{I don't like the naked $g'_3$ above, but it's not easy to express because $g'_3$ is more like a function of $h$ than of $n$.  We could just skip to the next line.}
 
-    \paragraph{\boldmath The local identifier $\kappa(K,v)$:}  Let $K\in\mathcal{K}$ and let $v\in K$. Then there exists a unique $z\in V(F)$ such that $v\in B_z\setminus A_z$.  We define a local identifier $\mu(K,v)$ with two parts. The first part is (the binary encoding of) $\depth_F(z)$.  The second part, $\zeta(K,v)$, is a local identifier that comes from a mixed labelling of an induced subgraph of some torso of $\mathcal{F}$ for $(A,M)$.  Let $L:=K\cap B_R$.  If $L=K$ then $L\in\mathcal{K}_0$. Otherwise, $L\in K_R$ and the vertices in $K\setminus B_R$ are all vertices of $G_L$.  Note that, in either case $\mu_R(L)$ is defined and $\kappa_R(L,u)$ is defined for each $u\in L$.  There are two possibilities:
+    \paragraph{\boldmath The local identifier $\kappa(K,v)$:}  Let $K\in\mathcal{K}$, let $v\in K$, and let $z$ be the home node of $v$ in $\mathcal{F}$ (so $z\in B_z\setminus A_z$).   The local identifier $\mu(K,v)$ for $(A',M')$ has two parts. The first part is (the binary encoding of) $\depth_F(z)$.  The second part, $\zeta(K,v)$, is a local identifier that comes from a mixed labelling of an induced subgraph of some torso of $\mathcal{F}$ for $(A,M)$.  Let $L:=K\cap B_R$.  If $L=K$ then $L\in\mathcal{K}_0$. Otherwise, $L\in K_R$ and the vertices in $K\setminus B_R$ are all vertices of $G_L$.  Note that, in either case $\mu_R(L)$ is defined and $\kappa_R(L,u)$ is defined for each $u\in L$.  There are two possibilities:
     \begin{itemize}[nosep,nolistsep]
-      \item If $v\in L$, then $\mu_R(L)$ and $\kappa_R(L,v)$ are defined as part of the mixed labelling $(\mu_R,\kappa_R)$ of for $(A,M)$.  In this case, we set $\zeta(K,v):=\kappa_R(L,v)$.
+      \item If $v\in L$, then $\mu_R(L)$ and $\kappa_R(L,v)$ are defined as part of the mixed labelling $(\mu_R,\kappa_R)$ of $(G^+_R,G_R,\mathcal{K}_0\cup\mathcal{K}_R,\gamma)$ for $(A,M)$.  In this case, we set $\zeta(K,v):=\kappa_R(L,v)$.
 
-      \item If $v\not\in L$, then $v\in K\setminus B_R$. In this case, $K\setminus B_R\in\mathcal{K}_L$, so $\mu_L(K\setminus B_R,v)$ and  $\kappa_L(K\setminus B_R, v)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ for $(A',M')$.  Since this is a labelling for $(A',M')$, $\kappa_L(K\setminus B_R,v)$ has two parts,  $\depth_{F_K}(z)=\depth_F(z)-1$, and $\zeta_L(K,v)$.  In this case, we set $\zeta(K,v):=\zeta_L(K,v)$.
+      \item If $v\not\in L$, then $v\in K\setminus B_R$. In this case, $K\setminus B_R\in\mathcal{K}_L$, so $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, v)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ for $(A',M')$.  Since this is a labelling for $(A',M')$, $\kappa_L(K\setminus B_R,v)$ has two parts,  $\depth_{F_K}(z)=\depth_F(z)-1$, and $\zeta_L(K,v)$.  In this case, we set $\zeta(K,v):=\zeta_L(K,v)$.
     \end{itemize}
     To summarize,
     \begin{align*}
@@ -1701,7 +1701,7 @@ Therefore, for each $v\in V(G)$
       \end{itemize}
       \item If $\mu(v)$ has three parts, then $v\not\in B_R$ and $\mu(v)=(\mu_R(L),\mu_L(v),\alpha(v))$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L})$.  If $\depth_F(z)=0$ then $z\not\in R$ and $v\not\in B_R$, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-      If $\depth_F(z)>O$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $K\not\in\mathcal{K}_0$ and  $\mu(K)=\langle \mu_R(L'),\mu_{L'}(K\setminus B_R)\rangle$ for some clique $L'\in \mathcal{K}_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\mu_R(L)=\mu_R(L')$ then $L=L'$.  Since $u\not\in B_R$,  $\kappa(K,u)=\langle\depth_F(z),\zeta_L(K\setminus B_R,u)\rangle$. Thus, $M'$ can compute the local identifier
+      If $\depth_F(z)>O$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $K\not\in\mathcal{K}_0$ and  $\mu(K)=\langle \mu_R(L'),\mu_{L'}(K\setminus B_R)\rangle$ for some clique $L'\in \mathcal{K}_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $v\in V(G_L)$, $u\in V(G_{L'})$, and $G_{L}$ and $G_{L'}$ are vertex-disjoint.  In thise case $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\mu_R(L)=\mu_R(L')$ then $L=L'$.  Since $u\not\in B_R$,  $\kappa(K,u)=\langle\depth_F(z),\zeta_L(K\setminus B_R,u)\rangle$, where $z$ is the nome node of $u$ in $\mathcal{F}$. Thus, $M'$ can compute the local identifier
       \[
          \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle
       \]
@@ -1725,7 +1725,7 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
     Let $k, g_1,g_2,g_3:\N\to\N$ be non-decreasing functions in $\Oh(\log n)$, let $\mathcal{G}$ be a monotone graph class that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme and let $\mathcal{G}'$ be the class of graphs that contains, for each $n\in\N^+$, every $n$-vertex graph that has a tree-decomposition of adhesion-width at most $k(n)$ in which each torso is a member of $\mathcal{G}$.  Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme, where
     \begin{align*}
      g'_1(n) & = g_1(n) + k(n)\cdot g_2(n) + \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot\log n}\right) \\
-     & \quad {} + \Oh\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}\log\log n\right)  \\
+     & \quad {} + \Oh\left(\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}+k(n)\right)\log\log n\right) \\
      g'_2(n) & = g_2(n) + \Oh\left(\sqrt{\frac{g_3(n)\log n}{k(n)}}\right) + \Oh(\log\log n)  \\
      g'_3(n) & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot\log n}\right) + \Oh\left(\sqrt{\frac{k(n)\log n}{g_3(n)}}\log\log n\right)
    \end{align*}
@@ -1758,7 +1758,7 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
      g''_1(n) & = g'_1(n) + k(n)\cdot g'_2(n) + h(n)\cdot g'_3(n) + \Oh((1+h(n))\log\log n) \\
        & = g_1(n) + k(n)\cdot g_2(n) + \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) \\
        & \quad {} + \Oh\left((1+k(n)+h(n))\log\log n)\right) \\
-     g''_2(n) & = g'_2(n) + \Oh(1) \\
+     g''_2(n) & = g'_2(n) + \Oh(\log\log n) \\
        & = g_2(n) + \Oh\left(\sqrt{\frac{g_3(n)\cdot \log n}{k(n)}}\right) + \Oh(\log\log n) \\
      g''_3(n) & = (1+h(n))\cdot g'_3(n) + \Oh((1+h(n))\log\log n) \\
        & = \Oh\left(\sqrt{k(n)\cdot g_3(n)\cdot \log n}\right) + g_3(n) + \Oh\left((1+h(n))\log\log n\right) \\
@@ -1776,7 +1776,13 @@ The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, 
 	${x=y}$ and ${vw \in E(A)}$, or
 	${vw \in E(A)}$ and~${xy \in E(B)}$.
 For an integer $k\geq 0$, let \defin{$\mathcal{G}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$. This definition includes various classes of interest. For example, \citet{dujmovic.joret.ea:planar} showed that
-$\mathcal{G}_{8}$ incudes all planar graphs and, more generally, that a minor-closed class $\mathcal{G}$ is contained in $\mathcal{G}_c$, for some constant $c$, if and only if some apex graph is not in $\mathcal{G}$. For integers $k,a\geq 0$, let \defin{$\mathcal{G}_{k,a}$} be the class of graphs that are isomorphic to a subgraph of $(H\boxtimes P)\oplus K_a$ for some graph $H$ with treewidth at most $k$ and for some path $P$. Let \defin{$\mathcal{G}^*_{k,a}$} be the class of graphs that have a tree-decomposition in which each torso is in $\mathcal{G}_{k,a}$,
+$\mathcal{G}_{8}$ incudes all planar graphs and, more generally, that a minor-closed class $\mathcal{G}$ is contained in $\mathcal{G}_c$, for some constant $c$, if and only if some apex graph is not in $\mathcal{G}$.
+
+By definition, the class $\mathcal{G}_k$ is monotone (closed under taking subgraphs), and therefore hereditary. Furthermore, if $G_1$ is isomorphic to a subgraph of $H_1\boxtimes P_1$ and $G_2$ is isomorphic to a subgraph of $H_2\boxtimes P_2$ then $G_1\cup G_2$ is isomorphic to a subgraph of $(H_1\cup H_2)\boxtimes P$, where $P$ is any path at least as long as $P_1$ and $P_2$. Since $\tw(H_1\cup H_2)=\max\{\tw(H_1),\tw(H_2\}$, this implies that for any $G_1,G_2\in\mathcal{G}_k$, $G_1\cup G_2\in\mathcal{G}_k$ so $\mathcal{G}_k$ is closed under disjoint union.
+
+For integers $k,a\geq 0$, let \defin{$\mathcal{G}_{k,a}$} be the class of graphs that are isomorphic to a subgraph of $(H\boxtimes P)\oplus K_a$ for some graph $H$ with treewidth at most $k$ and for some path $P$. Let \defin{$\mathcal{G}^*_{k,a}$} be the class of graphs that have a tree-decomposition in which each torso is in $\mathcal{G}_{k,a}$,
+
+\pat{$\mathcal{G}_{k,a}$ is not closed under taking disjoint unions, which interferes with our big simplification.}
 
 A key ingredient in our proof is the following variant of the Robertson--Seymour Graph Minor Structure Theorem, due to \citet{dujmovic.joret.ea:planar}.
 
