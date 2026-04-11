@@ -1646,24 +1646,26 @@ Therefore, for each $v\in V(G)$
     which satisfies the requirement for $g'_3(n)$.
     % \pat{I had to stop here.} \pat{I don't like the naked $g'_3$ above, but it's not easy to express because $g'_3$ is more like a function of $h$ than of $n$.  We could just skip to the next line.}
 
-    \paragraph{\boldmath The local identifier $\kappa(K,v)$:}  Let $K\in\mathcal{K}$ and let $v\in K$. Then there exists a unique $z\in V(F)$ such that $v\in B_z\setminus A_z$.  We define a local identifier $\mu(K,v)$ with two parts. The first part is (the binary encoding of) $\depth_F(z)$.  The second part, $\zeta(K,v)$, is a local identifier that comes from a mixed labelling of an induced subgraph of some torso of $\mathcal{F}$ for $(A,M)$.
-
-    If $K\in\mathcal{K}_0$ (so $K\subseteq B_R$) then define $L:=K$.  Otherwise, define $L$ to be the unique clique in $\mathcal{K}_R$ such that the vertices in $K\setminus B_R$ are contained in $G_K$.  Note that, in either case $L\subseteq B_R$, and $L\in\mathcal{K}_0\cup\mathcal{K}_R$, so $\mu_R(L)$ is defined and $\kappa_R(L,u)$ is defined for each $u\in L$.  There are now two possibilities:
+    \paragraph{\boldmath The local identifier $\kappa(K,v)$:}  Let $K\in\mathcal{K}$ and let $v\in K$. Then there exists a unique $z\in V(F)$ such that $v\in B_z\setminus A_z$.  We define a local identifier $\mu(K,v)$ with two parts. The first part is (the binary encoding of) $\depth_F(z)$.  The second part, $\zeta(K,v)$, is a local identifier that comes from a mixed labelling of an induced subgraph of some torso of $\mathcal{F}$ for $(A,M)$.  Let $L:=K\cap B_R$.  If $L=K$ then $L\in\mathcal{K}_0$. Otherwise, $L\in K_R$ and the vertices in $K\setminus B_R$ are all vertices of $G_L$.  Note that, in either case $\mu_R(L)$ is defined and $\kappa_R(L,u)$ is defined for each $u\in L$.  There are two possibilities:
     \begin{itemize}[nosep,nolistsep]
-      \item If $v\in L$, then $\mu_R(L)$ and $\kappa_R(L,v)$ are defined as part of the mixed labelling $(\mu_R,\kappa_R)$ of $G_R$ for $(A,M)$.  In this case, we set $\zeta(K,v):=\kappa_R(L,v)$.
-      \item If $v\not\in L$, then $v\in K\setminus B_R$. In this case, $K\setminus B\in\mathcal{K}_L$, so $\mu_K(K\setminus B_R,v)$  $\kappa_L(K\setminus B_R, v)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $G^+_L$ for $(A',M')$.  Since this is a labelling for $(A',M')$, $\kappa_L(K\setminus B_R,v)$ has two parts,  $\depth_{F_K}(z)=\depth_F(z)-1$, and $\zeta_L(K,v)$.  In this case, we set $\zeta(K,v):=\zeta_L(K,v)$.
+      \item If $v\in L$, then $\mu_R(L)$ and $\kappa_R(L,v)$ are defined as part of the mixed labelling $(\mu_R,\kappa_R)$ of for $(A,M)$.  In this case, we set $\zeta(K,v):=\kappa_R(L,v)$.
+
+      \item If $v\not\in L$, then $v\in K\setminus B_R$. In this case, $K\setminus B_R\in\mathcal{K}_L$, so $\mu_L(K\setminus B_R,v)$ and  $\kappa_L(K\setminus B_R, v)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ for $(A',M')$.  Since this is a labelling for $(A',M')$, $\kappa_L(K\setminus B_R,v)$ has two parts,  $\depth_{F_K}(z)=\depth_F(z)-1$, and $\zeta_L(K,v)$.  In this case, we set $\zeta(K,v):=\zeta_L(K,v)$.
     \end{itemize}
     To summarize,
-    \[
-      \kappa(K,v):= \langle\depth_F(z),\zeta(K,v)\rangle :=
-        \begin{cases}
-          \langle\depth_F(z), \kappa_R(K\cap B_R,v)\rangle & \text{if $v\in B_R$} \\
-          \langle\depth_F(z), \zeta_L(K\setminus B_R,v)\rangle & \text{if $v\in K\setminus B_R$}
+    \begin{align*}
+      \kappa(K,v) & := \langle\depth_F(z),\zeta(K,v)\rangle \\
+    \intertext{where}
+      \zeta(K,v) & := \begin{cases}
+          \kappa_R(K\cap B_R,v) & \text{if $v\in K\cap B_R$} \\
+          \zeta_L(K\setminus B_R,v) & \text{if $v\in K\setminus B_R$.}
         \end{cases}
-    \]
+    \end{align*}
+    Note that $\zeta(K,v)$ is well-defined: In the first case $\zeta(K,v)=\kappa_R(K\cap B_R,v)$ comes from a mixed labelling of $(G^+_R,G_R,\mathcal{K}_0\cup\mathcal{K}_R)$ for $(A,M)$.  Furthermore, if $h=0$ then $B_R=V(G)$ so the first case applies.  In the second case, $(\mu_L,\kappa_L)$ is a mixed labelling of $(G^+_L,G_L,\mathcal{K}_L,\mu_L)$ for $(A',M')$ that is obtained using the tree-decomposition $\mathcal{F}_L$ that is indexed by a tree $F_L$ of height $h-1<h$.  Ultimately, the inductive definition of $\kappa(K,v)$ completes when the first case applies, at which point $\zeta(K,v)$ is a local identifier in a mixed labelling for $(A,M)$.
+
     Since $\zeta(K,v)$ is a local identifier in a mixed labelling for $(A,M)$ on a graph with at most $n$ vertices, $|\zeta(K,v)|\le g_2(n)$.  Therefore,
     \begin{align*}
-      |\kappa_K(K,v)|
+      |\kappa(K,v)|
       & \le \Oh(\lgg \depth_F(z)) + |\zeta(K,v)| + \Oh(\lgg|\zeta(K,v)|)
         & \text{by \eqref{encoding_cost}} \\
       & \le \Oh(\lgg h(n)) + |\zeta(K,v)| + \Oh(\lgg|\zeta(K,v)|)
@@ -1689,21 +1691,21 @@ Therefore, for each $v\in V(G)$
     %  \pat{Damn. There's an annoying issue here that I didn't see.  In Case~0, the length of the second part is $g'_2(n)$, not $g_2(n)$.  As its described here, this leads to $|\kappa(K,v)|=(h+1)+g_2(n)$.  That's because we're using a unary encoding to encode the depth of a node in $F$.  This means that $g'_2(n)$ should really be $g_2(n)+\Oh(\lg\lg n)$.  That's mildly annoying, because it complicates the definition of efficient mixed labelling.  I have to pack now and think about the best way to write this.}
     %  In each case, $|\kappa(K,v)|\le g_2(n)+\Oh(1)$.
 
-    \paragraph{Identity testing:}  We now describe the identity tester $M'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and determines if $u=v$.  To do this, $M'$ first examines $\mu(v)$ to determine if $v\in B_R$.
+    \paragraph{Identity testing:}  We now describe the identity tester $M'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $M'$ first examines $\mu(v)$ to determine if $v\in B_R$.
     \begin{itemize}
-      \item If $v\in B_R$ then $\mu(v)=\mu_R(v)$.  In this case $M'$ examines $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
+      \item If $\mu(v)$ has exactly one part, then $v\in B_R$ and $\mu(v)=\langle\mu_R(v)\rangle$.  In this case $M'$ examines $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
       \begin{itemize}
-        \item If $\depth_F(z)\neq 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and  $u\not\in B_R$, so $u\neq v$.  Thus, $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
-        \item If $\depth_F(z)=0$ then $z\in R$ and $u\in V(B_R)$.  In this case $\zeta(K,u)=\kappa_R(K\cap B_R,u)$. Recall that the first part of $\mu(K)$ is $\mu_R(K\cap B_R)$.  In this case,  $M'(\mu(K),\kappa(K,u),\mu(v)):=M(\mu_R(K\cap B_R),\kappa_R(K\cap B_R,u),\mu_R(v))$.
+        \item If $\depth_F(z)\neq 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+        \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.  In this case $\zeta(K,u)=\kappa_R(K\cap B_R,u)$. Recall that the first part of $\mu(K)$ is $\mu_R(K\cap B_R)$.  In this case,  $M'(\mu(K),\kappa(K,u),\mu(v)):=M(\mu_R(K\cap B_R),\kappa_R(K\cap B_R,u),\mu_R(v))$.
       \end{itemize}
-      \item If $v\not\in B_R$, then $\mu(v)=(\mu_R(L),\mu_L(v),\alpha(v))$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L})$.  Then $M'$ begins by checking that $u\not\in B_R$ by checking that $\depth_F(z)>0$.  If not, then $v\not\in B_R$ and $u\in B_R$, so $u\neq v$ and $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+      \item If $\mu(v)$ has three parts, then $v\not\in B_R$ and $\mu(v)=(\mu_R(L),\mu_L(v),\alpha(v))$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L})$.  If $\depth_F(z)=0$ then $z\not\in R$ and $v\not\in B_R$, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-      Otherwise $u\not\in B_R$ and $v\not\in B_R$.  Since $u\not\in B_R$, $K\not\subseteq B_R$, so $K\not\in\mathcal{K}_0$ and  $\mu(K)=\langle \mu_R(L'),\mu_{L'}(K\setminus B_R)\rangle$ for some clique $L'\in \mathcal{K}_R$.  Next, $M'$ checks if $\mu_R(L')=\mu_R(L)$.  If not, then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
-
-      If $\mu_R(L)=\mu_R(L')$ then $L=L'$.  Since $u\not\in B_R$,  $\kappa(K,u)=\langle\depth_F(z),\zeta_L(K\setminus B_R,u)\rangle$. Thus, $M'$ can compute the local identifier
+      If $\depth_F(z)>O$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $K\not\in\mathcal{K}_0$ and  $\mu(K)=\langle \mu_R(L'),\mu_{L'}(K\setminus B_R)\rangle$ for some clique $L'\in \mathcal{K}_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\mu_R(L)=\mu_R(L')$ then $L=L'$.  Since $u\not\in B_R$,  $\kappa(K,u)=\langle\depth_F(z),\zeta_L(K\setminus B_R,u)\rangle$. Thus, $M'$ can compute the local identifier
       \[
          \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle
       \]
+      Since $\kappa_L(K\setminus B_R,u)$ is a local identifier for the labelling $(\mu_L,\kappa_L)$ of $(G^+_L,G_L,\mathcal{K}_L,\mu_L)$ for $(A',M')$, $u=v$ if and only if $M'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))=1$.
       In this case $M'(\mu(K),\kappa(K,u),\mu(v)):=M'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
   \end{itemize}
   \end{proof}
