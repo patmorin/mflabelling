@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{comment}
 \usepackage[inline]{enumitem}
-\usepackage{ulem}
+\usepackage[normalem]{ulem}
 
 %\piotr{added packages}
 \usepackage{mathtools}  % for \DeclarePairedDelimiter
@@ -359,14 +359,14 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
   % Throughout the rest of this paper, we will implicitly assume that any rooted tree-decomposition we are considering is downward-normalised and upmost.
   Let $G$ be a graph and $\calT=(T,(B_x \mid x\in V(T)))$ be a tree-decomposition of $G$. If $T$ is a path, then $\calT$ is a \defin{path-decomposition} of $G$, simply denoted by the sequence $(W_1, W_2, \dots, W_m)$ of the bags in the order of the vertices in the underlying path.
 
-  It will be convenient to work with forest-decompositions, which are the natural generalization of a tree-decomposition that allow the graph indexing the bags to be a forest.  Specifically, $(F,(B_x\mid x\in V(F))$ is a \defin{forest-decomposition} of a graph $G$ if $F$ is a forest, for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$, and for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is connected.  A forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if 
+  It will be convenient to work with forest-decompositions, which are the natural generalization of a tree-decomposition that allow the graph indexing the bags to be a forest.  Specifically, $(F,(B_x\mid x\in V(F))$ is a \defin{forest-decomposition} of a graph $G$ if $F$ is a forest, for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$, and for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is connected.  A forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
   \begin{enumerate*}[label=(\arabic*)]
-  \item $B_x\neq\emptyset$ for each $x\in V(F)$, 
+  \item $B_x\neq\emptyset$ for each $x\in V(F)$,
   \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with an $F$-parent $x$;
   \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ with an $F$-parent $y$ and an $F$-grandparent $x$.
   \end{enumerate*}
 
-  
+
   % Since we can always remove any vertex or edge of $F$ that violates the tidy condition, we have the following observation, which allows us to focus on tidy forest-decompositions.
 
 \piotr{$G$ needs to have at least one vertex.}
@@ -374,8 +374,8 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
     Let $G$ be a graph and let $(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$.  Then there exists $F'\subseteq F$ such that $(F',(B_x\mid x\in V(F')))$ is a tidy forest-decomposition of $G$.
   \end{obs}
   We make use of the fact that tidy forest decompositions remain tidy when we remove the root bags and their contents.  More precisely, let $\mathcal{F}:=(F,(B_x\mid x\in V(F)))$ be a tidy forest decomposition of a graph $G$, let $R$ be the set of roots in $F$, let $B_R:=\bigcup_{r\in R}B_r$, and let $C_x:=B_x\setminus B_R$ for each $x\in V(F)$.  Then $(F-R,(C_x\mid x\in V(F-R)))$ is a tidy rooted forest decomposition of $G-B_R$.
-  
-  
+
+
   % , then $(F-R,(B_x\$
 
   % \pat{Come back and put this into the tidy definition.}
@@ -662,8 +662,8 @@ The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labellin
 such that
 for every natural $n\in\N$,
 every $n$-vertex graph $G^+$ in $\mathcal{G}$,
-every spanning subgraph $G$ of $G^+$, 
-\piotr{Can't we just work on the set of all cliques in $G^+$?} 
+every spanning subgraph $G$ of $G^+$,
+\piotr{Can't we just work on the set of all cliques in $G^+$?}
 every set of non-empty cliques $\mathcal{K}$ in $K(G^+)$, and
 every weight function $\omega:V(G)\to \R^+$,
 there exists an injective function $\mu: V(G)\cup \mathcal{K} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid K\in \mathcal{K}, u\in K\}\to \set{0,1}^*$
@@ -1378,7 +1378,7 @@ Therefore, for each $v\in V(G)$
 %            + h(n)\cdot g_3(n)  \; {} + (1+h(n)+k(n))\cdot\Oh(\log\log n)\enspace,\\
        g'_1(n) & = g_1(n)
              + k(n)\cdot (g_2(n)+\Oh(\log\log n))
-            + h(n)\cdot (g_3(n)+\Oh(\log\log n)) +\Oh(\log\log n)\enspace,\\%  \; {} + %(1+h(n)+k(n))\cdot\Oh(\log\log n)\enspace,\\            
+            + h(n)\cdot (g_3(n)+\Oh(\log\log n)) +\Oh(\log\log n)\enspace,\\%  \; {} + %(1+h(n)+k(n))\cdot\Oh(\log\log n)\enspace,\\
        g'_2(n) & = g_2(n) + \Oh(\log\log n)\enspace, \\
        %g'_3(n) & = (1+h(n))\cdot g_3(n)  \; {}   + (1+h(n))\cdot\Oh(\log\log n)\enspace.\\
        g'_3(n) & = (h(n)+1)\cdot (g_3(n)+\Oh(\log\log n))\enspace.
@@ -1390,23 +1390,23 @@ Therefore, for each $v\in V(G)$
     Since it is not possible to describe $A'$ and $M'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular input tuple. %$(G^+,G,\mathcal{K},\omega)$.
 
 
-  
-    The proof is by induction on a slightly more detailed statement. An \defin{instance} is  a tuple $(n,h,k,G^+,G,\mathcal{K},\omega,\mathcal{F})$ with the following properties:  
-    $n$ is an integer, 
-    $G^+\in\mathcal{G}$ with $n\geq |V(G^+)|$, 
+
+    The proof is by induction on a slightly more detailed statement. An \defin{instance} is  a tuple $(n,h,k,G^+,G,\mathcal{K},\omega,\mathcal{F})$ with the following properties:
+    $n$ is an integer,
+    $G^+\in\mathcal{G}$ with $n\geq |V(G^+)|$,
     $G$ is a spanning subgraph of $G^+$,
     $\mathcal{K}$ is a set of non-empty cliques in $G^+$,
     $\omega:V(G)\to\N^+$
-    is a weight function with 
+    is a weight function with
     \begin{equation}
     \log\omega(G)-\log \omega(v)\le n+2,
     \label{eq:short-td-nice-weights}
     \end{equation}
     for each $v\in V(G)$, and
-    $\mathcal{F}:=(F,(B_x \mid x\in V(F))$ is a tidy rooted forest-decomposition of $G^+$ having adhesion-width at most $k= \max\{1,k(n)\}$ and with $F$ of height at most $h\le h(n)$.  
+    $\mathcal{F}:=(F,(B_x \mid x\in V(F))$ is a tidy rooted forest-decomposition of $G^+$ having adhesion-width at most $k= \max\{1,k(n)\}$ and with $F$ of height at most $h\le h(n)$.
     %Let $R$ be the set of roots of trees in $F$.
 
-    Let $(n,h,k,G^+,G,\mathcal{K},\omega,\mathcal{F})$ be an instance. 
+    Let $(n,h,k,G^+,G,\mathcal{K},\omega,\mathcal{F})$ be an instance.
     For each $y\in V(F)$, let
     \[
     A_y:=\begin{cases}
@@ -1423,13 +1423,13 @@ Therefore, for each $v\in V(G)$
     \end{align}
 
     Given an integer $n$, an $n$-vertex graph $G^+\in\mathcal{G}'$, a spanning subgraph $G$ of $G^+$, a set $\mathcal{K}$ of non-empty cliques in $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\mathcal{F}=(F,(B_x \mid x\in V(F)))$ be a rooted forest-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(F)\leq h(n)$, in which each torso is in $\mathcal{G}$.
-    %We obtain our labelling $(\mu,\kappa)$ from an instance 
+    %We obtain our labelling $(\mu,\kappa)$ from an instance
     Let $(n_0,h_0,k_0,G^+,G,\mathcal{K},\omega_0,\mathcal{F}_0)$ be an instance where $n_0:=|V(G)|$, $h_0:=h(n_0)$, $k_0:=\max\{1,k(n)\}$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\mathcal{F}_0$ is a tidy rooted forest-decomposition obtained by applying \cref{tidy_forest} to $\mathcal{F}$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
     By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',M')$.
-    The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$ which follows from~\cref{obs:nice}. 
+    The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$ which follows from~\cref{obs:nice}.
     This will complete the proof of the lemma.
 
-    
+
     % This is sufficient to prove the lemma because the inequality in \eqref{strong_strong}  is stronger than what is required by $g_1'$, since $|A_z|\le k(n)$ for each $z\in V(F)$.
 
     We now begin the inductive proof. Let $(n,h,k,G^+,G,\mathcal{K},\omega,\mathcal{F})$ be an instance, where $\mathcal{F}:=(F,(B_x\mid x\in V(F)))$.
@@ -1443,8 +1443,8 @@ Therefore, for each $v\in V(G)$
     \label{eq:torso-in-the-class-G}
     \end{align}
 
-    \paragraph{\boldmath The root labelling $\mu_R$:} 
-    Let $R$ be the set of roots of $F$. Let 
+    \paragraph{\boldmath The root labelling $\mu_R$:}
+    Let $R$ be the set of roots of $F$. Let
     \begin{align*}
     B_R&:=\textstyle\cup\set{B_r\mid r\in R}\enspace.
     \intertext{Since $\mathcal{F}$ is tidy, each bag of $\mathcal{F}$ is non-empty, so  $B_R\neq\emptyset$.}
@@ -1461,16 +1461,16 @@ Therefore, for each $v\in V(G)$
     For each $K$ in $\mathcal{K}_R$, let} F_K&:=\textstyle\cup \set{F_y\mid y\in L_2(F) \textrm{ and } B_y\cap B_R = K}\enspace,\\
     G_K&:=\textstyle\cup\set{G[B_z] \mid z\in V(F_K)}- B_R\enspace.
     \end{align*}
-    Note that for each $K\in\mathcal{K}_R$, 
-    since $\mathcal{F}$ is tidy, 
+    Note that for each $K\in\mathcal{K}_R$,
+    since $\mathcal{F}$ is tidy,
     $G_K$ has at least one vertex.
     Thus, the family of sets $\set{\set{B_R}}\cup\set{V(G_K)\mid K\in \mathcal{K}_R}$ is a partition of vertices of $G$.
 
     For each $v\in B_R$, let
     \begin{align*}
     \gamma(v)&:=k\cdot\omega(v)+\textstyle\sum\set{\omega(G_K)\mid K\in\mathcal{K}_R,\ v\in K} \enspace .
-    \end{align*} 
-    Since $k\geq1$, $\gamma(v)\geq\omega(v)\geq 1$ for each $v\in B_R$. 
+    \end{align*}
+    Since $k\geq1$, $\gamma(v)\geq\omega(v)\geq 1$ for each $v\in B_R$.
     Clearly, for each $v\in B_R$ we have
     \begin{equation}
     \label{eq-gammma-v-omega-v}
@@ -1480,7 +1480,7 @@ Therefore, for each $v\in V(G)$
     \begin{equation}
        \min_{v\in K}\gamma(v) \ge \omega(G_K) \enspace . \label{gamma_v_lower_bound}
     \end{equation}
-    Since $B_R\neq\emptyset$, we have that $\gamma(B_R)\geq1$. 
+    Since $B_R\neq\emptyset$, we have that $\gamma(B_R)\geq1$.
     Since $\mathcal{F}$ has adhesion-width at most $k$, each clique in $\mathcal{K}_R$ has size at most $k$, so
     \begin{equation}
        \gamma(B_R)=\sum_{v\in B_R}\gamma(v)
@@ -1518,7 +1518,7 @@ Therefore, for each $v\in V(G)$
        & \le\log \gamma(B_R) - \log \min_{v\in K}(\gamma(v)) + g_3(|B_R|) \notag \\
        & \le\log \omega(G) - \log \omega(G_K) + g_3(n) + \log k
        & \textrm{by~\eqref{gamma_br},~\eqref{gamma_v_lower_bound} and since $g_3$ is non-decreasing} \label{mu_RK_i}\\
-       &\in\Oh(\log n)&\textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n), k(n)\in\Oh(\log n).$} 
+       &\in\Oh(\log n)&\textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n), k(n)\in\Oh(\log n).$}
     \end{align}
     For each $K\in\mathcal{K}_0$, we have
     \begin{align}
@@ -1546,7 +1546,7 @@ Therefore, for each $v\in V(G)$
     \paragraph{\boldmath The subforest labelling $\mu_K$:}
     % If $h=0$, then $V(F)=R$, $V(G)=B_R$, $\mathcal{K}_0=\mathcal{K}$, and this completely defines $\mu:V(G)\cup\mathcal{K}\to\{0,1\}^*$.
 
-    
+
     Suppose that $h\geq1$. Thus, $F-R$ is a non-empty rooted forest.
     We now describe the subproblems on which we apply induction. For each $z\in V(F-R)$, let $C_z:=B_z\setminus B_R$.  Note that $\bigcup_{z\in V(F_K)}C_z=V(G_K)$.
 
@@ -1556,7 +1556,7 @@ Therefore, for each $v\in V(G)$
         \mathcal{F}_K&:=(F_K, (C_z \mid z\in V(F_K)))\enspace.
     \end{align*}
     Note that $\mathcal{F}_K$ is a tidy rooted forest decomposition of $G^\star_K$ of adhesion-width at most $k$ and the height of $F_K$ is at most $h-1$.
-    Since $\mathcal{G}$ is hereditary and by~\eqref{eq:torso-in-the-class-G}, 
+    Since $\mathcal{G}$ is hereditary and by~\eqref{eq:torso-in-the-class-G},
     \begin{align*}
         \torso{G^\star_K}{\mathcal{F}_K,C_z}&=G^\star[B_z]-B_R\subseteq G^\star[B_z]\in \mathcal{G}\enspace ,
     \end{align*}
@@ -1584,7 +1584,7 @@ Therefore, for each $v\in V(G)$
     \mu(v) := \langle\mu_R(v)\rangle\enspace.
     \]
     Thus, $\mu(v)$ has just one part and
-    by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$. 
+    by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$.
     Therefore,
     for each $v\in B_R$
     \begin{align*}
@@ -1592,12 +1592,12 @@ Therefore, for each $v\in V(G)$
     %&\leq |\mu_R(v)| + \Oh(\log\log n) &&\text{by~\eqref{eq:mu-R-in-logn}}\\
     &\leq \log\omega(G) - \log\omega(v) + g_1(n) + \Oh(\log\log n)&&\textrm{by~\eqref{eq:mu-R-bounded-in-omega} and~\eqref{eq:mu-R-in-logn}.}
     \end{align*}
-    Thus, the length of $\mu(v)$ satisfies \eqref{strong_strong} when $v\in B_R$. 
+    Thus, the length of $\mu(v)$ satisfies \eqref{strong_strong} when $v\in B_R$.
 
 
     Now, let $w\in V(G)\setminus B_R$.
-    Say, $w\in B_z\setminus A_z$ for $z\in V(F_K)$ and $K\in\mathcal{K}_R$. 
-    Note that in this case we have $h\geq 1$. 
+    Say, $w\in B_z\setminus A_z$ for $z\in V(F_K)$ and $K\in\mathcal{K}_R$.
+    Note that in this case we have $h\geq 1$.
     %Since $K\supseteq A_z\cap B_R$, the local identifier $\kappa_R(K,v)$ is defined, for each $v\in A_z\cap B_R$.
     Define
     \begin{align*}
@@ -1616,7 +1616,7 @@ Therefore, for each $v\in V(G)$
         &\leq |A_z\cap B_R|\cdot (g_2(n) +\Oh(\log\log n)) + \Oh(\log\log n)\enspace,
         %&\textrm{since $k(n),g_2(n)\in\Oh(\log n)$.}
     \end{align*}
-    where the last line follows 
+    where the last line follows
     from $A_z\cap K= A_z\cap B_R$ and $k(n),g_2(n)\in\Oh(\log n)$.
     Also, we have
     \begin{align*}
@@ -1636,7 +1636,7 @@ Therefore, for each $v\in V(G)$
     & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))\\
     & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.
     \end{align*}
-    So the length of $\mu(w)$ satisfies \eqref{strong_strong} as shown below 
+    So the length of $\mu(w)$ satisfies \eqref{strong_strong} as shown below
     \begin{align*}
        |\mu(w)|
        & =|\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|+ \Oh(\log|\mu_R(K)|+\log|\mu_K(w)|+\log|\alpha(w)|)
@@ -1660,13 +1660,13 @@ Therefore, for each $v\in V(G)$
       \item Otherwise, $v\in V(G_K)$ and $w\in V(G_{L})$ for some $K,L\in\mathcal{K}_R$.
       In this case $\mu(v)=\langle\mu_R(K),\mu_K(v),\alpha(v)\rangle$ and $\mu(w)=\langle\mu_R(L),\mu_{L}(w),\alpha(w)\rangle$.
       If $\mu_R(K)\neq\mu_R(L)$ then $K\neq L$. In this case, $K$ (and $L$) separates $v$ and $w$ in $G^+$, so $vw\not\in E(G)$ and $A'(\mu(v),\mu(w)):=0$.
-      If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester return $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$. 
+      If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester return $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$.
       % \piotr{$A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$, right?}
       % \pat{Yes, this is recursion. Fixed.}
     \end{itemize}
 
-    \paragraph{\boldmath The clique label $\mu(K)$:}  
-    What remains is to label the cliques in $\mathcal{K}$ and describe the local identifier function $\kappa$.  For each $K\in\mathcal{K}$ such that $K\subseteq B_R$, 
+    \paragraph{\boldmath The clique label $\mu(K)$:}
+    What remains is to label the cliques in $\mathcal{K}$ and describe the local identifier function $\kappa$.  For each $K\in\mathcal{K}$ such that $K\subseteq B_R$,
     \[
        \mu(K) := \langle \mu_R(K)\rangle \enspace .
     \]
@@ -1688,7 +1688,7 @@ Therefore, for each $v\in V(G)$
        & \text{by \eqref{encoding_cost}} \\
        & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)\enspace,
        \end{align*}
-       where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\log\min_{v\in K\setminus B_R}\omega(v) + h(n)(g_3(n)+\Oh(\log\log n)) \in\Oh(\log^2 n)$, since $h(n),g(n)\in\Oh(\log n)$. Continuing, 
+       where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\log\min_{v\in K\setminus B_R}\omega(v) + h(n)(g_3(n)+\Oh(\log\log n)) \in\Oh(\log^2 n)$, since $h(n),g(n)\in\Oh(\log n)$. Continuing,
        \begin{align*}
        |\mu(K)| & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n) \\
        % & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)
@@ -1701,30 +1701,30 @@ Therefore, for each $v\in V(G)$
        % & \text{(by \eqref{mu_RK_i})} \\
        & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}(\omega(v)) + (h+1)\cdot (g_3(n) +  \Oh(\log\log n))
        & \text{by induction} \\
-       & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\log\log n)) \enspace , 
+       & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\log\log n)) \enspace ,
     \end{align*}
     which satisfies the requirement for $g'_3(n)$.
     % \pat{I had to stop here.} \pat{I don't like the naked $g'_3$ above, but it's not easy to express because $g'_3$ is more like a function of $h$ than of $n$.  We could just skip to the next line.}
 
-    \paragraph{\boldmath The local identifier $\kappa(K,u)$:}  
+    \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
     Let $K\in\mathcal{K}$, let $u\in K$, and let $z$ be the vertex of $F$ such that $u\in B_z\setminus A_z$.   The local identifier $\kappa(K,u)$ for $(A',M')$ has two parts,
     \piotr{binary representation of $\depth_F(z)$}
     \[
         \kappa(K,u) := \langle\depth_F(z),\zeta(K,u)\rangle \enspace .
     \]
     The first part is (the binary encoding of) $\depth_F(z)$. We now describe the second part, $\zeta(K,u)$.    If $K\subseteq B_R$, then $\zeta(K,u):=\kappa_R(K,u)$.
-    If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\not\in B_R$ then $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)},\mathcal{K}_L)$ for $(A',M')$. 
+    If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\not\in B_R$ then $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ is defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)},\mathcal{K}_L)$ for $(A',M')$.
     Since this is a labelling for $(A',M')$ given by induction, we have
     \begin{equation}
-    \kappa_L(K\setminus B_R,u)=\langle\depth_{F_L}(z),\zeta_{L}(K\setminus B_R,u)\rangle=\langle\depth_F(z)-1,\zeta_L(K\setminus B_R,u)\rangle. 
+    \kappa_L(K\setminus B_R,u)=\langle\depth_{F_L}(z),\zeta_{L}(K\setminus B_R,u)\rangle=\langle\depth_F(z)-1,\zeta_L(K\setminus B_R,u)\rangle.
     \label{off_by_one}
     \end{equation}
-    It follows from this definition, that $\zeta(K,u)$ is a local identifier $\kappa'(K',u)$, with $K'\subseteq K$ for some mixed labelling $(\mu',\kappa')$ for $(A,M)$ on a graph with at most $n$ vertices.  Therefore, $|\zeta(K,u)|\le g_2(n)$.  Therefore,    
-    
+    It follows from this definition, that $\zeta(K,u)$ is a local identifier $\kappa'(K',u)$, with $K'\subseteq K$ for some mixed labelling $(\mu',\kappa')$ for $(A,M)$ on a graph with at most $n$ vertices.  Therefore, $|\zeta(K,u)|\le g_2(n)$.  Therefore,
+
 
     \begin{align*}
       |\kappa(K,u)|
-      & \le \ceil{\log(\depth_F(z)+1)} + |\zeta(K,u)| 
+      & \le \ceil{\log(\depth_F(z)+1)} + |\zeta(K,u)|
       + \Oh(\lgg\ceil{\log(\depth_F(z)+1)}) + \Oh(\lgg|\zeta(K,u)|)
         & \text{by \eqref{encoding_cost}} \\
         &\leq |\zeta(K,u)| + \Oh(\log\log n)\\
@@ -1734,7 +1734,7 @@ Therefore, for each $v\in V(G)$
 
     \paragraph{Identity testing:}  We now describe the identity tester $M'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $M'$ first examines $\mu(v)$ to determine if $v\in B_R$.  If $\mu(v)$ has exactly one part, then $v\in B_R$. Otherwise, $\mu(v)$ has three parts and $v\not\in B_R$.
   In both cases, $M'$ will use $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
-    % and $\mu(v)=\langle\mu_R(v)\rangle$.  
+    % and $\mu(v)=\langle\mu_R(v)\rangle$.
     \begin{itemize}
       \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $M'$ examines  $\depth_F(z)$ as follows.
       \begin{itemize}
@@ -1744,21 +1744,21 @@ Therefore, for each $v\in V(G)$
 
         If $K\not\subseteq B_R$, then $\zeta(K,u)=\kappa_R(L,u)$, where $L\in\mathcal{K}_R$ contains $u$.  In this case $\mu(K)=\langle \mu_R(L), \mu_L(K\setminus B_R)\rangle$.  In this case $M'(\mu(K),\kappa(K,u),\mu(v)):=M(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
       \end{itemize}
-      \item If $v\not\in B_R$ then $\mu(v)=(\mu_R(L'),\mu_{L'}(v),\alpha(v))$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.  
+      \item If $v\not\in B_R$ then $\mu(v)=(\mu_R(L'),\mu_{L'}(v),\alpha(v))$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
       \begin{itemize}
           \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.  
-        
-        If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.  
-        Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)\rangle$. 
+        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $M'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+        If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
+        Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)\rangle$.
         Thus, $M'$ can compute the local identifier using \eqref{off_by_one}, since
       \[
          \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
       \]
       % Since $\kappa_L(K\setminus B_R,u)$ is a local identifier for the labelling $(\mu_L,\kappa_L)$ of $(G^+_L,G_L,\mathcal{K}_L,\omega_{|V(G_L)})$ for $(A',M')$, $u=v$ if and only if $M'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))=1$.
       In this case $M'(\mu(K),\kappa(K,u),\mu(v)):=M'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
-      \end{itemize} 
+      \end{itemize}
   \end{itemize}
   \end{proof}
 
@@ -1810,14 +1810,14 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
     %\]
     %which implies that $g_3(n)\cdot h(n)=\sqrt{k(n)\cdot g_3(n)\cdot\log n}=k(n)\cdot \log b(n)$.
     Apply \cref{b_skinny_decomp} to get a tree-decomposition $\mathcal{Q}:=(Q,(D_x \mid x\in V(Q)))$ of $G$ such that $\height(Q):=h(n)\le\log_{b(n)} n$, having adhesion-width at most $k$, and such that each torso of $\mathcal{Q}$ has a $b(n)$-skinny tree-decomposition whose torsos are in $\mathcal{G}$.
-    Note that 
+    Note that
     \[
     h(n) \leq \log_{b(n)} n = \sqrt{\frac{\log n}{g_3(n)}} \enspace .
     \]
 
     Let $\mathcal{B}$ be a class of graphs that contains, for each $n\in\N^+$, every $n$-vertex graph that has a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$. \piotr{finish this here}
 
-    
+
     By \cref{skinny_labelling}, the torsos of $\mathcal{Q}$ have a weighted $(g'_1(n),g'_2(n),g'_3(n))$ mixed labelling scheme, where
     \begin{align*}
      g'_1(n) & = g_1(n) + \Oh(\log\log n) + \Oh(\log(b(n))\\
