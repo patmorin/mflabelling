@@ -314,9 +314,7 @@ polynomial-time labelling algorithm.
 
 Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} be the set of all positive integers.
 
-  In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.
-  %, and \defin{$K(G)$} denotes the set of cliques in $G$, where 
-  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices. For standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
+  In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices. For standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
 
 
   \subsection{Trees and Forests}
@@ -837,7 +835,6 @@ The advantage of weighted mixed labelling schemes over adjacency labelling schem
     |\kappa(K,u)| \leq g_2(n).
     \]
 
-
     \paragraph{Identity testing:}
     We define an identity tester $M'$ as follows.
     Given $\mu(K)$, $\mu(v)$ and $\kappa(K,u)$ for some $K\in\mathcal{K}$, some $v\in V(G)$ and some $u\in K$, we compute $M'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
@@ -852,50 +849,6 @@ The advantage of weighted mixed labelling schemes over adjacency labelling schem
     %if and only if $u=v$.
   \end{proof}
 
-  % For technical reasons, we need a variant of \cref{disjoint_union_ii}, in which the sub-labellings $\mu_1,\ldots,\mu_m$ are already given, as in the following lemma.
-  The proof of \cref{disjoint_union_ii} immediately extends to this case.
-  %(In fact the proof is shorter because some elements of the proof are already assumed in the statement of the lemma.)
-
-% \gwen{Don't we need also to mention local identifiers?}
-% \pat{Yes, we should write this in the language introduced earlier.... the phrase that ends with "....for $(A,M)$"}
-
-% \gwen{Here is a suggestion. It's ugly. Previous version is below.}
-% \pat{This is good. Thanks!}
-
-% \begin{lem}\label{disjoint_union_iii}
-%    Let $\mathcal{G}$ be a class of graphs and let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
-%     Let $g_i:\N\to\R$ be a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
-%     Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, and let $(A, M)$ be a corresponding pair of adjacency and identity testers.
-%     Then $\mathcal{G}'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
-%     \begin{align*}
-%         g'_1(n) & = g_1(n)+\Oh(\log\log n)\enspace, \\
-%         g'_3(n) & = g_3(n)+\Oh(\log\log n) \enspace .
-%     \end{align*}
-%     Furthermore, there is such a labelling scheme with a corresponding pair $(A', M')$ of adjacency and identity testers satisfying the following extra property:
-%     Let $m\in\N^+$, for each $i\in[m]$, let $G^+_i$ be a graph, let $G_i$ be a spanning subgraph of $G^+_i$, let $\mathcal{K}_i\subseteq K(G^+_i)$,
-%     let $\omega_i:V(G_i)\to\R^+$, and let $\mu_i:V(G_i)\cup\mathcal{K}_i\to\{0,1\}^*$ be a mixed labelling of $(G^+_i,G_i,\mathcal{K}_i,\omega_i)$ for $(A, M)$.
-%     Suppose further that the graphs $G^+_i$ ($i\in [m]$) are pairwise vertex-disjoint, and
-%     let $G^+:=\bigcup_{i=1}^m G^+_i$, $G:=\bigcup_{i=1}^m G_i$, $\mathcal{K}:=\bigcup_{i=1}^m \mathcal{K}_i$, and let $\omega(v):=\omega_i(v)$ for each $i\in[m]$ and each $v\in V(G^+_i)$.
-%     Then there is a mixed labelling $\mu:V(G)\cup\mathcal{K}\to \{0,1\}^*$ of $(G^+, G, \mathcal{K}, \omega)$ for $(A', M')$ such that
-%     \[
-%     |\mu(x)|\le \log\omega(G)-\log\omega(G_i)+ |\mu_i(x)| + \Oh(\log\log n),
-%     \]
-%     for each $i\in [m]$ and each $x\in V(G^+_i)\cup \mathcal{K}_i$.
-%   \end{lem}
-
-  % \gwen{previous version of above lemma: }
-
-  % \begin{lem}\label{disjoint_union_iii}
-  %   Let $m\in\N^+$, for each $i\in[m]$, let $G^+_i$ be a graph, let $G_i$ be a spanning subgraph of $G^+_i$, let $\mathcal{K}_i\subseteq K(G^+_i)$,
-  %   let $\omega_i:V(G_i)\to\R^+$, and let $\mu_i:V(G_i)\cup\mathcal{K}_i\to\{0,1\}^*$ be a mixed labelling of $(G^+_i,G_i,\mathcal{K}_i,\omega_i)$.
-  %   Suppose further that the graphs $G^+_i$ for $i\in [m]$ are pairwise vertex-disjoint, and
-  %   let $G^+:=\bigcup_{i=1}^m G^+_i$, $G:=\bigcup_{i=1}^m G_i$, $\mathcal{K}:=\bigcup_{i=1}^m \mathcal{K}_i$, and let $\omega(v):=\omega_i(v)$ for each $i\in[m]$ and each $v\in V(G^+_i)$.
-  %   Then there is a mixed labelling $\mu:V(G)\cup\mathcal{K}\to \{0,1\}^*$ of $(G^+, G, \mathcal{K}, \omega)$ such that
-  %   \[
-  %   |\mu(x)|\le \log\omega(G)-\log\omega(G_i)+ |\mu_i(x)| + \Oh(\log\log n),
-  %   \]
-  %   for each $i\in [m]$ and each $x\in V(G^+_i)\cup \mathcal{K}_i$.
-  % \end{lem}
 
 
 \subsection{Adding Apex Vertices}
