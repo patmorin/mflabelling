@@ -271,7 +271,7 @@ Such apex-minor-free classes are the limit of this approach, since a minor-close
 
 We prove \cref{main_result} by introducing a new generalization of adjacency labelling, called weighted mixed labelling. It supports vertex weights and, more importantly, also assigns labels to cliques. These labellings are defined for vertex-weighted graphs in which each vertex $v$ is assigned a positive integer weight $\omega(v)$.  A \defin{weighted mixed labelling} is defined in terms of a graph $G^+$ equipped with a weight function $\omega$, a spanning subgraph $G$ of $G^+$, and a subset $\mathcal{K}$ of the cliques in $G^+$. A mixed labelling of $(G^+,G,\mathcal{K},\omega)$ is then a function $\mu:V(G^+)\cup\mathcal{K}\to\{0,1\}^*$ that assigns a label to each vertex of $G^+$ and each clique in $\mathcal{K}$.  In addition to this, for each clique $K\in\mathcal{K}$, each vertex $v$ in $K$ is assigned a label $\kappa(K,v)$ called the \defin{local identifier} for $v$ in $K$.
 
-Let $\Omega:=\sum_{v\in V(G^+)}\omega(v)$ be the total weight of vertices in $G^+$.  The efficiency of a mixed labelling is measured by three parameters
+Let $\Omega:=\sum_{v\in V(G^+)}\omega(v)$ be the total weight of vertices in $G^+$.  The efficiency of a mixed labelling is measured by three parameters:
 \begin{itemize}
     \item $g_1=\max_{v\in V(G^+)} (|\mu(v)|-(\log\Omega - \log\omega(v)))$ measures how much the length of a vertex label exceeds the ideal value $\log\Omega-\log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}.
     \item $g_2=\max\{\kappa(K,v):K\in\mathcal{K}, v\in K\}$ is the length of the longest local identifier.
