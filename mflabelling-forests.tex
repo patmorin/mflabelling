@@ -83,6 +83,7 @@
 \DeclareMathOperator{\lca}{lca}
 \DeclareMathOperator{\lgg}{\hat{lg}}
 \DeclareMathOperator{\bin}{bin}
+\DeclareMathOperator{\dist}{dist}
 
 %\piotr{some of my macros}
 \newcommand{\calG}{\mathcal{G}}
@@ -229,26 +230,28 @@ Such apex-minor-free classes are the limit of this approach, since a minor-close
 % \subsection{Induced universal graphs}
 % \label{ssec:univeral-graphs}
 
-\subsection{Making  overview great again}
-\piotr{This is my playground for now.}
+\piotr{New version. Unfinished.}
+
+\subsection{Proof overview}
 
 For an integer $k\geq 0$, let \defin{$\mathcal{G}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.
-A class of graphs $\mathcal{G}$ admits a product structure,
+A class of graphs $\mathcal{G}$ admits a \defin{product structure},
 if there exists an integer $k$ such that $\mathcal{G}\subseteq \mathcal{G}_k$.
-As mentioned, only apex-minor-free classes admit a product structure.
+As mentioned in the introduction,
+only apex-minor-free classes admit a  product structure.
 Since we aim to deal with an arbitrary proper minor-closed class of graphs, we need to step back and rely on a much weaker structural description.
 For integers $k,a\geq 0$, let \defin{$\mathcal{G}_{k,a}$} be the class of graphs that are isomorphic to a graph in $\mathcal{G}_k$ after removing at most $a$ vertices.
-The following statement that we sometimes call the Graph Minor Product Structure Theorem proved by~\citet{dujmovic.joret.ea:planar} is the structural foundation for our labelling scheme:
+The following statement, sometimes called the Graph Minor Product Structure Theorem,  proved by~\citet{dujmovic.joret.ea:planar} is the foundation stone for our labelling scheme:
 \begin{quote}
   For every proper minor-closed class $\mathcal{G}$ there exist integers $k,a\geq 0$ such that every graph in $\mathcal{G}$ has a tree-decomposition in which every torso is in $\mathcal{G}_{k,a}$.
 \end{quote}
 
-On the adjacency labelling side, it is natural to start with
+On the adjacency labelling side, we start with
 the $(1+o(1))$-bit adjacency labelling scheme for $\mathcal{G}_k$ given by
 \citet{dujmovic.esperet.ea:adjacency}.
 Therefore, all one needs to do to complete a proof of~\cref{main_result}
 are the following two steps:
-\begin{enumerate}
+\begin{enumerate}[label=\rm(\arabic*)]
 \item Let $\mathcal{G}$ be a class of graphs and $a\in\N$.
     Let $\mathcal{G}'$ be the class of graphs consisting of
     every graph obtained from a graph in $\mathcal{G}$
@@ -263,15 +266,148 @@ are the following two steps:
 \end{enumerate}
 
 The first step concerning adding apices is relatively straightforward.
-Given a vertex $G$ in the extended class $\mathcal{G}'$,
-we label the vertices of $G$ using the labeling for $\mathcal{G}$ and we append short extra information concerning the adjacency status with added apices.
-This is essentially all the content of the proof of~\cref{add_apexes}.
+Let $G$ be a graph in $\mathcal{G}'$ and
+let $X$ be a subset of vertices of $G$ with $|X|\leq a$ such that $G-X$ is in $\mathcal{G}$.
+We construct the labelling of vertices of $G$ as follows.
+For each vertex $v$,
+the label $\mu(v)$ of $v$ has three parts $(\sigma(v),c(v),\mu^-(v))$,
+where $\sigma(v)$ is an identifier that tells if $v$ is an apex vertex (i.e., if $v\in X$) and if so it records the identifier of $v$;
+$c(v)$ records the adjacency status of $v$ with all the apices; and
+finally $\mu^-(v)$, which is defined only if $v\in V(G)\setminus X$, is the label of $v$ in the adjacency labelling scheme of $G-X$ in $\mathcal{G}$.
+It is rather clear that given two such labels $\mu(v)$, $\mu(w)$ of vertices $v$, $w$ in $G$, the adjacency tester is able to decide whether $v$ and $w$ are adjacent in $G$.
+Also the length of a label has increased by at most $\Oh(a)$-bits comparing to labels in the scheme for $\mathcal{G}$.
+(In this overview we ignore a discussion on the extra cost incurred to be able to decode concatenation of labels of various lengths.)
+All this is essentially the content of the proof of~\cref{add_apexes}.
 
 Unfortunately, we do not see an easy way to complete the second step.
-Instead, we came up with a simple algorithm refining an arbitrary (rooted) tree-decomposition into
-a 'short' tree-decomposition such that all its torsos admit a 'skinny' tree-decomposition.
+Instead, we do the following.
+We propose a simple algorithm refining an arbitrary (rooted) tree-decomposition into
+a 'short' tree-decomposition
+such that the adhesion-width stays the same and
+all its torsos admit a 'skinny' tree-decomposition and all the adhesions of these new tree-decompositions are adhesions of the original one. Let us make it a bit more concrete.
+For $b\in\R^+$, a rooted tree $T$ is \defin{$b$-skinny},
+  if $|\set{v\in V(T) \mid \dist_T(r,v)=i}|\le b$ for each $i\in\N$.  A rooted tree-decomposition $(T,(B_x\mid x\in V(T)))$ of a graph $G$ is \defin{$b$-skinny} if $T$ is $b$-skinny.
+Below we rewrite the statement of~\cref{b_skinny_decomp}.
+
+  \begin{quote}
+    For every $b>1$, every $n\in\N^+$, every $n$-vertex graph $G$ and every tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$, there exists a tree-decomposition $\mathcal{Q}:=(Q,(D_x\mid x\in V(Q)))$ of $G$ such that
+    \begin{enumerate}[nosep,nolistsep,label=\rm(\roman*)]
+      \item\label{prop_adhesion}
+      each adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$;
+      \item\label{prop_skinny_torso} for each $q\in V(Q)$, $\torso{G}{\mathcal{Q},D_q}$ has a $b$-skinny tree-decomposition $(T(q), (B_y\mid y\in V(T(q))))$ where $T(q)$ is a subtree of $T$; and
+      \item\label{prop_geometric} $\height(Q)\le \log_b n$.
+    \end{enumerate}
+  \end{quote}
+
+With this refinement in hand we execute step two in the following three substeps.
+
+\begin{enumerate}[label=\rm(2\alph*)]
+\item \label{step:union-closed}
+Let $\mathcal{G}$ be a class of graphs.
+Let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
+    Suppose that $\mathcal{G}$ admits a $(1-o(1))\log n$-bit labelling scheme.
+    Show that $\mathcal{G}'$ admits a $(1-o(1))\log n$-bit labelling scheme. See~\cref{disjoint_union_ii}.
+\item \label{step:skinny-tree-decomposition}
+Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
+    Let $k\in\N$ and $b:\N\to\R^+$ be a function with $b(n)>1$ for all $n$.
+    Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted $b(n)$-skinny tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
+    Suppose that $\mathcal{G}$ admits a $(1-o(1))\log n$-bit labelling scheme.
+    Show that $\mathcal{G}'$ admits a $(1-o(1))\log n$-bit labelling scheme. See~\cref{skinny_labelling}.
+\item \label{step:short-tree-decompositions}
+Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
+Let $k\in\N$ and  $h:\N\to\R$ be a function with $h(n)\in \Oh(\log n)$ and with $h(n)>0$ for all $n$.
+Let $\mathcal{G'}$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted tree-decomposition $\mathcal{F}:=(F,(B_x \mid x\in V(F)))$ such that
+    \begin{enumerate}[nosep,nolistsep,label=(\rm{\roman*)}]
+      \item $\mathcal{F}$ has adhesion-width at most $k$;
+      \item $\height(F)\le h(n)$;
+      \item for each node $x$ in $F$, the torso $\torso{G}{\mathcal{F},B_x}$ belongs to $\mathcal{G}$.
+    \end{enumerate}
+    Suppose that $\mathcal{G}$ admits a $(1-o(1))\log n$-bit labelling scheme.
+    Show that $\mathcal{G}'$ admits a $(1-o(1))\log n$-bit labelling scheme. See~\cref{small_height}.
+\end{enumerate}
+
+In the final argument, we fix $b:\N\to\R^+$ to be
+\[
+b(n):= 2^{(\log n)^{1/4}}.
+\]
+Thus, the height of the resulting 'short' tree-decomposition becomes
+\[
+h(n) \leq \log_{b(n)}n = \frac{\log n}{(\log n)^{1/4}} = (\log n)^{3/4}.
+\]
+
+We still need to disclose in this overview one important detail of the proof. In order, to construct a labelling scheme in step~\ref{step:short-tree-decompositions},
+we need to maintain a stronger labelling scheme.
+This is the reason we develop the notion of a mixed $(g_1,g_2,g_3)$ weighted labelling scheme, where $g_i$ with $i\in[3]$ are functions controlling the size of a lower order term of the labels.
+This new scheme is a generalization of adjacency labelling scheme.
+It supports vertex weights and, more importantly, also assigns labels to cliques. Below we proceed with the formal definition.
+
+Let $\mathcal{G}$ be a class of graphs.
+Let $g_i:\N\to\R^+$ for each $i\in[3]$.
+The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} of $\mathcal{G}$ if there exists a pair $(A,I)$ with
+\begin{itemize}[nosep,nolistsep]
+     \item $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
+     \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
+\end{itemize}
+such that
+for every natural $n\in\N$,
+every $n$-vertex graph $G^+$ in $\mathcal{G}$,
+every spanning subgraph $G$ of $G^+$, and
+every weight function $\omega:V(G)\to \R^+$,
+there exists an injective function $\mu: V(G)\cup K(G^+) \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \textrm{$K$ clique in $G^+$}, u\in K\}\to \set{0,1}^*$
+such that
+\begin{enumerate}[nosep,nolistsep,label=(\roman*)]
+    \item for all $u,v\in V(G)$
+    \[
+    \textrm{$A(\mu(u),\mu(v))=1$ if and only if $uv\in E(G)$;}
+    \]
+    \item for every clique $K$ in $G^+$, $u\in K$, $v\in V(G)$
+    \[
+    \textrm{$I(\mu(K),\kappa(K, u),\mu(v))=1$ if and only if $u=v$;}
+    \]
+    \item for every $v\in V(G)$
+    \[
+    |\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n);
+    \]
+    \item for every clique $K$ in $G^+$,
+    \[
+    |\mu(K)|\le \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n);
+    \]
+    \item  for every clique $K$ in $G^+$ and $u\in K$
+    \[
+    |\kappa(K, u)| \leq g_2(n).
+    \]
+\end{enumerate}
+Given $\mu$ and $\kappa$  as above we say that $(\mu,\kappa)$ is a \defin{mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.
+
+Again, we stress that this generalization of adjacency labelling scheme is introduced to complete the proof in step~\ref{step:short-tree-decompositions}.
+However, we need to maintain these extra invariants through the whole course of the proof.
+
+\piotr{Below is under construction.}
+
+As a result we need to strengthen the labelling scheme for $\mathcal{G}_k$ given by~\citet{dujmovic.esperet.ea:adjacency}.
+This generalization, which is discussed in \cref{weighted_product_proof}, is fairly straightforward: The notion of clique labels and membership labels is already implicit in \cite{dujmovic.esperet.ea:adjacency} and the addition of vertex weights is accomplished by a  standard trick of simulating weight by multiplicity.
 
 
+The step~\ref{step:union-closed} follows by thanks to a basic trick with weighted labels.
+For clarity, we explain here only how to maintain the labels for adjacency tester.
+Let $G$ be a graph in $\mathcal{G}'$. Thus,
+$G=\bigcup_{i\in[m]}G)i$ where $G_i\in\mathcal{G}$ for each $i\in[m]$.
+
+
+
+
+We employ two orthogonal strategies to devise labellings in steps~\ref{step:skinny-tree-decomposition} and~\ref{step:short-tree-decompositions}.
+
+
+The arguments for steps are
+
+
+\piotr{Sketch the argument in the skinny case.}
+
+\piotr{Sketch the argument in the short case.}
+
+
+\piotr{Old version}
 \subsection{Proof Overview}
 \label{ssec:overview}
 
@@ -611,7 +747,6 @@ Finally,
 
   \begin{cor}\label{b_skinny_decomp}
     For every $b>1$, every $n\in\N^+$, every $n$-vertex graph $G$ and every tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$, there exists a tree-decomposition $\mathcal{Q}:=(Q,(D_x\mid x\in V(Q)))$ of $G$ such that
-    % \piotr{Actually, we have a number of tree decompositions here. I suggest to replace $\torso{G}{D_x}$ with $G\langle\mathcal{Q},x\rangle$}
     \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
       \item\label{prop_adhesion}
       each adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$;
@@ -1932,7 +2067,7 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.
   We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$, for each $i\in\{1,\ldots,h\}$.
   The next idea in \cite{dujmovic.esperet.ea:adjacency} is to consider a sequence of subgraphs $R_1,\ldots,R_h\subseteq H\boxtimes P$.
-  Let $V_i:=\{v\in V(G): \{(v,i),(v,i-1)\}\cap V(G)\neq\emptyset \}$.
+  Let $V_i:=\{v\in V(H): \{(v,i),(v,i-1)\}\cap V(G)\neq\emptyset \}$.
 
 
    % and let $R_i:=(H\boxtimes P)[\bigcup_{v\in V_i}\{(v,i),(v,i-1)\}]$.
