@@ -523,10 +523,10 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
   % Throughout the rest of this paper, we will implicitly assume that any rooted tree-decomposition we are considering is downward-normalised and upmost.
   Let $G$ be a graph and $\calT=(T,(B_x \mid x\in V(T)))$ be a tree-decomposition of $G$. If $T$ is a path, then $\calT$ is a \defin{path-decomposition} of $G$, simply denoted by the sequence $(W_1, W_2, \dots, W_m)$ of the bags in the order of the vertices in the underlying path.
 
-  It will be convenient to work with forest-decompositions, which are the natural generalization of a tree-decomposition that allow the graph indexing the bags to be a forest.  Specifically, $(F,(B_x\mid x\in V(F))$ is a \defin{forest-decomposition} of a graph $G$ if $F$ is a forest, for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$, and for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is connected.  A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
+  It will be convenient to work with forest-decompositions, which are the natural generalization of a tree-decomposition that allows the graph indexing the bags to be a forest.  Specifically, $(F,(B_x\mid x\in V(F))$ is a \defin{forest-decomposition} of a graph $G$ if $F$ is a forest, for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$, and for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is connected.  A forest decomposition is \defin{rooted} if it is indexed by a rooted forest.  A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
   \begin{enumerate*}[label=(\arabic*)]
-  \item $B_x\neq\emptyset$ for each $x\in V(F)$,
-  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with an $F$-parent $x$;
+  \item $B_x\neq\emptyset$ for each $x\in V(F)$;
+  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with an $F$-parent $x$; and
   \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ with $F$-parent $y$ and $F$-grandparent $x$.
   \end{enumerate*}
   Any rooted forest-decomposition $\mathcal{F}:=(T,(B_x\mid x\in V(T)))$ can be made into a rooted tidy forest-decomposition by
@@ -535,7 +535,8 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
   \item removing every edge $xy$ of $T$ with $B_x\cap B_y=0$, and
   \item repeatedly replacing an edge $yz$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
   \end{enumerate*}
-\piotr{$G$ needs to have at least one vertex.}  \pat{Isn't the empty collection, indexed by the vertices of the zero-vertex forest, a forest decomposition of the zero-vertex graph?}
+  This transformation has the properties expressed in the following observation:
+% \piotr{$G$ needs to have at least one vertex.}  \pat{Isn't the empty collection, indexed by the vertices of the zero-vertex forest, a forest decomposition of the zero-vertex graph?}
   \begin{obs}\label{tidy_forest}
     Let $G$ be a graph and let $(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$. Then there exists a rooted forest $F'$ with $V(F')\subseteq V(F)$, $\height(F')\le\height(F)$, such that $\mathcal{F}':=(F',(B_x\mid x\in V(F')))$ is a rooted tidy forest-decomposition of $G$ and every torso of $\mathcal{F}'$ is a torso of $\mathcal{F}$.
   \end{obs}
@@ -561,7 +562,7 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
   For a non-empty set $S$, a \defin{weight function} over $S$ is a mapping $\omega:S\to\R^+$ of the elements of $S$ onto positive real numbers.  When $X$ is a subset of $S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in S}\omega(x)$.  When $S:=V(G)$ is the vertex-set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\omega(V(H))$.
 
   Let $\omega:S\to\R^+$ be a weight function.  For each $x\in S$, the \defin{(Kraft) ideal codeword length} for $x$ is $\log\omega(S)-\log\omega(x)$.
-  It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight, $\omega(S)$ to minimum weight $\min_{x\in S}(\omega(x))$.  The following observation gives a way to do this without increasing the ideal codeword length of each $x\in S$ by more than $1$:
+  It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight, $\omega(S)$ to minimum weight $\min_{x\in S}(\omega(x))$.  The following observation gives a way to do this without increasing the ideal codeword length of each $x\in S$ by more than a constant:
 
   \begin{obs}\label{obs:nice}
     For every weight function $\omega:S\to\R^+$, there exists a weight function $\omega'(S)\to\N^+$ such that $\log\omega'(S)-\log\omega'(x)\le\min\{\log|S|,\;\log\omega(S)-\log\omega(x)\}+2$, for each $x\in S$.
@@ -699,8 +700,6 @@ Finally,
 
   In some cases, we include one or more non-negative integers as part of a multipart label.  When we include $d\in\N$ as part of a label this way, we are actually including the $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} of $d$.  For the sake of readability, we write this as $\langle s_1,d,s_2,\ldots\rangle$ rather than $\langle s_1,\bin(d),s_2,\ldots\rangle$. \label{bin_d}
 
-  \pat{TODO: Push the $\langle s_1,\ldots,s_p\rangle$ notation to other sections.}
-
   \subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
 
   For $b\in\R^+$,
@@ -803,7 +802,7 @@ Also by construction~\ref{prop_extra_item} holds.
   \section{Weighted Mixed Labelling Schemes -- Proof of \cref{PlainRealMainTechnical}}
   \label{weighted_mixed_section}
 
-We now describe the generalization of adjacency labelling schemes that we use to prove \cref{PlainRealMainTechnical}.  In the following, one can think of the graph $G^+$ as a torso $\torso{H}{B_x}$ in a tree-decomposition $\mathcal{T}$ of a larger graph $H$, the graph $G$ as an induced subgraph $H[B_x]$, and the cliques in $\mathcal{K}$ as adhesions in $\mathcal{T}$.
+We now describe the generalization of adjacency labelling schemes that we use to prove \cref{PlainRealMainTechnical}.  In the following, one can think of the graph $G^+$ as a torso $\torso{H}{B_x}$ in a tree-decomposition $\mathcal{T}$ of a larger graph $H$ and the graph $G$ as an induced subgraph $H[B_x]$.
 
 
 Let $\mathcal{G}$ be a class of graphs.
@@ -814,7 +813,7 @@ The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labellin
      \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
 \end{itemize}
 such that
-for every natural $n\in\N$,
+for every natural $n\in\N^+$,
 every $n$-vertex graph $G^+$ in $\mathcal{G}$,
 every spanning subgraph $G$ of $G^+$, and
 every weight function $\omega:V(G)\to \R^+$,
@@ -842,7 +841,7 @@ such that
     |\kappa(K, u)| \leq g_2(n).
     \]
 \end{enumerate}
-Given $\mu$ and $\kappa$  as above we say that $(\mu,\kappa)$ is a \defin{mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.
+A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.
 
 In the proofs, it will be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
 A weight function $\omega:S\to \N^+$ is \defin{nice} if
@@ -889,7 +888,7 @@ The two notions are essentially equivalent, as shown by the following lemma. Thi
 
 The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph family $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$.
 
-The advantage of weighted mixed labelling schemes over adjacency labelling schemes is, roughly, that efficient weighted mixed labelling schemes are closed under taking tree-decompositions of bounded adhesion-width. More precisely, if $\mathcal{G}$ is a monotone graph class that admits an efficient weighted mixed labelling scheme then, for any fixed $k$, the family of graphs that have tree-decompositions of adhesion-width at most $k$ whose torsos are in $\mathcal{G}$ also admits an efficient weighted mixed labelling scheme. This is \cref{PlainRealMainTechnical} in \cref{ssec:overview}, which the rest of this section is devoted to proving.
+The advantage of weighted mixed labelling schemes over adjacency labelling schemes is, roughly, that efficient weighted mixed labelling schemes are closed under taking tree-decompositions of bounded adhesion-width. More precisely, if $\mathcal{G}$ is a hereditary graph class that admits an efficient weighted mixed labelling scheme then, for any fixed $k$, the family of graphs that have tree-decompositions of adhesion-width at most $k$ whose torsos are in $\mathcal{G}$ also admits an efficient weighted mixed labelling scheme. This is \cref{PlainRealMainTechnical} in \cref{ssec:overview}, which the rest of this section is devoted to proving.
 
 \subsection{Adding Apex Vertices}
 
@@ -1491,11 +1490,9 @@ For each $v\in V(G)$,  we have
 
        \item If $\rho(j)$ is lexicographically larger than $\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_i\setminus A_i$ for some $i=a(v) < j$.  The tester examines the first part $b$ of $\kappa(K,u)$ to determine if $u\in K\setminus A_j$.  If $b=0$ then  $u\in B_j\setminus A_j$ and $v\in B_i\setminus A_i$ so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=1$ then $u\in A_j$ and $\kappa(K,u)=\langle 1,\beta(u)\rangle$. Since $u\in A_j$, $a(u) < j\le b(u)$.
 
-       \piotr{I read tomorrow.} \pat{Is it tomorrow yet?}
+       % \piotr{I read tomorrow.} \pat{Is it tomorrow yet?}
        
-       
-       
-       Since $u\in B_j$ and $u\not\in K\setminus A_j\subseteq B_j\setminus A_j$, $a(u) < j \le b(u)$.  
+       % Since $u\in B_j$ and $u\not\in K\setminus A_j\subseteq B_j\setminus A_j$, $a(u) < j \le b(u)$.  
        
        In particular, $u\in A_j$, so $\lca(u)$ is a $T_\psi$-ancestor of $j$.   Therefore, the first $d(u)$ bits of $\rho(j)$ are equal to the first $d(u)$ bits of $\rho(u)$.  The first $d(u)$ bits of $\rho(u)$ describe the path from the root of $T_\psi$ to $\lca(u)$.  The tester then compares the first $d(u)$ bits of $\rho(u)$ to the first $d(u)$ bits of $\rho(v)$.  If these are not equal then $\lca(u)\neq\lca(v)$ so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
@@ -1872,7 +1869,7 @@ For each $v\in V(G)$,  we have
 
 The following lemma proves \cref{PlainRealMainTechnical}, with quantitative bounds.
 
-\piotr{Adjust the statement so it looks like the previous ones.}
+% \piotr{Adjust the statement so it looks like the previous ones.}
 
 \begin{lem}\label{RealMainTechnical}
     Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union. 
@@ -1894,13 +1891,13 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
 %  Although the expression in \cref{RealMainTechnical} looks intimidating, we will apply it with $k(n)\in \Oh(1)$ to obtain an $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+ g'_1(n) = \log n + g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{\log n}\left(\sqrt{g_3(n)}+\log\log n\right)\right)$. This bound is $(1+o(1))\log n$ for any $g_1,g_2,g_3\in o(\log n)$.
 
   \begin{proof}[Proof of \cref{RealMainTechnical}]
-    Let $b,h:\N\to\R^+$ be functions defined by 
+    Let $b,h:\N^+\to\R^+$ be functions defined by 
     \begin{align*}
       b(n) &:=2^{\sqrt{g_3(n)\log n}}\enspace,\\
       h(n) &:= \log_{b(n)}n = \sqrt{\frac{\log n}{g_3(n)}} \enspace .
     \end{align*}
-    \piotr{Watch out for $n=0$!!!}
-    Note that for each $n\in\N$, we have $b(n)>1$.
+    % \piotr{Watch out for $n=0$!!!}
+    Since $g''_1(n)$, $g''_2(n)$, and $g''_3(n)$ all include asymptotic terms that increase without bound as a function of $n$, we may assume that $n\ge 2$ and $g_3(2)\ge 1$.  Therefore, $b(n)\ge 2$.
 
     
     Let $\mathcal{B}$ be a class of graphs that contains, for each $n\in\N^+$, every $n$-vertex graph that has a rooted $b(n)$-skinny forest-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$. 
@@ -2008,6 +2005,8 @@ Note that \citet{dujmovic.joret.ea:planar} employed \cref{gmpst} to reprove the 
 \section{Discussion}\label{conclusion}
 
 We conclude with a brief discussion about constants and computational complexity.  The constant $a$ in \cref{gmpst} is surprisingly small. Suppose that some graph $X$ is not in $\mathcal{G}$, where $X-A$ is planar for some non-empty set $A\subseteq V(X)$. Then Theorem~42 in \citep{dujmovic.joret.ea:planar} (which employs the structure theorem of \citet{DvoTho}) shows that \cref{gmpst} holds with $a=|A|-1$. For example, if $K_t$ is not in $\mathcal{G}$, then \cref{gmpst} holds with $a=\max\{t-5,0\}$. Moreover, using the recent polynomial bounds in the Graph Minor Structure Theorem by \citet{gorsky2025polynomial}, in \cref{gmpst} one can obtain polynomial bounds on $k$ and $a$ (as a function of the excluded minor). However, it is open whether one can simultaneously get the above optimal bound on $a$ and a polynomial bound on $k$. \citet[Conjecture~18.9]{gorsky2025polynomial} conjecture this is possible (also see the discussion in \citep{GSW26}).
+
+% A number of product structure theorem express graph families as subgraphs of $H\boxtimes P\boxtimes K_c$, where the treewidth of $H$ is a small constant, $P$ is a path, and $c$ is a small constant.  For example, for every planar graph $G$, there is a graph $H$ of treewidth at most $3$ and a path $P$ such that $G$ is isomorphic to a subgraph of $H\boxtimes P\boxtimes K_3$.  Such theorems are efficient because, in many applications some parameter of interest depends exponentially on $\tw(H)$ but only polynomially on the order $c$ of the third (clique) factor in the product.  The same is true for adjacency labelling schemes
 
 
 We conclude by explaining why the proof of \cref{main_result} is constructive and that there is a polynomial time encoder.  The only difficult part of this process is finding the decomposition described by the Graph Minor Product Structure Theorem (\cref{gmpst}).  \citet{dujmovic.joret.ea:planar} show how to obtain this decomposition in polynomial-time, given the structural decomposition in the original Robertson-Seymour Graph Minor Structure Theorem. Finding the Robertson-Seymour decomposition is complicated, but polynomial time algorithms exist \cite{kawarabayashi2018flat,kawarabayashi2020new,gorsky2025polynomial,demaine2005algorithmic}.  Together, these give the parameters $k$ and $a$, the tree-decomposition $\mathcal{T}:=(T, (B_x:x\in V(T)))$ of $G$ and the embedding of each torso of $\mathcal{T}$ into a graph in $\mathcal{G}_{k,a}$. The adjacency labelling scheme in \cite{dujmovic.esperet.ea:adjacency} and its modification to weighted mixed labellings in \cref{weighted_product_proof} are easily implemented in polynomial time just from their definitions.  Thus, for any torso of $\mathcal{T}$, the mixed labelling of any subgraph of the torso and any set of cliques in the torso can be computed in polynomial time.  The partition of $T$ into skinny subtrees and the corresponding contracted tree $T'$ and tree-decomposition $\mathcal{T}'$ are easily obtained (even in linear time).  The labelling of each torso of $\mathcal{T}'$ given in \cref{skinny_labelling} requires only computing  alphabetic codes (\cref{shannon_fano_elias_tree,shannon_fano_elias_code}) as well as weighted mixed labellings on subgraphs of torso of $\mathcal{T}$.  The final vertex label $\mu(v)$ for a vertex of $G$ is then obtained by following the path from the root of $T'$ to the home node of $v$ in $\mathcal{T}'$ and concatenating a sequence of clique labels, the vertex label for $v$ in its home torso, and at most $k$ local identifiers.
