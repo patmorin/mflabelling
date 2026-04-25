@@ -2034,14 +2034,14 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   \label{weighted_product_proof}
 
   In this appendix, we review the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improvement by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the weighted mixed labellings promised in \cref{gk_labelling}.
-  Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$ and $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the out-neighbourhood $N^+_H(v)$ is a clique in $H$, for each $v\in V(H)$.
+  Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$, and $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the out-neighbourhood $N^+_H(v)$ is a clique in $H$, for each $v\in V(H)$.
   It follows that the out-degree $|N^+_H(v)|$ is at most $k$, for each vertex $v\in V(H)$.
 
   \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
   The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.
   Each vertex $v$ of $H$ is mapped to a real interval \defin{$f(v)$}.
   This mapping has the following properties (for some fixed $c>0$):
-  \begin{enumerate}
+  \begin{enumerate}[nosep]
       \item\label{nested_or_disjoint} For any two vertices $v,w\in V(H)$, $f(v)\subseteq f(w)$, $f(w)\subseteq f(v)$ or $f(v)\cap f(w)=\emptyset$.
       \item\label{intersection_subgraph} For each $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.
       \item\label{thin} For each $x\in \R$, $|\{v\in V(H):x\in f(v)\}|\le ck\log n$.
@@ -2058,33 +2058,37 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
 
   \paragraph{\boldmath Mapping $V(H)$ onto points:}
   For each vertex $v$ of $H$, let $x_f(v)$ be the midpoint of the interval $f(v)$.\footnote{Any real number $x_f(v)$ in the interior of the interval $f(v)$ would also work.}  Property~\ref{nested_or_disjoint} then implies:
-  \begin{enumerate}\setcounter{enumi}{3}
-      \item\label{clique_property} For any clique $K$ in $I$, there exists $w\in K$ such that $x_f(w)\in f(v)$ for each $v\in K$.
+  \begin{enumerate}[nosep]\setcounter{enumi}{3}
+      \item\label{clique_property} For any clique $K$ in $I$, there exists $v\in K$ such that $x_f(v)\in f(w)$ for each $w\in K$.
   \end{enumerate}
   Indeed, a vertex $w$ of $K$ that minimizes the length of $f(w)$ satisfies this condition.
 
   \paragraph{\boldmath Treating $G$ as a sequence of graphs:}
   Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.
-  We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$, for each $i\in\{1,\ldots,h\}$.
-  The next idea in \cite{dujmovic.esperet.ea:adjacency} is to consider a sequence of subgraphs $R_1,\ldots,R_h\subseteq H\boxtimes P$.
-  Let $V_i:=\{v\in V(H): \{(v,i),(v,i-1)\}\cap V(G)\neq\emptyset \}$.
+  We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$, for each $i\in\{1,\ldots,h\}$ (which implies that $h\le n$).
+  The next idea in \cite{dujmovic.esperet.ea:adjacency} is to treat $V(G)$ as a sequence of vertex sets in $H$.
+  For each $i\in\{1,\ldots,h\}$, let $V_i:=\{v\in V(H): \{(v,i),(v,i-1)\}\cap V(G)\neq\emptyset \}$.    Each vertex $(v,i)$ of $G$ contributes a vertex to the two sets $V_{i}$ and $V_{i+1}$, so $\sum_{i=1}^h |V_i|\le 2n$.  For each vertex $(v,i)$ of $G$, define the set $X_{v,i}:= \{v\}\cup (V_i\cap N^+_H(v))$.
+
+  \begin{obs}\label{x_v_i_sufficient}
+    For any edge $(v,i)(w,j)$ of $G$ with $w\in N^+_H(v)$, we have $w\in X_{v,i}$ (if $j\in\{i-1,i\}$) or $w\in X_{v,i+1}$ (if $j\in\{i,i+1\}$).
+  \end{obs}
 
 
    % and let $R_i:=(H\boxtimes P)[\bigcup_{v\in V_i}\{(v,i),(v,i-1)\}]$.
   % Every edge and vertex of $G$ is represented in at least one of these subgraphs, so $\bigcup_{i=1}^h R_i\supseteq G$.
-  Each vertex $(v,i)$ of $G$ contributes a vertex to the two sets $V_{i}$ and $V_{i+1}$, so $\sum_{i=1}^h |V_i|\le 2n$.
+
 
   The label of any vertex $(v,i)$ of $G$ has two main parts, whose lengths sum to $\log n+o(\log n)$.
   The first part, $\lambda_1((v,i))$ is determined by the $P$-coordinate, $i$.
   The second part, $\lambda_2((v,i))$, is obtained from a labelling of $R_i$, so it represents the $H$-coordinate, $v$.
 
   Let $S_0:=S_{h+1}:=\emptyset$ and,
-  for each $i\in\{1,\ldots,h\}$, let $\mathdefin{S_i}:=\{x_f(v):(v,j)\in V_i\}$.
+  for each $i\in\{1,\ldots,h\}$, let $\mathdefin{S_i}:=\{x_f(v):v\in V_i\}$.
   Note that $S_i$ is a set of real numbers, for each $i\in\{1,\ldots,h\}$.
   Before proceeding, \cite{dujmovic.esperet.ea:adjacency} defines a sequence of supersets \defin{$S^+_1,\ldots,S^+_h$}. The exact definition of $S^+_1,\ldots,S^+_h$ is not necessary for the current discussion.
   The relevant properties here are:
   \begin{enumerate}[nosep,label=(\alph*)]
-      \item\label{plus_superset} $S^+_i\supseteq S_{i-1}\cup S_i\cup S_{i+1}$ for each $i\in\{1,\ldots,h\}$;
+      \item\label{plus_superset} $S^+_i\supseteq S_i$ for each $i\in\{1,\ldots,h\}$;
       \item\label{plus_size} there is a constant $c>0$ such that $\sum_{i=1}^h |S^+_i|\le cn$.
       \item\label{plus_ratio} there is a constant $c>0$ such that
       $1/c\le |S^+_i|/|S^+_{i+1}|\le c$, for each $i\in\{1,\ldots,h-1\}$.
@@ -2092,16 +2096,18 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   We remark that the contents of the sets $S^+_1,\ldots,S^+_h$ are entirely determined by the contents of the sets $S_1,\ldots,S_h$.
   (Formally, the sequence $S^+_1,\ldots,S^+_h$ is the result of applying a function $q:(2^\R)^*\to (2^\R)^*$ whose input is a sequence of sets of real numbers and whose output is a sequence of sets of real numbers. The function $q$ is universal; it does not depend on $H$, $P$, or $G$.)
 
+  \paragraph{\boldmath The row label $\lambda_1$:}
   With the sets $S^+_1,\ldots,S^+_h$ described, we can now discuss $\lambda_1$.
   For each vertex $(v,i)$ of $G$, $\lambda_1((v,i))$ has length $\log n - \log |S^+_i| + \Oh(\log\log n)$.
-  This part is obtained by applying \cref{shannon_fano_elias_code} to the set $\{1,\ldots,h\}$ using the weight function defined by $i \mapsto |S^+_i|$ to obtain a prefix-free code $\mathdefin{\rho}:\{1,\ldots,h\}\to\{0,1\}^*$.
-  By Property~\ref{plus_size}, $|\rho(i)|\le \log n - \log|S^+_i| + \Oh(1)$ for each $i\in\{1,\ldots,h\}$.
-  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\gamma(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\gamma(i)$.
+
+
+  The first part of $\lambda_1(v,i)$ is obtained by applying \cref{shannon_fano_elias_code} to the set $\{1,\ldots,h\}$ using the weight function defined by $i \mapsto |S^+_i|$. This gives a prefix-free code $\mathdefin{\rho}:\{1,\ldots,h\}\to\{0,1\}^*$ where, by Property~\ref{plus_size}, $|\rho(i)|\le \log\rho([h]) - \log|S^+_i| + \Oh(1)\le \log n - \log|S^+_i| + \Oh(1)$ for each $i\in\{1,\ldots,h\}$.
+  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\pi(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\gamma(i)$.  Formally, there exists a universal function $P:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $P(\rho(i),\pi(i))=\rho(i-1)$, for each $i\in\{2,\ldots,h\}$.
   Then
   \[
      \mathdefin{\lambda_1((v,i))}:=\langle \rho(i),\gamma(i)\rangle
   \]
-  for each vertex $(v,i)$ of $G$.
+  for each vertex $(v,i)$ of $G$.  This part of the label for $(v,i)$ therefore has length $\log n - \log |S^+_i| + \Oh(\log\log n)$.
 
   \paragraph{Bulk trees:}
   In \cite{dujmovic.esperet.ea:adjacency}, each set $S^+_i$ is stored in a binary search tree $T_i$ of height $\log|S^+_i|+o(\log n)$.
@@ -2110,41 +2116,64 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   \[
     |\sigma_{T_i}(x)| \le \height(T_i) \le \log|S^+_i|+o(\log n)
   \]
-  For each $i\in\{1,\ldots,h\}$, each vertex $v\in R_i$ is mapped to the node $x_{T_i}(v)\in V(T_i)$ of minimum $T_i$-depth such that (the real number) $x_{T_i}(v)$ is contained in the (real interval) $f(v)$.
-  The node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.
-  For each $v\in V_i$, this defines the \defin{signature} $\sigma((v,i)):=\sigma_{T_i}(x_{T_i}(v))$.  Note that, for two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
+  For each $i\in\{1,\ldots,h\}$, each vertex $v\in V_i$ is mapped to the node $x_{T_i}(v)\in V(T_i)$ of minimum $T_i$-depth such that (the real number) $x_{T_i}(v)$ is contained in the (real interval) $f(v)$.
+  For each $v\in V_i$, the node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.  The same reasoning implies that $x_{T_i}(w)$ is defined, for each $w\in X_{v,i}$.
+
+
+
+  For each $v\in V_i$, define the \defin{signature} $\sigma(v,i):=\sigma_{T_i}(x_{T_i}(v))$.  Note that, for two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
   \begin{equation}
-     (i,\,\sigma((v,i)),\,\varphi(v)) = (i',\,\sigma((v',i')),\,\varphi(v')) \enspace .
+     (i,\,\sigma(v,i),\,\varphi(v)) = (i',\,\sigma(v',i'),\,\varphi(v')) \enspace .
      \label{ps_identity}
   \end{equation}
 
-  For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma((w,i)):(w,j)\in X_{v,i}\}$ of maximum length.  By property~\ref{clique_property}, every signature in $\Sigma_{v,i}$ is a prefix of $\sigma^+((v,i))$ for each vertex $(v,i)$ of $G$.
+  For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):w\in X_{v,i}\}$ of maximum length.  Since $X_{v,i}$ is a clique in $H$, property~\ref{clique_property} implies that every signature in $\Sigma_{v,i}$ is a prefix of $\sigma^+(v,i)$ for each vertex $(v,i)$ of $G$.  In particular, it is easy to recover $\sigma(w,i)$ given $\sigma^+(v,i)$ and $|\sigma(w,i)|$ for any $w\in X_{v,i}$.
 
-  For each $i\in\{1,\ldots,h\}$ and each $v\in V_i$,
-  Define the set $X_{v,i}:= \{v\}\cup (V_i\cap N^+_H(v))$. Observe that, for each edge $(v,i)(w,j)$ of $G$ where $w\in N^+_H(v)$, we have $w\in X_{v,i}$ (if $j\in\{i-1,i\}$) or $w\in X_{v,i+1}$.  For each $(v,i)\in V(H\boxtimes P)$, each $w\in \{v\}\cup N^+_H(v)$, and each $j\in\{i-1,i,i+1\}$, let $b(v,i,w,j)$ be a bit that indicates if the edges $(v,i)(w,j)$ is present in $G$.
+  % For each $i\in\{1,\ldots,h\}$ and each $v\in V_i$,
+  % Define the set $X_{v,i}:= \{v\}\cup (V_i\cap N^+_H(v))$. Observe that, for each edge $(v,i)(w,j)$ of $G$ where $w\in N^+_H(v)$, we have $w\in X_{v,i}$ (if $j\in\{i-1,i\}$) or $w\in X_{v,i+1}$.
+
+  For each $(v,i)\in V(G)$, define
   \begin{align*}
     \alpha(v,i)
-    & := \langle\; \langle |\sigma(w,i)|,\varphi(w),b(v,i,w,i-1)\rangle : w\in N^+_H(v),\; (w,i-1)\in V(G) \;\rangle, \\
-    & \quad\; \langle\; \langle |\sigma(w,i)|,\varphi(w),b(v,i,w,i)\rangle : w\in N^+_H(v),\; (w,i)\in V(G) \;\rangle \\
-    & \quad\; \langle\; \langle |\sigma(w,i+1)|,\varphi(w),b(v,i,w,i+1)\rangle : w\in N^+_H(v),\; (w,i+i)\in V(G) \;\rangle
+    & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle : w\in N^+_H[v],\; (w,i-1)\in N_G((v,i)) \;\rangle, \\
+    & \quad\; \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle : w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle \\
+    & \quad\; \langle\; \langle |\sigma(w,i+1)|, \varphi(w)\rangle : w\in N^+_H[v],\; (w,i+1)\in N_G((v,i)) \;\rangle \enspace .
   \end{align*}
+  Since $|N^+_G(v)|\le k$ for each $v\in V(H)$, $|\alpha(v,i)|\le\Oh(k\log\log n)$.
 
-  For each vertex $(v,i)$ of $G$, the label $\mu(v,i)$ stores both $\sigma^+((v,i))$ and $\alpha(v,i)$.  In this way, the label fof $(v,i)$ implicitly stores $\sigma(w,i)$ for each $w\in X_{v,i}$.  However, this is not enough, because the label for a vertex $(w,i-1)$ stores $\sigma^+(w,i-1)$, which does not contain $\sigma(w,i)$.  Indeed, $\sigma^+(w,i-1)$ describes a path in the tree $T_{i-1}$ while $\sigma^+(w,i)$ describes a path in the tree $T_i$. To resolve this, the authors of \cite{dujmovic.esperet.ea:adjacency} design the binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) so that $\sigma^+((w,i))$ can be derived from $\sigma^+((w,i-1))$ and a \defin{transition code} \defin{$\tau((w,i-1))$} of length $o(\log n)$. The transition code $\tau((w,i-1))$ is stored as part of $(w,i-1)$'s label.
+  The last (and critical) piece of the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is the notion of a \defin{transition code}. The authors of \cite{dujmovic.esperet.ea:adjacency} design the binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) so that $\sigma^+(w,i)$ can be derived from $\sigma^+(w,i-1)$ and a transition code \defin{$\tau((w,i-1))$} of length $o(\log n)$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $J(\sigma^+(v,i),\tau(v,i))=\sigma^+(v,i+1)$ for each $(v,i)\in V(G)$.
 
   Thus, the second part of the label for a vertex $(v,i)$ of $G$ is
   \[
-    \lambda_2(v,i) := \langle \sigma^+(v,i),\alpha(v,i),\tau(v,i) \rangle
+    \lambda_2(v,i) := \langle \sigma^+(v,i), |\sigma(v,i)|, \varphi(v),\alpha(v,i),\tau(v,i) \rangle
   \]
+  and
+  \[
+    \mu((v,i)) := \langle \lambda_1(v,i), \lambda_2(v,i) \rangle
+  \]
+  which has length $\log n + o(\log n)$, for fixed $k$.  (For $k$ that grows with $n$, $|\mu(v,i))|=\log n + \Oh(\sqrt{\log n\log\log n} + k\log\log n)$.)
+
+  % For each vertex $(v,i)$ of $G$, the label $\mu(v,i)$ stores both $\sigma^+(v,i)$ and $\alpha(v,i)$.
+  % % In this way, the label fof $(v,i)$ implicitly stores $\sigma(w,i)$ for each $w\in X_{v,i}$.
+  % However, this is not enough, because the label for a vertex $(w,i-1)$ stores $\sigma^+(w,i-1)$, which does not contain $\sigma(w,i)$.  Indeed, $\sigma^+(w,i-1)$ describes a path in the tree $T_{i-1}$ while $\sigma^+(w,i)$ describes a path in the tree $T_i$. To resolve this, the authors of \cite{dujmovic.esperet.ea:adjacency} design the binary search trees $T_1,\ldots,T_h$ (and the sets $S^+_1,\ldots,S^+_h$) so that $\sigma^+((w,i))$ can be derived from $\sigma^+((w,i-1))$ and a \defin{transition code} \defin{$\tau((w,i-1))$} of length $o(\log n)$. The transition code $\tau((w,i-1))$ is stored as part of $(w,i-1)$'s label.
+  %
+  % Thus, the second part of the label for a vertex $(v,i)$ of $G$ is
+  % \[
+  %   \lambda_2(v,i) := \langle \sigma^+(v,i),\alpha(v,i),\tau(v,i) \rangle
+  % \]
 
   \paragraph{Adjacency Testing}
 
-  Given the labels for two vertices $(v,i)$ and $(w,j)$ of $G$, the adjacency tester first uses $\lambda_1(v,i)$ and $\lambda_1(w,j)$ to test if $i=j$, $i=j+1$ or $i=j-1$.  If none of these occurs, then the tester can immediately conclude that $(v,i)(w,j)$ is not an edge of $G$, since $i\neq j$ and $ij$ is not an edge of $P$.
+  We now describe how an adjacency tester $A$ works.
+  Given the labels $\mu((v,i))$ and $\mu((w,j))$ for two vertices $(v,i)$ and $(w,j)$ of $G$, the adjacency tester first uses $\lambda_1(v,i)$ and $\lambda_1(w,j)$ (along with the function $P$) to test if $i=j$, $i=j+1$ or $i=j-1$.  If none of these is the case, then the tester can immediately conclude that $(v,i)(w,j)$ is not an edge of $H$, since $i\neq j$ and $ij$ is not an edge of $P$.  Since $G$ is a subgraph of $H$, this implies that $A(\mu((v,i)),\mu((w,j))):=0$.  Otherwise, the tester deals with one of the preceding cases:
   \begin{itemize}
-    \item If $i=j$, then the adjacency tester uses $\sigma^+(v,i)$ and the second part of $\alpha(v,i)$ to compute $\sigma(w',i)$ and $\varphi(w')$ for each $w'\in X_{v,i}$.  If $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w,i))$ for some $w'\in X_{v,i}$, then $w'=w$ and the tester uses $b(v,i,w,i)$ to determine if $(v,i)(w,i)\in E(G)$.  Otherwise, the tester determines that $(w,i)\not\in X_{v,i}$.   In this case, the same procedure is repeated with the roles of $v$ and $w$ reversed to determine if $(v,i)\in X_{w,i}$ and, if so, if $(w,i)(v,i)\in E(G)$.  If the test is not complete at this point, then the tester concludes that $(w,i)\not\in X_{v,i}$ and that $(v,i)\not\in X_{w,i}$, so $(v,i)(w,i)\not\in E(G)$.
+    \item If $i=j$, then the adjacency tester computes $\sigma(w,i)$ using $\sigma^+(w,i)$ and $|\sigma(w,i)|$.  Then the adjacency tester uses $\sigma^+(v,i)$ and the second part of $\alpha(v,i)$ to compute $\sigma(w',i)$ and $\varphi(w')$ for each $w'\in N^+_H(v)$ such that $(w',i)\in N_G(v,i)$.  For each of these the tester checks if $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$. If so, then $(w,i)=(w',i)\in N_G(v)$ so $A(\mu(v,i),(w,j)):=1$.
 
-    \item If $i=j+1$, then the tester uses the transition $\sigma^+(w,i-i)$   $\tau(w,i-1)$ to compute $\sigma^+(w,j+1)=\sigma^+(w,i)$.  Then the tester proceeds as in the previous case, except now using entries the first part of $\alpha(v,i)$ and in the third part of $\alpha(w,j)$.
+    If this test fails for each of the entries in the second part of $\alpha(v,i)$, then the tester concludes that $w\not\in X_{v,i}$ or $(w,j)\not\in N_G((v,i))$.  This still leaves the possibility that $v\in X_{w,i}$ and $(v,i)\in N_G((w,j))$.  The tester checks this in exactly the same manner, but with the roles of $\mu(v,i)$ and $\mu(w,j)$ reversed.  If this test also fails to return a result, then $A(\mu(v,i),\mu(w,j)):=0$.
 
-    \item If $i=j-1$ then the tester uses $\sigma^+(v,i)$ and the transition code $\tau(w,i)$ to compute $\sigma^+(v,i+1)=\sigma^+(v,j)$.  Then the tester proceeds as in the first case, except now using entries the third part of $\alpha(v,i)$ and in the first part of $\alpha(w,j)$.
+    \item If $i=j+1$ then the tester computes $\sigma^+(w,i)=J(\sigma^+(w,j),\tau(w,j)$. Then the tester proceeds as in the previous case, except now using entries the first part of $\alpha(v,i)$ and in the third part of $\alpha(w,j)$.
+
+    \item If $i=j-1$ then the tester computes $\sigma^+(v,j)=J(\sigma^+(v,i),\tau(v,i)$.  Then the tester proceeds as in the first case, except now using entries the third part of $\alpha(v,i)$ and in the first part of $\alpha(w,j)$.
   \end{itemize}
   %
   % If $
