@@ -2134,10 +2134,10 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
 
   For each $(v,i)\in V(G)$, define
   \begin{align*}
-    \alpha(v,i)
-    & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle : w\in N^+_H[v],\; (w,i-1)\in N_G((v,i)) \;\rangle, \\
-    & \quad\; \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle : w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle \\
-    & \quad\; \langle\; \langle |\sigma(w,i+1)|, \varphi(w)\rangle : w\in N^+_H[v],\; (w,i+1)\in N_G((v,i)) \;\rangle \enspace .
+    \alpha^{-}(v,i) &= \langle\; |\sigma(w,i)|, \varphi(w)\rangle : w\in \{v\}\cup N^+_H(v),\; (w,i-1)\in N_G((v,i)) \;\rangle \\
+    \alpha^{0}(v,i) &= \langle\; |\sigma(w,i)|, \varphi(w)\rangle : w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle \\
+    \alpha^+(v,i) &= \langle\; |\sigma(w,i+1)|, \varphi(w)\rangle : w\in \{v\}\cup N^+_H(v),\; (w,i+1)\in N_G((v,i)) \;\rangle \\
+    \alpha(v,i) &= \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle \\
   \end{align*}
   Since $|N^+_G(v)|\le k$ for each $v\in V(H)$, $|\alpha(v,i)|\le\Oh(k\log\log n)$.
 
@@ -2145,13 +2145,14 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
 
   Thus, the second part of the label for a vertex $(v,i)$ of $G$ is
   \[
-    \lambda_2(v,i) := \langle \sigma^+(v,i), |\sigma(v,i)|, \varphi(v),\alpha(v,i),\tau(v,i) \rangle
+    \lambda_2(v,i) := \langle \sigma^+(v,i), |\sigma(v,i)|, \varphi(v),\alpha(v,i),\tau(v,i),|\sigma(v,i+1)| \rangle
   \]
   and
   \[
     \mu((v,i)) := \langle \lambda_1(v,i), \lambda_2(v,i) \rangle
   \]
   which has length $\log n + o(\log n)$, for fixed $k$.  (For $k$ that grows with $n$, $|\mu(v,i))|=\log n + \Oh(\sqrt{\log n\log\log n} + k\log\log n)$.)
+  The procedures for adjacency and identity testing make use of the fact that $\lambda_2(v,i)$ contains all the information in $\sigma^+(v,i)$, $\sigma(v,i)$, $\sigma^+(v,i+1)=J(\sigma^+(v,i),\tau(v,i))$, and $\sigma(v,i+1)$.
 
   % For each vertex $(v,i)$ of $G$, the label $\mu(v,i)$ stores both $\sigma^+(v,i)$ and $\alpha(v,i)$.
   % % In this way, the label fof $(v,i)$ implicitly stores $\sigma(w,i)$ for each $w\in X_{v,i}$.
@@ -2167,13 +2168,19 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   We now describe how an adjacency tester $A$ works.
   Given the labels $\mu((v,i))$ and $\mu((w,j))$ for two vertices $(v,i)$ and $(w,j)$ of $G$, the adjacency tester first uses $\lambda_1(v,i)$ and $\lambda_1(w,j)$ (along with the function $P$) to test if $i=j$, $i=j+1$ or $i=j-1$.  If none of these is the case, then the tester can immediately conclude that $(v,i)(w,j)$ is not an edge of $H$, since $i\neq j$ and $ij$ is not an edge of $P$.  Since $G$ is a subgraph of $H$, this implies that $A(\mu((v,i)),\mu((w,j))):=0$.  Otherwise, the tester deals with one of the preceding cases:
   \begin{itemize}
-    \item If $i=j$, then the adjacency tester computes $\sigma(w,i)$ using $\sigma^+(w,i)$ and $|\sigma(w,i)|$.  Then the adjacency tester uses $\sigma^+(v,i)$ and the second part of $\alpha(v,i)$ to compute $\sigma(w',i)$ and $\varphi(w')$ for each $w'\in N^+_H(v)$ such that $(w',i)\in N_G(v,i)$.  For each of these the tester checks if $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$. If so, then $(w,i)=(w',i)\in N_G(v)$ so $A(\mu(v,i),(w,j)):=1$.
+    \item If $i=j$, then the adjacency tester computes $\sigma(w,i)$ using $\sigma^+(w,i)$ and $|\sigma(w,i)|$.  Then the adjacency tester uses $\sigma^+(v,i)$ and $\alpha^0(v,i)$ to compute $\sigma(w',i)$ and $\varphi(w')$ for each $w'\in N^+_H(v)$ such that $(w',i)\in N_G(v,i)$.  For each of these the tester checks if $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$. If so, then $(w,i)=(w',i)\in N_G(v)$ so $A(\mu(v,i),(w,j)):=1$.
 
     If this test fails for each of the entries in the second part of $\alpha(v,i)$, then the tester concludes that $w\not\in X_{v,i}$ or $(w,j)\not\in N_G((v,i))$.  This still leaves the possibility that $v\in X_{w,i}$ and $(v,i)\in N_G((w,j))$.  The tester checks this in exactly the same manner, but with the roles of $\mu(v,i)$ and $\mu(w,j)$ reversed.  If this test also fails to return a result, then $A(\mu(v,i),\mu(w,j)):=0$.
 
-    \item If $i=j+1$ then the tester computes $\sigma^+(w,i)=J(\sigma^+(w,j),\tau(w,j)$. Then the tester proceeds as in the previous case, except now using entries the first part of $\alpha(v,i)$ and in the third part of $\alpha(w,j)$.
+    \item If $i=j+1$ then the tester computes $\sigma^+(w,i)=J(\sigma^+(w,j),\tau(w,j)$. Then the tester compute $\sigma(w,i)$ using $\sigma^+(w,i)$ and $|\sigma(w,i)|$.
+    Then the tester proceeds as in the previous case, except now using entries from $\alpha^-(v,i)$ to find $(w',i)$ such that $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$.
 
-    \item If $i=j-1$ then the tester computes $\sigma^+(v,j)=J(\sigma^+(v,i),\tau(v,i)$.  Then the tester proceeds as in the first case, except now using entries the third part of $\alpha(v,i)$ and in the first part of $\alpha(w,j)$.
+    If this search fails, then the tester proceeds to use entries in $\alpha^+(w,j)$ to find a $(v',i)$ such that $(\sigma(v',i),\varphi(v'))=(\sigma(v,i),\varphi(v))$.  If this search also fails, then $A(\mu(v,i),\mu(w,j)):=0$.
+
+    \item If $i=j-1$ then the tester computes $\sigma^+(v,j)=J(\sigma^+(v,i),\tau(v,i)$. Then the tester computes $\sigma(w,j)$ using $\sigma^+(w,j)$ and $|\sigma(w,j)|$.
+    Then the tester proceeds as in the previous cases, except now using entries from $\alpha^+(v,i)$ to find $(w',j)$ such that $(\sigma(w',j),\varphi(w'))=(\sigma(w,j),\varphi(w))$.
+
+    If this search fails, then the tester proceeds to use entries in $\alpha^+(w,j)$ to find a $(v',j)$ such that $(\sigma(v',j),\varphi(v'))=(\sigma(v,j),\varphi(v))$.  If this search also fails, then $A(\mu(v,i),\mu(w,j)):=0$.
   \end{itemize}
   %
   % If $
@@ -2262,7 +2269,7 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
 
   \paragraph{B-trees:}
   In \cite{gawrychowski.janczewski:simpler}, the authors use weight-balanced B-trees to replace the (binary) bulk trees used in \cite{dujmovic.esperet.ea:adjacency}.
-  A \defin{B-tree} stores a set of real numbers in the leaves of a (not usually binary) tree $B$ in which all leaves have the same depth.
+  A \defin{B-tree} stores a set of real numbers in the leaves of a tree $B$ in which all leaves have the same depth.
   \defin{Weight-balanced B-trees} are parameterized by a parameter $a\ge 6$.  A weight-balanced B-tree $B$ is \defin{semi-balanced} if, for each node $x$ of $B$, the number of leaves in the subtree $B_x$ is at most $6a^{\height(B_x)}$ and for each \emph{non-root} node $x$ of $B$, the number of leaves in $B_x$ is at least $\tfrac{1}{2}a^{\height(B_x)}$.
   Let $B$ be a weight-balanced B-tree with $r\in \{1,\ldots,n\}$ leaves.  The weight-balance conditions guarantee that $\height(B)\le \log_a r + 1$.
   The weight-balance conditions also ensure that the number of children of any node $x$ of $B$ is at most $12a$.
@@ -2272,17 +2279,17 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
   The sequence of binary search trees $T_1,\ldots,T_h$ used in \cite{gawrychowski.janczewski:simpler} is replaced with a sequence of B-trees $B_1,\ldots,B_h$.
   For each $i\in\{1,\ldots,h\}$, the leaves of $B_i$ store the values in $S^+_i$.
   For each $i\in\{1,\ldots,h\}$, each vertex $(v,j)\in V(R_i)$ is mapped to the lowest-common-$B_i$-ancestor $x_{B_i}(v)$ of $f(v)\cap S^+_i$.
-  Then, for a vertex $(v,i)$ of $G$, the signature $\sigma((v,i))$ is the encoding of $P_{B_i}(x_{B_i}(v))$.
+  Then, for a vertex $(v,i)$ of $G$, the signature $\sigma(v,i)$ is the encoding of $P_{B_i}(x_{B_i}(v))$.
   Then
   \[
-    |\sigma((v,i))| \le \lceil\log (12a)\rceil\cdot(\depth_{B_i}(x_{B_i}(v))) = \lceil\log (12a)\rceil(\depth_{B_i}(\lca_{B_i}(f(v)\cap S_i))) \enspace .
+    |\sigma(v,i)| \le \lceil\log (12a)\rceil\cdot(\depth_{B_i}(x_{B_i}(v))) = \lceil\log (12a)\rceil(\depth_{B_i}(\lca_{B_i}(f(v)\cap S_i))) \enspace .
   \]
   An upper bound on $|\sigma((v,i))|$ can be obtained by using the $\log_a |S^+_i|+1$ upper bound on $\height(B_i)$:
   \[
-    |\sigma((v,i))|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + \Oh(\sqrt{\log n})
+    |\sigma(v,i)|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + \Oh(\sqrt{\log n})
   \]
 
-  The main advantage of using B-trees over the bulk trees in \cite{dujmovic.esperet.ea:adjacency} is that in B-trees the rebalancing operations needed to maintain the height bound result in a much simpler transition code $\tau((w,i-1))$.
+  The main advantage of using B-trees over the bulk trees in \cite{dujmovic.esperet.ea:adjacency} is that in B-trees the rebalancing operations needed to maintain the height bound result in a much simpler transition code $\tau(w,i-1)$.
   This simplicity ultimately comes from the fact that, for any $p\in S_{i-1}\cap S_i$, the root-to-$p$ path $P_{B_{i-1}}(p)$ in $B_{i-1}$ and the root-to-$p$ path $P_{B_i}(p)$ in $B_i$ differ by at most a single vertex.
   More precisely, a subpath $xyz$ in $P_{B_{i-1}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_i}(x)$.\footnote{There are two exceptions.
   Occasionally, $P_{B_i}(x)$ is obtained by removing the first vertex of $P_{B_{i-1}}(x)$ or by adding a vertex at the beginning of $P_{B_{i-1}}(x)$.
@@ -2293,34 +2300,48 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
 
   Except for the new definition of the basic signature $\sigma$ and the transition function $\tau$, every other aspect of the resulting labelling scheme and adjacency testing procedure is as described in \cite{dujmovic.esperet.ea:adjacency}.
 
-  \paragraph{A weighted-labelling scheme:}
+  \paragraph{A weighted mixed labelling scheme:}
   We now describe the changes to \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling}.
-  \cref{gk_labelling} involves two graphs $G^+$ and $G$ with $G\subseteq G^+\subseteq H\boxtimes P\boxtimes K_k$, and a weight function $\omega:V(G^+)\to\N^+$.  As in other proofs, we may assume that $\omega$ is nice, so $\log\omega(G)\in\Oh(\log n)$.
-  Next, observe that the final verification performed by the adjacency tester before confirming the presence of an edge $vw$ checks a bit, specific to the edge $vw$, that is explicitly stored in $\lambda(v)$ or $\lambda(w)$ to indicate the presence (or not) of $vw$ in $E(G)$.
-  This bit serves no other purpose.  Thus, the adjacency labelling for the supergraph $G^+$ of $G$ can be made into an adjacency labelling for $G$ by changing a subset of the bits in each label.
-  From this point on we assume that $G=G^+$.
+  \cref{gk_labelling} involves two graphs $G^+$ and $G$ with $G\subseteq G^+\subseteq H\boxtimes P\boxtimes K_k$, and a weight function $\omega:V(G^+)\to\N^+$.  As in other proofs, we may assume that $\omega$ is nice, so $\log\omega(G)\in\Oh(\log n)$.  To help with clique labelling later, we will add some vertices and edges to $G^+$.  For each vertex $(v,i)$ of $G^+$ with $i\in\{1,\ldots,h-1\}$, if $G^+$ does not contain the vertex $(v,i+1)$ then we add this vertex to $G^+$ and $G$ and set $\omega(v,i+1):=\omega(v,i)$.  Any vertex $(v,i+1)$ added this way is called a \defin{dummy} vertex.  Any non-dummy vertex of $G$ is called a \defin{real vertex}.  The addition of dummy vertices does not increase the total weight $\omega(G)$ by more than a factor of $2$.
+  % For each dummy vertex $(v,i)$ we add an edge joining $(v,i)$ to each real vertex $(w,j)$ in $N^+_H(v)\times\{i-1,i\}$.  The edges incident to dummy vertices are called \defin{dummy edges}.
 
-  To get a vertex label $\mu(v)$ of length $\log \omega(G)-\log\omega((v,i)) + o(\log n)$ we require that $\sigma^+(v)$ be sufficiently short.  To achieve this, we define an intermediate weight function $\delta$, as in the proof of \cref{shorty}.  For each $(w,j)\in V(H\boxtimes P)$, define $X^{-1}_{w,j}:=\{(v,i)\in V(G)\cap (V(H)\times\{j,j+1\})\mid w\in X_{v,i}\}$ and define $\delta((w,j)):=\sum_{(v,i)\in X^{-1}_{w,j}}\omega(v)$.  Then,
+
+  % Next, observe that the final verification performed by the adjacency tester before confirming the presence of an edge $vw$ checks a bit, specific to the edge $vw$, that is explicitly stored in $\lambda(v)$ or $\lambda(w)$ to indicate the presence (or not) of $vw$ in $E(G)$.
+  % This bit serves no other purpose.  Thus, the adjacency labelling for the supergraph $G^+$ of $G$ can be made into an adjacency labelling for $G$ by changing a subset of the bits in each label.
+  % From this point on we assume that $G=G^+$.
+
+  To be efficient, the label $\mu((v,i))$ of a vertex $(v,i)$ of $G$ should have length $\log \omega(G)-\log\omega((v,i)) + o(\log n)$.  For this, we require that $\sigma^+(v,i)$ be sufficiently short.  To achieve this, we define an intermediate weight function $\delta$, as in the proof of \cref{small_height}.  For each $(w,j)\in V(H\boxtimes P)$, define $X^{-1}_{w,j}:=\{(v,i)\in V(G)\cap (V(H)\times\{j,j+1\})\mid w\in X_{v,i}\}$ and define
   \[
-    \sum_{(w,j)} \delta((w,j))=\sum_{(v,i)}|X_{v,i}|\cdot\omega((v,i))
-    \le (3k+3)\sum_{(v,i)}\omega((v,i)) = 3k\omega(G) \enspace .
+    \delta(w,j):=\sum_{(v,i)\in X^{-1}_{w,j}}\omega(v,i) + \omega(w,j-1) \enspace .
   \]
-  Importantly, for each $(v,i)\in V(G)$ and each $(w,j)\in X_{v,i}$,
+  The intuition behind the sum in the definition $\delta(w,j)$ is that any vertex $\sigma^+(v,i)$ must have length at most $\log|S^+_i|-\log\omega((v,i))+o(\log n)$.  However, $\sigma^+(v,i)$ should be long enough to contain $\sigma(w,i)$ for each $w\in X_{v,i}$.  Thus, $\delta$ increases the weight of $(w,j)$ to ensure this.
+  Importantly, for each $(v,i)\in V(G)$ and each $w\in X_{v,i}$,
   \begin{equation}
-    \delta((w,j)) \ge \omega((v,i)) \enspace . \label{delta_v_omega}
+    \delta(w,i) \ge \omega((v,i)) \enspace . \label{delta_v_omega}
+  \end{equation}
+  (The final term, $\omega(w,j-1)$ in the definition of $\delta(w,j)$ will be useful for clique labelling later.)
+
+  The total weight assigned by $\delta$ is
+  \begin{equation}
+  \sum_{(w,j)\in V(H\boxtimes P)} \delta(w,j)
+  \le \sum_{(v,i)\in V(G))}|X_{v,i}|\cdot\omega((v,i)) + \omega(G)
+  \le
+  % (2k+2)\sum_{(v,i)\in V(G)}\omega((v,i))
+  % =
+  (2k+3)\omega(G) \enspace . \label{total_delta}
   \end{equation}
 
   At this point, we proceed almost exactly as in the proof of \cref{shannon_fano_elias_tree}.
-  For each $i\in\{1,\ldots,h\}$ and each $v\in (V(H)\times\{i\})\cap V(G)$, define
+  For each $i\in\{1,\ldots,h\}$ and each $v\in V_i$, define
   \[
      S_{\delta,i}(v):=\{(x_f(v),1),\,\ldots,\, (x_f(v),\delta((v,i))\}
   \]
-  and define $S_{\delta,i}:=\bigcup_{(v,j)\in V(R_i)}S_{\delta,i}(v)$.  For each $i\in\{1,\ldots,h\}$, treat $S_{\delta,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\delta,i}|=\delta(G[V(H)\times\{i-1,i,i+1\}])$ for each $i\in\{1,\ldots,h\}$ and $\sum_{i=1}^h |S_{\omega,i}|\le 3\delta(R)\le (9k+9)\omega(G)$.
+  and define $S_{\delta,i}:=\bigcup_{v\in V_i}S_{\delta,i}(v)$.  For each $i\in\{1,\ldots,h\}$, treat $S_{\delta,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\delta,i}|=\delta(V(H)\times\{i\})$ for each $i\in\{1,\ldots,h\}$ and $\sum_{i=1}^h |S_{\delta,i}|=\sum_{(w,j)\in H\boxtimes P}\delta(w,j)\le (2k+3)\omega(G)$, by \cref{total_delta}.
 
-  In the following, we use the convention that a real interval $(a,b)$ contains $(x,j)\in S^+_i$ if (the real interval) $(a,b)$ contains (the real number) $x$. In particular, for a vertex $v\in V(H)$ and $i\in\{1,\ldots,h\}$, $f(v)\cap S^+_i:=\{(x,j)\in S^+_i:x\in f(v)\}$. Then, just as in the unweighted case $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$.  The only difference at this point is that we apply the machinery in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\omega,1},\ldots,S_{\omega,h}$.
-  This results in sets $S^+_{\omega,1},\ldots,S^+_{\omega,h}$ of total size $\sum_{i=1}^h |S^+_{\omega,i}|\in \Oh(\omega(G))$.
+  In the following, we use the convention that a real interval $(a,b)$ contains $(x,j)\in S^+_i$ if (the real interval) $(a,b)$ contains (the real number) $x$. In particular, for a vertex $v\in V(H)$ and $i\in\{1,\ldots,h\}$, $f(v)\cap S^+_i:=\{(x,j)\in S^+_i:x\in f(v)\}$. Then, just as in the unweighted case $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$.  The only difference at this point is that we apply the machinery in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\delta,1},\ldots,S_{\delta,h}$.
+  This results in sets $S^+_{\delta,1},\ldots,S^+_{\delta,h}$ of total size $\sum_{i=1}^h |S^+_{\delta,i}|\in \Oh(k\cdot\omega(G))\in \Oh(kn)$, since $\omega$ is nice.
   This has the desired effect because a B-tree of height $h$ has at most $6a^h$ leaves.
-  The node $\lca_{B_i}(S_{\omega,i}[v])$ is the root of a subtree of $B_i$ with at least $|S_{\omega,i}[v]|=\omega((v,i))$ leaves.
+  The node $\lca_{B_i}(S_{\delta,i}[v])$ is the root of a subtree of $B_i$ with at least $|S_{\omega,i}(v)|=\delta(v,i)\ge\omega((v,i))$ leaves.
   Therefore,
   \begin{align*}
      \depth_{B_i}(x_{B_i}(v))
@@ -2328,73 +2349,96 @@ We conclude by explaining why the proof of \cref{main_result} is constructive an
      \depth_{B_i}(\lca_{B_i}(f(v)\cap S_{\delta,i})) \\
      & \le
      \depth_{B_i}(\lca_{B_i}(S_{\delta,i}(v))) \\
-     & \le\height(B_i)-\log_a\delta((v,i)) + \Oh(1) \\
-     & \le \log_a|S^+_{\delta,i}| - \log_a\delta((v,i)) + \Oh(1) \\
+     & \le\height(B_i)-\log_a\delta(v,i) + \Oh(1) \\
+     & \le \log_a|S^+_{\delta,i}| - \log_a\delta(v,i) + \Oh(1) \\
      % & \le \log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + 2 \\
     \enspace .
   \end{align*}
   Furthermore, for any $(w,j)\in X_{v,i}$, by \eqref{delta_v_omega}, we have
   \begin{align*}
-    \depth_{B_j}(x_{B_j}(w))
+    \depth_{B_i}(x_{B_i}(w))
       % & \le \depth_{B_j}(\lca_{B_j}(S_{\omega,j}[j])) \\
-      & \le \log_a|S^+_{\delta,j}| - \log_a\delta((w,j)) + \Oh(1) \\
-      & \le \log_a|S^+_{\delta,j}| - \log_a\omega((v,i)) + \Oh(1) \\
-      & \le \log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1) \enspace ,
+      & \le \log_a|S^+_{\delta,i}| - \log_a\delta(w,i) + \Oh(1) \\
+      % & \le \log_a|S^+_{\delta,j}| - \log_a\omega((v,i)) + \Oh(1) \\
+      & \le \log_a|S^+_{\delta,i}| - \log_a\omega(v,i) + \Oh(1) \enspace ,
   \end{align*}
-  where the final inequality follows from \ref{plus_ratio}.
   Therefore,
   \begin{align*}
      |\sigma^+(v,i)|
-      & = \max\{|\sigma((w,i))| \mid (w,j)\in X_{v,i}\} \\
-      & \le \lceil \log (12a)\rceil\cdot\max\{\depth_{B_i}(x_{B_i}(w)) \mid (w,j)\in X_{v,i}\} \\
+      & = \max\{|\sigma((w,i))| \mid w\in X_{v,i}\} \\
+      & \le \lceil \log (12a)\rceil\cdot\max\{\depth_{B_i}(x_{B_i}(w)) \mid w\in X_{v,i}\} \\
       & \le \lceil \log (12a)\rceil\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1)) \\
       & \le (5+ \log a)\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1)) \\
-      & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(\log_a |S^+_{\delta_i}| + \log a) \\
+      & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(1+\log_a |S^+_{\delta_i}| + \log a) \\
       & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(\sqrt{\log n})
       \enspace .
   \end{align*}
   Then
   \begin{align*}
-     |\lambda_2((v,i))|
+     |\lambda_2(v,i)|
      % & \le \lceil \log(12a)\rceil \depth_{B_i}(x_{B_i}(v))
         % + \Oh(\sqrt{\log n}) \\
      & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k\log\log n) \\
-     & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n}) \enspace .
+     & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k\log\log n) \enspace .
   \end{align*}
-  Since $|\lambda_1((v,i))|\le \log\delta(R) - \log \delta(R_i) + O(\log\log n)$ we get
+  Since $\sum_{i=1}^n$
+
+  By \eqref{total_delta}, we have $|\lambda_1((v,i))|\le \log n - \log |S^+_{\delta,i}| + \Oh(\log\log n)$, so
   \begin{align*}
-     |\mu((v,i))| =
-     |\lambda_1((v,i))|+|\lambda_2((v,i))| + (\log\log n)
-     & \le \log\omega(G) - \log |S^+_{\omega,i}| + \Oh(\log\log n) \\
-     & \quad {} + \log |S^+_{\omega,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n}) \\
-     & = \log\omega(G) - \log\omega((v,i)) + \Oh(\sqrt{\log n}) \enspace .
+     |\mu((v,i))| & =
+     |\lambda_1((v,i))|+|\lambda_2((v,i))| + \Oh(\log\log n) \\
+     & \le \log\omega(G) - \log |S^+_{\omega,i}|
+      + \log |S^+_{\omega,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k\log\log n) \\
+     & = \log\omega(G) - \log\omega((v,i)) + \Oh(\sqrt{\log n} + k\log\log n) \enspace .
   \end{align*}
 
   \paragraph{Clique labelling and identity testing:}
   In the preceding, we have argued that the lengths of the adjacency labels promised in \cref{gk_labelling} are achievable.
   What remains is to describe the clique labels, the local identifiers, and the identity testing procedure.
 
-  Let $K$ be a clique in $G=G^+$.  Then $K\subseteq R_i$ for some $i\in\{1,\ldots,h\}$.  Let $X_K:=\{v: (v,i)\in K\}$.
-  Then $H[X_K]$ is a clique and there exists $v^*\in X_K$ such that $\{v^*\}\cup N^+_H(v^*)\supseteq X_K$.
-  Therefore, there exists $(v^*,i)\in K$ such that $X_{v^*,i}\supseteq K$. Recall that $\sigma^+((v^*,i))$ and $\alpha((v^*,i))$ contain enough information to recover $\sigma((w,j))$, $\varphi(w)$, and $j-i$ for each $(w,j)\in X_{v^*,i}$.
-  Order the vertices of $X_{v^*,i}$ as $(w_1,j_1),\ldots,(w_{r},j_r)$ in the same order that the information about these vertices appears in $\alpha((v^*,i))$.
+  Let $K$ be a clique in $G^+$ that contains no dummy vertices and let $V_K:=\{v\mid (v,j)\in K\}$.\footnote{The requirement that $K$ contains no dummy vertices is justified by the fact that we are only required to provide labels for cliques that exist in the original input graph $G^+$.}
+  Then $K\subseteq V(H)\times\{i-1,i\}$  and $V_i\supseteq V_K$ for some $i\in\{2,\ldots,h\}$.  Since $K$ is a clique in $G^+\subseteq H\boxtimes P$, $V_K$ is a clique in $H$.  Therefore, there exists $v^*\in V_K$ such that $V_K\subseteq \{v^*\}\cup N^+_H(v^*)$.
 
-  Define the clique label $\mu(K):=(\mu((v^*,i)), b(K))$, where $b(K):=b_1(K),\ldots,b_{|X_{v^*,i}|}(K)$ is a bit-vector that indicates, for each $p\in\{1,\ldots,|X_{v^*,i}|\}$, whether $(w_p,j_p)\in K$.
-  The length of this label is
+  If $(v^*,i)\in K$ then $\delta(v^*,i)\ge \omega((v^*,i))$.
+  If $(v^*,i)\not\in K$ then $(v^*,i-1)\in K$ and, by the definition of $\delta$, $\delta(v^*,i)\ge \omega((v^*,i-1))$.  In either case, $\delta(v^*,i)\ge\min_{(v,j)\in K}\omega((v,j))$.  Since $K$ contains no dummy vertices, $(v^*,i)$ is a (possibly dummy) vertex of $G^+$.  Therefore, $\mu((v^*,i))=\lambda_1(v^*,i),\lambda_2(v^*,i)$ is defined.  Furthermore, $X_{v^*,i}$ contains $V_K$.  To summarize, $\sigma^+(v^*,i)$ is defined, has length at most $\log n - \log\min_{(v,j)\in K}(\omega((v,j))) + \Oh(\sqrt{\log n})$ and contains $\sigma(w,i)$ as a prefix, for each $w\in V_K$.
+
+  We can now mimic the adjacency testing procedure.  Define
   \begin{align*}
-     |\mu(K)|
-     & = |\lambda((v^*,i))| + \Oh(k + \log\log n) \\
-     & \le \log\omega(G) - \log\omega((v^*,i)) + \Oh(\sqrt{\log n}) \\
-     & \le \log\omega(G) - \log\min\{\omega((w,j)):(w,j)\in K\} + \Oh(\sqrt{\log n})  \enspace .
+    \alpha^-(K) & := \langle\; |\sigma(w,i)|, \varphi(w)\rangle : (w,i-1)\in K \;\rangle \\
+    \alpha^0(K) & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle : (w,i)\in K \;\rangle \\
+    \alpha(K)
+    & := \langle\; \alpha^-(K),\alpha^0(K)  \;\rangle \enspace .
+  \end{align*}
+  Since $|N^+_G(v^*)|\le k$, $|\alpha(K)|\le\Oh(k\log\log n)$.
+
+
+  Define
+  \[
+     \mu(K) := \langle\; \lambda_1(v^*,i), \sigma^+(v^*,i), \alpha(K) \;\rangle \enspace .
+  \]
+
+  Then, the length of $\mu(K)$ is at most
+  \begin{align*}
+    |\mu(K)|
+    & \le |\lambda_1(v,i^*)| + |\sigma^+(v^8,i)| + \Oh(k \log\log n) \\
+    & \le \log n - \log\delta(v^*,i) + \Oh(\sqrt{\log n} + k\log\log n) \\
+    & \le \log n - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n} + k\log\log n) \\
   \end{align*}
 
-  Let $(v_1,\ell_1),\ldots,(v_{|K|},\ell_{|K|})$ be the vertices of $K$ in the order that these vertices appear in the sequence $(w_1,j_1),\ldots,(w_{r},j_r)$.
-  For each $m\in\{1,\ldots,|K|\}$, define the local identifier $\kappa(K,(v_m,\ell_m)):= m$.  Then $|\kappa(K,v)|\in \Oh(\log k)$ for each $K\in\mathcal{K}$ and each $v\in K$.
+  \paragraph{Local identifiers}
 
-  Given $\lambda(K)$, $\lambda((w',j'))$, and the local identifier $m := \kappa(K,(w,j))$, the identity tester first extracts the bit-vector $b(K)$ from $\lambda(K)$.
-  It then computes the minimum integer $p$ such that $\sum_{q=1}^p b_q(K)=m$.
-  This integer $p$ is the index of the target vertex $(w_p, j_p)$ within the sequence $X_{v^*,i}$.
-  Finally, the tester proceeds exactly like the adjacency testing algorithm to determine if the input vertex $(w',j')$ is equal to $(w_p,j_p)$. It does this by using $\lambda((w',j'))$ and the structural information about $(w_p,j_p)$ that is inherently stored inside $\lambda((v^*,i))$ (which is provided as the first part of $\lambda(K)$).
+  For each vertex $(u,j)\in K$, the local identifier for $(u,j)$ is a single integer $\kappa((u,j))\in[2k+2]$ that indicates the position of the entry for $(u,j)$ in $\alpha(K)$.  This integer also implicity encodes whether $j=i-1$  or $j=i$.
 
+
+  \paragraph{Identity testing}
+
+  We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$ containing only real vertices, let $u\in K$, and let $v$ be a real vertex of $G$.  Define $(v^*,i)$ as in the description of $\mu(K)$.   Given $\mu(K)$, $\kappa(K,(u,j))$, and $\mu((v,i'))$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1((v^*,i))$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then the tester can immediately return $0$ since $K\subseteq V(H)\times \{i-1,i\}$.  Otherwise, $i'\in\{i-1,i\}$.  Then the tester locates the entry $\langle |\sigma(u,i)|,\varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(u,j)$. The location of this entries also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately return $0$ if $j\neq i'$. Otherwise $j=i'$.  Before continuing, the tester computes $\sigma(u,i)$ using $\sigma^+(v^*,i)$ and $|\sigma(u,i)|$.
+  There now two cases to consider:
+  \begin{itemize}
+    \item If $i'=i$ then the tester uses $\sigma^+(v,i')$ and $|\sigma(v,i')|$ to compute $\sigma(v,i')=\sigma(v,i)$.  The tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
+
+    \item If $i'=i-1$ then the tester computes $\sigma^+(v,i)=J(\sigma^+(v,i'),\tau(v,i'))$ and uses this with $|\sigma(v,i)|$ to compute $\sigma(v,i)$.  Again, the tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
+    \end{itemize}
+  \end{itemize}
 
 \end{document}
