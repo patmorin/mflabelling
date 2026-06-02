@@ -3,43 +3,74 @@
 \usepackage{ods}
 \usepackage{ods-figs}
 \usepackage[cm]{sfmath}
+\usepackage{xmpmulti}
+\usepackage{amssymb}
 %\usepackage{enumitem}
 
+% \setlength{parskip}{3pt}
 
+\newcommand{\torso}[2]{#1\langle #2\rangle}
+\DeclareMathOperator{\tw}{tw}
 
-
+% \setbeamercovered{transparent}
 
 % \setlength{\leftmargini}{0pt}
 
 \newcommand{\N}{\mathbb{N}}
 \DeclareMathOperator{\pth}{path}
 
-\title[Adjacency Labelling]{Adjacency Labelling \newline for Proper Minor-Closed Graph Classes}
+\title[Adjacency Labelling]{Adjacency Labelling
+  \newline for Proper Minor-Closed Graph Classes}
 \author[Dujmović \textit{et al}]{Vida Dujmović, Cyril Gavoille, Gwenaël Joret, \newline Piotr Micek, Pat Morin, David Wood}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
+  \vspace{-1.9cm}
+  \begin{tabular}{cc}
+    \multicolumn{2}{c}{\includegraphics[page=1,width=.6\textwidth]{figs/t_tprime}} \\
+    \includegraphics[page=3,width=.452\textwidth]{figs/t_tprime} &
+    \includegraphics[page=6,width=.452\textwidth]{figs/t_tprime}
+  \end{tabular}
 \end{frame}
+
+\begin{frame}
+  \frametitle{A Problem as Old as Us?}
+
+  \begin{center}
+    \only<+>{\includegraphics[page=1,width=.9\textwidth]{figs/names}}%
+    \only<+>{\includegraphics[page=2,width=.9\textwidth]{figs/names}}%
+    \only<+>{\includegraphics[page=3,width=.9\textwidth]{figs/names}}%
+    \only<+>{\includegraphics[page=4,width=.9\textwidth]{figs/names}}%
+    \only<+->{\includegraphics[page=2,width=.9\textwidth]{figs/names}}%
+  \end{center}
+  \uncover<+>{Patronyms: the oldest naming system in human history(?)}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{Adjacency Labelling}
   \framesubtitle{Labelling and Testing for a graph $G$}
 
   \begin{itemize}
-    \item Adjacency tester $A:\{0,1\}^*\times\{0,1\}^*\to \{0,1\}$
-    \item Labelling function $\ell:V(G)\to\{0,1\}^*$
-    \item $(G,\ell)$ \emph{works with} $A$ if, for each $v,w\in V(G)$,
+    \item $A:\{0,1\}^*\times\{0,1\}^*\to \{0,1\}$ (\emph{adjacency tester})
+    \item $\ell:V(G)\to\{0,1\}^*$ (\emph{labelling})
+    \item $\ell$ is an \emph{adjacency labelling} of $G$ for $A$ if
         $
             A(\ell(v),\ell(w)) = \begin{cases}
                 1 & \text{if $vw\in E(G)$} \\
                 0 & \text{if $vw\not\in E(G)$}
         \end{cases}
-        $
+        $\newline
+        for each $v,w\in V(G)$,
     \end{itemize}
     \begin{center}
-        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/labelling-scheme}%
+      \only<1>{\includegraphics[page=1]{figs/labelling-scheme}}%
+      \only<2>{\includegraphics[page=2]{figs/labelling-scheme}}%
+      \only<3>{\includegraphics[page=3]{figs/labelling-scheme}}%
+      \only<4>{\includegraphics[page=4]{figs/labelling-scheme}}%
     \end{center}
 \end{frame}
 
@@ -49,12 +80,14 @@
 
     \begin{itemize}
         \item<+->A graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme if \begin{itemize}
-            \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$
-            \item for each $n$-vertex $G\in\mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^{f(n)}$ such that $(G,\ell)$ works with $A$
+            \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ such that
+            \item for each $n$-vertex $G\in\mathcal{G}$ there exists an adjacency labelling $\ell:V(G)\to\{0,1\}^{f(n)}$ of $G$ for $A$
         \end{itemize}
     \end{itemize}
     \begin{center}
-        \multiinclude[<+>][format=pdf,start=5]{figs/labelling-scheme}%
+      \only<1>{\includegraphics[page=5]{figs/labelling-scheme}}%
+      \only<2>{\includegraphics[page=6]{figs/labelling-scheme}}%
+      \only<3>{\includegraphics[page=7]{figs/labelling-scheme}}%
     \end{center}
 \end{frame}
 
@@ -64,7 +97,7 @@
     \framesubtitle{Labelling schemes and universal graphs}
 
     \begin{itemize}
-        \item<+->\textbf{Theorem (Folklore):}  If a graph family $\mathcal{G}$ has an $f(n)$-bit injective labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
+        \item<+->\textbf{Theorem (Folklore):}  If a graph family $\mathcal{G}$ has an $f(n)$-bit \emph{injective} labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
         \begin{itemize}
             \item $|V(U_n)|=2^{f(n)}$
             \item For each $n$-vertex $G\in\mathcal{G}$, $G$ appears as an induced subgraph of $U_n$
@@ -72,7 +105,6 @@
         \item<+->Proof: $V(U_n):=\{0,1\}^{f(n)}$, $E(U_n):=\{vw:A(v,w)=1\}$.
         \item<+->$U_n$ is called an \emph{(induced) universal} graph for $n$-vertex members of $\mathcal{G}$.
     \end{itemize}
-
 \end{frame}
 
 
@@ -81,7 +113,7 @@
     \framesubtitle{Trees and Bounded Treewidth Graphs}
 
     \begin{center}
-        \begin{tabular}{lll} \hline
+        \begin{tabular}{@{}lll@{}} \hline
             \multicolumn{3}{|c|}{Trees} \\ \hline
             $f(n)$ & $|U_n|$ & Reference  \\ \hline
             {$\lceil 2\log n\rceil$} & $O(n^2)$ & Folklore (name + parent name)   \\
@@ -99,7 +131,7 @@
     \frametitle{Planar Graphs}
     % \framesubtitle{Planar Graphs}
     \begin{center}
-        \begin{tabular}{lll} \hline
+        \begin{tabular}{@{}lll@{}} \hline
             \multicolumn{3}{|c|}{Planar graphs} \\ \hline
             $f(n)$ & $|U_n|$ & Reference \\ \hline %& Techniques \\ \hline
             {$6\log n$} & $n^6$ & Muller (1988) \\ %& 5-degeneracy \\
@@ -107,7 +139,7 @@
             {$3\log n + O(1)$} & $O(n^3)$ & ---  \\ %& arboricity + trees \\
             {$2\log n + o(\log n)$} & $n^{2+o(1)}$ & Gavoille-Labourel (2007) \\ % \\ & 2-outerplanar decomp. \\
             {$\tfrac{4}{3}\log n + o(\log n)$} & $n^{\tfrac{4}{3}+o(1)}$ & Bonamy-Gavoille-Pilipczuk (2020) \\ %& product structure  \\
-            {$\log n + o(\log n)$} & $n^{1+o(1)}$ & Dujmović-Esperet-Joret-Micek-Morin (2021) %& product structure  \\
+            {$\log n + o(\log n)$} & $n^{1+o(1)}$ & Dujmović-Esperet-Gavoille-\\ & & Joret-Micek-Morin (2021) %& product structure  \\
         \end{tabular}
     \end{center}
 \end{frame}
@@ -117,6 +149,8 @@
     % \framesubtitle{Planar Graphs}
     \begin{center}
         \begin{tabular}{lll} \hline
+          \multicolumn{3}{|c|}{Planar graphs} \\ \hline
+
             % \multicolumn{3}{|c|}{Planar graphs} \\ \hline
             $f(n)$ & Ref & Techniques \\ \hline
             {$6\log n$} & M88 & 5-degeneracy \\
@@ -125,16 +159,42 @@
             {$2\log n + o(\log n)$} & GL07 & 2-outerplanar decomp. \\
             & & + treewidth \\
             {$\tfrac{4}{3}\log n + o(\log n)$} & BGP20 & product structure  \\
-            {$\log n + o(\log n)$} & DEJMM21 & product structure  \\
+            {$\log n + o(\log n)$} & DEGJMM21 & product structure  \\
         \end{tabular}
     \end{center}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Proper Minor-Closed Classes}
+
+    \textbf{Definition:} A graph $H$ is \emph{apex} if $H-v$ is planar for some vertex $v$.\\[1ex]
+
+    \textbf{Definition:} $H$ is a \emph{minor} of $G$ if $H$ can be obtained from $G$ by deleting vertices and edges and contracting edges.\\[1ex]
+
+    \textbf{Definition:} A graph family $\mathcal{G}$ has \emph{product structure} if, for each $G\in\mathcal{G}$ there exists $H$, $\tw(H)=O(1)$, and a path $P$ such that $G\subseteq H\boxtimes P$\\[1ex]
+
+    \begin{center}
+        \begin{tabular}{llll} \hline
+            Graph class & $f(n)$ & Ref & Techniques \\ \hline
+            apex-minor-free & {$\log n + o(\log n)$} & DEGJMM21 & product structure \\
+            $k$-planar & {$\log n + o(\log n)$} & DMW21 & product structure \\
+            map graphs & {$\log n + o(\log n)$} & DMW21 & product structure  \\
+            $h$-framed & {$\log n + o(\log n)$} & BLHK22 & product structure  \\
+            $k$-matching-planar
+             & {$\log n + o(\log n)$} & HKW25 & product structure  \\[2ex]
+          $H$-minor-free & {$\log n + o(\log n)$} & DGJMMW26 & \textcolor{red}{\sout{product structure}}
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{Ingredients}
   \framesubtitle{Main New Ingredients}
 
   \begin{itemize}
+    \item $H$-minor-free graphs do not have product structure \newline (even when $H=K_6$)
     \item Tree-decomposition (Graph Minor Structure Theorem)
     \item Mixed (weighted) labelling
     \item Skinny/short decomposition
@@ -153,10 +213,166 @@
 
 
 \begin{frame}
-  \frametitle{Interval Graphs}
+  \frametitle{Tree decompositions}
 
+  $\mathcal{T}=(B_x:x\in V(T))$\\[1ex]
+
+  \begin{center}
+    \includegraphics[page=1,width=.9\textwidth]{figs/t_tprime}
+  \end{center}
+
+  $G[B_x]$ versus $\torso{G}{B_x}$
+  % $G$ versus $G^\star=\bigcup_{x\in V(T)}\torso{G}{B_x}$
 
 \end{frame}
+
+\begin{frame}
+  \frametitle{Mixed Labelling Schemes}
+  \framesubtitle{A First Try}
+
+  \begin{itemize}
+    \item Adjacency tester $A:(\{0,1\}^*)^2\to\{0,1\}$
+    \item Identity tester $I:(\{0,1\}^*)^3\to\{0,1\}$
+    \item Two graphs: $G^+$ and spanning subgraph $G$
+    \item Label vertices \emph{and cliques} of $G^+$: $\mu:V(G)\cup K(G^+)\to\{0,1\}^*$
+    \item $A(\mu(v),\mu(w))$ tests if $vw\in E(G)$
+    \item Assign each vertex $u$ in a clique $K$ a (short) \emph{local identifier} $\kappa(K,v)$
+    \item $I(\mu(K),\kappa(K,u),\mu(v))$ tests if $u=v$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mixed Labelling Schemes}
+  \framesubtitle{Example Application}
+
+  \begin{center}
+    \only<+>{\includegraphics[page=1,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=2,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=3,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=4,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=5,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=6,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=7,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=8,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=9,width=\textwidth]{figs/mixed}}%
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Weighted Mixed Labelling Schemes}
+  % \framesubtitle{A First Try}
+
+  \begin{itemize}
+    \item Adjacency tester $A:(\{0,1\}^*)^2\to\{0,1\}$
+    \item Identity tester $I:(\{0,1\}^*)^3\to\{0,1\}$
+    \item Two graphs: $G^+$ and spanning subgraph $G$
+    \item Label vertices \emph{and cliques} of $G^+$: $\mu:V(G)\cup K(G^+)\to\{0,1\}^*$
+    \item $A(\mu(v),\mu(w))$ tests if $vw\in E(G)$
+    \item Assign each vertex $u$ in a clique $K$ a (short) \emph{local identifier} $\kappa(K,v)$
+    \item $I(\mu(K),\kappa(K,u),\mu(v))$ tests if $u=v$\\[3ex]
+
+    \item Weight function $\omega:V(G)\to\mathbb{R}^+$
+    \item $|\mu(v)|\le\log(\omega(G)/\omega(v))=\log \omega(G)-\log\omega(v) + g_1(n)$
+    \item $|\kappa(K,u)|\le g_2(n)$
+    \item $|\mu(K)|\le\log \omega(G)-\log\min_{u\in K}\omega(u) + g_3(n)$
+    \item If $g_1,g_2,g_3\in o(\log n)$ then scheme is \emph{efficient}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Weighted Mixed Labelling Schemes}
+  \framesubtitle{Example Application}
+
+  \begin{center}
+    % \only<+>{\includegraphics[page=9,width=\textwidth]{figs/mixed}}%
+    \only<+>{\includegraphics[page=10,width=\textwidth]{figs/mixed}}%
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{GMST: Mixed Labelling Version}
+
+  % A weighted $(g_1,g_2,g_3)$ mixed labelling scheme is \emph{efficient} if $g_1,g_2,g_3\in o(\log n)$.\\[2ex]
+
+  \textbf{Theorem:}  For every graph $H$, every $H$-minor-free graph $G$ has a tree-decomposition whose torsos admit efficient weighted mixed labelling schemes.
+
+  ($G^+=\torso{G}{B_x}$ is a torso, $G=G[B_x]$ is the spanning subgraph)
+
+  \begin{center}
+    \only<1>{\includegraphics[width=.9\textwidth]{figs/t_tprime}}
+    \only<2->{\includegraphics[page=7,width=.9\textwidth]{figs/t_tprime}}
+  \end{center}
+  \only<3->{Does this actually work?} \only<4->{\textbf{NO}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graphs with Short Tree Decompositions}
+  \textbf{Theorem:} If each $n$-vertex $G\in\mathcal{G}$ has a tree-decomposition of height $h=h(n)$ whose torsos come from a graph class $\mathcal{G}'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\mathcal{G}$ has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \mathcolor{red}{h(n)\cdot g_3(n)} + o(\log n)$
+
+\begin{center}
+  % \only<1>{\includegraphics[width=.9\textwidth]{figs/t_tprime}}
+  \includegraphics[page=7,width=.9\textwidth]{figs/t_tprime}
+\end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Decomposition into Skinny Subtrees}
+  \begin{center}
+    \only<1>{\includegraphics[page=1,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    \only<2>{\includegraphics[page=3,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    % \only<3>{\includegraphics[page=3,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    % \only<4>{\includegraphics[page=4,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    % \only<5>{\includegraphics[page=5,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    \only<3->{\includegraphics[page=6,width=.9\textwidth]{figs/t_tprime.pdf}}%
+  \end{center}
+  \uncover<4->{Can get $h(n)=\log_b n$ by partitioning into $b$-skinny subtrees} \\
+  \uncover<5->{Even for enormous $b$ (we use $b=2^{(\log n)^{3/4}}$, so $h=(\log n)^{1/4}$})\\
+  \uncover<6->{We just need a weighted mixed labelling scheme for $b$-skinny subtrees!}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graphs with Skinny Tree-Decompositions}
+
+  \textbf{Theorem:} If each $G\in\mathcal{G}$ has a $b$-skinny tree-decomposition whose torsos are in a class $\mathcal{G}'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme then $\mathcal{G}$ has a weighted $(g_1',g_2',g_3')$ mixed labelling scheme with \newline $g_i'(n)=g_i(n)+O(\log\log n + \log b)$.\\[1ex]
+
+  \begin{center}
+    \only<+>{\includegraphics[page=1,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=2,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=3,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=4,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=5,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=6,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=7,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=8,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=9,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=10,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=11,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=12,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=13,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=14,width=.9\textwidth]{figs/skinny}}%
+    \only<+>{\includegraphics[page=15,width=.9\textwidth]{figs/skinny}}%
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Review}
+
+
+  \textbf{Theorem:} If each $G\in\mathcal{G}$ has a tree-decomposition whose torsos are in a class $\mathcal{G}'$ that has an efficient mixed labelling scheme then $\mathcal{G}$ has an efficient mixed labelling scheme.\\[1ex]
+
+  \textit{Proof:} Take the tree decomposition of $G$ and turn it into a decomposition of height $\log_b n$ whose torsos have $b$-skinny tree decompositions.\hfill{QED}
+  \\[2ex]
+
+  \uncover<2->{To prove main result, use:\\
+  \textbf{Theorem:}  For every graph $H$, every $H$-minor-free graph $G$ has a tree-decomposition whose torsos admit efficient weighted mixed labelling schemes.}
+
+\end{frame}
+
+
+\end{document}
 
 
 \begin{frame}
