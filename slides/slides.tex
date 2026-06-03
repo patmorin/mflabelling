@@ -43,7 +43,8 @@
     \only<+>{\includegraphics[page=2,width=.9\textwidth]{figs/names}}%
     \only<+>{\includegraphics[page=3,width=.9\textwidth]{figs/names}}%
     \only<+>{\includegraphics[page=4,width=.9\textwidth]{figs/names}}%
-    \only<+->{\includegraphics[page=2,width=.9\textwidth]{figs/names}}%
+    \only<+>{\includegraphics[page=2,width=.9\textwidth]{figs/names}}%
+    \only<+->{\includegraphics[page=5,width=.9\textwidth]{figs/names}}%
   \end{center}
   \uncover<+>{Patronyms: the oldest naming system in human history(?)}
 \end{frame}
@@ -76,18 +77,20 @@
 
 \begin{frame}
     \frametitle{Adjacency Labelling}
-    \framesubtitle{Labelling schemes for graph families}
+    \framesubtitle{Labelling schemes for graph classes}
 
     \begin{itemize}
-        \item<+->A graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme if \begin{itemize}
+        \item<+->A graph class $\mathcal{G}$ has an \emph{$f(n)$-bit labelling scheme} if \begin{itemize}
             \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ such that
             \item for each $n$-vertex $G\in\mathcal{G}$ there exists an adjacency labelling $\ell:V(G)\to\{0,1\}^{f(n)}$ of $G$ for $A$
         \end{itemize}
     \end{itemize}
+    \uncover<+->{Example: $\mathcal{G}:=\{Q_d:d\in \mathbb{N}\}$ (hypercubes)}
     \begin{center}
-      \only<1>{\includegraphics[page=5]{figs/labelling-scheme}}%
-      \only<2>{\includegraphics[page=6]{figs/labelling-scheme}}%
-      \only<3>{\includegraphics[page=7]{figs/labelling-scheme}}%
+      \only<1-2>{\includegraphics[page=8]{figs/labelling-scheme}}%
+      \only<+>{\includegraphics[page=5]{figs/labelling-scheme}}%
+      \only<+>{\includegraphics[page=6]{figs/labelling-scheme}}%
+      \only<+>{\includegraphics[page=7]{figs/labelling-scheme}}%
     \end{center}
 \end{frame}
 
@@ -97,7 +100,7 @@
     \framesubtitle{Labelling schemes and universal graphs}
 
     \begin{itemize}
-        \item<+->\textbf{Theorem (Folklore):}  If a graph family $\mathcal{G}$ has an $f(n)$-bit \emph{injective} labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
+        \item<+->\textbf{Theorem (Folklore):}  If a graph class $\mathcal{G}$ has an $f(n)$-bit \emph{injective} labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
         \begin{itemize}
             \item $|V(U_n)|=2^{f(n)}$
             \item For each $n$-vertex $G\in\mathcal{G}$, $G$ appears as an induced subgraph of $U_n$
@@ -114,13 +117,14 @@
 
     \begin{center}
         \begin{tabular}{@{}lll@{}} \hline
-            \multicolumn{3}{|c|}{Trees} \\ \hline
-            $f(n)$ & $|U_n|$ & Reference  \\ \hline
-            {$\lceil 2\log n\rceil$} & $O(n^2)$ & Folklore (name + parent name)   \\
+            \multicolumn{3}{|c|}{\textbf{Trees}} \\ \hline
+            \boldmath $f(n)$ & \boldmath $|U_n|$ & \textbf{Reference}  \\ \hline
+            {$\lceil 2\log n\rceil$} & $O(n^2)$ & Humanity \\
+            & & (unique name + parent name)   \\\hline
             {$\log n+\log\log n+O(1)$} & $O(n\log n)$ & Chung (1990)   \\
             $\log n + O(\log^* n)$ & $n2^{O(\log^* n)}$ & Alstrup-Rauhe (2006) \\
             {$\log n + O(1)$} & $O(n)$ & Alstrup-Dahlgaard-Knudsen (2017) \\[2em] \hline
-            \multicolumn{3}{|c|}{Bounded treewidth graphs} \\ \hline
+            \multicolumn{3}{|c|}{\textbf{Bounded treewidth graphs}} \\ \hline
             {$\log n + o(\log n)$} & $n^{1+o(1)}$ & Gavoille-Labourel (2007)
         \end{tabular}
     \end{center}
@@ -132,8 +136,8 @@
     % \framesubtitle{Planar Graphs}
     \begin{center}
         \begin{tabular}{@{}lll@{}} \hline
-            \multicolumn{3}{|c|}{Planar graphs} \\ \hline
-            $f(n)$ & $|U_n|$ & Reference \\ \hline %& Techniques \\ \hline
+            \multicolumn{3}{|c|}{\textbf{Planar graphs}} \\ \hline
+            \boldmath $f(n)$ & \boldmath$|U_n|$ & \textbf{Reference} \\ \hline %& Techniques \\ \hline
             {$6\log n$} & $n^6$ & Muller (1988) \\ %& 5-degeneracy \\
             {$4\log n$} & $n^4$ & Kannan-Naor-Rudich (1988) \\ %& 3-orientation \\
             {$3\log n + O(1)$} & $O(n^3)$ & ---  \\ %& arboricity + trees \\
@@ -149,10 +153,8 @@
     % \framesubtitle{Planar Graphs}
     \begin{center}
         \begin{tabular}{lll} \hline
-          \multicolumn{3}{|c|}{Planar graphs} \\ \hline
-
-            % \multicolumn{3}{|c|}{Planar graphs} \\ \hline
-            $f(n)$ & Ref & Techniques \\ \hline
+          \multicolumn{3}{|c|}{\textbf{Planar graphs}} \\ \hline
+            \boldmath$f(n)$ & \textbf{Ref} & \textbf{Techniques} \\ \hline
             {$6\log n$} & M88 & 5-degeneracy \\
             {$4\log n$} & KNR (1988) & 3-orientation \\
             {$3\log n + O(1)$} & --- & arboricity + trees \\
@@ -164,6 +166,48 @@
     \end{center}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Planar graphs: $3\log n+o(n)$}
+
+  \begin{itemize}
+    \item BFS layering $L_1,L_2,\ldots,L_h$
+    \item Labelling $\ell_{G_i}$ of $G_i=[L_i\cup L_{i+1}]$ (bounded treewidth)
+    \item<+-> For $v\in L_i$, $\ell(v)=\langle i, \ell_{G_i}(v), \ell_{G_{i-1}}(v)\rangle$
+    \item<+-> $|\ell(v)|\approx \log h + \log|V(G_i)|+\log|V(G_{i-1})|\approx 3\log n$
+    \item<+->Adjacency testing: $\langle i,\ell_{G_i}(v),\ell_{G_{i-1}}(v)\rangle$ vs $\langle j,\ell_{G_j}(w),\ell_{G_{j-1}}(w)\rangle$
+    \begin{itemize}
+      \item if $i=j$, return $A'(\ell_{G_i}(v),\ell_{G_j}(w))$;
+      \item else if $i-1=j$, return $A'(\ell_{G_{i-1}}(v),\ell_{G_j}(w))$;
+      \item else if $i=j-1$, return $A'(\ell_{G_{i}}(v),\ell_{G_{j-1}}(w))$;
+      \item else return 0;
+    \end{itemize}
+  \end{itemize}
+  $^*$harder than necessary
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Planar graphs: $2\log n+o(n)$}
+
+  \begin{itemize}
+    \item Define $n_i=|L_{i}\cup L_{i+1}|$, so $\sum_{i} n_i \le 2n$
+    \item<+-> $|V(G_i)|= n_i$
+    \item<+-> $|\ell_{G_i}(v)|\le \mathcolor{terracotta}{\log n_i+o(\log n)}$
+    \item<+-> Encode $1,\ldots,h$ using \emph{variable-length code}, $\beta:\{1,\ldots,h\}\to\{0,1\}^*$, where \newline
+    $|\beta(i)|\le \log (3n/n_i)+1\le \mathcolor{terracotta}{\log n - \log n_i + O(1)}$
+    \item<+->For $v\in L_i$,
+    \begin{align*}
+      |\ell(v)| & \le \mathcolor{terracotta}{|\beta(i)|}+\mathcolor{terracotta}{|\ell_{G_i}(v)|}+|\ell_{G_{i-1}}(v)|\\
+        & \le \log n + |\ell_{G_{i-1}}(v)| + o(\log n) \\
+        & \le 2\log n+o(\log n)
+    \end{align*}
+    \item<+->\textbf{Little detail:} Given $\beta(i)$ and $\beta(j)$, must check if $i+1=j$ or $i=j+1$.
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}
     \frametitle{Proper Minor-Closed Classes}
 
@@ -171,7 +215,7 @@
 
     \textbf{Definition:} $H$ is a \emph{minor} of $G$ if $H$ can be obtained from $G$ by deleting vertices and edges and contracting edges.\\[1ex]
 
-    \textbf{Definition:} A graph family $\mathcal{G}$ has \emph{product structure} if, for each $G\in\mathcal{G}$ there exists $H$, $\tw(H)=O(1)$, and a path $P$ such that $G\subseteq H\boxtimes P$\\[1ex]
+    \textbf{Definition:} A graph class $\mathcal{G}$ has \emph{product structure} if, for each $G\in\mathcal{G}$ there exists $H$, $\tw(H)=O(1)$, and a path $P$ such that $G\subseteq H\boxtimes P$\\[1ex]
 
     \begin{center}
         \begin{tabular}{llll} \hline
@@ -181,8 +225,9 @@
             map graphs & {$\log n + o(\log n)$} & DMW21 & product structure  \\
             $h$-framed & {$\log n + o(\log n)$} & BLHK22 & product structure  \\
             $k$-matching-planar
-             & {$\log n + o(\log n)$} & HKW25 & product structure  \\[2ex]
-          $H$-minor-free & {$\log n + o(\log n)$} & DGJMMW26 & \textcolor{red}{\sout{product structure}}
+             & {$\log n + o(\log n)$} & HKW25 & product structure  \\
+          \uncover<2->{$K_6$-minor-free} & \uncover<2->{$\mathcolor{red}{2\log n}+o(\log n)$} & \uncover<2->{GL07} & \uncover<2->{edge-partition} \\ & & & \uncover<2->{+ treewidth} \\
+          \uncover<3->{$H$-minor-free} & \uncover<3->{$\log n + o(\log n)$} & \uncover<3->{DGJMMW26} & \uncover<3->{\textcolor{red}{\sout{product structure}}}
         \end{tabular}
     \end{center}
 \end{frame}
@@ -194,7 +239,7 @@
   \framesubtitle{Main New Ingredients}
 
   \begin{itemize}
-    \item $H$-minor-free graphs do not have product structure \newline (even when $H=K_6$)
+    % \item $H$-minor-free graphs do not have product structure \newline (even when $H=K_6$)
     \item Tree-decomposition (Graph Minor Structure Theorem)
     \item Mixed (weighted) labelling
     \item Skinny/short decomposition
@@ -221,7 +266,7 @@
     \includegraphics[page=1,width=.9\textwidth]{figs/t_tprime}
   \end{center}
 
-  $G[B_x]$ versus $\torso{G}{B_x}$
+  \emph{induced subgraph} $G[B_x]$ versus \emph{torso} $\torso{G}{B_x}$
   % $G$ versus $G^\star=\bigcup_{x\in V(T)}\torso{G}{B_x}$
 
 \end{frame}
@@ -236,7 +281,7 @@
     \item Two graphs: $G^+$ and spanning subgraph $G$
     \item Label vertices \emph{and cliques} of $G^+$: $\mu:V(G)\cup K(G^+)\to\{0,1\}^*$
     \item $A(\mu(v),\mu(w))$ tests if $vw\in E(G)$
-    \item Assign each vertex $u$ in a clique $K$ a (short) \emph{local identifier} $\kappa(K,v)$
+    \item Assign each vertex $u$ in a clique $K$ a (short) \emph{local identifier} $\kappa(K,u)$
     \item $I(\mu(K),\kappa(K,u),\mu(v))$ tests if $u=v$
   \end{itemize}
 \end{frame}
@@ -273,7 +318,7 @@
     \item $I(\mu(K),\kappa(K,u),\mu(v))$ tests if $u=v$\\[3ex]
 
     \item Weight function $\omega:V(G)\to\mathbb{R}^+$
-    \item $|\mu(v)|\le\log(\omega(G)/\omega(v))=\log \omega(G)-\log\omega(v) + g_1(n)$
+    \item $|\mu(v)|\le\log(\omega(G)/\omega(v))+g_1(n)=\log \omega(G)-\log\omega(v) + g_1(n)$
     \item $|\kappa(K,u)|\le g_2(n)$
     \item $|\mu(K)|\le\log \omega(G)-\log\min_{u\in K}\omega(u) + g_3(n)$
     \item If $g_1,g_2,g_3\in o(\log n)$ then scheme is \emph{efficient}
@@ -304,7 +349,7 @@
     \only<1>{\includegraphics[width=.9\textwidth]{figs/t_tprime}}
     \only<2->{\includegraphics[page=7,width=.9\textwidth]{figs/t_tprime}}
   \end{center}
-  \only<3->{Does this actually work?} \only<4->{\textbf{NO}}
+  \uncover<3->{Does this actually work?} \uncover<4->{\textbf{NO}}
 \end{frame}
 
 \begin{frame}
@@ -321,14 +366,15 @@
   \frametitle{Decomposition into Skinny Subtrees}
   \begin{center}
     \only<1>{\includegraphics[page=1,width=.9\textwidth]{figs/t_tprime.pdf}}%
-    \only<2>{\includegraphics[page=3,width=.9\textwidth]{figs/t_tprime.pdf}}%
+    \only<2>{\includegraphics[page=8,width=.9\textwidth]{figs/t_tprime.pdf}}%
     % \only<3>{\includegraphics[page=3,width=.9\textwidth]{figs/t_tprime.pdf}}%
     % \only<4>{\includegraphics[page=4,width=.9\textwidth]{figs/t_tprime.pdf}}%
     % \only<5>{\includegraphics[page=5,width=.9\textwidth]{figs/t_tprime.pdf}}%
     \only<3->{\includegraphics[page=6,width=.9\textwidth]{figs/t_tprime.pdf}}%
   \end{center}
+  \uncover<1->{Choose $x$ if $|\bigcup_{y\in V(T_x)}B_y|>n/b$} \\
   \uncover<4->{Can get $h(n)=\log_b n$ by partitioning into $b$-skinny subtrees} \\
-  \uncover<5->{Even for enormous $b$ (we use $b=2^{(\log n)^{3/4}}$, so $h=(\log n)^{1/4}$})\\
+  \uncover<5->{Even for enormous $b$ (we use $b=2^{(\log n)^{3/4}}$, so $h=(\log n)^{1/4}$)}\\
   \uncover<6->{We just need a weighted mixed labelling scheme for $b$-skinny subtrees!}
 \end{frame}
 
@@ -369,264 +415,31 @@
   \uncover<2->{To prove main result, use:\\
   \textbf{Theorem:}  For every graph $H$, every $H$-minor-free graph $G$ has a tree-decomposition whose torsos admit efficient weighted mixed labelling schemes.}
 
+  \uncover<3->{Proof follows from techniques in [DEGJMM21]}
+
 \end{frame}
 
-
-\end{document}
-
-
 \begin{frame}
-    \frametitle{The Strong Graph Product $\boxtimes$}
+  \frametitle{Summary/Conclusion}
 
+  \begin{itemize}
+    \item $(1+o(1))\log n$-bit adjacency labelling scheme for $H$-minor-free graphs
     \begin{itemize}
-        \item[] For two graphs $A$ and $B$, the \emph{strong product} $A\boxtimes B$ is a graph:
-        \begin{itemize}
-            \item $V(A\boxtimes B):=V(A)\times V(B)$
-            \item $(a_1,b_1)$ and $(a_2,b_2)$ are adjacent if and only if:
-            \begin{itemize}
-                \item $a_1=a_2$ and $b_1b_2\in E(B)$;
-                \item $a_1a_2 \in E(A)$ and $b_1=b_2$; or
-                \item  $a_1a_2 \in E(A)$ and $b_1b_2 \in E(B)$.
-            \end{itemize}
-        \end{itemize}
+      \item weighted mixed labelling scheme
+      \item solution for graphs with short tree decompositions
+      \item solution for graphs with skinny tree decompositions
+      \item partition of any tree decomposition into skinny subtrees whose contraction gives a short tree
     \end{itemize}
-    \begin{center}
-        \includegraphics{figs/product}
-    \end{center}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{The Product Structure Theorem}
-
-    \begin{center}
-        \includegraphics[scale=.5]{figs/product}
-    \end{center}
-
+    \item Proof is constructive
     \begin{itemize}
-        \item<+->\textbf{Product Structure Theorem (Dujmović-Joret-Micek-M-Ueckerdt-Wood 2019):} For any planar graph $G$ there exists a graph $H$ of treewidth at most $8$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.
-
-        \item<+->\textbf{Main Result (Here):} Let $\mathcal{G}_t$ be the family of graphs such that for each $G\in\mathcal{G}$, there exists a graph $H$ of treewidth at most $t$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.  Then, for any fixed $t$, $\mathcal{G}$ has a $(\log n + o(\log n))$-bit labelling scheme.
-
-        \item<+->\textbf{Applications:} bounded genus graphs, apex-minor free graphs, bounded-degree graphs from minor-closed families, $k$-planar graphs for constant $k$
+      \item Polynomial time algorithm for computing the labelling
+      \item $O((\log n)^{1/4})$-time adjacency testing procedure
     \end{itemize}
+  \end{itemize}
+  \begin{center}
+    \uncover<2->{\Huge Thank You!}
+  \end{center}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Warm-up: Induced Subgraphs of $P\boxtimes P$}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=2]{figs/pxp}%
-    \end{center}
-    \begin{itemize}
-        \item The label for a vertex $v=(x,y)$ has three main parts:
-        \begin{itemize}
-            \item A \emph{row label} of length $\log n -\textcolor{odsorange}{\log n_y} + o(\log n)$ defined by $y$
-            \item A \emph{column label} of length $\textcolor{odsorange}{\log n_y} +o(\log n)$ defined by $(G_y,x)$
-            \item A \emph{transition label} of length $o(\log n)$ defined by $(G_y,G_{y+1},x)$
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Main idea: Use binary search trees}
-
-    \begin{center}
-        \includegraphics[scale=0.6]{figs/pxp-evolution-4}%
-    \end{center}
-    \begin{itemize}
-        \item Labels describe paths in binary search trees
-        \begin{itemize}
-            \item Row labels: biased binary search tree: $\log n -\textcolor{odsorange}{\log n_y} + o(\log n)$
-            \item Column labels: sequence of related binary search trees $T_1,\ldots,T_h$: $\textcolor{odsorange}{\log n_y} +o(\log n)$ %defined by $(G_y,x)$
-            \item Transition labels: Difference between $\pth(T_y,x)$ and $\pth(T_{y+1},x)$
-        \end{itemize}
-        \item<2-> Gives solution for induced subgraphs of $P\boxtimes P$
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Missing Pieces}
-
-    \begin{itemize}[<+->]
-        \item Subgraphs of $H\boxtimes P$ not $P\boxtimes P$
-        \begin{itemize}
-            \item $H$ has pathwidth $O(\log n)$
-            \item $H$ is contained in an \emph{interval graph} $H^+$ of thickness $O(\log n)$
-            \item Use an \emph{interval tree}
-        \end{itemize}
-
-        \item Subgraphs of $H\boxtimes P$ not \emph{induced} subgraphs
-        \begin{itemize}
-            \item Use $d$-orientation of $H\boxtimes P$
-            \item Additional bit-vector of length $d$ indicates which induced edges are actually present
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Summary and Conclusions}
-    \framesubtitle{Summary}
-
-    \begin{itemize}[<+->]
-        \item Summary
-        \begin{itemize}
-            \item The class of $n$-vertex planar graphs has a $(\log n + O(\sqrt{\log n\log\log n}))$-bit adjacency labelling scheme.
-
-            \item For each $n\in\N$ there exists a graph $U_n$ with $n\cdot 2^{O(\sqrt{\log n\log\log n})}$ vertices that is (induced) universal for $n$-vertex planar graphs.
-        \end{itemize}
-        \item Open Problem: the lower order term
-        \begin{itemize}
-            \item Best upper bound: $O(\sqrt{\log n\log\log n})$ term
-            \item Best lower bound: $\Omega(1)$
-        \end{itemize}
-        \item Open Problem: proper minor-closed families of graphs
-        \item Thanks!
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Binary Search Trees}
-    \framesubtitle{Any binary search tree can label a path}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/bst-path}%
-    \end{center}
-    \begin{itemize}
-        \item Label length: $\mathrm{depth}_T(v)+ O(\log\mathrm{height}(T))=\mathrm{depth}_T(v)+O(\log\log n)$ bits
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Column Code Trees}
-    \framesubtitle{Bulk Trees}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/pxp-evolution}%
-    \end{center}
-    \begin{itemize}
-        \item<4>$\sum_{i=1}^h |T_i| = O(n)$
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{The Row Code Tree}
-    \framesubtitle{Biased binary search trees}
-
-    \begin{itemize}
-        \item<+-> $\sum_{i=1}^h |T_i| = O(n)$
-        \item<+-> Make a biased binary search tree $T$ with $V(T):=\{1,\ldots,h\}$  using $\mathrm{weight}(i)=|T_i|$
-        \begin{itemize}
-            \item<+-> Then $\mathrm{depth}_T(i) \le \log n - \textcolor{odsorange}{\log |T_i|} + O(1)$
-        \end{itemize}
-        \item<+-> Row $i$ label length is $\log n-\textcolor{odsorange}{\log |T_i|} + O(\log\log n)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Column Code Tree}
-    \framesubtitle{Bulk Trees}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=4]{figs/pxp-evolution}%
-    \end{center}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Bulk Insertion}
-    \framesubtitle{Bulk Trees}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/addition}%
-    \end{center}
-    \begin{itemize}
-        \item<6> $h(T_{i+1})\le h(T_i)+c$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Bulk Deletion}
-    \framesubtitle{Bulk Trees}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/deletion}%
-    \end{center}
-    \begin{itemize}
-        \item<7-> $h(T_{i+1}) \le h(T_i)$
-        \item<8-> $\log|T_i|\le \log|T_{i+1}| + c$
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Rebalancing}
-    \framesubtitle{balance$(x,k)$}
-
-    Basic operation: balance$(x,k)$
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/balance}%
-    \end{center}
-    \begin{itemize}
-        \item<5->Effect on signature can be encoded in $O(k\log\log n)$ bits
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Rebalancing}
-    \framesubtitle{balance$(\theta)$}
-
-    \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/bulkbalance}%
-    \end{center}
-    \begin{itemize}
-        \item<11->Ensures that $h(T_i)\le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Summary}
-    \begin{itemize}[<+->]
-        \item transition code length: $O(k\log\log n)$
-        \item $h(T_i) \le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
-        \item label length: $h(T_i) + O(k\log\log n)\le \log|T_i| + O(\tfrac{1}{k}\log n + k\log\log n)$
-        \item optimize $k$: $h(T_i) + O(\sqrt{\log n\log\log n})$
-    \end{itemize}
-\end{frame}
-
-
-\end{document}
-
-\begin{frame}
-    \frametitle{Frame Title}
-    \framesubtitle{Frame Subtitle}
-\end{frame}
-
-
-
-\end{document}
-
-\begin{frame}
-  \frametitle{DLList}
-  \framesubtitle{A doubly-linked list}
-  \begin{block}{Theorem}
-    \begin{itemize}
-      \item<+->[]A DLList implements the List and Deque interfaces.
-      \begin{itemize}
-          \item<+->The List operations $\fn{get}(i)$, $\fn{set}(i,x)$, $\fn{add}(i,x)$ and
-             $\fn{remove}(i)$ operations each run in $O(1+\min\{i,n-i\})$ time.
-       \item<+->The Deque operations $\fn{addFront}(x)$, $\fn{removeFront}()$, $\fn{addBack}(x)$ and
-             $\fn{removeBack}()$ operations each run in $O(1)$ time.
-
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\closing
 
 \end{document}
