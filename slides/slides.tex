@@ -168,7 +168,21 @@
 
 
 \begin{frame}
-  \frametitle{Planar graphs: $3\log n+o(n)$}
+  \frametitle{Planar graphs: $2\log n+o(\log n)$}
+
+  \begin{center}
+    \only<+>{\includegraphics[page=1]{figs/planar}}%
+    \only<+>{\includegraphics[page=2]{figs/planar}}%
+    \only<+>{\includegraphics[page=3]{figs/planar}}%
+    \only<+>{\includegraphics[page=4]{figs/planar}}%
+    \only<+>{\includegraphics[page=5]{figs/planar}}%
+  \end{center}
+  \uncover<4->{$\ell_{G_1}$, $\ell_{G_2}$ and $A'$ come from Gavoille-Labourel 2007}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Planar graphs: $3\log n+o(\log n)$}
 
   \begin{itemize}
     \item BFS layering $L_1,L_2,\ldots,L_h$
@@ -189,7 +203,7 @@
 
 
 \begin{frame}
-  \frametitle{Planar graphs: $2\log n+o(n)$}
+  \frametitle{Planar graphs: $2\log n+o(\log n)$}
 
   \begin{itemize}
     \item Define $n_i=|L_{i}\cup L_{i+1}|$, so $\sum_{i} n_i \le 2n$
@@ -243,6 +257,8 @@
     \item Tree-decomposition (Graph Minor Structure Theorem)
     \item Mixed (weighted) labelling
     \item Skinny/short decomposition
+    \item<3-> Solution for skinny tree decompositions
+    \item<4-> Solution for short tree decompositions
   \end{itemize}
 
   \begin{center}
