@@ -251,6 +251,19 @@ Such apex-minor-free classes are the limit of this approach, since a minor-close
 \subsection{Setup and Proof of \cref{main_result}}
 \label{KeyTools}
 
+1. Imagine trying to solve a poblem\\
+2. vertex lives in possibly many bags, motivates home\\
+3. label in home log n
+4. indentifying home bag log n (or testing if two vertices in the same bag another log n bits)
+5. already at 2 log n and it does not solve a problem 
+6. stop clever person here, although the internal lable in the and the idetification of its bag can be reduces to log n ... it does not solve adjenecny proble (stupid n log n does)
+7. to be able to do adjecncy testing (more effeciently) we introduce mixed labelling schmem -- has somehow two properties
+- it can test adjecency
+- it encosed this path ... this would work except that this path may be of lenght log n. 
+- works but the solution uses log n + h*w(1) bits
+
+- to handle that we need tree decompositions of short hight
+
 We now introduce one result from the literature, \cref{gmpst}, and three technical results, \cref{PlainRealMainTechnical,HandleApexvertices,gk_labelling}, which together prove \cref{main_result}. First we need several definitions.
 
 In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices.   Let $G$ be a graph and $X\subseteq V(G)$. By $G[X]$ we denote the subgraph of $G$ induced on $X$. For other standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
@@ -269,7 +282,8 @@ following properties:
 We call the sets $B_x$ the \defin{bags} of the tree-decomposition and the sets $B_x\cap B_y$ for all distinct $x,y\in V(T)$, the \defin{adhesions} of the tree-decomposition.
 The \defin{width} of a tree-decomposition is the maximum size of a bag minus one.
 The \defin{adhesion-width} of a tree-decomposition is the maximum size of an adhesion.
-(In the literature, adhesions are usually defined only for pairs $x,y \in V(T)$ with $xy \in E(T)$; we remark that adhesion-width is the same under the two definitions.)\ For a tree-decomposition $(T,(B_x \mid x\in V(T)))$ of a graph $G$, for each  $x\in V(T)$, the \defin{torso} of $x$, denoted by \defin{$\torso{G}{B_x}$}, is the graph with the vertex-set $B_x$ in which two distinct vertices $u$ and $v$ are adjacent if $uv \in E(G)$, or there exists $y \in N_T(x)$  such that $u,v \in B_x \cap B_y$.\footnote{For a graph $G$ and a vertex $v$ of $G$, $N_G(v)$ denotes a set of neighbours of $v$ in $G$. The notation $\torso{G}{B_x}$ introduces some minor ambiguity since the definition of $\torso{G}{B_x}$ depends on $(B_y:y\in N_T(x))$, but the notation makes no reference to the tree-decomposition $(T, (B_z\mid z\in V(T))$.  When we use this notation, the tree-decomposition will always be obvious from context.}
+(In the literature, adhesions are usually defined only for pairs $x,y \in V(T)$ with $xy \in E(T)$; we remark that adhesion-width is the same under the two definitions.)\
+\pat{There was an old discussion about this. We only need adhesions to be defined for neighbouring bags.} For a tree-decomposition $(T,(B_x \mid x\in V(T)))$ of a graph $G$, for each  $x\in V(T)$, the \defin{torso} of $x$, denoted by \defin{$\torso{G}{B_x}$}, is the graph with the vertex-set $B_x$ in which two distinct vertices $u$ and $v$ are adjacent if $uv \in E(G)$, or there exists $y \in N_T(x)$  such that $u,v \in B_x \cap B_y$.\footnote{For a graph $G$ and a vertex $v$ of $G$, $N_G(v)$ denotes a set of neighbours of $v$ in $G$. The notation $\torso{G}{B_x}$ introduces some minor ambiguity since the definition of $\torso{G}{B_x}$ depends on $(B_y:y\in N_T(x))$, but the notation makes no reference to the tree-decomposition $(T, (B_z\mid z\in V(T))$.  When we use this notation, the tree-decomposition will always be obvious from context.}
 
 
 %Let $G$ be a graph and $\calT=(T,(B_x \mid x\in V(T)))$ be a tree-decomposition of $G$. If $T$ is a path, then $\calT$ is a \defin{path-decomposition} of $G$, simply denoted by the sequence $(W_1, W_2, \dots, W_m)$ of the bags in the order of the vertices in the underlying path.
@@ -281,10 +295,14 @@ ${v=w}$ and ${xy \in E(B)}$, or
 ${x=y}$ and ${vw \in E(A)}$, or
 ${vw \in E(A)}$ and~${xy \in E(B)}$.
 For an integer $k\geq 0$, let \defin{$\mathcal{R}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.
-This definition includes various classes of interest. For example, \citet{dujmovic.joret.ea:planar} showed that $\mathcal{R}_{8}$ includes all planar graphs.
-A class of graphs $\mathcal{G}$ admits a \defin{product structure}, if there exists an integer $k$ such that $\mathcal{G}\subseteq \mathcal{R}_k$. As mentioned in the introduction, a minor-closed class admits a product structure if and only if it excludes some apex graph as a minor; see \citep{Dujmovic26,DHJLW21,DujWoo-ECM} for surveys on graph product structure theory.
+The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\mathcal{R}_k$, for any fixed $k$.
+This immediately gives $(1+o(1))\log n$-bit adjacency labelling schemes for many classes of interest.
+% For example, \citet{dujmovic.joret.ea:planar} showed that $\mathcal{R}_{8}$ includes all planar graphs.  
+% As mentioned in the introduction, a minor-closed class 
+% admits a product structure if and only if it excludes some apex graph as a minor; see \citep{Dujmovic26,DHJLW21,DujWoo-ECM} for surveys on graph product structure theory.  
+A class of graphs $\mathcal{G}$ admits a \defin{product structure}, if there exists an integer $k$ such that $\mathcal{G}\subseteq \mathcal{R}_k$. As mentioned in the introduction, a minor-closed class admits a product structure if and only if it excludes some apex graph as a minor; see \citep{Dujmovic26,DHJLW21,DujWoo-ECM} for surveys on graph product structure theory.  
 
-To deal with arbitrary proper minor-closed classes, a broader structure is needed, which is provided by the following variant of the Robertson--Seymour Graph Minor Structure Theorem, due to \citet{dujmovic.joret.ea:planar}. For any class $\mathcal{G}$, let \defin{$\mathcal{G}^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
+To deal with arbitrary proper minor-closed classes, a broader structure is needed, which is provided by the following variant of the Robertson--Seymour Graph Minor Structure Theorem, due to \citet{dujmovic.joret.ea:planar}. For any class $\mathcal{G}$, let \defin{$\mathcal{G}^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.  It is an simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\mathcal{G}$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\mathcal{R}^{+a}$.  In particular, for any fixed $k,a\ge 0$, there exists a $(1+o(1))\log n$-bit adjacency labelling scheme for $\mathcal{R}^{+a}_k$.
 
 \begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
   \label{gmpst}
@@ -292,9 +310,26 @@ To deal with arbitrary proper minor-closed classes, a broader structure is neede
 \end{thm}
 
 Note that \citet{dujmovic.joret.ea:planar} employed \cref{gmpst} to reprove the result of \citet{devos2004} mentioned in the introduction, which \citet{gavoille.labourel:shorter} used to construct a ${(2+o(1))\log n}$-bit adjacency labelling scheme for any proper minor-closed class.
+\pat{Consider removing the previous sentence.}\vida{I think i would remove it too}
 
 
-To construct adjacency labelling schemes for graph classes defined by tree-decompositions (as in \cref{gmpst}), we work in the following more general setting. Let $\mathcal{G}$ be a class of graphs.
+
+\pat{New text}
+\Cref{gmpst} and the adjacency labelling scheme for product structured graphs in \cite{dujmovic.esperet.ea:adjacency} imply that every $n$-vertex $H$-minor-free graph $G$ has a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T))$ such that the induced subgraph $G[B_x]$ has an adjacency labelling with labels of length $(1+o(1))\log n$, for each $x\in V(T)$.  Unfortunately, a vertex $v$ of $G$ can appear in $B_x$ for arbitrarily many $x\in V(T)$, but we can only afford to assign one label of length $\log n+o(\log n)$ to $v$.  This forces us to assign one `home' $x\in V(T)$ to $v$ and assign a label $\ell(v)=\ell_x(v)$ in $G[B_x]$.  This immediately causes a problem:  For an edge $vw$ of $G$, the home $x$ assigned to $v$ may not be the same as the home $y$ assigned to $w$.  This makes the labels $\ell_x(v)$ and $\ell_y(w)$ incompatible since they come from  different graphs $G[B_x]$ and $G[B_y]$.  
+% There is no reliable way to check for a tester to check for the presence of the edge $vw$.  In particular, there is no way to distinguish between $v$ and some other vertex $v'\in B_x$ that is not adjacent to $w$.
+Even worse, the naïve labelling described above does not even make it possible for an adjacency tester to determine if two vertices $v$ and $w$ have the same home, i.e., to test if $x=y$.  Thus, any labelling scheme based on the tree-decomposition $\mathcal{T}$ needs to solve two problems: 
+\begin{enumerate*}[label=(\roman*)]
+  \item\label{test_homes} it must be possible, from the labels of $v$ and $w$ to determine if the home of $v$ and the home of $w$ are the same; and
+  \item\label{hard_adjacency_test} when the home of $v$ and $w$ are not the same, it must be possible to test if $v$ and $w$ are adjacent.
+\end{enumerate*}
+
+An important contribution of the current work is to introduced a generalization of adjacency labelling, called mixed labelling, that solves \ref{test_homes} and \ref{hard_adjacency_test}. Very roughly, the label for a vertex $v$ whose home is $B_x$ consists of a prefix that describes the path $x_0,\ldots,x_p$ from the root $x_0$ of $T$ to the home node $x=x_p$ of $v$ followed by an adjacency label for $v$ in $G[B_x]$.  Each step $x_{i}x_{i+1}$ in the path is described by a label for the adhesion $B_{x_i}\cap B_{x_{i+1}}$ which forms a clique in $\torso{G}{\mathcal{T},B_{x_i}}$.  One consequence of this (if we choose the homes of vertices appropriately) is that in the situation described in the previous paragraph, the path $x_0,\ldots,x_q$ from the root of $T$ to the home $y=x_q$ of $w$ will contain the home $x=x_p$ of $v$.  Furthermore, if $x\neq y$, the label of $w$ will contain the label of a clique $K$ in $\torso{\mathcal{T},G}{B_x}$ that contains $v$.  The label of $K$ and a short \emph{local identifier} of $v$ in $K$ that gets stored in the label of $w$ then makes it possible to distinguish $v$ from other nodes in $B_x$.  
+\pat{End of new text}
+
+% \pat{Here is a place that we can add some intuition about (i)~the difficulty of the problem and (ii)~the need for clique labels.  The difficulty comes from the fact that a vertex $w$ may be adjacent to a vertex $v$ whose home node $x$ is very far from the home node $y$ of $w$.  Clique labels (and local identifiers) give a way of encoding the path from the root of $T$ to the home node of $w$ so that this path contains information about a clique in $\torso{G}{B_x}$ that contains $v$.}
+
+% To construct adjacency labelling schemes for graph classes defined by tree-decompositions (as in \cref{gmpst}), we work in the following more general setting. 
+The following definition is motivated by the discussion in the previous two paragraphs. Let $\mathcal{G}$ be a class of graphs.
 Let $g_i:\N\to\R^+$ for each $i\in[3]$.
 The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} of $\mathcal{G}$ if there exists a pair $(A,I)$ with
 \begin{itemize}[nosep,nolistsep]
@@ -333,7 +368,7 @@ such that:
 A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.
 
 
-Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\min_{v\in K}(\omega(v))$.
+Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
 The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So a graph class admitting an efficient mixed weighted labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
 
@@ -346,7 +381,7 @@ Our first tool handles product structured graphs.
 \label{sketch_start}
 \Cref{gk_labelling} is essentially a weighted extension of the $(1+o(1))\log n$-bit adjacency labelling scheme of \citet{dujmovic.esperet.ea:adjacency} for $\mathcal{R}_k$ and the B-tree variant of this scheme given by \citet{gawrychowski.janczewski:simpler}.
 % \footnote{The labelling of cliques needed for a mixed labelling is implicit in \cite{dujmovic.esperet.ea:adjacency}, where the label of a vertex $w$ is essentially the label of a clique $K_w$ in a supergraph of $G$. The cliques $\{K_v:v\in V(G)\}$ are chosen so that, for every edge $vw$ of $G$, $v,w\in V(K_w)$ or $v,w\in V(K_v)$. See \cref{weighted_product_proof} for more details.}
-To obtain this generalization, we employ the standard trick of simulating weight using multiplicity that appears in the proof of \cref{shannon_fano_elias_tree}.  Since this requires no ideas not already in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} we defer this discussion to \cref{weighted_product_proof}, the bulk of which is a review of \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency}.
+To obtain this generalization, we employ the standard trick of simulating weight using multiplicity (a simple example of which appears in the proof of \cref{shannon_fano_elias_tree}).  Since this requires no ideas not already in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} we defer this discussion to \cref{weighted_product_proof}, the bulk of which is a review of \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency}.
 
 Our next tool handles apex vertices.
 
@@ -369,7 +404,7 @@ The most significant technical contribution of this paper is the following tool 
   Let $\mathcal{G}$ be a hereditary graph class closed under taking disjoint union and admitting an efficient weighted mixed labelling scheme. Then, for any fixed integer $k\geq 0$, the class of graphs that have a tree-decomposition of adhesion-width at most $k$ whose torsos belong to $\mathcal{G}$ also admits an efficient weighted mixed labelling scheme.
 \end{thm}
 
-The proof of \cref{PlainRealMainTechnical} is sketched in \cref{Overview} and is completed in \cref{RealMainTechnical}. \cref{PlainRealMainTechnical} highlights the advantage of weighted mixed labelling schemes over adjacency labelling schemes, since roughly speaking, it says efficient weighted mixed labelling schemes are closed under taking tree-decompositions of bounded adhesion-width. \cref{PlainRealMainTechnical} may be of independent interest, since it yields $(1+o(1))\log n$-bit labelling schemes for graph classes beyond proper minor-closed classes, for example, graphs that have a tree-decomposition whose torsos are $k$-planar.\footnote{A graph is \defin{$k$-planar} if it can be drawn in the plane with at most $k$ crossings on each edge. \citet{DMW??} showed that every $k$-planar graph is in $\mathcal{R}_{\Oh(k)}$ Thus such graphs have maximum clique size $O(k)$, and the adhesion width here is $\Oh(k)$.}
+The proof of \cref{PlainRealMainTechnical} is sketched in \cref{Overview} and is completed in \cref{RealMainTechnical}. \cref{PlainRealMainTechnical} highlights the advantage of weighted mixed labelling schemes over adjacency labelling schemes, since roughly speaking, it says efficient weighted mixed labelling schemes are closed under taking tree-decompositions of bounded adhesion-width. \cref{PlainRealMainTechnical} may be of independent interest, since it yields $(1+o(1))\log n$-bit labelling schemes for graph classes beyond proper minor-closed classes, for example, graphs that have a tree-decomposition whose torsos are $k$-planar.\footnote{A graph is \defin{$k$-planar} if it can be drawn in the plane with at most $k$ crossings on each edge. \citet{dujmovic.morin.ea:graph} showed that every $k$-planar graph is in $\mathcal{R}_{\Oh(k)}$ Thus such graphs have maximum clique size $O(k)$, and the adhesion width here is $\Oh(k)$.}
 
 % \Cref{add_apexes} and \cref{gk_labelling} immediately imply the following:
 
@@ -394,6 +429,8 @@ The proof of \cref{PlainRealMainTechnical} is sketched in \cref{Overview} and is
 \label{Overview}
 
 \david{revise this section knowing that weighted mixed labelling schemes have already been defined}
+
+\pat{Working on this now.}
 
 
 
