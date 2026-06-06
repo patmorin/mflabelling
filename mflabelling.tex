@@ -169,7 +169,7 @@ Finally, in 2020 \citet{dujmovic.esperet.ea:adjacency} used the product structur
 The adjacency labelling scheme of \citet{dujmovic.esperet.ea:adjacency} works for  graphs embeddable in any fixed surface, and generally for any minor-closed class excluding a fixed apex graph as a minor. Here a graph $X$ is \defin{apex} if $X$ can be made planar by the removal of at most one vertex.
 Such apex-minor-free classes are the limit of this approach, since a minor-closed class $\mathcal{G}$ has `product structure' if and only if some apex graph is not in $\mathcal{G}$. Indeed, the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $K_t$-minor-free graphs is stated as an open problem by \citet[Section~6, Problem~2]{dujmovic.esperet.ea:adjacency}. Prior to the present work, the best result for $K_t$-minor-free graphs, $t\geq 6$, was the $(2+o(1))\log n$-bit adjacency labelling scheme of \citet{gavoille.labourel:shorter}.
 
-\subsection{Setup and Proof of \cref{main_result}}
+\subsection{Setup and Proof of \texorpdfstring{\cref{main_result}}{Theorem \ref*{main_result}}}
 \label{KeyTools}
 
 In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices.   Let $G$ be a graph and $X\subseteq V(G)$. By $G[X]$ we denote the subgraph of $G$ induced on $X$. For other standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
@@ -511,7 +511,7 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
   It remains to show that $\height(Q)\le\log_b n$.  If $1\le n \le b$, then $\height(Q)=0\le\log_b n$.  Otherwise, for each $y\in L_2(Q)$, the inductive hypothesis implies that $\height(Q_y)\le\log_b(\omega(Q_y))\le\log_b(n/b)=\log_b n - 1$.  Thus, $\height(Q)=1+\max\{\height(Q_y):y\in L_2(Q)\}\le \log_b n$.
 \end{proof}
 
-\section{Weighted Mixed Labelling Schemes -- Proof of \cref{PlainRealMainTechnical}}
+\section{Weighted Mixed Labelling Schemes -- Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
 \label{weighted_mixed_section}
 
 This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. Let $\mathcal{G}$ be a class of graphs.
@@ -594,7 +594,7 @@ The two notions are essentially equivalent, as shown by the following lemma. Thi
 \subsection{Adding Apex Vertices}
 \label{sec:adding_apexes}
 
-The next lemma is a precise version of \cref{HandleApexvertices}. Recall that $\mathcal{G}^{+a}$ is the class of graphs $G$ such that $G-X\in\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
+The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\mathcal{G}^{+a}$ is the class of graphs $G$ such that $G-X\in\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes}
   Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
@@ -1488,7 +1488,7 @@ The next lemma is a precise version of \cref{HandleApexvertices}. Recall that $\
   \end{itemize}
 \end{proof}
 
-\subsection{Finalizing the Proof of \cref{PlainRealMainTechnical}}
+\subsection{Finalizing the Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
 \label{sec:finalizing}
 
 The following lemma proves \cref{PlainRealMainTechnical}, with quantitative bounds.
@@ -1560,7 +1560,7 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
   Therefore, all the torsos of $\mathcal{Q}$ are in the class $\mathcal{B}$ and therefore $G$ is in the class $\mathcal{C}$.  This completes the proof of the lemma.
 \end{proof}
 
-\subsection{Proof of \cref{main_result} with Explicit Bounds}
+\subsection{Proof of \texorpdfstring{\cref{main_result}}{Theorem \ref*{main_result}} with Explicit Bounds}
 
 We now prove our main result, \cref{main_result}, with an explicit lower order term.
 
@@ -1602,10 +1602,10 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
 \appendix
 \crefalias{section}{appendix}
 
-\section{Proof of \cref{gk_labelling}}
+\section{Mixed Labelling Scheme for \texorpdfstring{$\mathcal{R}_k$}{Rk}}
 \label{weighted_product_proof}
 
-In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the weighted mixed labellings promised in \cref{gk_labelling}.  We obtain the following precise version of \cref{gk_labelling}.
+In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the efficient mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  We prove the following result.
 
 \begin{lem}\label{gk_labelling_precise}
   For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits an efficient weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
@@ -1783,7 +1783,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     Except for the new definition of the basic signature $\sigma$ and the transition function $\tau$, every other aspect of the resulting labelling scheme and adjacency testing procedure is as described in \cite{dujmovic.esperet.ea:adjacency}.
 
     \paragraph{A weighted mixed labelling scheme:}
-    We now describe the changes to \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling}.  For this we will define an adjacency tester $A$ and an identity tester $I$. As usual, we first describe the format of the vertex and clique labels before describing the operation of $A$ and $I$.
+    We now describe the changes to \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling_precise}.  For this we will define an adjacency tester $A$ and an identity tester $I$. As usual, we first describe the format of the vertex and clique labels before describing the operation of $A$ and $I$.
 
     Let $H$ be an edge-maximal graph of treewidth at most $k$, let $P=(1,\ldots,h)$ be a path, let $G^+$ be a subgraph of $H\boxtimes P$, let $G$ be a spanning subgraph of $G^+$ and let $\omega:V(G)\to\R^+$ be a weight function.  As in other proofs, we may assume that $\omega$ is nice, so that $\omega(v)$ is a positive integer, for each $v\in V(G)$, and that $\log\omega(G)\in\Oh(\log n)$.  We may also assume that $G^+$ is an induced subgraph of $H\boxtimes P$.
 
@@ -1864,7 +1864,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     For any fixed $k$, $|\mu((v,i))|=\log \omega(G)-\log \omega((v,i)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_1(n)\in\Oh(\sqrt{\log n})$. Since the vertex labels assigned by $\mu$ have the same format as those in \cite{alstrup.dahlgaard.ea:optimal,dujmovic.esperet.ea:adjacency}, the adjacency tester $A$ proceeds exactly as described in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}.
 
     \paragraph{Clique labelling and identity testing:}
-    Thus far, we have shown that the lengths of the vertex labels promised in \cref{gk_labelling} are achievable.
+    Thus far, we have shown that the lengths of the vertex labels promised in \cref{gk_labelling_precise} are achievable.
     What remains is to describe the clique labels, the local identifiers, and the identity testing procedure.
 
     Let $K$ be a clique in $G^+$ that contains no dummy vertices and let $V_K:=\{v\mid (v,j)\in K\}$.%
