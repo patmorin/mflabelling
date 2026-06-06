@@ -129,7 +129,7 @@ Here we review results most relevant to the current work, namely results on tree
 graphs.
 
 We start with a simple example to better grasp the notion of labelling schemes.
-Given an $n$-vertex tree $T$, fix an arbitrary vertex to be the root of $T$, and assign each vertex of $T$ with an identifier, i.e.\ a number in $\set{0,\ldots,n-1}$.
+Given an $n$-vertex tree $T$, fix an arbitrary vertex to be the root of $T$, and assign each vertex of $T$ an identifier, i.e., a number in $\set{0,\ldots,n-1}$.
 For each non-root vertex $v$ of $T$,
 let the label of $v$ be
 the pair consisting of its identifier and the identifier of its parent.
@@ -142,7 +142,7 @@ There is a fascinating series of results improving on this simple scheme for tre
 \citet{alstrup.rauhe:improved} devised a scheme with labels of length $\log n+\Oh(\log^*n)$.
 Finally, in 2015,
 \citet{alstrup.dahlgaard.ea:optimal} gave a $(\log n + \Oh(1))$-bit adjacency labelling scheme for trees, which is optimal up to the $\Oh(1)$ term.
-Indeed, consider an $n$-vertex graph with no two vertices having the same neighborhood (e.g. a path for $n\geq4$).
+Indeed, consider an $n$-vertex graph with no two vertices having the same neighborhood (e.g., a path for $n\geq4$).
 In any adjacency labelling scheme, each vertex must be assigned a distinct label and therefore one label must be of length at least $\lceil\log n\rceil$.
 
 In 2007, \citet{gavoille.labourel:shorter} presented
@@ -196,7 +196,7 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
   For every proper minor-closed class $\mathcal{G}$ there exist integers $k,a\geq 0$ such that every graph in $\mathcal{G}$ has a tree-decomposition in which every torso is in $\mathcal{R}_k^{+a}$.
 \end{thm}
 
-We now have enough background to sketch the proof of our main result.  We begin by describing natural approaches to the problem, where these approaches have issues, and then explain how we work around these issues By \cref{gmpst} and the results of \citet{dujmovic.esperet.ea:adjacency}, we are studying a graph class $\mathcal{G}$ with the following property:
+We now have enough background to sketch the proof of our main result.  We begin by describing natural approaches to the problem, where these approaches have issues, and then explain how we work around these issues. By \cref{gmpst} and the results of \citet{dujmovic.esperet.ea:adjacency}, we are studying a graph class $\mathcal{G}$ with the following property:
 For every $G\in\mathcal{G}$, there exists a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that each torso of $\mathcal{T}$ comes from a monotone graph class $\mathcal{G}'$ that has a $((1+o(1))\log n)$-bit adjacency labelling scheme.  Let $A'$ be the adjacency tester for the labelling scheme on $\mathcal{G}'$.
 
 Let $G$ be an $n$-vertex graph in $\mathcal{G}$ and let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a tree-decomposition of $G$ such that each torso of $\mathcal{T}$ is in the class $\mathcal{G}'$.  Each edge of $G$ is present in $G[B_x]$ for at least one $x\in V(T)$. Thus, a natural first approach is to compute an adjacency labelling of $G[B_x]$ for $A'$, for each $x\in V(T)$.  The problem with this approach is that a vertex $v$ of $G$ can appear in many bags of $\mathcal{T}$, so it can have many labels. Simply concatenating these labels would result in labels of length much greater than $\log n$.
@@ -212,7 +212,7 @@ To deal with the first issue, we can assign each vertex $v$ a two part label $\l
 \paragraph{Mixed labelling schemes:}
 An important contribution of the current work is to introduce a generalization of adjacency labelling schemes, called \defin{(weighted) mixed labelling schemes}, that attempts to solve both of these problems simultaneously. Mixed labelling schemes are defined formally at the introduction of \cref{weighted_mixed_section}. Informally, a mixed labelling $\mu$ is defined for a pair of graphs $Q^+$ and $Q$, where $Q$ is a spanning subgraph of $Q^+$, and $\mu$ defines labels for both vertices and cliques of $Q^+$. The vertex labels assigned by $\mu$ are used with an adjacency tester $A$ for the spanning subgraph $Q$.  That is, for any two vertices $v$ and $w$ of $Q$, $A(\mu(v),\mu(w)) = 1$ if and only if $vw\in E(Q)$.  In addition to the vertex and clique labels, a mixed labelling assigns, for each clique $K$ of $Q^+$ and each vertex $u\in K$, a short \defin{local identifier} $\kappa(K,u)$ for $u$ in $K$. These clique, vertex, and local identifiers are used with an \defin{identity tester} $I$.  For any clique $K$ of $Q^+$, any vertex $u\in K$, and any vertex $v$ of $Q$, $I(\mu(K),\kappa(K,u),\mu(v))=1$ if and only if $v=u$.
 
-\Cref{weighted_product_proof} shows that the adjacency labelling scheme for graphs in $\mathbb{R}_k$ given by \citet{dujmovic.esperet.ea:adjacency} and its improvements by \citet{alstrup.rauhe:improved} can be extended to give an efficient mixed labelling scheme for $\mathcal{R}_k$.  \Cref{add_apexes} shows that the addition of apex vertices to obtain the class $\mathcal{R}^{+a}_k$ can be accomodated by any mixed labelling scheme.  The resulting mixed labelling scheme has clique and vertex labels of length $\log n + O(\sqrt{\log n})$ (see \cref{gk_labelling_precise}).
+\Cref{weighted_product_proof} shows that the adjacency labelling scheme for graphs in $\mathcal{R}_k$ given by \citet{dujmovic.esperet.ea:adjacency} and its improvements by \citet{alstrup.rauhe:improved} can be extended to give an efficient mixed labelling scheme for $\mathcal{R}_k$.  \Cref{add_apexes} shows that the addition of apex vertices to obtain the class $\mathcal{R}^{+a}_k$ can be accommodated by any mixed labelling scheme.  The resulting mixed labelling scheme has clique and vertex labels of length $\log n + \Oh(\sqrt{\log n})$ (see \cref{gk_labelling_precise}).
 
 Thus, for every proper minor-closed graph family $\mathcal{G}$, every graph $G$ in $\mathcal{G}$ has a tree-decomposition of bounded adhesion-width whose torsos come from a class that has an efficient mixed labelling scheme.  This is the only property of proper minor-closed graph classes that we use.
 
@@ -472,22 +472,14 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
 \end{cor}
 
 \begin{proof}
-  Fix $b>1$.
-  The proof is an induction on $n$.
-  To make the induction work we require additionally that
+  Fix $b>1$. The proof is an induction on $n$. To make the induction work we require additionally that
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
     \setcounter{enumi}{3}
     \item\label{prop_extra_item} $B_r \subseteq D_s$ where $s$ is the root of $Q$.
   \end{enumerate}
   Let $G$ be an $n$-vertex graph, let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G$, and let $r$ be the root of $T$.
 
-  If $n\le b$, let $Q$ be a $1$-node tree and let $s$ be the only node which is also the root.
-  Let $D_s:=\bigcup_{y\in X} B_y$ and let $\mathcal{Q}:=(Q,(D_q)_{q\in V(Q)})$.
-  Then $\mathcal{Q}$ is a tree-decomposition with no adhesions, so~\ref{prop_adhesion} holds vacuously.
-  Since $\torso{G}{D_s}=G$, we can take $T(s)=T$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{D_s}$,
-  so~\ref{prop_skinny_torso} holds.
-  Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, \ref{prop_skinny_torso}  holds.
-  Also by construction~\ref{prop_extra_item} holds.
+  If $n\le b$, let $Q$ be a $1$-node tree and let $s$ be the only node which is also the root. Let $D_s:=\bigcup_{y\in X} B_y$ and let $\mathcal{Q}:=(Q,(D_q)_{q\in V(Q)})$. Then $\mathcal{Q}$ is a tree-decomposition with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{D_s}=G$, we can take $T(s)=T$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, \ref{prop_skinny_torso}  holds. Also by construction~\ref{prop_extra_item} holds.
 
   Now assume $n> b$.  Define the function
   \[
@@ -496,14 +488,10 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
       |B_y\setminus B_x| & \text{if $y\in V(T)\setminus\{r\}$ has $T$-parent $x$.}
     \end{cases}
   \]
-  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G)|=n$.
-  Let $X:=\set{x\in V(T)\mid  \omega(T_x)>n/b}$.
-  By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.
-  By \cref{low_pathwidth_separator}, for each $y\in N_T(X)$ the subtree $T_y$ has $\omega(T_y)=|V(G_y)|\le n/b$. For each $y\in N_T(X)$, apply the inductive hypothesis to subgraph $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ with tree-decomposition $\mathcal{T}_y:=(T_y, (B_x\mid x\in V(T_y)))$ to obtain a tree-decomposition $\mathcal{Q}_{y}:=(Q_y,(D_x \mid x\in V(Q_y)))$ whose root bag contains $B_y$.
-  Construct a tree $Q$ as follows.
-  Start with a single vertex $s$ that will be the root of $Q$ and set $D_s:=\bigcup_{x\in X} B_x$.
-  For each $y\in N_T(X)$, attach $Q_y$ to $Q$ by adding an edge joining the root of $Q_y$ to $s$.
-  This gives the desired tree $Q$ and the desired tree-decomposition $\mathcal{Q}=(Q,(D_y:y\in V(Q)))$.
+  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G)|=n$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>n/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$. 
+  
+  
+  By \cref{low_pathwidth_separator}, for each $y\in N_T(X)$ the subtree $T_y$ has $\omega(T_y)=|V(G_y)|\le n/b$. For each $y\in N_T(X)$, apply the inductive hypothesis to subgraph $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ with tree-decomposition $\mathcal{T}_y:=(T_y, (B_x\mid x\in V(T_y)))$ to obtain a tree-decomposition $\mathcal{Q}_{y}:=(Q_y,(D_x \mid x\in V(Q_y)))$ whose root bag contains $B_y$. Construct a tree $Q$ as follows. Start with a single vertex $s$ that will be the root of $Q$ and set $D_s:=\bigcup_{x\in X} B_x$. For each $y\in N_T(X)$, attach $Q_y$ to $Q$ by adding an edge joining the root of $Q_y$ to $s$. This gives the desired tree $Q$ and the desired tree-decomposition $\mathcal{Q}=(Q,(D_y:y\in V(Q)))$.
 
   For each $y\in N_T(X)$, each adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$.
   Thus, $\mathcal{Q}$ satisfies \ref{prop_adhesion} because each adhesion $A$ of $\mathcal{Q}$ is either an adhesion of $\mathcal{Q}_y$ or a $A=D_s\cap D_{q}$ for some $Q$-child $q$ of $s$.  In the former case, $A$ is an adhesion of $\mathcal{T}_y$, by the inductive hypothesis. In the latter case $A=B_x\cap B_y$ for some $x\in X$ and some $y\in N_T(x)$.
@@ -1216,7 +1204,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Since $k\geq1$, $\delta(v)\geq\omega(v)\geq 1$ for each $v\in B_R$.
   Clearly, for each $v\in B_R$,
   \begin{equation}
-    \label{eq-gammma-v-omega-v}
+    \label{eq-gamma-v-omega-v}
     \delta(v) \geq k\cdot\omega(v)\enspace.
   \end{equation}
   Note also that for each $K\in\mathcal{K}_R$ and for each $v\in K$, we have $\delta(v)\ge \omega(G_K)$, and therefore (recall that $K$ is non-empty)
@@ -1238,7 +1226,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \begin{align}
     |\mu_R(v)|
       & \le \log \delta(B_R)-\log\delta(v)+g_1(|B_R|)\notag\\
-      & \le \log (k\cdot\omega(G)) - \log (k\cdot\omega(v)) + g_1(n) & & \textrm{by~\eqref{gamma_br}, ~\eqref{eq-gammma-v-omega-v}, and since $g_1$ is non-decreasing}\notag\\
+      & \le \log (k\cdot\omega(G)) - \log (k\cdot\omega(v)) + g_1(n) & & \textrm{by~\eqref{gamma_br}, ~\eqref{eq-gamma-v-omega-v}, and since $g_1$ is non-decreasing}\notag\\
       & = \log\omega(G) - \log\omega(v) + g_1(n)\label{eq:mu-R-bounded-in-omega}\\
       & \in\Oh(\log n) & & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_1(n)\in\Oh(\log n)$.}
     \label{eq:mu-R-in-logn}
@@ -1257,7 +1245,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     |\mu_R(K)|
       & \le\log \delta(B_R) - \log\min_{v\in K}(\delta(v)) + g_3(|B_R|) \notag\\
       & \le\log(k\cdot\omega(G)) - \log\min_{v\in K}(k\cdot\omega(v)) + g_3(n)
-      & \text{by \eqref{eq-gammma-v-omega-v},~\eqref{gamma_br} and since $g_3$ is non-decreasing}\notag\\
+      & \text{by \eqref{eq-gamma-v-omega-v},~\eqref{gamma_br} and since $g_3$ is non-decreasing}\notag\\
       & = \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n)
     \label{mu_RK_ii}\\
       & \in\Oh(\log n) & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n)\in\Oh(\log n)$.}
@@ -1763,7 +1751,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   This simplicity ultimately comes from the fact that, for any $p\in S_{i-1}\cap S_i$, the root-to-$p$ path $P_{B_{i-1}}(p)$ in $B_{i-1}$ and the root-to-$p$ path $P_{B_i}(p)$ in $B_i$ differ by at most a single vertex.
   More precisely, a subpath $xyz$ in $P_{B_{i-1}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_i}(x)$.%
   \footnote{There are two exceptions. Occasionally, $P_{B_i}(x)$ is obtained by removing the first vertex of $P_{B_{i-1}}(x)$ or by adding a vertex at the beginning of $P_{B_{i-1}}(x)$. Since these are distracting and easily handled, we ignore them here.}
-  In terms of the signature function $\sigma$, this means that the difference between these two paths can be described by an $\Oh(\log\log_a n)$-bit integer that gives the index of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of chilren of $y'$.\%
+  In terms of the signature function $\sigma$, this means that the difference between these two paths can be described by an $\Oh(\log\log_a n)$-bit integer that gives the index of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.\%
   \footnote{Determining $\sigma^+((w,i))$ from $\sigma^+((w,i-1))$ requires a bit more work, since it is possible that $x_{B_i}(w)\neq x_{B_{i-1}}(w)$. This is common to both labelling schemes and does not affect the upcoming discussion. The important thing for what comes next is the definition of $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$.}
     As a result of this, the transition code $\tau((w,i-1))$ used for the B-trees in \cite{gawrychowski.janczewski:simpler} is shorter (it has length $\Oh(\sqrt{\log n})$ rather than the $\Oh(\sqrt{\log n\log\log n})$ required by bulk trees) and, on a computer with $\Oh(\log n)$-bit words, the translation from $\sigma^+((w,i-1))$ to $\sigma^+((w,i))$ can be done in constant time, resulting in a constant-time adjacency testing procedure. (All of the other adjacency-testing operations for both schemes can be done in constant-time.)
 
@@ -1886,7 +1874,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
 
     \paragraph{Local identifiers}
 
-    For each vertex $(u,j)\in K$, the local identifier for $(u,j)$ is a single integer $\kappa(K,(u,j))\in[2k+2]$ that indicates the position of the entry for $(u,j)$ in $\alpha(K)$.  This integer also implicity encodes whether $j=i-1$  or $j=i$.  Thus $|\kappa(K,(u,j))| = \Oh(\log k)$.  For fixed $k$, this satisfies the requirement $g_2(n)\in\Oh(1)$.
+    For each vertex $(u,j)\in K$, the local identifier for $(u,j)$ is a single integer $\kappa(K,(u,j))\in[2k+2]$ that indicates the position of the entry for $(u,j)$ in $\alpha(K)$.  This integer also implicitly encodes whether $j=i-1$  or $j=i$.  Thus $|\kappa(K,(u,j))| = \Oh(\log k)$.  For fixed $k$, this satisfies the requirement $g_2(n)\in\Oh(1)$.
 
     \paragraph{Identity testing}
 
