@@ -472,31 +472,36 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
 \end{cor}
 
 \begin{proof}
-  Fix $b>1$. The proof is an induction on $n$. To make the induction work we require additionally that
-  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \setcounter{enumi}{3}
-    \item\label{prop_extra_item} $B_r \subseteq D_s$ where $s$ is the root of $Q$.
+  Fix $b>1$.    Let $G$ be an $n$-vertex graph, let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G$, and let $r$ be the root of $T$.  We prove a slightly stronger statement that involves a set $A\subseteq B_r$.  The proof is by induction on $|V(G-A)|$.   To make the induction work we strengthen \ref{prop_geometric} to:
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*')]
+    \setcounter{enumi}{2}
+    \item\label{prop_geometric_ii} $\height(Q) \le \max\{0, \log_b(|V(G-A)|)\}$
   \end{enumerate}
-  Let $G$ be an $n$-vertex graph, let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G$, and let $r$ be the root of $T$.
 
-  If $n\le b$, let $Q$ be a $1$-node tree and let $s$ be the only node which is also the root. Let $D_s:=\bigcup_{y\in X} B_y$ and let $\mathcal{Q}:=(Q,(D_q)_{q\in V(Q)})$. Then $\mathcal{Q}$ is a tree-decomposition with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{D_s}=G$, we can take $T(s)=T$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, \ref{prop_skinny_torso}  holds. Also by construction~\ref{prop_extra_item} holds.
+  First we consider the base case. If $|V(G-A)|\le b$, let $Q$ be a tree that has only one node, $s$. Let $D_s:=\bigcup_{y\in V(T)} B_y$ and let $\mathcal{Q}:=(Q,(D_q\mid q\in V(Q)))$. Then $\mathcal{Q}$ is a tree-decomposition with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{D_s}=G$, we can take $T(s)=T$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, condition \ref{prop_geometric_ii} holds because $\height(Q)=0 \le \max\{0, \log_b(|V(G-A)|)\}$. 
 
-  Now assume $n> b$.  Define the function
+  Now assume $|V(G-A)|> b$.  Define the function
   \[
     \omega(y) := \begin{cases}
-      |B_r| & \text{if $y=r$}\\
+      |B_r\setminus A| & \text{if $y=r$}\\
       |B_y\setminus B_x| & \text{if $y\in V(T)\setminus\{r\}$ has $T$-parent $x$.}
     \end{cases}
   \]
-  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G)|=n$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>n/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$. 
+  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G-A)|$. Let $N:=|V(G-A)|$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>N/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.  The root of the tree $Q$ will be a node $s$ and $D_s:=\bigcup_{x\in X} B_x$.  
   
+  For each $y\in N_T(X)$, let $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ and let $A_y := B_y \cap B_x$ be the parent adhesion of $y$ in $\mathcal{T}$, where $x$ is the $T$-parent of $y$.  Then $\mathcal{T}_y:=(T_y, (B_z\mid z\in V(T_y)))$ is a tree-decomposition of $G_y$ and every adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$. Observe that $|V(G_y-A_y)| = \omega(T_y) \le N/b$. Apply the inductive hypothesis to $G_y$ with tree-decomposition $\mathcal{T}_y$ and special set $A_y$ to obtain a tree-decomposition $\mathcal{Q}_y=(Q_y,(D_q \mid q\in V(Q_y)))$ of $G_y$.  By induction, each bag of $\mathcal{Q}_y$ has a tree-decomposition formed by a (skinny) subtree of $T$.  Therefore, some bag $D_{r_y}$ of $\mathcal{Q}_y$ contains all the vertices of $B_y$.  Make $r_y$ a child of $s$ in the tree $Q$.  
   
-  By \cref{low_pathwidth_separator}, for each $y\in N_T(X)$ the subtree $T_y$ has $\omega(T_y)=|V(G_y)|\le n/b$. For each $y\in N_T(X)$, apply the inductive hypothesis to subgraph $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ with tree-decomposition $\mathcal{T}_y:=(T_y, (B_x\mid x\in V(T_y)))$ to obtain a tree-decomposition $\mathcal{Q}_{y}:=(Q_y,(D_x \mid x\in V(Q_y)))$ whose root bag contains $B_y$. Construct a tree $Q$ as follows. Start with a single vertex $s$ that will be the root of $Q$ and set $D_s:=\bigcup_{x\in X} B_x$. For each $y\in N_T(X)$, attach $Q_y$ to $Q$ by adding an edge joining the root of $Q_y$ to $s$. This gives the desired tree $Q$ and the desired tree-decomposition $\mathcal{Q}=(Q,(D_y:y\in V(Q)))$.
 
-  For each $y\in N_T(X)$, each adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$.
-  Thus, $\mathcal{Q}$ satisfies \ref{prop_adhesion} because each adhesion $A$ of $\mathcal{Q}$ is either an adhesion of $\mathcal{Q}_y$ or a $A=D_s\cap D_{q}$ for some $Q$-child $q$ of $s$.  In the former case, $A$ is an adhesion of $\mathcal{T}_y$, by the inductive hypothesis. In the latter case $A=B_x\cap B_y$ for some $x\in X$ and some $y\in N_T(x)$.
+  We now show that $\mathcal{Q}$ is a tree-decomposition of $G$ that satisfies the requirements of the lemma.
 
-  It remains to show that $\height(Q)\le\log_b n$.  If $1\le n \le b$, then $\height(Q)=0\le\log_b n$.  Otherwise, for each $y\in L_2(Q)$, the inductive hypothesis implies that $\height(Q_y)\le\log_b(\omega(Q_y))\le\log_b(n/b)=\log_b n - 1$.  Thus, $\height(Q)=1+\max\{\height(Q_y):y\in L_2(Q)\}\le \log_b n$.
+  \begin{itemize}
+  
+  \item[\ref{prop_adhesion}:] For each $y\in N_T(X)$, the adhesion between $s$ and $r_y$ is $A_y$, which is an adhesion of $\mathcal{T}$. Furthermore, each adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$, so each adhesion of $\mathcal{Q}_y$ is an adhesion of $\mathcal{T}$.  Thus every adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$.
+
+  \item[\ref{prop_skinny_torso}:] $\mathcal{T}_X:=(T[X],(B_y\mid y\in V(T[X])))$ is a $b$-skinny tree-decomposition of $\torso{G}{\mathcal{Q},D_s}$.  For each $y\in N_T(X)$, $\torso{G}{\mathcal{Q}_y,D_{r_y}}$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T_y$. The tree-decomposition of $\torso{G_y}{\mathcal{Q}_y,D_{r_y}}$ contains $B_y$, therefore this tree-decomposition is also a tree-decomposition of $\torso{G}{\mathcal{Q},D_{r_y}}$.  By induction, every other bag of $\mathcal{Q}_y$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T$. Thus, each torso of $\mathcal{Q}$ has a $b$-skinny tree-decomposition whose tree is a subtree of $T$.
+  
+  \item[\ref{prop_geometric_ii}:] For each $y\in L_2(Q)$, the inductive hypothesis implies that $\height(Q_y)\le\max\{0,\log_b(|V(G_y-A_y)|)\}$. Since $|V(G_y-A_y)| = \omega(T_y) \le N/b = |V(G-A)|/b$, we have $\height(Q_y)\le\max\{0, \log_b(|V(G-A)|/b)\} = \max\{0, \log_b|V(G-A)| - 1\}$. Thus, $\height(Q)=1+\max\{\height(Q_y):y\in L_2(Q)\}\le \max\{1, \log_b|V(G-A)|\} = \log_b|V(G-A)|$ (since $|V(G-A)| > b \ge 1$). \qedhere
+  \end{itemize}
 \end{proof}
 
 \section{Weighted Mixed Labelling Schemes -- Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
@@ -835,8 +840,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Given $\mu(K)$, $\mu(v)$ and $\kappa(K,u)$ for some clique $K$ in $G^+$, some $v\in V(G)$ and some $u\in K$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lies in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v))=0$.
   If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case we have
-  $\mu(K)=(\rho(i),\mu_i(K))$,
-  $\mu(v)=(\rho(i),\mu_i(v))$, and
+  $\mu(K)=\langle\rho(i),\mu_i(K)\rangle$,
+  $\mu(v)=\langle\rho(i),\mu_i(v)\rangle$, and
   $\kappa(K,u)=\kappa_i(K,u)$.
   In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu(K),\kappa(K,u),\mu(v))$.
 \end{proof}
@@ -1040,7 +1045,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Therefore $K\setminus A_j$ is assigned a label $\mu_j(K\setminus A_j)$ in the mixed labelling of $(G^\star_j,G_j,\omega_{|V(G_j)})$ for $(A,I)$.
   Define the clique label
   \[
-    \mu(K):=(\rho(j),\mu_j(K\setminus A_j)) \enspace .
+    \mu(K):=\langle\rho(j),\mu_j(K\setminus A_j)\rangle \enspace .
   \]
   Then
   \begin{align}
@@ -1366,7 +1371,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \item If $v$ and $w$ are both in $B_R$ then $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(w)\rangle$.  In this case, $vw\in E(G)$ if and only if $vw\in E(G_R)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A(\mu_R(v),\mu_R(w))$.
     \item If exactly one of $v$ or $w$ is in $B_R$ then, assume without loss of generality that $v\in B_R$ and $w\in V(G_K)$ for some $K\in\mathcal{K}_R$.
       So $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(K),\mu_K(w),\alpha(w)\rangle$.
-      In this case, $vw\in E(G)$ if and only if $v\in K\cap N_G(w)$.  Thus, $vw\in E(G)$ if and only if $v\in K$ and $\alpha(w)$ contains $\kappa_R(v)$.  In this case, the adjacency tester iterates through each $\kappa$ in $\alpha(w)$ checking if $I(\mu_R(K),\kappa,\mu_R(v))=1$.  If so, then $\kappa=\kappa_R(K,v)$ and $vw\in E(G)$ so $A'(\mu(v),\mu(w)):=1$. If $I(\mu_R(K),\kappa,\mu_R(v))=0$ for every $\kappa$ in $\alpha(w)$ then $v\not\in K\cap N_G(w)$, so  $vw\not\in E(G)$, and $A'(\mu(v),\mu(w)):=0$.
+      In this case, $vw\in E(G)$ if and only if $v\in K\cap N_G(w)$.  Thus, $vw\in E(G)$ if and only if $v\in K$ and $\alpha(w)$ contains $\kappa_R(K,v)$.  In this case, the adjacency tester iterates through each $\kappa$ in $\alpha(w)$ checking if $I(\mu_R(K),\kappa,\mu_R(v))=1$.  If so, then $\kappa=\kappa_R(K,v)$ and $vw\in E(G)$ so $A'(\mu(v),\mu(w)):=1$. If $I(\mu_R(K),\kappa,\mu_R(v))=0$ for every $\kappa$ in $\alpha(w)$ then $v\not\in K\cap N_G(w)$, so  $vw\not\in E(G)$, and $A'(\mu(v),\mu(w)):=0$.
     \item Otherwise, $v\in V(G_K)$ and $w\in V(G_{L})$ for some $K,L\in\mathcal{K}_R$.
       In this case, $\mu(v)=\linebreak \langle\mu_R(K),\mu_K(v),\alpha(v)\rangle$ and $\mu(w)=\langle\mu_R(L),\mu_{L}(w),\alpha(w)\rangle$.
       If $\mu_R(K)\neq\mu_R(L)$ then $K\neq L$. In this case, $K$ (and $L$) separates $v$ and $w$ in $G^+$, so $vw\not\in E(G)$ and $A'(\mu(v),\mu(w)):=0$.
@@ -1444,7 +1449,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
         \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
           \begin{itemize}
             \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-            \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+            \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
           \end{itemize}
       \end{itemize}
     \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
@@ -1454,7 +1459,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
         \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
           If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-          Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)\rangle$.
+          Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
           Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
           \[
           \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
@@ -1475,7 +1480,7 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$,
   every $n$-vertex graph $G$ with a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
   Let $g_i:\N\to\R^+$ be a non-decreasing function with $g_i\in\Oh(\log n)$ for each $i\in[3]$.
-  Suppose that $g$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
+  Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
   Then $\mathcal{G}'$ admits a $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
   \begin{align*}
     g''_1(n)
