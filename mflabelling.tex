@@ -274,7 +274,7 @@ If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is called a \def
 
 \subsection{Trees and Forests}
 
-For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each whose components is a tree.  If each component of a forest $F$ is a rooted tree then, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$ is $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
+For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$ is $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
 
 Let $F$ be a rooted forest.  For each $x\in V(F)$,
 the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$.
@@ -336,7 +336,7 @@ Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-rig
 
 The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again later.
 
-\begin{lem}\label{shannon_fano_elias_tree}\label{shannon_fano_elias}
+\begin{lem}\label{shannon_fano_elias_tree}
   Let $S$ be a linearly ordered set and let $\omega:S\to\N^+$. Then there exists a binary tree $T$ such that $S$ is the set of leaves of $T$,
   the linear order on $S$ agrees with the left-to-right-order of the leaves in $T$, and for each $x\in S$
   \[
@@ -395,9 +395,9 @@ The following result is a variant of Alphabetic Binary Trees. Similar results (w
   Identifying each leaf $r_x$ of $T$ with $x$ for each $x\in S$ gives the desired tree.
 \end{proof}
 
-In coding theory, \cref{shannon_fano_elias} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
+In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
 
-\begin{cor}\label{shannon_fano_elias_code}\label{shannon_fano_elias_cor}
+\begin{cor}\label{shannon_fano_elias_code}
   Let $S$ be a linearly ordered set and let $\omega:S\to\N^+$.  Then there exists a code $\rho:S\to \{0,1\}^\star$ for $S$ such that:
   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
     \item $|\rho(x)|\le \log\omega(S) - \log\omega(x)+3$ for each $x\in S$, and
@@ -681,7 +681,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Given the labels $\mu(v)=\langle \sigma(v),c_1(v),\ldots,c_b(v),\mu^-(v)\rangle$ and $\mu(w)=\langle \sigma(v),c_1(w),\ldots,c_b(w),\mu^-(w)\rangle$ for two vertices $v$ and $w$ of $G$,
   $A'$ works as follows.
   First by checking the values of $\sigma(v)$ and $\sigma(w)$ we check if $v$ and/or $w$ lie in $X$.
-  If at least one of them, say $v$, is in $X$ then then $v=u_i$ for some $i\in[b]$ and $\sigma(v)$ encodes the value of $i$.  In this case,
+  If at least one of them, say $v$, is in $X$, then $v=u_i$ for some $i\in[b]$ and $\sigma(v)$ encodes the value of $i$.  In this case,
   we set $A'(\mu(v),\mu(w))=c_i(w)$.
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
@@ -1578,7 +1578,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
   Let $\mathcal{Q}'$ be the class of graphs that have tree decompositions whose torsos are in $\mathcal{Q}$.  The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$.  So the graphs in $\mathcal{Q}$ also have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, the graphs in $\mathcal{Q}'$ have tree decompositions of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{Q}$.
 
-  By \cref{RealMainTechnical}, each graph in $\mathcal{Q}'$ admits a weighted $(g_1,g_2,g_3)$ weighted mixed labelling scheme with
+  By \cref{RealMainTechnical}, each graph in $\mathcal{Q}'$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with
   \[
     g_1(n) \in g''_1(n) + \Oh\left(g''_2(n) + \sqrt{g''_3(n)\log n}
     + \sqrt{\frac{\log n}{g''_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
