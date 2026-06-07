@@ -466,7 +466,7 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
     \item\label{prop_adhesion}
       each adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$;
-    \item\label{prop_skinny_torso} for each $q\in V(Q)$, $\torso{G}{D_q}$ has a $b$-skinny tree-decomposition $(T(q), (B_y\mid y\in V(T(q))))$ where $T(q)$ is a subtree of $T$; and
+    \item\label{prop_skinny_torso} for each $q\in V(Q)$, $\torso{G}{\mathcal{Q},D_q}$ has a $b$-skinny tree-decomposition $(T(q), (B_y\mid y\in V(T(q))))$ where $T(q)$ is a subtree of $T$; and
     \item\label{prop_geometric} $\height(Q)\le \log_b n$.
   \end{enumerate}
 \end{cor}
@@ -478,16 +478,18 @@ Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ f
     \item\label{prop_geometric_ii} $\height(Q) \le \max\{0, \log_b(|V(G-A)|)\}$
   \end{enumerate}
 
-  First we consider the base case. If $|V(G-A)|\le b$, let $Q$ be a tree that has only one node, $s$. Let $D_s:=\bigcup_{y\in V(T)} B_y$ and let $\mathcal{Q}:=(Q,(D_q\mid q\in V(Q)))$. Then $\mathcal{Q}$ is a tree-decomposition with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{D_s}=G$, we can take $T(s)=T$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, condition \ref{prop_geometric_ii} holds because $\height(Q)=0 \le \max\{0, \log_b(|V(G-A)|)\}$. 
-
-  Now assume $|V(G-A)|> b$.  Define the function
+  Define the function
   \[
     \omega(y) := \begin{cases}
       |B_r\setminus A| & \text{if $y=r$}\\
       |B_y\setminus B_x| & \text{if $y\in V(T)\setminus\{r\}$ has $T$-parent $x$.}
     \end{cases}
   \]
-  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G-A)|$. Let $N:=|V(G-A)|$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>N/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.  The root of the tree $Q$ will be a node $s$ and $D_s:=\bigcup_{x\in X} B_x$.  
+  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G-A)|$. Let $N:=|V(G-A)|$.
+
+  First we consider the base case. If $N\le b$, let $Q$ be a tree that has only one node, $s$. Let $X=\{r\}$ if $N=0$, and $X=\{x\in V(T)\mid \omega(T_x)>0\}$ otherwise. Then $T[X]$ is a subtree of $T$ containing $r$. For any $i\in\N^+$, the subtrees $T_x$ for $x\in X\cap L_i(T)$ are disjoint, so $|X\cap L_i(T)| \le \sum_{x\in X\cap L_i(T)}\omega(T_x) \le \omega(T) = N \le b$. Thus, $T[X]$ is $b$-skinny. Let $D_s:=\bigcup_{x\in X} B_x$ and let $\mathcal{Q}:=(Q,(D_q\mid q\in V(Q)))$. For each $y\in N_T(X)$, $\omega(T_y)=0$, so $V(G_y-A_y)=\emptyset$, which implies $B_z\subseteq A_y\subseteq B_x$ for all $z\in V(T_y)$, where $x\in X$ is the $T$-parent of $y$. Hence $D_s=\bigcup_{y\in V(T)} B_y$, meaning $\mathcal{Q}$ is a tree-decomposition of $G$ with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{\mathcal{Q},D_s}=G$, we take $T(s)=T[X]$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree decomposition of $\torso{G}{\mathcal{Q},D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, condition \ref{prop_geometric_ii} holds because $\height(Q)=0 \le \max\{0, \log_b(N)\}$. 
+
+  Now assume $N> b$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>N/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.  The root of the tree $Q$ will be a node $s$ and $D_s:=\bigcup_{x\in X} B_x$.  
   
   For each $y\in N_T(X)$, let $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ and let $A_y := B_y \cap B_x$ be the parent adhesion of $y$ in $\mathcal{T}$, where $x$ is the $T$-parent of $y$.  Then $\mathcal{T}_y:=(T_y, (B_z\mid z\in V(T_y)))$ is a tree-decomposition of $G_y$ and every adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$. Observe that $|V(G_y-A_y)| = \omega(T_y) \le N/b$. Apply the inductive hypothesis to $G_y$ with tree-decomposition $\mathcal{T}_y$ and special set $A_y$ to obtain a tree-decomposition $\mathcal{Q}_y=(Q_y,(D_q \mid q\in V(Q_y)))$ of $G_y$.  By induction, each bag of $\mathcal{Q}_y$ has a tree-decomposition formed by a (skinny) subtree of $T$.  Therefore, some bag $D_{r_y}$ of $\mathcal{Q}_y$ contains all the vertices of $B_y$.  Make $r_y$ a child of $s$ in the tree $Q$.  
   
@@ -650,10 +652,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \end{cases}
   \]
 
-  \paragraph{\boldmath The vertex label $\mu(v)$:} For each $v\in V(G)$ and each $i\in [b]$ let $c_i(v)$ be a bit that indicates if $vu_i\in E(G)$.
+  \paragraph{\boldmath The vertex label $\mu(v)$:} For each $v\in V(G)$, let $c(v)$ be a $b$-bit string whose $i$-th bit indicates if $vu_i\in E(G)$.
   For each $v\in V(G)$, define
   \[
-    \mu(v):=\langle \sigma(v),c_1(v),\ldots,c_{b}(v),\mu^-(v) \rangle \enspace .
+    \mu(v):=\langle \sigma(v),c(v),\mu^-(v) \rangle \enspace .
   \]
   For each $v\in V(G)$,
   \begin{align*}
@@ -671,18 +673,18 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{Adjacency testing:}
   We now describe the adjacency tester $A'$.
-  Given the labels $\mu(v)=\langle \sigma(v),c_1(v),\ldots,c_b(v),\mu^-(v)\rangle$ and $\mu(w)=\langle \sigma(w),c_1(w),\ldots,c_b(w),\mu^-(w)\rangle$ for two vertices $v$ and $w$ of $G$,
+  Given the labels $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$ and $\mu(w)=\langle \sigma(w),c(w),\mu^-(w)\rangle$ for two vertices $v$ and $w$ of $G$,
   $A'$ works as follows.
   First by checking the values of $\sigma(v)$ and $\sigma(w)$ we check if $v$ and/or $w$ lie in $X$.
   If at least one of them, say $v$, is in $X$, then $v=u_i$ for some $i\in[b]$ and $\sigma(v)$ encodes the value of $i$.  In this case,
-  we set $A'(\mu(v),\mu(w))=c_i(w)$.
+  we set $A'(\mu(v),\mu(w))$ to be the $i$-th bit of $c(w)$.
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
   \paragraph{\boldmath The clique label $\mu(K)$:} Extend the domain of $\mu^-$ so that it includes the empty set, by setting $\mu^-(\emptyset):=\varepsilon$ (the empty string).
-  For each clique $K$ in $G^+$ and each $i\in[b]$, let $c_i(K)$ be a bit that indicates if $u_i\in K$.
+  For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
   For each clique $K$ in $G^+$, define
   \[
-    \mu(K):=\langle c_1(K),\ldots,c_{b}(K),\mu^-(K-X)\rangle \enspace .
+    \mu(K):=\langle c(K),\mu^-(K-X)\rangle \enspace .
   \]
   Then
   \begin{align*}
@@ -694,7 +696,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \in\Oh(a) +\Oh(\log n) \enspace,
     \intertext{and therefore}
     |\mu(K)|
-      & \le |\mu^-(K-X)|+b + \Oh(\lgg(|\mu^-(K-X)|+\lgg b))
+      & \le |\mu^-(K-X)|+b + \Oh(\lgg|\mu^-(K-X)|+\lgg b)
       & \text{by \eqref{encoding_cost}}\\
       & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \mathcal{O}(a+\log\log n)\enspace.
   \end{align*}
@@ -759,7 +761,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \label{eq:pi}
     |\rho(i)|\le\log \omega(G)-\log \omega(G_i)+3\enspace.
   \end{equation}
-  For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(x):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G_i$, define $\rho(K):=\rho(i)$.
+  For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(v):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G^+_i$, define $\rho(K):=\rho(i)$.
 
   \paragraph{\boldmath The sub-label $\mu_i(x)$:}
   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
@@ -783,7 +785,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \label{eq:mu-K}
   \end{align}
   For each $i\in[m]$, and each vertex $v$ of $G_i$, define $\mu'(v):=\mu_i(v)$.
-  For each $i\in[m]$, and each clique $K$ of $G_i$, define $\mu'(K):=\mu_i(K)$.
+  For each $i\in[m]$, and each clique $K$ of $G^+_i$, define $\mu'(K):=\mu_i(K)$.
 
   \paragraph{\boldmath The vertex label $\mu(v)$:}
   Let $A$ and $I$ denote the adjacency and identity testers, respectively, for the weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
@@ -794,11 +796,11 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   thus
   \begin{align*}
     |\rho(v)| + |\mu_i(v)|
-      & \le \log\omega(G) -\log\omega(v)+1+g_1(n) & & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},}\\
-      & \le \log n + 3 + g_1(n) = \mathcal{O}(\log n) & & \textrm{by~\eqref{eq:nice},}
+      & \le \log\omega(G) -\log\omega(v)+3+g_1(n) & & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},}\\
+      & \le \log n + 5 + g_1(n) = \mathcal{O}(\log n) & & \textrm{by~\eqref{eq:nice},}
     \intertext{and therefore}
     |\mu(v)|
-      & \le |\rho(v)| + |\mu_i(v)| + \Oh(\log |\rho(v)| + \log|\mu_i(v)|)
+      & \le |\rho(v)| + |\mu'(v)| + \Oh(\lgg |\rho(v)| + \lgg|\mu'(v)|)
       & \text{by \eqref{encoding_cost}}\\
       & \le \log\omega(G) -\log\omega(v)+g_1(n)+\Oh(\log\log n)\enspace.
   \end{align*}
@@ -809,11 +811,11 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If $\rho(v)\neq\rho(w)$, then $v$ and $w$ lie in different components of $G$, so they cannot be adjacent in $G$, and
   we set $A'(\mu(v),\mu(w))=0$.
   If $\rho(v)=\rho(w)$, then $v$ and $w$ are both contained in the graph $G_i$, for some $i\in[m]$.  In this case
-  $\mu(v)=\langle\rho(i),\mu_i(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu_i(w)\rangle$.
-  In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu_i(v), \mu_i(w))$.
+  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu'(w)\rangle$.
+  In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu'(v), \mu'(w))$.
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
-  For each $i\in[m]$ and each clique $K$ in $G_i$, define
+  For each $i\in[m]$ and each clique $K$ in $G^+_i$, define
   \[
     \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
   \]
@@ -821,16 +823,16 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \begin{align*}
     |\rho(K)| + |\mu'(K)|
       & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)\\
-      & \le \log n + 3 + g_3(n) = \mathcal{O}(\log n)\\
+      & \le \log n + 5 + g_3(n) = \mathcal{O}(\log n)\\
     \intertext{and therefore}
     |\mu(K)|
-      & \le |\rho(K)| + |\mu_i(K)| + \Oh(\log |\rho(K)| + \log|\mu_i(K)|)
+      & \le |\rho(K)| + |\mu'(K)| + \Oh(\lgg |\rho(K)| + \lgg|\mu'(K)|)
       & \text{by \eqref{encoding_cost}}\\
       & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+g_3(n)+\Oh(\log\log n) \enspace.
   \end{align*}
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
-  Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G_i$, and each $u\in K$. In particular,
+  Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G^+_i$, and each $u\in K$. In particular,
   \[
     |\kappa(K,u)| \leq g_2(n).
   \]
@@ -840,10 +842,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Given $\mu(K)$, $\mu(v)$ and $\kappa(K,u)$ for some clique $K$ in $G^+$, some $v\in V(G)$ and some $u\in K$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v))=0$.
   If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case we have
-  $\mu(K)=\langle\rho(i),\mu_i(K)\rangle$,
-  $\mu(v)=\langle\rho(i),\mu_i(v)\rangle$, and
+  $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
+  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and
   $\kappa(K,u)=\kappa_i(K,u)$.
-  In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu(K),\kappa(K,u),\mu(v))$.
+  In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu'(K),\kappa(K,u),\mu'(v))$.
 \end{proof}
 
 \subsection{Graphs with Skinny Tree-Decompositions}
@@ -1017,7 +1019,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   and
   \begin{align*}
     |\mu(v)|
-      & \leq |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)| + \Oh(\log(|\rho(v)|+\log|\mu'(v)| + \log|\alpha(v)| + \log|\beta(v)|))\\
+      & \leq |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)| + \Oh(\lgg|\rho(v)|+\lgg|\mu'(v)| + \lgg|\alpha(v)| + \lgg|\beta(v)|)\\
       & \leq \log\omega(G)-\log\omega(v) + g_1(n) + \Oh(k\log\log n+k\log b) \enspace .
   \end{align*}
   Thus, $\mu$ satisfies the condition on $g'_1(n)$.
@@ -1030,7 +1032,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     \item If $\rho(v)\neq\rho(w)$ then assume without loss of generality that $\rho(v)$ is lexicographically less than $\rho(w)$. In this case $v\in V(G_i)$ and $w\in V(G_j)$ for $i=a(v)<a(w)=j$. The edge $vw$ can only be present in $G$ if $v\in A_j$. First the tester checks whether $\beta(v)$ is not empty to see if $v\in C$. If $\beta(v)=\langle\varepsilon\rangle$, then $v\not\in C$, and  $v\not\in A_j$, so $A'(\mu(v),\mu(w))=0$.
 
-    Otherwise, $\beta(v)=\langle d(v),\varphi(v)\rangle$.  Then the length-$d(v)$ prefix of $\rho(v)$ defines the path from the root of $T_\psi$ to $\lca(v)$.  By definition, $\lca(v)$ is a $T_\psi$-ancestor of all integers in $[a(v),b(v)]$. In this case, the tester checks if $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  If they do not, then $\lca(v)$ is not a $T_\psi$-ancestor of $j=a(w)$, so $j\not\in[a(v),b(v)]$.  Therefore, $v\not\in B_{j}\subseteq A_j$. Therefore $vw\not\in E(G)$, so $A'(\mu(v),\mu(w))=0$.
+    Otherwise, $\beta(v)=\langle d(v),\varphi(v)\rangle$.  Then the length-$d(v)$ prefix of $\rho(v)$ defines the path from the root of $T_\psi$ to $\lca(v)$.  By definition, $\lca(v)$ is a $T_\psi$-ancestor of all integers in $[a(v),b(v)]$. In this case, the tester checks if $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  If they do not, then $\lca(v)$ is not a $T_\psi$-ancestor of $j=a(w)$, so $j\not\in[a(v),b(v)]$.  Therefore, $v\not\in B_{j}$, which implies $v\not\in A_j$. Therefore $vw\not\in E(G)$, so $A'(\mu(v),\mu(w))=0$.
 
     Suppose that $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  Then $j\in [a(v),b(v)]$ and $v\in A_j$. In this case the tester inspects each item of $\alpha(w)$. Let $(d_0,\varphi_0)$ be such an item and say that $(d(u_0),\varphi(u_0))=(d_0,\varphi_0)$ for $u_0 \in N_G(w)\cap A_j$. Since $u_0 \in A_j$, we have $j\in[a(u_0),b(u_0)]$. Therefore, both nodes $\lca(v)$ and $\lca(u_0)$ are $T_\psi$-ancestors of $j$. In other words, both $\lca(v)$ and $\lca(u_0)$ lie on the path from the root to $j$ in $T_{\psi}$. Therefore, $\lca(v)=\lca(u_0)$ if and only if $d(v)=d(u_0)$. Furthermore, $v=u_0$ if and only $(d(v),\varphi(v))=(d(u_0),\varphi(u_0))$. Thus, if $(d_0,\varphi_0)=(d(v),\varphi(v))$ then the tester concludes that the corresponding neighbour $u_0=v$, so $A'(\mu(v),\mu(w))=1$. Finally, if no item $(d_0,\varphi_0)$ in $\alpha(w)$ satisfies $(d_0,\varphi_0)=(d(v),\varphi(v))$, then $v\not\in N_G(w)\cap A_j$ so $v$ and $w$ are not adjacent in $G$, and we set $A'(\mu(v),\mu(w))=0$.
   \end{itemize}
@@ -1091,9 +1093,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     \item If $\rho(j)$ is lexicographically larger than $\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_i\setminus A_i$ for some $i=a(v) < j$.  The tester examines the first part $b$ of $\kappa(K,u)$ to determine if $u\in K\setminus A_j$.  If $b=0$ then  $u\in B_j\setminus A_j$ and $v\in B_i\setminus A_i$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=1$ then $u\in A_j$ and $\kappa(K,u)=\langle 1,\beta(u)\rangle$. Since $u\in A_j$, $a(u) < j\le b(u)$.
 
-      In particular, $u\in A_j$, so $\lca(u)$ is a $T_\psi$-ancestor of $j$.   Therefore, the first $d(u)$ bits of $\rho(j)$ are equal to the first $d(u)$ bits of $\rho(u)$.  The first $d(u)$ bits of $\rho(u)$ describe the path from the root of $T_\psi$ to $\lca(u)$.  The tester then compares the first $d(u)$ bits of $\rho(u)$ to the first $d(u)$ bits of $\rho(v)$.  If these are not equal,  then $\lca(u)\neq\lca(v)$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+      In particular, $u\in A_j$, so $\lca(u)$ is a $T_\psi$-ancestor of $j$.   Therefore, the first $d(u)$ bits of $\rho(j)$ are equal to the first $d(u)$ bits of $\rho(u)$.  The first $d(u)$ bits of $\rho(u)$ describe the path from the root of $T_\psi$ to $\lca(u)$.  The tester then compares the first $d(u)$ bits of $\rho(j)$ to the first $d(u)$ bits of $\rho(v)$.  If these are not equal,  then $\lca(u)\neq\lca(v)$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-      Since $u\in A_j$, we have that $u\in C$.  The tester examines $\beta(v)$ to determine if $v\in C$.  If $\beta(v)=\varepsilon$ then $v\not\in C$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. Otherwise $v\in C$ and $\beta(v)=(d(v),\varphi(v))$. Since the first $d(u)$ bits of $\rho(u)$ equal to the first $d(u)$ bits of $\rho(v)$ we have that $v=u$ if and only if $(d(u),\varphi(u))=(d(v),\varphi(v))$.
+      Since $u\in A_j$, we have that $u\in C$.  The tester examines $\beta(v)$ to determine if $v\in C$.  If $\beta(v)=\langle\varepsilon\rangle$ then $v\not\in C$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. Otherwise $v\in C$ and $\beta(v)=\langle d(v),\varphi(v)\rangle$. Since we have already verified that the first $d(u)$ bits of $\rho(j)$ equal the first $d(u)$ bits of $\rho(v)$, we have that $\lca(u)=\lca(v)$ if and only if $d(u)=d(v)$. Thus, $v=u$ if and only if $(d(u),\varphi(u))=(d(v),\varphi(v))$.
       We set $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $(d(u),\varphi(u))=(d(v),\varphi(v))$ and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
   \end{itemize}
 \end{proof}
@@ -1148,13 +1150,17 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       B_y\cap B_x & \textrm{if $y$ is not a root in $F$ and $x$ is the $F$-parent of $y$.}
     \end{cases}
   \]
-  We prove by an induction on $h$ that there is a $(g_1',g_2',g_3')$ mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ satisfying the following additional property: for each $z\in V(F)$ and each $w\in B_z\setminus A_z$,
+  We prove by an induction on $h$ that there is a $(g_1',g_2',g_3')$ mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ satisfying the following additional properties: for each $z\in V(F)$ and each $w\in B_z\setminus A_z$,
   \begin{align}
     |\mu(w)|
       & \le \log \omega(G) - \log \omega(w) + g_1(n)\notag\\
       & \quad {} + |A_z|\cdot (g_2(n) + \Oh(\log\log n))\label{strong_strong}\\
-      & \quad {} + h\cdot(g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.\notag
+      & \quad {} + h\cdot(g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace,\notag
   \end{align}
+  and for each clique $K$ of $G^+$,
+  \begin{equation}
+    |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(\log\log n))\enspace.\label{strong_clique}
+  \end{equation}
   Given an integer $n$, an $n$-vertex graph $G^+\in\mathcal{G}'$, a spanning subgraph $G$ of $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\mathcal{T}=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\mathcal{T}$ is in $\mathcal{G}$. Let $\mathcal{F}_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\mathcal{T}$).  Let $(n_0,h_0,k_0,G^+,G,\omega_0,\mathcal{F}_0)$ be an instance where $n_0:=n=|V(G)|$, $h_0:=h(n)$, $k_0:=k(n)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\mathcal{F}_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\mathcal{T}$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
   By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',I')$.
   The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$, which follows from~\cref{obs:nice}.
@@ -1259,7 +1265,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Moreover, for each clique $K$ in $G^\star_R$,
   \begin{align}
     |\kappa_R(K,v)|
-      & \leq g_2(|B_K|) \leq g_2(n) \in \Oh(\log n) \enspace ,
+      & \leq g_2(|B_R|) \leq g_2(n) \in \Oh(\log n) \enspace ,
     \label{eq:kappa_R-logn}
   \end{align}
   since $g_2$ is non-decreasing.% and $g_2(n)\in\Oh(\log n)$. 
@@ -1355,7 +1361,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Therefore,
   \begin{align*}
     |\mu(w)|
-      & =|\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|+ \Oh(\log|\mu_R(K)|+\log|\mu_K(w)|+\log|\alpha(w)|)
+      & =|\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|+ \Oh(\lgg|\mu_R(K)|+\lgg|\mu_K(w)|+\lgg|\alpha(w)|)
       & \text{by \eqref{encoding_cost}}\\
       & \le \log \omega(G) - \log\omega(w) + g_1(n)\\
       & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))\\
@@ -1375,7 +1381,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \item Otherwise, $v\in V(G_K)$ and $w\in V(G_{L})$ for some $K,L\in\mathcal{K}_R$.
       In this case, $\mu(v)=\linebreak \langle\mu_R(K),\mu_K(v),\alpha(v)\rangle$ and $\mu(w)=\langle\mu_R(L),\mu_{L}(w),\alpha(w)\rangle$.
       If $\mu_R(K)\neq\mu_R(L)$ then $K\neq L$. In this case, $K$ (and $L$) separates $v$ and $w$ in $G^+$, so $vw\not\in E(G)$ and $A'(\mu(v),\mu(w)):=0$.
-      If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester return $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$.
+      If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$.
   \end{itemize}
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
@@ -1402,7 +1408,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \text{by \eqref{encoding_cost}}\\
       & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)\enspace,
   \end{align*}
-  where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h(n)(g_3(n)+\Oh(\log\log n)) \in\Oh(\log^2 n)$, since $h(n),g_3(n)\in\Oh(\log n)$. Continuing,
+  where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h\cdot(g_3(n)+\Oh(\log\log n)) \in\Oh(\log^2 n)$, since $h\le h(n)\in\Oh(\log n)$ and $g_3(n)\in\Oh(\log n)$. Continuing,
   \begin{align*}
     |\mu(K)|
       & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)\\
@@ -1412,7 +1418,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \text{by induction}\\
       & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\log\log n)) \enspace ,
   \end{align*}
-  which satisfies the requirement for $g'_3(n)$.
+  which satisfies \eqref{strong_clique} and thus the requirement for $g'_3(n)$.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
   Let $K$ be a clique in $G^\star$, let $u\in K$, and let $z$ be the vertex of $F$ such that $u\in B_z\setminus A_z$.   The local identifier $\kappa(K,u)$ for $(A',I')$ has two parts,
@@ -1481,7 +1487,7 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
   every $n$-vertex graph $G$ with a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
   Let $g_i:\N\to\R^+$ be a non-decreasing function with $g_i\in\Oh(\log n)$ for each $i\in[3]$.
   Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
-  Then $\mathcal{G}'$ admits a $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
+  Then $\mathcal{G}'$ admits a weighted $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
   \begin{align*}
     g''_1(n)
       & = g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace ,\\
@@ -1551,7 +1557,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 \end{lem}
 
 \begin{proof}
-  We show that $\mathcal{C}$ admits a mixed $(g_1,g_2,g_3)$ weighted labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\mathcal{C}$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
+  We show that $\mathcal{C}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\mathcal{C}$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
 
   Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\mathcal{C}$. So $\mathcal{C}\subseteq \mathcal{R}_k^{+a}$. By \cref{add_apexes} and \cref{gk_labelling_precise}, $\mathcal{R}_k^{+a}$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
 
@@ -1564,7 +1570,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
     g_1(n) \in g''_1(n) + \Oh\left(g''_2(n) + \sqrt{g''_3(n)\log n}
     + \sqrt{\frac{\log n}{g''_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
   \]
-  Since $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$, \cref{gmpst} implies that $\mathcal{C}\subseteq\mathcal{Q}'$.  Therefore, $\mathcal{C}$ admits a $(g_1,g_2,g_3)$ weighted mixed labelling scheme with $g_1(n)\in \Oh((\log n)^{3/4})$.
+  Since $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$, \cref{gmpst} implies that $\mathcal{C}\subseteq\mathcal{Q}'$.  Therefore, $\mathcal{C}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n)\in \Oh((\log n)^{3/4})$.
 \end{proof}
 
 \section{Discussion}\label{conclusion}
