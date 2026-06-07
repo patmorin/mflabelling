@@ -113,9 +113,9 @@ Note that all the dependence on the fixed proper minor-closed class in~\cref{mai
 which is $\Oh\left((\log n)^{3/4}\right)$.
 The proof of~\cref{main_result} is constructive. For every fixed proper minor-closed class $\calG$, there is a polynomial-time algorithm that takes a graph $G\in\calG$ as input and constructs the labelling $\ell:V(G)\to\{0,1\}^*$.
 
-A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes and induced-universal graphs are essentially equivalent. A minor detail is that the labelling schemes need to be injective for the equivalence to hold but this is the case for those developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between the two notions.} of \cref{main_result} is the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs.
+A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes and induced-universal graphs are essentially equivalent. A minor detail is that the labelling schemes need to be injective for the equivalence to hold but this is the case for those developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between the two notions.} of \cref{main_result} is the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs. 
 
-\begin{cor}
+\begin{cor}\label{main_result_induced_universal}
   For every proper minor-closed class $\calG$, for every positive integer $n$,
   there exists a graph $U$ with $n^{1+o(1)}$ vertices such that every $n$-vertex graph in $\calG$ is isomorphic to an induced subgraph of $U$.
 \end{cor}
@@ -516,13 +516,14 @@ The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labellin
   \item $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
   \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
 \end{itemize}
-such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, every spanning subgraph $G$ of $G^+$, and every weight function $\omega:V(G)\to \R^+$, there exists an injective function $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ such that:
+such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, every spanning subgraph $G$ of $G^+$, and every weight function $\omega:V(G)\to \R^+$, there exists a function $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ such that:
 \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
-  \item for all $u,v\in V(G)$,
+  \item For all pairs of distinct cliques $K$ and $L$ in $G^+$, $\mu(K)\neq\mu(L)$;
+  \item For all $u,v\in V(G)$,
     \[
     \textrm{$A(\mu(u),\mu(v))=1$ if and only if $uv\in E(G)$;}
     \]
-  \item for every clique $K$ in $G^+$, $u\in K$, $v\in V(G)$,
+  \item For every clique $K$ in $G^+$, $u\in K$, $v\in V(G)$,
     \[
     \textrm{$I(\mu(K),\kappa(K, u),\mu(v))=1$ if and only if $u=v$;} 
     \]
@@ -543,7 +544,19 @@ A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed 
 
 Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
-The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So a graph class admitting an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
+
+The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
+
+\begin{lem}
+  Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
+\end{lem}
+
+\begin{proof}
+  Suppose, for the sake of contradiction, that there exists distinct $v,w\in V(G)$ such that $\mu(v)=\mu(w)$. Since  $K:=\{v\}$ is a clique in $G^+$, this immediately leads to the contradiction 
+  $1=I(\mu(K),\kappa(K,v),\mu(v))=I(K,\kappa(K,v),\mu(w))=0$.
+\end{proof}
+
+
 
 It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
 
@@ -680,13 +693,19 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we set $A'(\mu(v),\mu(w))$ to be the $i$-th bit of $c(w)$.
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
-  \paragraph{\boldmath The clique label $\mu(K)$:} Extend the domain of $\mu^-$ so that it includes the empty set, by setting $\mu^-(\emptyset):=\varepsilon$ (the empty string).
+  \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
   For each clique $K$ in $G^+$, define
   \[
-    \mu(K):=\langle c(K),\mu^-(K-X)\rangle \enspace .
+    \mu(K):=
+    \begin{cases}
+      \langle c(K) \rangle & \text{if $K\subseteq X$,}\\
+      \langle c(K),\mu^-(K-X)\rangle & \text{otherwise.}
+    \end{cases}
   \]
-  Then
+  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. If $K\cap X \neq L\cap X$, then $c(K)\neq c(L)$, so $\mu(K)\neq \mu(L)$ because their first parts differ. Otherwise, $K\setminus X \neq L\setminus X$. If one is empty, say $K\subseteq X$, then $\mu(K)$ has one part while $\mu(L)$ has two parts, so $\mu(K)\neq\mu(L)$. If both are non-empty, then $\mu^-(K-X)\neq \mu^-(L-X)$ since $\mu^-$ is injective on cliques of $G^+-X$, which implies $\mu(K)\neq \mu(L)$.
+
+  If $K\not\subseteq X$, then
   \begin{align*}
     b+|\mu^-(K-X)|
       & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n-|X|)+a
@@ -700,6 +719,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \text{by \eqref{encoding_cost}}\\
       & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \mathcal{O}(a+\log\log n)\enspace.
   \end{align*}
+  If $K\subseteq X$, then $|\mu(K)| \le b + \Oh(\lgg b)$, which easily satisfies the same bound.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
   For each clique $K$ in $G^+$ and each $u\in K$, define
@@ -721,7 +741,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   First by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
   If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1,\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
-  If $u,v\not\in X$, then we set
+  If $u,v\not\in X$, then since $u\in K$ we have $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
   \qedhere
@@ -819,7 +839,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \[
     \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
   \]
-  thus
+  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. Since $G^+$ is the disjoint union of $G^+_1,\ldots,G^+_m$, each clique is contained in exactly one component. If $K$ and $L$ are in different components $G^+_i$ and $G^+_j$, then $\rho(K)=\rho(i)\neq\rho(j)=\rho(L)$ since $\rho$ is a prefix-free code, so $\mu(K)\neq\mu(L)$. If they are in the same component $G^+_i$, then $\mu'(K)=\mu_i(K)\neq\mu_i(L)=\mu'(L)$ since $\mu_i$ is injective on cliques of $G^+_i$, which implies $\mu(K)\neq\mu(L)$.
+
+  Thus,
   \begin{align*}
     |\rho(K)| + |\mu'(K)|
       & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)\\
@@ -864,7 +886,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     g'_2(n)
       & = g_2(n)+\Oh(\log b(n)+\log\log n)\enspace,\\
     g'_3(n)
-      & = g_3(n) + \Oh(\log\log n)\enspace.
+      & = g_3(n) + \Oh(k(n) + \log\log n)\enspace.
   \end{align*}
 \end{lem}
 
@@ -1045,24 +1067,27 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \]
   Fix some clique $K$ in $G^\star$  and let $j=j(K)$.  By the definition of $j(K)$, we have that $B_j\cap K\setminus A_j=K\setminus A_j$ is non-empty.
   Therefore $K\setminus A_j$ is assigned a label $\mu_j(K\setminus A_j)$ in the mixed labelling of $(G^\star_j,G_j,\omega_{|V(G_j)})$ for $(A,I)$.
+  Since $K\setminus A_j$ is non-empty, let $v$ be an arbitrary vertex in $K\setminus A_j$. Let $x=\lca(v)$, so $x\in L_j(T)$ and $v\in B_x\setminus B_y$, where $y$ is the parent of $x$ in $T$ (if $x$ is the root, let $B_y=\emptyset$). Since the sets $B_z\setminus B_{z'}$ are disjoint for all nodes $z\in L_j(T)$ with parent $z'$, the node $x$ is uniquely determined by $K\setminus A_j$. Because $K$ is a clique, $K\subseteq B_x$, and thus $K\cap A_j \subseteq B_x \cap B_y$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|B_x \cap B_y|\le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $B_x\cap B_y$ (ordered canonically, for example by their $\beta$ values) belongs to $K$.
   Define the clique label
   \[
-    \mu(K):=\langle\rho(j),\mu_j(K\setminus A_j)\rangle \enspace .
+    \mu(K):=\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle \enspace .
   \]
+  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^\star$. If $j(K)\neq j(L)$, their first parts differ since $\rho$ is a prefix-free code. If $j(K)=j(L)=j$, then either $K\setminus A_j\neq L\setminus A_j$ or $K\cap A_j\neq L\cap A_j$. In the former case, $\mu_j(K\setminus A_j)\neq \mu_j(L\setminus A_j)$ since $\mu_j$ is injective on cliques of $G^\star_j$. In the latter case, $K\setminus A_j=L\setminus A_j$ implies they belong to the same bag $B_x$, so $c(K)\neq c(L)$. Thus $\mu(K)\neq \mu(L)$.
+
   Then
   \begin{align}
-    |\rho(j)|+|\mu_j(K\setminus A_j)|
-      & \le \log\omega(G)-\log\min_{v\in K\setminus A_j}(\omega(v))+g_3(n)+3 
+    |\rho(j)|+|\mu_j(K\setminus A_j)| + |c(K)|
+      & \le \log\omega(G)-\log\min_{v\in K\setminus A_j}(\omega(v))+g_3(n)+3+k 
         & \textrm{by~\eqref{eq:mu-i-K}}\\
-      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v))+g_3(n)+3   \label{rho_mu_k_len_i}\\
+      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v))+g_3(n)+k+3   \label{rho_mu_k_len_i}\\
       & \in \Oh(\log n)
     \label{rho_mu_k_len}
   \end{align}
-  since $\omega$ is nice and $g_3(n)\in\Oh(\log n)$.  Thus
+  since $\omega$ is nice, $g_3(n)\in\Oh(\log n)$, and $k\in\Oh(\log n)$.  Thus
   \begin{align*}
     |\mu(K)|
-      & \le |\rho(j)|+|\mu_j(K\setminus A_j)| + \Oh(\lgg|\rho(j)|+\lgg|\mu_j(K\setminus A_j)|)\\
-      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n)+\Oh(\log\log n) & \text{by \eqref{rho_mu_k_len_i} and \eqref{rho_mu_k_len} } \enspace .
+      & \le |\rho(j)|+|\mu_j(K\setminus A_j)|+|c(K)| + \Oh(\lgg|\rho(j)|+\lgg|\mu_j(K\setminus A_j)|+\lgg|c(K)|)\\
+      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n)+\Oh(k+\log\log n) & \text{by \eqref{rho_mu_k_len_i} and \eqref{rho_mu_k_len} } \enspace .
   \end{align*}
   Thus, $\mu$ satisfies the condition on $g'_3(n)$.
 
@@ -1080,7 +1105,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{Identity Testing:}
   We now describe the identity testing function $I'$.
-  Suppose $I'$ is given the labels $\mu(K)$, $\kappa(K,u)$, and $\mu(v)=\langle \rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ for some clique $K$ in $G^\star$, some $u\in K$, and some $v\in V(G)$. The label $\mu(K)$ always has the form $\langle\rho(j),\mu_j(K\setminus A_j)\rangle$ where $j=j(K)$.
+  Suppose $I'$ is given the labels $\mu(K)$, $\kappa(K,u)$, and $\mu(v)=\langle \rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ for some clique $K$ in $G^\star$, some $u\in K$, and some $v\in V(G)$. The label $\mu(K)$ always has the form $\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle$ where $j=j(K)$. The identity tester $I'$ simply ignores the third part of $\mu(K)$ and extracts $\rho(j)$ and $\mu_j(K\setminus A_j)$.
   The identity tester $I'$ first compares $\rho(j)$ and $\rho(v)=\rho(a(v))$.
   \begin{itemize}
     \item If $\rho(j)$ is lexicographically smaller than $\rho(a(v))$, then $j<a(v)$.  Since $K\subseteq\bigcup_{i=1}^j B_i$ and $v\not\in B_{j'}$ for any $j'<a(v)$, this implies that $v\not\in K$.  Therefore $v\neq u$, since $u\in K$. In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
@@ -1119,7 +1144,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     g'_2(n)
       & = g_2(n) + \Oh(\log\log n)\enspace,\\
     g'_3(n)
-      & = (h(n)+1)\cdot (g_3(n)+\Oh(\log\log n))\enspace.
+      & = (h(n)+1)\cdot (g_3(n)+\Oh(k(n)+\log\log n))\enspace.
   \end{align*}
 \end{lem}
 
@@ -1159,7 +1184,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \end{align}
   and for each clique $K$ of $G^+$,
   \begin{equation}
-    |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(\log\log n))\enspace.\label{strong_clique}
+    |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(k+\log\log n))\enspace.\label{strong_clique}
   \end{equation}
   Given an integer $n$, an $n$-vertex graph $G^+\in\mathcal{G}'$, a spanning subgraph $G$ of $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\mathcal{T}=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\mathcal{T}$ is in $\mathcal{G}$. Let $\mathcal{F}_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\mathcal{T}$).  Let $(n_0,h_0,k_0,G^+,G,\omega_0,\mathcal{F}_0)$ be an instance where $n_0:=n=|V(G)|$, $h_0:=h(n)$, $k_0:=k(n)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\mathcal{F}_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\mathcal{T}$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
   By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',I')$.
@@ -1394,31 +1419,30 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     |\mu(K)|
       & \leq |\mu_R(K)| + \Oh(1) + \Oh(\lgg|\mu_R(K)|) & & \text{by~\eqref{encoding_cost}}\\
       & \leq \log\omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + \Oh(\log\log n) & & \textrm{by~\eqref{mu_RK_ii} and~\eqref{eq:mu_R(K)-in-logn}.}
-  \end{align*}
-
-  Now, let $K$ be a clique of $G^\star$ that contains at least one vertex not in $B_R$. Then there exists exactly one $L\in\mathcal{K}_R$ such that all the vertices of $K\setminus B_R$ are contained in $G_L$. Then $K\setminus B_R$ is a clique in $G^\star_L$, since $G^\star_L[K\setminus B_R]=G^\star[K\setminus B_R]$. Thus, $\mu_L(K\setminus B_R)$ is defined, and we define
+  \end{align*}  Now, let $K$ be a clique of $G^\star$ that contains at least one vertex not in $B_R$. Then there exists exactly one $L\in\mathcal{K}_R$ such that all the vertices of $K\setminus B_R$ are contained in $G_L$. Then $K\setminus B_R$ is a clique in $G^\star_L$, since $G^\star_L[K\setminus B_R]=G^\star[K\setminus B_R]$. Thus, $\mu_L(K\setminus B_R)$ is defined. Since $K$ is a clique in $G^\star$, $K\cap B_R \subseteq L$. Since $L$ is the parent adhesion of some node in $L_2(F)$, $|L| \le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $L$ (ordered canonically, for example by their $\mu_R(v)$ labels) belongs to $K$. We define
   \[
-    \mu(K):= \langle\;\mu_R(L),\;\mu_{L}(K\setminus B_R)\;\rangle
+    \mu(K):= \langle\;\mu_R(L),\;\mu_{L}(K\setminus B_R),\;c(K)\;\rangle
     \enspace .
   \]
+  We now argue that $\mu$ is injective on the set of cliques of $G^\star$.  Consider two distinct cliques $K$ and $P$ of $G^\star$.   If $K,P \subseteq B_R$, then $\mu(K)=\langle\mu_R(K)\rangle\neq\langle\mu_R(P)\rangle=\mu(P)$.  If $K\subseteq B_R$ and $P\not\subseteq B_R$, then $\mu(K)$ has one part and $\mu(P)$ has three parts, so $\mu(K)\neq\mu(P)$. Now suppose that $K\not\subseteq B_R$ and $P\not\subseteq B_R$. Thus $K$ is contained in $G^\star_L$ and $P$ is contained in $G^\star_M$ for some cliques $L,M$ in $G^\star_R$.  If $L\neq M$ then $\mu_R(L) \neq \mu_R(M)$, so $\mu(K)$ differ in their first parts. Now assume that $L=M$. If $K\cap L\neq P\cap L$ then $c(K)\neq c(P)$, so $\mu(K)$ and $\mu(P)$ differ in their third parts. Otherwise, $K\setminus L\neq P\setminus L$, so $\mu_L(K\setminus B_R)$ and $\mu_L(P\setminus B_R)$ differ by induction, so $\mu(K)$ and $\mu(P)$ differ in their second parts. 
+
   Then,
   \begin{align*}
     |\mu(K)|
-      & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(1)+\Oh(\lgg|\mu_R(L)|+\lgg|\mu_L(K\setminus B_R)|)
+      & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + |c(K)| + \Oh(1)+\Oh(\lgg|\mu_R(L)|+\lgg|\mu_L(K\setminus B_R)|+\lgg|c(K)|)
       & \text{by \eqref{encoding_cost}}\\
-      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)\enspace,
+      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)\enspace,
   \end{align*}
-  where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h\cdot(g_3(n)+\Oh(\log\log n)) \in\Oh(\log^2 n)$, since $h\le h(n)\in\Oh(\log n)$ and $g_3(n)\in\Oh(\log n)$. Continuing,
+  where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h\cdot(g_3(n)+\Oh(k+\log\log n)) \in\Oh(\log^2 n)$, since $h\le h(n)\in\Oh(\log n)$, $k\in\Oh(\log n)$, and $g_3(n)\in\Oh(\log n)$. Continuing,
   \begin{align*}
     |\mu(K)|
-      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)\\
-      & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + \Oh(\log\log n)
-      & \text{by \eqref{mu_RK_i}}\\
-      & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}(\omega(v)) + (h+1)\cdot (g_3(n) +  \Oh(\log\log n))
-      & \text{by induction}\\
-      & \le \log\omega(G) - \log\min_{v\in K}\omega(v) + (h+1)\cdot (g_3(n) + \Oh(\log\log n)) \enspace ,
+      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)\\
+      & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)
+      & \text{by~\eqref{mu_RK_ii}}\\
+      & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}(\omega(v)) + (h+1)\cdot g_3(n) + (h+1)\cdot k + (h+1)\cdot\Oh(\log\log n)\\
+      & \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot (g_3(n) + \Oh(k+\log\log n)) \enspace .
   \end{align*}
-  which satisfies \eqref{strong_clique} and thus the requirement for $g'_3(n)$.
+  Thus, $\mu$ satisfies \eqref{strong_clique} and thus the requirement for $g'_3(n)$.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
   Let $K$ be a clique in $G^\star$, let $u\in K$, and let $z$ be the vertex of $F$ such that $u\in B_z\setminus A_z$.   The local identifier $\kappa(K,u)$ for $(A',I')$ has two parts,
@@ -1445,34 +1469,35 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \end{align*}
   since $\depth_F(z)\le h\le h(n)\in \Oh(\log n)$ and $|\zeta(K,u)|\le g_2(n)\in\Oh(\log n)$.  Thus, the length of $\kappa(K,u)$ satisfies the requirement for $g'_2(n)$.
 
-  \paragraph{Identity testing:}  We now describe the identity tester $I'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $I'$ first examines $\mu(v)$ to determine if $v\in B_R$.  If $\mu(v)$ has exactly one part, then $v\in B_R$. Otherwise, $\mu(v)$ has three parts and $v\not\in B_R$.
-  In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
-  \begin{itemize}
-    \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
+  \paragraph{Identity Testing:}
+  We now describe the identity tester $I'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $I'$ first examines $\mu(v)$ to determine if $v\in B_R$.  If $\mu(v)$ has exactly one part, then $v\in B_R$. Otherwise, $\mu(v)$ has three parts and $v\not\in B_R$.
+    In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
     \begin{itemize}
-      \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
-
-      \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
+      \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
       \begin{itemize}
-        \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-        \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+        \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+        \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
+        \begin{itemize}
+          \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
+          \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+        \end{itemize}
+      \end{itemize}
+      \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
+      \begin{itemize}
+        \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+        If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
+        Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
+        Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
+        \[
+        \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
+        \]
+        In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
       \end{itemize}
     \end{itemize}
-    \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
-    \begin{itemize}
-      \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
-
-      \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
-
-      If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-      Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
-      Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
-      \[
-      \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
-      \]
-      In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
-    \end{itemize}
-  \end{itemize}
 \end{proof}
 
 \subsection{Finalizing the Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
