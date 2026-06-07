@@ -123,7 +123,7 @@ A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes an
 \subsection{State of the Art}
 \label{ssec:state-of-art}
 
-Adjacency labeling schemes were introduced in the late 1980s
+Adjacency labelling schemes were introduced in the late 1980s
 by \citet{kannan.naor.ea:implicit} and independently in the PhD thesis of \citet{muller:local}. Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research.
 Here we review results most relevant to the current work, namely results on trees, bounded treewidth graphs, and planar
 graphs.
@@ -152,7 +152,7 @@ This is particularly relevant to the topic of this paper because of the followin
 in a proper minor-closed class can be edge $2$-coloured so that each monochromatic subgraph
 has bounded treewidth.
 Therefore, given a proper minor-closed class of graphs $\calG$,
-for each $G$ in $\calG$, fix such a $2$-coloring of the edges of $G$, say with red and blue, and label each vertex of $G$ by the concatenation of the two labels given by the adjacency labelling schemes for the red subgraph of $G$ and for the blue subgraph of $G$. Thus, all labels are of length $(2+o(1))\log n$.
+for each $G$ in $\calG$, fix such a $2$-colouring of the edges of $G$, say with red and blue, and label each vertex of $G$ by the concatenation of the two labels given by the adjacency labelling schemes for the red subgraph of $G$ and for the blue subgraph of $G$. Thus, all labels are of length $(2+o(1))\log n$.
 Given two labels, to test adjacency simply test whether there is a blue edge or whether there is a red edge.
 This gives a $(2+o(1))\log n$-bit adjacency labelling scheme for a fixed proper minor-closed class of graphs, which remained the best-known scheme up to the present work.
 
@@ -207,7 +207,7 @@ Let $G$ be an $n$-vertex graph in $\mathcal{G}$ and let $\mathcal{T}:=(T,(B_x\mi
   \item In the case where $x\neq y$, we need an alternative way of testing if $v$ and $w$ are adjacent, since $vw$ is not present in $\bigcup_{x\in V(T)}G[B^-_x]$ even when $vw\in E(G)$.
 \end{enumerate}
 \paragraph{Two part labels:}
-To deal with the first issue, we can assign each vertex $v$ a two part label $\langle x(v),\ell_x(v) \rangle$, where $x(v)$ a unique identifier for the node $x$ of $T$ such that $v\in B^-_x$.  Doing this naïvely could easily lead to a label length of $2\log n + o(\log n)$.  This can be avoided by using a variable-length code so that $|x(v)|=\log n-\log|B^-_{x(v)}|+\Oh(1)$.  This way, $|x(v)|+|\ell_x(v)|=|x(v)|+\log|B^-_{x(v)}|+o(\log n)=\log n + o(\log n)$.  This solves the first of the two problems above, but still leaves us with the second problem.  There is still no way of testing adjacency between vertices with different homes.
+To deal with the first issue, we can assign each vertex $v$ a two part label $\langle x(v),\ell_x(v) \rangle$, where $x(v)$ is a unique identifier for the node $x$ of $T$ such that $v\in B^-_x$.  Doing this naïvely could easily lead to a label length of $2\log n + o(\log n)$.  This can be avoided by using a variable-length code so that $|x(v)|=\log n-\log|B^-_{x(v)}|+\Oh(1)$.  This way, $|x(v)|+|\ell_x(v)|=|x(v)|+\log|B^-_{x(v)}|+o(\log n)=\log n + o(\log n)$.  This solves the first of the two problems above, but still leaves us with the second problem.  There is still no way of testing adjacency between vertices with different homes.
 
 \paragraph{Mixed labelling schemes:}
 An important contribution of the current work is to introduce a generalization of adjacency labelling schemes, called \defin{(weighted) mixed labelling schemes}, that attempts to solve both of these problems simultaneously. Mixed labelling schemes are defined formally at the introduction of \cref{weighted_mixed_section}. Informally, a mixed labelling $\mu$ is defined for a pair of graphs $Q^+$ and $Q$, where $Q$ is a spanning subgraph of $Q^+$, and $\mu$ defines labels for both vertices and cliques of $Q^+$. The vertex labels assigned by $\mu$ are used with an adjacency tester $A$ for the spanning subgraph $Q$.  That is, for any two vertices $v$ and $w$ of $Q$, $A(\mu(v),\mu(w)) = 1$ if and only if $vw\in E(Q)$.  In addition to the vertex and clique labels, a mixed labelling assigns, for each clique $K$ of $Q^+$ and each vertex $u\in K$, a short \defin{local identifier} $\kappa(K,u)$ for $u$ in $K$. These clique, vertex, and local identifiers are used with an \defin{identity tester} $I$.  For any clique $K$ of $Q^+$, any vertex $u\in K$, and any vertex $v$ of $Q$, $I(\mu(K),\kappa(K,u),\mu(v))=1$ if and only if $v=u$.
@@ -274,14 +274,14 @@ If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is called a \def
 
 \subsection{Trees and Forests}
 
-For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$ is $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
+For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
 
 Let $F$ be a rooted forest.  For each $x\in V(F)$,
 the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$.
 The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\height_F(x)$, is the maximum $F$-depth of a vertex in $F$.
-For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is a \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$.
-For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is a \defin{$F$-child} of $x$.
-We say that a set $S\subseteq V(F)$ is a \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.)
+For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$.
+For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$.
+We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.)
 We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$.
 Thus, $L_1(F)$ is the set of roots of components of $F$.
 
@@ -357,7 +357,7 @@ The following result is a variant of Alphabetic Binary Trees. Similar results (w
 
   Let $x\in S$.
   If $\omega(x)=1$ then define $r(x):=(x,1)$, which is a leaf of $Q$.
-  Clearly, (1) and (2) holds.
+  Clearly, (1) and (2) hold.
   Now suppose that $\omega(x)\geq2$.
   Consider the lowest common $Q$-ancestor $y$ of $S_{\omega}(x)$.
   Thus, $y$ is an internal node of $Q$ and
@@ -370,12 +370,12 @@ The following result is a variant of Alphabetic Binary Trees. Similar results (w
   Since the argument is completely symmetric in these cases, assume that $z$ is the left child of $y$.
   Consider a path in $Q_z$ starting from $z$ and always taking an edge to the right child of the current node until we finish at a leaf.
   Let $v$ be the first vertex of that path such that $Q_v$ has all leaves in $S_z$.
-  If $v=z$ then we set $r(x):=v$. Clearly (1) and (2) holds.
+  If $v=z$ then we set $r(x):=v$. Clearly (1) and (2) hold.
   Suppose that $v\neq z$.
   Let $u$ be the parent of $v$.
   Since the set of leaves of $Q_u$ form an interval of rightmost leaves of $Q_z$ and since $Q_u$ contains a leaf not in $S_z$, we conclude that $Q_u$ contains all nodes in $S_z$ as leaves.
   Therefore, $Q_v$ contains at least $|S_z|/2$ vertices of $S_z$ as leaves.
-  We set $r(x):=v$ and again (1) and (2) holds.
+  We set $r(x):=v$ and again (1) and (2) hold.
 
   Note that the set $\set{r(x) \mid x\in S}$ is a $Q$-antichain.
   Indeed, if $x,y\in S$, $x\neq y$ and $r(x)$ is a $Q$-ancestor of  $r(y)$, then the leaves of $Q_{r(y)}$ are contained in the leaves of $Q_{r(x)}$ which by (1) implies that $Q_{r(x)}$ contains all nodes in $S_{\omega}(y)$ as leaves.
@@ -516,7 +516,7 @@ The class  $\mathcal{G}$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labellin
   \item $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
   \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
 \end{itemize}
-such that for every natural $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, every spanning subgraph $G$ of $G^+$, and every weight function $\omega:V(G)\to \R^+$, there exists an injective function $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ such that:
+such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, every spanning subgraph $G$ of $G^+$, and every weight function $\omega:V(G)\to \R^+$, there exists an injective function $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ such that:
 \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
   \item for all $u,v\in V(G)$,
     \[
@@ -543,7 +543,7 @@ A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed 
 
 Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
-The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So a graph class admitting an efficient mixed weighted labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
+The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So a graph class admitting an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
 
 It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
 
@@ -717,7 +717,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{Identity testing:}
   We now describe the identity tester $I'$.
-  Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, $u\in K$, and  $v\in V(G)$,
+  Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, $u\in K$, and $v\in V(G)$,
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   First by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
   If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1,\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
@@ -839,7 +839,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{Identity testing:}
   Define an identity tester $I'$ as follows.
-  Given $\mu(K)$, $\mu(v)$ and $\kappa(K,u)$ for some clique $K$ in $G^+$, some $v\in V(G)$ and some $u\in K$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
+  Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$, and some $v\in V(G)$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v))=0$.
   If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case we have
   $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
@@ -852,7 +852,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \label{sec:skinny}
 
 \begin{lem}\label{skinny_labelling}
-  Let $\mathcal{G}$ be a hereditary class of graphs closed under taking  disjoint union.
+  Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
   Let $k:\N\to\N^+$ and $b:\N\to\R^+$ be functions with $k(n)\in\Oh(\log n)$ and with $b(n)>1$ for all $n$.
   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted $b(n)$-skinny tree-decomposition of adhesion-width at most $k(n)$ in which each torso is a member of $\mathcal{G}$.
   Let $g_i:\N\to\R$ be a non-decreasing function with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
@@ -1034,7 +1034,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     Otherwise, $\beta(v)=\langle d(v),\varphi(v)\rangle$.  Then the length-$d(v)$ prefix of $\rho(v)$ defines the path from the root of $T_\psi$ to $\lca(v)$.  By definition, $\lca(v)$ is a $T_\psi$-ancestor of all integers in $[a(v),b(v)]$. In this case, the tester checks if $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  If they do not, then $\lca(v)$ is not a $T_\psi$-ancestor of $j=a(w)$, so $j\not\in[a(v),b(v)]$.  Therefore, $v\not\in B_{j}$, which implies $v\not\in A_j$. Therefore $vw\not\in E(G)$, so $A'(\mu(v),\mu(w))=0$.
 
-    Suppose that $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  Then $j\in [a(v),b(v)]$ and $v\in A_j$. In this case the tester inspects each item of $\alpha(w)$. Let $(d_0,\varphi_0)$ be such an item and say that $(d(u_0),\varphi(u_0))=(d_0,\varphi_0)$ for $u_0 \in N_G(w)\cap A_j$. Since $u_0 \in A_j$, we have $j\in[a(u_0),b(u_0)]$. Therefore, both nodes $\lca(v)$ and $\lca(u_0)$ are $T_\psi$-ancestors of $j$. In other words, both $\lca(v)$ and $\lca(u_0)$ lie on the path from the root to $j$ in $T_{\psi}$. Therefore, $\lca(v)=\lca(u_0)$ if and only if $d(v)=d(u_0)$. Furthermore, $v=u_0$ if and only $(d(v),\varphi(v))=(d(u_0),\varphi(u_0))$. Thus, if $(d_0,\varphi_0)=(d(v),\varphi(v))$ then the tester concludes that the corresponding neighbour $u_0=v$, so $A'(\mu(v),\mu(w))=1$. Finally, if no item $(d_0,\varphi_0)$ in $\alpha(w)$ satisfies $(d_0,\varphi_0)=(d(v),\varphi(v))$, then $v\not\in N_G(w)\cap A_j$ so $v$ and $w$ are not adjacent in $G$, and we set $A'(\mu(v),\mu(w))=0$.
+    Suppose that $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  Then $j\in [a(v),b(v)]$ and $v\in A_j$. In this case the tester inspects each item of $\alpha(w)$. Let $(d_0,\varphi_0)$ be such an item and say that $(d(u_0),\varphi(u_0))=(d_0,\varphi_0)$ for $u_0 \in N_G(w)\cap A_j$. Since $u_0 \in A_j$, we have $j\in[a(u_0),b(u_0)]$. Therefore, both nodes $\lca(v)$ and $\lca(u_0)$ are $T_\psi$-ancestors of $j$. In other words, both $\lca(v)$ and $\lca(u_0)$ lie on the path from the root to $j$ in $T_{\psi}$. Therefore, $\lca(v)=\lca(u_0)$ if and only if $d(v)=d(u_0)$. Furthermore, $v=u_0$ if and only if $(d(v),\varphi(v))=(d(u_0),\varphi(u_0))$. Thus, if $(d_0,\varphi_0)=(d(v),\varphi(v))$ then the tester concludes that the corresponding neighbour $u_0=v$, so $A'(\mu(v),\mu(w))=1$. Finally, if no item $(d_0,\varphi_0)$ in $\alpha(w)$ satisfies $(d_0,\varphi_0)=(d(v),\varphi(v))$, then $v\not\in N_G(w)\cap A_j$ so $v$ and $w$ are not adjacent in $G$, and we set $A'(\mu(v),\mu(w))=0$.
   \end{itemize}
 
   \paragraph{\boldmath The clique labels $\mu(K)$ and local identifiers $\kappa(K,v)$:}
@@ -1300,7 +1300,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \quad {} + (h-1)\cdot (g_3(n) + \Oh(\log\log n)) +\Oh(\log\log n) \enspace . \notag
   \end{align}
 
-  \paragraph{\boldmath The vertex labeling $\mu:V(G)\to\{0,1\}^*$:}
+  \paragraph{\boldmath The vertex labelling $\mu:V(G)\to\{0,1\}^*$:}
   The format of a vertex label depends on whether the vertex is in $B_R$ or not.
   For each $v\in B_R$, define
   \[
@@ -1563,7 +1563,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
   Let $\mathcal{Q}$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\mathcal{R}_k^{+a}$.  By \cref{disjoint_union_ii}, $\mathcal{Q}$ admits a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\mathcal{Q}$ is closed under disjoint union.  Also, by definition  $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$. Since $\mathcal{R}_k^{+a}$ is hereditary, $\mathcal{Q}$ is hereditary.
 
-  Let $\mathcal{Q}'$ be the class of graphs that have tree decompositions whose torsos are in $\mathcal{Q}$.  The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$.  So the graphs in $\mathcal{Q}$ also have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, the graphs in $\mathcal{Q}'$ have tree decompositions of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{Q}$.
+  Let $\mathcal{Q}'$ be the class of graphs that have tree decompositions whose torsos are in $\mathcal{Q}$.  The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$.  So the graphs in $\mathcal{Q}$ also have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, the graphs in $\mathcal{Q}'$ have tree-decompositions of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{Q}$.
 
   By \cref{RealMainTechnical}, each graph in $\mathcal{Q}'$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with
   \[
@@ -1718,7 +1718,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   \paragraph{Adjacency Testing}
 
   We now describe a procedure that defines the output of the adjacency tester $A$.
-  This operation of this procedure makes use of the fact that $\lambda_2(v,i)$ contains all the information in $\sigma^+(v,i)$, $\sigma(v,i)$, $\sigma^+(v,i+1)=J(\sigma^+(v,i),\tau(v,i))$, and $\sigma(v,i+1)$.
+  The operation of this procedure makes use of the fact that $\lambda_2(v,i)$ contains all the information in $\sigma^+(v,i)$, $\sigma(v,i)$, $\sigma^+(v,i+1)=J(\sigma^+(v,i),\tau(v,i))$, and $\sigma(v,i+1)$.
 
   Given the labels $\mu((v,i))$ and $\mu((w,j))$ for two vertices $(v,i)$ and $(w,j)$ of $G$, the procedure first uses $\lambda_1(v,i)$ and $\lambda_1(w,j)$ (along with the function $P$) to test if $i=j$, $i=j+1$ or $i=j-1$.  If none of these is the case, then the procedure can immediately conclude that $(v,i)(w,j)$ is not an edge of $H$, since $i\neq j$ and $ij$ is not an edge of $P$.  Since $G$ is a subgraph of $H\boxtimes P$, this implies that $A(\mu((v,i)),\mu((w,j))):=0$.  Otherwise, the procedure deals with one of the preceding cases:
   \begin{itemize}
@@ -1892,7 +1892,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$ containing only real vertices, let $(u,j)\in K$, and let $(v,i')$ be a real vertex of $G$.  Let $(v^*,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(v^*,i),\sigma^+(v^*,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1((v^*,i))$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i')$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
     If $i'\in\{i-1,i\}$, then the tester locates the entry $\langle |\sigma(u,i)|,\varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(K,(u,j))$. The location of this entry also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately determine that $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ if $j\neq i'$.
     If $j=i'$, then the tester computes $\sigma(u,i)$ using $\sigma^+(v^*,i)$ and $|\sigma(u,i)|$. Recall that $\lambda_2(v,i')=\langle \sigma^+(v,i'), |\sigma(v,i')|, \varphi(v),\alpha(v,i'),\tau(v,i'),|\sigma(v,i'+1)|\rangle$.
-  There now two cases to consider:
+  There are now two cases to consider:
   \begin{itemize}
     \item If $i'=i$ then the tester uses $\sigma^+(v,i')$ and $|\sigma(v,i')|$ to compute $\sigma(v,i')=\sigma(v,i)$.  If $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$ then $(v,i)=(u,i)$ and  $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=1$.  Otherwise, $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$.
     \item If $i'=i-1$ then the tester computes $\sigma^+(v,i)=J(\sigma^+(v,i'),\tau(v,i'))$ and uses this with $|\sigma(v,i'+1)|=|\sigma(v,i)|$ to compute $\sigma(v,i)$.  Again, the tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
