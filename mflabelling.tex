@@ -1480,14 +1480,14 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
         \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
         \begin{itemize}
           \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-          \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+          \item If $\mu(K)$ has three parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R),c(K)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
         \end{itemize}
       \end{itemize}
       \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
       \begin{itemize}
         \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
         If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
         Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
@@ -1538,12 +1538,13 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
   weighted $(g'_1(n),g'_2(n),g'_3(n))$ mixed labelling scheme, where
   \begin{align*}
     g'_1(n)
-      & = g_1(n) + \Oh(\log\log n) + \Oh(\log(b(n))\\
+      & = g_1(n) + \Oh(k \log b(n) + k \log\log n)\\
       & = g_1(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace,\\
     g'_2(n)
-      & = g_2(n)+ \Oh(\log b(n))+\Oh(\log\log n)\\
+      & = g_2(n)+ \Oh(\log b(n) + \log\log n)\\
       & = g_2(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace,\\
     g'_3(n)
+      & = g_3(n) + \Oh(k + \log\log n)\\
       & = g_3(n) + \Oh(\log\log n)\enspace.
   \end{align*}
 
@@ -1554,13 +1555,13 @@ The following lemma proves \cref{PlainRealMainTechnical}, with quantitative boun
   By \cref{small_height}, $\mathcal{C}$ has a weighted \linebreak $(g''_1(n),g''_2(n),g''_3(n))$ mixed labelling scheme, where
   \begin{align*}
     g''_1(n)
-      & = g'_1(n) + \Oh(g'_2(n)) + h(n)\cdot (g'_3(n)+\Oh(\log\log n)) + \Oh(\log\log n)\\
+      & = g'_1(n) + k\cdot(g'_2(n) + \Oh(\log\log n)) + h(n)\cdot (g'_3(n)+\Oh(\log\log n)) + \Oh(\log\log n)\\
       & = g_1(n) +  \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(g_2(n)) + \Oh\left((1+h(n))\log\log n\right)\\
     g''_2(n)
       & = g'_2(n) + \Oh(\log\log n)\\
       & = g_2(n) + \Oh\left(\sqrt{{g_3(n)\log n}}\right) + \Oh(\log\log n)\\
     g''_3(n)
-      & = (1+h(n))\cdot (g'_3(n)+\Oh(\log\log n))\\% + \Oh(h(n)\log\log n) +\Oh(\log\log n)\\
+      & = (h(n)+1)\cdot (g'_3(n)+\Oh(k+\log\log n))\\% + \Oh(h(n)\log\log n) +\Oh(\log\log n)\\
       & = \Oh\left(\sqrt{g_3(n)\log n}\right) + g_3(n) + \Oh\left((1+h(n))\log\log n\right)\\
       & = \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh\left((1+h(n))\log\log n\right)\enspace.
   \end{align*}
@@ -1685,10 +1686,10 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   \paragraph{\boldmath The row label $\lambda_1$:}
   With the sets $S^+_1,\ldots,S^+_h$ described, we can now discuss $\lambda_1$.
   The first part of $\lambda_1(v,i)$ is obtained by applying \cref{shannon_fano_elias_code} to the set $[h]$ using the weight function defined by $i \mapsto |S^+_i|$. This gives a prefix-free code $\mathdefin{\rho}:[h]\to\{0,1\}^*$ where, by Property~\ref{plus_size} of \cref{shannon_fano_elias_code}, $|\rho(i)|\le \log\rho([h]) - \log|S^+_i| + \Oh(1)\le \log n - \log|S^+_i| + \Oh(1)$ for each $i\in[h]$.
-  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\pi(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\gamma(i)$.  Formally, there exists a universal function $P:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $P(\rho(i),\pi(i))=\rho(i-1)$, for each $i\in\{2,\ldots,h\}$.
+  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\pi(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\pi(i)$.  Formally, there exists a universal function $P:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $P(\rho(i),\pi(i))=\rho(i-1)$, for each $i\in\{2,\ldots,h\}$.
   Then
   \[
-    \mathdefin{\lambda_1(v,i)}:=\langle \rho(i),\gamma(i)\rangle
+    \mathdefin{\lambda_1(v,i)}:=\langle \rho(i),\pi(i)\rangle
   \]
   and
   \begin{equation}
@@ -1899,6 +1900,13 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \[
       \mu(K) := \langle\; \lambda_1(v^*,i),\; \sigma^+(v^*,i),\; \alpha(K) \;\rangle \enspace .
     \]
+    To see that $\mu$ is injective when restricted to cliques in $G^+$, suppose $\mu(K)=\mu(L)$ for two distinct cliques $K$ and $L$.
+    Then their first parts match, which implies $i_K=i_L=i$ since the prefix-free code $\rho(i)$ inside $\lambda_1$ uniquely determines the $P$-coordinate $i$.
+    They also have the same extended signature $\sigma^+:=\sigma^+(v^*_K,i)=\sigma^+(v^*_L,i)$ and the same third part $\alpha(K)=\alpha(L)$.
+    The set of vertices in $K$ is uniquely determined by $i$, $\sigma^+$, and $\alpha(K)$: for each entry $\langle \ell, \varphi \rangle$ in $\alpha^-(K)$ (respectively, $\alpha^0(K)$), there is a vertex $(w,i-1)$ (respectively, $(w,i)$) in $K$ where $\varphi(w)=\varphi$ and $\sigma(w,i)$ is the prefix of $\sigma^+$ of length $\ell$.
+    By \eqref{ps_identity}, the $H$-coordinate $w$ is uniquely identified by $i$, $\sigma(w,i)$, and $\varphi(w)$, which in turn uniquely determines each vertex $(w,j)$ of $K$.
+    Since $\alpha(K)=\alpha(L)$, we conclude $K=L$. Thus $\mu$ is injective on cliques of $G^+$.
+
     Then,
     \begin{align*}
       |\mu(K)|
