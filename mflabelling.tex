@@ -1449,29 +1449,29 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
   \begin{itemize}
     \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
-      \begin{itemize}
-        \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+    \begin{itemize}
+      \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-        \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
-          \begin{itemize}
-            \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-            \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
-          \end{itemize}
+      \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
+      \begin{itemize}
+        \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
+        \item If $\mu(K)$ has two parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
       \end{itemize}
+    \end{itemize}
     \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
-      \begin{itemize}
-        \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+    \begin{itemize}
+      \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-        \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+      \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-          If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-          Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
-          Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
-          \[
-          \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
-          \]
-          In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
-      \end{itemize}
+      If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
+      Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
+      Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
+      \[
+      \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
+      \]
+      In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
+    \end{itemize}
   \end{itemize}
 \end{proof}
 
@@ -1840,11 +1840,11 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
         & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))\\
         & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
     \end{align*}
-    By \eqref{total_delta}, we have $|\lambda_1((v,i))|\le \log n - \log |S^+_{\delta,i}| + \Oh(\log\log n)$, so
+    By \eqref{total_delta}, we have $|\lambda_1((v,i))|\le \log\omega(G) - \log |S^+_{\delta,i}| + \Oh(\log\log n)$, so
     \begin{align*}
       |\mu((v,i))|
         & = |\lambda_1((v,i))|+|\lambda_2((v,i))| + \Oh(\log\log n)\\
-        & \le \log\omega(G) - \log |S^+_{\omega,i}| + \log |S^+_{\omega,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))\\
+        & \le \log\omega(G) - \log |S^+_{\delta,i}| + \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))\\
         & = \log\omega(G) - \log\omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
     \end{align*}
     For any fixed $k$, $|\mu((v,i))|=\log \omega(G)-\log \omega((v,i)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_1(n)\in\Oh(\sqrt{\log n})$. Since the vertex labels assigned by $\mu$ have the same format as those in \cite{alstrup.dahlgaard.ea:optimal,dujmovic.esperet.ea:adjacency}, the adjacency tester $A$ proceeds exactly as described in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}.
@@ -1877,11 +1877,11 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     Then,
     \begin{align*}
       |\mu(K)|
-        & \le |\lambda_1(v,i^*)| + |\sigma^+(v^*,i)| + \Oh(k \log\log n)\\
-        & \le \log n - \log\delta(v^*,i) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))\\
-        & \le \log n - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) .
+        & \le |\lambda_1(v^*,i)| + |\sigma^+(v^*,i)| + \Oh(k \log\log n)\\
+        & \le \log\omega(G) - \log\delta(v^*,i) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))\\
+        & \le \log\omega(G) - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) .
     \end{align*}
-    For fixed $k$, $|\mu(K)|\le \log n - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_3(n)\in\Oh(\sqrt{\log n})$.
+    For fixed $k$, $|\mu(K)|\le \log\omega(G) - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_3(n)\in\Oh(\sqrt{\log n})$.
 
     \paragraph{Local identifiers}
 
@@ -1889,7 +1889,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
 
     \paragraph{Identity testing}
 
-    We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$ containing only real vertices, let $(u,j)\in K$, and let $(v,i')$ be a real vertex of $G$.  Let $(v^*,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(v^*,i),\sigma^+(v^*,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1((v^*,i))$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i)$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
+    We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$ containing only real vertices, let $(u,j)\in K$, and let $(v,i')$ be a real vertex of $G$.  Let $(v^*,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(v^*,i),\sigma^+(v^*,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1((v^*,i))$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i')$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
     If $i'\in\{i-1,i\}$, then the tester locates the entry $\langle |\sigma(u,i)|,\varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(K,(u,j))$. The location of this entry also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately determine that $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ if $j\neq i'$.
     If $j=i'$, then the tester computes $\sigma(u,i)$ using $\sigma^+(v^*,i)$ and $|\sigma(u,i)|$. Recall that $\lambda_2(v,i')=\langle \sigma^+(v,i'), |\sigma(v,i')|, \varphi(v),\alpha(v,i'),\tau(v,i'),|\sigma(v,i'+1)|\rangle$.
   There now two cases to consider:
