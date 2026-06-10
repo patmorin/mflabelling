@@ -1450,7 +1450,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \kappa(K,u) := \langle\depth_F(z),\zeta(K,u)\rangle \enspace .
   \]
   The first part is (the binary encoding of) $\depth_F(z)$. We now describe the second part, $\zeta(K,u)$.  If $K\subseteq B_R$, then $\zeta(K,u):=\kappa_R(K,u)$.
-  If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\in K\setminus B_R$ then $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ are defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)})$ for $(A',I')$.
+  If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\in K\setminus B_R$ then $K\setminus B_R$ is non-empty, so $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ are defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)})$ for $(A',I')$.
   Since this is a labelling for $(A',I')$ obtained by induction,
   \begin{equation}
     \kappa_L(K\setminus B_R,u)=\langle\depth_{F_L}(z),\zeta_{L}(K\setminus B_R,u)\rangle=\langle\depth_F(z)-1,\zeta_L(K\setminus B_R,u)\rangle\enspace.
@@ -1490,8 +1490,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
         \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
         If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-        Since $u\not\in B_R$,  $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$.
-        Thus, $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
+        Since $u\in K$ and $u\not\in B_R$, we have $u\in K\setminus B_R$, so $K\setminus B_R$ is non-empty. Thus, $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$
+        and $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
         \[
         \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
         \]
