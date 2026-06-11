@@ -20,6 +20,8 @@
 \renewcommand{\geq}{\geqslant}
 \renewcommand{\leq}{\leqslant}
 
+\DeclareMathOperator{\id}{id}
+
 \newcommand{\david}[1]{\noindent{\color{orange} DW: #1}}
 \newcommand{\vida}[1]{\noindent{\color{pink} VD: #1}}
 \newcommand{\pat}[1]{\noindent\textcolor{Magenta}{PaMo: #1}}
@@ -426,7 +428,11 @@ Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$  is $\Oh
 
 In some cases, we include one or more non-negative integers as part of a multipart label.  When we include $d\in\N$ as part of a label this way, we are actually including the $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} of $d$.  For the sake of readability, we write this as $\langle s_1,d,s_2,\ldots\rangle$ rather than $\langle s_1,\bin(d),s_2,\ldots\rangle$. \label{bin_d}
 
-\subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}
+
+
+\input{newstuff}
+
+\subsection{Separators with Low Pathwidth and Low Path-Adhesion-Width}  
 
 Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ for each $i\in\N^+$, and a rooted tree-decomposition $(T,(B_x\mid x\in V(T)))$ of a graph $G$ is $b$-skinny if $T$ is $b$-skinny.  The following lemma shows how to construct a $(1/b)$-separator using the bags in a $b$-skinny subtree of a tree-decomposition.
 
