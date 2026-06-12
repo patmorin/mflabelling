@@ -269,8 +269,7 @@ polynomial-time labelling algorithm.
 
 Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} be the set of all positive integers.  For $p\in\N^+$, let $[p]:=\set{1,\dots,p}$.
 
-A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\mathcal{G}$ is \defin{hereditary} if for every $G$ in $\mathcal{G}$ every induced subgraph of $G$ is also in $\mathcal{G}$. A  graph class $\mathcal{G}$ is \defin{monotone} if for every $G\in\mathcal{G}$, every subgraph of $G$ is in $\mathcal{G}$.
-A  graph class $\mathcal{G}$ is \defin{minor-closed} if for every $G\in\mathcal{G}$, every minor of $G$ is in $\mathcal{G}$. A graph class $\mathcal{G}$ is \defin{proper} if some graph is not in $\mathcal{G}$.  A \defin{disjoint union} of two graphs $G$ and $H$ is a graph obtained from two vertex-disjoint copies of $G$ and $H$ with no edge in between. A class of graphs $\mathcal{C}$ is \defin{closed under taking disjoint union} if for all $G,H$ in $\mathcal{C}$, the disjoint union of $G$ and $H$ is also in $\mathcal{C}$.
+A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\mathcal{G}$ is \defin{hereditary} if for every $G$ in $\mathcal{G}$ every induced subgraph of $G$ is also in $\mathcal{G}$. A  graph class $\mathcal{G}$ is \defin{monotone} if for every $G\in\mathcal{G}$, every subgraph of $G$ is in $\mathcal{G}$. A  graph class $\mathcal{G}$ is \defin{minor-closed} if for every $G\in\mathcal{G}$, every minor of $G$ is in $\mathcal{G}$. A graph class $\mathcal{G}$ is \defin{proper} if some graph is not in $\mathcal{G}$.  A \defin{disjoint union} of two graphs $G$ and $H$ is a graph obtained from two vertex-disjoint copies of $G$ and $H$ with no edge in between. A class of graphs $\mathcal{C}$ is \defin{closed under taking disjoint union} if for all $G,H$ in $\mathcal{C}$, the disjoint union of $G$ and $H$ is also in $\mathcal{C}$.
 
 If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is a tree-decomposition of $G$, then $(P,(B_x\mid x \in V(P)))$ is called a \defin{path-decomposition} of $G$, which we usually denote as $(B_1,\ldots,B_{|V(P)|})$.
 
@@ -278,14 +277,7 @@ If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is a tree-decomp
 
 For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
 
-Let $F$ be a rooted forest.  For each $x\in V(F)$,
-the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$.
-The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\height_F(x)$, is the maximum $F$-depth of a vertex in $F$.
-For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$.
-For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$.
-We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.)
-We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$.
-Thus, $L_1(F)$ is the set of roots of components of $F$.
+Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\height_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
 For a rooted tree $T$ and any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
 
@@ -1480,29 +1472,29 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
   \begin{itemize}
     \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
-          \begin{itemize}
-            \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+    \begin{itemize}
+      \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-            \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
-                  \begin{itemize}
-                    \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-                    \item If $\mu(K)$ has three parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R),c(K)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
-                  \end{itemize}
-          \end{itemize}
+      \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
+      \begin{itemize}
+        \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
+        \item If $\mu(K)$ has three parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R),c(K)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+      \end{itemize}
+    \end{itemize}
     \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
-          \begin{itemize}
-            \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+    \begin{itemize}
+      \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-            \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+      \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-                  If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-                  Since $u\in K$ and $u\not\in B_R$, we have $u\in K\setminus B_R$, so $K\setminus B_R$ is non-empty. Thus, $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$
-                  and $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
-                  \[
-                    \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
-                  \]
-                  In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
-          \end{itemize}
+      If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
+      Since $u\in K$ and $u\not\in B_R$, we have $u\in K\setminus B_R$, so $K\setminus B_R$ is non-empty. Thus, $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$
+      and $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
+      \[
+        \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
+      \]
+      In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
+    \end{itemize}
   \end{itemize}
 \end{proof}
 

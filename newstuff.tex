@@ -1,57 +1,61 @@
 \section{This is the new stuff}
 
 
-\begin{lem}
-  Let $G$ be an $n$-vertex graph and let $\mathcal{T}=(T,(B_x\mid x\in V(T)))$ be a tree-decomposition of $G$.  Then there exists $S\subseteq V(T)$ with $|S| \le 2b-{?}$ such that each component of $G-\bigcup_{x\in S}B_x$ has less than $n/b$ vertices and each component of $T-S$ has is adjacent to at most two vertices of $S$.
+The following lemma is well-known (see, for example \cite{}).
+
+\begin{lem}\label{bag_separator}
+  Let $T$ be a tree and let $\omega:V(T)\to\R^+$ be a weight function.  Then, for any $b\in\N^+$, there exists $S\subseteq V(T)$ with $|S|\le b-1$ such that $\omega(C)\le \omega(T)/b$ for each component $C$ of $T-S$.
 \end{lem}
 
 \begin{proof}
-  Treat $T$ as a rooted tree. If $n < b$, then there is nothing to do.  Otherwise, let $x\in V(T)$ be such that $\omega(x) \ge n/b$ but $\omega(y) < n/b$ for each $y\in V(T_x)$.  Then at most one of the trees in $T-x$ has weight greater than $n/b$. Recurse on this tree, which has weight at most $n-n/b$.  This gives a set $S_0$ of size at most $b-1$ such that each component of $G-(\bigcup_{x\in S_0}B_x)$ has size less than $n/b$.  
-
-  Let $T_0$ be the minimal subtree of $T$ that spans $S_0$ and let $S_1$ be the set of nodes in $T_0$ of degree at least three.  Then $S:=S_0\cup S_1$ has the desired properties.
+  The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. Let $x\in V(T)$ be such that $\omega(T_x) \ge \omega(T)/b$ but $\omega(T_y) < \omega(T)/b$ for each child $y$ of $x$.  Then $T-x$ has at most one component $T_0$ with $\omega(T_0) > \omega(T)/b$.  If no such component exists, then $S:=\{x\}$ satisfies the requirements of the lemma and we are done.  Otherwise, the component $T_0$ has $\omega(T_0)\le (1-1/b)\omega(T)$.  Applying induction on $T_0$ with the weight function $\omega_{|V(T_0)}$ and $b-1$ yields a set $S_0$ of size at most $b-2$ such that $\omega(C)\le\omega(T_0)/(b-1)\le \omega(T)/b$ for each component $C$ of $T_0-S_0$.  The set $S:=S_0\cup\{x\}$ satisfies the requirements of the lemma.
 \end{proof}
 
 \begin{lem}
-  Let $G$ be an $n$-vertex graph and let $\mathcal{T}=(T,(B_x\mid x\in V(T)))$ be a tree-decomposition of $G$.  Then $G$ has a tree-decomposition $\mathcal{Q}:=(Q,(C_q\mid q\in V(Q)))$ with the following properties:
+  Let $G$ be an $n$-vertex graph and let $\mathcal{T}=(T,(B_x\mid x\in V(T)))$ be a tree-decomposition of $G$.  Then, for any integer $b\in\N^+$,  $G$ has a tree-decomposition $\mathcal{Q}:=(Q,(C_q\mid q\in V(Q)))$ with the following properties:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \item $\height(Q)\le \log_b n$;
-    \item for each $q\in V(Q)$, the torso $\torso{G}{\mathcal{Q},C_q}$ has a tree-decomposition $\mathcal{T}(q):=(T(q),(D_x:x\in V(T(q))))$ such that
+    \item\label{req:height} $\height(Q)\le \log_b n$;
+    \item\label{req:subtree_decomposition} for each $q\in V(Q)$, the torso $\torso{G}{\mathcal{Q},C_q}$ has a tree-decomposition $\mathcal{T}(q):=(T(q),(D_x:x\in V(T(q))))$ such that
     \begin{enumerate}[nosep,nolistsep,label=\rm(\roman*)]
-      \item $|V(T(q))|\le {?}b$;
-      \item each adhesion of $\mathcal{T}(q)$ is contained in the union of at most two adhesions of $\mathcal{T}$;
-      \item each bag of $\mathcal{T}(q)$ is contained in the union of at most one bag of $\mathcal{T}$ and at most two adhesions of $\mathcal{T}$.
+      \item\label{req:subtree_size} $|V(T(q))|\le 4b-1$;
+      \item\label{req:subtree_adhesion} each adhesion of $\mathcal{T}(q)$ is contained in the union of at most three adhesions of $\mathcal{T}$;
+      \item\label{req:subtree_bags} each bag of $\mathcal{T}(q)$ is contained in the union of three adhesions of $\mathcal{T}$ or the union of one bag of $\mathcal{T}$ and one adhesion of $\mathcal{T}$.
     \end{enumerate}
-  \end{enumerate}  
+  \end{enumerate}
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $n$, with a slightly more sophisticated inductive hypothesis. An inductive instance includes a graph $G$, a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$, and two (not necessarily distinct) leaves $\alpha$ and $\beta$ of $T$.  In addition to providing a tree-decomposition $\mathcal{Q}$ of $G$ satisfying the conditions of the lemma, it also ensures 
-  \begin{enumerate}[nosep,nolistsep,label=\rm(\roman*)]\setcounter{enumi}{3}
-    \item\label{adhesion_pairs} some bag of the root decomposition $\mathcal{T}(q_0)$ contains the parent adhesions $A_\alpha$ and $A_\beta$ of $\alpha$ and $\beta$.
+  The proof is by induction, with a slightly more complicated inductive hypothesis. An inductive instance $(G,\mathcal{T}, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$, and two (not necessarily distinct) leaves $\alpha$ and $\beta$ of $T$.  We will produce a tree-decomposition $\mathcal{Q}=(Q,(C_q\mid q\in V(Q)))$ of $G$ that satisfies \ref{req:subtree_decomposition} as well as the following two conditions, the first of which is a strengthening of \ref{req:height}:
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*')]
+    \item\label{req:height_prime} $\height(Q)\le \log_b (n-|B_\alpha \cup B_\beta|)$;
   \end{enumerate}
-  The induction is on the number of vertices in $V(G-(B_\alpha\cup B_\beta))$.  To see that this enough to establish the original lemma, we can attach two leaves $\alpha, \beta$ to $T$, set $B_\alpha:=B_\beta:=\emptyset$, and apply the refined result.
-
-  If $|V(G)\setminus (B_\alpha\cup B_\beta)|<b$, then then we can take $\mathcal{Q}$ to be a trivial tree-decomposition with a single bag $B_{q_0}$.  Removing redundant nodes from $T$ produces a tree-decomposition with at most $b+2\le 2b$ nodes, and adding $B_\alpha$ to each bag on the path in $T$ from $\alpha$ to $\beta$ gives a tree-decomposition of $G[B_{q_0}]=\torso{G}{\mathcal{Q},B_{q_0}}$ that satisifies the requirements of the lemma.
-  % \pat{Handle base case.}
-
-  Now assume that $n>b$.
-  Let $S_0$ be a set of at most $b-1$ nodes of $T$ with the property that, for each component $C$ of $T-S$, $|\bigcup_{x\in V(C)}B_x\setminus (\bigcup_{x\in S_0} B_x)|\le n/b$.  Let $T_0$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes in $S_0$ that have degree at least $3$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,b\}$, so $|S|\le 2b$.
-
-  The tree $Q$ will have root $q_0$ with $C_{q_0}:=\bigcup_{x\in S}B_x$.  We now describe the tree-decomposition $\mathcal{Q}(q_0):=(T(q_0), D_x:x\in V(T(q_0)))$.  Create the tree $Q(q_0)$ as follows.  Say that a pair $x,y\in S$ is \defin{consecutive} if the path in $T$ from $x$ to $y$ has no internal node in $S$. For each pair of consecutive nodes $x,y\in S$, introduce a vertex $v(xy)$ and add the path $x,v(xy),y$ to $Q$.  For each $x\in S_0\cup\{x,y\}$, set $D_x:=B_x$.
-
-  Let $C$ be a component of $T-S$ and let $\{\alpha',\beta'\}=N_T(V(C))$, so $\alpha'$ and $\beta'$ are consecutive vertices of $S$. (Possibly $\alpha'=\beta'$ if $|N_T(V(C))|=1$.)  Set $D_{v(\alpha'\beta')}:=(B_x\cap B_{\alpha'})\cup(B_y\cap B_{\beta'})$.
-  Note that this ensures that some bag of $\mathcal{T}(q_0)$ contains $N_G(V(C))\cap C_{q_0}$.
-
-  Let $T':=T[V(C)\cup N_T(V(C))]$.  We apply induction on the graph $G_{\alpha'\beta'}:=G[\bigcup_{x\in V(T')}B_x]$ with the tree-decomposition $\mathcal{T}':=(T',(B_x:x\in V(T')))$ and special leaves $\alpha'$ and $\beta'$.  Since $G_{\alpha'\beta'}-(B_{\alpha'}\cup B_{\beta'})=C$ has at most $n/b$ vertices, this produces a tree decomposition of $\mathcal{Q}_{\alpha'\beta'}:=(T_{\alpha'\beta'},(C_x\mid x\in V(T_{\alpha'\beta'}))$ of height at most $\log_b(n/b)=\log_b n-1$.  By \ref{adhesion_pairs}, the root bag of $\mathcal{Q}_{\alpha'\beta'}$ has a tree-decomposition in which some bag contains the parent adhesions $A_{\alpha'}=B_{\alpha'}\cap B_x$ and $A_{\beta'}:=B_{\beta'}\cap B_y$.  We make the root bag of $T_{\alpha'\beta'}$ a child of $q_0$.  Doing this for each component $C$ of $T-S$ yields the desired tree-decomposition $\mathcal{Q}$ of $G$.
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\roman*)]\setcounter{enumi}{3}
+    \item\label{req:adhesion_pairs} for the root $q_0$ of $Q$, there exists a bag of $\mathcal{T}(q_0)$ that contains $A_\alpha\cup A_\beta$, where $A_\alpha$ and $A_\beta$ are the adhesions of $\mathcal{T}$ incident to $\alpha$ and $\beta$ respectively.
+  \end{enumerate}
+  The induction is on the number of vertices in $V(G)\setminus (B_\alpha\cup B_\beta)$.  To see that this is enough to establish the original lemma, we can attach two leaves $\alpha, \beta$ to $T$, set $B_\alpha:=B_\beta:=\emptyset$, and apply the refined result.
   
-  Finally, to ensure that the resulting decomposition satisfies \ref{adhesion_pairs} we add $A_\alpha$ to $D_x$ for each $x\in V(T(q_0))$ on the path from $\alpha'$ to $\beta'$.  In particular $D_\beta$ contains $A_\alpha\cup A_\beta$.
+  Define the weight function $\omega: V(T)\to\R^+$ by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$, where $A_x$ is the parent adhesion of $x$ in $\mathcal{T}$.  Apply \cref{bag_separator} to $T-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$, for each component $C$ of $T-S_0$.  Let $T_0$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes of $T_0$ that have degree at least $3$ in $T_0$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.
+
+  The tree $Q$ in our tree-decomposition $\mathcal{Q}=(Q,(C_x:x\in V(Q)))$ will have root $q_0$ with $C_{q_0}:=\bigcup_{x\in S}B_x$.  We now describe the tree-decomposition $\mathcal{T}(q_0):=(T(q_0), D_x:x\in V(T(q_0)))$.  First we describe the tree $T(q_0)$.  Say that a pair of nodes $x,y\in S$ is \defin{consecutive} if the path in $T$ from $x$ to $y$ has no internal node in $S$. For each pair of consecutive nodes $x,y\in S$, introduce a vertex $v(xy)$ and add the $3$-node path $x,v(xy),y$ to $T(q_0)$.  For each $x\in S$, set $D_x:=B_x$.  This gives a tree $T(q_0)$ with $2|S|-1\le 4b-1$ nodes.  For each pair of consecutive nodes $x,y\in S$ with $xy\in E(T)$, we set $D_{v(xy)}:=B_x\cap B_y$.  If $xy\not\in E(T)$, then $T-S$ has a component $C$ with $N_T(V(C))=\{x,y\}$, and $D_{v(xy)}$ will be defined in the next paragraph. 
+
+  We now construct the tree-decomposition $\mathcal{T}(q_0)$ by examining the interaction of each component $C$ of $T-S$ with $S$.  Let $C$ be a component of $T-S$ and let $N:=N_T(V(C))$.  Since $S$ is non-empty, $|N|\ge 1$.  By the choice of $S_1$, $|N|\le 2$.  Let $\{\alpha',\beta'\}=N_T(V(C))$, so $\alpha'$ and $\beta'$ are consecutive vertices of $S$. (Possibly $\alpha'=\beta'$ if $|N|=1$.)  Then $T$ contains edges $x'\alpha'$ with $x'\in V(C)$ and $y'\beta'$ with $y'\in V(C)$.  Let $A_{\alpha'}:=B_{x'}\cap B_{\alpha'}$ and let $A_{\beta'}:=B_{y'}\cap B_{\beta'}$.  If $\alpha'=\beta'$, there is no need to do anything else.  If $\alpha'\neq\beta'$, then $\alpha'$ and $\beta'$ are two consecutive nodes in $S$.  In this case, we set $D_{v(\alpha'\beta')}:=A_{\alpha'}\cup A_{\beta'}$. 
+
+  It is straightforward to check that $\mathcal{T}(q_0)$ is a tree-decomposition of $G[C_{q_0}]$.  We now argue that $\mathcal{T}(q_0)$ is a tree-decomposition of $\torso{G}{\mathcal{Q},C_{q_0}}$ as well.  The only danger is that $\torso{G}{\mathcal{Q},C_{q_0}}$ contains an edge $vw$ that is not an edge of $G[C_{q_0}]$.  Any such edge comes from a component $C$ of $T-S$ that creates a child $q_C$ of $q_0$ in $Q$ with $N_T(V(C)) = \{\alpha', \beta'\}$ and $\{v,w\}\subseteq A_{\alpha'}\cup A_{\beta'}$.  Indeed, $A_{\alpha'}\cup A_{\beta'}$ is a clique in $\torso{G}{\mathcal{Q},C_{q_0}}$, so it must appear in some bag of $\mathcal{T}(q_0)$ and in some bag of $\mathcal{T}(q_C)$.  If $\alpha'\neq\beta'$, then while processing $C$ we set $D_{v(\alpha'\beta')}:=A_{\alpha'}\cup A_{\beta'}$ above, which ensures that some bag of $\mathcal{T}(q_0)$ contains both $v$ and $w$. If $\alpha'=\beta'$, then $\{v,w\}\subseteq A_{\alpha'}\subseteq B_{\alpha'}=D_{\alpha'}$, which is a bag of $\mathcal{T}(q_0)$.  Thus $\mathcal{T}(q_0)$ is a tree-decomposition of $\torso{G}{\mathcal{Q},C_{q_0}}$. After processing each component $C$ of $T-S$ there is a final step:  
+  
+  To ensure that $\mathcal{T}(q_0)$ satisfies \ref{req:adhesion_pairs} we add $A_{\alpha}$ to $D_x$ for each $x\in V(T(q_0))$ on the path from $\alpha$ to $\beta$.  This does not change the fact that $\mathcal{T}(q_0)$ is a tree-decomposition of $\torso{G}{\mathcal{Q},C_{q_0}}$.  This completes the definition of $\mathcal{T}(q_0)$.
+  We now verify that $\mathcal{T}(q_0)$ satisfies \ref{req:subtree_size}, \ref{req:subtree_adhesion}, \ref{req:subtree_bags}, and \ref{req:adhesion_pairs}.  Since $|V(T(q_0))|\le 4b-1$, \ref{req:subtree_size} is satisfied. Each edge of $T(q_0)$ has an endpoint $x\in V(T)$ and an endpoint $v(xy)\not\in V(T)$.  Thus, each adhesion of $\mathcal{T}(q_0)$ is contained in $D_{v(xy)}$ for some consecutive pair $x,y\in S$. Such a bag $D_{v(xy)}$ may contain $A_{\alpha}$, which is an adhesion of $\mathcal{T}$ (if $v(xy)$ is on the path from $\alpha$ to $\beta$ in $T(q_0)$).  In addition to this, $D_{v(xy)}$ contains either a single adhesion $B_x\cap B_y$ of $\mathcal{T}$ (if $xy\in E(T)$), or two adhesions $A_{\alpha'}\cup A_{\beta'}$ of $\mathcal{T}$ (when $xy\not\in E(T)$). Thus, each adhesion of $\mathcal{T}(q_0)$ is the union of at most three adhesions in $\mathcal{T}$, so $\mathcal{T}(q_0)$ satisfies \ref{req:subtree_adhesion}.  For each node $v(xy)\in V(T(q_0))\setminus V(T)$, the bag $D_{v(xy)}$ is the union of at most three adhesions of $\mathcal{T}$, as we have just discussed.  For each node $x\in V(T(q_0))\cap V(T)$, $D_x\subseteq B_x\cup A_\alpha$. Therefore $\mathcal{T}(q_0)$ satisfies \ref{req:subtree_bags}.  Finally, $D_\beta=A_\alpha\cup B_\beta\supseteq A_\alpha\cup A_\beta$, so $\mathcal{T}(q_0)$ satisfies \ref{req:adhesion_pairs}.
+  
+  We have defined the root bag $C_{q_0}$ of $\mathcal{Q}$ and the tree-decomposition $\mathcal{T}(q_0)$ of $\torso{G}{\mathcal{Q},C_{q_0}}$.  We now describe the rest of the tree-decomposition $\mathcal{Q}$ by setting up an inductive instance for each component $C$ of $T-S$ with $\omega(C) \ge 1$.  Let $C$ be such a component with $N_T(V(C)) = \{\alpha',\beta'\}$ (possibly $\alpha'=\beta'$).
+  Let $T':=T[V(C)\cup\{\alpha',\beta'\}]$ and let $G_{\alpha'\beta'}:=G[\bigcup_{x\in V(T')}B_x]$.  Then $\mathcal{T}':=(T',(B_x:x\in V(T')))$ is a tree-decomposition of $G_{\alpha'\beta'}$.  Furthermore $G_{\alpha'\beta'}-(B_{\alpha'}\cup B_{\beta'})$ has $\omega(C)\le (n-|B_{\alpha}\cup B_{\beta}|)/b$ vertices.  Thus $(G_{\alpha'\beta'},\mathcal{T}',\alpha',\beta')$ is an instance on which we can apply induction.  The result of this induction is a tree-decomposition $\mathcal{Q}_{\alpha'\beta'}:=(Q_{\alpha'\beta'},(C_x\mid x\in V(T_{\alpha'\beta'})))$ of height at most $\log_b((n-|B_{\alpha}\cup B_{\beta}|)/b)=\log_b(n-|B_{\alpha}\cup B_{\beta}|)-1$.  Let $q'_0$ be the root of $Q_{\alpha'\beta'}$.  The tree $Q$ contains the edge $q_0q'_0$.
+  
+  By induction, there exists a tree-decomposition $\mathcal{T}(q'_0)$ of $\torso{G}{\mathcal{Q}_{\alpha'\beta'},C_{q'_0}}$ that satisfies \ref{req:subtree_size}, \ref{req:subtree_adhesion}, \ref{req:subtree_bags}, and \ref{req:adhesion_pairs}.  We claim that $\mathcal{T}(q'_0)$ is also a tree-decomposition of $\torso{G}{\mathcal{Q},C_{q'_0}}$. Indeed, the only difference between $\torso{G}{\mathcal{Q}_{\alpha'\beta'},C_{q'_0}}$ and $\torso{G}{\mathcal{Q},C_{q'_0}}$ is that the latter has additional edges between the vertices of $A_{\alpha'}\cup A_{\beta'}$. However, \ref{req:adhesion_pairs} ensures that some bag of $\mathcal{T}(q'_0)$ contains $A_{\alpha'}\cup A_{\beta'}$.
 \end{proof}
 
 
 \subsection{Lower-Torso Specific}
 
 
-Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a graph $G$. For each $x\in V(T)$ with parent adhesion $A_x$, define the \defin{lower-torso} $\mathdefin{\torso{G^-}{\mathcal{T},B_x}}:=\torso{G}{\mathcal{T},B_x}-A_x$.  For a child $y$ of a node $x$ of $T$, $A_y\setminus A_x$ is the \defin{lower-adhesion} between $x$ and $y$. The \defin{lower adhesion-width} of $\mathcal{T}$ is the size of the largest lower adhesion in $\mathcal{T}$.  The \defin{up-degree} of $G$ with respect to $\mathcal{T}$ is the the maximum over $x\in V(T)$ an $v\in B_x\setminus A_x$ of $|N_G(v)\cap A_x|$. 
+Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a graph $G$. For each $x\in V(T)$ with parent adhesion $A_x$, define the \defin{lower-torso} $\mathdefin{\torso{G^-}{\mathcal{T},B_x}}:=\torso{G}{\mathcal{T},B_x}-A_x$.  For a child $y$ of a node $x$ of $T$, $A_y\setminus A_x$ is the \defin{lower-adhesion} between $x$ and $y$. The \defin{lower adhesion-width} of $\mathcal{T}$ is the size of the largest lower adhesion in $\mathcal{T}$.  The \defin{up-degree} of $G$ with respect to $\mathcal{T}$ is the the maximum over $x\in V(T)$ an $v\in B_x\setminus A_x$ of $|N_G(v)\cap A_x|$.
 
 
 % \begin{lem}
@@ -68,7 +72,7 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
   Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of size at most $b(n)$, up-degree at most $k(n)$, and whose lower-torsos belong to $\mathcal{G}$. Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
     g_1'(n) & = g_1(n) + \Oh(k(n)\cdot(\log b(n)+g_2(n)+g_3(n)+\log\log n)) \\
-    g_2'(n) & = g_2(n) + \Oh(\log b(n)+\log k(n)+\log\log n) \\
+    g_2'(n) & = g_2(n) + \Oh(\log b(n)+\log k(n)+\log\log n)                \\
     g_3'(n) & = \Oh(k(n)\cdot (g_3(n)+\log k(n))+\log\log n) \enspace .
   \end{align*}
 \end{lem}
@@ -76,24 +80,24 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
 \begin{proof}
   \pat{This proof fails to establish injectivity of $\mu$ on cliques.  I think the assumptions of the lemma are too weak to establish injectivity without increasing the clique label length to $\log b(n)$, which would make the lemma useless.  Back to working on the separator lemma above....}
   Let $A$ and $I$ be an adjacency tester and identity tester for a weighted $(g_1,g_2,g_3)$ mixed labelling for the class $\mathcal{G}$.    We will eventually define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$, but this is not practical without first describing how we obtain a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
-  
+
   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$. For each $x\in V(T)$, let $A_x$ be the parent adhesion of $x$ in $\mathcal{T}$. For each node $y$ of $T$ with parent $x$, $|A_y\setminus A_x|\le k$, since $\mathcal{T}$ witnesses that $G\in\mathcal{G}'$. Let $k:=k(n)$ and let $b:=b(n)$.
 
 
   For each $x\in V(T)$, let $\omega(x):=\sum_{z\in V(T_x)}\omega(B_z\setminus A_z)$.  For each $x\in V(T)$, each vertex $u\in B_x\setminus A_x$ in the lower-torso of $x$, let $C_u$ be the set of children $y$ of $x$ such that $u$ is contained in $B_y\cap B_x\setminus A_x$.  Define
-  \[  
-    \delta(u) := \omega(u) + \sum_{y\in C_u}\omega(y) 
+  \[
+    \delta(u) := \omega(u) + \sum_{y\in C_u}\omega(y)
   \]
   Note that $\omega(y)$ appears in the sum for $\delta(u)$ exactly when $u$ is in the lower adhesion $A_y\setminus A_x$.  Since each lower-adhesion has size at most $k$, summing $\delta(u)$ over all $u\in B_x\setminus A_x$ implies that $\delta(B_x\setminus A_x)\le k\cdot\omega(x)$.
 
-  Let $x_0,\ldots,x_r$ be a path from the root of $T$ to some node $x_r$.   For each $i\in\{0,\ldots,r-1\}$, let $K_{i}:=A_{x_{i+1}}\setminus A_{x_i}$. For each $i\in\{0,\ldots,r-1\}$ and each $u\in K_i$,  $\delta(u)\ge\omega(x_{i+1})$.  Therefore, 
+  Let $x_0,\ldots,x_r$ be a path from the root of $T$ to some node $x_r$.   For each $i\in\{0,\ldots,r-1\}$, let $K_{i}:=A_{x_{i+1}}\setminus A_{x_i}$. For each $i\in\{0,\ldots,r-1\}$ and each $u\in K_i$,  $\delta(u)\ge\omega(x_{i+1})$.  Therefore,
 
   \begin{align*}
-    &\quad \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\min_{u\in K_i}\delta(u)) 
-    \le \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\omega(x_{i+1})) \\
-    & \le \sum_{i=0}^{r-1}(\log (k\cdot\omega(x_i)) -\log\omega(x_{i+1})) 
-    \le \log\omega(x_0)-\log\omega(x_r) + r\log k \\
-    & = \log\omega(G)-\log\omega(x_r) + r\log k
+     & \quad \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\min_{u\in K_i}\delta(u))
+    \le \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\omega(x_{i+1}))               \\
+     & \le \sum_{i=0}^{r-1}(\log (k\cdot\omega(x_i)) -\log\omega(x_{i+1}))
+    \le \log\omega(x_0)-\log\omega(x_r) + r\log k                                                  \\
+     & = \log\omega(G)-\log\omega(x_r) + r\log k
   \end{align*}
 
   Furthermore, since $\omega(x_{i+1})\le \omega(x_i)$ for each $i$, for every $J\subseteq\{0,\ldots,r-1\}$,
@@ -115,13 +119,13 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
   Thus, $\tau(v)$ is a sequence of at most $k$ pairs.
   For each $u\in N_G(v)\cap A_x$, exactly one of the pairs in $\tau(v)$ is $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  For each $u\in N_G(v)\cap A_x$, let $i(u)$ denote the index in the sequence $\tau(v)$ of the pair $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  Then
   \[
-     \alpha(v) :=\left\langle \langle \bin(i(u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
+    \alpha(v) :=\left\langle \langle \bin(i(u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
   \]
-  
+
   \paragraph{\boldmath The vertex label length $|\mu(v)|$:}
   We now consider the length of the vertex label $\mu(v)$ for a vertex $v\in B_x\setminus A_x$. This label contains $\id(x)$ and $\id(h(u))$ for each $u\in N_G(v)\cap A_x$.  These identifiers have total length at most $(k+1)\lceil\log b\rceil$, so these contribute at most $\Oh(k\log b)$ bits to the length of $\mu(v)$.  In addition to this, $\alpha(v)$ contains up to $k$ pairs, each of which has length $\Oh(\log k + g_2(n))$.  The only remaining parts of $\mu(v)$ are $\mu_x(v)$ and $\{\mu_{h(u)}(K_u) \mid u\in N_G(v)\cap A_x\}$. By \eqref{telescoping_subset}, the lengths of these parts form a telescoping sum that is bounded by
   \begin{align*}
-     &\quad \log\omega(G)-\log\omega(x)+\log\delta(B_x\setminus A_x)-\log\omega(v)+\Oh(k\cdot (g_3(n)+\log\log n)) \\
+     & \quad \log\omega(G)-\log\omega(x)+\log\delta(B_x\setminus A_x)-\log\omega(v)+\Oh(k\cdot (g_3(n)+\log\log n)) \\
      & \le \log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot (g_3(n)+\log\log n)).
   \end{align*}
   Thus $\mu(v)$ has total length at most $\log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot(\log b+g_2(n)+g_3(n)+\log\log n))$, which satisfies the requirement for $g'_1(n)$.
@@ -134,28 +138,28 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
   Let $G^\star:=\bigcup_{x\in V(T)}\torso{G^+}{\mathcal{T},B_x}$.  Note that $G^\star$ is a supergraph of $G^+$ since $\torso{G^+}{\mathcal{T},B_x}$ is a supergraph of $G^+[B_x]$ for each $x\in V(T)$.
 
   Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, there is a single path $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the deepest node $x_r=z$ such that $K\cap B_{z}\setminus A_z$ is non-empty.  Since $K$ is a clique, a vertex in $K\cap B_{z}\setminus A_z$ has at least $|h(K)|-1$ neighbours in $A_z$.  Since $\mathcal{T}$ has up-degree at most $k$, this implies that $|h(K)|\le k+1$.
-  
+
   For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined.  Define the clique label
   \[
     \mu(K)
-      :=\left\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
-          \mid x\in h(K)
-        \right\rangle
+    :=\left\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
+    \mid x\in h(K)
+    \right\rangle
   \]
   By \eqref{telescoping_subset}, the lengths of the at most $k+1$ clique labels in $\mu(K)$ form a telescoping series, so
   \begin{align*}
     \sum_{x\in h(K)}|\mu_{x}(K\cap B_x\setminus A_x)|
-    & \le 
+     & \le
     \log\omega(G)-\log\min_{u\in K\cap B_z\setminus A_z}(\omega(u)) + \Oh(k\cdot(g_3(n)+\log k)) \\
-    & \le \log\omega(G)-\log\min_{u\in K}(\omega(u))
+     & \le \log\omega(G)-\log\min_{u\in K}(\omega(u))
     +\Oh(k\cdot(g_3(n)+\log k))
   \end{align*}
   Thus, $|\mu(K)|\le \log\omega(G)-\log\min_{u\in K}(\omega(u))
     +\Oh(k\cdot(g_3(n)+\log k+\log\log n))
-    $, which satisfies the requirement for $g'_3(n)$.
+  $, which satisfies the requirement for $g'_3(n)$.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:} For each $u\in K$, let $i(u)$ be the index of  $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ in the sequence $\mu(K)$.  For each $u\in K$, define the local identifier
-  \[ 
+  \[
     \kappa(K,u):=\langle \bin(i(u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u) \rangle
   \]
   The length of $\kappa(K,u)$ is $g_2(n)+\Oh(\log b+\log k+\log\log n)$, which satisfies the requirement for $g'_2(n)$.
