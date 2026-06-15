@@ -8,7 +8,7 @@ The following lemma is well-known (see, for example \cite{}).
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. Let $x\in V(T)$ be such that $\omega(T_x) \ge \omega(T)/b$ but $\omega(T_y) < \omega(T)/b$ for each child $y$ of $x$.  Then $T-x$ has at most one component $T_0$ with $\omega(T_0) > \omega(T)/b$.  If no such component exists, then $S:=\{x\}$ satisfies the requirements of the lemma and we are done.  Otherwise, the component $T_0$ has $\omega(T_0)\le (1-1/b)\omega(T)$.  Applying induction on $T_0$ with the weight function $\omega_{|V(T_0)}$ and $b-1$ yields a set $S_0$ of size at most $b-2$ such that $\omega(C)\le\omega(T_0)/(b-1)\le \omega(T)/b$ for each component $C$ of $T_0-S_0$.  The set $S:=S_0\cup\{x\}$ satisfies the requirements of the lemma.
+  The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. Let $x\in V(T)$ be such that $\omega(T_x) \ge \omega(T)/b$ but $\omega(T_y) < \omega(T)/b$ for each child $y$ of $x$.  Then $T-x$ has at most one component $T_0$ with $\omega(T_0) > \omega(T)/b$.  If no such component exists, then $S:=\{x\}$ satisfies the requirements of the lemma and we are done.  Otherwise, the component $T_0$ has $\omega(T_0)\le (1-1/b)\omega(T)$.  Applying induction on $T_0$ with the weight function $\omega|_{V(T_0)}$ and $b-1$ yields a set $S_0$ of size at most $b-2$ such that $\omega(C)\le\omega(T_0)/(b-1)\le \omega(T)/b$ for each component $C$ of $T_0-S_0$.  The set $S:=S_0\cup\{x\}$ satisfies the requirements of the lemma.
 \end{proof}
 
 \begin{lem}
@@ -55,7 +55,7 @@ The following lemma is well-known (see, for example \cite{}).
 \subsection{Lower-Torso Specific}
 
 
-Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a graph $G$. For each $x\in V(T)$ with parent adhesion $A_x$, define the \defin{lower-torso} $\mathdefin{\torso{G^-}{\mathcal{T},B_x}}:=\torso{G}{\mathcal{T},B_x}-A_x$.  For a child $y$ of a node $x$ of $T$, $A_y\setminus A_x$ is the \defin{lower-adhesion} between $x$ and $y$. The \defin{lower adhesion-width} of $\mathcal{T}$ is the size of the largest lower adhesion in $\mathcal{T}$.  The \defin{up-degree} of $G$ with respect to $\mathcal{T}$ is the the maximum over $x\in V(T)$ an $v\in B_x\setminus A_x$ of $|N_G(v)\cap A_x|$.
+% Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a graph $G$. For each $x\in V(T)$ with parent adhesion $A_x$, define the \defin{lower-torso} $\mathdefin{\torso{G^-}{\mathcal{T},B_x}}:=\torso{G}{\mathcal{T},B_x}-A_x$.  For a child $y$ of a node $x$ of $T$, $A_y\setminus A_x$ is the \defin{lower-adhesion} between $x$ and $y$. The \defin{lower adhesion-width} of $\mathcal{T}$ is the size of the largest lower adhesion in $\mathcal{T}$.  The \defin{up-degree} of $G$ with respect to $\mathcal{T}$ is the the maximum over $x\in V(T)$ an $v\in B_x\setminus A_x$ of $|N_G(v)\cap A_x|$.
 
 
 % \begin{lem}
@@ -69,7 +69,7 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
 
 
 \begin{lem}
-  Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of size at most $b(n)$, up-degree at most $k(n)$, and whose lower-torsos belong to $\mathcal{G}$. Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
+  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\R$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\N$ be non-decreasing functions with $k(n)\in\Oh(\log n)$ and $b(n)\ge 2$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ and size at most $b(n)$ whose torsos belong to $\mathcal{G}$. Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
     g_1'(n) & = g_1(n) + \Oh(k(n)\cdot(\log b(n)+g_2(n)+g_3(n)+\log\log n)) \\
     g_2'(n) & = g_2(n) + \Oh(\log b(n)+\log k(n)+\log\log n)                \\
@@ -78,20 +78,22 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
 \end{lem}
 
 \begin{proof}
-  \pat{This proof fails to establish injectivity of $\mu$ on cliques.  I think the assumptions of the lemma are too weak to establish injectivity without increasing the clique label length to $\log b(n)$, which would make the lemma useless.  Back to working on the separator lemma above....}
-  Let $A$ and $I$ be an adjacency tester and identity tester for a weighted $(g_1,g_2,g_3)$ mixed labelling for the class $\mathcal{G}$.    We will eventually define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$, but this is not practical without first describing how we obtain a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
+  Let $A$ and $I$ be an adjacency tester and identity tester for a weighted $(g_1,g_2,g_3)$ mixed labelling for the class $\mathcal{G}$.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
 
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$. For each $x\in V(T)$, let $A_x$ be the parent adhesion of $x$ in $\mathcal{T}$. For each node $y$ of $T$ with parent $x$, $|A_y\setminus A_x|\le k$, since $\mathcal{T}$ witnesses that $G\in\mathcal{G}'$. Let $k:=k(n)$ and let $b:=b(n)$.
-
-
-  For each $x\in V(T)$, let $\omega(x):=\sum_{z\in V(T_x)}\omega(B_z\setminus A_z)$.  For each $x\in V(T)$, each vertex $u\in B_x\setminus A_x$ in the lower-torso of $x$, let $C_u$ be the set of children $y$ of $x$ such that $u$ is contained in $B_y\cap B_x\setminus A_x$.  Define
+  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}$ has adhesion-width at most $k:=k(n)$, $|V(T)|\le b:=b(n)$, and each torso of $\mathcal{T}$ belongs to $\mathcal{G}$. 
+  
+  For each $x\in V(T)$, let $A_x$ be the parent adhesion of $x$ in $\mathcal{T}$.  For each $x\in V(T)$, let $\omega(x):=\sum_{z\in V(T_x)}\omega(B_z\setminus A_z)$.  For each $x\in V(T)$, each vertex $u\in B_x\setminus A_x$ in the lower-torso of $x$, let $C_u$ be the set of $T$-children $y$ of $x$ such that $u$ is contained in $A_y$.  In other words, for a vertex $u$ whose home node is $x$, $C_u$ contains the children of $x$ whose adhesion with $x$ contains $u$.  Define
   \[
-    \delta(u) := \omega(u) + \sum_{y\in C_u}\omega(y)
+    \delta(u) := k\cdot \omega(u) + \sum_{y\in C_u}\omega(y)
   \]
-  Note that $\omega(y)$ appears in the sum for $\delta(u)$ exactly when $u$ is in the lower adhesion $A_y\setminus A_x$.  Since each lower-adhesion has size at most $k$, summing $\delta(u)$ over all $u\in B_x\setminus A_x$ implies that $\delta(B_x\setminus A_x)\le k\cdot\omega(x)$.
+  By definition, $\omega(y)$ appears in the sum for $\delta(u)$ exactly when $u$ is in the adhesion $A_y$.  Since each adhesion has size at most $k$,
+  \[
+    \delta(B_x\setminus A_x) \le \sum_{u\in B_x\setminus A_x} \left(k\cdot \omega(u) + \sum_{y\in C_u}\omega(y)\right)
+    \le k\left(\omega(B_x\setminus A_x) + \sum_{y\in N_{T_x}(x)}\omega(y)\right) = k\cdot \omega(x)
+  \]
+  for each $x\in V(T)$.
 
-  Let $x_0,\ldots,x_r$ be a path from the root of $T$ to some node $x_r$.   For each $i\in\{0,\ldots,r-1\}$, let $K_{i}:=A_{x_{i+1}}\setminus A_{x_i}$. For each $i\in\{0,\ldots,r-1\}$ and each $u\in K_i$,  $\delta(u)\ge\omega(x_{i+1})$.  Therefore,
-
+  Let $x_0,\ldots,x_r$ be a path from the root $x_0$ of $T$ to some node $x_r$ of $T$.   For each $i\in\{0,\ldots,r-1\}$, let $K_{i}:=A_{x_{i+1}}\setminus A_{x_i}$.   For each $i\in\{0,\ldots,r-1\}$ and each $u\in K_i$, $x_{i+1}\in C_u$, and thus $\delta(u)\ge\omega(x_{i+1})$.   Therefore,
   \begin{align*}
      & \quad \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\min_{u\in K_i}\delta(u))
     \le \sum_{i=0}^{r-1}(\log \delta(B_{x_i}\setminus A_{x_i}) -\log\omega(x_{i+1}))               \\
@@ -112,39 +114,48 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
   \[
     \mu(v) := \langle \id(x),\mu_x(v),\tau(v),\alpha(v) \rangle \enspace .
   \]
-  The parts $\id(x)$ and $\mu_x(v)$ are defined above. What remains is to describe $\tau(v)$ and $\alpha(v)$.  Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to the home $x_r=x$ of $v$. Let $u$ be a vertex in $N_G(v)\cap A_x$.  Then $u$ has a home $h(u)=x_i$ for some $i\in\{0,\ldots,r-1\}$. Since $u\in B_{x_i}\setminus A_{x_i}$ and $u\in A_{x_r}=A_x$, the vertex $u$ is in the lower-adhesion $K_{u}:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$. In particular, $K_u$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ so $\mu_{h(u)}(K_u)$ and $\kappa_{h(u)}(K_u,u)$ are defined.  The bitstring $\tau(v)$ is used to store $K_u$ for each $u\in N_G(v)\cap A_x$:
+  The parts $\id(x)$ and $\mu_x(v)$ are defined above. What remains is to describe $\tau(v)$ and $\alpha(v)$.  Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to the home $x_r=x$ of $v$ in $\mathcal{T}$. Let $u$ be a vertex in $N_G(v)\cap A_x$.  Then $u$ has a home $h(u)=x_i$ for some $i\in\{0,\ldots,r-1\}$. Since $u\in B_{x_i}\setminus A_{x_i}$ and $u\in A_{x_r}=A_x$, the vertex $u$ is in $K_{u}:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$. In particular, $K_u$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ so $\mu_{h(u)}(K_u)$ and $\kappa_{h(u)}(K_u,u)$ are defined.  The bitstring $\tau(v)$ is used to store $\mu_{h(u)}(K_u)$ for each $u\in N_G(v)\cap A_x$:
   \[
-    \tau(v) := \left\langle \langle\id(x_i), \mu_{x_i}((B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}) \rangle \mid i\in\{0,\ldots,r-1\}, N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset \right\rangle \enspace .
+    \tau(v) := \left\langle \langle\id(x_i), \mu_{x_i}((B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}) \rangle \middle| i\in\{0,\ldots,r-1\}, N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset \right\rangle \enspace .
   \]
   Thus, $\tau(v)$ is a sequence of at most $k$ pairs.
-  For each $u\in N_G(v)\cap A_x$, exactly one of the pairs in $\tau(v)$ is $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  For each $u\in N_G(v)\cap A_x$, let $i(u)$ denote the index in the sequence $\tau(v)$ of the pair $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  Then
+  For each $u\in N_G(v)\cap A_x$, exactly one of the pairs in $\tau(v)$ is $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  For each $u\in N_G(v)\cap A_x$, let $i(v,u)$ denote the index in the sequence $\tau(v)$ of the pair $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  Then
   \[
-    \alpha(v) :=\left\langle \langle \bin(i(u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
+    \alpha(v) :=\left\langle \langle \bin(i(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
   \]
+  Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\id(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$.
 
   \paragraph{\boldmath The vertex label length $|\mu(v)|$:}
-  We now consider the length of the vertex label $\mu(v)$ for a vertex $v\in B_x\setminus A_x$. This label contains $\id(x)$ and $\id(h(u))$ for each $u\in N_G(v)\cap A_x$.  These identifiers have total length at most $(k+1)\lceil\log b\rceil$, so these contribute at most $\Oh(k\log b)$ bits to the length of $\mu(v)$.  In addition to this, $\alpha(v)$ contains up to $k$ pairs, each of which has length $\Oh(\log k + g_2(n))$.  The only remaining parts of $\mu(v)$ are $\mu_x(v)$ and $\{\mu_{h(u)}(K_u) \mid u\in N_G(v)\cap A_x\}$. By \eqref{telescoping_subset}, the lengths of these parts form a telescoping sum that is bounded by
+  We now consider the length of the vertex label $\mu(v)$ for a vertex $v\in B_x\setminus A_x$. This label contains $\id(x)$ and $\id(h(u))$ for each $u\in N_G(v)\cap A_x$.  These identifiers have total length at most $(k+1)\lceil\log b\rceil$, so these contribute at most $\Oh(k\log b)$ bits to the length of $\mu(v)$.  In addition to this, $\alpha(v)$ contains up to $k$ pairs, each of which has length $\Oh(\log k + g_2(n))$.  The only remaining parts of $\mu(v)$ are $\mu_x(v)$ and the clique labels in $\tau(v)$. Let $J:=\{i\in\{0,\ldots,r-1\} \mid N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset\}$. The clique labels in $\tau(v)$ are exactly $\mu_{x_i}(K_i)$ for each $i\in J$. Since $|J|\le k$, \eqref{telescoping_subset} implies
   \begin{align*}
-     & \quad \log\omega(G)-\log\omega(x)+\log\delta(B_x\setminus A_x)-\log\omega(v)+\Oh(k\cdot (g_3(n)+\log\log n)) \\
+    \sum_{i\in J} |\mu_{x_i}(K_i)| 
+    & \le \sum_{i\in J}\left( \log(\delta(B_{x_i}\setminus A_{x_i})) - \log \min_{w\in K_i}\delta(w) + g_3(n) \right) \\    
+    & \le \log\omega(G)-\log\omega(x)+|J|\log k + |J|g_3(n) \\
+    & \le \log\omega(G)-\log\omega(x)+\Oh(k\cdot (\log k+ g_3(n))) \enspace .
+  \end{align*}
+  Therefore,
+  \begin{align*}
+    \sum_{i\in J} |\mu_{x_i}(K_i)| + |\mu_x(v)| 
+    &\le \sum_{i\in J} |\mu_{x_i}(K_i)| + \log\delta(B_x\setminus A_x)-\log\delta(v) + g_1(n) \\ 
+    &\le \sum_{i\in J} |\mu_{x_i}(K_i)| + \log\omega(x)-\log\omega(v) + g_1(n) + \Oh(\log k) \\ 
      & \le \log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot (g_3(n)+\log\log n)).
   \end{align*}
   Thus $\mu(v)$ has total length at most $\log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot(\log b+g_2(n)+g_3(n)+\log\log n))$, which satisfies the requirement for $g'_1(n)$.
 
   \paragraph{Adjacency testing:}  We now describe the adjacency tester $A'$ that takes two labels $\mu(v)$ and $\mu(w)$.  Suppose that $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some pair of node $x,y\in V(T)$.  Thus $\mu(v)=\langle \id(x),\mu_x(v),\tau(v),\alpha(v)\rangle$ and $\mu(w)=\langle \id(y),\mu_y(w),\tau(w),\alpha(w)\rangle$.  The adjacency tester first checks if $\id(x)=\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $\id$ is injective. In this case $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$, so $A'(\mu(v),\mu(w)):=A(\mu_x(v),\mu_y(w))$.
 
-  If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\alpha(w)$ contains an entry $\langle i(u),\kappa_{h(u)}(K_u,u)\rangle$ where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$ and $i(u)$ is the index of $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$ in $\tau(w)$.  Thus, the adjacency tester $A'$ examines each entry $\langle i(u),\kappa_{h(u)}(K_u,u)\rangle$.  For each entry, it checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry $\langle i(u),\kappa_{h(u)}(K_u,u)\rangle$ in $\alpha(w)$ the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
+  If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\alpha(w)$ contains an entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$ and $i(w,u)$ is the index of $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$ in $\tau(w)$.  Thus, the adjacency tester $A'$ examines each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$.  For each entry, it checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ in $\alpha(w)$ the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
 
   \paragraph{The clique label $\mu(K)$:}
   Let $G^\star:=\bigcup_{x\in V(T)}\torso{G^+}{\mathcal{T},B_x}$.  Note that $G^\star$ is a supergraph of $G^+$ since $\torso{G^+}{\mathcal{T},B_x}$ is a supergraph of $G^+[B_x]$ for each $x\in V(T)$.
 
-  Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, there is a single path $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the deepest node $x_r=z$ such that $K\cap B_{z}\setminus A_z$ is non-empty.  Since $K$ is a clique, a vertex in $K\cap B_{z}\setminus A_z$ has at least $|h(K)|-1$ neighbours in $A_z$.  Since $\mathcal{T}$ has up-degree at most $k$, this implies that $|h(K)|\le k+1$.
-
+  Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a single path in $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the node $x_r\in h(K)$ of maximum $T$-depth. For each  $x\in h(K)\setminus \{x_r\}$, the adhesion $A_{x_r}$ contains at least one vertex in $B_x\setminus A_x$. Therefore, $|h(K)|\le|A_{x_r}|+1\le k+1$.
   For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined.  Define the clique label
   \[
     \mu(K)
     :=\left\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
     \mid x\in h(K)
-    \right\rangle
+    \right\rangle \enspace .
   \]
   By \eqref{telescoping_subset}, the lengths of the at most $k+1$ clique labels in $\mu(K)$ form a telescoping series, so
   \begin{align*}
@@ -158,17 +169,32 @@ Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a g
     +\Oh(k\cdot(g_3(n)+\log k+\log\log n))
   $, which satisfies the requirement for $g'_3(n)$.
 
-  \paragraph{\boldmath The local identifier $\kappa(K,u)$:} For each $u\in K$, let $i(u)$ be the index of  $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ in the sequence $\mu(K)$.  For each $u\in K$, define the local identifier
+  \paragraph{\boldmath The local identifier $\kappa(K,u)$:} For each $u\in K$, let $i(K,u)$ be the index of  $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ in the sequence $\mu(K)$.  For each $u\in K$, define the local identifier
   \[
-    \kappa(K,u):=\langle \bin(i(u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u) \rangle
+    \kappa(K,u):=\langle \bin(i(K,u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u) \rangle
   \]
-  The length of $\kappa(K,u)$ is $g_2(n)+\Oh(\log b+\log k+\log\log n)$, which satisfies the requirement for $g'_2(n)$.
+  The length of $\kappa(K,u)$ is $g_2(n)+\Oh(\log b+\log k+\log\log n)$, which satisfies the requirement for $g'_2(n)$. 
 
-  \paragraph{Identity Testing:}  We now describe the operation of the identity tester $I'$ which takes as input the label $\mu(K)$ of a clique $K$ in $G^+$, the local identifier $\kappa(K,u)=\langle\bin(i(u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u)\rangle$ of a vertex $u\in K$, and the label $\mu(v)=\langle \id(x),\mu_x(v),\alpha(v)\rangle$ of a vertex $v\in B_x\setminus A_x$ for some $x\in V(T)$.  The identity tester $I'$ first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, so $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $v\neq u$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(h(u))=\id(x)$ then $h(u)=x$, since $\id$ is injective.  In this case, the identity tester uses $i(u)$ to extract $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ from $\mu(K)$.  Then the identity tester returns $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}), \kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u), \mu_{x}(v))$.
+  \paragraph{Identity Testing:}  We now describe the operation of the identity tester $I'$ which takes as input the label $\mu(K)=\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
+  \mid x\in h(K)
+  \rangle$ of a clique $K$ in $G^+$, the local identifier $\kappa(K,u)=\langle\bin(i(K,u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u)\rangle$ of a vertex $u\in K$, and the label $\mu(v)=\langle \id(x),\mu_x(v),\alpha(v)\rangle$ of a vertex $v\in B_x\setminus A_x$ for some $x\in V(T)$.  
+  
+  The identity tester first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, so $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $v\neq u$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(h(u))=\id(x)$ then $h(u)=x$, since $\id$ is injective.  In this case, the identity tester uses $i(K,u)$ to extract $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ from $\mu(K)$.  Then the identity tester returns $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}), \kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u), \mu_{x}(v))$.
 \end{proof}
 
 
+\begin{lem}
+  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\R$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\N$ be non-decreasing functions with $k(n)\in\Oh(\log n)$ and $b(n)\ge 2$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ and height at most $h(n)$ whose torsos belong to $\mathcal{G}$. Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
+  \begin{align*}
+    g_1'(n) & = g_1(n) + \Oh(h(n)\cdot (g_3(n) + \log\log n)) + \Oh(k(n)\cdot(g_2(n)+\log\log n)) \\
+    g_2'(n) & = g_2(n) + \Oh(\log\log n)                \\
+    g_3'(n) & = \Oh(h(n)\cdot g_3(n)+\log\log n) \enspace .
+  \end{align*}
+\end{lem}
 
+\begin{proof}
+  
+\end{proof}
 
 
 

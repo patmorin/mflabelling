@@ -13,7 +13,7 @@
 \crefformat{equation}{#2(#1)#3}
 \let\eqref\cref
 \crefformat{subsection}{Subsection #2#1#3}
-\crefformat{subsubsection}{Subsubsection #2#1#3}
+\crefformat{subsubsection}{Subsubsection #2#1#3} 
 
 \renewcommand{\ge}{\geqslant}
 \renewcommand{\le}{\leqslant}
@@ -304,7 +304,7 @@ We make use of the fact that rooted tidy forest decompositions remain tidy when 
 
 \subsection{Weight Functions}
 
-For a non-empty set $S$, a \defin{weight function} over $S$ is a mapping $\omega:S\to\R^+$ of the elements of $S$ onto positive real numbers.  When $X$ is a subset of $S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in S}\omega(x)$.  When $S:=V(G)$ is the vertex-set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\omega(V(H))$.
+For a non-empty set $S$, a \defin{weight function} over $S$ is a mapping $\omega:S\to\R^+$ of the elements of $S$ onto positive real numbers.  When $X$ is a subset of $S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in X}\omega(x)$.  When $S:=V(G)$ is the vertex-set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\omega(V(H))$.
 
 Let $\omega:S\to\R^+$ be a weight function.  For each $x\in S$, the \defin{(Kraft) ideal codeword length} for $x$ is $\log\omega(S)-\log\omega(x)$.
 It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight, $\omega(S)$ to minimum weight $\min_{x\in S}(\omega(x))$.  The following observation gives a way to do this without increasing the ideal codeword length of each $x\in S$ by more than a constant:
