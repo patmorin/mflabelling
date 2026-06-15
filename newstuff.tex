@@ -108,7 +108,12 @@ The following lemma is well-known (see, for example \cite{}).
     \le \log\omega(G)-\log\omega(x_r) + |J|\log k \label{telescoping_subset}
   \end{equation}
 
-  For each $x\in V(T)$, let $(\mu_x,\kappa_x)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling of $(\torso{G^+}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta)$ for $(A,I)$.  Let $\id:V(T)\to \{0,1\}^{\lceil\log b(n)\rceil}$ be an injective function that assigns a unique identifier to each node of $T$. For each $v\in V(G)$, let $h(v)$ be the home of $v$ in $\mathcal{T}$. That is, $h(v)$ is the unique $x\in V(T)$ such that $v\in B_x\setminus A_x$.
+  For each $x\in V(T)$, let $(\mu_x,\kappa_x)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling of $(\torso{G^+}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta)$ for $(A,I)$.  Let $\id:V(T)\to \{0,1\}^*$ be an injective function that assigns a unique identifier to each node of $T$.  The function $\id$ will be discussed later.  For now, we state its most important property:
+  \begin{enumerate}
+    \item $|\id(x)|\le \log\omega(G) - \log\omega(x) + \Oh( (\log k+g_3(n))\sqrt{\log b} )$.
+    \item Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to $x_r$ and let $K_i:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$ for each $i\in \{0,\ldots,r-1\}$.  Then $\id(x)$ encodes $\mu_{x_i}(K_i)$ for each $i\in \{0,\ldots,r-1\}$ such that $\log\delta(B_{x_i}\setminus B_{x_{i+1}}) - \log(\min_{u\in A_{x_{i+1}}\setminus A_i}\delta(u)) > \sqrt{\log b}$.
+  \end{enumerate}
+  For each $v\in V(G)$, let $h(v)$ be the home of $v$ in $\mathcal{T}$. That is, $h(v)$ is the unique $x\in V(T)$ such that $v\in B_x\setminus A_x$.
 
   \paragraph{\boldmath The vertex label $\mu(v)$:} For each $x\in V(T)$, and each $v\in B_x\setminus A_x$, we define
   \[
@@ -147,17 +152,16 @@ The following lemma is well-known (see, for example \cite{}).
   If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\alpha(w)$ contains an entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$ and $i(w,u)$ is the index of $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$ in $\tau(w)$.  Thus, the adjacency tester $A'$ examines each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$.  For each entry, it checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ in $\alpha(w)$ the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
 
   \paragraph{The clique label $\mu(K)$:}
-  Let $G^\star:=\bigcup_{x\in V(T)}\torso{G^+}{\mathcal{T},B_x}$.  Note that $G^\star$ is a supergraph of $G^+$ since $\torso{G^+}{\mathcal{T},B_x}$ is a supergraph of $G^+[B_x]$ for each $x\in V(T)$.
-
-  Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a single path in $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the node $x_r\in h(K)$ of maximum $T$-depth. For each  $x\in h(K)\setminus \{x_r\}$, the adhesion $A_{x_r}$ contains at least one vertex in $B_x\setminus A_x$. Therefore, $|h(K)|\le|A_{x_r}|+1\le k+1$.
-  For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined.  Define the clique label
+  Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a single path in $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the node $x_r\in h(K)$ of maximum $T$-depth. For each  $x\in h(K)\setminus \{x_r\}$, the adhesion $A_{x_r}$ contains at least one vertex in $B_x\setminus A_x$. Therefore, $|h(K)|\le|A_{x_r}|+1\le k+1$.  For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined. 
+  Order the vertices of $A_{x_r}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x_r}|}$.  Let $c(K)$ denote the length-$|A_{x_r}|$ bit-vector whose $i$th bit indicates if $a_i\in K$.  Define the clique label
   \[
     \mu(K)
-    :=\left\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
+    :=\left\langle \left\langle \mu_x(K\cap B_x\setminus A_x)
     \mid x\in h(K)
-    \right\rangle \enspace .
+    \right\rangle, c(K) \right\rangle \enspace .
   \]
-  By \eqref{telescoping_subset}, the lengths of the at most $k+1$ clique labels in $\mu(K)$ form a telescoping series, so
+
+  We now upper bound the length of $\mu(K)$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|c(K)|\le k$.  Just like the clique labels that appear in vertex labels, the lengths of the at most $k+1$ clique labels in the first part of $\mu(K)$ form a telescoping series so that
   \begin{align*}
     \sum_{x\in h(K)}|\mu_{x}(K\cap B_x\setminus A_x)|
      & \le
@@ -166,7 +170,7 @@ The following lemma is well-known (see, for example \cite{}).
     +\Oh(k\cdot(g_3(n)+\log k))
   \end{align*}
   Thus, $|\mu(K)|\le \log\omega(G)-\log\min_{u\in K}(\omega(u))
-    +\Oh(k\cdot(g_3(n)+\log k+\log\log n))
+    +\Oh(k\cdot(g_3(n)+\log\log n))
   $, which satisfies the requirement for $g'_3(n)$.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:} For each $u\in K$, let $i(K,u)$ be the index of  $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ in the sequence $\mu(K)$.  For each $u\in K$, define the local identifier
@@ -174,6 +178,8 @@ The following lemma is well-known (see, for example \cite{}).
     \kappa(K,u):=\langle \bin(i(K,u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u) \rangle
   \]
   The length of $\kappa(K,u)$ is $g_2(n)+\Oh(\log b+\log k+\log\log n)$, which satisfies the requirement for $g'_2(n)$. 
+
+  % Next, we argue that $\mu$ is injective on the cliques of $G^+$.  Let $K_1,K_2$ be two distinct cliques in $G^+$ such that $\mu(K_1)=\mu(K_2)$.  
 
   \paragraph{Identity Testing:}  We now describe the operation of the identity tester $I'$ which takes as input the label $\mu(K)=\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
   \mid x\in h(K)
