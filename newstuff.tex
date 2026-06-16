@@ -108,28 +108,58 @@ The following lemma is well-known (see, for example \cite{}).
     \le \log\omega(G)-\log\omega(x_r) + |J|\log k \label{telescoping_subset}
   \end{equation}
 
-  For each $x\in V(T)$, let $(\mu_x,\kappa_x)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling of $(\torso{G^+}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta)$ for $(A,I)$.  Let $\id:V(T)\to \{0,1\}^*$ be an injective function that assigns a unique identifier to each node of $T$.  The function $\id$ will be discussed later.  For now, we state its most important property:
-  \begin{enumerate}
-    \item $|\id(x)|\le \log\omega(G) - \log\omega(x) + \Oh( (\log k+g_3(n))\sqrt{\log b} )$.
-    \item Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to $x_r$ and let $K_i:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$ for each $i\in \{0,\ldots,r-1\}$.  Then $\id(x)$ encodes $\mu_{x_i}(K_i)$ for each $i\in \{0,\ldots,r-1\}$ such that $\log\delta(B_{x_i}\setminus B_{x_{i+1}}) - \log(\min_{u\in A_{x_{i+1}}\setminus A_i}\delta(u)) > \sqrt{\log b}$.
-  \end{enumerate}
-  For each $v\in V(G)$, let $h(v)$ be the home of $v$ in $\mathcal{T}$. That is, $h(v)$ is the unique $x\in V(T)$ such that $v\in B_x\setminus A_x$.
+  For each $x\in V(T)$, let $(\mu_x,\kappa_x)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling of $(\torso{G^+}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta_{|B_x\setminus A_x})$ for $(A,I)$. 
+ 
+  
+  Let $xy$ be an edge of $T$ in which $x$ is the $T$-parent of $y$. We say that $xy$ is \defin{heavy} if $\delta(B_x\setminus A_x) - \log(\min_{u\in A_y\setminus A_x}\delta(u)) > \sqrt{\log b}$.  Since $\omega$ is nice and $k\in\Oh(\log n)$, the number of heavy edges on any root-to-leaf path in $T$ is at most 
+  \[
+    \frac{\log\delta(G)}{\sqrt{\log b}}
+    \le 
+    \frac{\log(k \cdot\omega(G))}{\sqrt{\log b}}
+    \in \Oh\left(\frac{\log n}{\sqrt{\log b}}\right) \enspace .
+  \]
+  Let $X$ be the set of heavy edges in $T$.  Then $T-X$ is a forest. We define a set $\mathcal{P}$ of forests that partition the components of $T-X$ as follows.  $\mathcal{P}$ contains one forest $F_0$ whose single component is the unique component of $T-X$ that contains the root of $T$.  Otherwise, two components $T_1$ and $T_2$ of $T-X$ with root notes $y_1$ and $y_2$ are in the same forest of $\mathcal{P}$ if and only if $A_{y_1}=A_{y_2}$.  (Note that, since $\mathcal{T}$ is tidy, this implies that $y_1$ and $y_2$ have the same $T$-parent.)  For each forest $F$ in $\mathcal{P}$, let $\pi_F:V(F)\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} with $S=V(F)$ using the weight function $\omega_{|V(F)}$.   
+
+  For a node $x$ of $T$, let $P_T(x):=x_0,x_1,\dots,x_r$ be the path from the root $x_0$ of $T$ to $x_r:=x$.  Then $P_T(x)-X$ defines a sequence of $\Oh(\log n/\sqrt{\log b})$ paths $P_0,\ldots,P_s$, where each path is contained in some forest in $\mathcal{P}$.  For each $j\in \{1,\ldots,s\}$, let $F_j$ be the forest in $\mathcal{P}$ containing $P_j$, let $y_j$ be the first node of $P_j$, let $x_{j}$ be the last node of $P_{j-1}$, and let $K_{j}:=A_{y_j}\setminus A_{x_{j}}$.  (Note that, under this definition, $F_0$ contains $P_0$.) Define the identifier $\id(x)$ of $x$ as:
+  \[
+    \id(x) := \left\langle \pi_{F_0}(x_1),\mu_{x_1}(K_1),\pi_{F_1}(x_2),\mu_{x_2}(K_2),\ldots,\pi_{F_{s-1}}(x_{s-1}),\mu_{x_{s-1}}(K_{r-1}),\pi_{F_s}(y_s)\right\rangle 
+  \]
+  Then $\id:V(T)\to\{0,1\}^*$ is injective since $\pi_{F_j}$ is injective for each $j\in\{0,\ldots,s\}$ and $\mu_{x_j}$ is injective over the cliques in $\torso{G^+}{\mathcal{T},B_{x_j}}-A_{x_j}$, for each $j\in\{0,\ldots,r-1\}$.  Furthermore,
+  \begin{align*}
+    |\id(x)| 
+       & = \sum_{j=0}^s ( |\pi_{F_j}(x_j)| + |\mu_{x_j}(K_j)| ) + |\pi_{F_s}(y_s)| + \Oh(s\cdot\log\log n) \\
+       & \le \log\omega(G)-\log\omega(x) + \Oh(s\cdot (g_3(n)+\log\log n)) \\
+       & \le \log\omega(G)-\log\omega(x) + \Oh\left(\frac{\log n}{\sqrt{\log b}}\cdot (g_3(n)+\log\log n))\right) \\
+  \end{align*} 
+  For each $v\in V(G)$, let $h(v)$ be the home of $v$ in $\mathcal{T}$. That is, $h(v)$ is the unique $x\in V(T)$ such that $v\in B_x\setminus A_x$.  Finally, observe that $\id(x)$ contains $\id(x_j)$ for each $j\in \{0,\ldots,r-1\}$ as a prefix.  
 
   \paragraph{\boldmath The vertex label $\mu(v)$:} For each $x\in V(T)$, and each $v\in B_x\setminus A_x$, we define
   \[
     \mu(v) := \langle \id(x),\mu_x(v),\tau(v),\alpha(v) \rangle \enspace .
   \]
-  The parts $\id(x)$ and $\mu_x(v)$ are defined above. What remains is to describe $\tau(v)$ and $\alpha(v)$.  Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to the home $x_r=x$ of $v$ in $\mathcal{T}$. Let $u$ be a vertex in $N_G(v)\cap A_x$.  Then $u$ has a home $h(u)=x_i$ for some $i\in\{0,\ldots,r-1\}$. Since $u\in B_{x_i}\setminus A_{x_i}$ and $u\in A_{x_r}=A_x$, the vertex $u$ is in $K_{u}:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$. In particular, $K_u$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ so $\mu_{h(u)}(K_u)$ and $\kappa_{h(u)}(K_u,u)$ are defined.  The bitstring $\tau(v)$ is used to store $\mu_{h(u)}(K_u)$ for each $u\in N_G(v)\cap A_x$:
+  The parts $\id(x)$ and $\mu_x(v)$ are defined above. What remains is to describe $\tau(v)$ and $\alpha(v)$.  Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to the home $x_r=x$ of $v$ in $\mathcal{T}$ and let $K_i:=A_{x_{i+1}}\setminus A_{x_i}$ for $i\in\{0,\ldots,r-1\}$. Let $u$ be a vertex in $N_G(v)\cap A_x$.  Then $u$ has a home $h(u)=x_i$ for some $i\in\{0,\ldots,r-1\}$. Since $u\in B_{x_i}\setminus A_{x_i}$ and $u\in A_{x_r}=A_x$, the vertex $u$ is in $K_{u}:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$. In particular, $K_u$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ so $\mu_{h(u)}(K_u)$ and $\kappa_{h(u)}(K_u,u)$ are defined.
+  
+  % Let $h_0(x):=\{z\in h(A_x):\delta(B_z\setminus A_z)-\log\min_{u\in }
+  
+  Let $J(v):=\{i\in\{0,\ldots,r-1\} : N_G(v)\cap K_i\neq\emptyset\}$.
+  The bitstring $\tau(v)$ will be used to store $\mu_{x_i}(K_i)$ for each $i\in J(v)$.  However, there are some $i\in J(v)$ such that $\mu_{x_i}(K_i)$ is contained in $\id(x_r)=\id(x)$. This occurs precisely when $x_{i}x_{i+1}$ is a heavy edge of $T$. Thus, we define
   \[
-    \tau(v) := \left\langle \langle\id(x_i), \mu_{x_i}((B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}) \rangle \middle| i\in\{0,\ldots,r-1\}, N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset \right\rangle \enspace .
+    \tau(v) := \left\langle \langle \mu_{x_i}(K_i) \rangle \middle| i\in J(v),\; x_{i}x_{i+1}\notin X \right\rangle \enspace .
   \]
-  Thus, $\tau(v)$ is a sequence of at most $k$ pairs.
-  For each $u\in N_G(v)\cap A_x$, exactly one of the pairs in $\tau(v)$ is $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  For each $u\in N_G(v)\cap A_x$, let $i(v,u)$ denote the index in the sequence $\tau(v)$ of the pair $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$.  Then
+  Thus, $\tau(v)$ contains at most $k$ clique labels.  For each $i\in J(v)$ such that $x_{i}x_{i+1}\notin X$, we have $|\mu_{x_i}(K_i)|\in\Oh(\sqrt{\log b}+g_3(n))$.  Thus, $|\tau(v)|\le \Oh(k(\sqrt{\log b} + g_3(n) + \log k))$.  
+  
+  We now describe the parts of $\alpha(v)$.
+  For each $u\in N_G(v)\cap A_x$, exactly one of the following cases applies:
+  \begin{enumerate}[nosep,nolistsep]
+    \item $\mu_{h(u)}(K_u)$ is contained in $\id(x)$.  In this case, we define $b(v,u)=0$ and define $i(v,u)$ to be the index of $\mu_{h(u)}(K_u)$ in the sequence $\id(x)$.        
+    \item $\mu_{h(u)}(K_u)$ is contained in $\tau(v)$.  In this case, we define $b(v,u)=1$ and define $i(v,u)$ to be the index of $\mu_{h(u)}(K_u)$ in the sequence $\tau(v)$.   
+  \end{enumerate}
+  In each case, the sequence indexed by $i(v,u)$ has length $\Oh(\log n)$, so $\bin(i(v,u))$ has length $\Oh(\log\log n)$.  Finally, we define
   \[
-    \alpha(v) :=\left\langle \langle \bin(i(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
+    \alpha(v) :=\left\langle \langle b(v,u),\bin(i(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
   \]
-  Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\id(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$.
-
+  Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$.
+ 
   \paragraph{\boldmath The vertex label length $|\mu(v)|$:}
   We now consider the length of the vertex label $\mu(v)$ for a vertex $v\in B_x\setminus A_x$. This label contains $\id(x)$ and $\id(h(u))$ for each $u\in N_G(v)\cap A_x$.  These identifiers have total length at most $(k+1)\lceil\log b\rceil$, so these contribute at most $\Oh(k\log b)$ bits to the length of $\mu(v)$.  In addition to this, $\alpha(v)$ contains up to $k$ pairs, each of which has length $\Oh(\log k + g_2(n))$.  The only remaining parts of $\mu(v)$ are $\mu_x(v)$ and the clique labels in $\tau(v)$. Let $J:=\{i\in\{0,\ldots,r-1\} \mid N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset\}$. The clique labels in $\tau(v)$ are exactly $\mu_{x_i}(K_i)$ for each $i\in J$. Since $|J|\le k$, \eqref{telescoping_subset} implies
   \begin{align*}
