@@ -138,7 +138,7 @@ The following lemma is well-known (see, for example \cite{}).
   
   Let $x\in V(T)$ and let $x_0, x_1,\ldots, x_r$ be the unique path from $x_0$ to $x$ in $T$. let $x_0',\ldots,x_s'$ be the subsequence of $x_0,\ldots,x_r$ consisting of those nodes in $X$.  For each $i\in\{1,\ldots,s'\}$, let $y'_i$ be the parent of $x_i'$ in $T$ and let $K_i:=A_{x_i'}\setminus A_{y'_i}$.  We define
   \[
-    \id(x) := \langle \pi(y_1'),\mu_{y_1'}(K_1), \pi(y_2'),\mu_{y_2'}(K_2),\ldots,\pi(y_s'),\mu_{y_s'}(K_s'),\pi(x_{r}) \rangle
+    \id(x) := \langle \langle\pi(y_1'),\mu_{y_1'}(K_1)\rangle,\; \langle \pi(y_2'),\mu_{y_2'}(K_2)\rangle,\;\ldots,\;\langle \pi(y_s'),\mu_{y_s'}(K_s')\rangle,\;\pi(x_{r}) \rangle
   \]
   Then 
   \begin{align}
@@ -190,50 +190,47 @@ The following lemma is well-known (see, for example \cite{}).
     & \le \log\omega(x)-\log\min_{u\in K_i}\omega(u) + \Oh(g_3(n)+\log\log n) \\
     & \le \log b + \Oh(g_3(n)+\log\log n) 
   \end{align*}
-  Thus, $|\tau(v)|\le \Oh(k(\sqrt{\log b} + g_3(n) + \log k))$.  
+  Thus, $|\tau(v)|\le \Oh(k(\log b + g_3(n) + \log\log n))$.  
   
   We now describe the parts of $\alpha(v)$.
   For each $u\in N_G(v)\cap A_x$, exactly one of the following cases applies:
   \begin{enumerate}[nosep,nolistsep]
-    \item $\mu_{h(u)}(K_u)$ is contained in $\id(x)$.  In this case, we define $b(v,u)=0$ and define $i(v,u)$ to be the index of $\mu_{h(u)}(K_u)$ in the sequence $\id(x)$.        
-    \item $\mu_{h(u)}(K_u)$ is contained in $\tau(v)$.  In this case, we define $b(v,u)=1$ and define $i(v,u)$ to be the index of $\mu_{h(u)}(K_u)$ in the sequence $\tau(v)$. \pat{Think about this......}  We also define $q(v,u):=\pi_{F_j}(x_j)$ $x_j=h(u)$.
+    \item $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ is contained in $\id(x)$.  In this case, we define $b(v,u)=0$, define $i(v,u)$ to be the index of $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ in the sequence $\id(x)$, and define $j(v,u)=\varepsilon$.        
+    \item $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ is contained in $\tau(v)$.  In this case, we define $b(v,u)=1$, define $j(v,u)$ to be the index of $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ in the sequence $\tau(v)$, and define $i(v,u)$ to be the index of $\langle\pi(x),\cdot\rangle$ in $\id(v)$, where $x$ is the maximum depth ancestor of $h(u)$ that is in $X$. 
   \end{enumerate}
-  In each case, the sequence indexed by $i(v,u)$ has length $\Oh(\log n)$, so $\bin(i(v,u))$ has length $\Oh(\log\log n)$.  Finally, we define
+  In each case, the sequences indexed by $i(v,u)$ and $j(v,u)$ has length $\Oh(\log n)$, so $\bin(i(v,u))$ has length $\Oh(\log\log n)$.  Finally, we define
   \[
-    \alpha(v) :=\left\langle \langle b(v,u),\bin(i(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
+    \alpha(v) :=\left\langle \langle b(v,u),\bin(i(v,u)),\bin(j(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
   \]
-  Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$.  
- 
-  \paragraph{\boldmath The vertex label length $|\mu(v)|$:}
-  We now consider the length of the vertex label $\mu(v)$ for a vertex $v\in B_x\setminus A_x$. This label contains $\id(x)$ and $\id(h(u))$ for each $u\in N_G(v)\cap A_x$.  These identifiers have total length at most $(k+1)\lceil\log b\rceil$, so these contribute at most $\Oh(k\log b)$ bits to the length of $\mu(v)$.  In addition to this, $\alpha(v)$ contains up to $k$ pairs, each of which has length $\Oh(\log k + g_2(n))$.  The only remaining parts of $\mu(v)$ are $\mu_x(v)$ and the clique labels in $\tau(v)$. Let $J:=\{i\in\{0,\ldots,r-1\} \mid N_G(v)\cap B_{x_i}\setminus A_{x_i}\neq\emptyset\}$. The clique labels in $\tau(v)$ are exactly $\mu_{x_i}(K_i)$ for each $i\in J$. Since $|J|\le k$, \eqref{telescoping_subset} implies
+  The length of $\alpha(v)$ is $\Oh(k\cdot(g_2(n)+\log\log n))$.  Thus, the total length of the vertex label for $v$ is
   \begin{align*}
-    \sum_{i\in J} |\mu_{x_i}(K_i)| 
-    & \le \sum_{i\in J}\left( \log(\delta(B_{x_i}\setminus A_{x_i})) - \log \min_{w\in K_i}\delta(w) + g_3(n) \right) \\    
-    & \le \log\omega(G)-\log\omega(x)+|J|\log k + |J|g_3(n) \\
-    & \le \log\omega(G)-\log\omega(x)+\Oh(k\cdot (\log k+ g_3(n))) \enspace .
+     |\mu(v)| &\le |\id(v)|+|\mu_x(v)|+|\tau(v)|+|\alpha(v)| \\
+     &\le \log\omega(G)-\log\delta(v)+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) + \Oh(k\cdot(g_2(n)+\log\log n)) \\
+     & = \log\omega(G)-\log\omega(v) + \Oh(\sqrt{g_3(n)\cdot\log n}) + \Oh(k\cdot g_2(n)) + \Oh\left(\left(k+\sqrt{\frac{\log n}{g_3(n)}}\right)\cdot\log\log n\right) \\
   \end{align*}
-  Therefore,
-  \begin{align*}
-    \sum_{i\in J} |\mu_{x_i}(K_i)| + |\mu_x(v)| 
-    &\le \sum_{i\in J} |\mu_{x_i}(K_i)| + \log\delta(B_x\setminus A_x)-\log\delta(v) + g_1(n) \\ 
-    &\le \sum_{i\in J} |\mu_{x_i}(K_i)| + \log\omega(x)-\log\omega(v) + g_1(n) + \Oh(\log k) \\ 
-     & \le \log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot (g_3(n)+\log\log n)).
-  \end{align*}
-  Thus $\mu(v)$ has total length at most $\log\omega(G)-\log\omega(v)+g_1(n)+\Oh(k\cdot(\log b+g_2(n)+g_3(n)+\log\log n))$, which satisfies the requirement for $g'_1(n)$.
+  which satisfies the requirements for $g_1'(n)$.
+
+  Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\pi(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$. Furthermore, it is even possible to extract $\id(h(u))$.  Indeed, $\id(h(u))$ consists of the first $i(v,u)-1$ entries in $\id(v)$, followed by $\pi(h(u))$. 
 
   \paragraph{Adjacency testing:}  We now describe the adjacency tester $A'$ that takes two labels $\mu(v)$ and $\mu(w)$.  Suppose that $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some pair of node $x,y\in V(T)$.  Thus $\mu(v)=\langle \id(x),\mu_x(v),\tau(v),\alpha(v)\rangle$ and $\mu(w)=\langle \id(y),\mu_y(w),\tau(w),\alpha(w)\rangle$.  The adjacency tester first checks if $\id(x)=\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $\id$ is injective. In this case $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$, so $A'(\mu(v),\mu(w)):=A(\mu_x(v),\mu_y(w))$.
 
-  If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\alpha(w)$ contains an entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$ and $i(w,u)$ is the index of $\langle\id(h(u)),\mu_{h(u)}(K_u)\rangle$ in $\tau(w)$.  Thus, the adjacency tester $A'$ examines each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$.  For each entry, it checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry $\langle i(w,u),\kappa_{h(u)}(K_u,u)\rangle$ in $\alpha(w)$ the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
+  If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\tau(w)$ and $\alpha(w)$ contain enough information to extract $\id(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$, where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$.  The adjacency tester first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry in $\alpha(w)$, the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
 
   \paragraph{The clique label $\mu(K)$:}
   Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a single path in $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the node $x_r\in h(K)$ of maximum $T$-depth. For each  $x\in h(K)\setminus \{x_r\}$, the adhesion $A_{x_r}$ contains at least one vertex in $B_x\setminus A_x$. Therefore, $|h(K)|\le|A_{x_r}|+1\le k+1$.  For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined. 
   Order the vertices of $A_{x_r}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x_r}|}$.  Let $c(K)$ denote the length-$|A_{x_r}|$ bit-vector whose $i$th bit indicates if $a_i\in K$.  Define the clique label
   \[
     \mu(K)
-    :=\left\langle \left\langle \mu_x(K\cap B_x\setminus A_x)
-    \mid x\in h(K)
-    \right\rangle, c(K) \right\rangle \enspace .
+    :=\langle\id(x_r), \mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r}), c(K)\rangle.
   \]
+  As with vertex labels, we have
+  \begin{align*}
+    &\quad |\id(x_r)|+|\mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r})| \\ 
+    & \le \log\omega(G)-\log\delta(x_r)+ |\mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r})|+\Oh(\log_b n\cdot (g_3(n)+\log\log n))  \\
+    & \le \log\omega(G)-\log\min_{u\in K\cap B_{x_r}\setminus A_{x_r}}(\delta(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
+    & \le \log\omega(G)-\log\min_{u\in K\cap B_{x_r}\setminus A_{x_r}}(\omega(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
+    & \le \log\omega(G)-\log\min_{u\in K}(\omega(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
+  \end{align*}
 
   We now upper bound the length of $\mu(K)$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|c(K)|\le k$.  Just like the clique labels that appear in vertex labels, the lengths of the at most $k+1$ clique labels in the first part of $\mu(K)$ form a telescoping series so that
   \begin{align*}
@@ -261,21 +258,6 @@ The following lemma is well-known (see, for example \cite{}).
   
   The identity tester first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, so $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $v\neq u$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(h(u))=\id(x)$ then $h(u)=x$, since $\id$ is injective.  In this case, the identity tester uses $i(K,u)$ to extract $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ from $\mu(K)$.  Then the identity tester returns $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}), \kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u), \mu_{x}(v))$.
 \end{proof}
-
-
-\begin{lem}
-  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\R$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\N$ be non-decreasing functions with $k(n)\in\Oh(\log n)$ and $b(n)\ge 2$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ and height at most $h(n)$ whose torsos belong to $\mathcal{G}$. Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
-  \begin{align*}
-    g_1'(n) & = g_1(n) + \Oh(h(n)\cdot (g_3(n) + \log\log n)) + \Oh(k(n)\cdot(g_2(n)+\log\log n)) \\
-    g_2'(n) & = g_2(n) + \Oh(\log\log n)                \\
-    g_3'(n) & = \Oh(h(n)\cdot g_3(n)+\log\log n) \enspace .
-  \end{align*}
-\end{lem}
-
-\begin{proof}
-  
-\end{proof}
-
 
 
 % SAVE E4cRTXgmT7EGUyz!!!
