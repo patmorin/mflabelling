@@ -29,38 +29,48 @@ The following lemma is well-known (see, for example \cite{}).
 \end{proof}
 
 \begin{lem}\label{log_b_td}
-  Let $G$ be an $n$-vertex graph and let $\mathcal{T}$ be a tree-decomposition of $G$.  Then, for any integer $b\ge 2$,  $G$ has a tree-decomposition $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$ and $Y\subseteq E(T)$ with the following properties:
+  Let $G$ be an $n$-vertex graph and let $\mathcal{T}$ be a tree-decomposition of $G$.  Then, for any integer $b\ge 2$,  there exists a tree-decomposition $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ with the following properties:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \item\label{req:height} Each root-to-leaf path in $T$ contains at most $\log_b n$ edges of $Y$;
-    \item\label{req:subtree_size} Each connected component of $T-Y$ has at most $4b-1$ vertices;
-    \item\label{req:subtree_torso_apex} for each $x\in V(T)$, at least one of the following holds: 
+    \item\label{req:height} each root-to-leaf path in $Q$ contains at most $\log_b n$ edges of $Y$;
+    \item\label{req:subtree_size} each connected component of $Q-Y$ has at most $4b-1$ vertices;
+    \item\label{req:subtree_torso_apex} for each $x\in V(Q)$, at least one of the following holds: 
     \begin{itemize}[nosep,nolistsep]
-      \item $C_x$ is contained in the union of at most three adhesions of $\mathcal{T}$; or
-    \item there exists an adhesion $A$ of $\mathcal{T}$ such that $\torso{\torso{G}{\mathcal{Q},C_q}}{\mathcal{T}(q),D_x}-A$ is an induced subgraph of some torso of $\mathcal{T}$.
+      \item\label{req:three_adhesions} $C_x$ is contained in the union of at most three adhesions of $\mathcal{T}$; or
+      \item\label{req:adhesion_torso} there exists an adhesion $A$ of $\mathcal{T}$ such that $\torso{G}{\mathcal{Q},C_x}-A$ is an induced subgraph of some torso of $\mathcal{T}$.
     \end{itemize}
   \end{enumerate}
 \end{lem}
 
 \begin{proof}
-  The proof is by induction, with a slightly more complicated inductive hypothesis. An inductive instance $(G,\mathcal{T}, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ and two (not necessarily distinct) leaves $\alpha,\beta$ of $T$.  We will produce a rooted tree-decomposition $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ that satisfies all the requirements of the lemma as well as the following two conditions, the first of which is a strengthening of \ref{req:height}:
-  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*')]
-    \item\label{req:height_prime} each root-to-leaf path in $Q$ contains at most $\log_b (n-|B_\alpha \cup B_\beta|)$ edges of $Y$;\setcounter{enumi}{3}
-    \item\label{req:adhesion_pairs} the root bag $C_{x_0}$ of $\mathcal{Q}$ contains $A_\alpha\cup A_\beta$, where $A_\alpha$ and $A_\beta$ are the adhesions of $\mathcal{T}_0$ incident to $\alpha$ and $\beta$ respectively.
+  The proof is by induction, with a slightly more complicated inductive hypothesis. An inductive instance $(G,\mathcal{T}, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ and two (not necessarily distinct) leaves $\alpha,\beta$ of $T$.  We will produce a rooted tree-decomposition $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ that satisfies all the requirements of the lemma as well as the following conditions, the first of which is a strengthening of \ref{req:height}:
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]\setcounter{enumi}{3}
+    \item\label{req:root} $\alpha\in V(Q)$ and $\alpha$ is the root of $Q$;
+    \item\label{req:height_prime} each root-to-leaf path in $Q$ contains at most $\log_b(n-|B_\alpha\cup B_\beta|)$ edges of $Y$;
+    \item\label{req:adhesion_pairs} the root bag $C_\alpha$ of $\mathcal{Q}$ contains $A_\alpha\cup A_\beta$, where $A_\alpha$ and $A_\beta$ are the adhesions of $\mathcal{T}$ incident to $\alpha$ and $\beta$ respectively.
   \end{enumerate}
-  The induction is on the number of vertices in $V(G)\setminus (B_\alpha\cup B_\beta)$.  To see that this is enough to establish the original lemma, we can attach leaves $\alpha$ and $\beta$ to $T_0$, set $B_\alpha:=B_\beta:=\emptyset$, and apply the refined result.
+  Induction is on the number of vertices in $V(G-(B_\alpha\cup B_\beta))$.  To see that this is enough to establish the original lemma, we can attach leaves $\alpha$ and $\beta$ to $T$ to obtain $T'$, set $B_\alpha:=B_\beta:=\emptyset$, and apply the refined result to $(G,(T',(B_x\mid x\in V(T'))),\alpha,\beta)$ to obtain the desired tree decomposition $\mathcal{Q}$ and set $Y$.
    
-  Define the weight function $\omega: V(T_0)\to\N$ by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$, where $A_x$ is the parent adhesion of $x$ in $\mathcal{T}$.  Apply \cref{bag_separator} to $T_0-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T_0$ such that $\omega(C)\le\omega(T_0)/b=(n-|B_\alpha\cup B_\beta|)/b$, for each component $C$ of $T_0-S_0$.  Let $T'$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.
+  We now proceed with the inductive proof. Let $\omega: V(T)\to\N$ be defined by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$, where $A_x$ is the parent adhesion of $x$ in $\mathcal{T}$.  Apply \cref{bag_separator} to $T-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$, for each component $C$ of $T-S_0$.  Let $T'$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $G_S:=G[\bigcup_{x\in S}B_x]$.
 
-  The tree $Q$ contains the following subtree $Q_0$: Say that a pair of nodes $x,y\in S$ is \defin{consecutive} if the path in $T$ from $x$ to $y$ has no internal node in $S$. For each pair of consecutive nodes $x,y\in S$, introduce a vertex $v(xy)$ and add the $3$-node path $x,v(xy),y$ to $Q_0$.   This gives a tree $Q_0$ with $2|S|-1\le 4b-1$ nodes.  We root $Q_0$ at $\alpha$.  For each $x\in S$, set $D_x:=B_x$.  For each pair of consecutive nodes $x,y\in S$ with $xy\in E(T)$, we set $D_{v(xy)}:=B_x\cap B_y$.  
+  We create a tree $Q$ that contains the following subtree $Q_0$: Each node in $S$ will be a node of $Q_0$.  Let $C_1,\ldots,C_s$ be the components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$. If $|N_i|=2$, then we attach a node $v_i$ to $Q_0$ that is adjacent to both nodes in $N_i$. (If $|N_i|=1$, we do not add a node $v_i$ to $Q_0$.)  For each edge $xy\in E(T)$ with $x,y\in S$, we add the edge $xy$ to $Q_0$. This gives a tree $Q_0$ with $V(Q_0)\supseteq S$ and $|V(Q_0)|\le 2|S|-1\le 4b-1$.  We root $Q_0$ at $\alpha$ (which is possible, since $\alpha\in S\subseteq V(Q_0)$).
   
-  For each pair of consecutive nodes $x,y\in S$ with $xy\not\in E(T)$, there exists a component $C$ of $T-S$ with $N_T(V(C))=\{x,y\}$. Let $C$ be such a component.  Since $S$ is non-empty, $|N_T(V(C))|\ge 1$.  By the choice of $S_1$, $|N_T(V(C))|\le 2$.  Let $\{\alpha',\beta'\}=N_T(V(C))$. Note that $\alpha'$ and $\beta'$ are consecutive vertices of $S$ (possibly $\alpha'=\beta'$ if $|N_T(V(C))|=1$). Then $T$ contains edges $x'\alpha'$ with $x'\in V(C)$ and $y'\beta'$ with $y'\in V(C)$.  Let $A_{\alpha'}:=B_{x'}\cap B_{\alpha'}$ and let $A_{\beta'}:=B_{y'}\cap B_{\beta'}$.  If $\alpha'=\beta'$, there is no need to do anything else.  If $\alpha'\neq\beta'$, then $\alpha'$ and $\beta'$ are two consecutive nodes in $S$.  In this case, we set $D_{v(\alpha'\beta')}:=A_{\alpha'}\cup A_{\beta'}$.  Observe that $D_{v(\alpha'\beta')}\cap D_{\alpha'}\subseteq B_{\alpha'}\cap B_{x'}$ and that $D_{v(\alpha'\beta')}\cap D_{\beta'}\subseteq B_{\beta'}\cap B_{y'}$ are each contained in an adhesion of $\mathcal{T}$.   
+  For each $x\in S$, set $C_x:=B_x$.  For each $i\in[s]$ with $|N_i|=2$, the contents of $C_{v_i}$ are chosen as follows: $C_{v_i}:=(B_{\alpha_i}\cap B_{x_i})\cup (B_{\beta_i}\cap B_{y_i})$ where $N_i=\{\alpha_i,\beta_i\}$ and $\{x_i\}=N_T(\alpha_i)\cap V(C_i)$ and $\{y_i\}=N_T(\beta_i)\cap V(C_i)$.  This gives a tree-decomposition $\mathcal{Q}_0:=(Q_0,(C_x\mid x\in V(Q_0)))$ of $G_S$. For each $x\in V(Q_0)$, $\torso{G}{\mathcal{Q}_0,C_x}$ is a torso of $\mathcal{T}$ (if $x\in S$) or $C_x$ is the union of at most two adhesions of $\mathcal{T}$ (if $x=v_i$ for some $i\in[s]$ with $|N_i|=2$). 
+  
+  To ensure that our final tree-decomposition satisfies property \ref{req:adhesion_pairs}, we add the contents of the adhesion $A_\beta$ to $C_x$ for each $x$ on the path from $\beta$ to $\alpha$ in $Q_0$. This defines the contents of all $C_x$ for $x\in V(Q_0)$. For each $i\in[s]$, let $G_i:=G[\bigcup_{x\in V(C_i)}B_x]$.  To complete our tree-decomposition of $G$, we will attach a subtree $Q_i$ for each component $C_i$ of $T-S$.
 
-  To ensure that our final tree-decomposition satisfies \ref{req:adhesion_pairs}, we add $A_\beta$ to $D_x$ for each $x$ on the path from $\beta$ to $\alpha$ in $Q_0$. This completes the definition of $Q_0$ and the bags $D_x$ for each $x\in Q_0$.  It is straightforward to verify that $\mathcal{Q}_0:=(Q_0,C_x\mid x\in V(Q_0))$ is a tree-decomposition of $G[\bigcup_{x\in S}B_x]$. Furthermore, for each component $C$ of $T-S$, some bag of $\mathcal{Q}_0$ contains $(\bigcup_{x\in V(Q_0)}C_x)\cap (\bigcup_{x\in V(C)} B_x)$.
+  For each $i\in[s]$ with $\omega(C_i) = 0$, we have $V(G_i)\subseteq \bigcup_{x\in N_i} B_x$.  Since $\mathcal{Q}_0$ is a tree-decomposition of $G[\bigcup_{x\in S}B_x]$, it follows that each edge of $G_i$ is contained in at least one bag of $\mathcal{Q}_0$, and there is no need to do anything further with $C_i$.  For each $i\in[s]$ with $\omega(C_i)\ge 1$, we proceed in one of two ways. 
+  \begin{itemize}
+    \item If $|N_i|=1$, say $N_i=\{a_i\}$, then there is a single node $x_i\in V(C_i)$ with $N_T(x_i)\cap S=\{a_i\}$. In this case, let $T_i$ be the tree obtained from $C_i$ by adding a new leaf $\alpha_i$ adjacent to $x_i$ and setting $B_{\alpha_i}:=B_{a_i}\cap B_{x_i}$.  Then $\mathcal{T}_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  We can then apply induction on the instance $(G_i,\mathcal{T}_i,\alpha_i,\alpha_i)$.
+    \item If $|N_i|=2$, say $N_i=\{a_i,b_i\}$, then there are nodes $x_i,y_i\in V(C_i)$ with $a_i\in N_T(x_i)$ and $b_i\in N_T(y_i)$ (possibly $x_i=y_i$). Let $T_i$ be the tree obtained by adding new leaves $\alpha_i$ adjacent to $x_i$ and $\beta_i$ adjacent to $y_i$, and setting $B_{\alpha_i}:=B_{a_i}\cap B_{x_i}$ and $B_{\beta_i}:=B_{b_i}\cap B_{y_i}$.  Then $\mathcal{T}_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  We can then apply induction on the instance $(G_i,\mathcal{T}_i,\alpha_i,\beta_i)$.
+  \end{itemize}
+  In either case, the result of this induction is a rooted tree-decomposition $\mathcal{Q}_i:=(Q_i,(C_x\mid x\in V(Q_i)))$ and a set $Y_i\subseteq E(Q_i)$.
+  This decomposition satisfies \ref{req:adhesion_pairs}, so the root bag $C_{\alpha_i}$ of $Q_i$ contains $A_{\alpha_i}\cup A_{\beta_i}$. For each $i\in[s]$ with $\omega(C_i)\ge 1$, if $\alpha_i \neq \beta_i$, let $e_i$ be the edge between $\alpha_i$ in $Q_i$ and $v_i$ in $Q_0$. If $\alpha_i=\beta_i$, then $a_i$ is a vertex in $S$, and we let $e_i$ be the edge between $\alpha_i$ in $Q_i$ and $a_i$ in $Q_0$. 
+  
+  For each $i\in[s]$ with $\omega(C_i)\ge 1$, we join $Q_i$ and $Q_0$ by adding the edge $e_i$. The result is the tree $Q$ with vertex set $V(Q)=V(Q_0)\cup \bigcup_{i: \omega(C_i)\ge 1} V(Q_i)$ and edge set $E(Q)=E(Q_0)\cup \bigcup_{i: \omega(C_i)\ge 1} (E(Q_i) \cup \{e_i\})$.  Let $Y := \bigcup_{i\in[s]: \omega(C_i)\ge 1} (Y_i \cup \{e_i\})$. This completes the description of $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$ and $Y$. That $\mathcal{Q}$ is a tree-decomposition of $G$ follows by induction and the fact that, for each $i\in[s]$, $V(G_S)\cap V(G_i)\subseteq A_{\alpha_i}\cup A_{\beta_i}$. 
+  
+  Since each edge $e_i$ is in $Y$, the components of $Q-Y$ are exactly $Q_0$ and the components of $Q_i-Y_i$ for each $i$. Since $|V(Q_0)| \le 4b-1$ and each component of $Q_i-Y_i$ has at most $4b-1$ vertices by induction, property \ref{req:subtree_size} holds. Finally, any root-to-leaf path in $Q$ consists of a path in $Q_0$ followed by the edge $e_i$ and a path in $Q_i$ for some $i$ with $\omega(C_i)\ge 1$. By induction, the number of edges of $Y$ on such a path is at most $1 + \log_b( |V(G_i)| - |B_{\alpha_i} \cup B_{\beta_i}| ) = 1 + \log_b(\omega(C_i)) \le 1 + \log_b((n-|B_\alpha \cup B_\beta|)/b) = \log_b(n-|B_\alpha \cup B_\beta|)$. Thus property \ref{req:height_prime} holds.  
 
-  Let $C_1,\ldots,C_s$ be the components of $T-S$.  For each $i\in[s]$ with $\omega(C_i)\ge 1$, let $\{\alpha_i,\beta_i\} := N_T(V(C_i))$. Let $T_i:=T[V(C_i)\cup\{\alpha_i,\beta_i\}]$ and let $G_{\alpha_i\beta_i}:=G[\bigcup_{x\in V(T_i)}B_x]$.  Then $\mathcal{T}_i:=(T_i,(B_x:x\in V(T_i)))$ is a tree-decomposition of $G_{\alpha_i\beta_i}$.  Furthermore $G_{\alpha_i\beta_i}-(B_{\alpha_i}\cup B_{\beta_i})$ has $\omega(T_i)\le (n-|B_{\alpha}\cup B_{\beta}|)/b$ vertices.  Thus $(G_{\alpha_i\beta_i},\mathcal{T}_i,\alpha_i,\beta_i)$ is an instance on which we can apply induction.  The result of this induction is a tree-decomposition $\mathcal{Q}_i:=(Q_i,(C_x\mid x\in V(Q_i)))$ and $Y_i\subseteq E(Q_i)$.\footnote{Since $\alpha_i,\beta_i\in S$ for each $i\in[s]$, the nodes $\alpha_i$ and $\beta_i$ already exist in $Q_0$.  Nevertheless, we treat $Q_0$ and $Q_i$ as vertex-disjoint, so that $\alpha_i,\beta_i$ in $Q_0$ are distinct from $\alpha_i,\beta_i$ in $Q_i$.}
-  This decomposition satisfies \ref{req:adhesion_pairs}, so the root bag $D_{x_{i,0}}$ of $Q_i$ contains $A_{\alpha_i}\cup A_{\beta_i}$. For each $i\in[s]$, if $\alpha_i \neq \beta_i$, join $Q_i$ and $Q_0$ by adding an edge between $x_{i,0}$ in $Q_i$ and $v(\alpha_i\beta_i)$ in $Q_0$. If $\alpha_i=\beta_i$, then $\alpha_i$ is a vertex in $S$, and we join $Q_i$ and $Q_0$ by adding an edge between $x_{i,0}$ in $Q_i$ and $\alpha_i$ in $Q_0$. This completes the description of $\mathcal{Q}:=(Q,(C_x\mid x\in V(Q)))$.
-
-  That $\mathcal{Q}$ is a tree-decomposition of $G$ follows by induction and the fact that, for each $i\in[s]$, $V(G_S)\cap V(G_{\alpha_i\beta_i})\subseteq A_{\alpha_i}\cup A_{\beta_i}$
+  All that remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q)$.  For each $i\in[s]$ with $\omega(C_i)\ge 1$, every torso and adhesion of $\mathcal{T}_i$ is also a torso or adhesion of $\mathcal{T}$. Therefore, property \ref{req:subtree_torso_apex} is satisfied (by induction) for each $i\in[s]$ with $\omega(C_i)\ge 1$ and each $x\in V(Q_i)$.  What remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q_0)$. For each $x\in V(Q_0-S)$, $x=v_i$ for some $i\in[s]$ and $C_x$ is the union of at most three adhesions of $\mathcal{T}$, which satisfies \ref{req:three_adhesions}.  For each $x\in S$, $\torso{G}{\mathcal{Q}_0,C_x}-A_{\beta}$ is an induced subgraph of $\torso{G}{\mathcal{T},B_x}$.  The only danger is that $\torso{G}{\mathcal{Q},C_x}-A_\beta$ contains additional edges not present in $\torso{G}{\mathcal{Q}_0,C_x}-A_{\beta}$.  However, each edge in $E(Q)\setminus E(Q_0)$ incident to $x$ comes from a pendant component $C_i$ and $e_i=x\alpha_i$.  In this case, the adhesion $C_x\cap C_{\alpha_i}=B_{a_i}\cap B_{x_i}$ is an adhesion of $\torso{G}{\mathcal{T},B_x}$.  Therefore, every edge in $\torso{G}{\mathcal{Q},C_x}-A_{\beta}$ is also an edge of $\torso{G}{\mathcal{T},B_x}$.
 \end{proof}
 
 
@@ -94,33 +104,30 @@ The following lemma is well-known (see, for example \cite{}).
 \end{lem}
 
 \begin{proof}
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}$ has adhesion-width at most $k:=k(n)$.
+  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$.
   
   Let $\mathdefin{b}:=2^{\sqrt{g_3(n)\cdot\log n}}$.  
-  By \cref{log_b_td_y}, there exists a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that
+  By \cref{log_b_td}, there exists a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that
   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
     \item $\mathcal{T}$ has adhesion-width at most $3k$;
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
     \item\label{tprops_y0} there exists $Y_0\subseteq E(T)$ such that each component of $T-Y_0$ has size at most $4b-1$ and each root-to-leaf path in $T$ contains at most $\log_b n$ edges from $Y_0$.    
   \end{enumerate}
 
-  Let $x_0$ be the root of $T$. Let $\mathdefin{A_{x_0}}:=\emptyset$ and, for each $y\in X\setminus\{x_0\}$, let \defin{$A_y$} be the parent-adhesion of $y$ in $\mathcal{T}$.  For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.
+  Let \defin{$x_0$} be the root of $T$. For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\mathcal{T}$. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.
 
-  Let $Y_1$ be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with paramter $b$ and weight function $\omega$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(T)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega$ is nice).  Furthermore,  
-  every pair of vertices $x,y$ in the same component of $T-Y_1$, $|\log\omega(T_x)-\log\omega(T_y)|\le \log b$.  
+  Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega$ is nice).  Furthermore,  
+  for every pair of vertices $x,y$ in the same component of $T-Y_1$, $|\log\omega(T_x)-\log\omega(T_y)|\le \log b$.  
 
-  For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$, let $C_K:=\{y\in N_{T_x}(x)\mid K=A_y\setminus A_x\}$.  We say that $K$ is \defin{light} if $\omega(T_x)/(\sum_{y\in C_K}\omega(T_y))\ge b$. An edge $xy\in E(T)$ is \defin{light} if $x$ is the $T$-parent of $y$ and $A_y\setminus A_x$ is a light clique in $\torso{G}{\mathcal{T},B_x}$.  Note that, for each light edge $xy$, $\omega(T_y)\le \omega(T_x)/b$.  Since $\omega$ is nice, it follows that each root-to-leaf path in $T$ contains at most $\log_b \omega(G) = \log_b n + \Oh(1)$ light edges.  Let \defin{$Y_2$} be the set of light edges of $\mathcal{T}$.
+  For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$, let $C_K:=\{y\in N_{T_x}(x)\mid K=A_y\setminus A_x\}$.  We say that $K$ is \defin{light} in $\mathcal{T}$ if $\sum_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$. An edge $xy\in E(T)$ is \defin{light} if $x$ is the $T$-parent of $y$ and $A_y\setminus A_x$ is light in $\mathcal{T}$.  Note that, for each light edge $xy$, $\omega(T_y)\le \omega(T_x)/b$.  Since $\omega$ is nice, it follows that each root-to-leaf path in $T$ contains at most $\log_b \omega(G) = \log_b n + \Oh(1)$ light edges.  Let \defin{$Y_2$} be the set of light edges of $\mathcal{T}$.
 
   
-  Let $Y:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$ whose components each have at most $4b-1$ vertices. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthing of \ref{tprops_y0}:
-  \begin{enumerate}[nosep,nolistsep,label=(\alph*')]\setcounter{enumi}{2}
-    \item\label{tprops_y} there exists $Y\subseteq E(T)$ such that
-    \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
-      \item each component of $F$ has $4b-1$ vertices;
-      \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
-      \item each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
-    \end{enumerate}  
-  \end{enumerate}
+  Let $Y:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthening of \ref{tprops_y0}:
+  \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
+    \item each component of $F$ has at most $4b-1$ vertices;
+    \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
+    \item each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
+  \end{enumerate}  
 
   
 
@@ -130,7 +137,7 @@ The following lemma is well-known (see, for example \cite{}).
   Let $A$ and $I$ be an adjacency tester and identity tester for this mixed labelling scheme.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
 
 
-  \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $C_v:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  Observe that, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_y$ such that $y\in C_v$.
+  \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  Observe that, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_x$ such that $y\in C_v$.
   
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $C^-_v:=\{y\in C_v: xy\in Y\}$ and let $C^+_v:=C_v\setminus C^-_v$.  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define 
   \[
@@ -138,7 +145,7 @@ The following lemma is well-known (see, for example \cite{}).
   \]
   For each $x\in V(T)$, let $\delta(x):=\delta(B_x\setminus A_x)$. Then, for each $y\in V(T)$,
   \[
-    \delta(y) \ge \omega(y) + \tfrac{1}{4b}\sum_{y'\in C_{y'}}\omega(T_{y'}) \ge \omega(T_y)/(4b) \enspace .
+    \delta(y) \ge \omega(y) + \tfrac{1}{4b}\sum_{y'\in N_{T_y}(y)}\omega(T_{y'}) \ge \omega(T_y)/(4b) \enspace .
   \]
   Furthermore, for each component $C$ of $F$, 
   \[
