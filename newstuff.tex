@@ -105,7 +105,7 @@ The following lemma is well-known (see, for example \cite{}).
 
 \begin{proof}
   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$.
-  
+
   Let $\mathdefin{b}:=2^{\sqrt{g_3(n)\cdot\log n}}$.  
   By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that
   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
@@ -113,6 +113,14 @@ The following lemma is well-known (see, for example \cite{}).
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
     \item\label{tprops_y0} there exists $Y_0\subseteq E(T)$ such that each component of $T-Y_0$ has size at most $4b-1$ and each root-to-leaf path in $T$ contains at most $\log_b n$ edges from $Y_0$.    
   \end{enumerate}
+  We will work with the tree-decomposition $\mathcal{T}$.  By \cref{add_apexes}, $\mathcal{G}^{+3k}$ admits a weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
+  \begin{align}
+    h_1(n) & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
+    h_2(n) & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
+    h_3(n) & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
+  \end{align} 
+  Let $A$ and $I$ be an adjacency tester and identity tester for this mixed labelling scheme.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
+
 
   Let \defin{$x_0$} be the root of $T$. For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\mathcal{T}$. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.
 
@@ -121,7 +129,6 @@ The following lemma is well-known (see, for example \cite{}).
 
   For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$, let $C_K:=\{y\in N_{T_x}(x)\mid K=A_y\setminus A_x\}$.  We say that $K$ is \defin{light} in $\mathcal{T}$ if $\sum_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$. An edge $xy\in E(T)$ is \defin{light} if $x$ is the $T$-parent of $y$ and $A_y\setminus A_x$ is light in $\mathcal{T}$.  Note that, for each light edge $xy$, $\omega(T_y)\le \omega(T_x)/b$.  Since $\omega$ is nice, it follows that each root-to-leaf path in $T$ contains at most $\log_b \omega(G) = \log_b n + \Oh(1)$ light edges.  Let \defin{$Y_2$} be the set of light edges of $\mathcal{T}$.
 
-  
   Let $Y:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthening of \ref{tprops_y0}:
   \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
     \item each component of $F$ has at most $4b-1$ vertices;
@@ -129,22 +136,20 @@ The following lemma is well-known (see, for example \cite{}).
     \item each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
   \end{enumerate}  
 
-  
-
-
-
-  By \cref{add_apexes}, $\mathcal{G}^{+3k}$ admits a weighted $(h_1,h_2,h_3)$ mixed labelling scheme with $h_i(n) \le g_i(n) + \Oh(k(n)+\log\log n)$ for each $i\in[3]$. 
-  Let $A$ and $I$ be an adjacency tester and identity tester for this mixed labelling scheme.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
 
 
   \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  Observe that, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_x$ such that $y\in C_v$. (These are precisely the vertices in $A_y\setminus A_x$.) 
-  
+
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $C^-_v:=\{y\in C_v: xy\in Y\}$ and let $C^+_v:=C_v\setminus C^-_v$.  (The set $C^-_v$ corresponds to edges of $T$ that are not in $F$; those in $C^+_v$ correspond to edges of $T$ that are in $F$.)
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define 
   \[
     \mathdefin{\delta(v)} := \omega(v)+\sum_{y\in C^-_v} \omega(T_y) + \tfrac{1}{4b}\cdot\sum_{y\in C^+_v}\omega(T_y)
   \]
   For each $x\in V(T)$, let $\mathdefin{\delta(x)}:=\delta(B_x\setminus A_x)$. Then, for each $y\in V(T)$,
+  \begin{equation}
+    \delta(y) \le \omega(T_y) \label{delta_y_upper_bound}
+  \end{equation}
+  and
   \begin{equation}
     \delta(y) \ge \omega(y) + \tfrac{1}{4b}\sum_{y'\in N_{T_y}(y)}\omega(T_{y'}) \ge \tfrac{1}{4b}\omega(T_y) \enspace . \label{delta_y_lower_bound}
   \end{equation}
@@ -253,7 +258,7 @@ The following lemma is well-known (see, for example \cite{}).
   \end{align}
 
   The definition of $\tau_x(y)$ is a key element of the construction, so some intuition is in order.  The Shannon Fano Elias codeword $\rho_x(A_y\setminus A_x)$ is very efficient. It only exceeds the Kraft ideal codeword length by $3$.  However it is not helpful for any purpose other than identifying $y$ among the nodes in $C^-_x$. The clique code $\mu_x(A_y\setminus A_x)$ on the other hand is much less efficient. It exceeds the Kraft ideal codeword length by $\Oh(h_3(n))$.  However, it sometimes serves another purpose in adjacency testing.  In combination with a very short local identifier $\kappa_x(A_y\setminus A_x, u)$ for $u\in A_y\setminus A_x$ it can be used to test whether an arbitrary vertex $v\in B_x \setminus A_x$ is identical to $u$.  
-  
+
   The choice to use one or the other depends on whether $A_y\setminus A_x$ is light or not. If $A_y\setminus A_x$ is light, then both codewords may have length at least $\log b$, and could even have length $\log n-o(\log n)$.
   In this case it is worthwhile paying the $\Oh(h_3(n))$ overhead to gain the ability to perform identity testing.  In particular, it means that the label $\mu(w)$ of some vertex $w$ adjacent to $u\in A_y\setminus A_x$ will only need to store $\kappa_x(A_y\setminus A_x, u)$ rather than $\mu_x(A_y\setminus A_x)$.  On the other hand if $A_y\setminus A_x$ is not light, then the label for $\mu(w)$ will store both $\mu_x(A_y\setminus A_x)$ and $\kappa_x(A_y\setminus A_x, u)$, which only have length at most $2\log b + \Oh(h_3(n)+h_2(n)+\log\log n)$.
 
@@ -262,40 +267,56 @@ The following lemma is well-known (see, for example \cite{}).
   Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $y_0:=x_0$. Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $T-Y$ for each $i\in \{0,\ldots,s\}$.  Define
   \[
     \id(x) := 
-    \begin{cases}
-      \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
-      \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle & \text{if $y_s\neq x$} 
-    \end{cases}
- \]
- \pat{TODO: We don't need two cases. We can always finish with $\rho_{C_s}(x)$}
- Then 
+    % \begin{cases}
+      % \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
+      \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle 
+    % \end{cases}
+  \]
+  Then 
   \begin{align*}
     |\id(x)| & \le \log\omega(G) - \log \omega(T_x) + \Oh(h_3(n)\cdot \log_b n) 
- \end{align*}
- That the function $\id:V(T)\to\{0,1\}^*$ is injective can be proven easily by induction on $s$, since each prefix of $\id(x)$ gives $\id(y)$ for some vertex $y\in\bigcup Y$ on the path from the root of $T$ to $x$.
-   
+  \end{align*}
+  That the function $\id:V(T)\to\{0,1\}^*$ is injective can be proven easily by induction on $s$, since each prefix of $\id(x)$ gives $\id(y)$ for some vertex $y\in\bigcup Y$ on the path from the root of $T$ to $x$.
+    
 
- \paragraph{\boldmath The vertex label $\mu(v)$:}
- 
- For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define
- \[
-    \mu(v) := \langle \id(x), \mu_x(v),\alpha(v), \beta(v)\rangle
- \]
- Then 
- \begin{align*}
-    |\mu(v)| & \le \omega(G) - \log \omega(v) + |\alpha(v)| \Oh(h_3(n)\cdot \log_b n) 
- \end{align*}
- Let $J:=\{x'\in V(T):N_G(v)\cap (B_{x'}\setminus A_{x'})\neq\emptyset\}$.  There are two possibility to consider:
- \begin{enumerate}
-   \item If $B_{x'}\setminus A_{x'}$ is a light clique, then $\id(x)$ contains $\mu_{x'}(B_{x'}\setminus A_{x'})$ and $\id(x)$ also contains $\id(x')$ as a prefix.
-  \item Otherwise, $|\mu_{x'}(B_{x'}\setminus A_{x'})|\in\Oh(\log b)$ so we can store $\mu_{x'}(B_{x'}\setminus A_{x'})$ as part of $\beta(v)$.  Furthermore, $x'$ belongs to some component $C$ of $T-Y$. Then $\id(r(C))$ is a prefix of $\id(x)$. Furthermore, $|\rho_C(x')|\in\Oh(\log b)$ can be stored as part of $\beta(v)$.  This makes it possible to reconstruct $\id(x'):=\id(r(C))\circ \langle \rho_C(x')\rangle$.
- \end{enumerate}
- 
- Finally, $\alpha(v)$ contains an entry of size $\Oh(h_2(n)+\log\log n)$ for each vertex $u\in N_G(v)\cap A_x$.  Let $u\in N_G(v)\cap A_x$ and let $x'$ be the home node of $u$ in $\mathcal{T}$, let $y'$ be the child of $x'$ on the path from $x'$ to $x$ and let $C$ be the component of $F$ that contains $x'$.  Then some prefix of $\id(x)$ contains $\id(r(C))$.  Then $\alpha(v)$ stores the length of this prefix.  If $r(C)\neq x'$ then $\alpha(v)$ also stores the $\rho_C(x')$, which makes it possible to construct $\id(x')$.  If $A_{y'}\setminus A_{x'}$ is a light clique, then $\id(v)$ contains $\mu_{x'}(A_{y'}\setminus A_{x'})$.  Otherwise $\alpha(v)$ stores $\mu_{x'}(B_{x'}\setminus A_{x'})$ which only has length $h_3(n)+\Oh(\log b)$ 
+  \paragraph{\boldmath The vertex label $\mu(v)$:}
 
+  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define
+  \[
+    \mu(v) := \langle \id(x), \mu_x(v),\alpha(v)\rangle
+  \]
+  The parts $\id(x)$ and $\mu_x(v)$ are defined above. We now describe $\alpha(v)$, which contains an entry $\alpha(v,u)$ for each $u\in N_G(v)\cap A_x$.  
+  Let $u\in N_G(v)\cap A_x$.  Then $u\in B_{x'}\setminus A_{x'}$ for some $T$-ancestor $x'\neq x$ of $x$. This idea is to store enough information in $\alpha(v,u)$ to reconstruct $\id(x')$ and $\kappa_{x'}(K)$ for some clique $K$ in $\torso{G^+}{\mathcal{T},B_{x'}}-A_{x'}$ that contains $u$.
 
-
- DONE!!!!!!
+  Let $y'$ be the child of $x'$ on the path from $x'$ to $x$, and let $C$ be the component of $T-Y$ that contains $x'$.  Observe that some prefix of $\id(x)$ contains $\id(r(C))$.  Furthermore, we can reconstruct $\id(x')$ by appending $\rho_C(x')$ to $\id(r(C))$.  Let $\idx(r(C))$ be the number of edges in $Y$ on the path from the root of $T$ to $r(C))$. Now there are two cases to consider for the edge $x'y'$.   
+  \begin{itemize}
+    \item If $x'y'$ is a light edge, then $x'y'\in Y$ and $\id(x)$ contains $\rho_C(x')$ and $\tau_{x'}(y')=\langle 0, \mu_{x'}(A_{y'}\setminus A_{x'})\rangle$.  The only extra information needed in $\alpha(v,u)$ is $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  
+    \item If $x'y'$ is not a light edge, then $\id(x)$ might not contains $\rho_C(x')$ and definitely does not contain $\mu_{x'}(A_{y'}\setminus A_{x'})$. Luckily, $|\rho_C(x')|\in \Oh(\log b)$ (by \cref{rho_C_bound_2logb}) and $|\mu_{x'}(A_{y'}\setminus A_{x'})|\in \Oh(h(n)+\log b+\log\log n)$ (by \cref{mu_x_K_light_upper_bound}, since $x'y'$ is not a light edge, so $A_{y'}\setminus A_{x'}$ is not a light clique).  Thus, we can store both $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in $\alpha(v,u)$.  
+  \end{itemize} 
+  Summarizing,
+  \[
+    \alpha(v,u) :=
+    \begin{cases}
+      \langle 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\text{ is light} \\
+      \langle 1, \bin(\idx(r(C))), \rho_C(x'), \mu_{x'}(B_{x'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\text{ is not light} 
+    \end{cases}
+  \]    
+  and
+  \[
+    \alpha(v) := \langle \alpha(v,u):u\in N_G(v)\cap A_x \rangle \enspace .
+  \] 
+  Then,
+  \[
+  |\alpha(v)|\le k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ,
+  \]
+  and 
+  \begin{align*}
+    |\mu(v)| & \le |\id(x)| + |\mu_x(v)| + |\alpha(v)| + \Oh(\log\log n) \\
+     & \le \log \omega(G) - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + |\alpha(v)| \\
+     & \le \log n - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \\
+     & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ..........
+    %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace .
+  \end{align*}
 \end{proof}
 
 
