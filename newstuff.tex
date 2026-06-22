@@ -94,22 +94,22 @@ The following lemma is well-known (see, for example \cite{}).
 
 
 \begin{lem}\label{lem:the_big_one}
-  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\R$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k:\N\to\N$ be a non-decreasing function with $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
+  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
-    g_1'(n) & = g_1(n) + \Oh((\sqrt{g_3(n)\cdot\log n}+k(n)\cdot g_2(n))\log\log n ) \\
-    g_2'(n) & = g_2(n) + \Oh(\log\log n)                \\
-    g_3'(n) & = \Oh(\sqrt{g_3(n)\cdot\log n}) \enspace .
+    g_1'(n) & = g_1(n) + \Oh\left(g_3(n)\cdot \log_b n + k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )\right) \\
+    g_2'(n) & = g_2(n) + \Oh(\log b)  \\
+    g_3'(n) & = \Oh\left(g_3(n)\cdot \log_b n\right)  \enspace .
   \end{align*}
 \end{lem}
 
 \begin{proof}
   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$.
 
-  Let $\mathdefin{b}:=2^{\sqrt{g_3(n)\cdot\log n}}$.  
+  % Let $\mathdefin{b}:=2^{\sqrt{g_3(n)\cdot\log n}}$.  
   By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that
-  \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-    \item $\mathcal{T}$ has adhesion-width at most $3k$;
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
+    \item\label{td_width} $\mathcal{T}$ has adhesion-width at most $3k$;
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
     \item\label{tprops_y0} there exists $Y_0\subseteq E(T)$ such that each component of $T-Y_0$ has size at most $4b-1$ and each root-to-leaf path in $T$ contains at most $\log_b n$ edges from $Y_0$.    
   \end{enumerate}
@@ -125,12 +125,12 @@ The following lemma is well-known (see, for example \cite{}).
   Let \defin{$x_0$} be the root of $T$. For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\mathcal{T}$. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.
 
   Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega$ is nice).  Furthermore,  
-  for every pair of vertices $x,y$ in the same component of $T-Y_1$, $|\log\omega(T_x)-\log\omega(T_y)|\le \log b$.  
+  for every pair of vertices $x,y$ in the same component of $T-Y_1$, $|\log\omega(T_x)-\log\omega(T_y)|\le \log b$. \pat{Do we use this fact anywhere?} 
 
   For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$, let $C_K:=\{y\in N_{T_x}(x)\mid K=A_y\setminus A_x\}$.  We say that $K$ is \defin{light} in $\mathcal{T}$ if $\sum_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$. An edge $xy\in E(T)$ is \defin{light} if $x$ is the $T$-parent of $y$ and $A_y\setminus A_x$ is light in $\mathcal{T}$.  Note that, for each light edge $xy$, $\omega(T_y)\le \omega(T_x)/b$.  Since $\omega$ is nice, it follows that each root-to-leaf path in $T$ contains at most $\log_b \omega(G) = \log_b n + \Oh(1)$ light edges.  Let \defin{$Y_2$} be the set of light edges of $\mathcal{T}$.
 
-  Let $Y:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthening of \ref{tprops_y0}:
-  \begin{enumerate}[nosep,nolistsep,label=(\roman*)]
+  Let $\mathdefin{Y}:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthening of \ref{tprops_y0}:
+  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{3}
     \item each component of $F$ has at most $4b-1$ vertices;
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
     \item each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
@@ -138,33 +138,89 @@ The following lemma is well-known (see, for example \cite{}).
 
 
 
-  \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  Observe that, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_x$ such that $y\in C_v$. (These are precisely the vertices in $A_y\setminus A_x$.) 
+  \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  
+  % By property~\ref{td_width} of $\mathcal{T}$, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_x$ such that $y\in C_v$. (These are precisely the vertices in $A_y\setminus A_x$.) 
 
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $C^-_v:=\{y\in C_v: xy\in Y\}$ and let $C^+_v:=C_v\setminus C^-_v$.  (The set $C^-_v$ corresponds to edges of $T$ that are not in $F$; those in $C^+_v$ correspond to edges of $T$ that are in $F$.)
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define 
   \[
     \mathdefin{\delta(v)} := \omega(v)+\sum_{y\in C^-_v} \omega(T_y) + \tfrac{1}{4b}\cdot\sum_{y\in C^+_v}\omega(T_y)
   \]
-  For each $x\in V(T)$, let $\mathdefin{\delta(x)}:=\delta(B_x\setminus A_x)$. Then, for each $y\in V(T)$,
+  For each $x\in V(T)$, let 
+  \[
+    \mathdefin{\delta(x)}:=\delta(B_x\setminus A_x) \enspace . 
+  \]
+
+  For each child $y$ of $x$, $y \in C_v$, precisely when $v \in A_y\setminus A_x$.  By property~\ref{td_width} of $\mathcal{T}$, we have $|A_y|\le 3k$, for each $y\in V(T)$, so each $y\in V(T)$ belongs to at most $3k$ sets $C_v$. 
+  Thus, 
   \begin{equation}
-    \delta(y) \le \omega(T_y) \label{delta_y_upper_bound}
+    \delta(x) 
+    % = \sum_{v\in B_x\setminus A_x} \delta(v) 
+    \le  \sum_{v\in B_x\setminus A_x}\left(\omega(v)+ \sum_{y\in C_v} \omega(T_y) \right) 
+    \le \omega(x) + \sum_{y\in N_{T_x}(x)} 3k\cdot\omega(T_y) \le 3k\omega(T_x)
+    \label{delta_x_upper_bound}
   \end{equation}
-  and
-  \begin{equation}
-    \delta(y) \ge \omega(y) + \tfrac{1}{4b}\sum_{y'\in N_{T_y}(y)}\omega(T_{y'}) \ge \tfrac{1}{4b}\omega(T_y) \enspace . \label{delta_y_lower_bound}
-  \end{equation}
+
+
   Furthermore, for each component $C$ of $F$, 
-  \begin{equation}
-    \delta(C) = \sum_{x\in V(C)}\delta(x) = \sum_{x\in V(C)}\delta(B_x\setminus A_x) \le 7k\cdot \omega(T_{r(C)}) \enspace . \label{delta_c_upper_bound}
+  \begin{align}
+    \delta(C) 
+    & = \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y) 
+      + \tfrac{1}{4b}\sum_{y\in C^+_v}\omega(T_y)\right) \nonumber \\
+    & \le \sum_{x\in V(C)}\left(\omega(x)+\sum_{y\in C^-_x} 3k\cdot\omega(T_y) 
+      + \tfrac{1}{4b}\cdot\sum_{y\in C^+_x}3k\cdot\omega(T_y)\right) 
+      & \text{(since $|A_y|\le 3k$)} \nonumber\\
+    & \le 3k\sum_{x\in V(C)}\left(\omega(x)+\sum_{y\in C^-_x} \omega(T_y)\right) 
+      + \tfrac{3k}{4b}\sum_{x\in V(C)}\sum_{y\in C^+_x}\omega(T_y) 
+      & \text{(since $k\ge 1$)}\nonumber\\
+    & \le 3k\sum_{x\in V(C)}\left(\omega(x)+\sum_{y\in C^-_x} \omega(T_y)\right) 
+      + \tfrac{3k}{4b}\sum_{x\in V(C)}\omega(T_{x}) 
+      & \text{(since $\textstyle T_x\supset\bigcup_{y\in C^+_x}T_y$)}\nonumber\\
+    & \le 3k\sum_{x\in V(C)}\left(\omega(x)+\sum_{y\in C^-_x} \omega(T_y)\right) 
+      + \tfrac{3k}{4b}\sum_{x\in V(C)}\omega(T_{r(C)}) 
+      & \text{(since $T_{r(C)}\supseteq T_x$)}\nonumber\\
+    & \le 3k\sum_{x\in V(C)}\left(\omega(x)
+      + \sum_{y\in C^-_x} \omega(T_y)\right) + 3k\cdot \omega(T_{r(C)}) 
+      & \text{(since $|V(C)|<4b$)} \nonumber \\
+    & \le 6k\cdot\omega(T_{r(C)})
+    % & = \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\sum_{y\in C^+_v}\omega(T_y) \\
+    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}\sum_{y\in N_{T_x(x)}}3k\cdot \omega(T_y) \\
+    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}3k\cdot \omega(T_{r(C)}) \\
+    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + 3k\cdot \omega(T_{r(C)}) \\
+    % & \le 6k\cdot \omega(T_{r(C)}) \\
+    \enspace . \label{delta_c_upper_bound}
+  \end{align}
+  where the last inequality holds because the sets in $\{V(C)\} \cup \{ V(T_y)\mid x\in V(C), y\in C^-_x\}$ are pairwise disjoint.
+  The final inequality is most conveniently written as 
+  \begin{equation}  
+    \omega(T_{r(C)}) \ge \delta(C) / (6k) \enspace . \label{omega_trC_lower_bound}
   \end{equation}  
+
+
+
+
+  % Then, for each $y\in V(T)$,
+  % \begin{equation}
+  %   \delta(y) \le \omega(T_y) \label{delta_y_upper_bound}
+  % \end{equation}
+  % and
+  One final inequality that follows immediately from the definition of $\delta$ is that
+  \begin{equation}
+    \delta(x) \ge \omega(x) + \tfrac{1}{4b}\sum_{y\in C_x^+} \delta(y)
+    \ge \tfrac{1}{4b}\omega(T_x) \enspace \label{delta_y_lower_bound}
+  \end{equation}
+  for all $x\in V(T)$.
+
+
+
 
   \paragraph{\boldmath The inner-tree codes $\rho_C$ for $C\in F$ :}
   For each component $C$ of $F$, let $\mathdefin{\rho_C}:V(C)\to\{0,1\}^*$ be the prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=V(C)$ with weight function $\delta|_S$ obtained by restricting $\delta$ to $S$.  Then, for each $x\in V(C)$:
   \begin{align}
       |\rho_C(x)| 
       & \le \log \delta(C) - \log \delta(x) + 3 \label{rho_C_bound_defn} \\
-      & \le \log (7k\cdot\omega(T_{r(C)})) - \log \delta(x) + 3 
-        & \text{(by \eqref{delta_c_upper_bound})} \nonumber \\
+      & \le \log (6k\cdot\omega(T_{r(C)})) - \log \delta(x) + 3 
+        & \text{(by \eqref{omega_trC_lower_bound})} \nonumber \\
       & = \log\omega(T_{r(C)}) - \log\delta(x) + \Oh(\log\log n) 
         & \text{(since $k\in O(\log n)$)} \nonumber \\
       & \le \log\omega(T_{r(C)}) - \log(\omega(T_x)/(4b)) + \Oh(\log\log n) 
@@ -175,17 +231,19 @@ The following lemma is well-known (see, for example \cite{}).
   \end{align}
   since $k\in O(\log n)$ and $\log\log n\in O(\log b)$.
 
-  \paragraph{\boldmath The inner-node labelling $\mu_x$:}  For each $x\in V(T)$, let \defin{$(\mu_x,\kappa_x)$} be a weighted mixed $(h_1,h_2,h_3)$ labelling of $(\torso{G}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$ for $(A,I)$.  Then, for each $x\in V(T)$, 
+  \paragraph{\boldmath The inner-node labelling $\mu_x$:}  For each $x\in V(T)$, let \defin{$(\mu_x,\kappa_x)$} be a weighted mixed $(h_1,h_2,h_3)$ labelling of $(\torso{G}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$ for $(A,I)$.  By the definition of weighted $(h_1,h_2,h_3)$ mixed labelling we have, for each $x\in V(T)$, 
   \begin{equation}
     |\mu_x(v)|\le h_1(n) + \log\delta(x)-\log\delta(v) 
       \label{mu_x_v_upper_bound}
   \end{equation}
   for each $v\in B_x\setminus A_x$ and 
   \begin{equation}
-    |\mu_x(K)|\le h_3(n) + \log\delta(x)-\log(\min_{u\in K} \delta(u))
+    |\mu_x(K)|\le \log\delta(x)-\log(\min_{u\in K} \delta(u)) + h_3(n)
       \label{mu_x_K_upper_bound}
   \end{equation}
-  for each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$.  Note that, if $K$ is not a light clique then, by definition, $\sum_{y\in C_K} \omega(T_y) > \omega(T_x)/b$, so 
+  for each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$.  
+  
+  An important fact that we use several times is that, if $K$ is not a light clique then 
   \begin{align}
     \min_{u\in K} \delta(u) 
     & \ge \min_{u\in K}\left(\sum_{y\in C_u}\tfrac{1}{4b}\omega(T_y) \right) 
@@ -195,7 +253,7 @@ The following lemma is well-known (see, for example \cite{}).
     & \ge \omega(T_x)/(4b^2) 
     & \text{(since $K$ is not light).} \label{nonlight_clique_delta_lower_bound}
   \end{align}
-  Also note that from the definition of $\delta$, $\delta(x) \le \omega(x) + 3k \sum_{y\in C_x} \omega(T_y) \le (3k+1)\omega(T_x)$.
+
   Therefore, for any non-light clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$,  
   \begin{align}
     |\mu_x(K)|
@@ -206,7 +264,7 @@ The following lemma is well-known (see, for example \cite{}).
       \label{mu_x_K_light_upper_bound}
   \end{align}
 
-  \paragraph{\boldmath The inter-tree codes $\tau_x(K)$:}
+  \paragraph{\boldmath The inter-tree codes $\rho_K$:}
 
 
   % For each $x\in V(T)$, let $C_x:=N_{T_x}(x)$ be the set of $T$-children of $x$.  Let $C^-_x:=\{y\in C_x: xy\in Y\}$ and $C^+_x:=C_x\setminus C^-_x$.  For each $x\in V(T)$, let $\rho_x:C^-x\to\{0,1\}^*$ be a prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-_x$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_x$, 
@@ -216,19 +274,46 @@ The following lemma is well-known (see, for example \cite{}).
   %     & \le \log\delta(x) - \log\omega(T_y)  \\
   % \end{align*}
 
-  For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in N_{T_x}(x)\mid xy\in Y\}$ and let $L(x):=\{A_y\setminus A_x\mid y\in C^-_x\}$.  Thus, $L(x)$ is a set of cliques in $\torso{G}{\mathcal{T},B_x}-A_x$. For each $K\in L(x)$, let $C^-_K := C_K \cap C^-_x$. Let $\rho_x:L(x)\to\{0,1\}^*$ be a prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=L(x)$ with weight defined by $K\mapsto\sum_{y\in C^-_K}\omega(T_y)$.  Then, for each $K\in L(x)$, 
-  \begin{align*}
-    |\rho_x(K)|
-      & \le \log\left(\sum_{y'\in C^-_x}\omega(T_{y'})\right) - \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right)+3 \\
-      & \le \log\delta(x) - \log(\min_{u\in K}\delta(u))+3
-  \end{align*}
+  % For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in N_{T_x}(x)\mid xy\in Y\}$ and let $L(x):=\{A_y\setminus A_x\mid y\in C^-_x\}$.  Thus, $L(x)$ is a set of cliques in $\torso{G}{\mathcal{T},B_x}-A_x$. For each $K\in L(x)$, let $C^-_K := C_K \cap C^-_x$. Let $\rho_x:L(x)\to\{0,1\}^*$ be a prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=L(x)$ with weight defined by $K\mapsto\sum_{y\in C^-_K}\omega(T_y)$.  Then, for each $K\in L(x)$, 
+  % \begin{align*}
+  %   |\rho_x(K)|
+  %     & \le \log\left(\sum_{y'\in C^-_x}\omega(T_{y'})\right) - \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right)+3 \\
+  %     & \le \log\delta(x) - \log(\min_{u\in K}\delta(u))+3
+  % \end{align*}
 
   For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$ such that $C^-_K\neq\emptyset$, let $\rho_K:C^-_K\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-_K$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_K$, 
-  \begin{align*}
+  \begin{align}
     |\rho_K(y)| 
-      & \le \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right) - \log\omega(T_y) + 3 \\
+      & \le \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right) - \log\omega(T_y) + 3 \nonumber \\
       & \le \log(\min_{u\in K}\delta(u)) - \log\omega(T_y) + 3
-  \end{align*}
+      \label{rho_K_y_upper_bound}
+  \end{align}
+  since $y'\in C^-_u$ for each $u\in K$.
+
+  \paragraph{\boldmath The outer-tree codes $\tau(C,C')$:}
+  Let $C$ and $C'$ be two components of $F$ such that some edge $xy\in Y$ joins them, with $x\in V(C)$, $y\in V(C')$ and $x$ being the $T$-parent of $y$. Thus $y=r(C')$ is the root of component $C'$. Then we define
+  \[
+     \tau(C,C'):= \langle\rho_C(x), \mu_x(A_y\setminus A_x), \rho_{A_y\setminus A_x}(y)\rangle \enspace .
+  \]
+  Then
+  \begin{align}
+    |\tau(C,C')|
+      & = |\rho_C(x)| + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| \nonumber \\
+    & \le \log\delta(C) - \log\delta(x) + 3 + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| 
+      & \text{(by \cref{rho_C_bound_defn})} \nonumber \\
+    & \le \log\delta(C) - \log\left(\min_{u\in A_y\setminus A_x}\delta(u)\right) + h_3(n) + 3+ |\rho_{A_y\setminus A_x}(y)| 
+      & \text{(by \cref{mu_x_K_upper_bound})} \nonumber \\
+    & \le \log\delta(C) - \log\omega(T_y) + h_3(n) + 6   
+      & \text{(by \cref{rho_K_y_upper_bound})} \nonumber \\
+    & \le \log\delta(C) - \log\delta(C') + h_3(n) + 6 + \log(6k)   
+      & \text{(by \cref{delta_c_upper_bound})} \label{tau_upper_bound}
+    \end{align}
+    For a fixed component $C$ of $F$, $\tau(C,\cdot)$ is a function that maps each component $C'$ of $F$ whose root is adjacent to a node of $C$ onto a binary string.
+    It is straightforward to check that the mapping $\tau(C,\cdot)$ is injective, for each component $C$ of $F$.  This is simply due to the fact that $\rho_C:V(C)\to\{0,1\}^*$ is injective; for each $x\in V(C)$, $\mu_{x}$ is injective over the cliques in $\torso{G}{\mathcal{T},B_x}-A_x$; and $\rho_{K}:C^-_K\to\{0,1\}^*$ is injective for each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$.
+
+
+
+
 
   % For each $x\in V(T)$ and each light clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$ such that $C^-K_\neq\emptyset$, let $\rho_K:C^-K\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-K$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_K$, 
   % \begin{align*}
@@ -238,45 +323,62 @@ The following lemma is well-known (see, for example \cite{}).
   % \end{align*}
 
 
-  For each $x\in V(T)$ and each $y\in C^-_x$, let
-  \[
-    \tau_x(y):=
-    \begin{cases}
-      \langle 0,\mu_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle & \text{if $xy$ is light}  \\
-      \langle 1,\rho_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle & \text{otherwise.} 
-    \end{cases}
-  \]
-  Then for each $x\in V(T)$ and each $y\in C^-_x$ such that $A_y\setminus A_x$ is not light,
-  \begin{align}
-    |\tau_x(y)| 
-    & \le \log\delta(x) - \log\omega(T_y) + \Oh(\log\log n) \enspace, \label{tau_not_light}
-  \end{align}
-  and for each $y\in C^-_x$ such that $A_y\setminus A_x$ is light,
-  \begin{align}
-    |\tau_x(y)| 
-    & \le \log\delta(x) - \log\omega(T_y) + h_3(n) + \Oh(\log\log n) \enspace. \label{tau_light}
-  \end{align}
+  % For each $x\in V(T)$ and each $y\in C^-_x$, let
+  % \[
+  %   \tau_x(y):=
+  %   % \begin{cases}
+  %     \langle \mu_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle 
+  %     % & \text{if $xy$ is light}  \\
+  %     % \langle 1,\rho_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle & \text{otherwise.} 
+  %   % \end{cases}
+  % \]
+  % Then, for each $x\in V(T)$ and each $y\in C^-_x$,
+  % \begin{align}
+  %   |\tau_x(y)| 
+  %   & \le |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| + \Oh(\log\log n) \\
+  %   & \le  \log\delta(x) - \log\omega(T_y) + h_3(n) + \Oh(\log\log n) 
+  %   & \text{(by \cref{mu_x_K_upper_bound} and \cref{rho_K_y_upper_bound})} \enspace . \label{tau_upper_bound}
+  % \end{align}
 
-  The definition of $\tau_x(y)$ is a key element of the construction, so some intuition is in order.  The Shannon Fano Elias codeword $\rho_x(A_y\setminus A_x)$ is very efficient. It only exceeds the Kraft ideal codeword length by $3$.  However it is not helpful for any purpose other than identifying $y$ among the nodes in $C^-_x$. The clique code $\mu_x(A_y\setminus A_x)$ on the other hand is much less efficient. It exceeds the Kraft ideal codeword length by $\Oh(h_3(n))$.  However, it sometimes serves another purpose in adjacency testing.  In combination with a very short local identifier $\kappa_x(A_y\setminus A_x, u)$ for $u\in A_y\setminus A_x$ it can be used to test whether an arbitrary vertex $v\in B_x \setminus A_x$ is identical to $u$.  
+  % Then for each $x\in V(T)$ and each $y\in C^-_x$,
+  % \begin{align}
+  %   |\tau_x(y)| 
+  %   & \le  \log\delta(x) - \log\left(\min_{w\in A_y\setminus A_x}\delta(T_w)\right) + h_3(n) + \Oh(\log\log n) \enspace. \label{tau_not_light}
+  % \end{align}
+  % Furthermore, if $A_y\setminus A_x$ is not light, then
+  % \begin{align}
+  %   |\tau_x(y)| 
+  %   & \le \log\delta(x) - \log\omega(T_y) + \Oh(\log\log n) \enspace . \label{tau_not_light}
+  % \end{align}
+  % and for each $y\in C^-_x$ such that $A_y\setminus A_x$ is light,
+  
+  % The definition of $\tau_x(y)$ is a key element of the construction, so some intuition is in order.  The Shannon Fano Elias codeword $\rho_x(A_y\setminus A_x)$ is very efficient. It only exceeds the Kraft ideal codeword length by $3$.  However it is not helpful for any purpose other than identifying $y$ among the nodes in $C^-_x$. The clique code $\mu_x(A_y\setminus A_x)$ on the other hand is much less efficient. It exceeds the Kraft ideal codeword length by $\Oh(h_3(n))$.  However, it sometimes serves another purpose in adjacency testing.  In combination with a very short local identifier $\kappa_x(A_y\setminus A_x, u)$ for $u\in A_y\setminus A_x$ it can be used to test whether an arbitrary vertex $v\in B_x \setminus A_x$ is identical to $u$.  
 
-  The choice to use one or the other depends on whether $A_y\setminus A_x$ is light or not. If $A_y\setminus A_x$ is light, then both codewords may have length at least $\log b$, and could even have length $\log n-o(\log n)$.
-  In this case it is worthwhile paying the $\Oh(h_3(n))$ overhead to gain the ability to perform identity testing.  In particular, it means that the label $\mu(w)$ of some vertex $w$ adjacent to $u\in A_y\setminus A_x$ will only need to store $\kappa_x(A_y\setminus A_x, u)$ rather than $\mu_x(A_y\setminus A_x)$.  On the other hand if $A_y\setminus A_x$ is not light, then the label for $\mu(w)$ will store both $\mu_x(A_y\setminus A_x)$ and $\kappa_x(A_y\setminus A_x, u)$, which only have length at most $2\log b + \Oh(h_3(n)+h_2(n)+\log\log n)$.
+  % The choice to use one or the other depends on whether $A_y\setminus A_x$ is light or not. If $A_y\setminus A_x$ is light, then both codewords may have length at least $\log b$, and could even have length $\log n-o(\log n)$.
+  % In this case it is worthwhile paying the $\Oh(h_3(n))$ overhead to gain the ability to perform identity testing.  In particular, it means that the label $\mu(w)$ of some vertex $w$ adjacent to $u\in A_y\setminus A_x$ will only need to store $\kappa_x(A_y\setminus A_x, u)$ rather than $\mu_x(A_y\setminus A_x)$.  On the other hand if $A_y\setminus A_x$ is not light, then the label for $\mu(w)$ will store both $\mu_x(A_y\setminus A_x)$ and $\kappa_x(A_y\setminus A_x, u)$, which only have length at most $2\log b + \Oh(h_3(n)+h_2(n)+\log\log n)$.
 
   \paragraph{\boldmath The node id $\id(x)$:}
 
-  Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $y_0:=x_0$. Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $T-Y$ for each $i\in \{0,\ldots,s\}$.  Define
+  Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $x_{s+1}:=x$ and let $y_0:=x_0$ be the root of $T$. Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $T-Y$ for each $i\in \{0,\ldots,s\}$.  Define
   \[
-    \id(x) := 
-    % \begin{cases}
-      % \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
-      \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle 
-    % \end{cases}
+    \id(x) := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s),\rho_{C_s}(x)\rangle \enspace .
+    % % \begin{cases}
+    %   % \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
+    %   \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle 
+    % % \end{cases}
   \]
   Then 
   \begin{align*}
-    |\id(x)| & \le \log\omega(G) - \log \omega(T_x) + \Oh(h_3(n)\cdot \log_b n) 
+    |\id(x)| 
+    & \le \sum_{i=0}^{s-1}|\tau(C_i,C_{i+1})| + |\rho_{C_s}(x)| \\
+    & \le \sum_{i=0}^{s-1} \left( \log\delta(C_i)-\log\delta(C_{i+1}) \right) + |\rho_{C_s}(x)| + \Oh(s\cdot (h_3(n) + \log\log n)) 
+      & \text{(by \cref{tau_upper_bound})} \\
+    & = \log\delta(C_0) - \log\delta(C_s) + |\rho_{C_s}(x)| + \Oh(s\cdot (h_3(n) + \log\log n)) 
+      \\
+    & \le \log\delta(C_0) - \log\delta(x) + \Oh(h_3(n)\log_b n) 
+      & \text{(by \cref{rho_C_bound_defn})} \enspace .
   \end{align*}
-  That the function $\id:V(T)\to\{0,1\}^*$ is injective can be proven easily by induction on $s$, since each prefix of $\id(x)$ gives $\id(y)$ for some vertex $y\in\bigcup Y$ on the path from the root of $T$ to $x$.
+  It is straightforward to verify (by induction on $s$) that the function $\id:V(T)\to\{0,1\}^*$ is injective.
     
 
   \paragraph{\boldmath The vertex label $\mu(v)$:}
@@ -288,17 +390,19 @@ The following lemma is well-known (see, for example \cite{}).
   The parts $\id(x)$ and $\mu_x(v)$ are defined above. We now describe $\alpha(v)$, which contains an entry $\alpha(v,u)$ for each $u\in N_G(v)\cap A_x$.  
   Let $u\in N_G(v)\cap A_x$.  Then $u\in B_{x'}\setminus A_{x'}$ for some $T$-ancestor $x'\neq x$ of $x$. This idea is to store enough information in $\alpha(v,u)$ to reconstruct $\id(x')$ and $\kappa_{x'}(K)$ for some clique $K$ in $\torso{G^+}{\mathcal{T},B_{x'}}-A_{x'}$ that contains $u$.
 
-  Let $y'$ be the child of $x'$ on the path from $x'$ to $x$, and let $C$ be the component of $T-Y$ that contains $x'$.  Observe that some prefix of $\id(x)$ contains $\id(r(C))$.  Furthermore, we can reconstruct $\id(x')$ by appending $\rho_C(x')$ to $\id(r(C))$.  Let $\idx(r(C))$ be the number of edges in $Y$ on the path from the root of $T$ to $r(C))$. Now there are two cases to consider for the edge $x'y'$.   
+  Let $y'$ be the child of $x'$ on the path from $x'$ to $x$. Let $C$ be the component of $T-Y$ that contains $x'$ and let $C'$ be the component of $F$ that contains $y'$.  Observe that some prefix of $\id(x)$ contains $\id(C)$.  Furthermore, we can reconstruct $\id(x')$ by appending $\rho_C(x')$ to $\id(r(C))$.  Let $\idx(r(C))$ be the number of edges in $Y$ on the path from the root of $T$ to $r(C))$. Now there are two cases to consider for the edge $x'y'$.   
   \begin{itemize}
-    \item If $x'y'$ is a light edge, then $x'y'\in Y$ and $\id(x)$ contains $\rho_C(x')$ and $\tau_{x'}(y')=\langle 0, \mu_{x'}(A_{y'}\setminus A_{x'})\rangle$.  The only extra information needed in $\alpha(v,u)$ is $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  
-    \item If $x'y'$ is not a light edge, then $\id(x)$ might not contains $\rho_C(x')$ and definitely does not contain $\mu_{x'}(A_{y'}\setminus A_{x'})$. Luckily, $|\rho_C(x')|\in \Oh(\log b)$ (by \cref{rho_C_bound_2logb}) and $|\mu_{x'}(A_{y'}\setminus A_{x'})|\in \Oh(h(n)+\log b+\log\log n)$ (by \cref{mu_x_K_light_upper_bound}, since $x'y'$ is not a light edge, so $A_{y'}\setminus A_{x'}$ is not a light clique).  Thus, we can store both $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in $\alpha(v,u)$.  
+    \item If $x'y'\in Y$, then $C\neq C'$.  In this case, $\id(x)$ contains $\tau(C,C')=\langle \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y') \rangle$.  The only extra information needed in $\alpha(v,u)$ is $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  
+    \item If $x'y'\not\in Y$, then $C=C'$.  In this case, reconstructing $\id(x')$ requires that $\alpha(v)$ store $\rho_C(x')$.  Furthermore, since $\id(x)$ does not contain $\tau(C,C')$ it does not contain $\mu_{x'}(A_{y'}\setminus A_{x'})$.  We now explain why these strings are sufficiently short.
+    
+    By \cref{rho_C_bound_2logb}, $|\rho_C(x')|\in \Oh(\log b)$.  More importantly, since $x'y'\not\in Y$, $x'y'\not\in Y_1$. Therefore $A_{y'}\setminus A_{x'}$ is not a light clique, and by \cref{mu_x_K_light_upper_bound} $|\mu_{x'}(A_{y'}\setminus A_{x'})|\in \Oh(h_3(n)+\log b+\log\log n)$.  Thus, we can afford to store both $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in $\alpha(v,u)$.  
   \end{itemize} 
   Summarizing,
   \[
     \alpha(v,u) :=
     \begin{cases}
-      \langle 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\text{ is light} \\
-      \langle 1, \bin(\idx(r(C))), \rho_C(x'), \mu_{x'}(B_{x'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\text{ is not light} 
+      \langle 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\in Y \\
+      \langle 1, \bin(\idx(r(C))), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\notin Y 
     \end{cases}
   \]    
   and
@@ -306,15 +410,17 @@ The following lemma is well-known (see, for example \cite{}).
     \alpha(v) := \langle \alpha(v,u):u\in N_G(v)\cap A_x \rangle \enspace .
   \] 
   Then,
-  \[
-  |\alpha(v)|\le k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ,
-  \]
+  \begin{align*}
+    |\alpha(v)| & \le |N_G(v)\cap A_x|\cdot (h_3(n)+h_2(n)+\Oh(\log b)) \\
+    & \le 3k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ,
+    & \text{(by property~\ref{td_width} of $\mathcal{T}$)}
+  \end{align*}
   and 
   \begin{align*}
     |\mu(v)| & \le |\id(x)| + |\mu_x(v)| + |\alpha(v)| + \Oh(\log\log n) \\
      & \le \log \omega(G) - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + |\alpha(v)| \\
-     & \le \log n - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \\
-     & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ..........
+     & \le \log n - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) 
+    %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ..........
     %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace .
   \end{align*}
 \end{proof}
