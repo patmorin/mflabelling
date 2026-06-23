@@ -101,9 +101,9 @@ The following lemma is well-known (see, for example \cite{}).
   Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
-    g_1'(n) & = g_1(n) + \Oh((g_3(n)+\log\log n)\cdot \log_b n) + \Oh(k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )) \\
+    g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_b n) + \Oh(k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )) \\
     g_2'(n) & = g_2(n) + \Oh(\log b + \log\log n)  \\
-    g_3'(n) & = \Oh\left((g_3(n)+\log\log n)\cdot \log_b n\right)  \enspace .
+    g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_b n\right)  \enspace .
   \end{align*}
 \end{lem}
 
@@ -379,11 +379,11 @@ The following lemma is well-known (see, for example \cite{}).
     & \le \log\omega(G) - \log\delta(C_s) + \Oh((h_3(n)+\log\log n)\cdot\log_b n) & \text{(by \ref{delta_c_upper_bound})} \enspace . \label{id_C_upper_bound}
   \end{align}
   and
-  \begin{align*}
-    |\id(x)| & = |\id(C_s)| + |\rho_{C_s}(x)| + \Oh(\log\log n) \\
+  \begin{align}
+    |\id(x)| & = |\id(C_s)| + |\rho_{C_s}(x)| + \Oh(\log\log n) \nonumber \\
     & \le \log\omega(G) - \log\delta(x) + \Oh((h_3(n)+\log\log n)\cdot\log_b n)  
-      & \text{(by \cref{id_C_upper_bound} and \cref{rho_C_bound_defn})} \enspace .
-  \end{align*}
+      & \text{(by \cref{id_C_upper_bound} and \cref{rho_C_bound_defn})} \enspace . \label{id_x_bound}
+  \end{align}
   It is straightforward to verify (by induction on $s$) that the function $\id:V(T)\to\{0,1\}^*$ is injective.
     
 
@@ -456,247 +456,63 @@ The following lemma is well-known (see, for example \cite{}).
     \end{itemize}
     \item if $\id(C)\neq\id(D)$ but $\id(D)$ is a prefix of $\id(C)$, then the tester proceeds exactly as in the previous case, but swapping the roles of $v$ and $w$.
     \item if $\id(C)=\id(D)$ then $C=D$ and $x$ and $y$ are in the same component of $F$.  In this case, there are two ways in which $v$ and $w$ can be adjacent:  Either $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$ or $y$ is a $T$-ancestor of $x$ and $w\in N_G(v)$.  Case 1, above explains how to test the former and Case 2 explains how to test the latter.
-    
+    However, knowing that $\id(C)=\id(D)$ simplifies these tests so we explain these again, for the sake of completeness.  We only explain how to test if $u=v$ for some $u\in N_G(w)\cap A_y$.  Testing if $u=w$ for some $u\in N_G(v)\cap A_x$ is symmetric.
+
+    The first observe that we can immediately discard $\alpha(w,u)$ whose first bit is $0$, for the following reason:  If the first bit of $\alpha(w,u)$ is $0$, then $u\in B_{x'}\setminus A_{x'}$ and $u\in A_{y'}\setminus A_{x'}$ for some $T$-child $y'$ of $x'$.  Because the first bit of $\alpha(w,u)$ is $0$,  $x'y'\in Y$, thus $y'$ is in a different component of $F$ than $x'$.  However, $y'$ is on the path from $x'$ to $y$ in $T$. This immediately implies that the component $C'$ of $F$ that contains $x'$ is not $C$.  Thus $x'\neq x$, so $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$.
+
+    Thus, we only need to consider the entries $\alpha(w,u)$ whose first bit is $1$, so $\alpha(w,u)=\langle 1, \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(r(C'))$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in A_{x'}\setminus A_{y'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+
     \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus, so $v,w\not\in E(G)$, so $A'(v,w):=0$.
   \end{enumerate}
+
+  \paragraph{\boldmath The clique label $\mu(K)$:}
+  Let $K$ be a clique in $G^+$. Let $h(K):=\{z\in V(T):K\cap B_z\setminus A_z\neq\emptyset\}$. Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a path in $T$ from the root $x_0$ to some node $x\in h(K)$ of maximum $T$-depth.  For each $z\in h(K)$, $K\cap B_z\setminus A_z$ is a non-empty clique in $\torso{G}{\mathcal{T},B_z}-A_z$. In particular, $K\cap B_{x}\setminus A_{x}$ is a non-empty clique in $\torso{G}{\mathcal{T},B_{x}}-A_{x}$.
+  Order the vertices of $A_{x}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x}|}$. Let $c(K)$ denote the length-$|A_{x}|$ bit-vector whose $i$-th bit indicates whether $a_i\in K$. Define the clique label
+  \[
+    \mu(K) := \langle \id(x), \mu_{x}(K\cap B_{x}\setminus A_{x}), c(K) \rangle \enspace .
+  \]
+  To see that $\mu$ is injective on cliques, consider two distinct cliques $K, L$ in $G^+$.  If the maximum-depth node $x\in h(K)$ is different from the maximum-depth node $y\in h(L)$, then $\id(x)\neq\id(y)$, so $\mu(K)\neq\mu(L)$.  Suppose $x=y$.  If $K\cap B_{x}\setminus A_{x}\neq L\cap B_{x}\setminus A_{x}$, then $\mu_{x}(K\cap B_{x}\setminus A_{x})\neq\mu_{x}(L\cap B_{x}\setminus A_{x})$ since $\mu_x$ is injective on cliques.  Otherwise, $K\cap B_{x}\setminus A_{x}=L\cap B_{x}\setminus A_{x}$, so $c(K)\neq c(L)$ since $K\neq L$.
+
+  The length of the clique label is bounded by:
+  \begin{align*}
+    |\mu(K)| & \le |\id(x)| + |\mu_{x}(K\cap B_{x}\setminus A_{x})| + 3k + \Oh(\log\log n) \\
+    & \le \log\omega(G) - \log\delta(x) + \log\delta(x) - \log\left(\min_{u\in K\cap B_{x}\setminus A_{x}}\delta(u)\right) + h_3(n) \\
+    & \quad + \Oh((h_3(n)+\log\log n)\log_b n) + 3k 
+    & \text{(by \ref{id_x_bound} and \ref{mu_x_K_upper_bound})}\\
+    & \le \log\omega(G) - \log(\min_{u\in K}\omega(u)) + \Oh((h_3(n)+k+\log\log n)\log_b n) 
+  \end{align*}
+  which satisfies the requirement for $g_3'(n)$.
+
+  \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
+  Let $K$ be a clique in $G^+$, let $x$ be the maximum-depth node in $h(K)$,  let $u\in K$ and let $x'$ be the home of $u$ in $\mathcal{T}$. Let $C$ be the component of $F$ that contains $x'$. If $x\neq x'$ then let $y'$ be the $T$-child of $x'$ on the path from $x'$ to $x$.   Define
+  \[
+    \kappa(K,u) := 
+      \begin{cases} 
+        \langle 0, \kappa_{x}(K\cap B_{x}\setminus A_{x}, u) \rangle
+        & \text{if $x=x'$} \\
+        \langle 1, 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle 
+        & \text{if $x'y'\in Y$} \\
+        \langle 1, 1, \bin(\idx(r(C'))), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle
+        & \text{if $x'y'\notin Y$}
+      \end{cases}
+  \]
+  Exactly the same analysis used to bound the length of $\alpha(v,u)$ shows that $|\kappa(K,u)| \le g_2(n) + \Oh(\log b + \log\log n) = g_2'(n)$.
+
+  \paragraph{Identity Testing $I'$:}
+  Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$ and some $v\in V(G)$, the identity tester determines if $v=u$ as follows.  
+
+  It first checks the first bit of $\kappa(K,u)$. 
+  If the first bit is $0$, then $\kappa(K,u) = \langle 0, \kappa_{x}(B_{x}\cap K, u) \rangle$, where $x$ is the node of maximum $T$-depth in $h(K)$. In this case, $u\in B_{x}\cap K \setminus A_x$.  Let $z$ be the home of $v$ in $\mathcal{T}$, so $\mu(v)=\langle \id(z), \mu_z(v), \alpha(v)\rangle$.
+  The tester first checks if $\id(z) = \id(x)$, which it can do because $\mu(K)$ contains $\id(x)$. If not, then $z \neq x$, so $v \neq u$ and it returns $0$. If $\id(z) = \id(x)$, then $z = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{z}(v))$.
+
+  If the first two bits of $\kappa(K,u)$ are $10$, then $\kappa(K,u) = \langle 1, 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C$ is the component of $F$ that contains $x'$.  Let $\id(x)=\id(C)\circ \rho_C(x)$.  
+  
+  
+  
+  
+  The tester checks if $\id(x_v) = \id(x)$. If not, then $x_v \neq x$, so $v \neq u$ and it returns $0$. If $\id(x_v) = \id(x)$, then $x_v = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{x_v}(v))$.
+
+  If the first bit is $1$, then $h(u) = x'$ is an ancestor of $x$, and $\kappa(K,u)$ provides the information needed to reconstruct $\id(x')$ from $\id(x)$ and test identity. The tester reads the second bit of $\kappa(K,u)$ to distinguish between the two cases (whether $x'y'\in Y$ or $x'y'\notin Y$). Using exactly the same procedure as described in Case 1 of the Adjacency Tester, it extracts the prefix of $\id(x)$ corresponding to the path up to $y'$ (or $x'$), and reconstructs $\id(x')$ and (if not already present in $\id(x)$) extracts $\mu_{x'}(A_{y'}\setminus A_{x'})$ from $\kappa(K,u)$. 
+  It then checks if $\id(x_v) = \id(x')$. If not, it returns $0$. If yes, it uses the reconstructed $\mu_{x'}(A_{y'}\setminus A_{x'})$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$ to return $I(\mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x_v}(v))$.
+
 \end{proof}
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-%   and size at most $b(n)$, and each torso of $\mathcal{T}$ belongs to $\mathcal{G}$. 
-  
-
-%   \paragraph{\boldmath Partitioning $T$ into a forest $T^-$}
-%   Let $d:=2^{(\log b)^{5/6}}$.  For each $x\in V(T_0)$, let $A_x$ be the parent adhesion of $x$ in $\mathcal{T}_0$.  For each $x\in V(T_0)$, let $\omega(x):=\sum_{z\in V(T_x)}\omega(B_z\setminus A_z)$.  Let $X$ be a subset of the vertices of $T_0$ with the following properties:
-%   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{2}
-%     \item\label{X_contains_root} the root $x_0$ of $T$ is in $X$;
-%     \item\label{X_shrinking_n} for each $x\in X$, each $z\in V(T_x-x)\cap X$, $\omega(z)\le \omega(x)/d$;
-%     \item\label{X_shrinking_b} for each $x\in X$, each $z\in V(T_x-x)\cap X$, $|V(T_z)|\le |V(T_x)|/d$;    
-%     % \item\label{X_not_too_fast} for each $x\in X$ and each node $y$ in the component of $T_x-(X\setminus\{x\})$ that contains $x$, $\omega(y)>\omega(x)/b$.
-%   \end{enumerate}
-%   Such a set $X$ is easily computed by a recursive procedure that takes as input a node $x$ and finds a set $X$ of minimal-depth nodes $z$ in $T_x$ such that $\omega(z)\le \omega(x)/d$.  It then recursively processes a subtree $T_z$ for each $z\in X$ and adds $x$ to $X$.  Initially, this procedure is called with $x=x_0$.
-
-%   Let $Y$ be the set of of edges in $T$ that connect a vertex $x\in X\setminus\{x_0\}$ to its parent.  Then \ref{X_shrinking_b} implies that
-%   \begin{enumerate}[nosep,nolistsep,label=(Y\arabic*)]
-%     \item\label{Y_height} each root-to-leaf path in $T$ has at most $\log_d b + \Oh(1)$ edges in $Y$;
-%     % \item\label{Y_size} each component of $T-Y$ has at most $4b$ vertices;
-%     % \item\label{Y_not_too_fast} for each component $C$ of $T-Y$ and each pair $y,z\in V(C)$, $|\log\omega(y)-\log\omega(z)|\le \log b$.
-%   \end{enumerate}
-%   Let $T^-:=T-Y$, so $T^-$ is a spanning forest of $T$. 
-  
-%   % Property~\ref{Y_height} follows from \ref{Y0_height}, \ref{X_shrinking}, and the fact that $\omega$ is nice, so $\omega(G)\le n+O(1)$.  Property~\ref{Y_size} follows from \ref{Y0_components} and the fact that each component of $T^-$ is contained in a component of $T-Y_0$. Property~\ref{Y_not_too_fast} follows from \ref{X_not_too_fast} since, for each component $C$ of $T-Y$ and each $y\in V(C)$ we have $\omega(x)/b< \omega(x)\le\omega(x)$, where $x$ is the root of $C$.
-  
-  
-%   % $T-Y$ 
-
-%   % Let a set of edges of $T$ such that each component of $T-Y^+$ has at most $4b$ vertices and each root-to-leaf path in $T$ contains at most $\log_b n+1$ vertices of $Y^+$. (This set $Y^+$ is given as part of the input.) Let $Y^-
-  
-%   % Let $T^-$ be the forest obtained from $T$ by removing the edge between $x$ and its parent, for each $x\in X\setminus\{x_0\}$.  
-
-%   \paragraph{\boldmath The weight function $\delta$}
-%   For each $x\in V(T)$, let $C_x:=N_{T_x}(x)$ denote the set of $T$-children of $x$ in $T$. For each $x\in V(T)$, let $C^-_x:=C_x\cap X$ be the set of $T$-children of $x$ that are in a different component of $T^-$ than $x$.  For each $x\in V(T)$ and each $u\in B_x\setminus A_x$, let $C_u:=\{y\in C_x\mid u\in A_y\}$ and $C^-_u:=\{y\in C^-_x\mid u\in A_y\}$.  For each $x\in V(T)$ and each $u\in B_x\setminus A_x$, define
-%   \[
-%     \delta_0(u) := k\cdot \omega(u) + \sum_{y\in C^-_u}\omega(y)
-%   \]
-%   Note that $\omega(y)$ appears in the sum for $\delta(u)$ only when $u\in A_y$.  Therefore $\omega(y)$ appears in the sum for $\delta(u)$ for at most $k$ values of $u\in A_x\setminus B_x$.  Therefore,
-%   for each component $C$ of $T-Y$, 
-%   \[
-%     \sum_{x\in V(C)}\sum_{u\in B_x\setminus A_x}\delta_0(u) 
-%     = \sum_{x\in V(C)}k\cdot\omega(B_x\setminus A_x)+\sum_{x\in V(C)}\sum_{u\in B_x\setminus A_x}\sum_{y\in C_u}\omega(y)
-%     \le k\cdot \omega(x_C)
-%   \]
-%   where $x_C$ is the root of the component $C$.  For each $x\in V(T)$ and each $u\in B_x\setminus A_x$, define
-%   \[
-%     \delta(u) := \delta_0(u) + |C_u|\cdot\delta_0(B_x\setminus A_x)/b \enspace .
-%   \]
-%   Since $|V(T)|\le b$, $x$ has less than $b$ children in $T$.  For each child $y$ of $x$, $|B_x\cap B_y|\le k$.  Therefore each child $y$ of $x$ contributes $\delta_0(B_x\setminus A_x)/b$ to $\delta(u)$ for at most $k$ vertices $u\in B_x\setminus A_x$.  Therefore,
-%   \[
-%     \delta(B_x\setminus A_x) < \delta_0(B_x\setminus A_x) + kb\cdot \delta_0(B_x\setminus A_x)/b = (k+1)\delta_0(B_x\setminus A_x) \enspace .
-%   \]
-%   Therefore, for each component $C$ of $T-Y$,   
-%   \[
-%     \sum_{x\in V(C)}\delta(B_x\setminus A_x) < (k+1)\sum_{x\in V(C)}\delta_0(B_x\setminus A_x) \le k(k+1)\cdot \omega(x_C)
-%   \]
-%   where $x_C$ is the root of the component $C$.  
-  
-%   % we have $|C_u|\le k(n)$, so $\delta(B_x\setminus A_x)/b = \Theta(\delta(B_x\setminus A_x)/b) = \Theta(\delta(x)/b)$ for each $x\in V(T)$ and each $u\in B_x\setminus A_x$.  Since $k(n)=o(\log n)$, we have $\delta(x)/b = \Oh(\delta(x)\log\log n/\log n)$.
-
-%   For each component $C$ of $T^-$, define the weight function $\delta:V(C)\to\R^+$ by 
-%   \[ \delta(x):=\delta(B_x\setminus A_x) + \tfrac{1}{b}\cdot \omega(x_C)
-%   \] 
-%   for each $x\in V(C)$.  Then, for each component $C$ of $T^-$,
-%   \begin{align*}
-%     \delta(C)
-%       & =\sum_{x\in V(C)}\delta(x) \\
-%       & = \sum_{x\in V(C)}\delta(B_x\setminus A_x) + \frac{|V(C)|}{b}\cdot\omega(x_C) \\
-%       &\le \sum_{x\in V(C)}\delta(B_x\setminus A_x) < (k(k+1)+1)\omega(x_C) \enspace ,
-%   \end{align*}
-%   where $x_C$ is the root of $C$. 
-
-%   Let $\pi:V(C)\to\{0,1\}^*$ be the prefix-free code obtained by applying \cref{shannon_fano_elias_code} with $S=V(C)$ and weight function $\delta$.  Then,
-%   \begin{align}
-%      |\pi(x)| 
-%        & \le \log \delta(C) - \log\delta(x) + 1 \\
-%        & \le \log\omega(x_C)-\log\delta(x) + \Oh(\log k) \\
-%        & \le \log\omega(x_C)-\log(\omega(C)/b) + \Oh(\log k) \\
-%        & = \log b + \Oh(\log k) \enspace .
-%   \end{align}
-%   where $x_C$ is the root of $C$. 
-  
-%   For each $x\in V(T)$, let $(\mu_x,\kappa_x)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling of $(\torso{G^+}{\mathcal{T},B_x}-A_x,G[B_x]-A_x,\delta_{|B_x\setminus A_x})$ for $(A,I)$.  Then, for each $x\in V(T)$ and each $v\in B_x\setminus A_x$, we have
-%   \begin{equation}
-%     |\mu_x(v)| \le \log \delta(x) - \log\delta(v) + g_1(n) + \Oh(1) \label{eq_length_mu_x}
-%   \end{equation}
-%   Furthermore, if $v\in A_y$ for at least one $T$-child $y$ of $x$, then $\delta(v)\ge \delta_0(B_x\setminus A_x)/b\ge \delta(B_x\setminus A_x)/((k+1)b)=\delta(x)/((k+1)b)$.  Thus,
-%   \begin{equation}
-%     |\mu_x(v)| \le \log \delta(x) - \log\delta(v) + g_1(n) + \Oh(\log k) 
-%     \le \log b + g_1(n) + \Oh(\log k) \label{eq_length_mu_x_2}
-%   \end{equation}
-  
-
-  
-%   Let $x\in V(T)$ and let $x_0, x_1,\ldots, x_r$ be the unique path from $x_0$ to $x$ in $T$. let $x_0',\ldots,x_s'$ be the subsequence of $x_0,\ldots,x_r$ consisting of those nodes in $X$.  For each $i\in\{1,\ldots,s'\}$, let $y'_i$ be the parent of $x_i'$ in $T$ and let $K_i:=A_{x_i'}\setminus A_{y'_i}$.  We define
-%   \[
-%     \id(x) := \langle \langle\pi(y_1'),\mu_{y_1'}(K_1)\rangle,\; \langle \pi(y_2'),\mu_{y_2'}(K_2)\rangle,\;\ldots,\;\langle \pi(y_s'),\mu_{y_s'}(K_s')\rangle,\;\pi(x_{r}) \rangle
-%   \]
-%   Then 
-%   \begin{align}
-%     |\id(x)|
-%     & \le \sum_{i=1}^s (|\pi(y_i')|+|\mu_{y_i'}(K_i)|) + \pi(x_r) + \Oh(s\log\log n) \nonumber \\
-%     & \le \sum_{i=1}^s (\log\omega(x_{i-1}')-\log\delta(y_i')+|\mu_{y_i'}(K_i)|) + |\pi(x_r)| + \Oh(s\log\log n) \nonumber \\
-%     & \le \sum_{i=1}^s (\log\omega(x_{i-1}')-\log\min_{u\in K_i}\delta(u))
-%       + |\pi(x_r)| + \Oh(s(g_3(n)+\log\log n)) \nonumber \\
-%     & \le \sum_{i=1}^s (\log\omega(x_{i-1}')-\log\omega(x_{i}'))
-%       + |\pi(x_r)| + \Oh(s(g_3(n)+\log\log n)) \nonumber \\
-%     & = \log\omega(x_{0}) - \log\omega(x_{s}')
-%       + |\pi(x_r)| + \Oh(s(g_3(n)+\log\log n)) \nonumber \\
-%     & \le \log\omega(x_{0})
-%       - \log\delta(x_r) + \Oh(s(g_3(n)+\log\log n)) \nonumber \\
-%     & = \log\omega(G)
-%       - \log\delta(x) + \Oh(s(g_3(n)+\log\log n)) \nonumber \\
-%     & = \log\omega(G)
-%       - \log\delta(x) + \Oh(\log_d b\cdot (g_3(n)+\log\log n)) \label{eq_length_id_x} \enspace ,
-%     % & \le \log\omega(x_{0}) - \log\omega(B_{x_r}\setminus A_{x_r}) + \Oh(s(g_3(n)+\log\log n) 
-%   \end{align}
-%   % where the last line follows from \ref{Y_height}.  Furthermore, for each $
-
-
-
-
-%   \paragraph{\boldmath The vertex label $\mu(v)$:} For each $x\in V(T)$, and each $v\in B_x\setminus A_x$, we define
-%   \[
-%     \mu(v) := \langle \id(x),\mu_x(v),\tau(v),\alpha(v) \rangle \enspace .
-%   \]
-%   The parts $\id(x)$ and $\mu_x(v)$ are defined above. By \eqref{eq_length_id_x} and \eqref{eq_length_mu_x}, they have total length
-%   \begin{align*}
-%     |\id(x)| + |\mu_x(v)| 
-%     &\le \log\omega(G) - \log\delta(x) + \log\delta(x)-\log\delta(v) + \Oh(\log_b n\cdot (g_3(n)+\log\log n)) \\
-%     & = \log\omega(G) - \log\delta(v) + \Oh(\log_b n\cdot (g_3(n)+\log\log n)) \\
-%     & = \log\omega(G) - \log\omega(v) + \Oh(\log_b n\cdot (g_3(n)+\log\log n)) .
-%   \end{align*}
-  
-%   What remains is to describe $\tau(v)$ and $\alpha(v)$.  Let $x_0,\ldots,x_r$ be the path from the root $x_0$ of $T$ to the home $x_r=x$ of $v$ in $\mathcal{T}$ and let $K_i:=A_{x_{i+1}}\setminus A_{x_i}$ for $i\in\{0,\ldots,r-1\}$. Let $u$ be a vertex in $N_G(v)\cap A_x$.  Then $u$ has a home $h(u)=x_i$ for some $i\in\{0,\ldots,r-1\}$. Since $u\in B_{x_i}\setminus A_{x_i}$ and $u\in A_{x_r}=A_x$, the vertex $u$ is in $K_{u}:=(B_{x_i}\cap B_{x_{i+1}})\setminus A_{x_i}$. In particular, $K_u$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ so $\mu_{h(u)}(K_u)$ and $\kappa_{h(u)}(K_u,u)$ are defined.
-  
-%   % Let $h_0(x):=\{z\in h(A_x):\delta(B_z\setminus A_z)-\log\min_{u\in }
-  
-%   Let $J(v):=\{i\in\{0,\ldots,r-1\} : N_G(v)\cap K_i\neq\emptyset\}$.
-%   The bitstring $\tau(v)$ will be used to store $\mu_{x_i}(K_i)$ for each $i\in J(v)$.  However, there are some $i\in J(v)$ such that $\mu_{x_i}(K_i)$ is contained in $\id(x_r)=\id(x)$. This occurs precisely when $x_{i}x_{i+1}\in Y$. Thus, we define
-%   \[
-%     \tau(v) := \left\langle \langle \pi(x_i), \mu_{x_i}(K_i) \rangle \middle| i\in J(v),\; x_{i}x_{i+1}\notin Y \right\rangle \enspace .
-%   \]
-%   Thus, $\tau(v)$ contains at most $k$ clique labels.  Consider some $i\in J(v)$ such that $x_{i}x_{i+1}\notin Y$ and let $x$ be the maximum depth ancestor of $x_{i+1}$ that is in $X$. Thus, $x$ and $x_i$ are in the same component of $T-Y$. By \ref{Y_not_too_fast}
-%   \begin{align*}
-%     |\pi(x_i)|+|\mu_{x_i}(K_i)| 
-%     & \le \delta(x)-\log\min_{u\in K_i}\delta(u) + \Oh(g_3(n)+\log\log n) \\
-%     & \le \log\delta(x)-\log\min_{u\in K_i}\omega(u) + \Oh(g_3(n)+\log\log n) \\
-%     & \le \log\omega(x)-\log\min_{u\in K_i}\omega(u) + \Oh(g_3(n)+\log\log n) \\
-%     & \le \log b + \Oh(g_3(n)+\log\log n) 
-%   \end{align*}
-%   Thus, $|\tau(v)|\le \Oh(k(\log b + g_3(n) + \log\log n))$.  
-  
-%   We now describe the parts of $\alpha(v)$.
-%   For each $u\in N_G(v)\cap A_x$, exactly one of the following cases applies:
-%   \begin{enumerate}[nosep,nolistsep]
-%     \item $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ is contained in $\id(x)$.  In this case, we define $b(v,u)=0$, define $i(v,u)$ to be the index of $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ in the sequence $\id(x)$, and define $j(v,u)=\varepsilon$.        
-%     \item $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ is contained in $\tau(v)$.  In this case, we define $b(v,u)=1$, define $j(v,u)$ to be the index of $\langle\pi(h(u)),\mu_{h(u)}(K_u)\rangle$ in the sequence $\tau(v)$, and define $i(v,u)$ to be the index of $\langle\pi(x),\cdot\rangle$ in $\id(v)$, where $x$ is the maximum depth ancestor of $h(u)$ that is in $X$. 
-%   \end{enumerate}
-%   In each case, the sequences indexed by $i(v,u)$ and $j(v,u)$ has length $\Oh(\log n)$, so $\bin(i(v,u))$ has length $\Oh(\log\log n)$.  Finally, we define
-%   \[
-%     \alpha(v) :=\left\langle \langle b(v,u),\bin(i(v,u)),\bin(j(v,u)),\kappa_{h(u)}(K_u,u)\rangle \mid u\in N_G(v)\cap A_x \right\rangle  \enspace .
-%   \]
-%   The length of $\alpha(v)$ is $\Oh(k\cdot(g_2(n)+\log\log n))$.  Thus, the total length of the vertex label for $v$ is
-%   \begin{align*}
-%      |\mu(v)| &\le |\id(v)|+|\mu_x(v)|+|\tau(v)|+|\alpha(v)| \\
-%      &\le \log\omega(G)-\log\delta(v)+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) + \Oh(k\cdot(g_2(n)+\log\log n)) \\
-%      & = \log\omega(G)-\log\omega(v) + \Oh(\sqrt{g_3(n)\cdot\log n}) + \Oh(k\cdot g_2(n)) + \Oh\left(\left(k+\sqrt{\frac{\log n}{g_3(n)}}\right)\cdot\log\log n\right) \\
-%   \end{align*}
-%   which satisfies the requirements for $g_1'(n)$.
-
-%   Together, $\alpha(v)$ and $\tau(v)$ act as an adjacency list at $v$ for the vertices in $N_G(v)\cap A_x$.  In particular, they make it possible to extract $\pi(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$ for each $u\in N_G(v)\cap A_x$ from the vertex label $\mu(v)$. Furthermore, it is even possible to extract $\id(h(u))$.  Indeed, $\id(h(u))$ consists of the first $i(v,u)-1$ entries in $\id(v)$, followed by $\pi(h(u))$. 
-
-%   \paragraph{Adjacency testing:}  We now describe the adjacency tester $A'$ that takes two labels $\mu(v)$ and $\mu(w)$.  Suppose that $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some pair of node $x,y\in V(T)$.  Thus $\mu(v)=\langle \id(x),\mu_x(v),\tau(v),\alpha(v)\rangle$ and $\mu(w)=\langle \id(y),\mu_y(w),\tau(w),\alpha(w)\rangle$.  The adjacency tester first checks if $\id(x)=\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $\id$ is injective. In this case $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$, so $A'(\mu(v),\mu(w)):=A(\mu_x(v),\mu_y(w))$.
-
-%   If $\id(x)\neq \id(y)$ then the only way in which $v$ and $w$ can be adjacent in $G$ is if $w\in N_G(v)\cap A_x$ or $v\in N_G(w)\cap A_y$.  We now explain how to test if $v\in N_G(w)\cap A_y$. For each $u\in N_G(w)\cap A_y$, $\tau(w)$ and $\alpha(w)$ contain enough information to extract $\id(h(u))$, $\mu_{h(u)}(K_u)$, and $\kappa_{h(u)}(K_u,u)$, where $K_u$ is a clique in $\torso{G^+}{\mathcal{T},B_{h(u)}}-A_{h(u)}$ that contains $u$.  The adjacency tester first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $u\neq v$.  Otherwise, $x=h(u)$ and the tester checks if $I(\mu_{h(u)}(K_u),\kappa_{h(u)}(K_u,u),\mu_x(v))=1$.  If so, then $u=v$ so $v\in N_G(w)\cap A_y$.  In particular, $v\in N_G(w)$ so $A'(\mu(v),\mu(w)):=1$.  By doing this for each entry in $\alpha(w)$, the adjacency tester either returns $1$ because $v\in N_G(w)\cap A_y$ or determines that $v\not\in N_G(w)\cap A_y$.  The tester then repeats this process with the roles of $v$ and $w$ reversed and either returns $1$ because $w\in N_G(v)\cap A_x$ or determines that $w\not\in N_G(v)\cap A_x$.  In the latter case, $A'(\mu(v),\mu(w)):=0$ since $vw\not\in E(G[B_x\setminus A_x])$, $v\not\in N_G(w)\cap A_y$ and $w\not\in N_G(v)\cap A_x$.
-
-%   \paragraph{The clique label $\mu(K)$:}
-%   Let $K$ be a clique in $G^+$.  Consider the set $h(K):=\{x\in V(T):K\cap B_x\setminus A_x\neq\emptyset\}$.  Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a single path in $x_0,\ldots,x_r$ from the root $x_0$ of $T$ to the node $x_r\in h(K)$ of maximum $T$-depth. For each  $x\in h(K)\setminus \{x_r\}$, the adhesion $A_{x_r}$ contains at least one vertex in $B_x\setminus A_x$. Therefore, $|h(K)|\le|A_{x_r}|+1\le k+1$.  For each $x\in h(K)$, $K\cap B_x\setminus A_x$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_x}-A_x$, so $\mu_x(K\cap B_x\setminus A_x)$ is defined. 
-%   Order the vertices of $A_{x_r}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x_r}|}$.  Let $c(K)$ denote the length-$|A_{x_r}|$ bit-vector whose $i$th bit indicates if $a_i\in K$.  Define the clique label
-%   \[
-%     \mu(K)
-%     :=\langle\id(x_r), \mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r}), c(K)\rangle.
-%   \]
-%   As with vertex labels, we have
-%   \begin{align*}
-%     &\quad |\id(x_r)|+|\mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r})| \\ 
-%     & \le \log\omega(G)-\log\delta(x_r)+ |\mu_{x_r}(K\cap B_{x_r}\setminus A_{x_r})|+\Oh(\log_b n\cdot (g_3(n)+\log\log n))  \\
-%     & \le \log\omega(G)-\log\min_{u\in K\cap B_{x_r}\setminus A_{x_r}}(\delta(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
-%     & \le \log\omega(G)-\log\min_{u\in K\cap B_{x_r}\setminus A_{x_r}}(\omega(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
-%     & \le \log\omega(G)-\log\min_{u\in K}(\omega(u))+\Oh(\log_b n\cdot (g_3(n)+\log\log n)) 
-%   \end{align*}
-
-%   We now upper bound the length of $\mu(K)$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|c(K)|\le k$.  Just like the clique labels that appear in vertex labels, the lengths of the at most $k+1$ clique labels in the first part of $\mu(K)$ form a telescoping series so that
-%   \begin{align*}
-%     \sum_{x\in h(K)}|\mu_{x}(K\cap B_x\setminus A_x)|
-%      & \le
-%     \log\omega(G)-\log\min_{u\in K\cap B_z\setminus A_z}(\omega(u)) + \Oh(k\cdot(g_3(n)+\log k)) \\
-%      & \le \log\omega(G)-\log\min_{u\in K}(\omega(u))
-%     +\Oh(k\cdot(g_3(n)+\log k))
-%   \end{align*}
-%   Thus, $|\mu(K)|\le \log\omega(G)-\log\min_{u\in K}(\omega(u))
-%     +\Oh(k\cdot(g_3(n)+\log\log n))
-%   $, which satisfies the requirement for $g'_3(n)$.
-
-%   \paragraph{\boldmath The local identifier $\kappa(K,u)$:} For each $u\in K$, let $i(K,u)$ be the index of  $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ in the sequence $\mu(K)$.  For each $u\in K$, define the local identifier
-%   \[
-%     \kappa(K,u):=\langle \bin(i(K,u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u) \rangle
-%   \]
-%   The length of $\kappa(K,u)$ is $g_2(n)+\Oh(\log b+\log k+\log\log n)$, which satisfies the requirement for $g'_2(n)$. 
-
-%   % Next, we argue that $\mu$ is injective on the cliques of $G^+$.  Let $K_1,K_2$ be two distinct cliques in $G^+$ such that $\mu(K_1)=\mu(K_2)$.  
-
-%   \paragraph{Identity Testing:}  We now describe the operation of the identity tester $I'$ which takes as input the label $\mu(K)=\langle \langle\mu_x(K\cap B_x\setminus A_x)\rangle
-%   \mid x\in h(K)
-%   \rangle$ of a clique $K$ in $G^+$, the local identifier $\kappa(K,u)=\langle\bin(i(K,u)),\id(h(u)),\kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u)\rangle$ of a vertex $u\in K$, and the label $\mu(v)=\langle \id(x),\mu_x(v),\alpha(v)\rangle$ of a vertex $v\in B_x\setminus A_x$ for some $x\in V(T)$.  
-  
-%   The identity tester first checks if $\id(h(u))=\id(x)$.  If not, then $h(u)\neq x$, so $u\in B_{h(u)}\setminus A_{h(u)}$ and $v\in B_x\setminus A_x$, so $v\neq u$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(h(u))=\id(x)$ then $h(u)=x$, since $\id$ is injective.  In this case, the identity tester uses $i(K,u)$ to extract $\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)})$ from $\mu(K)$.  Then the identity tester returns $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}), \kappa_{h(u)}(K\cap B_{h(u)}\setminus A_{h(u)}, u), \mu_{x}(v))$.
-% \end{proof}
-
-
-% % SAVE E4cRTXgmT7EGUyz!!!
-% S
