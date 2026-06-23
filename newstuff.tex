@@ -142,7 +142,7 @@ The following lemma is well-known (see, for example \cite{}).
 
 
 
-  \paragraph{\boldmath The weight function $\delta$:}  For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in N_{T_x}(x)\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  
+  \paragraph{\boldmath The weight function $\delta$:} For each $x\in V(T)$, let \defin{$C_x$} be the set of children of $x$ in $T$. Let \defin{$C^-_x$}$:=\{y\in C_x\mid xy\in Y\}$ and let \defin{$C^+_x$}$:=C_x\setminus C^-_x$. For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in C_x\mid v\in A_y\}$.  That is, $C_v$ is the set of children of $x$ whose parent adhesion contains $v$.  
   % By property~\ref{td_width} of $\mathcal{T}$, for each $x\in V(T)$ and each $T$-child $y$ of $x$, there are at most $3k$ vertices $v\in B_x\setminus A_x$ such that $y\in C_v$. (These are precisely the vertices in $A_y\setminus A_x$.) 
 
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $C^-_v:=\{y\in C_v: xy\in Y\}$ and let $C^+_v:=C_v\setminus C^-_v$.  (The set $C^-_v$ corresponds to edges of $T$ that are not in $F$; those in $C^+_v$ correspond to edges of $T$ that are in $F$.)
@@ -161,7 +161,7 @@ The following lemma is well-known (see, for example \cite{}).
     \delta(x) 
     % = \sum_{v\in B_x\setminus A_x} \delta(v) 
     \le  \sum_{v\in B_x\setminus A_x}\left(\omega(v)+ \sum_{y\in C_v} \omega(T_y) \right) 
-    \le \omega(x) + \sum_{y\in N_{T_x}(x)} 3k\cdot\omega(T_y) \le 3k\omega(T_x)
+    \le \omega(x) + \sum_{y\in C_x} 3k\cdot\omega(T_y) \le 3k\omega(T_x)
     \label{delta_x_upper_bound}
   \end{equation}
 
@@ -205,10 +205,10 @@ The following lemma is well-known (see, for example \cite{}).
   % and
   One final inequality that follows immediately from the definition of $\delta$ is that
   \begin{equation}
-    \delta(x) \ge \omega(x) + \tfrac{1}{4b}\sum_{y\in C_x^+} \delta(y)
+    \delta(x) = \omega(x) + \sum_{y\in C_x^-} \omega(T_y) + \tfrac{1}{4b}\sum_{y\in C_x^+} \omega(T_y)
     \ge \tfrac{1}{4b}\omega(T_x) \enspace \label{delta_y_lower_bound}
   \end{equation}
-  for all $x\in V(T)$.
+  for all $x\in V(T)$. This relies on the fact that $\mathcal{T}$ is a tidy tree-decomposition, so $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$, and thus every $y \in C_x$ appears in $C_v$ for at least one $v \in B_x \setminus A_x$.
 
 
 
@@ -246,10 +246,10 @@ The following lemma is well-known (see, for example \cite{}).
   \begin{align}
     \min_{u\in K} \delta(u) 
     & \ge \min_{u\in K}\left(\sum_{y\in C_u}\tfrac{1}{4b}\omega(T_y) \right) 
-    & \text{(by \eqref{delta_y_lower_bound})} \nonumber \\
+    & \text{(by definition of $\delta$)} \nonumber \\
     & \ge \tfrac{1}{4b}\sum_{y\in C_K} \omega(T_y)  
     & \text{(since $C_K\subseteq C_u$ for all $u\in K$)} \nonumber \\
-    & \ge \omega(T_x)/(4b^2) 
+    & > \omega(T_x)/(4b^2) 
     & \text{(since $K$ is not light).} \label{nonlight_clique_delta_lower_bound}
   \end{align}
 
