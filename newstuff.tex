@@ -1,4 +1,11 @@
-\section{This is the new stuff}
+\newpage 
+
+\section{Alternate Proof That Gives a Sparse Universal Graph}
+
+This appendix provides an alternative proof of \cref{main_result} that can be used to construct an induced-universal graph with $n^{1+o(1)}$ vertices and edges. Eventually, this will replace the use of \cref{skinny_labelling,small_height}.  This also eliminates the need for \cref{disjoint_union_ii,b_skinny_decomp,skinny_edges,low_pathwidth_separator}.
+
+
+
 
 
 \begin{lem}\label{skinny_edges}
@@ -79,39 +86,20 @@ The following lemma is well-known (see, for example \cite{}).
 
 
 
-
-
-% \subsection{Lower-Torso Specific}
-
-
-% Let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of a graph $G$. For each $x\in V(T)$ with parent adhesion $A_x$, define the \defin{lower-torso} $\mathdefin{\torso{G^-}{\mathcal{T},B_x}}:=\torso{G}{\mathcal{T},B_x}-A_x$.  For a child $y$ of a node $x$ of $T$, $A_y\setminus A_x$ is the \defin{lower-adhesion} between $x$ and $y$. The \defin{lower adhesion-width} of $\mathcal{T}$ is the size of the largest lower adhesion in $\mathcal{T}$.  The \defin{up-degree} of $G$ with respect to $\mathcal{T}$ is the the maximum over $x\in V(T)$ an $v\in B_x\setminus A_x$ of $|N_G(v)\cap A_x|$.
-
-
-% \begin{lem}
-%   Let $G$ be a graph and let $\mathcal{T}$ be a tree-decomposition of $G$.  Then, for any $b>1$, there exists a tree-decomposition $\mathcal{Q}:=(Q,C_x\mid x\in V(T))$ with the following properties:
-%   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-%     \item $\height(Q)\le\log_b n$.
-%     \item 
-%   \end{enumerate}
-% \end{lem}
-
-
-
 \begin{lem}\label{lem:the_big_one}
-  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
+  Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
-    g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_b n) + \Oh(k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )) \\
-    g_2'(n) & = g_2(n) + \Oh(\log b + \log\log n)  \\
-    g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_b n\right)  \enspace .
+    g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
+    & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n )) \\
+    g_2'(n) & = g_2(n) + g_3(n) + \Oh(k(n) + \log b(n) + \log\log n)  \\
+    g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n\right)  \enspace .
   \end{align*}
 \end{lem}
 
 \begin{proof}
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$.
-
-  % Let $\mathdefin{b}:=2^{\sqrt{g_3(n)\cdot\log n}}$.  
-  By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G^+$ such that
+  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\log\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$. Let $b:=b(n)$.
+  By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy tree-decomposition $\mathdefin{\mathcal{T}}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G^+$ such that
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
     \item\label{td_width} $\mathcal{T}$ has adhesion-width at most $3k$;
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
@@ -119,16 +107,16 @@ The following lemma is well-known (see, for example \cite{}).
   \end{enumerate}
   We will work with the tree-decomposition $\mathcal{T}$.  By \cref{add_apexes}, $\mathcal{G}^{+3k}$ admits a weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
   \begin{align}
-    h_1(n) & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
-    h_2(n) & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
-    h_3(n) & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
+    \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
+    \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
+    \mathdefin{h_3(n)} & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
   \end{align} 
-  Let $A$ and $I$ be an adjacency tester and identity tester for this mixed labelling scheme.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
+  Let \defin{$A$} and \defin{$I$} be an adjacency tester and identity tester for this mixed labelling scheme.  We will define an adjacency tester $A'$ and identity tester $I'$ for $\mathcal{G}'$.  However, it is impractical to describe $A'$ and $I'$ without first describing a labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$.
 
 
   Let \defin{$x_0$} be the root of $T$. For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\mathcal{T}$. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$. 
 
-  Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega$ is nice).  Furthermore, for every pair of vertices $x,y$ in the same component of $T-Y_1$, we have $\omega(T_y)/b< \omega(T_x)<b\cdot\omega(T_y)$; equivalently  $|\log\omega(T_x)-\log\omega(T_y)|< \log b$. For each $x\in V(T)$ and each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$, if $\sum_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$, then we say that $K$ is \defin{light} in $\mathcal{T}$.  Observe that, if a clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$is light, then $\omega(T_y)\le \omega(T_x)/b$ for each $y\in C_K$.  In particular, this implies that the edge $xy\in Y_1$ for each $y\in C_K$.  
+  Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega$ is nice).  Furthermore, for every pair of vertices $x,y$ in the same component of $T-Y_1$, we have $\omega(T_y)/b< \omega(T_x)<b\cdot\omega(T_y)$; equivalently  $|\log\omega(T_x)-\log\omega(T_y)|< \log b$. For each $x\in V(T)$ and each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$, if $\sum_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$, then we say that $K$ is \defin{light} in $\mathcal{T}$.  Observe that, if a clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$ is light, then $\omega(T_y)\le \omega(T_x)/b$ for each $y\in C_K$.  In particular, this implies that the edge $xy\in Y_1$ for each $y\in C_K$.  
 
   Let $\mathdefin{Y}:=Y_0\cup Y_1$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. Then $Y$ satisfies the following strengthening of \ref{tprops_y0}:
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{3}
@@ -155,14 +143,13 @@ The following lemma is well-known (see, for example \cite{}).
   For each $x\in V(T)$, $y\in C_x$, and $v\in B_x\setminus A_x$, $y\in C_v$ if and only if $v\in A_y\setminus A_x$.  By property~\ref{td_width} of $\mathcal{T}$, we have $|A_y|\le 3k$, for each $y\in V(T)$, so each $y\in V(T)$ belongs to at most $3k$ sets $C_v$. Thus, 
   \begin{equation}
     \delta(x) 
-    % = \sum_{v\in B_x\setminus A_x} \delta(v) 
     \le  \sum_{v\in B_x\setminus A_x}\left(\omega(v)+ \sum_{y\in C_v} \omega(T_y) \right) 
     \le \omega(x) + \sum_{y\in C_x} 3k\cdot\omega(T_y) \le 3k\cdot\omega(T_x)
     \label{delta_x_upper_bound}
   \end{equation}
   Since $\mathcal{T}$ is a tidy tree-decomposition, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$, and thus every $y \in C_x$ appears in $C_v$ for at least one $v \in B_x \setminus A_x$.  Therefore
   \begin{equation}
-    \delta(x) = \omega(x) + \sum_{y\in C_x^-} \omega(T_y) + \tfrac{1}{4b}\sum_{y\in C_x^+} \omega(T_y)
+    \delta(x) = \omega(x) + \sum_{y\in C^-_x} \omega(T_y) + \tfrac{1}{4b}\sum_{y\in C^+_x} \omega(T_y)
     \ge \tfrac{1}{4b}\omega(T_x) \enspace \label{delta_y_lower_bound}
   \end{equation}
   for each $x\in V(T)$.
@@ -240,29 +227,14 @@ The following lemma is well-known (see, for example \cite{}).
     |\mu_x(K)|
     & \le h_3(n) + \log\delta(x)-\log(\min_{u\in K} \delta(u)) \nonumber \\
     & \le h_3(n) + \log\delta(x)-\log(\omega(T_x)/(4b^2)) & \text{(by \eqref{nonlight_clique_delta_lower_bound})} \nonumber \\
-    & \le h_3(n) + \log((3k+1)\omega(T_x))-\log(\omega(T_x)/(4b^2)) \nonumber \\
+    & \le h_3(n) + \log(3k\cdot\omega(T_x))-\log(\omega(T_x)/(4b^2)) \nonumber \\
     & \le h_3(n) + 2\log b  + \Oh(\log\log n)
       \label{mu_x_K_light_upper_bound}
   \end{align}
 
   \paragraph{\boldmath The inter-tree codes $\rho_K$:}
 
-
-  % For each $x\in V(T)$, let $C_x:=N_{T_x}(x)$ be the set of $T$-children of $x$.  Let $C^-_x:=\{y\in C_x: xy\in Y\}$ and $C^+_x:=C_x\setminus C^-_x$.  For each $x\in V(T)$, let $\rho_x:C^-x\to\{0,1\}^*$ be a prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-_x$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_x$, 
-  % \begin{align*}
-  %   |\rho_x(y)| 
-  %     & \le \log\left(\sum_{y'\in C^-_x}\omega(T_{y'})\right) - \log\omega(T_y)  \\
-  %     & \le \log\delta(x) - \log\omega(T_y)  \\
-  % \end{align*}
-
-  % For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in N_{T_x}(x)\mid xy\in Y\}$ and let $L(x):=\{A_y\setminus A_x\mid y\in C^-_x\}$.  Thus, $L(x)$ is a set of cliques in $\torso{G^+}{\mathcal{T},B_x}-A_x$. For each $K\in L(x)$, let $C^-_K := C_K \cap C^-_x$. Let $\rho_x:L(x)\to\{0,1\}^*$ be a prefix-free code obtained by applying \cref{shannon_fano_elias_code} to the set $S=L(x)$ with weight defined by $K\mapsto\sum_{y\in C^-_K}\omega(T_y)$.  Then, for each $K\in L(x)$, 
-  % \begin{align*}
-  %   |\rho_x(K)|
-  %     & \le \log\left(\sum_{y'\in C^-_x}\omega(T_{y'})\right) - \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right)+3 \\
-  %     & \le \log\delta(x) - \log(\min_{u\in K}\delta(u))+3
-  % \end{align*}
-
-  For each $x\in V(T)$ and each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$ such that $C^-_K\neq\emptyset$, let $\rho_K:C^-_K\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-_K$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_K$, 
+  For each $x\in V(T)$ and each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$ such that $C^-_K\neq\emptyset$, let $\mathdefin{\rho_K}:C^-_K\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-_K$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_K$, 
   \begin{align}
     |\rho_K(y)|
       & \le \log\omega(C^-_K) - \log\omega(T_y) + 3 \nonumber \\
@@ -275,7 +247,7 @@ The following lemma is well-known (see, for example \cite{}).
   \paragraph{\boldmath The outer-tree codes $\tau(C,D)$:}
   Let $C$ and $D$ be two components of $F$ such that some edge $xy\in Y$ joins them, with $x\in V(C)$, $y\in V(D)$ and $x$ being the $T$-parent of $y$. Thus $y=r(D)$ is the root of component $D$. Then we define
   \[
-     \tau(C,D):= \langle\rho_C(x), \mu_x(A_y\setminus A_x), \rho_{A_y\setminus A_x}(y)\rangle \enspace .
+     \mathdefin{\tau(C,D)}:= \langle\rho_C(x), \mu_x(A_y\setminus A_x), \rho_{A_y\setminus A_x}(y)\rangle \enspace .
   \]
   Then
   \begin{align}
@@ -294,62 +266,19 @@ The following lemma is well-known (see, for example \cite{}).
     \end{align}
     For a fixed component $C$ of $F$, $\tau(C,\cdot)$ is a function that maps each component $D$ of $F$ whose root is adjacent to a node of $C$ onto a binary string.  It is straightforward to check that the mapping $\tau(C,\cdot)$ is injective, for each component $C$ of $F$.  This is simply due to the fact that $\rho_C:V(C)\to\{0,1\}^*$ is injective; for each $x\in V(C)$, $\mu_{x}$ is injective over the cliques in $\torso{G^+}{\mathcal{T},B_x}-A_x$; and $\rho_{K}:C^-_K\to\{0,1\}^*$ is injective for each clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$.
 
-
-
-
-
-  % For each $x\in V(T)$ and each light clique $K$ in $\torso{G^+}{\mathcal{T},B_x}-A_x$ such that $C^-K_\neq\emptyset$, let $\rho_K:C^-K\to\{0,1\}^*$ be obtained by applying \cref{shannon_fano_elias_code} to the set $S=C^-K$ with weight defined by $y\mapsto\omega(T_y)$.  Then, for each $y\in C^-_K$, 
-  % \begin{align*}
-  %   |\rho_K(y)| 
-  %     & \le \log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right) - \log\omega(T_y)  \\
-  %     & \le \log(\min_{u\in K}\delta(u)) - \log\omega(T_y) 
-  % \end{align*}
-
-
-  % For each $x\in V(T)$ and each $y\in C^-_x$, let
-  % \[
-  %   \tau_x(y):=
-  %   % \begin{cases}
-  %     \langle \mu_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle 
-  %     % & \text{if $xy$ is light}  \\
-  %     % \langle 1,\rho_x(A_y\setminus A_x),\rho_{A_y\setminus A_x}(y)\rangle & \text{otherwise.} 
-  %   % \end{cases}
-  % \]
-  % Then, for each $x\in V(T)$ and each $y\in C^-_x$,
-  % \begin{align}
-  %   |\tau_x(y)| 
-  %   & \le |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| + \Oh(\log\log n) \\
-  %   & \le  \log\delta(x) - \log\omega(T_y) + h_3(n) + \Oh(\log\log n) 
-  %   & \text{(by \cref{mu_x_K_upper_bound} and \cref{rho_K_y_upper_bound})} \enspace . \label{tau_upper_bound}
-  % \end{align}
-
-  % Then for each $x\in V(T)$ and each $y\in C^-_x$,
-  % \begin{align}
-  %   |\tau_x(y)| 
-  %   & \le  \log\delta(x) - \log\left(\min_{w\in A_y\setminus A_x}\delta(T_w)\right) + h_3(n) + \Oh(\log\log n) \enspace. \label{tau_not_light}
-  % \end{align}
-  % Furthermore, if $A_y\setminus A_x$ is not light, then
-  % \begin{align}
-  %   |\tau_x(y)| 
-  %   & \le \log\delta(x) - \log\omega(T_y) + \Oh(\log\log n) \enspace . \label{tau_not_light}
-  % \end{align}
-  % and for each $y\in C^-_x$ such that $A_y\setminus A_x$ is light,
-  
-  % The definition of $\tau_x(y)$ is a key element of the construction, so some intuition is in order.  The Shannon Fano Elias codeword $\rho_x(A_y\setminus A_x)$ is very efficient. It only exceeds the Kraft ideal codeword length by $3$.  However it is not helpful for any purpose other than identifying $y$ among the nodes in $C^-_x$. The clique code $\mu_x(A_y\setminus A_x)$ on the other hand is much less efficient. It exceeds the Kraft ideal codeword length by $\Oh(h_3(n))$.  However, it sometimes serves another purpose in adjacency testing.  In combination with a very short local identifier $\kappa_x(A_y\setminus A_x, u)$ for $u\in A_y\setminus A_x$ it can be used to test whether an arbitrary vertex $v\in B_x \setminus A_x$ is identical to $u$.  
-
-  % The choice to use one or the other depends on whether $A_y\setminus A_x$ is light or not. If $A_y\setminus A_x$ is light, then both codewords may have length at least $\log b$, and could even have length $\log n-o(\log n)$.
-  % In this case it is worthwhile paying the $\Oh(h_3(n))$ overhead to gain the ability to perform identity testing.  In particular, it means that the label $\mu(w)$ of some vertex $w$ adjacent to $u\in A_y\setminus A_x$ will only need to store $\kappa_x(A_y\setminus A_x, u)$ rather than $\mu_x(A_y\setminus A_x)$.  On the other hand if $A_y\setminus A_x$ is not light, then the label for $\mu(w)$ will store both $\mu_x(A_y\setminus A_x)$ and $\kappa_x(A_y\setminus A_x, u)$, which only have length at most $2\log b + \Oh(h_3(n)+h_2(n)+\log\log n)$.
-
   \paragraph{\boldmath The node id $\id(x)$:}
 
-  Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $x_{s+1}:=x$ and let $y_0:=x_0$ be the root of $T$. Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $F$ for each $i\in \{0,\ldots,s\}$.  Define
+  Refer to \cref{hopper}. Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $x_{s+1}:=x$ and let $y_0:=x_0$ be the root of $T$. 
+  \begin{figure}
+    \centering
+    \includegraphics[page=2,width=0.5\textwidth]{figs/hopper.pdf}
+    \caption{The tree $T$ with edges in $Y$ coloured and an example of the sequences $y_0, x_1,y_1,x_2,y_2,x_3$ and $C_0,C_1,C_2$ used to define $\id(x)=\langle\tau(C_0,C_1), \tau(C_1,C_2), \rho_{C_2}(x) \rangle$.}
+    \label{hopper}
+  \end{figure}
+  Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $F$ for each $i\in \{0,\ldots,s\}$.  Define
   \begin{align*}
-    \id(C_s) & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s)\rangle \\
-    \id(x) & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s),\rho_{C_s}(x)\rangle \enspace .
-    % % \begin{cases}
-    %   % \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
-    %   \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle 
-    % % \end{cases}
+    \mathdefin{\id(C_s)} & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s)\rangle \\
+    \mathdefin{\id(x)} & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s),\rho_{C_s}(x)\rangle \enspace .
   \end{align*}
   Then 
   \begin{align}
@@ -417,13 +346,12 @@ The following lemma is well-known (see, for example \cite{}).
   and 
   \begin{align*}
     |\mu(v)| & \le |\id(x)| + |\mu_x(v)| + |\alpha(v)| + \Oh(\log\log n) \\
-     & \le \log \omega(G) - \log \omega(T_x) + \Oh((h_3(n)+\log\log n)\log_b n) + |\alpha(v)| \\
-     & \le \log n - \log \omega(T_x) \\
+     & \le \log \omega(G) - \log \omega(v) + h_1(n) + \Oh((h_3(n)+\log\log n)\log_b n) + |\alpha(v)| \\
+     & \le \log \omega(G) - \log \omega(v) + h_1(n) \\
      & \quad + \Oh((h_3(n)+\log\log n)\log_b n) \\
-     & \quad + \Oh(k\cdot(h_3(n) + h_2(n) + \log b + \log\log n) ) 
-    %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ..........
-    %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace .
+     & \quad + \Oh(k\cdot(h_3(n) + h_2(n) + \log b + \log\log n) ) \enspace ,
   \end{align*}
+  which satisfies the requirement for $g_1'(n)$.
 
 
   \paragraph{\boldmath The adjacency tester $A'$:} We now describe the adjacency tester $A':\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ which takes two labels $\mu(v)$ and $\mu(w)$ and returns $1$ if and only if $vw\in E(G)$.  Suppose $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some $x,y\in V(T)$.  Then $\mu(v)=\langle \id(x), \mu_x(v), \alpha(v)\rangle$ and $\mu(w)=\langle \id(y), \mu_y(w), \alpha(w)\rangle$.  The adjacency tester begins by comparing $\id(x)$ and $\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $id:V(T)\to\{0,1\}^*$ is injective.  In this case $v,w\in B_x\setminus A_x$,  and $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$.  In this case, the tester returns $A'(\mu(v),\mu(x)):=A(\mu_x(v),\mu_y(w))$.  
@@ -433,9 +361,9 @@ The following lemma is well-known (see, for example \cite{}).
     \item If $\id(C)\neq\id(D)$ but $\id(C)$ is a prefix of $\id(D)$, then the only way in which $v$ and $w$ can be adjacent is if $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$.  To check if this is the case, the adjacency tester 
     examines each entry $\alpha(w,u)$ in $\alpha(w)$ and tests if $u=v$.  If it finds such an entry, then $vw=uw\in E(G)$, so $A'(\mu(v),\mu(w)):=1$. If no such entry is found, $A'(\mu(v),\mu(w)):=0$. All that remains is to explain how $A'$ tests if $v=u$ for some entry $\alpha(w,u)$ in $\alpha(w)$. An entry $\alpha(w,u)$ can have one of two forms, which are distinguished by their first bit.
     \begin{itemize}
-      \item If the first bit of $\alpha(w,u)=0$ then $\alpha(w,u)=\langle 0,\bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$. Furthermore $x'y'\in Y$, so $y'$ is in a different component $D'\neq C'$ of $F$ than $x'$. In this case, $\id(D')$ is the prefix of $\id(D)$ consisting of the first $\idx(C')+1$ parts of $\id(D)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+      \item If the first bit of $\alpha(w,u)=0$ then $\alpha(w,u)=\langle 0,\bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$. Furthermore $x'y'\in Y$, so $y'$ is in a different component $D'\neq C'$ of $F$ than $x'$. In this case, $\id(D')$ is the prefix of $\id(D)$ consisting of the first $\idx(C')+1$ parts of $\id(D)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
       
-      \item If the first bit of $\alpha(w,u)=1$, then $\alpha(w,u)=\langle 1, \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In the case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in A_{x'}\setminus A_{y'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$. 
+      \item If the first bit of $\alpha(w,u)=1$, then $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$. 
     \end{itemize}
     \item if $\id(C)\neq\id(D)$ but $\id(D)$ is a prefix of $\id(C)$, then the tester proceeds exactly as in the previous case, but swapping the roles of $v$ and $w$. 
     \item if $\id(C)=\id(D)$ then $C=D$ and $x$ and $y$ are in the same component of $F$.  In this case, there are two ways in which $v$ and $w$ can be adjacent:  Either $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$ or $y$ is a $T$-ancestor of $x$ and $w\in N_G(v)$.  Case 1, above explains how to test the former and Case 2 explains how to test the latter.
@@ -443,7 +371,7 @@ The following lemma is well-known (see, for example \cite{}).
 
     We first observe that, if the first bit of $\alpha(w,u)$ is $0$, then we can immediately conclude that $u\neq v$, for the following reason: If the first bit of $\alpha(w,u)$ is $0$, then $u\in B_{x'}\setminus A_{x'}$ and $u\in A_{y'}\setminus A_{x'}$ for some $T$-child $y'$ of $x'$.  Because the first bit of $\alpha(w,u)$ is $0$,  $x'y'\in Y$, thus $y'$ is in a different component of $F$ than $x'$.  However, $y'$ is on the path from $x'$ to $y$ in $T$. This immediately implies that the component $C'$ of $F$ that contains $x'$ is not $C$.  Thus $x'\neq x$, so $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$.
 
-    Thus, we only need to consider the entries $\alpha(w,u)$ whose first bit is $1$, so $\alpha(w,u)=\langle 1, \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in A_{x'}\setminus A_{y'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+    Thus, we only need to consider the entries $\alpha(w,u)$ whose first bit is $1$, so $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
 
     \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus, so $v,w\not\in E(G)$, so $A'(v,w):=0$.
   \end{enumerate}
@@ -475,24 +403,26 @@ The following lemma is well-known (see, for example \cite{}).
         & \text{if $x=x'$} \\
         \langle 1, 0, \bin(\idx(C)), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle 
         & \text{if $x'y'\in Y$} \\
-        \langle 1, 1, \bin(\idx(C')), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle
+        \langle 1, 1, \bin(\idx(C)), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle
         & \text{if $x'y'\notin Y$}
       \end{cases}
   \]
-  Exactly the same analysis used to bound the length of $\alpha(v,u)$ shows that $|\kappa(K,u)| \le g_2(n) + \Oh(\log b + \log\log n) = g_2'(n)$.
+  Exactly the same analysis used to bound the length of $\alpha(v,u)$ shows that $|\kappa(K,u)| \le h_3(n) + h_2(n) + \Oh(\log b + \log\log n) = g_3(n) + g_2(n) + \Oh(k(n) + \log b + \log\log n) \le g_2'(n)$.
 
   \paragraph{Identity Testing $I'$:}
-  Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$ and some $v\in V(G)$, the identity tester determines if $v=u$ as follows.  It first checks the first bit of $\kappa(K,u)$. 
+  Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$ and some $v\in V(G)$, the identity tester determines if $v=u$ as follows. Let $x$ be the node of maximum $T$-depth in $h(K)$ and $z$ be the home of $v$ in $\mathcal{T}$. Thus $\mu(K):=\langle\id(x),\mu_x(K\cap B_x\setminus A_x),c(K)\rangle$ and $\mu(v):=\langle\id(z),\mu_z(v),\alpha(v)\rangle$.  The tester begins by examining the first bit of $\kappa(K,u)$. 
 
   \begin{itemize}[nosep,nolistsep]
-    \item If the first bit is $0$, then $\kappa(K,u) = \langle 0, \kappa_{x}(B_{x}\cap K, u) \rangle$, where $x$ is the node of maximum $T$-depth in $h(K)$. In this case, $u\in B_{x}\cap K \setminus A_x$.  Let $z$ be the home of $v$ in $\mathcal{T}$, so $\mu(v)=\langle \id(z), \mu_z(v), \alpha(v)\rangle$.  The tester first checks if $\id(z) = \id(x)$, which it can do because $\mu(K)$ contains $\id(x)$. If not, then $z \neq x$, so $v \neq u$ and it returns $0$. If $\id(z) = \id(x)$, then $z = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{z}(v))$.
+    \item If the first bit of $\kappa(K,u)$is $0$, then $\kappa(K,u) = \langle 0, \kappa_{x}(B_{x}\cap K, u) \rangle$ and $u\in B_{x}\cap K \setminus A_x$. The tester first checks if $\id(z) = \id(x)$, which it can do because $\mu(K)$ contains $\id(x)$. If not, then $z \neq x$, so $v \neq u$ and it returns $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(z) = \id(x)$, then $z = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{z}(v))$.
 
     \item  If the first bit of $\kappa(K,u)$ is $1$, then the tester checks the second bit.
     \begin{itemize}
-      \item If the second bit is $0$, then $\kappa(K,u) = \langle 1, 0, \bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$. Let $y'$ be the $T$-child of $x'$ on the path from $x'$ to $x$. Since the second bit of $\kappa(K,u)$ is $0$, $x'y'\in Y$, so the component $D'$ of $F$ that contains $y'$ is different than $C'$.  
-      In this case, $\id(D')$ is the prefix of $\id(x)$ consisting of the first $\idx(C')+1$ parts of $\id(x)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))$.
+      \item If the second bit is $0$, then $\kappa(K,u) = \langle 1, 0, \bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$, and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. Since the second bit of $\kappa(K,u)$ is $0$, $x'y'\in Y$, so the component $D'$ of $F$ that contains $y'$ is different than $C'$.  
+      In this case, $\id(D')$ is the prefix of $\id(x)$ consisting of the first $\idx(C')+1$ parts of $\id(x)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$.
 
-      \item If the second bit is $1$, then $\kappa(K,u) = \langle 1, 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$. Let $y'$ be the $T$-child of $x'$ on the path from $x'$ to $x$. Since the second bit of $\kappa(K,u)$ is $1$, $x'y'\notin Y$, so $y\in V(C')$. Then the first $\idx(C')$ parts of $\id(x)$ give $\id(C')$. Then $\id(x')=\id(C')\circ\rho_{C'}(x')$. The tester first verifies that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))$. \qedhere
+      \item If the second bit is $1$, then $\kappa(K,u) = \langle 1, 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$ and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. 
+      % Since the second bit of $\kappa(K,u)$ is $1$, $x'y'\notin Y$, so $y'\in V(C')$. 
+      Then the first $\idx(C')$ parts of $\id(x)$ give $\id(C')$ and $\id(x')=\id(C')\circ\rho_{C'}(x')$. The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$. \qedhere
     \end{itemize}  
   \end{itemize}
 \end{proof}
