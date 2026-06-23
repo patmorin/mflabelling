@@ -2,7 +2,11 @@
 
 
 \begin{lem}\label{skinny_edges}
-  Let $b>1$, let $T$ be a rooted tree with $n$ vertices and let $\omega:V(T)\to\mathbb{N}^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that each root-to-leaf path in $T$ contains at most $\log_b n$ edges in $Y$ and, for any two vertices $x,y$ in the same component of $T-Y$, we have $\omega(x)\le b\cdot\omega(y)$.
+  Let $b>1$, let $T$ be a rooted tree with $n$ vertices and let $\omega:V(T)\to\mathbb{N}^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)] 
+    \item each root-to-leaf path in $T$ contains at most $\log_b \omega(T)$ edges in $Y$; and
+    \item $\omega(T_y)\le b\cdot\omega(T_x)$ for any two vertices $x,y$ in the same component of $T-Y$.
+  \end{enumerate}
 \end{lem}
 
 \begin{proof}
@@ -97,9 +101,9 @@ The following lemma is well-known (see, for example \cite{}).
   Let $\mathcal{G}$ be a hereditary class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function with $g_i(n)\in\Oh(\log n)$ for each $i\in[3]$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
-    g_1'(n) & = g_1(n) + \Oh\left(g_3(n)\cdot \log_b n + k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )\right) \\
-    g_2'(n) & = g_2(n) + \Oh(\log b)  \\
-    g_3'(n) & = \Oh\left(g_3(n)\cdot \log_b n\right)  \enspace .
+    g_1'(n) & = g_1(n) + \Oh((g_3(n)+\log\log n)\cdot \log_b n) + \Oh(k(n)\cdot (g_3(n)+g_2(n) + \log b + \log\log n )) \\
+    g_2'(n) & = g_2(n) + \Oh(\log b + \log\log n)  \\
+    g_3'(n) & = \Oh\left((g_3(n)+\log\log n)\cdot \log_b n\right)  \enspace .
   \end{align*}
 \end{lem}
 
@@ -131,9 +135,9 @@ The following lemma is well-known (see, for example \cite{}).
 
   Let $\mathdefin{Y}:=Y_0\cup Y_1\cup Y_2$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the root of the tree $C$. Then $Y$ establishes the following strengthening of \ref{tprops_y0}:
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{3}
-    \item each component of $F$ has at most $4b-1$ vertices;
+    \item\label{component_size} each component of $F$ has at most $4b-1$ vertices;
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
-    \item each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
+    \item\label{y_on_path} each root-to-leaf path in $T$ contains at most $3\log_b n + \Oh(1)$ edges from $Y$.    
   \end{enumerate}  
 
 
@@ -181,13 +185,8 @@ The following lemma is well-known (see, for example \cite{}).
       & \text{(since $T_{r(C)}\supseteq T_x$)}\nonumber\\
     & \le 3k\sum_{x\in V(C)}\left(\omega(x)
       + \sum_{y\in C^-_x} \omega(T_y)\right) + 3k\cdot \omega(T_{r(C)}) 
-      & \text{(since $|V(C)|<4b$)} \nonumber \\
+      & \text{(since $|V(C)|<4b$, by \ref{component_size})} \nonumber \\
     & \le 6k\cdot\omega(T_{r(C)})
-    % & = \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\sum_{y\in C^+_v}\omega(T_y) \\
-    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}\sum_{y\in N_{T_x(x)}}3k\cdot \omega(T_y) \\
-    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + \tfrac{1}{4b}\cdot\sum_{x\in V(C)}3k\cdot \omega(T_{r(C)}) \\
-    % & \le \sum_{x\in V(C)}\sum_{v\in B_x\setminus A_x}\left(\omega(v)+\sum_{y\in C^-_v} \omega(T_y)\right) + 3k\cdot \omega(T_{r(C)}) \\
-    % & \le 6k\cdot \omega(T_{r(C)}) \\
     \enspace . \label{delta_c_upper_bound}
   \end{align}
   where the last inequality holds because the sets in $\{V(C)\} \cup \{ V(T_y)\mid x\in V(C), y\in C^-_x\}$ are pairwise disjoint.
@@ -298,18 +297,19 @@ The following lemma is well-known (see, for example \cite{}).
   Then
   \begin{align}
     |\tau(C,C')|
-      & = |\rho_C(x)| + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| \nonumber \\
-    & \le \log\delta(C) - \log\delta(x) + 3 + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| 
+      & = |\rho_C(x)| + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| + \Oh(\log\log n) \nonumber \\
+    & \le \log\delta(C) - \log\delta(x) + |\mu_x(A_y\setminus A_x)| + |\rho_{A_y\setminus A_x}(y)| + \Oh(\log\log n) 
       & \text{(by \cref{rho_C_bound_defn})} \nonumber \\
-    & \le \log\delta(C) - \log\left(\min_{u\in A_y\setminus A_x}\delta(u)\right) + h_3(n) + 3+ |\rho_{A_y\setminus A_x}(y)| 
+    &  \le \log\delta(C) - \log\left(\min_{u\in A_y\setminus A_x}\delta(u)\right) + h_3(n) + |\rho_{A_y\setminus A_x}(y)| + \Oh(\log\log n) 
       & \text{(by \cref{mu_x_K_upper_bound})} \nonumber \\
-    & \le \log\delta(C) - \log\omega(T_y) + h_3(n) + 6   
+    & \le \log\delta(C) - \log\omega(T_y) + h_3(n) + \Oh(\log\log n)   
       & \text{(by \cref{rho_K_y_upper_bound})} \nonumber \\
-    & \le \log\delta(C) - \log\delta(C') + h_3(n) + 6 + \log(6k)   
-      & \text{(by \cref{delta_c_upper_bound})} \label{tau_upper_bound}
+    & \le \log\delta(C) - \log\delta(C') + h_3(n) + \Oh(\log\log n)   
+      & \text{(by \cref{delta_c_upper_bound})} \nonumber \\
+    & \le \log\delta(C) - \log\delta(C') + h_3(n) + \Oh(\log\log n) 
+      & \text{\hspace{-1in}(since $k\le\log n$)}. \label{tau_upper_bound}
     \end{align}
-    For a fixed component $C$ of $F$, $\tau(C,\cdot)$ is a function that maps each component $C'$ of $F$ whose root is adjacent to a node of $C$ onto a binary string.
-    It is straightforward to check that the mapping $\tau(C,\cdot)$ is injective, for each component $C$ of $F$.  This is simply due to the fact that $\rho_C:V(C)\to\{0,1\}^*$ is injective; for each $x\in V(C)$, $\mu_{x}$ is injective over the cliques in $\torso{G}{\mathcal{T},B_x}-A_x$; and $\rho_{K}:C^-_K\to\{0,1\}^*$ is injective for each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$.
+    For a fixed component $C$ of $F$, $\tau(C,\cdot)$ is a function that maps each component $C'$ of $F$ whose root is adjacent to a node of $C$ onto a binary string.  It is straightforward to check that the mapping $\tau(C,\cdot)$ is injective, for each component $C$ of $F$.  This is simply due to the fact that $\rho_C:V(C)\to\{0,1\}^*$ is injective; for each $x\in V(C)$, $\mu_{x}$ is injective over the cliques in $\torso{G}{\mathcal{T},B_x}-A_x$; and $\rho_{K}:C^-_K\to\{0,1\}^*$ is injective for each clique $K$ in $\torso{G}{\mathcal{T},B_x}-A_x$.
 
 
 
@@ -360,23 +360,29 @@ The following lemma is well-known (see, for example \cite{}).
   \paragraph{\boldmath The node id $\id(x)$:}
 
   Let $x\in V(T)$ and let $x_1y_1,\ldots,x_sy_{s}$ be the sequence of edges in $Y$ encountered along the path from the root $x_0$ of $T$ to $x$. Let $x_{s+1}:=x$ and let $y_0:=x_0$ be the root of $T$. Then $x_iy_i\in Y$ for each $i\in \{1,\ldots,s\}$, and $y_i$ is the root of some component $C_i$ of $T-Y$ for each $i\in \{0,\ldots,s\}$.  Define
-  \[
-    \id(x) := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s),\rho_{C_s}(x)\rangle \enspace .
+  \begin{align*}
+    \id(C_s) & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s)\rangle \\
+    \id(x) & := \langle\tau(C_0,C_1),\tau(C_1,C_2),\ldots,\tau(C_{s-1},C_s),\rho_{C_s}(x)\rangle \enspace .
     % % \begin{cases}
     %   % \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s) \rangle & \text{if $y_s=x$} \\
     %   \langle \rho_{C_0}(x_1),\tau_{x_1}(y_1),\rho_{C_1}(x_2),\tau_{x_2}(y_2), \ldots, \rho_{C_{s-1}}(x_s),\tau_{x_s}(y_s),\rho_{C_s}(x)\rangle 
     % % \end{cases}
-  \]
+  \end{align*}
   Then 
+  \begin{align}
+    |\id(C_s)| 
+    & \le \sum_{i=0}^{s-1}(|\tau(C_i,C_{i+1})| + \Oh(\log\log n)) \nonumber \\
+    & \le \sum_{i=0}^{s-1} \left( \log\delta(C_i)-\log\delta(C_{i+1}) \right) + s\cdot h_3(n)+\Oh((s+1)\log\log n) 
+      & \text{(by \cref{tau_upper_bound})} \nonumber \\
+    & = \log\delta(C_0) - \log\delta(C_s) + s\cdot h_3(n)+\Oh((s+1)\log\log n) \nonumber \\
+    & = \log\delta(C_0) - \log\delta(C_s) + \Oh((h_3(n)+\log\log n)\cdot\log_b n) & \text{(by \ref{y_on_path})} \nonumber \\
+    & \le \log\omega(G) - \log\delta(C_s) + \Oh((h_3(n)+\log\log n)\cdot\log_b n) & \text{(by \ref{delta_c_upper_bound})} \enspace . \label{id_C_upper_bound}
+  \end{align}
+  and
   \begin{align*}
-    |\id(x)| 
-    & \le \sum_{i=0}^{s-1}|\tau(C_i,C_{i+1})| + |\rho_{C_s}(x)| \\
-    & \le \sum_{i=0}^{s-1} \left( \log\delta(C_i)-\log\delta(C_{i+1}) \right) + |\rho_{C_s}(x)| + \Oh(s\cdot (h_3(n) + \log\log n)) 
-      & \text{(by \cref{tau_upper_bound})} \\
-    & = \log\delta(C_0) - \log\delta(C_s) + |\rho_{C_s}(x)| + \Oh(s\cdot (h_3(n) + \log\log n)) 
-      \\
-    & \le \log\delta(C_0) - \log\delta(x) + \Oh(h_3(n)\log_b n) 
-      & \text{(by \cref{rho_C_bound_defn})} \enspace .
+    |\id(x)| & = |\id(C_s)| + |\rho_{C_s}(x)| + \Oh(\log\log n) \\
+    & \le \log\omega(G) - \log\delta(x) + \Oh((h_3(n)+\log\log n)\cdot\log_b n)  
+      & \text{(by \cref{id_C_upper_bound} and \cref{rho_C_bound_defn})} \enspace .
   \end{align*}
   It is straightforward to verify (by induction on $s$) that the function $\id:V(T)\to\{0,1\}^*$ is injective.
     
@@ -388,41 +394,71 @@ The following lemma is well-known (see, for example \cite{}).
     \mu(v) := \langle \id(x), \mu_x(v),\alpha(v)\rangle
   \]
   The parts $\id(x)$ and $\mu_x(v)$ are defined above. We now describe $\alpha(v)$, which contains an entry $\alpha(v,u)$ for each $u\in N_G(v)\cap A_x$.  
-  Let $u\in N_G(v)\cap A_x$.  Then $u\in B_{x'}\setminus A_{x'}$ for some $T$-ancestor $x'\neq x$ of $x$. This idea is to store enough information in $\alpha(v,u)$ to reconstruct $\id(x')$ and $\kappa_{x'}(K)$ for some clique $K$ in $\torso{G^+}{\mathcal{T},B_{x'}}-A_{x'}$ that contains $u$.
-
-  Let $y'$ be the child of $x'$ on the path from $x'$ to $x$. Let $C$ be the component of $T-Y$ that contains $x'$ and let $C'$ be the component of $F$ that contains $y'$.  Observe that some prefix of $\id(x)$ contains $\id(C)$.  Furthermore, we can reconstruct $\id(x')$ by appending $\rho_C(x')$ to $\id(r(C))$.  Let $\idx(r(C))$ be the number of edges in $Y$ on the path from the root of $T$ to $r(C))$. Now there are two cases to consider for the edge $x'y'$.   
+  
+  
+  Let $u\in N_G(v)\cap A_x$.  Then $u\in B_{x'}\setminus A_{x'}$ for some $T$-ancestor $x'\neq x$ of $x$. Let $y'$ be the child of $x'$ on the path from $x'$ to $x$. The idea is that $\alpha(v,u)$ (in combination with $\id(x)$) should store enough information to reconstruct $\id(x')$, $\mu_{x'}(A_{y'}\setminus A_{x'})$, and $\kappa_{x'}(A_{y'}\setminus A_{x'},u)$.  Let $C$ be the component of $F$ that contains $x'$ and let $D$ be the component of $F$ that contains $y'$.  Observe that some prefix of $\id(x)$ contains $\id(C)$.  Furthermore, we can reconstruct $\id(x')$ by appending $\rho_C(x')$ to $\id(r(C))$.  Let \defin{$\idx(r(C))$} be the number of edges in $Y$ on the path from the root of $T$ to $r(C))$. There are two cases to consider for the edge $x'y'$.   
   \begin{itemize}
-    \item If $x'y'\in Y$, then $C\neq C'$.  In this case, $\id(x)$ contains $\tau(C,C')=\langle \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y') \rangle$.  The only extra information needed in $\alpha(v,u)$ is $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  
-    \item If $x'y'\not\in Y$, then $C=C'$.  In this case, reconstructing $\id(x')$ requires that $\alpha(v)$ store $\rho_C(x')$.  Furthermore, since $\id(x)$ does not contain $\tau(C,C')$ it does not contain $\mu_{x'}(A_{y'}\setminus A_{x'})$.  We now explain why these strings are sufficiently short.
+    \item If $x'y'\in Y$, then $C\neq D$.  Then $\id(x)$ contains $\id(D)$, which contains $\tau(C,D)=\langle \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y') \rangle$.  In this case, the only extra information needed in $\alpha(v,u)$ is $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  
+
+    \item If $x'y'\not\in Y$, then $C=D$. In this case, $\id(X)$ contains $\id(C)$, but not $\id(D)$.  In this case, $\alpha(v,u)$ will store $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in addition to $\idx(r(C))$ and $\kappa_{x'}(A_{y'}\setminus A_{x'}, u)$.  We now explain why these strings are sufficiently short.
     
-    By \cref{rho_C_bound_2logb}, $|\rho_C(x')|\in \Oh(\log b)$.  More importantly, since $x'y'\not\in Y$, $x'y'\not\in Y_1$. Therefore $A_{y'}\setminus A_{x'}$ is not a light clique, and by \cref{mu_x_K_light_upper_bound} $|\mu_{x'}(A_{y'}\setminus A_{x'})|\in \Oh(h_3(n)+\log b+\log\log n)$.  Thus, we can afford to store both $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in $\alpha(v,u)$.  
+    By \cref{rho_C_bound_2logb}, $|\rho_C(x')|\in \Oh(\log b)$.  More importantly, since $x'y'\not\in Y$, $x'y'\not\in Y_1$. Therefore $A_{y'}\setminus A_{x'}$ is not a light clique, and by \cref{mu_x_K_light_upper_bound} $|\mu_{x'}(A_{y'}\setminus A_{x'})|\le h_3(n)+ \Oh(\log b +\log\log n)$.  Thus, we can afford to store both $\rho_C(x')$ and $\mu_{x'}(A_{y'}\setminus A_{x'})$ in $\alpha(v,u)$.  
   \end{itemize} 
   Summarizing,
   \[
     \alpha(v,u) :=
     \begin{cases}
       \langle 0, \bin(\idx(r(C))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\in Y \\
-      \langle 1, \bin(\idx(r(C))), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if } x'y'\notin Y 
+      \langle 1, \bin(\idx(r(C))), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle&\text{if  $x'y'\notin Y$.} 
     \end{cases}
-  \]    
-  and
+  \]
+  Then, in the first case,
+  \[
+    |\alpha(v,u)| \le h_2(n) + \Oh(\log\log n) \enspace .
+  \] 
+  In the second case,
+  \[
+    |\alpha(v,u)| \le h_3(n) + h_2(n)+ \Oh(\log b+\log\log n) \enspace .
+  \]
+  In either case, $|\alpha(v,u)|\le h_3(n)+h_2(n)+ \Oh(\log b+\log\log n)$.  
+  Define
   \[
     \alpha(v) := \langle \alpha(v,u):u\in N_G(v)\cap A_x \rangle \enspace .
   \] 
   Then,
   \begin{align*}
-    |\alpha(v)| & \le |N_G(v)\cap A_x|\cdot (h_3(n)+h_2(n)+\Oh(\log b)) \\
-    & \le 3k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ,
+    |\alpha(v)| & \le |N_G(v)\cap A_x|\cdot (h_3(n)+h_2(n)+\Oh(\log b+\log\log n)) \\
+    & \le 3k\cdot(h_3(n) + h_2(n) + \Oh(\log b+\log\log n) ) \enspace ,
     & \text{(by property~\ref{td_width} of $\mathcal{T}$)}
   \end{align*}
   and 
   \begin{align*}
     |\mu(v)| & \le |\id(x)| + |\mu_x(v)| + |\alpha(v)| + \Oh(\log\log n) \\
-     & \le \log \omega(G) - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + |\alpha(v)| \\
-     & \le \log n - \log \omega(T_x) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) 
+     & \le \log \omega(G) - \log \omega(T_x) + \Oh((h_3(n)+\log\log n)\log_b n) + |\alpha(v)| \\
+     & \le \log n - \log \omega(T_x) \\
+     & \quad + \Oh((h_3(n)+\log\log n)\log_b n) \\
+     & \quad + \Oh(k\cdot(h_3(n) + h_2(n) + \log b + \log\log n) ) 
     %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace ..........
     %  & \le \log n - \log \omega(v) + \Oh(h_3(n)\log_b n) + k\cdot(h_3(n) + h_2(n) + \Oh(\log b) ) \enspace .
   \end{align*}
+
+
+  \paragraph{\boldmath The adjacency tester $A'$:} We now describe the adjacency tester $A':\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ which takes two labels $\mu(v)$ and $\mu(w)$ and returns $1$ if and only if $vw\in E(G)$.  Suppose $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some $x,y\in V(T)$.  Then $\mu(v)=\langle \id(x), \mu_x(v), \alpha(v)\rangle$ and $\mu(w)=\langle \id(y), \mu_y(w), \alpha(w)\rangle$.  The adjacency tester begins by comparing $\id(x)$ and $\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $id:V(T)\to\{0,1\}^*$ is injective.  In this case $v,w\in B_x\setminus A_x$,  and $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$.  In this case, the tester returns $A'(\mu(v),\mu(x)):=A(\mu_x(v),\mu_y(w))$.  
+  
+  Now suppose that $\id(x)\neq\id(y)$, so $x\neq y$. Since $x\neq y$, the only way in which $v$ and $w$ can be adjacent in $G$ is if $v\in N_G(w)\cap A_y$ or $w\in N_G(v)\cap A_x$.  The former case requires that $x$ be a $T$-ancestor of $y$, and the latter case requires that $y$ be a $T$-ancestor of $x$.  Let $C$ be the component of $F$ that contains $x$ and let $D$ be the component of $F$ that contains $y$.  Removing the last part of $\id(x)$ gives $\id(C)$ and removing the last part of $\id(y)$ gives $\id(D)$.  There are several cases to consider:
+  \begin{enumerate}
+    \item If $\id(C)\neq\id(D)$ but $\id(C)$ is a prefix of $\id(D)$, then the only way in which $v$ and $w$ can be adjacent is if $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$.  To check if this is the case, the adjacency tester 
+    examines each entry $\alpha(w,u)$ in $\alpha(w)$ and tests if $u=v$.  If it finds such an entry, then $vw=uw\in E(G)$, so $A'(\mu(v),\mu(w)):=1$. If no such entry is found, $A'(\mu(v),\mu(w)):=0$. All that remains is to explain how $A'$ tests if $v=u$ for some entry $\alpha(w,u)$ in $\alpha(w)$. An entry $\alpha(w,u)$ can have one of two forms, which are distinguished by their first bit.
+    \begin{itemize}
+      \item If the first bit of $\alpha(w,u)=0$ then $\alpha(w,u)=\langle 0,\bin(\idx(r(C'))), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$. Furthermore $x'y'\in Y$, so $y'$ is in a different component $D'\neq C'$ of $F$ than $x'$. In this case, $\id(D')$ is the prefix of $\id(D)$ consisting of the first $\idx(r(C'))+1$ parts of $\id(D)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+      
+      \item If the first bit of $\alpha(w,u)=1$, then $\alpha(w,u)=\langle 1, \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In the case, the first $\idx(r(C'))$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in A_{x'}\setminus A_{y'}$ and $v\in A_x\setminus A_y$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$. 
+    \end{itemize}
+    \item if $\id(C)\neq\id(D)$ but $\id(D)$ is a prefix of $\id(C)$, then the tester proceeds exactly as in the previous case, but swapping the roles of $v$ and $w$.
+    \item if $\id(C)=\id(D)$ then $C=D$ and $x$ and $y$ are in the same component of $F$.  In this case, there are two ways in which $v$ and $w$ can be adjacent:  Either $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$ or $y$ is a $T$-ancestor of $x$ and $w\in N_G(v)$.  Case 1, above explains how to test the former and Case 2 explains how to test the latter.
+    
+    \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus, so $v,w\not\in E(G)$, so $A'(v,w):=0$.
+  \end{enumerate}
 \end{proof}
 
 
