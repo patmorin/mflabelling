@@ -71,16 +71,17 @@
 
 
  \author{
- Vida Dujmovi{\'c}\,\footnote{School of Computer Science and Electrical Engineering, University of Ottawa, Ottawa, Canada (\texttt{vida.dujmovic@uottawa.ca}). Research supported by NSERC and a University of Ottawa Research Chair.}
- \qquad
- Cyril Gavoille\footnote{LaBRI, University of Bordeaux, France (\texttt{gavoille@labri.fr}). This work is supported by the French ANR Projets ENEDISC (ANR-24-CE48-7768-01) and TEMPOGRAL (ANR-22-CE48-0001).}
- \qquad
-  Gwena\"el Joret\footnote{D\'epartement d'Informatique, Universit\'e libre de Bruxelles, Belgium ({\tt gwenael.joret@ulb.be}). G.\ Joret is supported by the Belgian National Fund for Scientific Research (FNRS) and by the Australian Research Council.}\\[1ex]
-Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland (\texttt{piotr.micek@uj.edu.pl}). Research supported by the National Science Center of Poland under grant UMO-2023/05/Y/ST6/00079 within the WEAVE-UNISONO program.}
- \qquad
- Pat Morin\footnote{School of Computer Science, Carleton University, Ottawa, Canada (\texttt{morin@scs.carleton.ca}). Research supported by NSERC.}
- \qquad
- David~R.~Wood\footnote{School of Mathematics, Monash University, Melbourne, Australia (\texttt{david.wood@monash.edu}). Research supported by the Australian Research Council and by NSERC.}
+ Anonymous
+ %Vida Dujmovi{\'c}\,\footnote{School of Computer Science and Electrical Engineering, University of Ottawa, Ottawa, Canada (\texttt{vida.dujmovic@uottawa.ca}). Research supported by NSERC and a University of Ottawa Research Chair.}
+ %\qquad
+ %Cyril Gavoille\footnote{LaBRI, University of Bordeaux, France (\texttt{gavoille@labri.fr}). This work is supported by the French ANR Projets ENEDISC (ANR-24-CE48-7768-01) and TEMPOGRAL (ANR-22-CE48-0001).}
+ %\qquad
+ % Gwena\"el Joret\footnote{D\'epartement d'Informatique, Universit\'e libre de Bruxelles, Belgium ({\tt gwenael.joret@ulb.be}). G.\ Joret is supported by the Belgian National Fund for Scientific Research (FNRS) and by the Australian Research Council.}\\[1ex]
+ %Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland (\texttt{piotr.micek@uj.edu.pl}). Research supported by the National Science Center of Poland under grant UMO-2023/05/Y/ST6/00079 within the WEAVE-UNISONO program.}
+ %\qquad
+ %Pat Morin\footnote{School of Computer Science, Carleton University, Ottawa, Canada (\texttt{morin@scs.carleton.ca}). Research supported by NSERC.}
+ %\qquad
+ %David~R.~Wood\footnote{School of Mathematics, Monash University, Melbourne, Australia (\texttt{david.wood@monash.edu}). Research supported by the Australian Research Council and by NSERC.}
  }
 
 \date{}
@@ -141,7 +142,7 @@ A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes an
 \end{cor}
 
 %\cyril{A very basic observation: I'm wondering if our definition for adjacency labeling scheme is the correct one. How do you prove that Theorem 1 implies Corollary 2? You need the embedding of $G$ into the universal graph $U$ (whose vertices are composed of all the labels), thanx to mapping $\ell$, is one-to-one (or injective). Otherwise, $G$ may be not be a subgraph of $U$. Think that a path $G$ with $n=3$ vertices may need two labels only: $\ell_1$ and $\ell_2$. So, if $U$ is composed of the two vertices $\ell_1,\ell_2$. In that case $G$ is not an induced subgraph (or even subgraph) of $U$ since $|V(U)| < n$. So, either (1) we impose "one-to-one" in our definition of $\ell$, or (2) we make stronger our Theorem 1 by saying "... $(1+o(1))\log{n}$-bit adjacency labelling scheme with distinct labels." My guess is that (1) looks simpler (one word), otherwise (2) requires extra definition of what is a labelling "with unique/distinct labels". On the other hand, this could be confusing with the disucssion later on "mixed labeling" where the task is to detect if $u\neq v$ or not.}
-%\vida{This is was already addressed in the footnote on page 1.} \cyril{My bad. I should buy better glasses, and also a brain since I remember of this footnote already in the planar paper.}
+%\vida{This is was already addressed in the footnote on page 1.} \cyril{My bad. I should buy better glasses, and also a brain since I remember fro this footnote already in the planar paper.}
 
 \subsection{State of the Art}
 \label{ssec:state-of-art}
@@ -1711,8 +1712,9 @@ torso is $p$-matching-planar (again a class that is not minor-closed)
  admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
 
 
-\section*{Acknowledgement} 
-This work was initiated during the Ninth Annual Workshop on Geometry and Graphs (v2), held January 21--28, 2022, at the Bellairs Research Institute of McGill University.  The authors are thankful to the other organizers and participants for providing a stimulating research environment.
+% REMOVE COMMENT AFTER SODA SUBMISSION
+%\section*{Acknowledgement} 
+%This work was initiated during the Ninth Annual Workshop on Geometry and Graphs (v2), held January 21--28, 2022, at the Bellairs Research Institute of McGill University.  The authors are thankful to the other organizers and participants for providing a stimulating research environment.
 
 \setlength{\bibsep}{0.3ex plus 0.1ex minus 0.1ex}
 \bibliographystyle{plainurlnat}
