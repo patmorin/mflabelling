@@ -306,6 +306,8 @@ Loosely speaking, a class admits an \emph{efficient} mixed labelling scheme if i
 
 Thus, for every proper minor-closed graph family $\mathcal{G}$, every graph $G$ in $\mathcal{G}$ has a tree-decomposition $\mathcal{T}$ of bounded adhesion-width whose torsos come from a class that has an efficient mixed labelling scheme.  This is the only property of proper minor-closed graph classes that we use.
 
+\pat{Much of what follows will have to be rewritten.}
+
 \paragraph{A solution for short tree-decompositions:}
 We now describe a first attempt to use mixed labelling schemes to simultaneously address the questions of determining if two vertices of $G$ have the same home and testing adjacency between two vertices of $G$ with different homes.  We begin by constructing a mixed labelling $\mu_x$ for the pair of graphs $\torso{G}{\mathcal{T},B_x}-A_x$ and $G[B_x]-A_x$, for each $x\in V(T)$.  Then, the label $\mu(v)$ for a vertex $v$ in $G$ has the form
 \[
@@ -705,21 +707,23 @@ The two notions are essentially equivalent, as shown by the following lemma. Thi
   It follows that $\mu$ and  $\kappa$ are the desired  mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.
 \end{proof}
 
-Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises a sparse universal graph $U$ we need the following definition:  Let $A$ be the adjacency tester used in a weighted mixed labelling scheme for a graph class $\calG$. We say that the weighted mixed labelling scheme is \defin{$g(n)$-orientable} if, for each $n\in\N$, there exists a set $\{S(b):b\in\{0,1\}^{\le f(n)}\}$ with the following properties:
-\begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-  \item\label{orientable_a} $S(b)\subseteq \{0,1\}^{\le f(n)}$ for each $b\in\{0,1\}^{\le f(n)}$;
-  \item\label{orientable_b} $|S(b)|\le g(n)$ for each $b\in\{0,1\}^{\le f(n)}$;
-  \item\label{orientable_c} for each $b,b'\in \{0,1\}^{\le f(n)}$ such that $A(b,b')=1$, we have $b\in S(b')$ or $b'\in S(b)$.
+Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises a sparse universal graph $U$ we need the following definition, which is implicit in the work of \citet{EJM23}:  Let $A$ be the adjacency tester used in a weighted $(g_1,g_2,g_3)$-mixed labelling scheme for a graph class $\calG$. We say that the scheme is \defin{$g_0(n)$-orientable} if, for each $n\in\N$, there exists a set $\{S(b):b\in\{0,1\}^{\le g_1(n)}\}$ with the following properties:
+\begin{enumerate}[nosep,nolistsep,label=(O\arabic*)]
+  \item\label{orientable_a} $S(b)\subseteq \{0,1\}^{\le g_1(n)}$ for each $b\in\{0,1\}^{\le g_1(n)}$;
+  \item\label{orientable_b} $|S(b)|\le g_0(n)$ for each $b\in\{0,1\}^{\le g_1(n)}$;
+  \item\label{orientable_c} for each $b,b'\in \{0,1\}^{\le g_1(n)}$ such that $A(b,b')=1$, we have $b\in S(b')$ or $b'\in S(b)$.
 \end{enumerate}
 
+\pat{Need to add something here.  If $v\in K$, then $\mu(K)$ determines $\mu(v)$ up to $o(\log n)$ bits.}
+
 \begin{lem}
-  If a graph class $\mathcal{G}$ admits a $g(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then for each $n\in\N$ there exists a graph $U$ with $O(2^{f(n)})$ vertices and $O(2^{f(n)}\cdot g(n))$ edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.
+  If a graph class $\mathcal{G}$ admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then for each $n\in\N$ there exists a graph $U$ with $O(2^{g_1(n)})$ vertices and $O(2^{g_1(n)}\cdot g_0(n))$ edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.
 \end{lem}
 
 \begin{proof}
-  Fix some $n\in\N$ and let $U$ be the graph with vertex set $V(U):=\{0,1\}^{\le f(n)}$ and edge set $E(U):={ \{(b,b')\in V(U)^2 : A(b,b')=1\} }$.  Then $|V(U)|=2^{f(n)+1}-1$.  We will upper bound $|E(U)|$ by giving an orientation of $U$ in which each vertex has out-degree at most $g(n)$.  This implies that $|E(U)|\le |V(U)|\cdot g(n) \in O(2^{f(n)}\cdot g(n))$.  
+  Fix some $n\in\N$ and let $U$ be the graph with vertex set $V(U):=\{0,1\}^{\le g_1(n)}$ and edge set $E(U):={ \{(b,b')\in V(U)^2 : A(b,b')=1\} }$.  Then $|V(U)|=2^{g_1(n)+1}-1$.  We will upper bound $|E(U)|$ by giving an orientation of $U$ in which each vertex has out-degree at most $g_0(n)$.  This implies that $|E(U)|\le |V(U)|\cdot g_0(n) \in O(2^{g_1(n)}\cdot g_0(n))$.  
 
-  Since the mixed labelling scheme is $g(n)$-orientable there exists a set $\{S(b):b\in\{0,1\}^{\le f(n)}\}$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $bb'$ of $U$ from $b$ to $b'$ so that $b'\in S(b)$.  If $b\in S(b')$ and $b'\in S(b)$ then the edge $bb'$ can be oriented in either direction.  Then, for each vertex $b$ of $U$, the out-degree of $b$ is at most $|S(b)| \le g(n)$.  
+  Since the mixed labelling scheme is $g_0(n)$-orientable there exists $\{S(b):b\in\{0,1\}^{\le g_1(n)}\}$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $bb'$ of $U$ from $b$ to $b'$ so that $b'\in S(b)$.  (If $b\in S(b')$ and $b'\in S(b)$ then the edge $bb'$ can be oriented in either direction.)  Then, for each vertex $b$ of $U$, the out-degree of $b$ is at most $|S(b)| \le g_0(n)$.  
 \end{proof}
 
 
@@ -733,9 +737,11 @@ Finally, in order to establish \cref{main_result_induced_universal_sparse} which
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\mathcal{G}^{+a}$ is the class of graphs $G$ such that $G-X\in\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes}
-  Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
-  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+  Let $\mathcal{G}$ be a class of graphs that admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a $g_0'(n)$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
+    g_0'(n)
+     & = (g_0(n) + a)2^{a+1} \enspace,  \\
     g'_1(n)
      & = g_1(n)+\Oh(a)+\Oh(\log\log n) \enspace,  \\
     g'_2(n)
@@ -821,6 +827,22 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we set $A'(\mu(v),\mu(w))$ to be the $i$-th bit of $c(w)$.
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
+
+  \paragraph{\boldmath $g'_0(n)$-orientability:}
+
+  Since the vertex labels and adjacency tester $A$ are defined, we can now argue that the scheme we are describing is $g_0'(n)$-orientable.  Fix $n\in\N$. For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $b\in\{0,1\}^{\le g_1(n)}$ is a \emph{valid input} if $b$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $(b,b')$ is a \emph{valid input pair} if $b$ and $b'$ are both realized by some $(G^+,G,\omega)$.  In the preceding discussion, we have only defined the value of $A'(b,b')$ for valid input pairs.  So that the function $A'$ is completely defined over $(\{0,1\}^{\le g_1(n)})^2$, we define $A'(b,b')=0$ if $(b,b')$ is not a valid input pair.
+
+  Let $\{S^-(b^-):b^-\in\{0,1\}^{\le g_1(n)}\}$ be a set of subsets of $\{0,1\}^{\le g_1(n)}$ that witness the fact that the weighted mixed-labelling scheme for $(A,I)$ is $g_0(n)$-orientable.  We construct the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ incrementally.  To begin, set $S(b)=\emptyset$ for each $b\in\{0,1\}^{\le g_1'(n)}$.  We then consider each valid input pair $(b,b')$ such that $A'(b,b')=1$.  By the definition of valid input pair, there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^,G,\omega)$ for $(A',I')$ has $\mu(v)=b$ and $\mu(v')=b'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  \begin{enumerate}[nolistsep]
+    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(b,b')=A(\mu^-(v),\mu^-(v'))=1$.    Therefore $\mu^-(v')\in S^-(\mu^-(v))$ or $\mu^-(v)\in S^-(\mu^-(v'))$.  Without loss of generality, assume that $\mu^-(v')\in S^-(\mu^-(v))$.  In this case, we add $\mu(v')=b'$ to the set $S(b)$.
+    
+    The bitstring $b$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $b$, there are at most $|S^-(\sigma^-(v))|\le g_0(n)$ choices of $\sigma^-(v')$ that can trigger the addition of an element to $S(b)$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')
+    $ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $b'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $b'$ to $S(b)$ this way is at most $|S^-(\sigma^-(v))|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
+
+    \item Otherwise, the adjacency tester deduces that at least one of $v$ or $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we add $\mu(v')=b'$ to the set $S(b)$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $b'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $b'$ to $S(b)$.
+  \end{enumerate}
+  By definition $S(b)\subseteq \{0,1\}^{\le g_1'(n)}$, so the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satsify \ref{orientable_a}.  We have argued above that, for each $b\in\{0,1\}^{\le g_1'(n)}$, the number of $b'$ that are added to $S(b)$ in this process is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}$, so $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satisfies condition \ref{orientable_b} for $g'_0(n):=(g_0(n)+a)2^{a+1}$.  Since this process considers every valid input pair $(b,b')$ such that $A'(b,b')=1$, the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satisfy condition \ref{orientable_c}.
+
   \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
   For each clique $K$ in $G^+$, define
@@ -872,7 +894,6 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
-  \qedhere
 \end{proof}
 
 \subsection{Disjoint Unions of Graphs}
