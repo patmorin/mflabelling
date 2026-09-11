@@ -716,7 +716,7 @@ Finally, in order to establish \cref{main_result_induced_universal_sparse} which
 
 \pat{Need to add something here.  If $v\in K$, then $\mu(K)$ determines $\mu(v)$ up to $o(\log n)$ bits.}
 
-\begin{lem}
+\begin{lem}\label{orientable_implies_sparse}
   If a graph class $\mathcal{G}$ admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then for each $n\in\N$ there exists a graph $U$ with $O(2^{g_1(n)})$ vertices and $O(2^{g_1(n)}\cdot g_0(n))$ edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.
 \end{lem}
 
@@ -725,6 +725,18 @@ Finally, in order to establish \cref{main_result_induced_universal_sparse} which
 
   Since the mixed labelling scheme is $g_0(n)$-orientable there exists $\{S(b):b\in\{0,1\}^{\le g_1(n)}\}$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $bb'$ of $U$ from $b$ to $b'$ so that $b'\in S(b)$.  (If $b\in S(b')$ and $b'\in S(b)$ then the edge $bb'$ can be oriented in either direction.)  Then, for each vertex $b$ of $U$, the out-degree of $b$ is at most $|S(b)| \le g_0(n)$.  
 \end{proof}
+
+The definition of $g_0(n)$-orientability is useful for constructing sparse universal graphs.  In essence, the last step in the proof of \cref{main_result_induced_universal_sparse} is an application of \cref{orientable_implies_sparse}.  To get to this step, our proof needs to build $g_0(n)$-orientable weighted mixed labelling schemes for a graph class $\mathcal{G}'$ whose graphs admit tree-decompositions whose torsos belong to a graph class $\mathcal{G}$ that admit $g_0(n)$-orientable efficient weighted mixed labelling schemes.  This requires that the graph class $\mathcal{G}$ satisfies the following slightly stronger definition of $g_0$(n)-orientability.  A weighted $(g_1,g_2,g_3)$ mixed labelling scheme with adjacency tester $A$ and identity tester $I$ is \defin{strongly $g_0(n)$-orientable} if it is $g_0(n)$-orientable and satisfies the following additional property:
+\begin{enumerate}[nosep,nolistsep,label=(O\arabic*)]\setcounter{enumi}{3}
+  \item\label{orientable_f} for each $n\in\N$, each $b\in\{0,1\}^{\le g_3(n)}$ and each $k\in\{0,1\}^{\le g_2(n)}$, there are at most $g_0(n)$ strings $b'\in \{0,1\}^{\le g_1(n)}$ such that $I(b,k,b')=1$.
+\end{enumerate}
+
+
+
+
+
+
+
 
 
 
@@ -737,8 +749,8 @@ Finally, in order to establish \cref{main_result_induced_universal_sparse} which
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\mathcal{G}^{+a}$ is the class of graphs $G$ such that $G-X\in\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes}
-  Let $\mathcal{G}$ be a class of graphs that admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
-  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a $g_0'(n)$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+  Let $\mathcal{G}$ be a class of graphs that admits a strongly $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a strongly $g_0'(n)$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
      & = (g_0(n) + a)2^{a+1} \enspace,  \\
@@ -894,6 +906,11 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
+
+  \paragraph{\boldmath Strong $g'_0(n)$-orientability:}
+  To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0(n)$-orientable.  That is, we need to show that for each $n\in\N$, each $b\in\{0,1\}^{\le g'_3(n)}$ and each $k\in\{0,1\}^{\le g'_2(n)}$, there are at most $g'_0(n)$ strings $b'\in\{0,1\}^{\le g'_1(n)}$ such that $I'(b,k,b')=1$.  So that the operation of $I'$ is well-defined over all inputs, we define $I'(b,k,b')=0$ if there is no instance $(G^+,G,\omega)$ such that, in the $(g_1',g_2',g_3')$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$, $G^+$ contains a clique $K$, $K$ contains a vertex $u$, and $G$ contains a vertex $v$ such that $b=\mu(K)$, $k=\kappa(K,u)$, and $b'=\mu(v)$.
+
+  Fix $b\in\{0,1\}^{\le g'_3(n)}$ and $k\in\{0,1\}^{\le g'_2(n)}$.  If $I'(b,k,b')=1$ then there exists $(G^+,G,\omega)$ such that $K$ is a clique in $G^+$, $u\in K$, and $v\in V(G)$, $b=\mu(K)$, $k=\kappa(K,u)$, and $b'=\mu(v)$. Since $I(K,\mu(K,u),v)=I(b,k,b')=1$, $u=v$.  Thus, $u,v\in X$ or $u,v\in V(G-X)$.  If $u,v\in X$, then $b'=\mu(v)=\langle\sigma(v),c(v),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $b'$.  If $u,v\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(v)$ given $b$ and $k$.  Since $v\not\in K$, $\sigma(v)$ is a string of $\lceil\log(b+1)\rceil$ zeros.  Also $c(v)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $b'=\mu(v)=\langle \sigma(v), c(v), \mu^-(v) \rangle$ for which $I'(b,k,b')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $b'$ such that $I'(b,k,b')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
 \end{proof}
 
 \subsection{Disjoint Unions of Graphs}

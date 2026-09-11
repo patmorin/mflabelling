@@ -84,10 +84,10 @@ The following lemma is well-known (see, for example \cite{}).
 
 
 \begin{lem}\label{lem:the_big_one}
-  Let $\mathcal{G}$ be a hereditary class of graphs that admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
+  Let $\mathcal{G}$ be a hereditary class of graphs that admits a strongly $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a $g'_0(n)$-orientable weighted $(g_1',g_2',g_3')$ mixed labelling scheme where
   \begin{align*}
-    g_0'(n) & \le g_0(n)\cdot BLAH \\
+    g_0'(n) & \le g_0(n)\cdot \exp(O(k(n)(g_3(n)+g_2(n)+\log b(n)+\log\log n))) \\
     g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
     & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n )) \\
     g_2'(n) & = g_2(n) + g_3(n) + \Oh(k(n) + \log b(n) + \log\log n)  \\
@@ -386,24 +386,15 @@ The following lemma is well-known (see, for example \cite{}).
     
     For fixed $b=\mu(v)$, the number of possible values of $\mu_x(v)$ is $|S(\mu_x(v))|\le g_0(n)$. By assumption, $\id(v)=\id(v')$ so there is only one choice for $\id(v')$.  If we fix the length $\ell$ of $\alpha(v')$, then the number of choices for $\alpha(v)$ is at most $2^\ell$.  Since $|\alpha(v')|\in O(k(h_3(n)+h_2(n)+\log b+\log\log n))$, summing over $\ell$ show that the number of choices $b'$ that result in adding $b'$ to $S(b)$ in this case is at most $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
     
-    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case, we add $b'$ to $S(b)$.  Since $x'$ is an ancestor of $x$ in $T$, $\id(C')$ is a prefix of $\id(C)$.  Thus, there are at most $O(\log_b n)$ choices for $\id(C')$.  Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  Then $\id(x')$ is obtained by adding the part $\rho_{C'}(x')$ to $\id(C')$.   Since $|\rho_{C'}(x')|\le 2\log b + O(\log\log n)$, there are at most $O(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $O(b^2\log^2 n)$ choices for $\id(x')$.  Since $A'(b,b')=1$, the entry $\alpha(v,v')$ appears in $\alpha(v)$. 
+    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case, we add $b'$ to $S(b)$.  Since $x'$ is an ancestor of $x$ in $T$, $\id(C')$ is a prefix of $\id(C)$.  Thus, there are at most $O(\log_b n)$ choices for $\id(C')$.  Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  Then $\id(x')$ is obtained by adding the part $\rho_{C'}(x')$ to $\id(C')$.   Since $|\rho_{C'}(x')|\le 2\log b + O(\log\log n)$, there are at most $O(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $O(b^2\log^2 n)$ choices for $\id(x')$.  
     \begin{itemize}
-      \item If the first bit of $\alpha(v,v')$ is $0$, then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}(y')}\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$.  \pat{Now we're getting somewhere.  We can claim that $\mu_{x'}(A_{y'}\setminus A_{x'})$ determines most of $\mu_{x'}(v')$.  So we may have to update the definition of orientable.}
-      
+      \item If the first bit of $\alpha(v,v')$ is $0$, then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}(y')}\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$.  Since $x'$ is an ancestor of $x$, $\alpha(v)$ contains an entry $\alpha(v,v')=\langle 0,\bin(\idx(C)), \kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$.  Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot g_0(n))$ choices for $\mu_{x'}(v')$. 
 
-
-
-      \item If the first bit of $\alpha(v,v')$ is $1$, then the edge $x'y'$ is not in $Y$.  Since $x'y'\not\in Y=Y_0\cup Y_i$, $x'y'\not\in Y_1$.  Therefore $\omega(T_{y'})\ge \omega(T_x)/b$.  It follows that $|\mu_{x'}(v')|\in O(b + \log\log n)$
-      
-
-      
+      \item If the first bit of $\alpha(v,v')$ is $1$, then the edge $x'y'$ is not in $Y$.  Since $x'y'\not\in Y=Y_0\cup Y_i$, $x'y'\not\in Y_1$.  Therefore $\omega(T_{y'})\ge \omega(T_x)/b$.  It follows that $|\mu_{x'}(v')|\in O(\log b + \log\log n)$.  Thus, there are at most $O(b\log n)$ choices for $\mu_{x'}(v')$.  
     \end{itemize}
+    In either case, there are at most $O(b\log^2 n)$ choices for $\mu_{x'}(v')$. 
     
-    
-    
-    
-    In this case 
-  
+    Summarizing, there are at most $O(b^2\log^2 n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot g_0(n))\log_b n)\le g_0(n)\cdot\exp(O(\log b+\log\log n))$ choices for $\mu_{x'}(v')$.  There are at most $2^{|\alpha(v)|}\le \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v)$.  Thus, there are at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $b'$ that result in adding $b'$ to $S(b)$ in this case.
   \end{enumerate}
   
 
