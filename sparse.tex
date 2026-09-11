@@ -1684,79 +1684,79 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   \end{itemize}
 % \end{proof}
 
-\subsection{Finalizing the Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
-\label{sec:finalizing}
+% \subsection{Finalizing the Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
+% \label{sec:finalizing}
 
-The following lemma proves \cref{PlainRealMainTechnical}, with quantitative bounds.
+% The following lemma proves \cref{PlainRealMainTechnical}, with quantitative bounds.
 
-\begin{lem}\label{RealMainTechnical}
-  Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
-  Let $k\in\N$.
-  Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$,  every $n$-vertex graph $G$ that has a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
-  Let $g_i:\N\to\R^+$ be a non-decreasing function with $g_i\in\Oh(\log n)$ for each $i\in[3]$.
-  Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
-  %\david{I suggest we put the previous two sentences prior to ``Let $k\in\N$.''} 
-  %\vida{No because $k$ is used in previous sentence}
-  Then $\mathcal{G}'$ admits a weighted $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
-  \begin{align*}
-    g''_1(n)
-     & = g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace , \\
-    g''_2(n)
-     & = g_2(n) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh(\log\log n)  \enspace ,                                                     \\
-    g''_3(n)
-     & = \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace .
-  \end{align*}
-\end{lem}
+% \begin{lem}\label{RealMainTechnical}
+%   Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
+%   Let $k\in\N$.
+%   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$,  every $n$-vertex graph $G$ that has a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
+%   Let $g_i:\N\to\R^+$ be a non-decreasing function with $g_i\in\Oh(\log n)$ for each $i\in[3]$.
+%   Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
+%   %\david{I suggest we put the previous two sentences prior to ``Let $k\in\N$.''} 
+%   %\vida{No because $k$ is used in previous sentence}
+%   Then $\mathcal{G}'$ admits a weighted $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
+%   \begin{align*}
+%     g''_1(n)
+%      & = g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace , \\
+%     g''_2(n)
+%      & = g_2(n) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh(\log\log n)  \enspace ,                                                     \\
+%     g''_3(n)
+%      & = \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace .
+%   \end{align*}
+% \end{lem}
 
-\begin{proof}
-  Let $b,h:\N\to\R^+$ be functions defined by
-  \begin{align*}
-    b(n)
-     & :=2^{\sqrt{g_3(n)\log n}}\enspace,                        \\
-    h(n)
-     & := \log_{b(n)}n = \sqrt{\frac{\log n}{g_3(n)}} \enspace .
-  \end{align*}
-  Since $g''_1(n)$, $g''_2(n)$, and $g''_3(n)$ all include asymptotic terms that increase without bound as a function of $n$, we may assume that $n\ge 2$ and $g_3(2)\ge 1$.  Therefore, $b(n)\ge 2$.
+% \begin{proof}
+%   Let $b,h:\N\to\R^+$ be functions defined by
+%   \begin{align*}
+%     b(n)
+%      & :=2^{\sqrt{g_3(n)\log n}}\enspace,                        \\
+%     h(n)
+%      & := \log_{b(n)}n = \sqrt{\frac{\log n}{g_3(n)}} \enspace .
+%   \end{align*}
+%   Since $g''_1(n)$, $g''_2(n)$, and $g''_3(n)$ all include asymptotic terms that increase without bound as a function of $n$, we may assume that $n\ge 2$ and $g_3(2)\ge 1$.  Therefore, $b(n)\ge 2$.
 
-  Let $\mathcal{B}$ be a class of graphs that contains, for each $n\in\N^+$, every $n$-vertex graph that has a rooted $b(n)$-skinny forest-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
-  By \cref{skinny_labelling}, each graph in $\mathcal{B}$ admits a
-  weighted $(g'_1(n),g'_2(n),g'_3(n))$ mixed labelling scheme, where
-  \begin{align*}
-    g'_1(n)
-     & = g_1(n) + \Oh(k \log b(n) + k \log\log n)                                 \\
-     & = g_1(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace, \\
-    g'_2(n)
-     & = g_2(n)+ \Oh(\log b(n) + \log\log n)                                      \\
-     & = g_2(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace, \\
-    g'_3(n)
-     & = g_3(n) + \Oh(k + \log\log n)                                             \\
-     & = g_3(n) + \Oh(\log\log n)\enspace.
-  \end{align*}
+%   Let $\mathcal{B}$ be a class of graphs that contains, for each $n\in\N^+$, every $n$-vertex graph that has a rooted $b(n)$-skinny forest-decomposition of adhesion-width at most $k$ in which each torso is a member of $\mathcal{G}$.
+%   By \cref{skinny_labelling}, each graph in $\mathcal{B}$ admits a
+%   weighted $(g'_1(n),g'_2(n),g'_3(n))$ mixed labelling scheme, where
+%   \begin{align*}
+%     g'_1(n)
+%      & = g_1(n) + \Oh(k \log b(n) + k \log\log n)                                 \\
+%      & = g_1(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace, \\
+%     g'_2(n)
+%      & = g_2(n)+ \Oh(\log b(n) + \log\log n)                                      \\
+%      & = g_2(n) + \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(\log\log n)\enspace, \\
+%     g'_3(n)
+%      & = g_3(n) + \Oh(k + \log\log n)                                             \\
+%      & = g_3(n) + \Oh(\log\log n)\enspace.
+%   \end{align*}
 
-  Let $\mathcal{C}$ be a class of graphs that contains, for each $n\in\N^+$,
-  every $n$-vertex graph that has a rooted forest-decomposition $(F,(C_x)_{x\in V(F)})$
-  of adhesion-width at most $k$, with $\height(F)\leq h(n)$, and
-  in which each torso is a member of $\mathcal{B}$.
-  By \cref{small_height}, $\mathcal{C}$ has a weighted \linebreak $(g''_1(n),g''_2(n),g''_3(n))$ mixed labelling scheme, where
-  \begin{align*}
-    g''_1(n)
-     & = g'_1(n) + k\cdot(g'_2(n) + \Oh(\log\log n)) + h(n)\cdot (g'_3(n)+\Oh(\log\log n)) + \Oh(\log\log n) \\
-     & = g_1(n) +  \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(g_2(n)) + \Oh\left((1+h(n))\log\log n\right)   \\
-    g''_2(n)
-     & = g'_2(n) + \Oh(\log\log n)                                                                           \\
-     & = g_2(n) + \Oh\left(\sqrt{{g_3(n)\log n}}\right) + \Oh(\log\log n)                                    \\
-    g''_3(n)
-     & = (h(n)+1)\cdot (g'_3(n)+\Oh(k+\log\log n))                                                           \\% + \Oh(h(n)\log\log n) +\Oh(\log\log n)\\
-     & = \Oh\left(\sqrt{g_3(n)\log n}\right) + g_3(n) + \Oh\left((1+h(n))\log\log n\right)                   \\
-     & = \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh\left((1+h(n))\log\log n\right)\enspace.
-  \end{align*}
-  Substituting $h(n) = \sqrt{\log n\, / g_3(n)}$ into the error terms yields the bounds in the lemma statement.
+%   Let $\mathcal{C}$ be a class of graphs that contains, for each $n\in\N^+$,
+%   every $n$-vertex graph that has a rooted forest-decomposition $(F,(C_x)_{x\in V(F)})$
+%   of adhesion-width at most $k$, with $\height(F)\leq h(n)$, and
+%   in which each torso is a member of $\mathcal{B}$.
+%   By \cref{small_height}, $\mathcal{C}$ has a weighted \linebreak $(g''_1(n),g''_2(n),g''_3(n))$ mixed labelling scheme, where
+%   \begin{align*}
+%     g''_1(n)
+%      & = g'_1(n) + k\cdot(g'_2(n) + \Oh(\log\log n)) + h(n)\cdot (g'_3(n)+\Oh(\log\log n)) + \Oh(\log\log n) \\
+%      & = g_1(n) +  \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh(g_2(n)) + \Oh\left((1+h(n))\log\log n\right)   \\
+%     g''_2(n)
+%      & = g'_2(n) + \Oh(\log\log n)                                                                           \\
+%      & = g_2(n) + \Oh\left(\sqrt{{g_3(n)\log n}}\right) + \Oh(\log\log n)                                    \\
+%     g''_3(n)
+%      & = (h(n)+1)\cdot (g'_3(n)+\Oh(k+\log\log n))                                                           \\% + \Oh(h(n)\log\log n) +\Oh(\log\log n)\\
+%      & = \Oh\left(\sqrt{g_3(n)\log n}\right) + g_3(n) + \Oh\left((1+h(n))\log\log n\right)                   \\
+%      & = \Oh\left(\sqrt{g_3(n) \log n}\right) + \Oh\left((1+h(n))\log\log n\right)\enspace.
+%   \end{align*}
+%   Substituting $h(n) = \sqrt{\log n\, / g_3(n)}$ into the error terms yields the bounds in the lemma statement.
 
-  Let $G$ be an $n$-vertex graph in $\mathcal{G}'$.
-  Then $G$ has a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of adhesion-width at most $k$ and such that $\torso{G}{\mathcal{T},B_x}\in\mathcal{G}$ for each $x\in V(T)$.
-  By~\cref{b_skinny_decomp}, there is a tree-decomposition $\mathcal{Q}:=(Q,(D_x \mid x\in V(Q)))$ of $G$ such that $\height(Q)\le\log_{b(n)} n = h(n)$, $\mathcal{Q}$ has adhesion-width at most $k$, and such that each torso of $\mathcal{Q}$ has a $b(n)$-skinny tree-decomposition whose torsos are in $\mathcal{G}$.
-  Therefore, all the torsos of $\mathcal{Q}$ are in the class $\mathcal{B}$ and therefore $G$ is in the class $\mathcal{C}$.  This completes the proof of the lemma.
-\end{proof}
+%   Let $G$ be an $n$-vertex graph in $\mathcal{G}'$.
+%   Then $G$ has a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of adhesion-width at most $k$ and such that $\torso{G}{\mathcal{T},B_x}\in\mathcal{G}$ for each $x\in V(T)$.
+%   By~\cref{b_skinny_decomp}, there is a tree-decomposition $\mathcal{Q}:=(Q,(D_x \mid x\in V(Q)))$ of $G$ such that $\height(Q)\le\log_{b(n)} n = h(n)$, $\mathcal{Q}$ has adhesion-width at most $k$, and such that each torso of $\mathcal{Q}$ has a $b(n)$-skinny tree-decomposition whose torsos are in $\mathcal{G}$.
+%   Therefore, all the torsos of $\mathcal{Q}$ are in the class $\mathcal{B}$ and therefore $G$ is in the class $\mathcal{C}$.  This completes the proof of the lemma.
+% \end{proof}
 
 \subsection{Proof of \texorpdfstring{\cref{main_result}}{Theorem \ref*{main_result}} with Explicit Bounds}
 
@@ -1764,25 +1764,26 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
 \begin{lem}
   \label{main_result_detailed}
-  Every proper minor-closed graph class $\mathcal{C}$  admits a $\log n + \Oh\big((\log n)^{3/4}\big)$-bit adjacency labelling scheme.
+  Every proper minor-closed graph class $\mathcal{C}$  admits a $?$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
 \end{lem}
 
 \begin{proof}
-  We show that $\mathcal{C}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\mathcal{C}$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
+  % We show that $\mathcal{C}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\mathcal{C}$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
 
-  Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\mathcal{C}$. So $\mathcal{C}\subseteq \mathcal{R}_k^{+a}$. By \cref{add_apexes} and \cref{gk_labelling_precise}, $\mathcal{R}_k^{+a}$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
+  Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\mathcal{C}$.  
+  % Let $\mathcal{D}$ be the class of graphs that have a tree-decomposition in which each torso is in $\mathcal{R}_k^{+a}$. By \cref{gmpst}, $\mathcal{C}\subseteq\mathcal{D}$.  
+  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\mathcal{R}_k^{+a}$ admits a strongly $?$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
 
-  Let $\mathcal{Q}$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\mathcal{R}_k^{+a}$.  By \cref{disjoint_union_ii}, $\mathcal{Q}$ admits a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\mathcal{Q}$ is closed under disjoint union.  Also, by definition  $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$. Since $\mathcal{R}_k^{+a}$ is hereditary, $\mathcal{Q}$ is hereditary.
+  % Let $\mathcal{Q}$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\mathcal{R}_k^{+a}$.  By \cref{disjoint_union_ii}, $\mathcal{Q}$ admits a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\mathcal{Q}$ is closed under disjoint union.  Also, by definition  $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$. Since $\mathcal{R}_k^{+a}$ is hereditary, $\mathcal{Q}$ is hereditary.
 
-  Let $\mathcal{Q}'$ be the class of graphs that have a tree-decomposition whose torsos are in $\mathcal{Q}$.  The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$.  So the graphs in $\mathcal{Q}$ also have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso,   each graph in $\mathcal{Q}'$ has a tree-decomposition 
-  of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{Q}$.
+  Let $\mathcal{Q}$ be the class of graphs that have a tree-decomposition whose torsos are in $\mathcal{R}_k^{+a}$. The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, each graph in $\mathcal{Q}'$ has a tree-decomposition of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{R}_k^{+a}$.
 
-  By \cref{RealMainTechnical}, each graph in $\mathcal{Q}'$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with
+  By \cref{lem:the_big_one}, each graph in $\mathcal{Q}$ admits a $?$-orientable $f(n)$-bit adjacency labelling scheme with
   \[
-    g_1(n) \in g''_1(n) + \Oh\left(g''_2(n) + \sqrt{g''_3(n)\log n}
-    + \sqrt{\frac{\log n}{g''_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
+    f(n) \le \log n +  g'_1(n) + \Oh\left(g'_2(n) + \sqrt{g'_3(n)\log n}
+    + \sqrt{\frac{\log n}{g'_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
   \]
-  Since $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$, \cref{gmpst} implies that $\mathcal{C}\subseteq\mathcal{Q}'$.  Therefore, $\mathcal{C}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n)\in \Oh((\log n)^{3/4})$.
+  By the choice of $k$ and $a$, $\mathcal{C}\subseteq\mathcal{Q}$.  Therefore, $\mathcal{C}$ admits a $?$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
 \end{proof}
 
 \section{Discussion}\label{conclusion}

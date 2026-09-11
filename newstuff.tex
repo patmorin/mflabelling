@@ -87,12 +87,13 @@ The following lemma is well-known (see, for example \cite{}).
   Let $\mathcal{G}$ be a hereditary class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\mathcal{G}'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\mathcal{G}$. 
   Then $\mathcal{G}'$ admits a $g'_0$-orientable $f(n)$-bit adjacency labelling scheme,
   \begin{align*}
-    g_0'(n) & \le g_0(n)\cdot \exp(O(k(n)(g_3(n)+g_2(n)+\log b(n)+\log\log n))) \\
-    g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
-    & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n )) \\
-    g_2'(n) & = g_2(n) + g_3(n) + \Oh(k(n) + \log b(n) + \log\log n)  \\
-    g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n\right)  \enspace .
-  \end{align*}
+    g_0'(n) & = g_0(n)\cdot \exp(O(k(n)(g_3(n)+g_2(n)+\log b(n)+\log\log n))) \\
+    % g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
+    % & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n )) \\
+    % g_2'(n) & = g_2(n) + g_3(n) + \Oh(k(n) + \log b(n) + \log\log n)  \\
+    % g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n\right)  \enspace .
+    f(n) & = \log n + g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
+    & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n ))   \end{align*}
 \end{lem}
 
 \begin{proof}
@@ -396,56 +397,56 @@ The following lemma is well-known (see, for example \cite{}).
     
     Summarizing, there are at most $O(b^2\log^2 n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot g_0(n))\log_b n)\le g_0(n)\cdot\exp(O(\log b+\log\log n))$ choices for $\mu_{x'}(v')$.  There are at most $2^{|\alpha(v)|}\le \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v)$.  Thus, there are at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\beta'$ that result in adding $\beta'$ to $S_\beta$ in this case.
   \end{enumerate}
-  
+\end{proof}  
 
 
-  \paragraph{\boldmath The clique label $\mu(K)$:}
-  Let $K$ be a clique in $G^+$. Let $h(K):=\{z\in V(T):K\cap B_z\setminus A_z\neq\emptyset\}$. Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a path in $T$ from the root of $T$ to the node $x\in h(K)$ of maximum $T$-depth.  For each $z\in h(K)$, $K\cap B_z\setminus A_z$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_z}-A_z$. In particular, $K\cap B_{x}\setminus A_{x}$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{x}}-A_{x}$.
-  Order the vertices of $A_{x}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x}|}$. Let $c(K)$ denote the length-$|A_{x}|$ bit-vector whose $i$-th bit indicates whether $a_i\in K$. Define the clique label
-  \[
-    \mu(K) := \langle \id(x), \mu_{x}(K\cap B_{x}\setminus A_{x}), c(K) \rangle \enspace .
-  \]
-  To see that $\mu$ is injective on cliques, consider two distinct cliques $K, L$ in $G^+$.  If the maximum-depth node $x\in h(K)$ is different from the maximum-depth node $y\in h(L)$, then $\id(x)\neq\id(y)$, so $\mu(K)\neq\mu(L)$.  Suppose $x=y$.  If $K\cap B_{x}\setminus A_{x}\neq L\cap B_{x}\setminus A_{x}$, then $\mu_{x}(K\cap B_{x}\setminus A_{x})\neq\mu_{x}(L\cap B_{x}\setminus A_{x})$ since $\mu_x$ is injective on cliques.  Otherwise, $K\cap B_{x}\setminus A_{x}=L\cap B_{x}\setminus A_{x}$, so $K\cap A_x\neq L\cap A_x$, since $K\neq L$.  Then $c(K)\neq c(L)$ since $K\cap A_x\neq L\cap A_x$.
+%   \paragraph{\boldmath The clique label $\mu(K)$:}
+%   Let $K$ be a clique in $G^+$. Let $h(K):=\{z\in V(T):K\cap B_z\setminus A_z\neq\emptyset\}$. Since $K$ is a clique in $G^+$, the nodes in $h(K)$ lie on a path in $T$ from the root of $T$ to the node $x\in h(K)$ of maximum $T$-depth.  For each $z\in h(K)$, $K\cap B_z\setminus A_z$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_z}-A_z$. In particular, $K\cap B_{x}\setminus A_{x}$ is a non-empty clique in $\torso{G^+}{\mathcal{T},B_{x}}-A_{x}$.
+%   Order the vertices of $A_{x}$ in some arbitrary but fixed order $a_1,\ldots,a_{|A_{x}|}$. Let $c(K)$ denote the length-$|A_{x}|$ bit-vector whose $i$-th bit indicates whether $a_i\in K$. Define the clique label
+%   \[
+%     \mu(K) := \langle \id(x), \mu_{x}(K\cap B_{x}\setminus A_{x}), c(K) \rangle \enspace .
+%   \]
+%   To see that $\mu$ is injective on cliques, consider two distinct cliques $K, L$ in $G^+$.  If the maximum-depth node $x\in h(K)$ is different from the maximum-depth node $y\in h(L)$, then $\id(x)\neq\id(y)$, so $\mu(K)\neq\mu(L)$.  Suppose $x=y$.  If $K\cap B_{x}\setminus A_{x}\neq L\cap B_{x}\setminus A_{x}$, then $\mu_{x}(K\cap B_{x}\setminus A_{x})\neq\mu_{x}(L\cap B_{x}\setminus A_{x})$ since $\mu_x$ is injective on cliques.  Otherwise, $K\cap B_{x}\setminus A_{x}=L\cap B_{x}\setminus A_{x}$, so $K\cap A_x\neq L\cap A_x$, since $K\neq L$.  Then $c(K)\neq c(L)$ since $K\cap A_x\neq L\cap A_x$.
 
-  The length of the clique label $\mu(K)$ satisfies
-  \begin{align*}
-    |\mu(K)| & \le |\id(x)| + |\mu_{x}(K\cap B_{x}\setminus A_{x})| + 3k + \Oh(\log\log n) \\
-    & \le \log\omega(G) - \log\delta(x) + \log\delta(x) - \log\left(\min_{u\in K\cap B_{x}\setminus A_{x}}\delta(u)\right) + h_3(n) \\
-    & \quad + \Oh((h_3(n)+\log\log n)\log_b n) + 3k 
-    & \text{(by \ref{id_x_bound} and \ref{mu_x_K_upper_bound})}\\
-    & \le \log\omega(G) - \log(\min_{u\in K}\omega(u)) + \Oh((h_3(n)+k+\log\log n)\log_b n) 
-  \end{align*}
-  which satisfies the requirement for $g_3'(n)$.
+%   The length of the clique label $\mu(K)$ satisfies
+%   \begin{align*}
+%     |\mu(K)| & \le |\id(x)| + |\mu_{x}(K\cap B_{x}\setminus A_{x})| + 3k + \Oh(\log\log n) \\
+%     & \le \log\omega(G) - \log\delta(x) + \log\delta(x) - \log\left(\min_{u\in K\cap B_{x}\setminus A_{x}}\delta(u)\right) + h_3(n) \\
+%     & \quad + \Oh((h_3(n)+\log\log n)\log_b n) + 3k 
+%     & \text{(by \ref{id_x_bound} and \ref{mu_x_K_upper_bound})}\\
+%     & \le \log\omega(G) - \log(\min_{u\in K}\omega(u)) + \Oh((h_3(n)+k+\log\log n)\log_b n) 
+%   \end{align*}
+%   which satisfies the requirement for $g_3'(n)$.
 
-  \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
-  Let $K$ be a clique in $G^+$, let $x$ be the maximum-depth node in $h(K)$,  let $u\in K$ and let $x'$ be the home of $u$ in $\mathcal{T}$. Let $C$ be the component of $F$ that contains $x'$. If $x\neq x'$ then let $y'$ be the $T$-child of $x'$ on the path from $x'$ to $x$.   Define
-  \[
-    \kappa(K,u) := 
-      \begin{cases} 
-        \langle 0, \kappa_{x}(K\cap B_{x}\setminus A_{x}, u) \rangle
-        & \text{if $x=x'$} \\
-        \langle 1, 0, \bin(\idx(C)), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle 
-        & \text{if $x'y'\in Y$} \\
-        \langle 1, 1, \bin(\idx(C)), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle
-        & \text{if $x'y'\notin Y$}
-      \end{cases}
-  \]
-  Exactly the same analysis used to bound the length of $\alpha(v,u)$ shows that $|\kappa(K,u)| \le h_3(n) + h_2(n) + \Oh(\log b + \log\log n) = g_3(n) + g_2(n) + \Oh(k(n) + \log b + \log\log n) \le g_2'(n)$.
+%   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
+%   Let $K$ be a clique in $G^+$, let $x$ be the maximum-depth node in $h(K)$,  let $u\in K$ and let $x'$ be the home of $u$ in $\mathcal{T}$. Let $C$ be the component of $F$ that contains $x'$. If $x\neq x'$ then let $y'$ be the $T$-child of $x'$ on the path from $x'$ to $x$.   Define
+%   \[
+%     \kappa(K,u) := 
+%       \begin{cases} 
+%         \langle 0, \kappa_{x}(K\cap B_{x}\setminus A_{x}, u) \rangle
+%         & \text{if $x=x'$} \\
+%         \langle 1, 0, \bin(\idx(C)), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle 
+%         & \text{if $x'y'\in Y$} \\
+%         \langle 1, 1, \bin(\idx(C)), \rho_C(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle
+%         & \text{if $x'y'\notin Y$}
+%       \end{cases}
+%   \]
+%   Exactly the same analysis used to bound the length of $\alpha(v,u)$ shows that $|\kappa(K,u)| \le h_3(n) + h_2(n) + \Oh(\log b + \log\log n) = g_3(n) + g_2(n) + \Oh(k(n) + \log b + \log\log n) \le g_2'(n)$.
 
-  \paragraph{Identity Testing $I'$:}
-  Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$ and some $v\in V(G)$, the identity tester determines if $v=u$ as follows. Let $x$ be the node of maximum $T$-depth in $h(K)$ and $z$ be the home of $v$ in $\mathcal{T}$. Thus $\mu(K):=\langle\id(x),\mu_x(K\cap B_x\setminus A_x),c(K)\rangle$ and $\mu(v):=\langle\id(z),\mu_z(v),\alpha(v)\rangle$.  The tester begins by examining the first bit of $\kappa(K,u)$. 
+%   \paragraph{Identity Testing $I'$:}
+%   Given $\mu(K)$, $\kappa(K,u)$, $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$ and some $v\in V(G)$, the identity tester determines if $v=u$ as follows. Let $x$ be the node of maximum $T$-depth in $h(K)$ and $z$ be the home of $v$ in $\mathcal{T}$. Thus $\mu(K):=\langle\id(x),\mu_x(K\cap B_x\setminus A_x),c(K)\rangle$ and $\mu(v):=\langle\id(z),\mu_z(v),\alpha(v)\rangle$.  The tester begins by examining the first bit of $\kappa(K,u)$. 
 
-  \begin{itemize}[nosep,nolistsep]
-    \item If the first bit of $\kappa(K,u)$is $0$, then $\kappa(K,u) = \langle 0, \kappa_{x}(B_{x}\cap K, u) \rangle$ and $u\in B_{x}\cap K \setminus A_x$. The tester first checks if $\id(z) = \id(x)$, which it can do because $\mu(K)$ contains $\id(x)$. If not, then $z \neq x$, so $v \neq u$ and it returns $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(z) = \id(x)$, then $z = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{z}(v))$.
+%   \begin{itemize}[nosep,nolistsep]
+%     \item If the first bit of $\kappa(K,u)$is $0$, then $\kappa(K,u) = \langle 0, \kappa_{x}(B_{x}\cap K, u) \rangle$ and $u\in B_{x}\cap K \setminus A_x$. The tester first checks if $\id(z) = \id(x)$, which it can do because $\mu(K)$ contains $\id(x)$. If not, then $z \neq x$, so $v \neq u$ and it returns $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(z) = \id(x)$, then $z = x$, and it returns $I(\mu_{x}(B_{x}\cap K), \kappa_{x}(B_{x}\cap K, u), \mu_{z}(v))$.
 
-    \item  If the first bit of $\kappa(K,u)$ is $1$, then the tester checks the second bit.
-    \begin{itemize}
-      \item If the second bit is $0$, then $\kappa(K,u) = \langle 1, 0, \bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$, and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. Since the second bit of $\kappa(K,u)$ is $0$, $x'y'\in Y$, so the component $D'$ of $F$ that contains $y'$ is different than $C'$.  
-      In this case, $\id(D')$ is the prefix of $\id(x)$ consisting of the first $\idx(C')+1$ parts of $\id(x)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$.
+%     \item  If the first bit of $\kappa(K,u)$ is $1$, then the tester checks the second bit.
+%     \begin{itemize}
+%       \item If the second bit is $0$, then $\kappa(K,u) = \langle 1, 0, \bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$, and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. Since the second bit of $\kappa(K,u)$ is $0$, $x'y'\in Y$, so the component $D'$ of $F$ that contains $y'$ is different than $C'$.  
+%       In this case, $\id(D')$ is the prefix of $\id(x)$ consisting of the first $\idx(C')+1$ parts of $\id(x)$. The last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$.
 
-      \item If the second bit is $1$, then $\kappa(K,u) = \langle 1, 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$ and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. 
-      % Since the second bit of $\kappa(K,u)$ is $1$, $x'y'\notin Y$, so $y'\in V(C')$. 
-      Then the first $\idx(C')$ parts of $\id(x)$ give $\id(C')$ and $\id(x')=\id(C')\circ\rho_{C'}(x')$. The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$. \qedhere
-    \end{itemize}  
-  \end{itemize}
-\end{proof}
+%       \item If the second bit is $1$, then $\kappa(K,u) = \langle 1, 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$, $C'$ is the component of $F$ that contains $x'$ and $y'$ is the $T$-child of $x'$ on the path from $x'$ to $x$. 
+%       % Since the second bit of $\kappa(K,u)$ is $1$, $x'y'\notin Y$, so $y'\in V(C')$. 
+%       Then the first $\idx(C')$ parts of $\id(x)$ give $\id(C')$ and $\id(x')=\id(C')\circ\rho_{C'}(x')$. The tester first verifies that $\id(x')=\id(z)$.  If not, then $x'\neq z$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_z\setminus A_z$, so $I(\mu(K),\kappa(K,u),\mu(v)):=0$. If $\id(x')=\id(z)$ then $x'=z$ since $\id$ is injective.  In this case, the tester outputs $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{z}(v))$. \qedhere
+%     \end{itemize}  
+%   \end{itemize}
+% \end{proof}
