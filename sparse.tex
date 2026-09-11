@@ -535,82 +535,82 @@ In some cases, we include one or more non-negative integers as part of a multipa
 
 Recall that for $b\in\R^+$, a rooted tree $T$ is $b$-skinny if $|L_i(T)|\le b$ for each $i\in\N^+$, and a rooted tree-decomposition $(T,(B_x\mid x\in V(T)))$ of a graph $G$ is $b$-skinny if $T$ is $b$-skinny.  The following lemma shows how to construct a $(1/b)$-separator using the bags in a $b$-skinny subtree of a tree-decomposition.
 
-\begin{lem}\label{low_pathwidth_separator}
-  Let $b>1$, let $T$ be a rooted tree, let $\omega:V(T)\to\R$, and let
-  \[
-    X:=\set{x\in V(T)\mid\omega(T_x)>\omega(T)/b} \enspace.
-  \]
-  Then:
-  \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-    \item\label{connected} $T[X]$ is connected and contains the root of $T$;
-    \item\label{skinny} $|X\cap L_i(T)|< b$, for each $i\in\N^+$; and
-    \item\label{light} $\omega(C)\le \omega(T)/b$ for each component $C$ of $T-X$.
-  \end{enumerate}
-\end{lem}
+% \begin{lem}\label{low_pathwidth_separator}
+%   Let $b>1$, let $T$ be a rooted tree, let $\omega:V(T)\to\R$, and let
+%   \[
+%     X:=\set{x\in V(T)\mid\omega(T_x)>\omega(T)/b} \enspace.
+%   \]
+%   Then:
+%   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
+%     \item\label{connected} $T[X]$ is connected and contains the root of $T$;
+%     \item\label{skinny} $|X\cap L_i(T)|< b$, for each $i\in\N^+$; and
+%     \item\label{light} $\omega(C)\le \omega(T)/b$ for each component $C$ of $T-X$.
+%   \end{enumerate}
+% \end{lem}
 
-\begin{proof}
-  Let $r$ be the root of $T$.  Since $b>1$, we have that $\omega(T_r)=\omega(T)>\omega(T)/b$. % so $r\in X$.
-  For $x\in X\setminus\{r\}$, let $y$ be the $T$-parent of $x$, then
-  $\omega(T_y)\ge \omega(y)+\omega(T_x)>\omega(T_x)>\omega(T)/b$.
-  Therefore $r\in X$ and, for each $x\in X\setminus\{r\}$, $X$ contains the $T$-parent of $x$. Thus $T[X]$ is connected.
-  This proves~\ref{connected}.
+% \begin{proof}
+%   Let $r$ be the root of $T$.  Since $b>1$, we have that $\omega(T_r)=\omega(T)>\omega(T)/b$. % so $r\in X$.
+%   For $x\in X\setminus\{r\}$, let $y$ be the $T$-parent of $x$, then
+%   $\omega(T_y)\ge \omega(y)+\omega(T_x)>\omega(T_x)>\omega(T)/b$.
+%   Therefore $r\in X$ and, for each $x\in X\setminus\{r\}$, $X$ contains the $T$-parent of $x$. Thus $T[X]$ is connected.
+%   This proves~\ref{connected}.
 
-  For each $i\in\N^+$, the subtrees in $\set{T_x \mid x\in X\cap L_i(T)}$ are pairwise vertex-disjoint, so
-  \[
-    \omega(T) \ge \sum_{x\in X\cap L_i(T)} \omega(T_x)> \sum_{x\in X\cap L_i(T)}\omega(T)/b = |X\cap L_i(T)|\cdot\omega(T)/b.
-  \]
-  Rewriting this inequality gives $|X\cap L_i(T)|<b$ for each $i\in\N^+$.
-  This proves~\ref{skinny}.
+%   For each $i\in\N^+$, the subtrees in $\set{T_x \mid x\in X\cap L_i(T)}$ are pairwise vertex-disjoint, so
+%   \[
+%     \omega(T) \ge \sum_{x\in X\cap L_i(T)} \omega(T_x)> \sum_{x\in X\cap L_i(T)}\omega(T)/b = |X\cap L_i(T)|\cdot\omega(T)/b.
+%   \]
+%   Rewriting this inequality gives $|X\cap L_i(T)|<b$ for each $i\in\N^+$.
+%   This proves~\ref{skinny}.
 
-  By~\ref{connected}, each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$ whose $T$-parent is in $X$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \omega(T)/b$.
-  This proves~\ref{light}.
-\end{proof}
+%   By~\ref{connected}, each component $C$ of $T-X$ is a subtree of $T$ that is rooted at some node $y$ whose $T$-parent is in $X$.  Since  $y\not\in X$, $\omega(C)=\omega(T_y)\le \omega(T)/b$.
+%   This proves~\ref{light}.
+% \end{proof}
 
-\begin{cor}\label{b_skinny_decomp}
-  For every $b>1$, every $n\in\N^+$, every $n$-vertex graph $G$ and every tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$, there exists a tree-decomposition $\mathcal{Q}:=(Q,(D_x\mid x\in V(Q)))$ of $G$ such that
-  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \item\label{prop_adhesion}
-          each adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$;
-    \item\label{prop_skinny_torso} for each $q\in V(Q)$, $\torso{G}{\mathcal{Q},D_q}$ has a $b$-skinny tree-decomposition $(T(q), (B_y\mid y\in V(T(q))))$ where $T(q)$ is a subtree of $T$; and
-    \item\label{prop_geometric} $\height(Q)\le \log_b n$.
-  \end{enumerate}
-\end{cor}
+% \begin{cor}\label{b_skinny_decomp}
+%   For every $b>1$, every $n\in\N^+$, every $n$-vertex graph $G$ and every tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$, there exists a tree-decomposition $\mathcal{Q}:=(Q,(D_x\mid x\in V(Q)))$ of $G$ such that
+%   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
+%     \item\label{prop_adhesion}
+%           each adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$;
+%     \item\label{prop_skinny_torso} for each $q\in V(Q)$, $\torso{G}{\mathcal{Q},D_q}$ has a $b$-skinny tree-decomposition $(T(q), (B_y\mid y\in V(T(q))))$ where $T(q)$ is a subtree of $T$; and
+%     \item\label{prop_geometric} $\height(Q)\le \log_b n$.
+%   \end{enumerate}
+% \end{cor}
 
-\begin{proof}
-  Fix $b>1$.    Let $G$ be an $n$-vertex graph, let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G$, and let $r$ be the root of $T$.  We prove a slightly stronger statement that involves a set $A\subseteq B_r$.  The proof is by induction on $|V(G-A)|$.   To make the induction work we strengthen \ref{prop_geometric} to:
-  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*')]
-    \setcounter{enumi}{2}
-    \item\label{prop_geometric_ii} $\height(Q) \le \max\{0, \log_b(|V(G-A)|)\}$
-  \end{enumerate}
+% \begin{proof}
+%   Fix $b>1$.    Let $G$ be an $n$-vertex graph, let $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ be a rooted tree-decomposition of $G$, and let $r$ be the root of $T$.  We prove a slightly stronger statement that involves a set $A\subseteq B_r$.  The proof is by induction on $|V(G-A)|$.   To make the induction work we strengthen \ref{prop_geometric} to:
+%   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*')]
+%     \setcounter{enumi}{2}
+%     \item\label{prop_geometric_ii} $\height(Q) \le \max\{0, \log_b(|V(G-A)|)\}$
+%   \end{enumerate}
 
-  Define the function
-  \[
-    \omega(y) := \begin{cases}
-      |B_r\setminus A|   & \text{if $y=r$}                                         \\
-      |B_y\setminus B_x| & \text{if $y\in V(T)\setminus\{r\}$ has $T$-parent $x$.}
-    \end{cases}
-  \]
-  Observe that $\sum_{y\in V(T)}\omega(y)=|V(G-A)|$. Let $N:=|V(G-A)|$.
+%   Define the function
+%   \[
+%     \omega(y) := \begin{cases}
+%       |B_r\setminus A|   & \text{if $y=r$}                                         \\
+%       |B_y\setminus B_x| & \text{if $y\in V(T)\setminus\{r\}$ has $T$-parent $x$.}
+%     \end{cases}
+%   \]
+%   Observe that $\sum_{y\in V(T)}\omega(y)=|V(G-A)|$. Let $N:=|V(G-A)|$.
 
-  First we consider the base case. If $N\le b$, let $Q$ be a tree that has only one node, $s$. Let $X=\{r\}$ if $N=0$, and $X=\{x\in V(T)\mid \omega(T_x)>0\}$ otherwise. Then $T[X]$ is a subtree of $T$ containing $r$. For any $i\in\N^+$, the subtrees $T_x$ for $x\in X\cap L_i(T)$ are disjoint, so $|X\cap L_i(T)| \le \sum_{x\in X\cap L_i(T)}\omega(T_x) \le \omega(T) = N \le b$. Thus, $T[X]$ is $b$-skinny. Let $D_s:=\bigcup_{x\in X} B_x$ and let $\mathcal{Q}:=(Q,(D_q\mid q\in V(Q)))$. For each $y\in N_T(X)$, $\omega(T_y)=0$, so $V(G_y-A_y)=\emptyset$, which implies $B_z\subseteq A_y\subseteq B_x$ for all $z\in V(T_y)$, where $x\in X$ is the $T$-parent of $y$. Hence $D_s=\bigcup_{y\in V(T)} B_y$, meaning $\mathcal{Q}$ is a tree-decomposition of $G$ with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{\mathcal{Q},D_s}=G$, we take $T(s)=T[X]$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree-decomposition of $\torso{G}{\mathcal{Q},D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, condition \ref{prop_geometric_ii} holds because $\height(Q)=0 \le \max\{0, \log_b(N)\}$.
+%   First we consider the base case. If $N\le b$, let $Q$ be a tree that has only one node, $s$. Let $X=\{r\}$ if $N=0$, and $X=\{x\in V(T)\mid \omega(T_x)>0\}$ otherwise. Then $T[X]$ is a subtree of $T$ containing $r$. For any $i\in\N^+$, the subtrees $T_x$ for $x\in X\cap L_i(T)$ are disjoint, so $|X\cap L_i(T)| \le \sum_{x\in X\cap L_i(T)}\omega(T_x) \le \omega(T) = N \le b$. Thus, $T[X]$ is $b$-skinny. Let $D_s:=\bigcup_{x\in X} B_x$ and let $\mathcal{Q}:=(Q,(D_q\mid q\in V(Q)))$. For each $y\in N_T(X)$, $\omega(T_y)=0$, so $V(G_y-A_y)=\emptyset$, which implies $B_z\subseteq A_y\subseteq B_x$ for all $z\in V(T_y)$, where $x\in X$ is the $T$-parent of $y$. Hence $D_s=\bigcup_{y\in V(T)} B_y$, meaning $\mathcal{Q}$ is a tree-decomposition of $G$ with no adhesions, so~\ref{prop_adhesion} holds vacuously. Since $\torso{G}{\mathcal{Q},D_s}=G$, we take $T(s)=T[X]$ and then $(T(s),(B_y\mid y\in V(T(s))))$ is a $b$-skinny tree-decomposition of $\torso{G}{\mathcal{Q},D_s}$, so~\ref{prop_skinny_torso} holds. Since $V(Q)=\set{s}$ and $\depth_Q(s)=0$, condition \ref{prop_geometric_ii} holds because $\height(Q)=0 \le \max\{0, \log_b(N)\}$.
 
-  Now assume $N> b$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>N/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.  The root of the tree $Q$ will be a node $s$ and $D_s:=\bigcup_{x\in X} B_x$.
+%   Now assume $N> b$. Let $X:=\set{x\in V(T)\mid  \omega(T_x)>N/b}$. By \cref{low_pathwidth_separator}, $T[X]$ is a $b$-skinny subtree of $T$ that includes $r$.  The root of the tree $Q$ will be a node $s$ and $D_s:=\bigcup_{x\in X} B_x$.
 
-  For each $y\in N_T(X)$, let $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ and let $A_y := B_y \cap B_x$ be the parent adhesion of $y$ in $\mathcal{T}$, where $x$ is the $T$-parent of $y$.  Then $\mathcal{T}_y:=(T_y, (B_z\mid z\in V(T_y)))$ is a tree-decomposition of $G_y$ and every adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$. Observe that $|V(G_y-A_y)| = \omega(T_y) \le N/b$. Apply the inductive hypothesis to $G_y$ with tree-decomposition $\mathcal{T}_y$ and special set $A_y$ to obtain a tree-decomposition $\mathcal{Q}_y=(Q_y,(D_q \mid q\in V(Q_y)))$ of $G_y$.  By induction, each bag of $\mathcal{Q}_y$ has a tree-decomposition formed by a (skinny) subtree of $T$.  Therefore, some bag $D_{r_y}$ of $\mathcal{Q}_y$ contains all the vertices of $B_y$.  Make $r_y$ a child of $s$ in the tree $Q$.
+%   For each $y\in N_T(X)$, let $G_y:=G[\bigcup_{z\in V(T_y)} B_z]$ and let $A_y := B_y \cap B_x$ be the parent adhesion of $y$ in $\mathcal{T}$, where $x$ is the $T$-parent of $y$.  Then $\mathcal{T}_y:=(T_y, (B_z\mid z\in V(T_y)))$ is a tree-decomposition of $G_y$ and every adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$. Observe that $|V(G_y-A_y)| = \omega(T_y) \le N/b$. Apply the inductive hypothesis to $G_y$ with tree-decomposition $\mathcal{T}_y$ and special set $A_y$ to obtain a tree-decomposition $\mathcal{Q}_y=(Q_y,(D_q \mid q\in V(Q_y)))$ of $G_y$.  By induction, each bag of $\mathcal{Q}_y$ has a tree-decomposition formed by a (skinny) subtree of $T$.  Therefore, some bag $D_{r_y}$ of $\mathcal{Q}_y$ contains all the vertices of $B_y$.  Make $r_y$ a child of $s$ in the tree $Q$.
 
 
-  We now show that $\mathcal{Q}$ is a tree-decomposition of $G$ that satisfies the requirements of the lemma.
+%   We now show that $\mathcal{Q}$ is a tree-decomposition of $G$ that satisfies the requirements of the lemma.
 
-  \begin{itemize}
+%   \begin{itemize}
 
-    \item[\ref{prop_adhesion}:] For each $y\in N_T(X)$, the adhesion between $s$ and $r_y$ is $A_y$, which is an adhesion of $\mathcal{T}$. Furthermore, each adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$, so each adhesion of $\mathcal{Q}_y$ is an adhesion of $\mathcal{T}$.  Thus every adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$.
+%     \item[\ref{prop_adhesion}:] For each $y\in N_T(X)$, the adhesion between $s$ and $r_y$ is $A_y$, which is an adhesion of $\mathcal{T}$. Furthermore, each adhesion of $\mathcal{T}_y$ is an adhesion of $\mathcal{T}$, so each adhesion of $\mathcal{Q}_y$ is an adhesion of $\mathcal{T}$.  Thus every adhesion of $\mathcal{Q}$ is an adhesion of $\mathcal{T}$.
 
-    \item[\ref{prop_skinny_torso}:] $\mathcal{T}_X:=(T[X],(B_y\mid y\in V(T[X])))$ is a $b$-skinny tree-decomposition of $\torso{G}{\mathcal{Q},D_s}$.  For each $y\in N_T(X)$, $\torso{G}{\mathcal{Q}_y,D_{r_y}}$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T_y$. The tree-decomposition of $\torso{G_y}{\mathcal{Q}_y,D_{r_y}}$ contains $B_y$, therefore this tree-decomposition is also a tree-decomposition of $\torso{G}{\mathcal{Q},D_{r_y}}$.  By induction, every other bag of $\mathcal{Q}_y$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T$. Thus, each torso of $\mathcal{Q}$ has a $b$-skinny tree-decomposition whose tree is a subtree of $T$.
+%     \item[\ref{prop_skinny_torso}:] $\mathcal{T}_X:=(T[X],(B_y\mid y\in V(T[X])))$ is a $b$-skinny tree-decomposition of $\torso{G}{\mathcal{Q},D_s}$.  For each $y\in N_T(X)$, $\torso{G}{\mathcal{Q}_y,D_{r_y}}$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T_y$. The tree-decomposition of $\torso{G_y}{\mathcal{Q}_y,D_{r_y}}$ contains $B_y$, therefore this tree-decomposition is also a tree-decomposition of $\torso{G}{\mathcal{Q},D_{r_y}}$.  By induction, every other bag of $\mathcal{Q}_y$ has a tree-decomposition whose tree is a $b$-skinny subtree of $T$. Thus, each torso of $\mathcal{Q}$ has a $b$-skinny tree-decomposition whose tree is a subtree of $T$.
 
-    \item[\ref{prop_geometric_ii}:] For each $y\in L_2(Q)$, the inductive hypothesis implies that $\height(Q_y)\le\max\{0,\linebreak \log_b(|V(G_y-A_y)|)\}$. Since $|V(G_y-A_y)| = \omega(T_y) \le N/b = |V(G-A)|/b$,  \[\height(Q_y)\le\max\{0, \log_b(|V(G-A)|/b)\} = \max\{0, \log_b|V(G-A)| - 1\}.\] 
-    Thus, $\height(Q)=1+\max\{\height(Q_y):y\in L_2(Q)\}\le \max\{1, \log_b|V(G-A)|\} =\linebreak \log_b|V(G-A)|$ (since $|V(G-A)| > b \ge 1$). \qedhere
-  \end{itemize}
-\end{proof}
+%     \item[\ref{prop_geometric_ii}:] For each $y\in L_2(Q)$, the inductive hypothesis implies that $\height(Q_y)\le\max\{0,\linebreak \log_b(|V(G_y-A_y)|)\}$. Since $|V(G_y-A_y)| = \omega(T_y) \le N/b = |V(G-A)|/b$,  \[\height(Q_y)\le\max\{0, \log_b(|V(G-A)|/b)\} = \max\{0, \log_b|V(G-A)| - 1\}.\] 
+%     Thus, $\height(Q)=1+\max\{\height(Q_y):y\in L_2(Q)\}\le \max\{1, \log_b|V(G-A)|\} =\linebreak \log_b|V(G-A)|$ (since $|V(G-A)| > b \ge 1$). \qedhere
+%   \end{itemize}
+% \end{proof}
 
 \section{Weighted Mixed Labelling Schemes -- Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
 \label{weighted_mixed_section}
@@ -651,9 +651,9 @@ A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed 
 Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
 
-The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$. Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
+The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$ (see \cref{adj_labelling_from_mixed_labelling}, below).  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
 
-\begin{lem}
+\begin{lem}\label{injective_vertex_labels}
   Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
 \end{lem}
 
@@ -661,8 +661,6 @@ The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a 
   Suppose, for the sake of contradiction, that there exists distinct $v,w\in V(G)$ such that $\mu(v)=\mu(w)$. Since  $K:=\{v\}$ is a clique in $G^+$, this immediately leads to the contradiction
   $1=I(\mu(K),\kappa(K,v),\mu(v))=I(K,\kappa(K,v),\mu(w))=0$.
 \end{proof}
-
-
 
 It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
 
@@ -674,8 +672,20 @@ for every $x\in S$,
 %\david{I interpret this definition as saying that the minimum weight is at least 1/4 of the average weight. Is there a more descriptive word than `nice'. In statistics, a dataset where the average is close to the minimum is `positively skewed' (or `right-skewed').}
 %\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
 (We emphasize that weights are required to be positive integers here, which will be important later on.)
-We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.
-The two notions are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
+We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.  For adjacency labelling, weak mixed labelling schemes are sufficient, as the following lemma shows.
+
+\begin{obs}\label{adj_labelling_from_mixed_labelling}
+  If a graph class $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
+\end{obs}
+
+\begin{proof}
+  Let $G$ be a graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\N^+$ be the weight function given by $\omega(v)=1$ for each $v\in V(G)$.  Then $\omega$ is a nice weight function.  Let $(A,I)$ be the adjacency tester and identity tester for a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme on $\calG$.  Then there is a mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
+  $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
+  For each pair $v,w\in V(G)$, $A(\mu(v),\mu(w))=1$ if and only if $v$ and $w$ are adjacent in $G$.  Thus $\calG$ admits an injective $f(n)$-bit adjacency labelling scheme with $f(n)=\log n+g_1(n)$ using adjacency testing function $A$.
+\end{proof}
+
+For a graph class $\calG$ that admits a weighted mixed labelling scheme, we call the adjacency labelling scheme implied by \cref{adj_labelling_from_mixed_labelling} the \defin{corresponding} adjacency labelling scheme. 
+Weak mixed labelling schemes and mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
   \label{lem:nice_weights}
@@ -707,30 +717,33 @@ The two notions are essentially equivalent, as shown by the following lemma. Thi
   It follows that $\mu$ and  $\kappa$ are the desired  mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.
 \end{proof}
 
-Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises a sparse universal graph $U$ we need the following definition, which is implicit in the work of \citet{EJM23}:  Let $A$ be the adjacency tester used in a weighted $(g_1,g_2,g_3)$-mixed labelling scheme for a graph class $\calG$. We say that the scheme is \defin{$g_0(n)$-orientable} if, for each $n\in\N$, there exists a set $\{S(b):b\in\{0,1\}^{\le g_1(n)}\}$ with the following properties:
+Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises a sparse universal graph $U$ we need the following definition, which is implicit in the work of \citet{EJM23}:  Let $A$ be the adjacency tester used in an $f(n)$-bit adjacencey labelling scheme for a graph class $\calG$. For a function $g_0:\N\to\N$, we say that the scheme is \defin{$g_0$-orientable} if, for each $n\in\N$, there exists a collection $(S_\beta:\beta\in\{0,1\}^{\le f(n)})$ of subsets of $\{0,1\}^{\le f(n)}$ indexed by the elements of $\{0,1\}^{\le g_0(n)}$ with the following properties:
 \begin{enumerate}[nosep,nolistsep,label=(O\arabic*)]
-  \item\label{orientable_a} $S(b)\subseteq \{0,1\}^{\le g_1(n)}$ for each $b\in\{0,1\}^{\le g_1(n)}$;
-  \item\label{orientable_b} $|S(b)|\le g_0(n)$ for each $b\in\{0,1\}^{\le g_1(n)}$;
-  \item\label{orientable_c} for each $b,b'\in \{0,1\}^{\le g_1(n)}$ such that $A(b,b')=1$, we have $b\in S(b')$ or $b'\in S(b)$.
+  \item\label{orientable_a} $S_\beta\subseteq \{0,1\}^{\le f(n)}$ for each $\beta\in\{0,1\}^{\le f(n)}$;
+  \item\label{orientable_b} $|S_\beta|\le g_0(n)$ for each $\beta\in\{0,1\}^{\le f(n)}$;
+  \item\label{orientable_c} for each $\beta,\beta'\in \{0,1\}^{\le f(n)}$ such that $A(\beta,\beta')=1$, we have $\beta\in S_{\beta'}$ or $\beta'\in S_\beta$.
 \end{enumerate}
 
-\pat{Need to add something here.  If $v\in K$, then $\mu(K)$ determines $\mu(v)$ up to $o(\log n)$ bits.}
 
 \begin{lem}\label{orientable_implies_sparse}
-  If a graph class $\mathcal{G}$ admits a $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then for each $n\in\N$ there exists a graph $U$ with $O(2^{g_1(n)})$ vertices and $O(2^{g_1(n)}\cdot g_0(n))$ edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.
+  If a graph class $\mathcal{G}$ admits an injective $g_0$-orientable adjacency labelling scheme, then for each $n\in\N$ there exists a graph $U_n$ with $2^{f(n)+1}-1$ vertices and at most $(2^{f(n)+1}-1)\cdot g_0(n)$ edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U_n$.
 \end{lem}
 
 \begin{proof}
-  Fix some $n\in\N$ and let $U$ be the graph with vertex set $V(U):=\{0,1\}^{\le g_1(n)}$ and edge set $E(U):={ \{(b,b')\in V(U)^2 : A(b,b')=1\} }$.  Then $|V(U)|=2^{g_1(n)+1}-1$.  We will upper bound $|E(U)|$ by giving an orientation of $U$ in which each vertex has out-degree at most $g_0(n)$.  This implies that $|E(U)|\le |V(U)|\cdot g_0(n) \in O(2^{g_1(n)}\cdot g_0(n))$.  
+  Fix some $n\in\N$ and let $U_n$ be the graph with vertex set $V(U_n):=\{0,1\}^{\le f(n)}$ and edge set $E(U_n):={ \{(\beta,\beta')\in V(U_n)^2 : A(\beta,\beta')=1\} }$. For each $n$-vertex $G\in\mathcal{G}$ consider an adjacency-labelling $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ for $A$.  Then $U_n[\{\mu_G(v):v\in V(G)\}]$ is isomorphic to $G$.  
+  
+  All that remains is to count the number of vertices and edges of $U_n$.
+  By definition, $|V(U_n)|=\sum_{i=0}^{f(n)} 2^i=2^{f(n)+1}-1$.
+  To upper bound $|E(U_n)|$ we describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.  
 
-  Since the mixed labelling scheme is $g_0(n)$-orientable there exists $\{S(b):b\in\{0,1\}^{\le g_1(n)}\}$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $bb'$ of $U$ from $b$ to $b'$ so that $b'\in S(b)$.  (If $b\in S(b')$ and $b'\in S(b)$ then the edge $bb'$ can be oriented in either direction.)  Then, for each vertex $b$ of $U$, the out-degree of $b$ is at most $|S(b)| \le g_0(n)$.  
+  Since the adjacency labelling scheme is $g_0$-orientable there exists $(S_\beta:\beta\in\{0,1\}^{\le f(n)})$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $\beta\beta'$ of $U_n$ from $\beta$ to $\beta'$ so that $\beta'\in S_\beta$.  (If $\beta\in S_{\beta'}$ and $\beta'\in S_\beta$ then the edge $\beta\beta'$ can be oriented in either direction.)  Then, for each vertex $\beta$ of $U_n$, the out-degree of $\beta$ is at most $|S_\beta| \le g_0(n)$.  This implies that $|E(U_n)|\le |V(U_n)|\cdot g_0(n) = (2^{f(n)+1}-1)\cdot g_0(n)$.  
 \end{proof}
 
-The definition of $g_0(n)$-orientability is useful for constructing sparse universal graphs.  In essence, the last step in the proof of \cref{main_result_induced_universal_sparse} is an application of \cref{orientable_implies_sparse}.  To get to this step, our proof needs to build $g_0(n)$-orientable weighted mixed labelling schemes for a graph class $\mathcal{G}'$ whose graphs admit tree-decompositions whose torsos belong to a graph class $\mathcal{G}$ that admit $g_0(n)$-orientable efficient weighted mixed labelling schemes.  This requires that the graph class $\mathcal{G}$ satisfies the following slightly stronger definition of $g_0$(n)-orientability.  A weighted $(g_1,g_2,g_3)$ mixed labelling scheme with adjacency tester $A$ and identity tester $I$ is \defin{strongly $g_0(n)$-orientable} if it is $g_0(n)$-orientable and satisfies the following additional property:
+The definition of $g_0$-orientability is useful for constructing sparse universal graphs from adjacency labelling schemes.  The last step in the proof of \cref{main_result_induced_universal_sparse} is an application of \cref{orientable_implies_sparse} to a graph class $\calG'$ that contains all $H$-minor-free graphs, for some fixed graph $H$.  This requires that we construct a $g_0$-orientable adjacency-labelling scheme of $\calG'$.  The main property of $\calG'$ is that each graph in $\calG'$ has a tree-decomposition whose torsos belong to some simpler graph class $\calG$. To construct the labelling scheme for $\calG'$ we require that the graph class $\mathcal{G}$ has an efficient weighted mixed labelling scheme that satisfies the following slightly stronger definition of $g_0$-orientability.  A weighted $(g_1,g_2,g_3)$ mixed labelling scheme with adjacency tester $A$ and identity tester $I$ is \defin{strongly $g_0$-orientable} if the corresponding $(\log n+g_1(n))$-bit adjacency labelling scheme is $g_0$-orientable and the identity tester $I$ satisfies the following additional property:
 \begin{enumerate}[nosep,nolistsep,label=(O\arabic*)]\setcounter{enumi}{3}
-  \item\label{orientable_f} for each $n\in\N$, each $b\in\{0,1\}^{\le g_3(n)}$ and each $k\in\{0,1\}^{\le g_2(n)}$, there are at most $g_0(n)$ strings $b'\in \{0,1\}^{\le g_1(n)}$ such that $I(b,k,b')=1$.
+  \item\label{orientable_f} for each $n\in\N$, each $\beta\in\{0,1\}^{\le 2+\log n + g_3(n)}$ and each $k\in\{0,1\}^{\le g_2(n)}$, there are at most $g_0(n)$ strings $\beta'\in \{0,1\}^{\le2+\log n+ g_1(n)}$ such that $I(\beta,k,\beta')=1$.
 \end{enumerate}
-
+The upper bounds on the lengths of $\beta$ and $\beta'$ in this definition comes from the fact that we can restrict our attention to weight functions $\omega:V(G)\to\N^+$ for which $\log\omega(G)\le 2+\log n$, by \cref{lem:nice_weights}.  Thus, each clique $K$ in $G^+$ is assigned a label $\mu(K)$ of length at most $\log \omega(G)-\log \min_{v\in K}\omega(v)+g_3(n)\le 2+\log n+g_3(n)$ and each vertex $v$ is assigned a label $\mu(v)$ of length at most $\log\Omega(G)-\log \omega(v)+g_1(n)\le 2+\log n+g_1(n)$.
 
 
 
@@ -749,8 +762,8 @@ The definition of $g_0(n)$-orientability is useful for constructing sparse unive
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\mathcal{G}^{+a}$ is the class of graphs $G$ such that $G-X\in\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes}
-  Let $\mathcal{G}$ be a class of graphs that admits a strongly $g_0(n)$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
-  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a strongly $g_0'(n)$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+  Let $\mathcal{G}$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $a\in\N^+$. Then $\mathcal{G}^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
      & = (g_0(n) + a)2^{a+1} \enspace,  \\
@@ -840,20 +853,18 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
 
-  \paragraph{\boldmath $g'_0(n)$-orientability:}
+  \paragraph{\boldmath $g'_0$-orientability:}  Since the vertex labels and adjacency tester $A'$ are defined, we can now argue that the corresponding adjacency labelling scheme for the scheme we are describing is $g_0'$-orientable.  Fix $n\in\N$. For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $(\beta,\beta')$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  In the preceding discussion, we have only defined the value of $A'(\beta,\beta')$ for valid input pairs.  So that the function $A'$ is completely defined over $(\{0,1\}^{\le 2+\log n+g_1'(n)})^2$, we define $A'(\beta,\beta')=0$ if $(\beta,\beta')$ is not a valid input pair.
 
-  Since the vertex labels and adjacency tester $A$ are defined, we can now argue that the scheme we are describing is $g_0'(n)$-orientable.  Fix $n\in\N$. For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $b\in\{0,1\}^{\le g_1(n)}$ is a \emph{valid input} if $b$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $(b,b')$ is a \emph{valid input pair} if $b$ and $b'$ are both realized by some $(G^+,G,\omega)$.  In the preceding discussion, we have only defined the value of $A'(b,b')$ for valid input pairs.  So that the function $A'$ is completely defined over $(\{0,1\}^{\le g_1(n)})^2$, we define $A'(b,b')=0$ if $(b,b')$ is not a valid input pair.
-
-  Let $\{S^-(b^-):b^-\in\{0,1\}^{\le g_1(n)}\}$ be a set of subsets of $\{0,1\}^{\le g_1(n)}$ that witness the fact that the weighted mixed-labelling scheme for $(A,I)$ is $g_0(n)$-orientable.  We construct the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ incrementally.  To begin, set $S(b)=\emptyset$ for each $b\in\{0,1\}^{\le g_1'(n)}$.  We then consider each valid input pair $(b,b')$ such that $A'(b,b')=1$.  By the definition of valid input pair, there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^,G,\omega)$ for $(A',I')$ has $\mu(v)=b$ and $\mu(v')=b'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  Let $(S^-_{\beta^-}:\beta^-\in\{0,1\}^{\le 2+\log n+g_1(n)})$ be a collection of subsets of $\{0,1\}^{\le 2+\log n+g_1(n)}$ that witness the fact that the corresponding adjacency labelling scheme is $g_0$-orientable.  We construct the sets $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ incrementally.  To begin, set $S_\beta=\emptyset$ for each $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$.  We then consider each valid input pair $(\beta,\beta')$ such that $A'(\beta,\beta')=1$.  By the definition of valid input pair, there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
   \begin{enumerate}[nolistsep]
-    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(b,b')=A(\mu^-(v),\mu^-(v'))=1$.    Therefore $\mu^-(v')\in S^-(\mu^-(v))$ or $\mu^-(v)\in S^-(\mu^-(v'))$.  Without loss of generality, assume that $\mu^-(v')\in S^-(\mu^-(v))$.  In this case, we add $\mu(v')=b'$ to the set $S(b)$.
+    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.    Therefore $\mu^-(v')\in S^-_{\mu^-(v)}$ or $\mu^-(v)\in S^-_{\mu^-(v')}$.  Without loss of generality, assume that $\mu^-(v')\in S^-_{\mu^-(v)}$.  In this case, we add $\mu(v')=\beta'$ to the set $S_\beta$.
     
-    The bitstring $b$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $b$, there are at most $|S^-(\sigma^-(v))|\le g_0(n)$ choices of $\sigma^-(v')$ that can trigger the addition of an element to $S(b)$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')
-    $ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $b'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $b'$ to $S(b)$ this way is at most $|S^-(\sigma^-(v))|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
+    The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that can trigger the addition of an element to $S_\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')
+    $ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $\beta'$ to $S_\beta$ this way is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
 
-    \item Otherwise, the adjacency tester deduces that at least one of $v$ or $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we add $\mu(v')=b'$ to the set $S(b)$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $b'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $b'$ to $S(b)$.
+    \item Otherwise, the adjacency tester deduces that at least one of $v$ or $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we add $\mu(v')=\beta'$ to the set $S_\beta$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $\beta'$ to $S_\beta$.
   \end{enumerate}
-  By definition $S(b)\subseteq \{0,1\}^{\le g_1'(n)}$, so the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satsify \ref{orientable_a}.  We have argued above that, for each $b\in\{0,1\}^{\le g_1'(n)}$, the number of $b'$ that are added to $S(b)$ in this process is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}$, so $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satisfies condition \ref{orientable_b} for $g'_0(n):=(g_0(n)+a)2^{a+1}$.  Since this process considers every valid input pair $(b,b')$ such that $A'(b,b')=1$, the sets $\{S(b):b\in\{0,1\}^{\le g_1'(n)}\}$ satisfy condition \ref{orientable_c}.
+  By definition $S_\beta\subseteq \{0,1\}^{\le 2+\log n+g_1'(n)}$, so the collection $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies \ref{orientable_a}.  We have argued above that, for each $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$, the number of $\beta'$ that are added to $S_\beta$ in this process is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}$, so $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies condition \ref{orientable_b} for $g'_0(n):=(g_0(n)+a)2^{a+1}$.  Since this process considers every valid input pair $(\beta,\beta')$ such that $A'(\beta,\beta')=1$, the collection $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies condition \ref{orientable_c}.
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
@@ -907,767 +918,771 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
 
-  \paragraph{\boldmath Strong $g'_0(n)$-orientability:}
-  To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0(n)$-orientable.  That is, we need to show that for each $n\in\N$, each $b\in\{0,1\}^{\le g'_3(n)}$ and each $k\in\{0,1\}^{\le g'_2(n)}$, there are at most $g'_0(n)$ strings $b'\in\{0,1\}^{\le g'_1(n)}$ such that $I'(b,k,b')=1$.  So that the operation of $I'$ is well-defined over all inputs, we define $I'(b,k,b')=0$ if there is no instance $(G^+,G,\omega)$ such that, in the $(g_1',g_2',g_3')$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$, $G^+$ contains a clique $K$, $K$ contains a vertex $u$, and $G$ contains a vertex $v$ such that $b=\mu(K)$, $k=\kappa(K,u)$, and $b'=\mu(v)$.
+  \paragraph{\boldmath Strong $g'_0$-orientability:}
+  To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0$-orientable.  That is, we need to show that for each $n\in\N$, each $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and each $k\in\{0,1\}^{\le g'_2(n)}$, there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^{\le 2+\log n+g'_1(n)}$ such that $I'(\beta,k,\beta')=1$.  So that the operation of $I'$ is well-defined over all inputs, we define $I'(\beta,k,\beta')=0$ if there is no instance $(G^+,G,\omega)$ such that, in the $(g_1',g_2',g_3')$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$, $G^+$ contains a clique $K$, $K$ contains a vertex $u$, and $G$ contains a vertex $v$ such that $\beta=\mu(K)$, $k=\kappa(K,u)$, and $\beta'=\mu(v)$.
 
-  Fix $b\in\{0,1\}^{\le g'_3(n)}$ and $k\in\{0,1\}^{\le g'_2(n)}$.  If $I'(b,k,b')=1$ then there exists $(G^+,G,\omega)$ such that $K$ is a clique in $G^+$, $u\in K$, and $v\in V(G)$, $b=\mu(K)$, $k=\kappa(K,u)$, and $b'=\mu(v)$. Since $I(K,\mu(K,u),v)=I(b,k,b')=1$, $u=v$.  Thus, $u,v\in X$ or $u,v\in V(G-X)$.  If $u,v\in X$, then $b'=\mu(v)=\langle\sigma(v),c(v),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $b'$.  If $u,v\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(v)$ given $b$ and $k$.  Since $v\not\in K$, $\sigma(v)$ is a string of $\lceil\log(b+1)\rceil$ zeros.  Also $c(v)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $b'=\mu(v)=\langle \sigma(v), c(v), \mu^-(v) \rangle$ for which $I'(b,k,b')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $b'$ such that $I'(b,k,b')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
+  Fix $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and $k\in\{0,1\}^{\le g'_2(n)}$.  If $I'(\beta,k,\beta')=1$ then there exists $(G^+,G,\omega)$ such that $K$ is a clique in $G^+$, $u\in K$, and $v\in V(G)$, $\beta=\mu(K)$, $k=\kappa(K,u)$, and $\beta'=\mu(v)$. Since $I(K,\mu(K,u),v)=I(\beta,k,\beta')=1$, $u=v$.  Thus, $u,v\in X$ or $u,v\in V(G-X)$.  If $u,v\in X$, then $\beta'=\mu(v)=\langle\sigma(v),c(v),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $\beta'$.  If $u,v\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(v)$ given $\beta$ and $k$.  Since $v\not\in K$, $\sigma(v)$ is a string of $\lceil\log(|\beta|+1)\rceil$ zeros.  Also $c(v)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $\beta'=\mu(v)=\langle \sigma(v), c(v), \mu^-(v) \rangle$ for which $I'(\beta,k,\beta')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $\beta'$ such that $I'(\beta,k,\beta')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
 \end{proof}
 
-\subsection{Disjoint Unions of Graphs}
-\label{sec:disjoint}
+\input{newstuff} 
 
-\begin{lem}\label{disjoint_union_ii}
-  Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
-  Then $\mathcal{G}'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
-  \begin{align*}
-    g'_1(n)
-     & = g_1(n)+\Oh(\log\log n)\enspace,   \\
-    g'_3(n)
-     & = g_3(n)+\Oh(\log\log n) \enspace .
-  \end{align*}
-\end{lem}
 
-\begin{proof}
-  By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
 
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
-  Thus, for each $v\in V(G)$,
-  \begin{equation}
-    \label{eq:nice}
-    \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
-  \end{equation}
-  By definition, $G^+:=\bigcup_{i=1}^m G^+_i$, where $G^+_1,\ldots,G^+_m$ are pairwise vertex-disjoint members of $\mathcal{G}$.
-  Therefore, $G:=\bigcup_{i=1}^m G_i$, where $G_i:=G[V(G^+_i)]$ is a spanning subgraph of $G^+_i$ for each $i\in[m]$.
+% \subsection{Disjoint Unions of Graphs}
+% \label{sec:disjoint}
 
-  \paragraph{\boldmath The subgraph label $\rho(x)$:}
-  Let $\psi:[m]\to\N^+$ be the weight function defined by $\psi(i):=\omega(G_i)$ and observe that $\psi([m])=\omega(G)$ since $G_1,\ldots,G_m$ are pairwise vertex-disjoint.
-  Apply \cref{shannon_fano_elias_code} to the set $[m]$ with weight function $\psi$ to obtain a prefix-free code $\rho:[m]\to\{0,1\}^*$ such that for each $i\in[m]$,
-  \begin{equation}
-    \label{eq:pi}
-    |\rho(i)|\le\log \omega(G)-\log \omega(G_i)+3\enspace.
-  \end{equation}
-  For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(v):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G^+_i$, define $\rho(K):=\rho(i)$.
+% \begin{lem}\label{disjoint_union_ii}
+%   Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
+%   Then $\mathcal{G}'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
+%   \begin{align*}
+%     g'_1(n)
+%      & = g_1(n)+\Oh(\log\log n)\enspace,   \\
+%     g'_3(n)
+%      & = g_3(n)+\Oh(\log\log n) \enspace .
+%   \end{align*}
+% \end{lem}
 
-  \paragraph{\boldmath The sub-label $\mu_i(x)$:}
-  Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
-  For each $i\in[m]$,
-  let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G_i^+, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
-  Thus, for each $i\in[m]$ and each $v\in V(G_i)$,
-  \begin{align}
-    \label{eq:mu}
-    \begin{split}
-      |\mu_i(v)|
-       & \leq \log\omega(G_i) - \log\omega(v) + g_1(|V(G_i)|) \\
-       & \leq \log\omega(G_i) - \log\omega(v) + g_1(n)
-    \end{split}
-    \intertext{and for each clique $K$ in $G^+_i$,}
-    \begin{split}
-      |\mu_i(K)|
-       &
-      \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(|V(G_i)|) \\
-       & \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n).
-    \end{split}
-    \label{eq:mu-K}
-  \end{align}
-  For each $i\in[m]$, and each vertex $v$ of $G_i$, define $\mu'(v):=\mu_i(v)$.
-  For each $i\in[m]$, and each clique $K$ of $G^+_i$, define $\mu'(K):=\mu_i(K)$.
+% \begin{proof}
+%   By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
 
-  \paragraph{\boldmath The vertex label $\mu(v)$:}
-  Let $A$ and $I$ denote the adjacency and identity testers, respectively, for the weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
-  For each $i\in[m]$ and each $v\in V(G_i)$, define
-  \[
-    \mu(v):=\langle \rho(v), \mu'(v) \rangle \enspace;
-  \]
-  thus
-  \begin{align*}
-    |\rho(v)| + |\mu_i(v)|
-     & \le \log\omega(G) -\log\omega(v)+3+g_1(n)                        &  & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},} \\
-     & \le \log n + 5 + g_1(n) = \mathcal{O}(\log n)                    &  & \textrm{by~\eqref{eq:nice},}
-    \intertext{and therefore}
-    |\mu(v)|
-     & \le |\rho(v)| + |\mu'(v)| + \Oh(\lgg |\rho(v)| + \lgg|\mu'(v)|)
-     & \text{by \eqref{encoding_cost}}                                                                                    \\
-     & \le \log\omega(G) -\log\omega(v)+g_1(n)+\Oh(\log\log n)\enspace.
-  \end{align*}
+%   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
+%   Thus, for each $v\in V(G)$,
+%   \begin{equation}
+%     \label{eq:nice}
+%     \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
+%   \end{equation}
+%   By definition, $G^+:=\bigcup_{i=1}^m G^+_i$, where $G^+_1,\ldots,G^+_m$ are pairwise vertex-disjoint members of $\mathcal{G}$.
+%   Therefore, $G:=\bigcup_{i=1}^m G_i$, where $G_i:=G[V(G^+_i)]$ is a spanning subgraph of $G^+_i$ for each $i\in[m]$.
 
-  \paragraph{Adjacency testing:} We now define an adjacency tester $A'$.
-  Given the labels $\mu(v)=\linebreak \langle\rho(v),\mu'(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w)\rangle$ for two vertices $v,w\in V(G)$, we compute $A'(\mu(v),\mu(w))$ as follows.
-  First $A'$ verifies if $\rho(v)=\rho(w)$.
-  If $\rho(v)\neq\rho(w)$, then $v$ and $w$ lie in different components of $G$, so they cannot be adjacent in $G$, and
-  we set $A'(\mu(v),\mu(w)):=0$.
-  If $\rho(v)=\rho(w)$, then $v$ and $w$ are both contained in the graph $G_i$, for some $i\in[m]$.  In this case
-  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu'(w)\rangle$.
-  In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu'(v), \mu'(w))$.
+%   \paragraph{\boldmath The subgraph label $\rho(x)$:}
+%   Let $\psi:[m]\to\N^+$ be the weight function defined by $\psi(i):=\omega(G_i)$ and observe that $\psi([m])=\omega(G)$ since $G_1,\ldots,G_m$ are pairwise vertex-disjoint.
+%   Apply \cref{shannon_fano_elias_code} to the set $[m]$ with weight function $\psi$ to obtain a prefix-free code $\rho:[m]\to\{0,1\}^*$ such that for each $i\in[m]$,
+%   \begin{equation}
+%     \label{eq:pi}
+%     |\rho(i)|\le\log \omega(G)-\log \omega(G_i)+3\enspace.
+%   \end{equation}
+%   For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(v):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G^+_i$, define $\rho(K):=\rho(i)$.
 
-  \paragraph{\boldmath The clique label $\mu(K)$:}
-  For each $i\in[m]$ and each clique $K$ in $G^+_i$, define
-  \[
-    \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
-  \]
-  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. Since $G^+$ is the disjoint union of $G^+_1,\ldots,G^+_m$, each clique is contained in exactly one component. If $K$ and $L$ are in different components $G^+_i$ and $G^+_j$, then $\rho(K)=\rho(i)\neq\rho(j)=\rho(L)$ since $\rho$ is a prefix-free code, so $\mu(K)\neq\mu(L)$. If they are in the same component $G^+_i$, then $\mu'(K)=\mu_i(K)\neq\mu_i(L)=\mu'(L)$ since $\mu_i$ is injective on cliques of $G^+_i$, which implies $\mu(K)\neq\mu(L)$.
+%   \paragraph{\boldmath The sub-label $\mu_i(x)$:}
+%   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
+%   For each $i\in[m]$,
+%   let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G_i^+, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
+%   Thus, for each $i\in[m]$ and each $v\in V(G_i)$,
+%   \begin{align}
+%     \label{eq:mu}
+%     \begin{split}
+%       |\mu_i(v)|
+%        & \leq \log\omega(G_i) - \log\omega(v) + g_1(|V(G_i)|) \\
+%        & \leq \log\omega(G_i) - \log\omega(v) + g_1(n)
+%     \end{split}
+%     \intertext{and for each clique $K$ in $G^+_i$,}
+%     \begin{split}
+%       |\mu_i(K)|
+%        &
+%       \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(|V(G_i)|) \\
+%        & \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n).
+%     \end{split}
+%     \label{eq:mu-K}
+%   \end{align}
+%   For each $i\in[m]$, and each vertex $v$ of $G_i$, define $\mu'(v):=\mu_i(v)$.
+%   For each $i\in[m]$, and each clique $K$ of $G^+_i$, define $\mu'(K):=\mu_i(K)$.
 
-  Thus,
-  \begin{align*}
-    |\rho(K)| + |\mu'(K)|
-     & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)                         \\
-     & \le \log n + 5 + g_3(n) = \mathcal{O}(\log n)                                    \\
-    \intertext{and therefore}
-    |\mu(K)|
-     & \le |\rho(K)| + |\mu'(K)| + \Oh(\lgg |\rho(K)| + \lgg|\mu'(K)|)
-     & \text{by \eqref{encoding_cost}}                                                  \\
-     & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+g_3(n)+\Oh(\log\log n) \enspace.
-  \end{align*}
+%   \paragraph{\boldmath The vertex label $\mu(v)$:}
+%   Let $A$ and $I$ denote the adjacency and identity testers, respectively, for the weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
+%   For each $i\in[m]$ and each $v\in V(G_i)$, define
+%   \[
+%     \mu(v):=\langle \rho(v), \mu'(v) \rangle \enspace;
+%   \]
+%   thus
+%   \begin{align*}
+%     |\rho(v)| + |\mu_i(v)|
+%      & \le \log\omega(G) -\log\omega(v)+3+g_1(n)                        &  & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},} \\
+%      & \le \log n + 5 + g_1(n) = \mathcal{O}(\log n)                    &  & \textrm{by~\eqref{eq:nice},}
+%     \intertext{and therefore}
+%     |\mu(v)|
+%      & \le |\rho(v)| + |\mu'(v)| + \Oh(\lgg |\rho(v)| + \lgg|\mu'(v)|)
+%      & \text{by \eqref{encoding_cost}}                                                                                    \\
+%      & \le \log\omega(G) -\log\omega(v)+g_1(n)+\Oh(\log\log n)\enspace.
+%   \end{align*}
 
-  \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
-  Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G^+_i$, and each $u\in K$. In particular,
-  \[
-    |\kappa(K,u)| \leq g_2(n).
-  \]
+%   \paragraph{Adjacency testing:} We now define an adjacency tester $A'$.
+%   Given the labels $\mu(v)=\linebreak \langle\rho(v),\mu'(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w)\rangle$ for two vertices $v,w\in V(G)$, we compute $A'(\mu(v),\mu(w))$ as follows.
+%   First $A'$ verifies if $\rho(v)=\rho(w)$.
+%   If $\rho(v)\neq\rho(w)$, then $v$ and $w$ lie in different components of $G$, so they cannot be adjacent in $G$, and
+%   we set $A'(\mu(v),\mu(w)):=0$.
+%   If $\rho(v)=\rho(w)$, then $v$ and $w$ are both contained in the graph $G_i$, for some $i\in[m]$.  In this case
+%   $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu'(w)\rangle$.
+%   In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu'(v), \mu'(w))$.
 
-  \paragraph{Identity testing:}
-  Define an identity tester $I'$ as follows.
-  Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$, and some $v\in V(G)$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
-  If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case, 
-  $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
-  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and
-  $\kappa(K,u)=\kappa_i(K,u)$.
-  In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu'(K),\kappa(K,u),\mu'(v))$.
-\end{proof}
+%   \paragraph{\boldmath The clique label $\mu(K)$:}
+%   For each $i\in[m]$ and each clique $K$ in $G^+_i$, define
+%   \[
+%     \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
+%   \]
+%   To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. Since $G^+$ is the disjoint union of $G^+_1,\ldots,G^+_m$, each clique is contained in exactly one component. If $K$ and $L$ are in different components $G^+_i$ and $G^+_j$, then $\rho(K)=\rho(i)\neq\rho(j)=\rho(L)$ since $\rho$ is a prefix-free code, so $\mu(K)\neq\mu(L)$. If they are in the same component $G^+_i$, then $\mu'(K)=\mu_i(K)\neq\mu_i(L)=\mu'(L)$ since $\mu_i$ is injective on cliques of $G^+_i$, which implies $\mu(K)\neq\mu(L)$.
 
-\subsection{Graphs with Skinny Tree-Decompositions}
-\label{sec:skinny}
+%   Thus,
+%   \begin{align*}
+%     |\rho(K)| + |\mu'(K)|
+%      & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)                         \\
+%      & \le \log n + 5 + g_3(n) = \mathcal{O}(\log n)                                    \\
+%     \intertext{and therefore}
+%     |\mu(K)|
+%      & \le |\rho(K)| + |\mu'(K)| + \Oh(\lgg |\rho(K)| + \lgg|\mu'(K)|)
+%      & \text{by \eqref{encoding_cost}}                                                  \\
+%      & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+g_3(n)+\Oh(\log\log n) \enspace.
+%   \end{align*}
 
-\begin{lem}\label{skinny_labelling}
-  Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
-  Let $k:\N\to\N^+$ and $b:\N\to\R^+$ be functions with $k(n)\in\Oh(\log n)$ and with $b(n)>1$ for all $n$.
-  Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted $b(n)$-skinny tree-decomposition of adhesion-width at most $k(n)$ in which each torso is a member of $\mathcal{G}$.
-  Let $g_i:\N\to\R$ be a non-decreasing function with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
-  Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
-  %\david{move the two previous sentences to before ``Let $k:\N\to\N^+$''}
-  %\vida{No. Because function $b$ is used in prevous sentence and defined in "Let $k:\N\to\N^+$" sentence}
-  Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g'_3)$ mixed labelling scheme, where
-  \begin{align*}
-    g'_1(n)
-     & = g_1(n) + \Oh(k(n)\log b(n) + k(n) \log\log n)\enspace, \\
-    g'_2(n)
-     & = g_2(n)+\Oh(\log b(n)+\log\log n)\enspace,              \\
-    g'_3(n)
-     & = g_3(n) + \Oh(k(n) + \log\log n)\enspace.
-  \end{align*}
-\end{lem}
+%   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
+%   Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G^+_i$, and each $u\in K$. In particular,
+%   \[
+%     |\kappa(K,u)| \leq g_2(n).
+%   \]
 
-\begin{proof}
-  By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
+%   \paragraph{Identity testing:}
+%   Define an identity tester $I'$ as follows.
+%   Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$, and some $v\in V(G)$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
+%   If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case, 
+%   $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
+%   $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and
+%   $\kappa(K,u)=\kappa_i(K,u)$.
+%   In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu'(K),\kappa(K,u),\mu'(v))$.
+% \end{proof}
 
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.  By definition, $G^+$ has a $b$-skinny tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ in which each torso belongs to $\mathcal{G}$ and each adhesion has size at most $k$, for integers $b =\lfloor b(n)\rfloor$ and $k = k(n)$. Note that $b,k\geq1$.
+% \subsection{Graphs with Skinny Tree-Decompositions}
+% \label{sec:skinny}
 
-  Let $p:=\height(T)+1$.
-  For each $i\in[p]$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Then $\mathcal{P}:=(B_1,\ldots,B_p)$ is a path-decomposition of $G$ in which each adhesion has size at most $bk$.
-  Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,p\}$, let $A_i:=B_i\cap B_{i-1}$.
+% \begin{lem}\label{skinny_labelling}
+%   Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union.
+%   Let $k:\N\to\N^+$ and $b:\N\to\R^+$ be functions with $k(n)\in\Oh(\log n)$ and with $b(n)>1$ for all $n$.
+%   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted $b(n)$-skinny tree-decomposition of adhesion-width at most $k(n)$ in which each torso is a member of $\mathcal{G}$.
+%   Let $g_i:\N\to\R$ be a non-decreasing function with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
+%   Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
+%   %\david{move the two previous sentences to before ``Let $k:\N\to\N^+$''}
+%   %\vida{No. Because function $b$ is used in prevous sentence and defined in "Let $k:\N\to\N^+$" sentence}
+%   Then $\mathcal{G}'$ admits a weighted $(g_1',g_2',g'_3)$ mixed labelling scheme, where
+%   \begin{align*}
+%     g'_1(n)
+%      & = g_1(n) + \Oh(k(n)\log b(n) + k(n) \log\log n)\enspace, \\
+%     g'_2(n)
+%      & = g_2(n)+\Oh(\log b(n)+\log\log n)\enspace,              \\
+%     g'_3(n)
+%      & = g_3(n) + \Oh(k(n) + \log\log n)\enspace.
+%   \end{align*}
+% \end{lem}
 
-  Let
-  \begin{align*}
-    G^\star
-     & := \cup\set{\torso{G^+}{\mathcal{T},B_x}\mid x\in V(T)}\enspace, \\
-    \intertext{and for each $i\in[p]$, let }
-    G^\star_i
-     & := G^\star[B_i]-A_i\enspace,                                     \\
-    G_i
-     & := G[B_i]-A_i\enspace.
-  \end{align*}
-  Note that for each $i\in[p]$ and each $x\in L_i(T)$, $\torso{G}{\mathcal{T},B_x}\in\mathcal{G}$
-  (by definition), and also since $\mathcal{G}$ is hereditary, $G^\star[B_x]\in\mathcal{G}$.  Since $\mathcal{G}$ is closed under disjoint union, $G^\star_i\in\mathcal{G}$.
+% \begin{proof}
+%   By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
 
-  \paragraph{\boldmath The layer label $\rho$:}
-  Define the weight function $\psi:[p]\to\N^+$ by $\psi(i):=\omega(G_i)$.
-  Since $\set{B_i\setminus A_i\mid i\in[p]}$ is a partition of $V(G)$, we have  that $\psi([p])=\sum_{i\in[p]}\psi(i)=\omega(G)$.
-  Apply \cref{shannon_fano_elias_tree} and \cref{shannon_fano_elias_code} to the set $[p]$ with weight function $\psi$, and let $T_\psi$ and $\rho:[p]\to\{0,1\}^*$ be the resulting binary tree and code, respectively.
-  For each $i\in[p]$ and each $v\in G_i$, define $\rho(v):=\rho(i)$, so
-  \begin{equation}
-    \label{eq:rho}
-    |\rho(v)| \leq \log\psi([p])-\log\psi(i)+3=\log\omega(G)-\log\omega(G_i)+3 \enspace .
-  \end{equation}
-  Also
-  \begin{equation}
-    \label{eq:height-T-psi}
-    \begin{split}
-      \height(T_{\psi})
-       & \leq \log\omega(G)-\log\omega(G_i)+3 \\
-       & \in\Oh(\log n)\enspace.
-    \end{split}
-  \end{equation}
+%   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.  By definition, $G^+$ has a $b$-skinny tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ in which each torso belongs to $\mathcal{G}$ and each adhesion has size at most $k$, for integers $b =\lfloor b(n)\rfloor$ and $k = k(n)$. Note that $b,k\geq1$.
 
-  Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
-  For each $i\in[p]$ let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G^\star_i, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
-  For each $i\in[p]$, each $v\in V(G_i)$, and each clique $K$ in $G^\star_i$,
-  \begin{align}
-    |\mu_i(v)|
-     & \le \log\omega(G_i) - \log\omega(v) + g_1(n)
-    \enspace,\label{eq:mu-i}                                                                   \\
-    |\mu_i(K)|
-     & \le \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n)\enspace , \label{eq:mu-i-K}
-    \intertext{and for each $u\in K$,}
-    |\kappa_i(K,u)|
-     & \le g_2(n) \enspace.
-  \end{align}
-  For each $i\in[p]$ and each $v\in B_i\setminus A_i$, let
-  \[
-    \mu'(v):=\mu_i(v).
-  \]
+%   Let $p:=\height(T)+1$.
+%   For each $i\in[p]$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Then $\mathcal{P}:=(B_1,\ldots,B_p)$ is a path-decomposition of $G$ in which each adhesion has size at most $bk$.
+%   Let $A_1:=\emptyset$ and, for each $i\in\{2,\ldots,p\}$, let $A_i:=B_i\cap B_{i-1}$.
 
-  \paragraph{\boldmath The adhesion identifier $\beta(v)=(d(v),\varphi(v))$:}
-  For each vertex $v$ in $G$, let
-  \begin{align*}
-    a(v)
-     & := \min\set{i\in[p]\mid v\in B_i}\enspace, \\
-    b(v)
-     & := \max\set{i\in[p]\mid v\in B_i}\enspace, \\
-    \lca(v)
-     & :=\lca(T_{\psi},\set{a(v),b(v)})\enspace,  \\
-    d(v)
-     & := \depth_{T_{\psi}}(\lca(v))\enspace.
-  \end{align*}
+%   Let
+%   \begin{align*}
+%     G^\star
+%      & := \cup\set{\torso{G^+}{\mathcal{T},B_x}\mid x\in V(T)}\enspace, \\
+%     \intertext{and for each $i\in[p]$, let }
+%     G^\star_i
+%      & := G^\star[B_i]-A_i\enspace,                                     \\
+%     G_i
+%      & := G[B_i]-A_i\enspace.
+%   \end{align*}
+%   Note that for each $i\in[p]$ and each $x\in L_i(T)$, $\torso{G}{\mathcal{T},B_x}\in\mathcal{G}$
+%   (by definition), and also since $\mathcal{G}$ is hereditary, $G^\star[B_x]\in\mathcal{G}$.  Since $\mathcal{G}$ is closed under disjoint union, $G^\star_i\in\mathcal{G}$.
 
-  Let $C:=\bigcup_{i\in[p]} A_i$  be the set of vertices of $G$ that participate in adhesions.
-  Let $x$ be a node in $T_{\psi}$.
-  Define $L_x := \set{v\in C \mid \lca(v)=x}$.
-  We claim that $|L_x| \leq bk$.
-  In order to prove this, consider a vertex $v\in C$ such that $\lca(v)=x$.
-  Since $v\in C$, we have that $a(v) < b(v)$, so
-  $\lca(v)=x$ must have two children in $T_{\psi}$.
-  Consider the largest leaf $i$ in the subtree of the left child of $x$ in $T_{\psi}$ and
-  the smallest leaf $j$ in the subtree of the right child of $x$ in $T_{\psi}$.
-  Then, $j=i+1$, and  $a(v)\leq i < i+1 \leq b(v)$.
-  Therefore, $v\in B_{i}\cap B_{i+1}$.
-  We conclude that
-  $|L_x| \leq |B_i\cap B_{i+1}| \leq bk$, as desired.
+%   \paragraph{\boldmath The layer label $\rho$:}
+%   Define the weight function $\psi:[p]\to\N^+$ by $\psi(i):=\omega(G_i)$.
+%   Since $\set{B_i\setminus A_i\mid i\in[p]}$ is a partition of $V(G)$, we have  that $\psi([p])=\sum_{i\in[p]}\psi(i)=\omega(G)$.
+%   Apply \cref{shannon_fano_elias_tree} and \cref{shannon_fano_elias_code} to the set $[p]$ with weight function $\psi$, and let $T_\psi$ and $\rho:[p]\to\{0,1\}^*$ be the resulting binary tree and code, respectively.
+%   For each $i\in[p]$ and each $v\in G_i$, define $\rho(v):=\rho(i)$, so
+%   \begin{equation}
+%     \label{eq:rho}
+%     |\rho(v)| \leq \log\psi([p])-\log\psi(i)+3=\log\omega(G)-\log\omega(G_i)+3 \enspace .
+%   \end{equation}
+%   Also
+%   \begin{equation}
+%     \label{eq:height-T-psi}
+%     \begin{split}
+%       \height(T_{\psi})
+%        & \leq \log\omega(G)-\log\omega(G_i)+3 \\
+%        & \in\Oh(\log n)\enspace.
+%     \end{split}
+%   \end{equation}
 
-  For each node $x$ in $T_{\psi}$, define $\varphi_x: L_x\to[bk]$ to be an arbitrary injective function (which exists because $|L_x|\le bk$). Now,  define $\varphi: C\to [bk]$ so that
-  $\varphi(v):=\varphi_{\lca(v)}(v)$ for each $v\in C$.
+%   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
+%   For each $i\in[p]$ let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G^\star_i, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
+%   For each $i\in[p]$, each $v\in V(G_i)$, and each clique $K$ in $G^\star_i$,
+%   \begin{align}
+%     |\mu_i(v)|
+%      & \le \log\omega(G_i) - \log\omega(v) + g_1(n)
+%     \enspace,\label{eq:mu-i}                                                                   \\
+%     |\mu_i(K)|
+%      & \le \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n)\enspace , \label{eq:mu-i-K}
+%     \intertext{and for each $u\in K$,}
+%     |\kappa_i(K,u)|
+%      & \le g_2(n) \enspace.
+%   \end{align}
+%   For each $i\in[p]$ and each $v\in B_i\setminus A_i$, let
+%   \[
+%     \mu'(v):=\mu_i(v).
+%   \]
 
-  For each $v\in V(G)$, let
-  \[
-    \beta(v) :=
-    \begin{cases}\langle d(v),\varphi(v)\rangle & \textrm{if $v\in C$,}     \\
-             \langle \varepsilon\rangle     & \textrm{if $v\not\in C$.}
-    \end{cases}
-  \]
-  Clearly,
-  \begin{align}
-    |\bin(d(v))|+|\bin(\varphi(v))|
-     & \leq \lceil\log(\height(T_{\psi})+1)\rceil+\lceil\log(bk+1)\rceil \notag                                       \\
-     & \in\Oh(\log\log n +\log(bk))                                             & \textrm{by~\eqref{eq:height-T-psi}}
-    \label{beta_v_size}                                                                                               \\
-     & =\Oh(\log\log n + \log b),                                               & \textrm{since $k(n)\in\Oh(\log n)$}
-  \end{align}
-  and
-  \begin{align*}
-    |\beta(v)|
-     & \leq |\bin(d(v))|+|\bin(\varphi(v))| + \Oh(1)+ \Oh(\lgg|\bin(d(v))|+\lgg|\bin(\varphi(v))|)
-     & \text{by \eqref{encoding_cost}}                                                             \\
-     & = \Oh(\log\log n +\log b)\enspace.
-  \end{align*}
-  Finally, for each $i\in[p]$ and each $w\in V(G_i)$, let
-  \[
-    \alpha(w):=\langle\beta(v)\mid v\in N_G(w)\cap A_i\rangle\enspace.
-  \]
-  Note that $|N_G(w)\cap A_i| \leq k$; indeed, if $w\in B_x$ with $x\in V(T)$ and $y$ is the parent of $x$ in $T$, then $N_G(w)\cap A_i \subseteq B_x\cap B_y$, and $|B_x\cap B_y|\leq k$ since $\mathcal{T}$ has adhesion-width at most $k$.
-  Therefore,
-  \begin{align}
-    \begin{split}
-      |\alpha(w)|
-       & \le \textstyle\sum_{v\in N_G(w)\cap A_i}|\beta(v)| + \Oh(\lgg|N_G(w)\cap A_i|) + \Oh(\textstyle\sum_{v\in N_G(w)\cap A_i}\lgg|\beta(v)|) \\% &  \text{by \eqref{encoding_cost}}\\
-       & \in\Oh(k\log\log n + k\log b)\enspace,                                                                                                   % & \text{by \eqref{beta_v_size}}
-    \end{split}
-    \label{alpha_len}
-  \end{align}
-  which follows by~\eqref{encoding_cost} and \eqref{beta_v_size}.
+%   \paragraph{\boldmath The adhesion identifier $\beta(v)=(d(v),\varphi(v))$:}
+%   For each vertex $v$ in $G$, let
+%   \begin{align*}
+%     a(v)
+%      & := \min\set{i\in[p]\mid v\in B_i}\enspace, \\
+%     b(v)
+%      & := \max\set{i\in[p]\mid v\in B_i}\enspace, \\
+%     \lca(v)
+%      & :=\lca(T_{\psi},\set{a(v),b(v)})\enspace,  \\
+%     d(v)
+%      & := \depth_{T_{\psi}}(\lca(v))\enspace.
+%   \end{align*}
 
-  \paragraph{\boldmath The vertex label $\mu(v)$:}
-  For each $v\in V(G)$, define
-  \[
-    \mu(v):=
-    \langle \rho(v)\,,\, \mu'(v)\,,\, \alpha(v)\,,\, \beta(v) \rangle \enspace .
-  \]
-  For each $v\in V(G)$,
-  \begin{align}
-    |\rho(v)|+|\mu'(v)|
-     & \le \log\omega(G)-\log\omega(v)+g_1(n)+3 &  & \textrm{by~\eqref{eq:rho} and~\eqref{eq:mu-i}} \label{rho_mu_len} \\
-     & \in \Oh(\log n) \enspace ,               &  & \textrm{since $\omega$ is nice and $g_1\in\Oh(\log n)$.}
-    \label{rho_mu_len_x}
-  \end{align}
-  Therefore, for each $v\in V(G)$, \eqref{rho_mu_len},~\eqref{alpha_len},~and \eqref{beta_v_size} imply
-  \begin{align*}
-    |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)|
-     & \leq
-    \log\omega(G)-\log\omega(v) + g_1(n) + \Oh(k\log\log n+k\log(bk)) \\
-     & \in\Oh(\log n + k\log\log n+k\log b)\enspace,
-  \end{align*}
-  and
-  \begin{align*}
-    |\mu(v)|
-     & \leq |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)| + \Oh(\lgg|\rho(v)|+\lgg|\mu'(v)| + \lgg|\alpha(v)| + \lgg|\beta(v)|) \\
-     & \leq \log\omega(G)-\log\omega(v) + g_1(n) + \Oh(k\log\log n+k\log b) \enspace .
-  \end{align*}
-  Thus, $\mu$ satisfies the condition on $g'_1(n)$.
+%   Let $C:=\bigcup_{i\in[p]} A_i$  be the set of vertices of $G$ that participate in adhesions.
+%   Let $x$ be a node in $T_{\psi}$.
+%   Define $L_x := \set{v\in C \mid \lca(v)=x}$.
+%   We claim that $|L_x| \leq bk$.
+%   In order to prove this, consider a vertex $v\in C$ such that $\lca(v)=x$.
+%   Since $v\in C$, we have that $a(v) < b(v)$, so
+%   $\lca(v)=x$ must have two children in $T_{\psi}$.
+%   Consider the largest leaf $i$ in the subtree of the left child of $x$ in $T_{\psi}$ and
+%   the smallest leaf $j$ in the subtree of the right child of $x$ in $T_{\psi}$.
+%   Then, $j=i+1$, and  $a(v)\leq i < i+1 \leq b(v)$.
+%   Therefore, $v\in B_{i}\cap B_{i+1}$.
+%   We conclude that
+%   $|L_x| \leq |B_i\cap B_{i+1}| \leq bk$, as desired.
 
-  \paragraph{Adjacency Testing:}
-  Now that the vertex labels are defined, we can describe the adjacency testing function $A'$.
-  Given the labels $\mu(v)=\langle\rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w),\alpha(w),\beta(w)\rangle$ for two vertices $v$ and $w$ of $G$, the adjacency tester $A'$ works as follows. First, the tester compares $\rho(v)$ and $\rho(w)$:
-  \begin{itemize}
-    \item If $\rho(v)=\rho(w)$ then $v$ and $w$ are both vertices of $G_i$, for some $i\in[p]$, and $vw\in E(G)$ if and only if $vw\in E(G_i)$.  In this case, we set $A'(\mu(v),\mu(w))=A(\mu'(v),\mu'(w))=A(\mu_i(v),\mu_i(w))$.
-    %\david{use := here}
-    %\vida{I did not do this, because I needed to figure out which of the two = should be := and I am out of time}
+%   For each node $x$ in $T_{\psi}$, define $\varphi_x: L_x\to[bk]$ to be an arbitrary injective function (which exists because $|L_x|\le bk$). Now,  define $\varphi: C\to [bk]$ so that
+%   $\varphi(v):=\varphi_{\lca(v)}(v)$ for each $v\in C$.
 
-    \item If $\rho(v)\neq\rho(w)$ then assume without loss of generality that $\rho(v)$ is lexicographically less than $\rho(w)$. In this case $v\in V(G_i)$ and $w\in V(G_j)$ for $i=a(v)<a(w)=j$. The edge $vw$ can only be present in $G$ if $v\in A_j$. First the tester checks whether $\beta(v)$ is not empty to see if $v\in C$. If $\beta(v)=\langle\varepsilon\rangle$, then $v\not\in C$, and  $v\not\in A_j$, so $A'(\mu(v),\mu(w))=0$.
+%   For each $v\in V(G)$, let
+%   \[
+%     \beta(v) :=
+%     \begin{cases}\langle d(v),\varphi(v)\rangle & \textrm{if $v\in C$,}     \\
+%              \langle \varepsilon\rangle     & \textrm{if $v\not\in C$.}
+%     \end{cases}
+%   \]
+%   Clearly,
+%   \begin{align}
+%     |\bin(d(v))|+|\bin(\varphi(v))|
+%      & \leq \lceil\log(\height(T_{\psi})+1)\rceil+\lceil\log(bk+1)\rceil \notag                                       \\
+%      & \in\Oh(\log\log n +\log(bk))                                             & \textrm{by~\eqref{eq:height-T-psi}}
+%     \label{beta_v_size}                                                                                               \\
+%      & =\Oh(\log\log n + \log b),                                               & \textrm{since $k(n)\in\Oh(\log n)$}
+%   \end{align}
+%   and
+%   \begin{align*}
+%     |\beta(v)|
+%      & \leq |\bin(d(v))|+|\bin(\varphi(v))| + \Oh(1)+ \Oh(\lgg|\bin(d(v))|+\lgg|\bin(\varphi(v))|)
+%      & \text{by \eqref{encoding_cost}}                                                             \\
+%      & = \Oh(\log\log n +\log b)\enspace.
+%   \end{align*}
+%   Finally, for each $i\in[p]$ and each $w\in V(G_i)$, let
+%   \[
+%     \alpha(w):=\langle\beta(v)\mid v\in N_G(w)\cap A_i\rangle\enspace.
+%   \]
+%   Note that $|N_G(w)\cap A_i| \leq k$; indeed, if $w\in B_x$ with $x\in V(T)$ and $y$ is the parent of $x$ in $T$, then $N_G(w)\cap A_i \subseteq B_x\cap B_y$, and $|B_x\cap B_y|\leq k$ since $\mathcal{T}$ has adhesion-width at most $k$.
+%   Therefore,
+%   \begin{align}
+%     \begin{split}
+%       |\alpha(w)|
+%        & \le \textstyle\sum_{v\in N_G(w)\cap A_i}|\beta(v)| + \Oh(\lgg|N_G(w)\cap A_i|) + \Oh(\textstyle\sum_{v\in N_G(w)\cap A_i}\lgg|\beta(v)|) \\% &  \text{by \eqref{encoding_cost}}\\
+%        & \in\Oh(k\log\log n + k\log b)\enspace,                                                                                                   % & \text{by \eqref{beta_v_size}}
+%     \end{split}
+%     \label{alpha_len}
+%   \end{align}
+%   which follows by~\eqref{encoding_cost} and \eqref{beta_v_size}.
 
-          Otherwise, $\beta(v)=\langle d(v),\varphi(v)\rangle$.  Then the length-$d(v)$ prefix of $\rho(v)$ defines the path from the root of $T_\psi$ to $\lca(v)$.  By definition, $\lca(v)$ is a $T_\psi$-ancestor of all integers in $[a(v),b(v)]$. In this case, the tester checks if $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  If they do not, then $\lca(v)$ is not a $T_\psi$-ancestor of $j=a(w)$, so $j\not\in[a(v),b(v)]$.  Therefore, $v\not\in B_{j}$, which implies $v\not\in A_j$. Therefore $vw\not\in E(G)$, so $A'(\mu(v),\mu(w))=0$.
+%   \paragraph{\boldmath The vertex label $\mu(v)$:}
+%   For each $v\in V(G)$, define
+%   \[
+%     \mu(v):=
+%     \langle \rho(v)\,,\, \mu'(v)\,,\, \alpha(v)\,,\, \beta(v) \rangle \enspace .
+%   \]
+%   For each $v\in V(G)$,
+%   \begin{align}
+%     |\rho(v)|+|\mu'(v)|
+%      & \le \log\omega(G)-\log\omega(v)+g_1(n)+3 &  & \textrm{by~\eqref{eq:rho} and~\eqref{eq:mu-i}} \label{rho_mu_len} \\
+%      & \in \Oh(\log n) \enspace ,               &  & \textrm{since $\omega$ is nice and $g_1\in\Oh(\log n)$.}
+%     \label{rho_mu_len_x}
+%   \end{align}
+%   Therefore, for each $v\in V(G)$, \eqref{rho_mu_len},~\eqref{alpha_len},~and \eqref{beta_v_size} imply
+%   \begin{align*}
+%     |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)|
+%      & \leq
+%     \log\omega(G)-\log\omega(v) + g_1(n) + \Oh(k\log\log n+k\log(bk)) \\
+%      & \in\Oh(\log n + k\log\log n+k\log b)\enspace,
+%   \end{align*}
+%   and
+%   \begin{align*}
+%     |\mu(v)|
+%      & \leq |\rho(v)|+|\mu'(v)| + |\alpha(v)| + |\beta(v)| + \Oh(\lgg|\rho(v)|+\lgg|\mu'(v)| + \lgg|\alpha(v)| + \lgg|\beta(v)|) \\
+%      & \leq \log\omega(G)-\log\omega(v) + g_1(n) + \Oh(k\log\log n+k\log b) \enspace .
+%   \end{align*}
+%   Thus, $\mu$ satisfies the condition on $g'_1(n)$.
 
-          Suppose that $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  Then $j\in [a(v),b(v)]$ and $v\in A_j$. In this case the tester inspects each item of $\alpha(w)$. Let $(d_0,\varphi_0)$ be such an item and say that $(d(u_0),\varphi(u_0))=(d_0,\varphi_0)$ for $u_0 \in N_G(w)\cap A_j$. Since $u_0 \in A_j$, we have that $j\in[a(u_0),b(u_0)]$. Therefore, both nodes $\lca(v)$ and $\lca(u_0)$ are $T_\psi$-ancestors of $j$. In other words, both $\lca(v)$ and $\lca(u_0)$ lie on the path from the root to $j$ in $T_{\psi}$. Therefore, $\lca(v)=\lca(u_0)$ if and only if $d(v)=d(u_0)$. Furthermore, $v=u_0$ if and only if $(d(v),\varphi(v))=(d(u_0),\varphi(u_0))$. Thus, if $(d_0,\varphi_0)=(d(v),\varphi(v))$ then the tester concludes that the corresponding neighbour $u_0=v$, so $A'(\mu(v),\mu(w))=1$. Finally, if no item $(d_0,\varphi_0)$ in $\alpha(w)$ satisfies $(d_0,\varphi_0)=(d(v),\varphi(v))$, then $v\not\in N_G(w)\cap A_j$ so $v$ and $w$ are not adjacent in $G$, and we set $A'(\mu(v),\mu(w))=0$.
-  \end{itemize}
+%   \paragraph{Adjacency Testing:}
+%   Now that the vertex labels are defined, we can describe the adjacency testing function $A'$.
+%   Given the labels $\mu(v)=\langle\rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w),\alpha(w),\beta(w)\rangle$ for two vertices $v$ and $w$ of $G$, the adjacency tester $A'$ works as follows. First, the tester compares $\rho(v)$ and $\rho(w)$:
+%   \begin{itemize}
+%     \item If $\rho(v)=\rho(w)$ then $v$ and $w$ are both vertices of $G_i$, for some $i\in[p]$, and $vw\in E(G)$ if and only if $vw\in E(G_i)$.  In this case, we set $A'(\mu(v),\mu(w))=A(\mu'(v),\mu'(w))=A(\mu_i(v),\mu_i(w))$.
+%     %\david{use := here}
+%     %\vida{I did not do this, because I needed to figure out which of the two = should be := and I am out of time}
 
-  \paragraph{\boldmath The clique labels $\mu(K)$ and local identifiers $\kappa(K,v)$:}
-  For each clique $K$ in $G^\star$,
-  let
-  \[
-    j(K):=\min\{j\in[p]:K\subseteq B_1\cup\cdots\cup B_j\}\enspace.
-  \]
-  Fix some clique $K$ in $G^\star$  and let $j=j(K)$.  By the definition of $j(K)$, we have that $B_j\cap K\setminus A_j=K\setminus A_j$ is non-empty.
-  Therefore $K\setminus A_j$ is assigned a label $\mu_j(K\setminus A_j)$ in the mixed labelling of $(G^\star_j,G_j,\omega_{|V(G_j)})$ for $(A,I)$.
-  Since $K\setminus A_j$ is non-empty, let $v$ be an arbitrary vertex in $K\setminus A_j$. Let $x=\lca(v)$, so $x\in L_j(T)$ and $v\in B_x\setminus B_y$, where $y$ is the parent of $x$ in $T$ (if $x$ is the root, let $B_y=\emptyset$). Since the sets $B_z\setminus B_{z'}$ are disjoint for all nodes $z\in L_j(T)$ with parent $z'$, the node $x$ is uniquely determined by $K\setminus A_j$. Because $K$ is a clique, $K\subseteq B_x$, and thus $K\cap A_j \subseteq B_x \cap B_y$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|B_x \cap B_y|\le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $B_x\cap B_y$ (ordered canonically, for example by their $\beta$ values) belongs to $K$.
-  Define the clique label
-  \[
-    \mu(K):=\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle \enspace .
-  \]
-  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^\star$. If $j(K)\neq j(L)$, their first parts differ since $\rho$ is a prefix-free code. If $j(K)=j(L)=j$, then either $K\setminus A_j\neq L\setminus A_j$ or $K\cap A_j\neq L\cap A_j$. In the former case, $\mu_j(K\setminus A_j)\neq \mu_j(L\setminus A_j)$ since $\mu_j$ is injective on cliques of $G^\star_j$. In the latter case, $K\setminus A_j=L\setminus A_j$ implies they belong to the same bag $B_x$, so $c(K)\neq c(L)$. Thus $\mu(K)\neq \mu(L)$.
+%     \item If $\rho(v)\neq\rho(w)$ then assume without loss of generality that $\rho(v)$ is lexicographically less than $\rho(w)$. In this case $v\in V(G_i)$ and $w\in V(G_j)$ for $i=a(v)<a(w)=j$. The edge $vw$ can only be present in $G$ if $v\in A_j$. First the tester checks whether $\beta(v)$ is not empty to see if $v\in C$. If $\beta(v)=\langle\varepsilon\rangle$, then $v\not\in C$, and  $v\not\in A_j$, so $A'(\mu(v),\mu(w))=0$.
 
-  Then
-  \begin{align}
-    |\rho(j)|+|\mu_j(K\setminus A_j)| + |c(K)|
-     & \le \log\omega(G)-\log\min_{v\in K\setminus A_j}(\omega(v))+g_3(n)+3+k
-     & \textrm{by~\eqref{eq:mu-i-K}}                                                      \\
-     & \le \log\omega(G)-\log\min_{v\in K}(\omega(v))+g_3(n)+k+3   \label{rho_mu_k_len_i} \\
-     & \in \Oh(\log n)
-    \label{rho_mu_k_len}
-  \end{align}
-  since $\omega$ is nice, $g_3(n)\in\Oh(\log n)$, and $k\in\Oh(\log n)$.  Thus
-  \begin{align*}
-    |\mu(K)|
-     & \le |\rho(j)|+|\mu_j(K\setminus A_j)|+|c(K)| + \Oh(\lgg|\rho(j)|+\lgg|\mu_j(K\setminus A_j)|+\lgg|c(K)|)                                                                         \\
-     & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n)+\Oh(k+\log\log n)                                & \text{by \eqref{rho_mu_k_len_i} and \eqref{rho_mu_k_len} } \enspace .
-  \end{align*}
-  Thus, $\mu$ satisfies the condition on $g'_3(n)$.
+%           Otherwise, $\beta(v)=\langle d(v),\varphi(v)\rangle$.  Then the length-$d(v)$ prefix of $\rho(v)$ defines the path from the root of $T_\psi$ to $\lca(v)$.  By definition, $\lca(v)$ is a $T_\psi$-ancestor of all integers in $[a(v),b(v)]$. In this case, the tester checks if $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  If they do not, then $\lca(v)$ is not a $T_\psi$-ancestor of $j=a(w)$, so $j\not\in[a(v),b(v)]$.  Therefore, $v\not\in B_{j}$, which implies $v\not\in A_j$. Therefore $vw\not\in E(G)$, so $A'(\mu(v),\mu(w))=0$.
 
-  Recall that the local identifier $\kappa_j(K\setminus A_j,u)$ is defined for each $u\in K\setminus A_j$.
-  For each $u\in K$, define
-  \[
-    \kappa(K,u):=
-    \begin{cases}
-      \langle 0,\kappa_j(K\setminus A_j,u)\rangle & \text{if $u\in B_j\setminus A_j$} \\
-      \langle 1,\beta(u)\rangle                   & \text{if $u\in A_j$.}
-    \end{cases}
-  \]
-  In the first case, $|\kappa(K,u)|\le g_2(n)+\Oh(\log\log n)$.
-  In the second case, $|\kappa(K,u)|\in \Oh(\log (b)+\log\log n)$.  Thus, $\kappa$ satisfies the requirements for $g'_2(n)$.
+%           Suppose that $\rho(v)$ and $\rho(w)$ have the same prefix of length $d(v)$.  Then $j\in [a(v),b(v)]$ and $v\in A_j$. In this case the tester inspects each item of $\alpha(w)$. Let $(d_0,\varphi_0)$ be such an item and say that $(d(u_0),\varphi(u_0))=(d_0,\varphi_0)$ for $u_0 \in N_G(w)\cap A_j$. Since $u_0 \in A_j$, we have that $j\in[a(u_0),b(u_0)]$. Therefore, both nodes $\lca(v)$ and $\lca(u_0)$ are $T_\psi$-ancestors of $j$. In other words, both $\lca(v)$ and $\lca(u_0)$ lie on the path from the root to $j$ in $T_{\psi}$. Therefore, $\lca(v)=\lca(u_0)$ if and only if $d(v)=d(u_0)$. Furthermore, $v=u_0$ if and only if $(d(v),\varphi(v))=(d(u_0),\varphi(u_0))$. Thus, if $(d_0,\varphi_0)=(d(v),\varphi(v))$ then the tester concludes that the corresponding neighbour $u_0=v$, so $A'(\mu(v),\mu(w))=1$. Finally, if no item $(d_0,\varphi_0)$ in $\alpha(w)$ satisfies $(d_0,\varphi_0)=(d(v),\varphi(v))$, then $v\not\in N_G(w)\cap A_j$ so $v$ and $w$ are not adjacent in $G$, and we set $A'(\mu(v),\mu(w))=0$.
+%   \end{itemize}
 
-  \paragraph{Identity Testing:}
-  We now describe the identity testing function $I'$.
-  Suppose $I'$ is given the labels $\mu(K)$, $\kappa(K,u)$, and $\mu(v)=\langle \rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ for some clique $K$ in $G^\star$, some $u\in K$, and some $v\in V(G)$. The label $\mu(K)$ always has the form $\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle$ where $j=j(K)$. The identity tester $I'$ simply ignores the third part of $\mu(K)$ and extracts $\rho(j)$ and $\mu_j(K\setminus A_j)$.
-  The identity tester $I'$ first compares $\rho(j)$ and $\rho(v)=\rho(a(v))$.
-  \begin{itemize}
-    \item If $\rho(j)$ is lexicographically smaller than $\rho(a(v))$, then $j<a(v)$.  Since $K\subseteq\bigcup_{i=1}^j B_i$ and $v\not\in B_{j'}$ for any $j'<a(v)$, this implies that $v\not\in K$.  Therefore $v\neq u$, since $u\in K$. In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+%   \paragraph{\boldmath The clique labels $\mu(K)$ and local identifiers $\kappa(K,v)$:}
+%   For each clique $K$ in $G^\star$,
+%   let
+%   \[
+%     j(K):=\min\{j\in[p]:K\subseteq B_1\cup\cdots\cup B_j\}\enspace.
+%   \]
+%   Fix some clique $K$ in $G^\star$  and let $j=j(K)$.  By the definition of $j(K)$, we have that $B_j\cap K\setminus A_j=K\setminus A_j$ is non-empty.
+%   Therefore $K\setminus A_j$ is assigned a label $\mu_j(K\setminus A_j)$ in the mixed labelling of $(G^\star_j,G_j,\omega_{|V(G_j)})$ for $(A,I)$.
+%   Since $K\setminus A_j$ is non-empty, let $v$ be an arbitrary vertex in $K\setminus A_j$. Let $x=\lca(v)$, so $x\in L_j(T)$ and $v\in B_x\setminus B_y$, where $y$ is the parent of $x$ in $T$ (if $x$ is the root, let $B_y=\emptyset$). Since the sets $B_z\setminus B_{z'}$ are disjoint for all nodes $z\in L_j(T)$ with parent $z'$, the node $x$ is uniquely determined by $K\setminus A_j$. Because $K$ is a clique, $K\subseteq B_x$, and thus $K\cap A_j \subseteq B_x \cap B_y$. Since $\mathcal{T}$ has adhesion-width at most $k$, $|B_x \cap B_y|\le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $B_x\cap B_y$ (ordered canonically, for example by their $\beta$ values) belongs to $K$.
+%   Define the clique label
+%   \[
+%     \mu(K):=\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle \enspace .
+%   \]
+%   To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^\star$. If $j(K)\neq j(L)$, their first parts differ since $\rho$ is a prefix-free code. If $j(K)=j(L)=j$, then either $K\setminus A_j\neq L\setminus A_j$ or $K\cap A_j\neq L\cap A_j$. In the former case, $\mu_j(K\setminus A_j)\neq \mu_j(L\setminus A_j)$ since $\mu_j$ is injective on cliques of $G^\star_j$. In the latter case, $K\setminus A_j=L\setminus A_j$ implies they belong to the same bag $B_x$, so $c(K)\neq c(L)$. Thus $\mu(K)\neq \mu(L)$.
 
-    \item If $\rho(j)=\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_j\setminus A_j$.
-          In this case, $v$ can only be equal to $u$ if $u\in K\setminus A_j$.
-          The first part $b$ of $\kappa(K,u)$ is a single bit that indicates if $u\in K\setminus A_j$.  If $b=1$ then $u\not\in K\setminus A_j$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=0$ then $u\in K\setminus A_j$ and $\kappa(K,u)=\langle 0,\kappa_j(K\setminus A_j,u)\rangle$.
-          In this case, $\mu'(v)=\mu_j(v)$ and we set
-          $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_j(K\setminus A_j),\kappa_j(K\setminus A_j,u),\mu_j(v))$.
+%   Then
+%   \begin{align}
+%     |\rho(j)|+|\mu_j(K\setminus A_j)| + |c(K)|
+%      & \le \log\omega(G)-\log\min_{v\in K\setminus A_j}(\omega(v))+g_3(n)+3+k
+%      & \textrm{by~\eqref{eq:mu-i-K}}                                                      \\
+%      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v))+g_3(n)+k+3   \label{rho_mu_k_len_i} \\
+%      & \in \Oh(\log n)
+%     \label{rho_mu_k_len}
+%   \end{align}
+%   since $\omega$ is nice, $g_3(n)\in\Oh(\log n)$, and $k\in\Oh(\log n)$.  Thus
+%   \begin{align*}
+%     |\mu(K)|
+%      & \le |\rho(j)|+|\mu_j(K\setminus A_j)|+|c(K)| + \Oh(\lgg|\rho(j)|+\lgg|\mu_j(K\setminus A_j)|+\lgg|c(K)|)                                                                         \\
+%      & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n)+\Oh(k+\log\log n)                                & \text{by \eqref{rho_mu_k_len_i} and \eqref{rho_mu_k_len} } \enspace .
+%   \end{align*}
+%   Thus, $\mu$ satisfies the condition on $g'_3(n)$.
 
-    \item If $\rho(j)$ is lexicographically larger than $\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_i\setminus A_i$ for some $i=a(v) < j$.  The tester examines the first part $b$ of $\kappa(K,u)$ to determine if $u\in K\setminus A_j$.  If $b=0$ then  $u\in B_j\setminus A_j$ and $v\in B_i\setminus A_i$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=1$ then $u\in A_j$ and $\kappa(K,u)=\langle 1,\beta(u)\rangle$. Since $u\in A_j$, $a(u) < j\le b(u)$.
+%   Recall that the local identifier $\kappa_j(K\setminus A_j,u)$ is defined for each $u\in K\setminus A_j$.
+%   For each $u\in K$, define
+%   \[
+%     \kappa(K,u):=
+%     \begin{cases}
+%       \langle 0,\kappa_j(K\setminus A_j,u)\rangle & \text{if $u\in B_j\setminus A_j$} \\
+%       \langle 1,\beta(u)\rangle                   & \text{if $u\in A_j$.}
+%     \end{cases}
+%   \]
+%   In the first case, $|\kappa(K,u)|\le g_2(n)+\Oh(\log\log n)$.
+%   In the second case, $|\kappa(K,u)|\in \Oh(\log (b)+\log\log n)$.  Thus, $\kappa$ satisfies the requirements for $g'_2(n)$.
 
-          In particular, $u\in A_j$, so $\lca(u)$ is a $T_\psi$-ancestor of $j$.   Therefore, the first $d(u)$ bits of $\rho(j)$ are equal to the first $d(u)$ bits of $\rho(u)$.  The first $d(u)$ bits of $\rho(u)$ describe the path from the root of $T_\psi$ to $\lca(u)$.  The tester then compares the first $d(u)$ bits of $\rho(j)$ to the first $d(u)$ bits of $\rho(v)$.  If these are not equal,  then $\lca(u)\neq\lca(v)$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+%   \paragraph{Identity Testing:}
+%   We now describe the identity testing function $I'$.
+%   Suppose $I'$ is given the labels $\mu(K)$, $\kappa(K,u)$, and $\mu(v)=\langle \rho(v),\mu'(v),\alpha(v),\beta(v)\rangle$ for some clique $K$ in $G^\star$, some $u\in K$, and some $v\in V(G)$. The label $\mu(K)$ always has the form $\langle\rho(j),\mu_j(K\setminus A_j), c(K)\rangle$ where $j=j(K)$. The identity tester $I'$ simply ignores the third part of $\mu(K)$ and extracts $\rho(j)$ and $\mu_j(K\setminus A_j)$.
+%   The identity tester $I'$ first compares $\rho(j)$ and $\rho(v)=\rho(a(v))$.
+%   \begin{itemize}
+%     \item If $\rho(j)$ is lexicographically smaller than $\rho(a(v))$, then $j<a(v)$.  Since $K\subseteq\bigcup_{i=1}^j B_i$ and $v\not\in B_{j'}$ for any $j'<a(v)$, this implies that $v\not\in K$.  Therefore $v\neq u$, since $u\in K$. In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-          Since $u\in A_j$, we have that $u\in C$.  The tester examines $\beta(v)$ to determine if $v\in C$.  If $\beta(v)=\langle\varepsilon\rangle$ then $v\not\in C$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. Otherwise $v\in C$ and $\beta(v)=\langle d(v),\varphi(v)\rangle$. Since we have already verified that the first $d(u)$ bits of $\rho(j)$ equal the first $d(u)$ bits of $\rho(v)$, we have that $\lca(u)=\lca(v)$ if and only if $d(u)=d(v)$. Thus, $v=u$ if and only if $(d(u),\varphi(u))=(d(v),\varphi(v))$.
-          We set $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $(d(u),\varphi(u))=(d(v),\varphi(v))$ and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.\qedhere
-  \end{itemize}
-\end{proof}
+%     \item If $\rho(j)=\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_j\setminus A_j$.
+%           In this case, $v$ can only be equal to $u$ if $u\in K\setminus A_j$.
+%           The first part $b$ of $\kappa(K,u)$ is a single bit that indicates if $u\in K\setminus A_j$.  If $b=1$ then $u\not\in K\setminus A_j$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=0$ then $u\in K\setminus A_j$ and $\kappa(K,u)=\langle 0,\kappa_j(K\setminus A_j,u)\rangle$.
+%           In this case, $\mu'(v)=\mu_j(v)$ and we set
+%           $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_j(K\setminus A_j),\kappa_j(K\setminus A_j,u),\mu_j(v))$.
 
-\subsection{Graphs with Short Tree-Decompositions}
-\label{sec:short}
+%     \item If $\rho(j)$ is lexicographically larger than $\rho(a(v))$ then $K\setminus A_j$ is a clique in $G^\star_j$ and $v\in B_i\setminus A_i$ for some $i=a(v) < j$.  The tester examines the first part $b$ of $\kappa(K,u)$ to determine if $u\in K\setminus A_j$.  If $b=0$ then  $u\in B_j\setminus A_j$ and $v\in B_i\setminus A_i$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $b=1$ then $u\in A_j$ and $\kappa(K,u)=\langle 1,\beta(u)\rangle$. Since $u\in A_j$, $a(u) < j\le b(u)$.
 
-\begin{lem}\label{small_height}
-  Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union. Let $k:\N\to\N^+$,  $h:\N\to\R$ be functions with $k(n),h(n)\in \Oh(\log n)$ and with $h(n)>0$ for all $n$.   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted tree-decomposition $\mathcal{T}:=(T,(B_x \mid x\in V(T)))$ such that
-  \begin{enumerate}[nosep,nolistsep,label=(\rm{\roman*)}]
-    \item $\mathcal{T}$ has adhesion-width at most $k(n)$;
-    \item $\height(T)\le h(n)$;
-    \item for each node $x$ in $T$, the torso $\torso{G}{\mathcal{T},B_x}$ belongs to $\mathcal{G}$.
-  \end{enumerate}
-  Let $g_i:\N\to\R^+$ be a non-decreasing function  with $g_i\in\Oh(\log n)$ for each $i\in[3]$. Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Then $\mathcal{G}'$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
-  \begin{align*}
-    g'_1(n)
-     & = g_1(n)
-    + k(n)\cdot (g_2(n)+\Oh(\log\log n))
-    + h(n)\cdot (g_3(n)+\Oh(\log\log n)) +\Oh(\log\log n)\enspace, \\
-    g'_2(n)
-     & = g_2(n) + \Oh(\log\log n)\enspace,                         \\
-    g'_3(n)
-     & = (h(n)+1)\cdot (g_3(n)+\Oh(k(n)+\log\log n))\enspace.
-  \end{align*}
-\end{lem}
+%           In particular, $u\in A_j$, so $\lca(u)$ is a $T_\psi$-ancestor of $j$.   Therefore, the first $d(u)$ bits of $\rho(j)$ are equal to the first $d(u)$ bits of $\rho(u)$.  The first $d(u)$ bits of $\rho(u)$ describe the path from the root of $T_\psi$ to $\lca(u)$.  The tester then compares the first $d(u)$ bits of $\rho(j)$ to the first $d(u)$ bits of $\rho(v)$.  If these are not equal,  then $\lca(u)\neq\lca(v)$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
 
-\begin{proof}
-  We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular input tuple.
+%           Since $u\in A_j$, we have that $u\in C$.  The tester examines $\beta(v)$ to determine if $v\in C$.  If $\beta(v)=\langle\varepsilon\rangle$ then $v\not\in C$, so $u\neq v$ and $I'(\mu(K),\kappa(K,u),\mu(v)):=0$. Otherwise $v\in C$ and $\beta(v)=\langle d(v),\varphi(v)\rangle$. Since we have already verified that the first $d(u)$ bits of $\rho(j)$ equal the first $d(u)$ bits of $\rho(v)$, we have that $\lca(u)=\lca(v)$ if and only if $d(u)=d(v)$. Thus, $v=u$ if and only if $(d(u),\varphi(u))=(d(v),\varphi(v))$.
+%           We set $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $(d(u),\varphi(u))=(d(v),\varphi(v))$ and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.\qedhere
+%   \end{itemize}
+% \end{proof}
 
-  The proof is by induction on a slightly more detailed statement. An \defin{instance} is a tuple $(n,h,k,G^+,G,\omega,\mathcal{F})$ with the following properties:
-  $n$ is an integer,
-  $h\le h(n)$ is a non-negative integer,
-  $k=k(n)$ is a positive integer,
-  $G^+\in\mathcal{G}'$ with $n\geq |V(G^+)|$,
-  $G$ is a spanning subgraph of $G^+$,
-  $\omega:V(G)\to\N^+$
-  is a weight function with
-  \begin{equation}
-    \log\omega(G)-\log \omega(v)\le n+2,
-    \label{eq:short-td-nice-weights}
-  \end{equation}
-  for each $v\in V(G)$, and
-  $\mathcal{F}:=(F,(B_x \mid x\in V(F)))$ is a rooted tidy forest-decomposition of $G^+$ having adhesion-width at most $k=k(n)$ and with $F$ of height at most $h$.
+% \subsection{Graphs with Short Tree-Decompositions}
+% \label{sec:short}
 
-  Let $(n,h,k,G^+,G,\omega,\mathcal{F})$ be an instance.
-  For each $y\in V(F)$, let
-  \[
-    A_y:=\begin{cases}
-      \emptyset   & \textrm{if $y$ is a root in $F$,}                                      \\
-      B_y\cap B_x & \textrm{if $y$ is not a root in $F$ and $x$ is the $F$-parent of $y$.}
-    \end{cases}
-  \]
-  We prove by an induction on $h$ that there is a $(g_1',g_2',g_3')$ mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ satisfying the following additional properties: for each $z\in V(F)$ and each $w\in B_z\setminus A_z$,
-  \begin{align}
-    |\mu(w)|
-     & \le \log \omega(G) - \log \omega(w) + g_1(n)\notag                           \\
-     & \quad {} + |A_z|\cdot (g_2(n) + \Oh(\log\log n))\label{strong_strong}        \\
-     & \quad {} + h\cdot(g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace,\notag
-  \end{align}
-  and for each clique $K$ of $G^+$,
-  \begin{equation}
-    |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(k+\log\log n))\enspace.\label{strong_clique}
-  \end{equation}
-  Given an integer $n$, an $n$-vertex graph $G^+\in\mathcal{G}'$, a spanning subgraph $G$ of $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\mathcal{T}=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\mathcal{T}$ is in $\mathcal{G}$. Let $\mathcal{F}_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\mathcal{T}$).  Let $(n_0,h_0,k_0,G^+,G,\omega_0,\mathcal{F}_0)$ be an instance where $n_0:=n=|V(G)|$, $h_0:=h(n)$, $k_0:=k(n)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\mathcal{F}_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\mathcal{T}$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
-  By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',I')$.
-  The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$, which follows from~\cref{obs:nice}.
-  This will complete the proof of the lemma.
+% \begin{lem}\label{small_height}
+%   Let $\mathcal{G}$ be a hereditary class of graphs closed under taking disjoint union. Let $k:\N\to\N^+$,  $h:\N\to\R$ be functions with $k(n),h(n)\in \Oh(\log n)$ and with $h(n)>0$ for all $n$.   Let $\mathcal{G}'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted tree-decomposition $\mathcal{T}:=(T,(B_x \mid x\in V(T)))$ such that
+%   \begin{enumerate}[nosep,nolistsep,label=(\rm{\roman*)}]
+%     \item $\mathcal{T}$ has adhesion-width at most $k(n)$;
+%     \item $\height(T)\le h(n)$;
+%     \item for each node $x$ in $T$, the torso $\torso{G}{\mathcal{T},B_x}$ belongs to $\mathcal{G}$.
+%   \end{enumerate}
+%   Let $g_i:\N\to\R^+$ be a non-decreasing function  with $g_i\in\Oh(\log n)$ for each $i\in[3]$. Suppose that $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Then $\mathcal{G}'$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+%   \begin{align*}
+%     g'_1(n)
+%      & = g_1(n)
+%     + k(n)\cdot (g_2(n)+\Oh(\log\log n))
+%     + h(n)\cdot (g_3(n)+\Oh(\log\log n)) +\Oh(\log\log n)\enspace, \\
+%     g'_2(n)
+%      & = g_2(n) + \Oh(\log\log n)\enspace,                         \\
+%     g'_3(n)
+%      & = (h(n)+1)\cdot (g_3(n)+\Oh(k(n)+\log\log n))\enspace.
+%   \end{align*}
+% \end{lem}
 
-  We now begin the inductive proof. Let $(n,h,k,G^+,G,\omega,\mathcal{F})$ be an instance, where $\mathcal{F}:=(F,(B_x\mid x\in V(F)))$.
-  Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.  Let
-  \[
-    G^\star:= \cup\set{\torso{G^+}{\mathcal{F},B_z}\mid z \in V(F)}\enspace.
-  \]
-  By definition, $\mathcal{F}$ is a forest-decomposition of $G^\star$.  By the assumptions of the lemma,
-  \begin{align}
-    G^\star[B_z] = \torso{G^+}{\mathcal{F},B_z}
-     & \in \mathcal{G}\enspace,
-    \label{eq:torso-in-the-class-G}
-  \end{align}
-  for each $z\in V(F)$.  Our labelling $\mu$ will assign a label $\mu(v)$ to each vertex $v$ of $G^\star$ and a label $\mu(K)$ to each clique $K$ of $G^\star$.  Since $G^\star$ is a supergraph of $G^+$, this ensures that $\mu$ assigns a label to each vertex and clique of $G^+$.
+% \begin{proof}
+%   We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular input tuple.
 
-  \paragraph{\boldmath The root labelling $\mu_R$:}
-  Let $R$ be the set of roots of $F$. Let
-  \begin{align*}
-    B_R
-     & :=\textstyle\cup\set{B_r\mid r\in R}\enspace.
-    \intertext{Since $\mathcal{F}$ is tidy, each bag of $\mathcal{F}$ is non-empty, so  $B_R\neq\emptyset$. Let}
-    G^\star_R
-     & :=G^\star[B_R]\enspace,                       \\
-    G_R
-     & :=G[B_R]\enspace.
-  \end{align*}
-  Observe that $G^\star_R\in\mathcal{G}$, since
-  the sets in $\set{B_r \mid r\in R}$ are pairwise disjoint, $G^\star[B_r] \in \mathcal{G}$ (by~\eqref{eq:torso-in-the-class-G}) for each $r\in R$, and
-  $\mathcal{G}$ is closed under disjoint union.  Let
-  \begin{align*}
-    \mathcal{K}_R
-     & :=\set{B_y\cap B_R\mid y\in L_2(F)}\enspace.
-    \intertext{Note that if $h=0$ then $\mathcal{K}_R$ is empty. Since $\mathcal{F}$ is tidy, each $K$ in $\mathcal{K}_R$ is nonempty. Note also that each $K$ in $\mathcal{K}_R$ is a clique in $G^\star_R$.
-      For each $K$ in $\mathcal{K}_R$, let} F_K
-     & :=\textstyle\cup \set{F_y\mid y\in L_2(F) \textrm{ and } B_y\cap B_R = K}\enspace, \\
-    G_K
-     & :=\textstyle\cup\set{G[B_z] \mid z\in V(F_K)}- B_R\enspace.
-  \end{align*}
-  Note that for each $K\in\mathcal{K}_R$,
-  since $\mathcal{F}$ is tidy,
-  $G_K$ has at least one vertex.
-  Thus, the family of sets $\set{\set{B_R}}\cup\set{V(G_K)\mid K\in \mathcal{K}_R}$ is a partition of vertices of $G$.
+%   The proof is by induction on a slightly more detailed statement. An \defin{instance} is a tuple $(n,h,k,G^+,G,\omega,\mathcal{F})$ with the following properties:
+%   $n$ is an integer,
+%   $h\le h(n)$ is a non-negative integer,
+%   $k=k(n)$ is a positive integer,
+%   $G^+\in\mathcal{G}'$ with $n\geq |V(G^+)|$,
+%   $G$ is a spanning subgraph of $G^+$,
+%   $\omega:V(G)\to\N^+$
+%   is a weight function with
+%   \begin{equation}
+%     \log\omega(G)-\log \omega(v)\le n+2,
+%     \label{eq:short-td-nice-weights}
+%   \end{equation}
+%   for each $v\in V(G)$, and
+%   $\mathcal{F}:=(F,(B_x \mid x\in V(F)))$ is a rooted tidy forest-decomposition of $G^+$ having adhesion-width at most $k=k(n)$ and with $F$ of height at most $h$.
 
-  For each $v\in B_R$, let
-  \begin{align*}
-    \delta(v)
-     & :=k\cdot\omega(v)+\textstyle\sum\set{\omega(G_K)\mid K\in\mathcal{K}_R,\ v\in K} \enspace .
-  \end{align*}
-  Since $k\geq1$, $\delta(v)\geq\omega(v)\geq 1$ for each $v\in B_R$.
-  Clearly, for each $v\in B_R$,
-  \begin{equation}
-    \label{eq-gamma-v-omega-v}
-    \delta(v) \geq k\cdot\omega(v)\enspace.
-  \end{equation}
-  Note also that for each $K\in\mathcal{K}_R$ and for each $v\in K$, we have that $\delta(v)\ge \omega(G_K)$, and therefore (recalling that $K$ is non-empty)
-  \begin{equation}
-    \min_{v\in K}\delta(v) \ge \omega(G_K) \enspace . \label{gamma_v_lower_bound}
-  \end{equation}
-  Since $B_R\neq\emptyset$, we have that $\delta(B_R)\geq1$.
-  Since $\mathcal{F}$ has adhesion-width at most $k$, each clique in $\mathcal{K}_R$ has size at most $k$, so
-  \begin{equation}
-    \delta(B_R)=\sum_{v\in B_R}\delta(v)
-    \le k\cdot\omega(B_R) + k\sum_{K\in\mathcal{K}_R}\omega(G_K)
-    = k\cdot\omega(G)  \enspace . \label{gamma_br}
-  \end{equation}
+%   Let $(n,h,k,G^+,G,\omega,\mathcal{F})$ be an instance.
+%   For each $y\in V(F)$, let
+%   \[
+%     A_y:=\begin{cases}
+%       \emptyset   & \textrm{if $y$ is a root in $F$,}                                      \\
+%       B_y\cap B_x & \textrm{if $y$ is not a root in $F$ and $x$ is the $F$-parent of $y$.}
+%     \end{cases}
+%   \]
+%   We prove by an induction on $h$ that there is a $(g_1',g_2',g_3')$ mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ satisfying the following additional properties: for each $z\in V(F)$ and each $w\in B_z\setminus A_z$,
+%   \begin{align}
+%     |\mu(w)|
+%      & \le \log \omega(G) - \log \omega(w) + g_1(n)\notag                           \\
+%      & \quad {} + |A_z|\cdot (g_2(n) + \Oh(\log\log n))\label{strong_strong}        \\
+%      & \quad {} + h\cdot(g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace,\notag
+%   \end{align}
+%   and for each clique $K$ of $G^+$,
+%   \begin{equation}
+%     |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(k+\log\log n))\enspace.\label{strong_clique}
+%   \end{equation}
+%   Given an integer $n$, an $n$-vertex graph $G^+\in\mathcal{G}'$, a spanning subgraph $G$ of $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\mathcal{T}=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\mathcal{T}$ is in $\mathcal{G}$. Let $\mathcal{F}_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\mathcal{T}$).  Let $(n_0,h_0,k_0,G^+,G,\omega_0,\mathcal{F}_0)$ be an instance where $n_0:=n=|V(G)|$, $h_0:=h(n)$, $k_0:=k(n)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\mathcal{F}_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\mathcal{T}$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
+%   By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',I')$.
+%   The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$, which follows from~\cref{obs:nice}.
+%   This will complete the proof of the lemma.
 
-  The cliques of $G^\star_R$ in $\mathcal{K}_R$ play an important role in our labelling scheme.
-  Each clique in $\mathcal{K}_R$ is defined by an adhesion $A_y=B_r\cap B_y$ for at least one $y\in L_2(F)$.  The label $\mu_R(K)$ for a clique $K\in\mathcal{K}_R$ will be used a part of the label $\mu(v)$ for each vertex $v$ in $G_R$ and as part of the label $\mu(K')$ for each clique $K'$ of $G^\star$ that contains vertices in $G_R$.
+%   We now begin the inductive proof. Let $(n,h,k,G^+,G,\omega,\mathcal{F})$ be an instance, where $\mathcal{F}:=(F,(B_x\mid x\in V(F)))$.
+%   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.  Let
+%   \[
+%     G^\star:= \cup\set{\torso{G^+}{\mathcal{F},B_z}\mid z \in V(F)}\enspace.
+%   \]
+%   By definition, $\mathcal{F}$ is a forest-decomposition of $G^\star$.  By the assumptions of the lemma,
+%   \begin{align}
+%     G^\star[B_z] = \torso{G^+}{\mathcal{F},B_z}
+%      & \in \mathcal{G}\enspace,
+%     \label{eq:torso-in-the-class-G}
+%   \end{align}
+%   for each $z\in V(F)$.  Our labelling $\mu$ will assign a label $\mu(v)$ to each vertex $v$ of $G^\star$ and a label $\mu(K)$ to each clique $K$ of $G^\star$.  Since $G^\star$ is a supergraph of $G^+$, this ensures that $\mu$ assigns a label to each vertex and clique of $G^+$.
 
-  Altogether, $G^\star_R\in\mathcal{G}$, $G_R$ is a spanning subgraph of $G^\star_R$, $\delta:V(G_R)\to\N^+$ is a weight function. Let $(\mu_R,\kappa_R)$ be a mixed labelling of $(G^\star_R, G_R, \delta)$ for $(A, I)$. For each $v\in B_R$,
-  \begin{align}
-    |\mu_R(v)|
-     & \le \log \delta(B_R)-\log\delta(v)+g_1(|B_R|)\notag                                                                                                                              \\
-     & \le \log (k\cdot\omega(G)) - \log (k\cdot\omega(v)) + g_1(n)             &  & \textrm{by~\eqref{gamma_br}, ~\eqref{eq-gamma-v-omega-v}, and since $g_1$ is non-decreasing}\notag \\
-     & = \log\omega(G) - \log\omega(v) + g_1(n)\label{eq:mu-R-bounded-in-omega}                                                                                                         \\
-     & \in\Oh(\log n)                                                           &  & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_1(n)\in\Oh(\log n)$.}
-    \label{eq:mu-R-in-logn}
-  \end{align}
+%   \paragraph{\boldmath The root labelling $\mu_R$:}
+%   Let $R$ be the set of roots of $F$. Let
+%   \begin{align*}
+%     B_R
+%      & :=\textstyle\cup\set{B_r\mid r\in R}\enspace.
+%     \intertext{Since $\mathcal{F}$ is tidy, each bag of $\mathcal{F}$ is non-empty, so  $B_R\neq\emptyset$. Let}
+%     G^\star_R
+%      & :=G^\star[B_R]\enspace,                       \\
+%     G_R
+%      & :=G[B_R]\enspace.
+%   \end{align*}
+%   Observe that $G^\star_R\in\mathcal{G}$, since
+%   the sets in $\set{B_r \mid r\in R}$ are pairwise disjoint, $G^\star[B_r] \in \mathcal{G}$ (by~\eqref{eq:torso-in-the-class-G}) for each $r\in R$, and
+%   $\mathcal{G}$ is closed under disjoint union.  Let
+%   \begin{align*}
+%     \mathcal{K}_R
+%      & :=\set{B_y\cap B_R\mid y\in L_2(F)}\enspace.
+%     \intertext{Note that if $h=0$ then $\mathcal{K}_R$ is empty. Since $\mathcal{F}$ is tidy, each $K$ in $\mathcal{K}_R$ is nonempty. Note also that each $K$ in $\mathcal{K}_R$ is a clique in $G^\star_R$.
+%       For each $K$ in $\mathcal{K}_R$, let} F_K
+%      & :=\textstyle\cup \set{F_y\mid y\in L_2(F) \textrm{ and } B_y\cap B_R = K}\enspace, \\
+%     G_K
+%      & :=\textstyle\cup\set{G[B_z] \mid z\in V(F_K)}- B_R\enspace.
+%   \end{align*}
+%   Note that for each $K\in\mathcal{K}_R$,
+%   since $\mathcal{F}$ is tidy,
+%   $G_K$ has at least one vertex.
+%   Thus, the family of sets $\set{\set{B_R}}\cup\set{V(G_K)\mid K\in \mathcal{K}_R}$ is a partition of vertices of $G$.
 
-  Let $K$ be a clique in $G^\star_R$. We make use of two different bounds on the length of $\mu_R(K)$.  If $K\in\mathcal{K}_R$:
-  \begin{align}
-    |\mu_R(K)|
-     & \le\log \delta(B_R) - \log \min_{v\in K}(\delta(v)) + g_3(|B_R|) \notag                                                                                                                            \\
-     & \le\log \omega(G) - \log \omega(G_K) + g_3(n) + \log k
-     & \textrm{by~\eqref{gamma_br},~\eqref{gamma_v_lower_bound} and since $g_3$ is non-decreasing} \label{mu_RK_i}                                                                                        \\
-     & \in\Oh(\log n)                                                                                              & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n), k(n)\in\Oh(\log n).$}
-  \end{align}
-  For each $K\not\in\mathcal{K}_R$,
-  \begin{align}
-    |\mu_R(K)|
-     & \le\log \delta(B_R) - \log\min_{v\in K}(\delta(v)) + g_3(|B_R|) \notag                                                                                                          \\
-     & \le\log(k\cdot\omega(G)) - \log\min_{v\in K}(k\cdot\omega(v)) + g_3(n)
-     & \text{by \eqref{eq-gamma-v-omega-v},~\eqref{gamma_br} and since $g_3$ is non-decreasing}\notag                                                                                  \\
-     & = \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n)
-    \label{mu_RK_ii}                                                                                                                                                                   \\
-     & \in\Oh(\log n)                                                                                 & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n)\in\Oh(\log n)$.}
-    \label{eq:mu_R(K)-in-logn}
-   \end{align}
-  Moreover, for each clique $K$ in $G^\star_R$,
-  \begin{align}
-    |\kappa_R(K,v)|
-     & \leq g_2(|B_R|) \leq g_2(n) \in \Oh(\log n) \enspace ,
-    \label{eq:kappa_R-logn}
-  \end{align}
-  since $g_2$ is non-decreasing.% and $g_2(n)\in\Oh(\log n)$. 
+%   For each $v\in B_R$, let
+%   \begin{align*}
+%     \delta(v)
+%      & :=k\cdot\omega(v)+\textstyle\sum\set{\omega(G_K)\mid K\in\mathcal{K}_R,\ v\in K} \enspace .
+%   \end{align*}
+%   Since $k\geq1$, $\delta(v)\geq\omega(v)\geq 1$ for each $v\in B_R$.
+%   Clearly, for each $v\in B_R$,
+%   \begin{equation}
+%     \label{eq-gamma-v-omega-v}
+%     \delta(v) \geq k\cdot\omega(v)\enspace.
+%   \end{equation}
+%   Note also that for each $K\in\mathcal{K}_R$ and for each $v\in K$, we have that $\delta(v)\ge \omega(G_K)$, and therefore (recalling that $K$ is non-empty)
+%   \begin{equation}
+%     \min_{v\in K}\delta(v) \ge \omega(G_K) \enspace . \label{gamma_v_lower_bound}
+%   \end{equation}
+%   Since $B_R\neq\emptyset$, we have that $\delta(B_R)\geq1$.
+%   Since $\mathcal{F}$ has adhesion-width at most $k$, each clique in $\mathcal{K}_R$ has size at most $k$, so
+%   \begin{equation}
+%     \delta(B_R)=\sum_{v\in B_R}\delta(v)
+%     \le k\cdot\omega(B_R) + k\sum_{K\in\mathcal{K}_R}\omega(G_K)
+%     = k\cdot\omega(G)  \enspace . \label{gamma_br}
+%   \end{equation}
 
-  \paragraph{\boldmath The subforest labelling $\mu_K$:}
-  Suppose that $h\geq1$. Thus, $F-R$ is a non-empty rooted forest. We now describe the subproblems on which we apply induction. For each $z\in V(F-R)$, let $C_z:=B_z\setminus B_R$ and
-  note that $\bigcup_{z\in V(F_K)}C_z=V(G_K)$.
+%   The cliques of $G^\star_R$ in $\mathcal{K}_R$ play an important role in our labelling scheme.
+%   Each clique in $\mathcal{K}_R$ is defined by an adhesion $A_y=B_r\cap B_y$ for at least one $y\in L_2(F)$.  The label $\mu_R(K)$ for a clique $K\in\mathcal{K}_R$ will be used a part of the label $\mu(v)$ for each vertex $v$ in $G_R$ and as part of the label $\mu(K')$ for each clique $K'$ of $G^\star$ that contains vertices in $G_R$.
 
-  Let $K\in\mathcal{K}_R$. Define
-  \begin{align*}
-    G^\star_K
-     & :=G^\star[\textstyle\bigcup\set{C_z\mid z\in V(F_K)}]\enspace, \\
-    \mathcal{F}_K
-     & :=(F_K, (C_z \mid z\in V(F_K)))\enspace.
-  \end{align*}
-  Thus, $\mathcal{F}_K$ is a rooted tidy forest-decomposition of $G^\star_K$ of adhesion-width at most $k$ and the height of $F_K$ is at most $h-1$.
-  Since $\mathcal{G}$ is hereditary and by~\eqref{eq:torso-in-the-class-G},
-  \begin{align*}
-    \torso{G^\star_K}{\mathcal{F}_K,C_z}
-     & =G^\star[B_z]-B_R\subseteq G^\star[B_z]\in \mathcal{G}\enspace ,
-  \end{align*}
-  for every $z \in V(F_K)$.
+%   Altogether, $G^\star_R\in\mathcal{G}$, $G_R$ is a spanning subgraph of $G^\star_R$, $\delta:V(G_R)\to\N^+$ is a weight function. Let $(\mu_R,\kappa_R)$ be a mixed labelling of $(G^\star_R, G_R, \delta)$ for $(A, I)$. For each $v\in B_R$,
+%   \begin{align}
+%     |\mu_R(v)|
+%      & \le \log \delta(B_R)-\log\delta(v)+g_1(|B_R|)\notag                                                                                                                              \\
+%      & \le \log (k\cdot\omega(G)) - \log (k\cdot\omega(v)) + g_1(n)             &  & \textrm{by~\eqref{gamma_br}, ~\eqref{eq-gamma-v-omega-v}, and since $g_1$ is non-decreasing}\notag \\
+%      & = \log\omega(G) - \log\omega(v) + g_1(n)\label{eq:mu-R-bounded-in-omega}                                                                                                         \\
+%      & \in\Oh(\log n)                                                           &  & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_1(n)\in\Oh(\log n)$.}
+%     \label{eq:mu-R-in-logn}
+%   \end{align}
 
-  Altogether, $\mathcal{F}_K$ is a rooted tidy forest-decomposition of $G^\star_K$ of adhesion-width at most $k$ and with $\height(F_K)\le h-1$ and with each torso in $\mathcal{G}$, $G_K$ is a spanning subgraph of $G^\star_K$, and the restriction
-  $\omega_{|V(G_K)}$ of $\omega$ to the vertices of $G_K$ is a weight function that satisfies \eqref{eq:short-td-nice-weights}.  Thus, $(n,h-1,k,G^\star_K,G_K,\omega_{|V(G_K)},\mathcal{F}_K)$ is an instance on which we can apply induction.
-  Fix a weighted $(g_1'(n),g_2'(n),g_3'(n))$ mixed labelling $(\mu_K,\kappa_K)$ of $(G^\star_K,G_K,\omega_{|V(G_K)})$ for $(A',I')$ that is obtained from the inductive hypothesis.
-  In addition to being a weighted $(g_1'(n),g_2'(n),g_3'(n))$ mixed labelling, $(\mu_K,\kappa_K)$ also satisfies \eqref{strong_strong}.  That is, for each $z\in V(F_K)$ and each $w\in C_z\setminus A_z$,
-  \begin{align}
-    |\mu_K(w)|
-     & \le \log \omega(G_K) - \log\omega(w) + g_1(n) \notag                                \\
-     & \quad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n)) \label{mu_Kw}         \\
-     & \quad {} + (h-1)\cdot (g_3(n) + \Oh(\log\log n)) +\Oh(\log\log n) \enspace . \notag
-  \end{align}
+%   Let $K$ be a clique in $G^\star_R$. We make use of two different bounds on the length of $\mu_R(K)$.  If $K\in\mathcal{K}_R$:
+%   \begin{align}
+%     |\mu_R(K)|
+%      & \le\log \delta(B_R) - \log \min_{v\in K}(\delta(v)) + g_3(|B_R|) \notag                                                                                                                            \\
+%      & \le\log \omega(G) - \log \omega(G_K) + g_3(n) + \log k
+%      & \textrm{by~\eqref{gamma_br},~\eqref{gamma_v_lower_bound} and since $g_3$ is non-decreasing} \label{mu_RK_i}                                                                                        \\
+%      & \in\Oh(\log n)                                                                                              & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n), k(n)\in\Oh(\log n).$}
+%   \end{align}
+%   For each $K\not\in\mathcal{K}_R$,
+%   \begin{align}
+%     |\mu_R(K)|
+%      & \le\log \delta(B_R) - \log\min_{v\in K}(\delta(v)) + g_3(|B_R|) \notag                                                                                                          \\
+%      & \le\log(k\cdot\omega(G)) - \log\min_{v\in K}(k\cdot\omega(v)) + g_3(n)
+%      & \text{by \eqref{eq-gamma-v-omega-v},~\eqref{gamma_br} and since $g_3$ is non-decreasing}\notag                                                                                  \\
+%      & = \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n)
+%     \label{mu_RK_ii}                                                                                                                                                                   \\
+%      & \in\Oh(\log n)                                                                                 & \textrm{by~\eqref{eq:short-td-nice-weights} and since $g_3(n)\in\Oh(\log n)$.}
+%     \label{eq:mu_R(K)-in-logn}
+%    \end{align}
+%   Moreover, for each clique $K$ in $G^\star_R$,
+%   \begin{align}
+%     |\kappa_R(K,v)|
+%      & \leq g_2(|B_R|) \leq g_2(n) \in \Oh(\log n) \enspace ,
+%     \label{eq:kappa_R-logn}
+%   \end{align}
+%   since $g_2$ is non-decreasing.% and $g_2(n)\in\Oh(\log n)$. 
 
-  \paragraph{\boldmath The vertex labelling $\mu:V(G)\to\{0,1\}^*$:}
-  The format of a vertex label depends on whether the vertex is in $B_R$ or not.
-  For each $v\in B_R$, define
-  \[
-    \mu(v) := \langle\mu_R(v)\rangle\enspace.
-  \]
-  Thus, $\mu(v)$ has just one part and
-  by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$.
-  Therefore,
-  for each $v\in B_R$
-  \begin{align*}
-    |\mu(v)|
-     & \leq |\mu_R(v)| + \Oh(1) + \Oh(\lgg|\mu_R(v)|)                &  & \text{by~\eqref{encoding_cost}}                                           \\
-     & \leq \log\omega(G) - \log\omega(v) + g_1(n) + \Oh(\log\log n) &  & \textrm{by~\eqref{eq:mu-R-bounded-in-omega} and~\eqref{eq:mu-R-in-logn}.}
-  \end{align*}
-  Thus, the length of $\mu(v)$ satisfies \eqref{strong_strong} when $v\in B_R$.
+%   \paragraph{\boldmath The subforest labelling $\mu_K$:}
+%   Suppose that $h\geq1$. Thus, $F-R$ is a non-empty rooted forest. We now describe the subproblems on which we apply induction. For each $z\in V(F-R)$, let $C_z:=B_z\setminus B_R$ and
+%   note that $\bigcup_{z\in V(F_K)}C_z=V(G_K)$.
 
-  Now, let $w\in V(G)\setminus B_R$.
-  Then, $w\in B_z\setminus A_z$ for some $z\in V(F_K)$ and some $K\in\mathcal{K}_R$.
-  Note that the existence of $w$ implies that $h\geq 1$.
-  Define
-  \begin{align*}
-    \alpha(w)
-     & :=\langle\kappa_R(K,v)\mid v\in A_z\cap K, vw\in E(G)\rangle\enspace, \\
-    \mu(w)
-     & := \langle\mu_R(K)\,,\, \mu_K(w)\,,\, \alpha(w) \rangle \enspace .
-  \end{align*}
-  Thus,
-  \begin{align*}
-    |\alpha(w)|
-     & \leq \textstyle\sum_{v\in A_z\cap K} |\kappa_R(K,v)| +
-    \Oh(\lgg|A_z\cap K|) + \Oh(\sum_{v\in A_z\cap K} \lgg |\kappa_R(K,v)|)
-     & \textrm{by~\eqref{encoding_cost}}                                            \\
-     & \leq |A_z\cap K|\cdot g_2(n) +
-    \Oh(\lgg k) + |A_z\cap K|\cdot\Oh(\lgg g_2(n))
-     & \textrm{by~\eqref{eq:kappa_R-logn}}                                          \\
-     & \leq |A_z\cap B_R|\cdot (g_2(n) +\Oh(\log\log n)) + \Oh(\log\log n)\enspace,
-  \end{align*}
-  where the last line follows
-  from $A_z\cap K= A_z\cap B_R$ and $k(n),g_2(n)\in\Oh(\log n)$.
-  Also,
-  \begin{align*}
-    |\mu_R(K)|+|\mu_K(w)|
-     & \le \log \omega(G) - \log\omega(G_K) + g_3(n) + \log k                            & \text{by~\eqref{mu_RK_i}} \\
-     & \qquad {} + \log\omega(G_K) - \log\omega(w) + g_1(n)                              & \text{by~\eqref{mu_Kw}}   \\
-     & \qquad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n))                                                \\
-     & \qquad {} + (h-1)\cdot g_3(n) + h\cdot\Oh(\log\log n)                                                         \\
-     & \leq \log\omega(G) - \log\omega(w) + g_1(n)                                                                   \\
-     & \qquad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n))                                                \\
-     & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n) \enspace . \notag
-  \end{align*}
-  Altogether
-  \begin{align*}
-    |\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|
-     & \le \log \omega(G) - \log\omega(w) + g_1(n)                              \\
-     & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))                          \\
-     & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.
-  \end{align*}
-  Therefore,
-  \begin{align*}
-    |\mu(w)|
-     & =|\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|+ \Oh(\lgg|\mu_R(K)|+\lgg|\mu_K(w)|+\lgg|\alpha(w)|)
-     & \text{by \eqref{encoding_cost}}                                                        \\
-     & \le \log \omega(G) - \log\omega(w) + g_1(n)                                            \\
-     & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))                                        \\
-     & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.
-  \end{align*}
-  Thus, the length of $\mu(w)$ satisfies \eqref{strong_strong} for each $w\in V(G)\setminus B_R$.
+%   Let $K\in\mathcal{K}_R$. Define
+%   \begin{align*}
+%     G^\star_K
+%      & :=G^\star[\textstyle\bigcup\set{C_z\mid z\in V(F_K)}]\enspace, \\
+%     \mathcal{F}_K
+%      & :=(F_K, (C_z \mid z\in V(F_K)))\enspace.
+%   \end{align*}
+%   Thus, $\mathcal{F}_K$ is a rooted tidy forest-decomposition of $G^\star_K$ of adhesion-width at most $k$ and the height of $F_K$ is at most $h-1$.
+%   Since $\mathcal{G}$ is hereditary and by~\eqref{eq:torso-in-the-class-G},
+%   \begin{align*}
+%     \torso{G^\star_K}{\mathcal{F}_K,C_z}
+%      & =G^\star[B_z]-B_R\subseteq G^\star[B_z]\in \mathcal{G}\enspace ,
+%   \end{align*}
+%   for every $z \in V(F_K)$.
 
-  \paragraph{Adjacency Testing:}  At this point, $\mu(v)$ is defined for each $v\in V(G)$, so we can describe the operation of the adjacency tester $A'$.
-  Given the labels $\mu(v)$ and $\mu(w)$ for two vertices $v$ and $w$ of $G$, $A'$ examines how many parts each label has.
-  For an arbitrary vertex $u\in V(G)$, if $\mu(u)$ has one part, then $u\in B_R$,
-  otherwise $u\in V(G_K)$ for some $K\in\mathcal{K}_R$.
-  \begin{itemize}
-    \item If $v$ and $w$ are both in $B_R$ then $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(w)\rangle$.  In this case, $vw\in E(G)$ if and only if $vw\in E(G_R)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A(\mu_R(v),\mu_R(w))$.
-    \item If exactly one of $v$ or $w$ is in $B_R$ then, assume without loss of generality that $v\in B_R$ and $w\in V(G_K)$ for some $K\in\mathcal{K}_R$.
-          So $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(K),\mu_K(w),\alpha(w)\rangle$.
-          In this case, $vw\in E(G)$ if and only if $v\in K\cap N_G(w)$.  Thus, $vw\in E(G)$ if and only if $v\in K$ and $\alpha(w)$ contains $\kappa_R(K,v)$.  In this case, the adjacency tester iterates through each $\kappa$ in $\alpha(w)$ checking if $I(\mu_R(K),\kappa,\mu_R(v))=1$.  If so, then $\kappa=\kappa_R(K,v)$ and $vw\in E(G)$ so $A'(\mu(v),\mu(w)):=1$. If $I(\mu_R(K),\kappa,\mu_R(v))=0$ for every $\kappa$ in $\alpha(w)$ then $v\not\in K\cap N_G(w)$, so  $vw\not\in E(G)$, and $A'(\mu(v),\mu(w)):=0$.
-    \item Otherwise, $v\in V(G_K)$ and $w\in V(G_{L})$ for some $K,L\in\mathcal{K}_R$.
-          In this case, $\mu(v)=\linebreak \langle\mu_R(K),\mu_K(v),\alpha(v)\rangle$ and $\mu(w)=\langle\mu_R(L),\mu_{L}(w),\alpha(w)\rangle$.
-          If $\mu_R(K)\neq\mu_R(L)$ then $K\neq L$. In this case, $K$ (and $L$) separates $v$ and $w$ in $G^+$, so $vw\not\in E(G)$ and $A'(\mu(v),\mu(w)):=0$.
-          If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$.
-  \end{itemize}
+%   Altogether, $\mathcal{F}_K$ is a rooted tidy forest-decomposition of $G^\star_K$ of adhesion-width at most $k$ and with $\height(F_K)\le h-1$ and with each torso in $\mathcal{G}$, $G_K$ is a spanning subgraph of $G^\star_K$, and the restriction
+%   $\omega_{|V(G_K)}$ of $\omega$ to the vertices of $G_K$ is a weight function that satisfies \eqref{eq:short-td-nice-weights}.  Thus, $(n,h-1,k,G^\star_K,G_K,\omega_{|V(G_K)},\mathcal{F}_K)$ is an instance on which we can apply induction.
+%   Fix a weighted $(g_1'(n),g_2'(n),g_3'(n))$ mixed labelling $(\mu_K,\kappa_K)$ of $(G^\star_K,G_K,\omega_{|V(G_K)})$ for $(A',I')$ that is obtained from the inductive hypothesis.
+%   In addition to being a weighted $(g_1'(n),g_2'(n),g_3'(n))$ mixed labelling, $(\mu_K,\kappa_K)$ also satisfies \eqref{strong_strong}.  That is, for each $z\in V(F_K)$ and each $w\in C_z\setminus A_z$,
+%   \begin{align}
+%     |\mu_K(w)|
+%      & \le \log \omega(G_K) - \log\omega(w) + g_1(n) \notag                                \\
+%      & \quad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n)) \label{mu_Kw}         \\
+%      & \quad {} + (h-1)\cdot (g_3(n) + \Oh(\log\log n)) +\Oh(\log\log n) \enspace . \notag
+%   \end{align}
 
-  \paragraph{\boldmath The clique label $\mu(K)$:}
-  What remains is to define $\mu(K)$ and $\kappa(K,u)$ for each clique $K$ of $G^\star$ and each $u\in K$.  For each clique $K$ of $G^\star$ such that $K\subseteq B_R$,
-  \[
-    \mu(K) := \langle \mu_R(K)\rangle \enspace .
-  \]
-  Then    for each clique $K$ in $G^\star$ such that $K\subseteq B_R$,
-  \begin{align*}
-    |\mu(K)|
-     & \leq |\mu_R(K)| + \Oh(1) + \Oh(\lgg|\mu_R(K)|)                               &  & \text{by~\eqref{encoding_cost}}                              \\
-     & \leq \log\omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + \Oh(\log\log n) &  & \textrm{by~\eqref{mu_RK_ii} and~\eqref{eq:mu_R(K)-in-logn}.}
-  \end{align*}  Now, let $K$ be a clique of $G^\star$ that contains at least one vertex not in $B_R$. Then there exists exactly one $L\in\mathcal{K}_R$ such that all the vertices of $K\setminus B_R$ are contained in $G_L$. Then $K\setminus B_R$ is a clique in $G^\star_L$, since $G^\star_L[K\setminus B_R]=G^\star[K\setminus B_R]$. Thus, $\mu_L(K\setminus B_R)$ is defined. Since $K$ is a clique in $G^\star$, $K\cap B_R \subseteq L$. Since $L$ is the parent adhesion of some node in $L_2(F)$, $|L| \le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $L$ (ordered canonically, for example by their $\mu_R(v)$ labels) belongs to $K$. Define
-  \[
-    \mu(K):= \langle\;\mu_R(L),\;\mu_{L}(K\setminus B_R),\;c(K)\;\rangle
-    \enspace .
-  \]
-  We now argue that $\mu$ is injective on the set of cliques of $G^\star$.  Consider two distinct cliques $K$ and $P$ of $G^\star$.   If $K,P \subseteq B_R$, then $\mu(K)=\langle\mu_R(K)\rangle\neq\langle\mu_R(P)\rangle=\mu(P)$.  If $K\subseteq B_R$ and $P\not\subseteq B_R$, then $\mu(K)$ has one part and $\mu(P)$ has three parts, so $\mu(K)\neq\mu(P)$. Now suppose that $K\not\subseteq B_R$ and $P\not\subseteq B_R$. Thus $K$ is contained in $G^\star_L$ and $P$ is contained in $G^\star_M$ for some cliques $L,M$ in $G^\star_R$.  If $L\neq M$ then $\mu_R(L) \neq \mu_R(M)$, so $\mu(K)$ differ in their first parts. Now assume that $L=M$. If $K\cap L\neq P\cap L$ then $c(K)\neq c(P)$, so $\mu(K)$ and $\mu(P)$ differ in their third parts. Otherwise, $K\setminus L\neq P\setminus L$, so $\mu_L(K\setminus B_R)$ and $\mu_L(P\setminus B_R)$ differ by induction, so $\mu(K)$ and $\mu(P)$ differ in their second parts.
+%   \paragraph{\boldmath The vertex labelling $\mu:V(G)\to\{0,1\}^*$:}
+%   The format of a vertex label depends on whether the vertex is in $B_R$ or not.
+%   For each $v\in B_R$, define
+%   \[
+%     \mu(v) := \langle\mu_R(v)\rangle\enspace.
+%   \]
+%   Thus, $\mu(v)$ has just one part and
+%   by~\eqref{eq:mu-R-in-logn} this part is of length in $\Oh(\log n)$.
+%   Therefore,
+%   for each $v\in B_R$
+%   \begin{align*}
+%     |\mu(v)|
+%      & \leq |\mu_R(v)| + \Oh(1) + \Oh(\lgg|\mu_R(v)|)                &  & \text{by~\eqref{encoding_cost}}                                           \\
+%      & \leq \log\omega(G) - \log\omega(v) + g_1(n) + \Oh(\log\log n) &  & \textrm{by~\eqref{eq:mu-R-bounded-in-omega} and~\eqref{eq:mu-R-in-logn}.}
+%   \end{align*}
+%   Thus, the length of $\mu(v)$ satisfies \eqref{strong_strong} when $v\in B_R$.
 
-  Then,
-  \begin{align*}
-    |\mu(K)|
-     & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + |c(K)| + \Oh(1)+\Oh(\lgg|\mu_R(L)|+\lgg|\mu_L(K\setminus B_R)|+\lgg|c(K)|)
-     & \text{by \eqref{encoding_cost}}                                                                                       \\
-     & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)\enspace,
-  \end{align*}
-  where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h\cdot(g_3(n)+\Oh(k+\log\log n)) \in\Oh(\log^2 n)$, since $h\le h(n)\in\Oh(\log n)$, $k\in\Oh(\log n)$, and $g_3(n)\in\Oh(\log n)$. Continuing,
-  \begin{align*}
-    |\mu(K)|
-     & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)                                                             \\
-     & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)
-     & \text{by~\eqref{mu_RK_ii}}                                                                                                   \\
-     & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}(\omega(v)) + (h+1)\cdot g_3(n) + (h+1)\cdot k + (h+1)\cdot\Oh(\log\log n) \\
-     & \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot (g_3(n) + \Oh(k+\log\log n)) \enspace .
-  \end{align*}
-  Thus, $\mu$ satisfies \eqref{strong_clique} and thus the requirement for $g'_3(n)$.
+%   Now, let $w\in V(G)\setminus B_R$.
+%   Then, $w\in B_z\setminus A_z$ for some $z\in V(F_K)$ and some $K\in\mathcal{K}_R$.
+%   Note that the existence of $w$ implies that $h\geq 1$.
+%   Define
+%   \begin{align*}
+%     \alpha(w)
+%      & :=\langle\kappa_R(K,v)\mid v\in A_z\cap K, vw\in E(G)\rangle\enspace, \\
+%     \mu(w)
+%      & := \langle\mu_R(K)\,,\, \mu_K(w)\,,\, \alpha(w) \rangle \enspace .
+%   \end{align*}
+%   Thus,
+%   \begin{align*}
+%     |\alpha(w)|
+%      & \leq \textstyle\sum_{v\in A_z\cap K} |\kappa_R(K,v)| +
+%     \Oh(\lgg|A_z\cap K|) + \Oh(\sum_{v\in A_z\cap K} \lgg |\kappa_R(K,v)|)
+%      & \textrm{by~\eqref{encoding_cost}}                                            \\
+%      & \leq |A_z\cap K|\cdot g_2(n) +
+%     \Oh(\lgg k) + |A_z\cap K|\cdot\Oh(\lgg g_2(n))
+%      & \textrm{by~\eqref{eq:kappa_R-logn}}                                          \\
+%      & \leq |A_z\cap B_R|\cdot (g_2(n) +\Oh(\log\log n)) + \Oh(\log\log n)\enspace,
+%   \end{align*}
+%   where the last line follows
+%   from $A_z\cap K= A_z\cap B_R$ and $k(n),g_2(n)\in\Oh(\log n)$.
+%   Also,
+%   \begin{align*}
+%     |\mu_R(K)|+|\mu_K(w)|
+%      & \le \log \omega(G) - \log\omega(G_K) + g_3(n) + \log k                            & \text{by~\eqref{mu_RK_i}} \\
+%      & \qquad {} + \log\omega(G_K) - \log\omega(w) + g_1(n)                              & \text{by~\eqref{mu_Kw}}   \\
+%      & \qquad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n))                                                \\
+%      & \qquad {} + (h-1)\cdot g_3(n) + h\cdot\Oh(\log\log n)                                                         \\
+%      & \leq \log\omega(G) - \log\omega(w) + g_1(n)                                                                   \\
+%      & \qquad {} + |A_z\setminus B_R|\cdot (g_2(n) + \Oh(\log\log n))                                                \\
+%      & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n) \enspace . \notag
+%   \end{align*}
+%   Altogether
+%   \begin{align*}
+%     |\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|
+%      & \le \log \omega(G) - \log\omega(w) + g_1(n)                              \\
+%      & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))                          \\
+%      & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.
+%   \end{align*}
+%   Therefore,
+%   \begin{align*}
+%     |\mu(w)|
+%      & =|\mu_R(K)|+|\mu_K(w)|+|\alpha(w)|+ \Oh(\lgg|\mu_R(K)|+\lgg|\mu_K(w)|+\lgg|\alpha(w)|)
+%      & \text{by \eqref{encoding_cost}}                                                        \\
+%      & \le \log \omega(G) - \log\omega(w) + g_1(n)                                            \\
+%      & \qquad {} + |A_z|\cdot (g_2(n)+\Oh(\log\log n))                                        \\
+%      & \qquad {} + h\cdot (g_3(n) + \Oh(\log\log n)) + \Oh(\log\log n)\enspace.
+%   \end{align*}
+%   Thus, the length of $\mu(w)$ satisfies \eqref{strong_strong} for each $w\in V(G)\setminus B_R$.
 
-  \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
-  Let $K$ be a clique in $G^\star$, let $u\in K$, and let $z$ be the vertex of $F$ such that $u\in B_z\setminus A_z$.   The local identifier $\kappa(K,u)$ for $(A',I')$ has two parts,
-  \[
-    \kappa(K,u) := \langle\depth_F(z),\zeta(K,u)\rangle \enspace .
-  \]
-  The first part is (the binary encoding of) $\depth_F(z)$. We now describe the second part, $\zeta(K,u)$.  If $K\subseteq B_R$, then $\zeta(K,u):=\kappa_R(K,u)$.
-  If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\in K\setminus B_R$ then $K\setminus B_R$ is non-empty, so $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ are defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)})$ for $(A',I')$.
-  Since this is a labelling for $(A',I')$ obtained by induction,
-  \begin{equation}
-    \kappa_L(K\setminus B_R,u)=\langle\depth_{F_L}(z),\zeta_{L}(K\setminus B_R,u)\rangle=\langle\depth_F(z)-1,\zeta_L(K\setminus B_R,u)\rangle\enspace.
-    \label{off_by_one}
-  \end{equation}
-  In this case, define $\zeta(K,u):=\zeta_L(K\setminus B_R,u)$.
+%   \paragraph{Adjacency Testing:}  At this point, $\mu(v)$ is defined for each $v\in V(G)$, so we can describe the operation of the adjacency tester $A'$.
+%   Given the labels $\mu(v)$ and $\mu(w)$ for two vertices $v$ and $w$ of $G$, $A'$ examines how many parts each label has.
+%   For an arbitrary vertex $u\in V(G)$, if $\mu(u)$ has one part, then $u\in B_R$,
+%   otherwise $u\in V(G_K)$ for some $K\in\mathcal{K}_R$.
+%   \begin{itemize}
+%     \item If $v$ and $w$ are both in $B_R$ then $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(w)\rangle$.  In this case, $vw\in E(G)$ if and only if $vw\in E(G_R)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A(\mu_R(v),\mu_R(w))$.
+%     \item If exactly one of $v$ or $w$ is in $B_R$ then, assume without loss of generality that $v\in B_R$ and $w\in V(G_K)$ for some $K\in\mathcal{K}_R$.
+%           So $\mu(v)=\langle\mu_R(v)\rangle$ and $\mu(w)=\langle\mu_R(K),\mu_K(w),\alpha(w)\rangle$.
+%           In this case, $vw\in E(G)$ if and only if $v\in K\cap N_G(w)$.  Thus, $vw\in E(G)$ if and only if $v\in K$ and $\alpha(w)$ contains $\kappa_R(K,v)$.  In this case, the adjacency tester iterates through each $\kappa$ in $\alpha(w)$ checking if $I(\mu_R(K),\kappa,\mu_R(v))=1$.  If so, then $\kappa=\kappa_R(K,v)$ and $vw\in E(G)$ so $A'(\mu(v),\mu(w)):=1$. If $I(\mu_R(K),\kappa,\mu_R(v))=0$ for every $\kappa$ in $\alpha(w)$ then $v\not\in K\cap N_G(w)$, so  $vw\not\in E(G)$, and $A'(\mu(v),\mu(w)):=0$.
+%     \item Otherwise, $v\in V(G_K)$ and $w\in V(G_{L})$ for some $K,L\in\mathcal{K}_R$.
+%           In this case, $\mu(v)=\linebreak \langle\mu_R(K),\mu_K(v),\alpha(v)\rangle$ and $\mu(w)=\langle\mu_R(L),\mu_{L}(w),\alpha(w)\rangle$.
+%           If $\mu_R(K)\neq\mu_R(L)$ then $K\neq L$. In this case, $K$ (and $L$) separates $v$ and $w$ in $G^+$, so $vw\not\in E(G)$ and $A'(\mu(v),\mu(w)):=0$.
+%           If $\mu_R(K)=\mu_R(L)$ then, since $\mu$ is injective, $K=L$ and $v,w\in V(G_K)$.  Therefore, $vw\in E(G)$ if and only if $vw\in E(G_K)$, so the adjacency tester returns $A'(\mu(v),\mu(w)):=A'(\mu_{K}(v),\mu_K(w))$.
+%   \end{itemize}
 
-  It follows from this definition that $\zeta(K,u)$ is a local identifier $\kappa'(K',u)$, with $K'\subseteq K$ for some mixed labelling $(\mu',\kappa')$ for $(A,I)$ on a graph with at most $n$ vertices.  Therefore, $|\zeta(K,u)|\le g_2(n)$.  Therefore,
-  \begin{align*}
-    |\kappa(K,u)|
-     & \le \ceil{\log(\depth_F(z)+1)} + |\zeta(K,u)|
-    + \Oh(\lgg\ceil{\log(\depth_F(z)+1)}) + \Oh(\lgg|\zeta(K,u)|)
-     & \text{by \eqref{encoding_cost}}               \\
-     & \leq |\zeta(K,u)| + \Oh(\log\log n)           \\
-     & \leq g_2(n) +  \Oh(\log\log n)\enspace,
-  \end{align*}
-  since $\depth_F(z)\le h\le h(n)\in \Oh(\log n)$ and $|\zeta(K,u)|\le g_2(n)\in\Oh(\log n)$.  Thus, the length of $\kappa(K,u)$ satisfies the requirement for $g'_2(n)$.
+%   \paragraph{\boldmath The clique label $\mu(K)$:}
+%   What remains is to define $\mu(K)$ and $\kappa(K,u)$ for each clique $K$ of $G^\star$ and each $u\in K$.  For each clique $K$ of $G^\star$ such that $K\subseteq B_R$,
+%   \[
+%     \mu(K) := \langle \mu_R(K)\rangle \enspace .
+%   \]
+%   Then    for each clique $K$ in $G^\star$ such that $K\subseteq B_R$,
+%   \begin{align*}
+%     |\mu(K)|
+%      & \leq |\mu_R(K)| + \Oh(1) + \Oh(\lgg|\mu_R(K)|)                               &  & \text{by~\eqref{encoding_cost}}                              \\
+%      & \leq \log\omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + \Oh(\log\log n) &  & \textrm{by~\eqref{mu_RK_ii} and~\eqref{eq:mu_R(K)-in-logn}.}
+%   \end{align*}  Now, let $K$ be a clique of $G^\star$ that contains at least one vertex not in $B_R$. Then there exists exactly one $L\in\mathcal{K}_R$ such that all the vertices of $K\setminus B_R$ are contained in $G_L$. Then $K\setminus B_R$ is a clique in $G^\star_L$, since $G^\star_L[K\setminus B_R]=G^\star[K\setminus B_R]$. Thus, $\mu_L(K\setminus B_R)$ is defined. Since $K$ is a clique in $G^\star$, $K\cap B_R \subseteq L$. Since $L$ is the parent adhesion of some node in $L_2(F)$, $|L| \le k$. Let $c(K)$ be a $k$-bit string whose $i$-th bit indicates whether the $i$-th vertex of $L$ (ordered canonically, for example by their $\mu_R(v)$ labels) belongs to $K$. Define
+%   \[
+%     \mu(K):= \langle\;\mu_R(L),\;\mu_{L}(K\setminus B_R),\;c(K)\;\rangle
+%     \enspace .
+%   \]
+%   We now argue that $\mu$ is injective on the set of cliques of $G^\star$.  Consider two distinct cliques $K$ and $P$ of $G^\star$.   If $K,P \subseteq B_R$, then $\mu(K)=\langle\mu_R(K)\rangle\neq\langle\mu_R(P)\rangle=\mu(P)$.  If $K\subseteq B_R$ and $P\not\subseteq B_R$, then $\mu(K)$ has one part and $\mu(P)$ has three parts, so $\mu(K)\neq\mu(P)$. Now suppose that $K\not\subseteq B_R$ and $P\not\subseteq B_R$. Thus $K$ is contained in $G^\star_L$ and $P$ is contained in $G^\star_M$ for some cliques $L,M$ in $G^\star_R$.  If $L\neq M$ then $\mu_R(L) \neq \mu_R(M)$, so $\mu(K)$ differ in their first parts. Now assume that $L=M$. If $K\cap L\neq P\cap L$ then $c(K)\neq c(P)$, so $\mu(K)$ and $\mu(P)$ differ in their third parts. Otherwise, $K\setminus L\neq P\setminus L$, so $\mu_L(K\setminus B_R)$ and $\mu_L(P\setminus B_R)$ differ by induction, so $\mu(K)$ and $\mu(P)$ differ in their second parts.
 
-  \paragraph{Identity Testing:}
-  We now describe the identity tester $I'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $I'$ first examines $\mu(v)$ to determine if $v\in B_R$.  If $\mu(v)$ has exactly one part, then $v\in B_R$. Otherwise, $\mu(v)$ has three parts and $v\not\in B_R$.
-  In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
-  \begin{itemize}
-    \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
-    \begin{itemize}
-      \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+%   Then,
+%   \begin{align*}
+%     |\mu(K)|
+%      & = |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + |c(K)| + \Oh(1)+\Oh(\lgg|\mu_R(L)|+\lgg|\mu_L(K\setminus B_R)|+\lgg|c(K)|)
+%      & \text{by \eqref{encoding_cost}}                                                                                       \\
+%      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)\enspace,
+%   \end{align*}
+%   where the last line follows by~\eqref{eq:mu_R(K)-in-logn} and by induction as $|\mu_L(K\setminus B_R)|\leq \log\omega(G_L)-\linebreak \log\min_{v\in K\setminus B_R}\omega(v) + h\cdot(g_3(n)+\Oh(k+\log\log n)) \in\Oh(\log^2 n)$, since $h\le h(n)\in\Oh(\log n)$, $k\in\Oh(\log n)$, and $g_3(n)\in\Oh(\log n)$. Continuing,
+%   \begin{align*}
+%     |\mu(K)|
+%      & \le |\mu_R(L)| + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)                                                             \\
+%      & \le \log\omega(G)-\log \omega(G_{L}) + g_3(n) + |\mu_{L}(K\setminus B_R)| + k + \Oh(\log\log n)
+%      & \text{by~\eqref{mu_RK_ii}}                                                                                                   \\
+%      & \le \log\omega(G) - \log\min_{v\in K\setminus B_R}(\omega(v)) + (h+1)\cdot g_3(n) + (h+1)\cdot k + (h+1)\cdot\Oh(\log\log n) \\
+%      & \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot (g_3(n) + \Oh(k+\log\log n)) \enspace .
+%   \end{align*}
+%   Thus, $\mu$ satisfies \eqref{strong_clique} and thus the requirement for $g'_3(n)$.
 
-      \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
-      \begin{itemize}
-        \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
-        \item If $\mu(K)$ has three parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R),c(K)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
-      \end{itemize}
-    \end{itemize}
-    \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
-    \begin{itemize}
-      \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+%   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
+%   Let $K$ be a clique in $G^\star$, let $u\in K$, and let $z$ be the vertex of $F$ such that $u\in B_z\setminus A_z$.   The local identifier $\kappa(K,u)$ for $(A',I')$ has two parts,
+%   \[
+%     \kappa(K,u) := \langle\depth_F(z),\zeta(K,u)\rangle \enspace .
+%   \]
+%   The first part is (the binary encoding of) $\depth_F(z)$. We now describe the second part, $\zeta(K,u)$.  If $K\subseteq B_R$, then $\zeta(K,u):=\kappa_R(K,u)$.
+%   If $K\not\subseteq B_R$ then there is exactly one clique $L\in\mathcal{K}_R$ such that $K\setminus B_R$ is contained in $G_L$.  If $u\in B_R$ then $\zeta(K,u):=\kappa_R(L,u)$.  If $u\in K\setminus B_R$ then $K\setminus B_R$ is non-empty, so $\mu_L(K\setminus B_R)$ and  $\kappa_L(K\setminus B_R, u)$ are defined as part of the mixed labelling $(\mu_L,\kappa_L)$ of $(G^\star_L,G_L,\omega_{|V(G_L)})$ for $(A',I')$.
+%   Since this is a labelling for $(A',I')$ obtained by induction,
+%   \begin{equation}
+%     \kappa_L(K\setminus B_R,u)=\langle\depth_{F_L}(z),\zeta_{L}(K\setminus B_R,u)\rangle=\langle\depth_F(z)-1,\zeta_L(K\setminus B_R,u)\rangle\enspace.
+%     \label{off_by_one}
+%   \end{equation}
+%   In this case, define $\zeta(K,u):=\zeta_L(K\setminus B_R,u)$.
 
-      \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+%   It follows from this definition that $\zeta(K,u)$ is a local identifier $\kappa'(K',u)$, with $K'\subseteq K$ for some mixed labelling $(\mu',\kappa')$ for $(A,I)$ on a graph with at most $n$ vertices.  Therefore, $|\zeta(K,u)|\le g_2(n)$.  Therefore,
+%   \begin{align*}
+%     |\kappa(K,u)|
+%      & \le \ceil{\log(\depth_F(z)+1)} + |\zeta(K,u)|
+%     + \Oh(\lgg\ceil{\log(\depth_F(z)+1)}) + \Oh(\lgg|\zeta(K,u)|)
+%      & \text{by \eqref{encoding_cost}}               \\
+%      & \leq |\zeta(K,u)| + \Oh(\log\log n)           \\
+%      & \leq g_2(n) +  \Oh(\log\log n)\enspace,
+%   \end{align*}
+%   since $\depth_F(z)\le h\le h(n)\in \Oh(\log n)$ and $|\zeta(K,u)|\le g_2(n)\in\Oh(\log n)$.  Thus, the length of $\kappa(K,u)$ satisfies the requirement for $g'_2(n)$.
 
-      If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
-      Since $u\in K$ and $u\not\in B_R$, we have that $u\in K\setminus B_R$, so $K\setminus B_R$ is non-empty. Thus, $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$
-      and $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
-      \[
-        \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
-      \]
-      In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
-    \end{itemize}
-  \end{itemize}
-\end{proof}
+%   \paragraph{Identity Testing:}
+%   We now describe the identity tester $I'$ that takes $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ as input and outputs $1$ if $u=v$ or $0$ if $u\neq v$.  To do this, $I'$ first examines $\mu(v)$ to determine if $v\in B_R$.  If $\mu(v)$ has exactly one part, then $v\in B_R$. Otherwise, $\mu(v)$ has three parts and $v\not\in B_R$.
+%   In both cases, $I'$ will make use of $\kappa(K,u)=\langle\depth_F(z),\zeta(K,u)\rangle$, where $z$ is the unique node of $F$ such that $u\in B_z\setminus A_z$.
+%   \begin{itemize}
+%     \item If $v\in B_R$, then $\mu(v)=\langle\mu_R(v)\rangle$ and $I'$ examines  $\depth_F(z)$ as follows.
+%     \begin{itemize}
+%       \item If $\depth_F(z)> 0$, then $z\not\in R$ and $u\in B_z\setminus A_z\subseteq B_z\setminus B_R$.  Since $v\in B_R$ and $u\not\in B_R$, $u\neq v$.  Thus, $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+%       \item If $\depth_F(z)=0$ then $z\in R$ and $u\in B_R$.   There are now two possibilities that $I'$ can distinguish by looking at the number of parts of $\mu(K)$.
+%       \begin{itemize}
+%         \item If $\mu(K)$ has one part then $K\subseteq B_R$,  $\mu(K)=\langle \mu_R(K)\rangle$, and $\zeta(K,u)=\kappa_R(K,u)$.  Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(K),\kappa_R(K,u),\mu_R(v))$.
+%         \item If $\mu(K)$ has three parts, then $K\not\subseteq B_R$, $\mu(K)=\langle \mu_R(L),\mu_L(K\setminus B_R),c(K)\rangle$, and  $\zeta(K,u)=\kappa_R(L,u)$, where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  Then $K\cap B_R=K\cap L$, so $u\in L$. Therefore, $I'(\mu(K),\kappa(K,u),\mu(v)):=I(\mu_R(L),\kappa_R(L,u),\mu_R(v))$.
+%       \end{itemize}
+%     \end{itemize}
+%     \item If $v\not\in B_R$ then $\mu(v)=\langle \mu_R(L'),\mu_{L'}(v),\alpha(v)\rangle$, where $L'$ is the unique clique in $\mathcal{K}_R$ such that $v\in V(G_{L'})$.
+%     \begin{itemize}
+%       \item If $\depth_F(z)=0$ then $z\in R$, $u\in B_R$ and $v\not\in B_R$, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+%       \item If $\depth_F(z)>0$ then $u\not\in B_R$.  Since $u\in K$ and $u\not\in B_R$, $K\not\subseteq B_R$, so $\mu(K)=\langle \mu_R(L),\mu_{L}(K\setminus B_R),c(K)\rangle$ where $L$ is the unique clique in $\mathcal{K}_R$ such that $G_L$ contains $K\setminus B_R$.  If $\mu_R(L')\neq \mu_R(L)$ then $L\neq L'$ and $u\neq v$ since $G_{L}$ and $G_{L'}$ are vertex-disjoint, so $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.
+
+%       If $\mu_R(L)=\mu_R(L')$ then $L=L'$ since $\mu_R$ is injective.
+%       Since $u\in K$ and $u\not\in B_R$, we have that $u\in K\setminus B_R$, so $K\setminus B_R$ is non-empty. Thus, $\zeta(K,u)=\zeta_L(K\setminus B_R,u)$
+%       and $I'$ can compute the local identifier $\kappa_L(K\setminus B_R,u)$ since, by \eqref{off_by_one},
+%       \[
+%         \kappa_L(K\setminus B_R,u) = \langle \depth_F(z)-1, \zeta_L(K\setminus B_R,u)\rangle\enspace.
+%       \]
+%       In this case $I'(\mu(K),\kappa(K,u),\mu(v)):=I'(\mu_L(K\setminus B_R),\kappa_L(K\setminus B_R,u),\mu_L(v))$. \qedhere
+%     \end{itemize}
+%   \end{itemize}
+% \end{proof}
 
 \subsection{Finalizing the Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
 \label{sec:finalizing}
@@ -2120,7 +2135,6 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   This concludes the proof. 
 \end{proof}
 
-\input{newstuff} 
 % to be brought back for a journal submission, make sure this file does not go on arXiv!
 
 \end{document}
