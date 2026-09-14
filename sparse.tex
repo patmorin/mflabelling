@@ -89,7 +89,12 @@ Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Math
 \maketitle
 
 \begin{abstract}
-  We show that every proper minor-closed class of graphs admits a $(1+o(1))\log_2 n$-bit adjacency labelling scheme. Equivalently, for every proper minor-closed class $\mathcal{G}$ and every positive integer $n$ there exists an $n^{1+o(1)}$-vertex graph $U$ such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U$.   Both results are optimal up to the lower order term. They generalize the corresponding results for planar graphs and apex-minor-free classes (Dujmovi\'c et al., J.~ACM 2021) to all proper minor-closed classes, answering the open question raised in that paper and anticipated earlier by Bonamy, Gavoille, and Pilipczuk (SODA 2020).
+  % We show that every proper minor-closed class of graphs admits a $(1+o(1))\log_2 n$-bit adjacency labelling scheme. Equivalently, 
+  We show that, for every proper minor-closed class $\mathcal{G}$ and every positive integer $n$ there exists a graph $U_n$ with $n^{1+o(1)}$ vertices and edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U_n$.   
+  % Both results are optimal up to the lower order term. 
+  This result generalizes and unifies results of Dujmović, et al. (\textit{J. ACM} 2021) on induced-universal graphs for planar graphs and results of Esperet, Joret, and Morin (\textit{J. London Math. Soc.} 2023) on subgraph-universal graphs for planar graphs.
+  % the corresponding result for planar graphs and apex-minor-free classes (Esperet, Joret, Morin, \textit{J. London Math. Soc.} 2023) to all proper minor-closed classes.
+  % , answering the open question raised in that paper and anticipated earlier by Bonamy, Gavoille, and Pilipczuk (SODA 2020).
 %% and make progress towards a conjecture of Gavoille and Labourel (2007).
 %Moreover, for every fixed proper minor-closed class, the labels can be computed in polynomial time.
 
@@ -914,7 +919,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   First by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
   If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1,\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
-  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets
+  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets 
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
 
@@ -1824,7 +1829,7 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
 In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the efficient mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  We prove the following result.
 
 \begin{lem}\label{gk_labelling_precise}
-  For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits an efficient weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
+  For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0(n)\in {???}$ and $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
 \end{lem}
 
 \begin{proof}
