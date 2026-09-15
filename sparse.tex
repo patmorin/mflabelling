@@ -1955,6 +1955,9 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   To deal with this \cite{dujmovic.esperet.ea:adjacency} considers several cases, each of which can be handled with the following generic strategy.  There exists a node $x\in S_{i+1}\cap S_{i}$ such that $\sigma_{T_i}(x)$ can be obtained by deleting a suffix of $\sigma^+(v,i)$ of length $\ell_1$ and appending a string of the form $01^{\ell_2}$ with $\ell_1,\ell_2\in O(\log n)$.  Furthermore, $\sigma^+(v,i+1)$ can be obtained by deleting a suffix of $\sigma_{T_{i+1}}(x)$ of length $\ell_3$ and appending a string of the form $01^\ell_4$ with$\ell_3,\ell_4\in O(\log n)$.  This gives the full transition code $\tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2),\tau(x,i),\bin(\ell_3),\bin(\ell_4)\rangle$.  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4$ to compute $\sigma^+(v,i+1)$.
 
 
+  \pat{Somewhere around here, we need to describe the changes in \cite{EJM23} to make this scheme orientable.  They move $x_{T_i}(v)$ closer to the root so that the signatures of all nodes in $X_{v,i}$ have lenghts that differ by at most $1$. }  
+
+
 
   This gives all the pieces needed for the second part of the label for a vertex $(v,i)$ of $G$:
   \[
@@ -1985,6 +1988,10 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
 
           If this search fails, then the procedure continues by using entries in $\alpha^+(w,j)$ to find $(v',j)$ such that $(\sigma(v',j),\varphi(v'))=(\sigma(v,j),\varphi(v))$.  If this search also fails, then the procedure concludes that $A(\mu((v,i)),\mu((w,j))):=0$.
   \end{itemize}
+
+  \paragraph{\boldmath $g_0$-orientability:} 
+  
+  \pat{TODO still}
 
   % \paragraph{B-trees:}
   % \citet{gawrychowski.janczewski:simpler} use
@@ -2141,11 +2148,11 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \end{align*}
     For fixed $k$, $|\mu(K)|\le \log\omega(G) - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_3(n)\in\Oh(\sqrt{\log n})$.
 
-    \paragraph{Local identifiers}
+    \paragraph{Local identifiers:}
 
     For each vertex $(u,j)\in K$, the local identifier for $(u,j)$ is a single integer $\kappa(K,(u,j))\in[2k+2]$ that indicates the position of the entry for $(u,j)$ in $\alpha(K)$.  This integer also implicitly encodes whether $j=i-1$  or $j=i$.  Thus $|\kappa(K,(u,j))| = \Oh(\log k)$.  For fixed $k$, this satisfies the requirement $g_2(n)\in\Oh(1)$.
 
-    \paragraph{Identity testing}
+    \paragraph{Identity testing:}
 
     We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$ containing only real vertices, let $(u,j)\in K$, and let $(v,i')$ be a real vertex of $G$.  Let $(v^*,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(v^*,i),\sigma^+(v^*,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1((v^*,i))$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i')$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
     If $i'\in\{i-1,i\}$, then the tester locates the entry $\langle |\sigma(u,i)|,\varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(K,(u,j))$. The location of this entry also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately determine that $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ if $j\neq i'$.
@@ -2155,9 +2162,12 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \item If $i'=i$ then the tester uses $\sigma^+(v,i')$ and $|\sigma(v,i')|$ to compute $\sigma(v,i')=\sigma(v,i)$.  If $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$ then $(v,i)=(u,i)$ and  $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=1$.  Otherwise, $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$.
     \item If $i'=i-1$ then the tester computes $\sigma^+(v,i)=J(\sigma^+(v,i'),\tau(v,i'))$ and uses this with $|\sigma(v,i'+1)|=|\sigma(v,i)|$ to compute $\sigma(v,i)$.  Again, the tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
   \end{itemize}
+
+  \paragraph{\boldmath Strong $g_0$-orientability:}
+  
+  \pat{TODO still}
+
   This concludes the proof. 
 \end{proof}
-
-% to be brought back for a journal submission, make sure this file does not go on arXiv!
 
 \end{document}
