@@ -1826,7 +1826,13 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
 \section{Mixed Labelling Scheme for \texorpdfstring{$\mathcal{R}_k$}{Rk}}
 \label{weighted_product_proof}
 
-In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the efficient mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  We prove the following result.
+% In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the efficient mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  We prove the following result.
+
+
+
+\begin{lem}[\protect{\citet[Lemma~7]{chatterjee.ibsen-jensen.ea:optimal}}]\label{low_height_tree_decomp}
+  Let $H$ be an $n$-vertex graph of treewidth at most $k$. Then $H$ has a rooted binary tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\le {?}\log n$.
+\end{lem}
 
 \begin{lem}\label{gk_labelling_precise}
   For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0(n)\in {???}$ and $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
@@ -1837,21 +1843,19 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   
   % and then describe the changes needed to obtain the statement of \cref{gk_labelling_precise}.
 
-  Let $G$ be an $n$-vertex graph in $\mathcal{R}_k$, so $G$ is a subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$, and that $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the out-neighbourhood \defin{$N^+_H(v)$} is a clique in $H$, for each $v\in V(H)$. It follows that the out-degree $|N^+_H(v)|$ is at most $k$, for each vertex $v\in V(H)$.
+  Let $G$ be an $n$-vertex graph in $\mathcal{R}_k$, so $G$ is a subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$.  By \cref{low_height_tree_decomp}, $H$ has a rooted binary tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\le {?}\log n$.  For each $x\in v(T)$, add edges to $H$ so that $B_x$ becomes a clique.  Order the vertices of $H$ such that a vertex $v<w$ if the home of $v$ in $\mathcal{T}$ is a $T$-ancestor of the home of $w$ in $\mathcal{T}$. If $v$ and $w$ have the same home in $T$ then the relative order of $v$ and $w$ is unimportant.  For each $w\in V(H)$, let $N^+_H(w)=\{v\in N_H(w)\mid v < w\}$.  Then $|N^+_H(w)|\le 6k+4$ since $v\in N^+_H(w)$ implies that $v\in B_x$ where $x$ is the home of $w$ in $\calT$.  Note that, for each clique $K$ in $H$, $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$.
 
   \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
-  The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.
+  The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.  Here we refine this idea using \cref{low_height_tree_decomp} in order to obtain $g_0$-orientable labelling scheme.
   Each vertex $v$ of $H$ is mapped to a real interval \defin{$f(v)$}.
   This mapping has the following properties (for some fixed $c>0$):
   \begin{enumerate}[nosep,label=(I\arabic*)]
     \item\label{nested_or_disjoint} For any two vertices $v,w\in V(H)$, $f(v)\subseteq f(w)$, $f(w)\subseteq f(v)$ or $f(v)\cap f(w)=\emptyset$.
-    \item\label{intersection_subgraph} For each $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.
+    \item\label{intersection_subgraph} For each $w\in V(H)$ and each $v\in N^+_H(w)$, $f(w)\subseteq f(v)$.
     \item\label{thin} For each $x\in \R$, $|\{v\in V(H):x\in f(v)\}|\le ck\log n$.
   \end{enumerate}
 
-  The existence of such a mapping $f$ is easily established by a recursive procedure that takes an open interval $(a,b)$ and a subgraph $H'$ of $H$.
-  The procedure identifies a set $S$ of at most $k+1$ vertices in $H'$ such that the components of $H'-S$ can be partitioned into two graphs $H'_1$ and $H'_2$, each with at most $\tfrac{2}{3}|V(H')|$ vertices.
-  For each $v\in S$, $f(v):=(a,b)$.  The procedure is then applied inductively to map the vertices of $H'_1$ onto subintervals of $(a,(a+b)/2)$ and then again to map the vertices of $H'_2$ onto subintervals of $((a+b)/2,b)$.
+  The existence of such a mapping $f$ is easily established by a recursive procedure that takes an open interval $(a,b)$ and a node $x$ of $T$.  The procedure sets $f(v):=(a,b)$ for each $v\in B_x\setminus A_x$. The procedure is then applied to the left child $x_1$ of $x$ (if it exists) with the interval $(a,(a+b)/2)$ and again applied to the right child $x_2$ (if it exists) of $x$ with the interval $((a+b)/2,b)$.
 
   Let $I$ be the interval intersection graph with vertex-set $V(I):=V(H)$ and edge-set $E(I):=\{vw\in\binom{V(H)}{2}:f(v)\cap f(w)\neq\emptyset\}$.
   Property~\ref{intersection_subgraph} implies that $H$ is a subgraph of $I$. Property~\ref{thin} implies that $H$ has no clique larger than $ck\log n$, for some fixed constant $c$.
@@ -1861,9 +1865,9 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   \paragraph{\boldmath Mapping $V(H)$ onto points:}
   For each vertex $v$ of $H$, let $x_f(v)$ be the midpoint of the interval $f(v)$.\footnote{Any real number $x_f(v)$ in the interior of the interval $f(v)$ would also work.}  Property~\ref{nested_or_disjoint} then implies:
   \begin{enumerate}[nosep,label=(I\arabic*)]\setcounter{enumi}{3}
-    \item\label{clique_property} For each clique $K$ in $I$, there exists $v\in K$ such that $x_f(v)\in f(w)$ for each $w\in K$.
+    \item\label{clique_property} Let $K$ be a clique in $H$.  Then there exists $w\in K$ such that $K\setminus\{w\}\subseteq N^+_H(w)$ and $f(w)\subseteq f(v)$ for each $v\in K$.  
   \end{enumerate}
-  Indeed, a vertex $v$ of $K$ that minimizes the length of $f(w)$ satisfies this condition.
+  Property \ref{clique_property} is a crucial difference between the scheme we describe here and the labelling scheme of \citet{dujmovic.esperet.ea:adjacency}.  In essence, it ensures that the ancestor-descendant relationships in $T$ are consistent with containment relationships in the interval representation.  This simultaneously simplifies the labelling scheme and makes it $g_0$-orientable without additional tricks used by \citet{EJM23}.\footnote{Specifically, Property~\ref{clique_property} completely eliminates the need for the extended signature $\sigma^+(v,i)$ of a vertex $(v,i)$ of $H$.  This allows for a number of simplifications.  Furthermore, difference in length between $\sigma^+(v,i)$ and the signature $\sigma(v,i)$ is precisely the reason that the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is not $n^{o(1)}$-orientable.}  \pat{Check that \citet{gawrychowski.janczewski:simpler} didn't already make a simplification like this.}
 
   \paragraph{\boldmath Treating $G$ as a sequence of graphs:}
   Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.
@@ -1924,7 +1928,9 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \label{ps_identity}
   \end{equation}
 
-  For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):w\in X_{v,i}\}$ of maximum length.  Since $X_{v,i}$ is a clique in $H$, property~\ref{clique_property} implies that every signature in $\Sigma_{v,i}$ is a prefix of $\sigma^+(v,i)$ for each vertex $(v,i)$ of $G$.  In particular, for each $w\in X_{v,i}$, the signature $\sigma(w,i)$ can be derived easily from $\sigma^+(v,i)$ and $|\sigma(w,i)|$.
+  % For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):w\in X_{v,i}\}$ of maximum length.  
+  
+  Since $X_{v,i}$ is a clique in $H$, property~\ref{clique_property} implies that $\sigma(w,i)$ is a prefix of $\sigma(v,i)$ for each vertex $(v,i)$ and $(w,i)$ of $G$ with $w\in N^+_H(v)$. In particular, $\sigma(w,i)$ is just the length-$|\sigma(w,i)|$ prefix of $\sigma(v,i)$.
 
   For each $(v,i)\in V(G)$, define
   \begin{align*}
@@ -1937,7 +1943,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \mathdefin{\alpha(v,i)}
      & = \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle        .
   \end{align*}
-  Since $|N^+_G(v)|\le k$ for each $v\in V(H)$, $|\alpha(v,i)|\in\Oh(k(\log k + \log\log n))$.
+  Since $|N^+_G(v)|\le 6k+4$ for each $v\in V(H)$, $|\alpha(v,i)|\in\Oh(k(\log k + \log\log n))$.
 
   The last (and critical) piece of the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is the notion of a \defin{transition code}. The authors of \cite{dujmovic.esperet.ea:adjacency} choose the sets $S^+_1,\ldots,S^+_h$ and design the binary search trees $T_1,\ldots,T_h$ so that, for any vertex $(v,i)$ of $G$, the extended signature $\sigma^+(v,i+1)$ can be derived from $\sigma^+(v,i)$ and a transition code \defin{$\tau((v,i))$} of length $o(\log n)$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $J(\sigma^+(v,i),\tau(v,i))=\sigma^+(v,i+1)$ for each $(v,i)\in V(G)$.
 
@@ -1950,17 +1956,21 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
     \item The final step is to insert the values in $S^{+}_{i+1}\setminus S^+_{i}$ into $T_i''$ to obtain the tree $T_{i+1}$.  This is done using the standard algorithm for insertion in a binary search tree so that each newly inserted value becomes a leaf at the moment it is inserted.  The sets $S^+_i$ and $S^+_{i+1}$ are chosen so that for any distinct $x,z\in S^+_{i+1}\setminus S_i$, there is at least one $y\in S^+_i\cap S^+_{i+1}$ such that $x < y < z$.  This ensures that each newly inserted value $x\in S^+_{i+1}\setminus S^+_i$ is a leaf in $T_{i+1}$ so that $\height(T_{i+1})\le\height(T_i'')+1$. 
   \end{enumerate}
 
-  In the preceding, we have described the transition code $\tau(x,i):=\langle\tau'(x,i),\tau''(x,i)\rangle$ for each $x\in S^+_i\cap S^+_{i+1}$.  This is not quite enough because for two vertices $(v,i)$ and $(v,i+1)$ of $G$, it may be the case that $x_{T_i}(v)\neq x_{T_{i+1}}(v)$.  Indeed, it may be the case that $x_{T_i}(v)$ is not even in $S^+_{i+1}$.  Even if $x_{T_i}(v)$ is in $S^+_{i+1}$, it may not be the case that $x_{T_{i+1}}(v)=x_{T_i}(v)$ because $x_{T_i}(v)$ is not the minimum-depth node of $T_{i+1}$ with $x_{T_i}(v)\in f(v)$.  (This can happen when the deletion of a node $x\not\in f(v)$ causes the depth of a node $x'\in f(v)$ to decrease.)  To complicate things further, $\sigma^+(v,i)$ is not determined by $x_{T_{i+1}}(v)$ but is rather determined by the node $v'\in X_{v,i+1}$ that maximizes $|\sigma(v',i+1)|$.  
+  In the preceding, we have described the transition code $\tau(x,i):=\langle\tau'(x,i),\tau''(x,i)\rangle$ for each $x\in S^+_i\cap S^+_{i+1}$.  This is not quite enough because for two vertices $(v,i)$ and $(v,i+1)$ of $G$, it may be the case that $x_{T_i}(v)\neq x_{T_{i+1}}(v)$.  Indeed, it may be the case that $x_{T_i}(v)$ is not even in $S^+_{i+1}$.  This can happen if $x=x_{T_i}(v)$ is deleted in Step~1 above.  To deal with this, the set $S^+_{i+1}$ is defined so that the predecessor $x^-$ of $x$ (if $x\neq\min S^+i$) and the successor $x^+$ of $x$ (if $x\neq\max S^+_i$) are also in $S^+_{i+1}$.  Since $(v,i+1)\in V(G)$, $x(v)\in S_{i}\cap S_{i+1}$.  It follows that at least one of $x^-$ or $x^+$ is contained in $f(v)$.  
+  Then $\sigma_{T_i}(x^-)$ can be obtained by appending $01^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma(v,i)=\sigma_{T_i}(x)$, for some $\ell_1,\ell_2\in O(\log n)$.  Similarly, $\sigma_{T_i}(x^+)$ can be obtained by appending $10^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma_{T_i}(x)$ for some $\ell_1,\ell_2\in O(\log n)$.  Thus, $\sigma(v,i)$ and the integers $\ell_1$ and $\ell_2$ are sufficient to construct $\sigma_{T_i}(x')$ for some $x'\in S_{i}\cap S_{i+1}$ with $x'\in f(v)$.  The transition code $\tau(x',i)$ is the sufficient to construct $\sigma(x',i+1)$.  By definition, $x(v,i+1)$ is a $T_{i+1}$-ancestor of $x'$, so $\sigma_{T_{i+1}}(x(v,i+1))=\sigma(v,i+1)$ can be recovered from $\sigma_{T_{i+1}}(x')$ and $\depth_{T_{i+1}}(x(v,i+1))$.
   
-  To deal with this \cite{dujmovic.esperet.ea:adjacency} considers several cases.  In each case, there exists a node $x\in S_{i+1}\cap S_{i}$ such that $\sigma_{T_i}(x)$ can be obtained by deleting a suffix of $\sigma^+(v,i)$ of length $\ell_1$ and (possibly) appending a string of the form $01^{\ell_2}$ with $\ell_1,\ell_2\in O(\log n)$.  Furthermore, $\sigma^+(v,i+1)$ can be obtained by deleting a suffix of $\sigma_{T_{i+1}}(x)$ of length $\ell_3$ and (possibly) appending  $01^{\ell_4}$ with $\ell_3,\ell_4\in O(\log n)$.  
-  This gives the full transition code 
-  \[  
-    \tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2^\star),\tau(x,i),\bin(\ell_3),\bin(\ell_4^\star)\rangle \enspace . 
-  \]
-  (A value of $\ell_2^\star>0$ indicates that the string $01^{\ell_2^\star-1}$ should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$ and a value of $\ell_2^\star=0$ indicates that nothing should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$.  The value of $\ell_4^\star$ is defined similiarly.)  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2^\star$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4^\star$ to compute $\sigma^+(v,i+1)$.
+  \pat{Continue here to describe the full transition code.}
+  
+  
+
+  % This gives the full transition code 
+  % \[  
+  %   \tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2^\star),\tau(x,i),\bin(\ell_3),\bin(\ell_4^\star)\rangle \enspace . 
+  % \]
+  % (A value of $\ell_2^\star>0$ indicates that the string $01^{\ell_2^\star-1}$ should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$ and a value of $\ell_2^\star=0$ indicates that nothing should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$.  The value of $\ell_4^\star$ is defined similiarly.)  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2^\star$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4^\star$ to compute $\sigma^+(v,i+1)$.
 
 
-  \pat{ Somewhere around here, we need to describe the changes in \cite{EJM23} to make this scheme orientable.  They move $x_{T_i}(v)$ closer to the root so that the signatures of all nodes in $X_{v,i}$ have lenghts that differ by at most $1$. }  
+  % \pat{ Somewhere around here, we need to describe the changes in \cite{EJM23} to make this scheme orientable.  They move $x_{T_i}(v)$ closer to the root so that the signatures of all nodes in $X_{v,i}$ have lenghts that differ by at most $1$. }  
 
 
 
