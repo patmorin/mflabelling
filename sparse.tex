@@ -1833,9 +1833,11 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
 \end{lem}
 
 \begin{proof}
-  We begin by reviewing the proofs in \cite{dujmovic.esperet.ea:adjacency} and \cite{gawrychowski.janczewski:simpler} and then describe the changes needed to obtain the statement of \cref{gk_labelling_precise}.
+  We begin by reviewing the adjacency labelling scheme for $\mathcal{R}_k$ in \cite{dujmovic.esperet.ea:adjacency}.  We then describe the modifications made in \cite{EJM23} to make this scheme $g_0$-orientable.  Finally, we describe the how this scheme can be extended to obtain a strongly $g_0$-orientable weighted mixed labelling scheme for the class $\mathcal{R}_k$. 
+  
+  % and then describe the changes needed to obtain the statement of \cref{gk_labelling_precise}.
 
-  Let $G$ be an $n$-vertex graph in $\mathcal{R}_k$, so $G$ is a subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$, and $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the out-neighbourhood \defin{$N^+_H(v)$} is a clique in $H$, for each $v\in V(H)$. It follows that the out-degree $|N^+_H(v)|$ is at most $k$, for each vertex $v\in V(H)$.
+  Let $G$ be an $n$-vertex graph in $\mathcal{R}_k$, so $G$ is a subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$, and that $H$ is an edge-maximal graph of treewidth $k$.  This implies that $H$ has an acyclic orientation in which the out-neighbourhood \defin{$N^+_H(v)$} is a clique in $H$, for each $v\in V(H)$. It follows that the out-degree $|N^+_H(v)|$ is at most $k$, for each vertex $v\in V(H)$.
 
   \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
   The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.
@@ -1861,7 +1863,7 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
   \begin{enumerate}[nosep,label=(I\arabic*)]\setcounter{enumi}{3}
     \item\label{clique_property} For each clique $K$ in $I$, there exists $v\in K$ such that $x_f(v)\in f(w)$ for each $w\in K$.
   \end{enumerate}
-  Indeed, a vertex $w$ of $K$ that minimizes the length of $f(w)$ satisfies this condition.
+  Indeed, a vertex $v$ of $K$ that minimizes the length of $f(w)$ satisfies this condition.
 
   \paragraph{\boldmath Treating $G$ as a sequence of graphs:}
   Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.
@@ -1939,6 +1941,21 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
 
   The last (and critical) piece of the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is the notion of a \defin{transition code}. The authors of \cite{dujmovic.esperet.ea:adjacency} choose the sets $S^+_1,\ldots,S^+_h$ and design the binary search trees $T_1,\ldots,T_h$ so that, for any vertex $(v,i)$ of $G$, the extended signature $\sigma^+(v,i+1)$ can be derived from $\sigma^+(v,i)$ and a transition code \defin{$\tau((v,i))$} of length $o(\log n)$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $J(\sigma^+(v,i),\tau(v,i))=\sigma^+(v,i+1)$ for each $(v,i)\in V(G)$.
 
+  In order to explain the relevant parts of the transition code $\tau(v,i)$, we must first explain the transition code $\tau(x,i)$ for $x\in S^+_i\cap S^+_{i+1}$, which requires us to explain how the tree $T_{i+1}$ is obtained from $T_i$.  
+  \begin{enumerate}
+    \item An operation called $\textsc{BulkBalance}$ is applied to $T_i$ to obtain a tree $T_i'$. This ensures that $\height(T_i)\le \log |S^+_i|+c\sqrt{\log n\log\log n}$ for some fixed constant $c$. This operation modifies edges of $T_i$ but does not add or remove any vertices, so $V(T_i')=V(T_i)=S^+_i$. This operation is defined so that, for each $x\in V(T_i)$, a short transition code $\tau'(x,i)$ is sufficient to recover $\sigma_{T_i'}(x)$ from $\sigma_{T_i}(x)$.  Formally, there is a universal function $J'$ such that $J'(\sigma_{T_i}(x), \tau'(x,i)) = \sigma_{T_i'}(x)$ for each $x \in V(T_i)$.  In the current work it is not necessary to understand the details of the $\textsc{BulkBalance}$ operation or the contents of $\tau'(x,i)$.
+      
+    \item The next step is to delete the values in $S^+_{i}\setminus S^+_{i+1}$ from $T_i'$ to obtain a tree $T_i''$ with $V(T_i'')=S^+_i\cap S^+_{i+1}$.  This is done using the standard algorithm for deletion in a binary search tree.  To delete a value $x$ that is a leaf of $T_i$, we simply remove the leaf.  If $x$ is an internal node with one child, then we remove $x$ and replace it with its child.  If $x$ is an internal node with two children, then we remove the smallest value $x'$ in the subtree rooted at the right child of $x$ and replace $x$ by $x'$.  (The node $x'$ is necessarily a leaf in $T_i$ and is the successor of $x$ in the set $S^+_i$.) This deletion operation has the property that, for any value $x\in V(T_i'')$, $\sigma_{T_i''}(x)$ is a prefix of $\sigma(T_{i}')$.  Thus, the second part of the transition code for $x$ is just $\tau''(x,i):=\bin(\depth_{T_i''}(x))$, which has length $O(\log\log n)$.
+    
+    \item The final step is to insert the values in $S^{+}_{i+1}\setminus S^+_{i}$ into $T_i''$ to obtain the tree $T_{i+1}$.  This is done using the standard algorithm for insertion in a binary search tree so that each newly inserted value becomes a leaf at the moment it is inserted.  The sets $S^+_i$ and $S^+_{i+1}$ are chosen so that for any distinct $x,z\in S^+_{i+1}\setminus S_i$, there is at least one $y\in S^+_i\cap S^+_{i+1}$ such that $x < y < z$.  This ensures that each newly inserted value $x\in S^+_{i+1}\setminus S^+_i$ is a leaf in $T_{i+1}$ so that $\height(T_{i+1})\le\height(T_i'')+1$. 
+  \end{enumerate}
+
+  In the preceding, we have described the transition code $\tau(x,i):=\langle\tau'(x,i),\tau''(x,i)\rangle$ for each $x\in S^+_i\cap S^+_{i+1}$.  This is not quite enough because for two vertices $(v,i)$ and $(v,i+1)$ of $G$, it may be the case that $x_{T_i}(v)\neq x_{T_{i+1}}(v)$.  Indeed, it may be the case that $x_{T_i}(v)$ is not even in $S^+_{i+1}$.  Even if $x_{T_i}(v)$ is in $S^+_{i+1}$, it may not be the case that $x_{T_{i+1}}(v)=x_{T_i}(v)$ because $x_{T_i}(v)$ is not the minimum-depth node of $T_{i+1}$ with $x_{T_i}(v)\in f(v)$.  (This can happen when the deletion of a node $x\not\in f(v)$ causes the depth of a node $x'\in f(v)$ to decrease.)  To complicate things further, $\sigma^+(v,i)$ is not determined by $x_{T_{i+1}}(v)$ but is rather determined by the node $v'\in X_{v,i+1}$ that maximizes $|\sigma(v',i+1)|$.  
+  
+  To deal with this \cite{dujmovic.esperet.ea:adjacency} considers several cases, each of which can be handled with the following generic strategy.  There exists a node $x\in S_{i+1}\cap S_{i}$ such that $\sigma_{T_i}(x)$ can be obtained by deleting a suffix of $\sigma^+(v,i)$ of length $\ell_1$ and appending a string of the form $01^{\ell_2}$ with $\ell_1,\ell_2\in O(\log n)$.  Furthermore, $\sigma^+(v,i+1)$ can be obtained by deleting a suffix of $\sigma_{T_{i+1}}(x)$ of length $\ell_3$ and appending a string of the form $01^\ell_4$ with$\ell_3,\ell_4\in O(\log n)$.  This gives the full transition code $\tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2),\tau(x,i),\bin(\ell_3),\bin(\ell_4)\rangle$.  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4$ to compute $\sigma^+(v,i+1)$.
+
+
+
   This gives all the pieces needed for the second part of the label for a vertex $(v,i)$ of $G$:
   \[
     \mathdefin{\lambda_2(v,i)} := \langle \sigma^+(v,i),\; |\sigma(v,i)|,\; \varphi(v),\; \alpha(v,i),\; \tau(v,i),\; |\sigma(v,i+1)| \rangle  \enspace .
@@ -1969,119 +1986,119 @@ In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:a
           If this search fails, then the procedure continues by using entries in $\alpha^+(w,j)$ to find $(v',j)$ such that $(\sigma(v',j),\varphi(v'))=(\sigma(v,j),\varphi(v))$.  If this search also fails, then the procedure concludes that $A(\mu((v,i)),\mu((w,j))):=0$.
   \end{itemize}
 
-  \paragraph{B-trees:}
-  \citet{gawrychowski.janczewski:simpler} use
-  weight-balanced B-trees to replace the (binary) bulk trees used in \cite{dujmovic.esperet.ea:adjacency}.
-  A \defin{B-tree} stores a set of real numbers in the leaves of a tree $B$ in which all leaves have the same depth.
-  \defin{Weight-balanced B-trees} are parameterized by a parameter $a\ge 6$.  A weight-balanced B-tree $B$ is \defin{semi-balanced} if, for each node $x$ of $B$, the number of leaves in the subtree $B_x$ is at most $6a^{\height(B_x)}$ and for each \emph{non-root} node $x$ of $B$, the number of leaves in $B_x$ is at least $\tfrac{1}{2}a^{\height(B_x)}$.
-  Let $B$ be a weight-balanced B-tree with $r\in [n]$ leaves.  The weight-balance conditions guarantee that $\height(B)\le \log_a r + 1$.
-  The weight-balance conditions also ensure that the number of children of any node $x$ of $B$ is at most $12a$.
-  This implies that any root-to-leaf path in a B-tree can be encoded by a sequence of $\log_a r+1$ integers, each requiring $\lceil\log(12a)\rceil\le 5+\log a$ bits to represent, for a total of at most $\lceil\log(12a)\rceil\cdot(\log_a r+1)=\log r + \Oh(\log_a r + \log a)$ bits.
-  The value of $a$ used in \cite{gawrychowski.janczewski:simpler} is approximately $2^{\sqrt{\log n}}$, so that any root-to-leaf path in $B$ can be represented using $\log r + \Oh(\sqrt{\log n})$ bits, for any $r\in\Oh(n)$.
+  % \paragraph{B-trees:}
+  % \citet{gawrychowski.janczewski:simpler} use
+  % weight-balanced B-trees to replace the (binary) bulk trees used in \cite{dujmovic.esperet.ea:adjacency}.
+  % A \defin{B-tree} stores a set of real numbers in the leaves of a tree $B$ in which all leaves have the same depth.
+  % \defin{Weight-balanced B-trees} are parameterized by a parameter $a\ge 6$.  A weight-balanced B-tree $B$ is \defin{semi-balanced} if, for each node $x$ of $B$, the number of leaves in the subtree $B_x$ is at most $6a^{\height(B_x)}$ and for each \emph{non-root} node $x$ of $B$, the number of leaves in $B_x$ is at least $\tfrac{1}{2}a^{\height(B_x)}$.
+  % Let $B$ be a weight-balanced B-tree with $r\in [n]$ leaves.  The weight-balance conditions guarantee that $\height(B)\le \log_a r + 1$.
+  % The weight-balance conditions also ensure that the number of children of any node $x$ of $B$ is at most $12a$.
+  % This implies that any root-to-leaf path in a B-tree can be encoded by a sequence of $\log_a r+1$ integers, each requiring $\lceil\log(12a)\rceil\le 5+\log a$ bits to represent, for a total of at most $\lceil\log(12a)\rceil\cdot(\log_a r+1)=\log r + \Oh(\log_a r + \log a)$ bits.
+  % The value of $a$ used in \cite{gawrychowski.janczewski:simpler} is approximately $2^{\sqrt{\log n}}$, so that any root-to-leaf path in $B$ can be represented using $\log r + \Oh(\sqrt{\log n})$ bits, for any $r\in\Oh(n)$.
 
-  The sequence of binary search trees $T_1,\ldots,T_h$ used in \cite{gawrychowski.janczewski:simpler} is replaced with a sequence of B-trees $B_1,\ldots,B_h$.
-  For each $i\in[h]$, the leaves of $B_i$ store the values in $S^+_i$.
-  For each $i\in[h]$, each vertex $(v,j)\in V_i\times\{i-1,i\}$ is mapped to the lowest-common-$B_i$-ancestor $x_{B_i}(v)$ of $f(v)\cap S^+_i$.
-  Then, for a vertex $(v,i)$ of $G$, the signature \defin{$\sigma(v,i)$} is the encoding of $P_{B_i}(x_{B_i}(v))$.
-  Then
-  \[
-    |\sigma(v,i)| \le \lceil\log (12a)\rceil\cdot(\depth_{B_i}(x_{B_i}(v))) = \lceil\log (12a)\rceil(\depth_{B_i}(\lca_{B_i}(f(v)\cap S_i^+))) \enspace .
-  \]
-  An upper bound on $|\sigma((v,i))|$ can be obtained by using the $\log_a |S^+_i|+1$ upper bound on $\height(B_i)$:
-  \[
-    |\sigma(v,i)|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + \Oh(\sqrt{\log n})
-  \]
+  % The sequence of binary search trees $T_1,\ldots,T_h$ used in \cite{gawrychowski.janczewski:simpler} is replaced with a sequence of B-trees $B_1,\ldots,B_h$.
+  % For each $i\in[h]$, the leaves of $B_i$ store the values in $S^+_i$.
+  % For each $i\in[h]$, each vertex $(v,j)\in V_i\times\{i-1,i\}$ is mapped to the lowest-common-$B_i$-ancestor $x_{B_i}(v)$ of $f(v)\cap S^+_i$.
+  % Then, for a vertex $(v,i)$ of $G$, the signature \defin{$\sigma(v,i)$} is the encoding of $P_{B_i}(x_{B_i}(v))$.
+  % Then
+  % \[
+  %   |\sigma(v,i)| \le \lceil\log (12a)\rceil\cdot(\depth_{B_i}(x_{B_i}(v))) = \lceil\log (12a)\rceil(\depth_{B_i}(\lca_{B_i}(f(v)\cap S_i^+))) \enspace .
+  % \]
+  % An upper bound on $|\sigma((v,i))|$ can be obtained by using the $\log_a |S^+_i|+1$ upper bound on $\height(B_i)$:
+  % \[
+  %   |\sigma(v,i)|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + \Oh(\sqrt{\log n})
+  % \]
 
-  The main advantage of using B-trees over the bulk trees in \cite{dujmovic.esperet.ea:adjacency} is that in B-trees the rebalancing operations needed to maintain the height bound result in a much simpler transition code $\tau(w,i-1)$.
-  This simplicity ultimately comes from the fact that, for any $p\in S_{i-1}\cap S_i$, the root-to-$p$ path $P_{B_{i-1}}(p)$ in $B_{i-1}$ and the root-to-$p$ path $P_{B_i}(p)$ in $B_i$ differ by at most a single vertex.
-  More precisely, a subpath $xyz$ in $P_{B_{i-1}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_i}(x)$.%
-  \footnote{There are two exceptions. Occasionally, $P_{B_i}(x)$ is obtained by removing the first vertex of $P_{B_{i-1}}(x)$ or by adding a vertex at the beginning of $P_{B_{i-1}}(x)$. Since these are distracting and easily handled, we ignore them here.}
-  In terms of the signature function $\sigma$, this means that the difference between these two paths can be described by an $\Oh(\log\log_a n)$-bit integer that gives the index of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.\%
-  \footnote{Determining $\sigma^+((w,i))$ from $\sigma^+((w,i-1))$ requires a bit more work, since it is possible that $x_{B_i}(w)\neq x_{B_{i-1}}(w)$. This is common to both labelling schemes and does not affect the upcoming discussion. The important thing for what comes next is the definition of $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$.}
-    As a result of this, the transition code $\tau((w,i-1))$ used for the B-trees in \cite{gawrychowski.janczewski:simpler} is shorter (it has length $\Oh(\sqrt{\log n})$ rather than the $\Oh(\sqrt{\log n\log\log n})$ required by bulk trees) and, on a computer with $\Oh(\log n)$-bit words, the translation from $\sigma^+((w,i-1))$ to $\sigma^+((w,i))$ can be done in constant time, resulting in a constant-time adjacency testing procedure. (All of the other adjacency-testing operations for both schemes can be done in constant-time.)
+  % The main advantage of using B-trees over the bulk trees in \cite{dujmovic.esperet.ea:adjacency} is that in B-trees the rebalancing operations needed to maintain the height bound result in a much simpler transition code $\tau(w,i-1)$.
+  % This simplicity ultimately comes from the fact that, for any $p\in S_{i-1}\cap S_i$, the root-to-$p$ path $P_{B_{i-1}}(p)$ in $B_{i-1}$ and the root-to-$p$ path $P_{B_i}(p)$ in $B_i$ differ by at most a single vertex.
+  % More precisely, a subpath $xyz$ in $P_{B_{i-1}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_i}(x)$.%
+  % \footnote{There are two exceptions. Occasionally, $P_{B_i}(x)$ is obtained by removing the first vertex of $P_{B_{i-1}}(x)$ or by adding a vertex at the beginning of $P_{B_{i-1}}(x)$. Since these are distracting and easily handled, we ignore them here.}
+  % In terms of the signature function $\sigma$, this means that the difference between these two paths can be described by an $\Oh(\log\log_a n)$-bit integer that gives the index of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.\%
+  % \footnote{Determining $\sigma^+((w,i))$ from $\sigma^+((w,i-1))$ requires a bit more work, since it is possible that $x_{B_i}(w)\neq x_{B_{i-1}}(w)$. This is common to both labelling schemes and does not affect the upcoming discussion. The important thing for what comes next is the definition of $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$.}
+  %   As a result of this, the transition code $\tau((w,i-1))$ used for the B-trees in \cite{gawrychowski.janczewski:simpler} is shorter (it has length $\Oh(\sqrt{\log n})$ rather than the $\Oh(\sqrt{\log n\log\log n})$ required by bulk trees) and, on a computer with $\Oh(\log n)$-bit words, the translation from $\sigma^+((w,i-1))$ to $\sigma^+((w,i))$ can be done in constant time, resulting in a constant-time adjacency testing procedure. (All of the other adjacency-testing operations for both schemes can be done in constant-time.)
 
-    Except for the new definition of the basic signature $\sigma$ and the transition function $\tau$, every other aspect of the resulting labelling scheme and adjacency testing procedure is as described in \cite{dujmovic.esperet.ea:adjacency}.
+  %   Except for the new definition of the basic signature $\sigma$ and the transition function $\tau$, every other aspect of the resulting labelling scheme and adjacency testing procedure is as described in \cite{dujmovic.esperet.ea:adjacency}.
 
-    \paragraph{A weighted mixed labelling scheme:}
-    We now describe the changes to \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling_precise}.  For this we will define an adjacency tester $A$ and an identity tester $I$. As usual, we first describe the format of the vertex and clique labels before describing the operation of $A$ and $I$.
+  %   \paragraph{A weighted mixed labelling scheme:}
+  %   We now describe the changes to \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} needed to prove \cref{gk_labelling_precise}.  For this we will define an adjacency tester $A$ and an identity tester $I$. As usual, we first describe the format of the vertex and clique labels before describing the operation of $A$ and $I$.
 
-    Let $H$ be an edge-maximal graph of treewidth at most $k$, let $P=(1,\ldots,h)$ be a path, let $G^+$ be a subgraph of $H\boxtimes P$, let $G$ be a spanning subgraph of $G^+$ and let $\omega:V(G)\to\R^+$ be a weight function.  As in other proofs, we may assume that $\omega$ is nice, so that $\omega(v)$ is a positive integer, for each $v\in V(G)$, and that $\log\omega(G)\in\Oh(\log n)$.  We may also assume that $G^+$ is an induced subgraph of $H\boxtimes P$.
+  %   Let $H$ be an edge-maximal graph of treewidth at most $k$, let $P=(1,\ldots,h)$ be a path, let $G^+$ be a subgraph of $H\boxtimes P$, let $G$ be a spanning subgraph of $G^+$ and let $\omega:V(G)\to\R^+$ be a weight function.  As in other proofs, we may assume that $\omega$ is nice, so that $\omega(v)$ is a positive integer, for each $v\in V(G)$, and that $\log\omega(G)\in\Oh(\log n)$.  We may also assume that $G^+$ is an induced subgraph of $H\boxtimes P$.
 
-    To help with clique labelling later, we will introduce some \defin{dummy} vertices to $G^+$ and $G$.  Since $G^+$ is an induced subgraph of $H\boxtimes P$, this also introduces edges and cliques in $G^+$.  For each vertex $(v,i)$ of $G^+$ with $i\in[h-1]$, if $G^+$ does not contain the vertex $(v,i+1)$ then we add the dummy vertex $(v,i+1)$ to $G^+$ and $G$ and define $\omega(v,i+1):=\omega(v,i)$.  The addition of dummy vertices does not increase the number of vertices or the total weight $\omega(G)$ by more than a factor of $2$.  Any vertex of $G$ that is not a dummy vertex is called a \defin{real} vertex.
+  %   To help with clique labelling later, we will introduce some \defin{dummy} vertices to $G^+$ and $G$.  Since $G^+$ is an induced subgraph of $H\boxtimes P$, this also introduces edges and cliques in $G^+$.  For each vertex $(v,i)$ of $G^+$ with $i\in[h-1]$, if $G^+$ does not contain the vertex $(v,i+1)$ then we add the dummy vertex $(v,i+1)$ to $G^+$ and $G$ and define $\omega(v,i+1):=\omega(v,i)$.  The addition of dummy vertices does not increase the number of vertices or the total weight $\omega(G)$ by more than a factor of $2$.  Any vertex of $G$ that is not a dummy vertex is called a \defin{real} vertex.
 
-    To satisfy the requirement on $g_1(n)$, the label $\mu((v,i))$ of a vertex $(v,i)$ of $G$ should have length $\log \omega(G)-\log\omega((v,i)) + \Oh(\sqrt{\log n})$.  To achieve this, we require that the extended signature $\sigma^+(v,i)$ have length at most $\log|S_i^+|-\log\omega((v,i)) + \Oh(\sqrt{\log n})$.  To accomplish this, we define an intermediate weight function $\delta$, as in the proof of \cref{small_height}.  For each $(w,j)\in V(H\boxtimes P)$, define $X^{-1}_{w,j}:=\{(v,i)\in V(G)\mid i\in\{j,j+1\},\; w\in X_{v,i}\}$ and define
-    \[
-      \delta(w,j):=\sum_{(v,i)\in X^{-1}_{w,j}}\omega(v,i) + \omega((w,j-1)) \enspace ,
-    \]
-    where we use the convention that $\omega((w,j-1))=0$ if $(w,j-1)\not\in V(G)$.
-    The intuition behind the sum in the definition $\delta(w,j)$ is that, for each vertex $(v,i)$ of $G$, the extended signature $\sigma^+(v,i)$ must have length at most $\log|S^+_i|-\log\omega((v,i))+\Oh(\sqrt{\log n})$.  However, $\sigma^+(v,i)$ should be long enough to contain $\sigma(w,i)$ for each $w\in X_{v,i}$.  Thus, $\delta$ increases the weight of $(w,j)$ to ensure this.
-    Importantly, for each $(v,i)\in V(G)$ and each $w\in X_{v,i}$,
-    \begin{equation}
-      \delta(w,i) \ge \omega((v,i)) \enspace . \label{delta_v_omega}
-    \end{equation}
-    (The final term, $\omega(w,j-1)$ in the definition of $\delta(w,j)$ will be useful for clique labelling later.)
+  %   To satisfy the requirement on $g_1(n)$, the label $\mu((v,i))$ of a vertex $(v,i)$ of $G$ should have length $\log \omega(G)-\log\omega((v,i)) + \Oh(\sqrt{\log n})$.  To achieve this, we require that the extended signature $\sigma^+(v,i)$ have length at most $\log|S_i^+|-\log\omega((v,i)) + \Oh(\sqrt{\log n})$.  To accomplish this, we define an intermediate weight function $\delta$, as in the proof of \cref{small_height}.  For each $(w,j)\in V(H\boxtimes P)$, define $X^{-1}_{w,j}:=\{(v,i)\in V(G)\mid i\in\{j,j+1\},\; w\in X_{v,i}\}$ and define
+  %   \[
+  %     \delta(w,j):=\sum_{(v,i)\in X^{-1}_{w,j}}\omega(v,i) + \omega((w,j-1)) \enspace ,
+  %   \]
+  %   where we use the convention that $\omega((w,j-1))=0$ if $(w,j-1)\not\in V(G)$.
+  %   The intuition behind the sum in the definition $\delta(w,j)$ is that, for each vertex $(v,i)$ of $G$, the extended signature $\sigma^+(v,i)$ must have length at most $\log|S^+_i|-\log\omega((v,i))+\Oh(\sqrt{\log n})$.  However, $\sigma^+(v,i)$ should be long enough to contain $\sigma(w,i)$ for each $w\in X_{v,i}$.  Thus, $\delta$ increases the weight of $(w,j)$ to ensure this.
+  %   Importantly, for each $(v,i)\in V(G)$ and each $w\in X_{v,i}$,
+  %   \begin{equation}
+  %     \delta(w,i) \ge \omega((v,i)) \enspace . \label{delta_v_omega}
+  %   \end{equation}
+  %   (The final term, $\omega(w,j-1)$ in the definition of $\delta(w,j)$ will be useful for clique labelling later.)
 
-    The total weight assigned by $\delta$ is
-    \begin{equation}
-      \sum_{(w,j)\in V(H\boxtimes P)} \delta(w,j)
-      \le \sum_{(v,i)\in V(G))}|X_{v,i}|\cdot\omega((v,i)) + \omega(G)
-      \le (2k+3)\omega(G) \enspace .
-      \label{total_delta}
-    \end{equation}
+  %   The total weight assigned by $\delta$ is
+  %   \begin{equation}
+  %     \sum_{(w,j)\in V(H\boxtimes P)} \delta(w,j)
+  %     \le \sum_{(v,i)\in V(G))}|X_{v,i}|\cdot\omega((v,i)) + \omega(G)
+  %     \le (2k+3)\omega(G) \enspace .
+  %     \label{total_delta}
+  %   \end{equation}
 
-    At this point, we proceed almost exactly as in the proof of \cref{shannon_fano_elias_tree}.
-    For each $i\in[h]$ and each $v\in V_i$, define
-    \[
-      S_{\delta,i}(v):=\{(x_f(v),1),\,\ldots,\, (x_f(v),\delta(v,i)\}
-    \]
-    and define $S_{\delta,i}:=\bigcup_{v\in V_i}S_{\delta,i}(v)$.  For each $i\in[h]$, treat $S_{\delta,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\delta,i}|=\delta(V(H)\times\{i\})$ for each $i\in[h]$ and $\sum_{i=1}^h |S_{\delta,i}|=\sum_{(w,j)\in H\boxtimes P}\delta(w,j)\le (2k+3)\omega(G)$, by \cref{total_delta}.
+  %   At this point, we proceed almost exactly as in the proof of \cref{shannon_fano_elias_tree}.
+  %   For each $i\in[h]$ and each $v\in V_i$, define
+  %   \[
+  %     S_{\delta,i}(v):=\{(x_f(v),1),\,\ldots,\, (x_f(v),\delta(v,i)\}
+  %   \]
+  %   and define $S_{\delta,i}:=\bigcup_{v\in V_i}S_{\delta,i}(v)$.  For each $i\in[h]$, treat $S_{\delta,i}$ as a totally ordered set where order is determined by lexicographic comparison.  Note that $|S_{\delta,i}|=\delta(V(H)\times\{i\})$ for each $i\in[h]$ and $\sum_{i=1}^h |S_{\delta,i}|=\sum_{(w,j)\in H\boxtimes P}\delta(w,j)\le (2k+3)\omega(G)$, by \cref{total_delta}.
 
-    In the following, we use the convention that a real interval $(a,b)$ contains $(x,j)\in S^+_i$ if (the real interval) $(a,b)$ contains (the real number) $x$. In particular, for a vertex $v\in V(H)$ and $i\in[h]$, $\mathdefin{f(v)\cap S^+_i}:=\{(x,j)\in S^+_i:x\in f(v)\}$. Then, just as in the unweighted case $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$.
+  %   In the following, we use the convention that a real interval $(a,b)$ contains $(x,j)\in S^+_i$ if (the real interval) $(a,b)$ contains (the real number) $x$. In particular, for a vertex $v\in V(H)$ and $i\in[h]$, $\mathdefin{f(v)\cap S^+_i}:=\{(x,j)\in S^+_i:x\in f(v)\}$. Then, just as in the unweighted case $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$.
 
-    At this point, we apply exactly the same  machinery used in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\delta,1},\ldots,S_{\delta,h}$ instead of the sets $S_1,\ldots,S_h$.
-    This results in sets $S^+_{\delta,1},\ldots,S^+_{\delta,h}$ of total size $\sum_{i=1}^h |S^+_{\delta,i}|\in \Oh(k\cdot\omega(G))\in \Oh(kn)$, by \eqref{total_delta}, and since $\omega$ is nice.
-    This has the desired effect because a B-tree of height $h$ has at most $6a^h$ leaves.
-    Therefore,
-    \begin{align*}
-      \depth_{B_i}(x_{B_i}(v))
-       & =
-      \depth_{B_i}(\lca_{B_i}(f(v)\cap S_{\delta,i}))            \\
-       & \le
-      \depth_{B_i}(\lca_{B_i}(S_{\delta,i}(v)))                  \\
-       & \le\height(B_i)-\log_a(\delta(v,i)/6)                   \\
-       & \le \log_a|S^+_{\delta,i}| - \log_a\delta(v,i) + \Oh(1) \\
-      \enspace .
-    \end{align*}
-    Furthermore, for any $(w,j)\in X_{v,i}$, by \eqref{delta_v_omega},
-    \begin{align*}
-      \depth_{B_i}(x_{B_i}(w))
-       & \le \log_a|S^+_{\delta,i}| - \log_a\delta(w,i) + \Oh(1)
-      \le \log_a|S^+_{\delta,i}| - \log_a\omega(v,i) + \Oh(1) \enspace .
-    \end{align*}
-    Therefore,
-    \begin{align*}
-      |\sigma^+(v,i)|
-       & = \max\{|\sigma((w,i))| \mid w\in X_{v,i}\}                                              \\
-       & \le \lceil \log (12a)\rceil\cdot\max\{\depth_{B_i}(x_{B_i}(w)) \mid w\in X_{v,i}\}       \\
-       & \le \lceil \log (12a)\rceil\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1)) \\
-       & \le (5+ \log a)\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1))             \\
-       & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(1+\log_a |S^+_{\delta_i}| + \log a)  \\
-       & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(\sqrt{\log n}) \enspace .
-    \end{align*}
-    Then
-    \begin{align*}
-      |\lambda_2(v,i)|
-       & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))            \\
-       & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
-    \end{align*}
-    By \eqref{total_delta}, we have that $|\lambda_1((v,i))|\le \log\omega(G) - \log |S^+_{\delta,i}| + \Oh(\log\log n)$, so
-    \begin{align*}
-      |\mu((v,i))|
-       & = |\lambda_1((v,i))|+|\lambda_2((v,i))| + \Oh(\log\log n)                                                                        \\
-       & \le \log\omega(G) - \log |S^+_{\delta,i}| + \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \\
-       & = \log\omega(G) - \log\omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
-    \end{align*}
-    For any fixed $k$, $|\mu((v,i))|=\log \omega(G)-\log \omega((v,i)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_1(n)\in\Oh(\sqrt{\log n})$. Since the vertex labels assigned by $\mu$ have the same format as those in \cite{alstrup.dahlgaard.ea:optimal,dujmovic.esperet.ea:adjacency}, the adjacency tester $A$ proceeds exactly as described in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}.
+  %   At this point, we apply exactly the same  machinery used in \cite{gawrychowski.janczewski:simpler,dujmovic.esperet.ea:adjacency} beginning with the sets $S_{\delta,1},\ldots,S_{\delta,h}$ instead of the sets $S_1,\ldots,S_h$.
+  %   This results in sets $S^+_{\delta,1},\ldots,S^+_{\delta,h}$ of total size $\sum_{i=1}^h |S^+_{\delta,i}|\in \Oh(k\cdot\omega(G))\in \Oh(kn)$, by \eqref{total_delta}, and since $\omega$ is nice.
+  %   This has the desired effect because a B-tree of height $h$ has at most $6a^h$ leaves.
+  %   Therefore,
+  %   \begin{align*}
+  %     \depth_{B_i}(x_{B_i}(v))
+  %      & =
+  %     \depth_{B_i}(\lca_{B_i}(f(v)\cap S_{\delta,i}))            \\
+  %      & \le
+  %     \depth_{B_i}(\lca_{B_i}(S_{\delta,i}(v)))                  \\
+  %      & \le\height(B_i)-\log_a(\delta(v,i)/6)                   \\
+  %      & \le \log_a|S^+_{\delta,i}| - \log_a\delta(v,i) + \Oh(1) \\
+  %     \enspace .
+  %   \end{align*}
+  %   Furthermore, for any $(w,j)\in X_{v,i}$, by \eqref{delta_v_omega},
+  %   \begin{align*}
+  %     \depth_{B_i}(x_{B_i}(w))
+  %      & \le \log_a|S^+_{\delta,i}| - \log_a\delta(w,i) + \Oh(1)
+  %     \le \log_a|S^+_{\delta,i}| - \log_a\omega(v,i) + \Oh(1) \enspace .
+  %   \end{align*}
+  %   Therefore,
+  %   \begin{align*}
+  %     |\sigma^+(v,i)|
+  %      & = \max\{|\sigma((w,i))| \mid w\in X_{v,i}\}                                              \\
+  %      & \le \lceil \log (12a)\rceil\cdot\max\{\depth_{B_i}(x_{B_i}(w)) \mid w\in X_{v,i}\}       \\
+  %      & \le \lceil \log (12a)\rceil\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1)) \\
+  %      & \le (5+ \log a)\cdot (\log_a|S^+_{\delta,i}| - \log_a\omega((v,i)) + \Oh(1))             \\
+  %      & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(1+\log_a |S^+_{\delta_i}| + \log a)  \\
+  %      & \le \log |S^+_{\delta,i}| - \log\omega((v,i)) + \Oh(\sqrt{\log n}) \enspace .
+  %   \end{align*}
+  %   Then
+  %   \begin{align*}
+  %     |\lambda_2(v,i)|
+  %      & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n))            \\
+  %      & \le \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
+  %   \end{align*}
+  %   By \eqref{total_delta}, we have that $|\lambda_1((v,i))|\le \log\omega(G) - \log |S^+_{\delta,i}| + \Oh(\log\log n)$, so
+  %   \begin{align*}
+  %     |\mu((v,i))|
+  %      & = |\lambda_1((v,i))|+|\lambda_2((v,i))| + \Oh(\log\log n)                                                                        \\
+  %      & \le \log\omega(G) - \log |S^+_{\delta,i}| + \log |S^+_{\delta,i}|-\log \omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \\
+  %      & = \log\omega(G) - \log\omega((v,i)) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \enspace .
+  %   \end{align*}
+  %   For any fixed $k$, $|\mu((v,i))|=\log \omega(G)-\log \omega((v,i)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_1(n)\in\Oh(\sqrt{\log n})$. Since the vertex labels assigned by $\mu$ have the same format as those in \cite{alstrup.dahlgaard.ea:optimal,dujmovic.esperet.ea:adjacency}, the adjacency tester $A$ proceeds exactly as described in \cite{alstrup.rauhe:improved,dujmovic.esperet.ea:adjacency}.
 
     \paragraph{Clique labelling and identity testing:}
     Thus far, we have shown that the lengths of the vertex labels promised in \cref{gk_labelling_precise} are achievable. 
