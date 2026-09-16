@@ -1826,23 +1826,24 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
 \section{Mixed Labelling Scheme for \texorpdfstring{$\mathcal{R}_k$}{Rk}}
 \label{weighted_product_proof}
 
-% In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of the efficient mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  We prove the following result.
+In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improved version by \citet{gawrychowski.janczewski:simpler} in order to show the existence of strongly orientable efficient weighted mixed labelling scheme for $\mathcal{R}_k$ mentioned in \cref{KeyTools}.  \pat{Say something about simplification that makes it sparse without needing to use the tools from \citet{dujmovic.esperet.ea:adjacency}.}
 
 
 
-\begin{lem}[\protect{\citet[Lemma~7]{chatterjee.ibsen-jensen.ea:optimal}}]\label{low_height_tree_decomp}
+Variants of the following result appear in several contexts, with different bounds for the width of the tree-decomposition and the height of the tree $T$. For example, \citet{bodlaender.hagerup:parallel} use a similar result in the context of parallel algorithms and \citet{jain.tewari:space} use a similar result in the context of space-efficient algorithms. The result cited here is due to \citet{chatterjee.ibsen-jensen.ea:optimal}. 
+
+
+\begin{lem}[\protect{\cite[Lemma~7]{chatterjee.ibsen-jensen.ea:optimal}}]\label{low_height_tree_decomp}
   Let $H$ be an $n$-vertex graph of treewidth at most $k$. Then $H$ has a rooted binary tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\le {?}\log n$.
 \end{lem}
 
 \begin{lem}\label{gk_labelling_precise}
-  For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0(n)\in {???}$ and $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
+  For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0(n)\in {???}$, $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, and $g_2(n)\in \Oh(1)$.
 \end{lem}
 
 \begin{proof}
-  We begin by reviewing the adjacency labelling scheme for $\mathcal{R}_k$ in \cite{dujmovic.esperet.ea:adjacency}.  We then describe the modifications made in \cite{EJM23} to make this scheme $g_0$-orientable.  Finally, we describe the how this scheme can be extended to obtain a strongly $g_0$-orientable weighted mixed labelling scheme for the class $\mathcal{R}_k$. 
-  
+  % We begin by reviewing the adjacency labelling scheme for $\mathcal{R}_k$ in \cite{dujmovic.esperet.ea:adjacency}.  We then describe the modifications made in \cite{EJM23} to make this scheme $g_0$-orientable.  Finally, we describe the how this scheme can be extended to obtain a strongly $g_0$-orientable weighted mixed labelling scheme for the class $\mathcal{R}_k$. 
   % and then describe the changes needed to obtain the statement of \cref{gk_labelling_precise}.
-
   Let $G$ be an $n$-vertex graph in $\mathcal{R}_k$, so $G$ is a subgraph of $H\boxtimes P$, where $H$ is a graph of treewidth $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$.  By \cref{low_height_tree_decomp}, $H$ has a rooted binary tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\le {?}\log n$.  For each $x\in v(T)$, add edges to $H$ so that $B_x$ becomes a clique.  Order the vertices of $H$ such that a vertex $v<w$ if the home of $v$ in $\mathcal{T}$ is a $T$-ancestor of the home of $w$ in $\mathcal{T}$. If $v$ and $w$ have the same home in $T$ then the relative order of $v$ and $w$ is unimportant.  For each $w\in V(H)$, let $N^+_H(w)=\{v\in N_H(w)\mid v < w\}$.  Then $|N^+_H(w)|\le 6k+4$ since $v\in N^+_H(w)$ implies that $v\in B_x$ where $x$ is the home of $w$ in $\calT$.  Note that, for each clique $K$ in $H$, $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$.
 
   \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
@@ -1854,6 +1855,7 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
     \item\label{intersection_subgraph} For each $w\in V(H)$ and each $v\in N^+_H(w)$, $f(w)\subseteq f(v)$.
     \item\label{thin} For each $x\in \R$, $|\{v\in V(H):x\in f(v)\}|\le ck\log n$.
   \end{enumerate}
+  \pat{Make the endpoints of the intervals distinct integers.}
 
   The existence of such a mapping $f$ is easily established by a recursive procedure that takes an open interval $(a,b)$ and a node $x$ of $T$.  The procedure sets $f(v):=(a,b)$ for each $v\in B_x\setminus A_x$. The procedure is then applied to the left child $x_1$ of $x$ (if it exists) with the interval $(a,(a+b)/2)$ and again applied to the right child $x_2$ (if it exists) of $x$ with the interval $((a+b)/2,b)$.
 
@@ -1863,16 +1865,17 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
   The label for each vertex $(v,i)$ of $G$ will include the $\Oh(\log (k\log n))$-bit integer $\varphi(v)$.
 
   \paragraph{\boldmath Mapping $V(H)$ onto points:}
-  For each vertex $v$ of $H$, let $x_f(v)$ be the midpoint of the interval $f(v)$.\footnote{Any real number $x_f(v)$ in the interior of the interval $f(v)$ would also work.}  Property~\ref{nested_or_disjoint} then implies:
+  For each vertex $v$ of $H$, let $x_f(v)$ be the midpoint of the interval $f(v)$.\footnote{Any real number $x_f(v)$ in the interior of the interval $f(v)$ would also work.} \pat{Make this the right endpoint of $f(v)$.} Property~\ref{nested_or_disjoint} then implies:
   \begin{enumerate}[nosep,label=(I\arabic*)]\setcounter{enumi}{3}
     \item\label{clique_property} Let $K$ be a clique in $H$.  Then there exists $w\in K$ such that $K\setminus\{w\}\subseteq N^+_H(w)$ and $f(w)\subseteq f(v)$ for each $v\in K$.  
   \end{enumerate}
-  Property \ref{clique_property} is a crucial difference between the scheme we describe here and the labelling scheme of \citet{dujmovic.esperet.ea:adjacency}.  In essence, it ensures that the ancestor-descendant relationships in $T$ are consistent with containment relationships in the interval representation.  This simultaneously simplifies the labelling scheme and makes it $g_0$-orientable without additional tricks used by \citet{EJM23}.\footnote{Specifically, Property~\ref{clique_property} completely eliminates the need for the extended signature $\sigma^+(v,i)$ of a vertex $(v,i)$ of $H$.  This allows for a number of simplifications.  Furthermore, difference in length between $\sigma^+(v,i)$ and the signature $\sigma(v,i)$ is precisely the reason that the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is not $n^{o(1)}$-orientable.}  \pat{Check that \citet{gawrychowski.janczewski:simpler} didn't already make a simplification like this.}
+  Property \ref{clique_property} is a crucial difference between the scheme we describe here and the labelling scheme of \citet{dujmovic.esperet.ea:adjacency}.  In essence, it ensures that the ancestor-descendant relationships in $T$ are consistent with containment relationships in the interval representation.  This simultaneously simplifies the labelling scheme and makes it $g_0$-orientable without requiring additional tricks used by \citet{EJM23}.\footnote{Specifically, Property~\ref{clique_property} completely eliminates the need for the extended signature $\sigma^+(v,i)$ of a vertex $(v,i)$ of $H$.  This allows for a number of simplifications.  Furthermore, difference in length between $\sigma^+(v,i)$ and the signature $\sigma(v,i)$ is precisely the reason that the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is not $n^{o(1)}$-orientable.}  
+  
 
   \paragraph{\boldmath Treating $G$ as a sequence of graphs:}
   Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$.
   We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$, for each $i\in[h]$ (and therefore $h\le n$).
-  The next idea in \cite{dujmovic.esperet.ea:adjacency} is to treat $V(G)$ as a sequence of vertex subsets of $H$.
+  The next idea in \cite{dujmovic.esperet.ea:adjacency} is to treat $V(G)$ as a sequence of vertex subsets of $H$.\pat{Check the following definition.}
   For each $i\in[h]$, let $V_i:=\{v\in V(H): \{(v,i),(v,i-1)\}\cap V(G)\neq\emptyset \}$.    Each vertex $(v,i)$ of $G$ contributes a vertex to the two sets $V_{i}$ and $V_{i+1}$, so $\sum_{i=1}^h |V_i|\le 2n$.  For each vertex $(v,i)$ of $G$, define the set $X_{v,i}:= \{v\}\cup (V_i\cap N^+_H(v))$.
 
   \begin{obs}\label{x_v_i_sufficient}
@@ -1884,15 +1887,17 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
   The second part, $\lambda_2((v,i))$, is obtained from a labelling of $H[V_i]$, so it represents the $H$-coordinate, $v$.
 
   Let $S_0:=S_{h+1}:=\emptyset$ and,
-  for each $i\in[h]$, let $\mathdefin{S_i}:=\{x_f(v):v\in V_i\}$.
+  for each $i\in[h]$, let $\mathdefin{S_i}:=\{x_f(v):v\in V_i\cup V_{i-1}\}$.
   Note that $S_i$ is a set of real numbers, for each $i\in[h]$.
   It is helpful to impose a relationship between consecutive sequences $S_i$ and $S_{i+1}$, for each $i\in[h-1]$. Therefore, \cite{dujmovic.esperet.ea:adjacency} defines a sequence of supersets \defin{$S^+_1,\ldots,S^+_h$}. The exact definition of $S^+_1,\ldots,S^+_h$ is not necessary for the current discussion.
-  The relevant properties here are:
+  For our purposes it is sufficient to know that for any integer $q\ge 1$ the sets $S^+_1,\ldots,S^+_h$ can be chosen so that  
   \begin{enumerate}[nosep,label=(\alph*)]
     \item\label{plus_superset} $S^+_i\supseteq S_i$ for each $i\in[h]$;
-    \item\label{plus_size} there is a constant $c>0$ such that $\sum_{i=1}^h |S^+_i|\le cn$.
-    \item\label{plus_ratio} there is a constant $c>0$ such that
-          $1/c\le |S^+_i|/|S^+_{i+1}|\le c$, for each $i\in[h-1]$.
+    \item\label{plus_size} there is a constant $c>0$ such that $\sum_{i=1}^h |S^+_i|\le cq^2n$;
+    % \item\label{plus_ratio} there is a constant $c>0$ such that
+          % $1/c\le |S^+_i|/|S^+_{i+1}|\le c$, for each $i\in[h-1]$;
+    \item\label{plus_chunking_down} for each $i\in\{1,\ldots,h-1\}$, for each $t\in[q]$, and for each set of $t$ consecutive elements of  $S^+_i$, at least $t-1$ of these elements are in $S^+_{i+1}$; and 
+    \item\label{plus_chunking_up} for each $i\in\{2,\ldots,h\}$, for each $t\in[q]$, and for each set of $t$ consecutive elements of $S^+_i$, at least $t-1$ of these elements are in $S^+_{i-1}$.     
   \end{enumerate}
   We remark that the contents of the sets $S^+_1,\ldots,S^+_h$ are entirely determined by the contents of the sets $S_1,\ldots,S_h$.
   (Formally, the sequence $S^+_1,\ldots,S^+_h$ is the result of applying a function $q:(2^\R)^*\to (2^\R)^*$ whose input is a sequence of sets of real numbers and whose output is a sequence of sets of real numbers. The function $q$ is universal; it does not depend on $H$, $P$, or $G$.)
@@ -1912,65 +1917,150 @@ This work was initiated during the Ninth Annual Workshop on Geometry and Graphs 
   \end{equation}
   for each vertex $(v,i)$ of $G$.
 
-  \paragraph{Bulk trees:}
-  In \cite{dujmovic.esperet.ea:adjacency}, each set $S^+_i$ is stored in a binary search tree $T_i$ of height $\log|S^+_i|+o(\log n)$.
-  As in \cref{shannon_fano_elias_code}, each node $x$ of $T_i$ is assigned a \defin{signature} \defin{$\sigma_{T_i}(x)$} that describes the root-to-$x$ path $P_{T_i}(x)$ as a binary string of length $\depth_{T_i}(x)$.
-  Note that, for any $x\in V(T_i)$:
-  \[
-    |\sigma_{T_i}(x)| \le \height(T_i) \le \log|S^+_i|+o(\log n)
-  \]
-  For each $i\in[h]$, each vertex $v\in V_i$ is mapped to the node $\mathdefin{x_{T_i}(v)}\in V(T_i)$ of minimum $T_i$-depth such that (the real number) $x_{T_i}(v)$ is contained in the (real interval) $f(v)$.
-  For each $v\in V_i$, the node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.  The same reasoning implies that $x_{T_i}(w)$ is defined, for each $w\in X_{v,i}$.
+  \paragraph{B-trees:}
 
-  For each $v\in V_i$, define the \defin{signature} $\sigma(v,i):=\sigma_{T_i}(x_{T_i}(v))$.  Note that, for two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
-  \begin{equation}
-    (i,\,\sigma(v,i),\,\varphi(v)) = (i',\,\sigma(v',i'),\,\varphi(v')) \enspace .
-    \label{ps_identity}
-  \end{equation}
+  Until this point, the labelling scheme we have been describing comes from \cite{dujmovic.esperet.ea:adjacency}, except for the modifications to the interval mapping function $f$ using \cref{low_height_tree_decomp} that guarantees \ref{clique_property}.  At this point, we continue with the B-tree based labelling scheme from \cite{gawrychowski.janczewski:simpler} rather than the binary-tree based scheme in \cite{dujmovic.esperet.ea:adjacency}.
+
+  A \defin{B-tree} stores a set of real numbers in the leaves of a tree $B$ in which all leaves have the same depth.
+  A \defin{weight-balanced B-tree} is parameterized by a parameter $a\ge 6$.  A weight-balanced B-tree $B$ is \defin{semi-balanced} if, for each node $x$ of $B$, the number of leaves in the subtree $B_x$ is at most $6a^{\height(B_x)}$ and for each \emph{non-root} node $x$ of $B$, the number of leaves in $B_x$ is at least $\tfrac{1}{2}a^{\height(B_x)}$.
+  Let $B$ be a weight-balanced B-tree with $r\in O(n)$ leaves.  The weight-balance conditions guarantee that $\height(B)\le \log_a r + 1$.
+  The weight-balance conditions also ensure that the number of children of any node $x$ of $B$ is at most $12a$.
+  This implies that any root-to-leaf path in a B-tree can be encoded by a sequence of $\log_a r+1$ integers, each requiring $\lceil\log(12a)\rceil\le 5+\log a$ bits to represent, for a total of at most $\lceil\log(12a)\rceil\cdot(\log_a r+1)=\log r + \Oh(\log_a r + \log a)$ bits.
+  The value of $a$ used in \cite{gawrychowski.janczewski:simpler} and here is approximately $2^{\sqrt{\log n}}$, so that $\log a\in O(\sqrt{\log n})$ and $\log_a n\in O(\sqrt{\log n})$.
+  
+
+  We use a sequence of weight-balanced B-trees, $B_1,\ldots,B_h$, where the leaves of $B_i$ store the values in $S^+_i$.  The implementation details of these B-trees is not important here. What is important is that the transformation from $B_i$ to $B_{i+1}$ is performed by a rebalancing operation that is applied only to nodes of depth $d_i$.  Rebalancing a node $x$ of depth $d_i$ involves replacing the children $y_1,\ldots,y_p$ of $x$ with children $y_1',\ldots,y_r'$ and redistributing the set of children of $y_1,\ldots,y_p$ so that they become children of $y_1',\ldots,y'_r$.  Therefore, the set of grandchilden of $x$ in $B_i$ is the same as the set of grandchilren of $x$ in $B_{i+1}$ (but the path in $B_i$ from $x$ to a grandchild $z$ is different from the path in $B_{i+1}$ from $x$ to $z$).  This has the following important consequence:
+  \begin{enumerate}[label=(P\arabic*)]
+    \item\label{path_splice} For each $i\in[h-1]$ and each $p\in S^+_{i}\cap S^+_{i+1}$, the root-to-$p$ path $P_{B_{i}}(p)$ in $B_{i}$ and the root-to-$p$ path $P_{B_{i+1}}(p)$ in $B_{i+1}$ differ by at most a single vertex.  More precisely, a subpath $xyz$ in $P_{B_{i}}(p)$ can be replaced by a subpath $xy'z$ to give $P_{B_{i+1}}(p)$.%
+    \footnote{There are two exceptions. Occasionally, $P_{B_{i+1}}(x)$ is obtained by removing the first vertex of $P_{B_{i}}(x)$ or by adding a vertex at the beginning of $P_{B_{i}}(x)$. Since these exceptions are distracting and easily handled, we ignore them here.}
+  \end{enumerate}
+
+
+  \paragraph{\boldmath The vertex signature $\sigma(v,i)$:}
+
+  For each $i\in[h]$ and each $x\in V(B_i)$, define the \defin{signature} \defin{$\sigma_{B_i}(x)$} as the encoding of $P_{B_i}(x)$ as a sequence of $\depth_{B_i}(x)$ integers in $\{0,\ldots,12a-1\}$.  Then 
+  \[
+    |\sigma_{B_i}(x)| \le \lceil\log (12a)\rceil\cdot\depth_{B_i}(x) 
+    % \le (\log a)\cdot\depth_{B_i}(x) + O(\log_a n) 
+    \le (\log a)\cdot\depth_{B_i}(x) + O(\sqrt{\log n})   \enspace .
+  \]
+  For each $(v,i)\in V(G)$ with $i<h$ and each $(v,j)\in V_i\times\{i-1,i\}$ define \defin{$x_{B_i}(v)$} to be the lowest-common-$B_i$-ancestor $\lca_{B_i}(f(v)\cap S^+_i)$ of $f(v)\cap S^+_i$.
+  For each vertex $(v,i)$ of $G$, define the \defin{signature} $\mathdefin{\sigma(v,i)}:=\sigma(x_{B_i}(v))$.
+  Then
+  \[
+    |\sigma(v,i)| = |\sigma_{B_i}(x_{B_i}(v))|\le  (\log a)\cdot \depth_{B_i}(\lca_{B_i}(f(v)\cap S_i^+))) + O(\log_a n)\enspace .
+  \]
+  % An upper bound on $|\sigma((v,i))|$ can be obtained by using the $\log_a |S^+_i|+1$ upper bound on $\height(B_i)$:
+  % \[
+  %   |\sigma(v,i)|\le \lceil\log (12a)\rceil\height(B_i) \le \lceil\log (12a)\rceil(\log_a |S^+_i| + 1)= \log |S^+_i| + \Oh(\sqrt{\log n})
+  % \]
+
+
+  % In \cite{dujmovic.esperet.ea:adjacency}, each set $S^+_i$ is stored in a binary search tree $T_i$ of height $\log|S^+_i|+o(\log n)$.
+  % As in \cref{shannon_fano_elias_code}, each node $x$ of $T_i$ is assigned a \defin{signature} \defin{$\sigma_{T_i}(x)$} that describes the root-to-$x$ path $P_{T_i}(x)$ as a binary string of length $\depth_{T_i}(x)$.
+  % Note that, for any $x\in V(T_i)$:
+
+
+
+  % \[
+  %   |\sigma_{T_i}(x)| \le \height(T_i) \le \log|S^+_i|+o(\log n)
+  % \]
+  % For each $i\in[h]$, each vertex $v\in V_i$ is mapped to the node $\mathdefin{x_{T_i}(v)}\in V(T_i)$ of minimum $T_i$-depth such that (the real number) $x_{T_i}(v)$ is contained in the (real interval) $f(v)$.
+  % For each $v\in V_i$, the node $x_{T_i}(v)$ always exists because $x_f(v)\in S_i\subseteq S_i^+$ and $x_f(v)\in f(v)$.  The same reasoning implies that $x_{T_i}(w)$ is defined, for each $w\in X_{v,i}$.
+
+  % For each $v\in V_i$, define the \defin{signature} $\sigma(v,i):=\sigma_{T_i}(x_{T_i}(v))$.  Note that, for two vertices $(v,i)$ and $(v',i')$ of $G$, $(v,i)=(v',i')$ if and only if
+  % \begin{equation}
+  %   (i,\,\sigma(v,i),\,\varphi(v)) = (i',\,\sigma(v',i'),\,\varphi(v')) \enspace .
+  %   \label{ps_identity}
+  % \end{equation}
 
   % For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):w\in X_{v,i}\}$ of maximum length.  
   
-  Since $X_{v,i}$ is a clique in $H$, property~\ref{clique_property} implies that $\sigma(w,i)$ is a prefix of $\sigma(v,i)$ for each vertex $(v,i)$ and $(w,i)$ of $G$ with $w\in N^+_H(v)$. In particular, $\sigma(w,i)$ is just the length-$|\sigma(w,i)|$ prefix of $\sigma(v,i)$.
+  Since $X_{v,i}$ is a clique in $H$, property~\ref{clique_property} implies that the root-to-$x_{B_i}(w)$ path in $B_i$ is a prefix of the root-to-$x_{B_i}(v)$ path in $B_i$, for each $(v,i)\in V(G)$ and each $(w,j)\in X_{v,i}$.  Therefore, $\sigma(w,i)$ is a prefix of $\sigma(v,i)$. In particular, $\sigma(w,i)$ is just the length-$|\sigma(w,i)|$ prefix of $\sigma(v,i)$. Equivalently, the first $\depth_{B_i}(x_{B_i}(w))$ integers that encode the path $P_{B_i}(v)$ encode the path $P_{B_i}(w)$. 
 
+  \paragraph{\boldmath The adjacency list $\alpha(v,i)$}
   For each $(v,i)\in V(G)$, define
   \begin{align*}
     \mathdefin{\alpha^{-}(v,i)}
-     & = \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i-1)\in N_G((v,i)) \;\rangle   \\
+     & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i-1)\in N_G((v,i)) \;\rangle   \\
     \mathdefin{\alpha^{0}(v,i)}
-     & = \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle               \\
+     & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle               \\
     \mathdefin{\alpha^+(v,i)}
-     & = \langle\; \langle |\sigma(w,i+1)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i+1)\in N_G((v,i)) \;\rangle \\
+     & := \langle\; \langle |\sigma(w,i+1)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i+1)\in N_G((v,i)) \;\rangle \\
     \mathdefin{\alpha(v,i)}
-     & = \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle        .
+     & := \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle        .
   \end{align*}
   Since $|N^+_G(v)|\le 6k+4$ for each $v\in V(H)$, $|\alpha(v,i)|\in\Oh(k(\log k + \log\log n))$.
 
-  The last (and critical) piece of the labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is the notion of a \defin{transition code}. The authors of \cite{dujmovic.esperet.ea:adjacency} choose the sets $S^+_1,\ldots,S^+_h$ and design the binary search trees $T_1,\ldots,T_h$ so that, for any vertex $(v,i)$ of $G$, the extended signature $\sigma^+(v,i+1)$ can be derived from $\sigma^+(v,i)$ and a transition code \defin{$\tau((v,i))$} of length $o(\log n)$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $J(\sigma^+(v,i),\tau(v,i))=\sigma^+(v,i+1)$ for each $(v,i)\in V(G)$.
+  \paragraph{\boldmath The transition code $\tau(v,i)$:}
+  The last (and critical) piece of the labelling schemes in \cite{dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler} is the notion of a \defin{transition code} that makes it possible to derive the signature $\sigma(v,i+1)$ from $\sigma(v,i)$ and a bitstring \defin{$\tau(v,i)$} of length $O(\sqrt{\log n})$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists a bitstring $\tau(v,i)$ of length $O(\sqrt{\log n})$ such that $J(\sigma(v,i),\tau(v,i))=\sigma(v,i+1)$.  The existence of such transition codes  ultimately comes from property~\ref{path_splice} of $B_1,\ldots,B_h$, as we now explain.
 
-  In order to explain the relevant parts of the transition code $\tau(v,i)$, we must first explain the transition code $\tau(x,i)$ for $x\in S^+_i\cap S^+_{i+1}$, which requires us to explain how the tree $T_{i+1}$ is obtained from $T_i$.  
-  \begin{enumerate}
-    \item An operation called $\textsc{BulkBalance}$ is applied to $T_i$ to obtain a tree $T_i'$. This ensures that $\height(T_i)\le \log |S^+_i|+c\sqrt{\log n\log\log n}$ for some fixed constant $c$. This operation modifies edges of $T_i$ but does not add or remove any vertices, so $V(T_i')=V(T_i)=S^+_i$. This operation is defined so that, for each $x\in V(T_i)$, a short transition code $\tau'(x,i)$ is sufficient to recover $\sigma_{T_i'}(x)$ from $\sigma_{T_i}(x)$.  Formally, there is a universal function $J'$ such that $J'(\sigma_{T_i}(x), \tau'(x,i)) = \sigma_{T_i'}(x)$ for each $x \in V(T_i)$.  In the current work it is not necessary to understand the details of the $\textsc{BulkBalance}$ operation or the contents of $\tau'(x,i)$.
+  Let $i\in[h-1]$.  We begin by explaining transition codes for leaves that are common to $B_i$ and $B_{i+1}$, which are exactly the elements of $S^+_i\cap S^+_{i+1}$.  Let $\ell \in S^+_{i}\cap S^+_{i+1}$.  Then $P_{B_{i+1}}(\ell)$ can be obtained by replacing a subpath $xyz$ in $P_{B_{i}}(p)$ with a subpath $xy'z$.  In terms of the signature function $\sigma$, this difference between $P_{B_i}(\ell)$ and $P_{B_{i+1}}(\ell)$ can be described by an $\Oh(\log\log_a n)$-bit integer that gives the location in $P_{B_i}(\ell)$ of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$ bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.  Although this is the only change to the root-to-$\ell$ path $P_{B_i}(\ell)$, there is an additional change to the $\sigma_{B_i}(\ell)$ that needs to be recorded.  Let $p$ be the parent of $\ell$.  Then the set of children of $p$ in $B_i$ and the set of children of $p$ in $B_{i+1}$ is different.  There are $B_i$-children of $p$ in $S^+_{i}\setminus S^+_{i+1}$ that are not in $B_{i+1}$ and there are $B_{i+1}$-children of $p$ in $S^+_{i+1}\setminus S^+_i$ that are not in $B_i$.  Therefore, the last integer in $\sigma_{B_i}(p)$ may be different from the last integer in $\sigma_{B_{i+1}}(p)$ even though each of these describes the edge $pp'$. When this occurs, it can also be described by a  $\lceil \log(12a)\rceil$-bit integer, namely the last integer in $\sigma_{B_{i+1}}(p)$.  To summarize, there exists a universal function $J_0:(\{0,1\}^\star)^2\to \{0,1\}^\star$ such that, for each $i\in[h-1]$ and each $\ell\in S^+_{i}\cap S^+_{i+1}$, there exists a bitstring $\tau_0(\ell,i)$ of length $O(\sqrt{\log n})$ such that $\sigma_{B_{i+1}}(\ell)=J_0(\sigma_{B_i}(\ell),\tau_0(\ell,i))$  
+  
+  
+  % This gives a short transition code $\tau(x,i)$
+  % \%
+  % \footnote{Determining $\sigma^+((w,i))$ from $\sigma^+((w,i-1))$ requires a bit more work, since it is possible that $x_{B_i}(w)\neq x_{B_{i-1}}(w)$. This is common to both labelling schemes and does not affect the upcoming discussion. The important thing for what comes next is the definition of $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$.}
+  %   As a result of this, the transition code $\tau((w,i-1))$ used for the B-trees in \cite{gawrychowski.janczewski:simpler} is shorter (it has length $\Oh(\sqrt{\log n})$ rather than the $\Oh(\sqrt{\log n\log\log n})$ required by bulk trees) and, on a computer with $\Oh(\log n)$-bit words, the translation from $\sigma^+((w,i-1))$ to $\sigma^+((w,i))$ can be done in constant time, resulting in a constant-time adjacency testing procedure. (All of the other adjacency-testing operations for both schemes can be done in constant-time.)
+  % In order to explain the relevant parts of the transition code $\tau(v,i)$, we must first explain the transition code $\tau(x,i)$ for $x\in S^+_i\cap S^+_{i+1}$, which requires us to explain how the tree $T_{i+1}$ is obtained from $T_i$.  
+  % \begin{enumerate}
+  %   \item An operation called $\textsc{BulkBalance}$ is applied to $T_i$ to obtain a tree $T_i'$. This ensures that $\height(T_i)\le \log |S^+_i|+c\sqrt{\log n\log\log n}$ for some fixed constant $c$. This operation modifies edges of $T_i$ but does not add or remove any vertices, so $V(T_i')=V(T_i)=S^+_i$. This operation is defined so that, for each $x\in V(T_i)$, a short transition code $\tau'(x,i)$ is sufficient to recover $\sigma_{T_i'}(x)$ from $\sigma_{T_i}(x)$.  Formally, there is a universal function $J'$ such that $J'(\sigma_{T_i}(x), \tau'(x,i)) = \sigma_{T_i'}(x)$ for each $x \in V(T_i)$.  In the current work it is not necessary to understand the details of the $\textsc{BulkBalance}$ operation or the contents of $\tau'(x,i)$.
       
-    \item The next step is to delete the values in $S^+_{i}\setminus S^+_{i+1}$ from $T_i'$ to obtain a tree $T_i''$ with $V(T_i'')=S^+_i\cap S^+_{i+1}$.  This is done using the standard algorithm for deletion in a binary search tree.  To delete a value $x$ that is a leaf of $T_i$, we simply remove the leaf.  If $x$ is an internal node with one child, then we remove $x$ and replace it with its child.  If $x$ is an internal node with two children, then we remove the smallest value $x'$ in the subtree rooted at the right child of $x$ and replace $x$ by $x'$.  (The node $x'$ is necessarily a leaf in $T_i$ and is the successor of $x$ in the set $S^+_i$.) This deletion operation has the property that, for any value $x\in V(T_i'')$, $\sigma_{T_i''}(x)$ is a prefix of $\sigma(T_{i}')$.  Thus, the second part of the transition code for $x$ is just $\tau''(x,i):=\bin(\depth_{T_i''}(x))$, which has length $O(\log\log n)$.
+  %   \item The next step is to delete the values in $S^+_{i}\setminus S^+_{i+1}$ from $T_i'$ to obtain a tree $T_i''$ with $V(T_i'')=S^+_i\cap S^+_{i+1}$.  This is done using the standard algorithm for deletion in a binary search tree.  To delete a value $x$ that is a leaf of $T_i$, we simply remove the leaf.  If $x$ is an internal node with one child, then we remove $x$ and replace it with its child.  If $x$ is an internal node with two children, then we remove the smallest value $x'$ in the subtree rooted at the right child of $x$ and replace $x$ by $x'$.  (The node $x'$ is necessarily a leaf in $T_i$ and is the successor of $x$ in the set $S^+_i$.) This deletion operation has the property that, for any value $x\in V(T_i'')$, $\sigma_{T_i''}(x)$ is a prefix of $\sigma(T_{i}')$.  Thus, the second part of the transition code for $x$ is just $\tau''(x,i):=\bin(\depth_{T_i''}(x))$, which has length $O(\log\log n)$.
     
-    \item The final step is to insert the values in $S^{+}_{i+1}\setminus S^+_{i}$ into $T_i''$ to obtain the tree $T_{i+1}$.  This is done using the standard algorithm for insertion in a binary search tree so that each newly inserted value becomes a leaf at the moment it is inserted.  The sets $S^+_i$ and $S^+_{i+1}$ are chosen so that for any distinct $x,z\in S^+_{i+1}\setminus S_i$, there is at least one $y\in S^+_i\cap S^+_{i+1}$ such that $x < y < z$.  This ensures that each newly inserted value $x\in S^+_{i+1}\setminus S^+_i$ is a leaf in $T_{i+1}$ so that $\height(T_{i+1})\le\height(T_i'')+1$. 
-  \end{enumerate}
+  %   \item The final step is to insert the values in $S^{+}_{i+1}\setminus S^+_{i}$ into $T_i''$ to obtain the tree $T_{i+1}$.  This is done using the standard algorithm for insertion in a binary search tree so that each newly inserted value becomes a leaf at the moment it is inserted.  The sets $S^+_i$ and $S^+_{i+1}$ are chosen so that for any distinct $x,z\in S^+_{i+1}\setminus S_i$, there is at least one $y\in S^+_i\cap S^+_{i+1}$ such that $x < y < z$.  This ensures that each newly inserted value $x\in S^+_{i+1}\setminus S^+_i$ is a leaf in $T_{i+1}$ so that $\height(T_{i+1})\le\height(T_i'')+1$. 
+  % \end{enumerate}
 
-  In the preceding, we have described the transition code $\tau(x,i):=\langle\tau'(x,i),\tau''(x,i)\rangle$ for each $x\in S^+_i\cap S^+_{i+1}$.  This is not quite enough because for two vertices $(v,i)$ and $(v,i+1)$ of $G$, it may be the case that $x_{T_i}(v)\neq x_{T_{i+1}}(v)$.  Indeed, it may be the case that $x_{T_i}(v)$ is not even in $S^+_{i+1}$.  This can happen if $x=x_{T_i}(v)$ is deleted in Step~1 above.  To deal with this, the set $S^+_{i+1}$ is defined so that the predecessor $x^-$ of $x$ (if $x\neq\min S^+i$) and the successor $x^+$ of $x$ (if $x\neq\max S^+_i$) are also in $S^+_{i+1}$.  Since $(v,i+1)\in V(G)$, $x(v)\in S_{i}\cap S_{i+1}$.  It follows that at least one of $x^-$ or $x^+$ is contained in $f(v)$.  
-  Then $\sigma_{T_i}(x^-)$ can be obtained by appending $01^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma(v,i)=\sigma_{T_i}(x)$, for some $\ell_1,\ell_2\in O(\log n)$.  Similarly, $\sigma_{T_i}(x^+)$ can be obtained by appending $10^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma_{T_i}(x)$ for some $\ell_1,\ell_2\in O(\log n)$.  Thus, $\sigma(v,i)$ and the integers $\ell_1$ and $\ell_2$ are sufficient to construct $\sigma_{T_i}(x')$ for some $x'\in S_{i}\cap S_{i+1}$ with $x'\in f(v)$.  The transition code $\tau(x',i)$ is the sufficient to construct $\sigma(x',i+1)$.  By definition, $x(v,i+1)$ is a $T_{i+1}$-ancestor of $x'$, so $\sigma_{T_{i+1}}(x(v,i+1))=\sigma(v,i+1)$ can be recovered from $\sigma_{T_{i+1}}(x')$ and $\depth_{T_{i+1}}(x(v,i+1))$.
+  Transition codes for leaves in $S^+_i\cap S^+_{i+1}$ are not enough. For a vertex $(v,i)\in V(G)$, it may be the case that $x_{B_i}(v)\neq x_{B_{i+1}}(v)$.  To deal with this, we will describe a transition code that takes $\sigma(v,i)$ onto $\sigma_{B_i}(\ell)$ for some $\ell\in f(v)\cap S^+_{i}\cap S^+_{i+1}$.  
+  % That is, $\ell$ is a leaf in both $B_i$ and $B_{i+1}$ and $\ell\in f(v)$.  This will ensure that $x_{B_{i+1}(v)}$ is a $B_{i+1}$-ancestor of $\ell$, so that $\sigma(v,i+1)$ is a prefix of $\sigma_{B_{i+1}}(\ell)$.  
+  Let $y=x_{T_i}(v)$.  If $y$ is a leaf of $B_i$ then $y= x(v)$ because $x(v)\in S_i\subseteq S^+_i$ and $x(v)\in f(v)$.  Since $(v,i)\in V(G)$, $x(v)\in S^+_{i+1}$. \pat{Make sure this is stated above somewhere as a property of $S^+_1,\ldots,S^+_h$.}  In this case we can simply take $\ell:=y$ and we already have the signature $\sigma_{B_i}(\ell)=\sigma(v,i)$.  
   
-  \pat{Continue here to describe the full transition code.}
+  Now suppose that $y=x_{B_i}(v)$ is not a leaf of $B_i$.  
+  % Then, during the process of transforming $B_i$ into $B_{i+1}$, the parent $x$ of $y$ was rebalanced and the children of $x$, including $y$, were replaced. 
+  Let $z_1,\ldots,z_p$ be the grandchildren of $x$ in $B_{i}$.
+  Since $(v,i)\in V(G)$, $x(v)\in S^+_{i+1}$.  Therefore $x(v)$ is a leaf-descendant of some $B_i$-child $z_j$ of $y$ (including the possibility that $x(v)=z_j$).  If $j < s$ then all the leaf-descendants of $z_{j+1}$ are greater $x(v)$.  Since $x(v)$ is the right endpoint of $f(v)$, $z_{j+1}$ has no leaf-descendant in $f(v)$.  By definition, $y=x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$. Therefore, there are at least two $B_i$-children of $y$ that have a leaf-descendant in $f(v)\cap S^+_{i}$.  Therefore, $z_{j-1}$ has a leaf-descendant in $f(v)\cap S^+_{i}$.  Therefore, the smallest leaf-descendant $\ell'$ of $z_j$ is in $f(v)$.  The signature $\sigma_{B_i}(z_j)$ can be obtained from $\sigma_{B_i}(y)$ by appending the index of $z_j$ in the list of $y$'s $B_i$-children.  The signature $\sigma_{B_i}(\ell')$ can be obtained from $\sigma_{B_i}(z_j)$ by appending a sequence of $\height(B_i)-\depth_{B_i}(z_j)$ zeros. If $\ell'\in S^+_{i+1}$ then we take $\ell:=\ell'$ and we are done.  If $\ell'\not\in S^+_{i+1}$ then, by \cref{plus_chunking_down} the successor $\ell''$ of $\ell'$ in $S^+_i$ is in $S^+_i$.  In this case, we take $\ell=\ell''$ and the signature $\sigma_{B_i}(\ell'')$ can be obtained from $\sigma_{B_i}(y)$ by a appending a sequence of $\height(B_i)-\depth_{B_i}(z_j)-1$ zeros followed by a $1$.  In each case, the information needed to obtain $\sigma_{B_i}(\ell)$ can be recorded in $O(\sqrt{\log n})$ bits.  Summarizing, there exist a function $J_1$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists $\ell\in f(v)\cap S^+_i\cap S^+_{i+1}$ and a string $\tau_1(v,\ell,i)$ of length $O(\sqrt{\log n})$ such that $J_1(\sigma(v,i),\tau_1(v,\ell,i))=\sigma_{B_i}(\ell)$.
+
+  We are almost done.  Since $\ell\in f(v)\cap S^+_{i+1}$, $x_{B_{i+1}}(v)=\lca_{B_{i+1}}(f(v)\cap S^+_
+  {i+1})$ is a $B_{i+1}$-ancestor of $\ell$. Therefore, $\sigma(v,i+1)$ is the length-$\depth_{B_{i+1}}(x_{B_{i+1}}(v))$ of $\sigma_{B_{i+1}}(\ell)$.  Formally, there exists a function $J_2$ such that, for each $(v,i)\in V(G)$ with $i< h$ there exists a bitstring $\tau_2(\ell,v,i)$ of length $O(\log\log n)$ such that, for each leaf-descendant $\ell$ of $x_{B_{i+1}}(v)$ in $B_{i+1}$, we have $J_2(\sigma_{B_{i+1}}(\ell),\tau_2(\ell,v,i))=\sigma(v,i+1)$.
+  
+  Finally, the entire transition code is
+  \[
+     \tau(v,i):=\langle \tau_1(v,i,\ell), \tau_0(\ell, i),\tau_2(\ell,v,i)\rangle 
+  \]
+  and the function $J$ is defined by
+  \[
+     J(\sigma(v,i),\tau(v,i) = J_2(J_0(J_1(\sigma(v,i), \tau_1(v,\ell,i)), \tau_0(\ell, i)), \tau_2(\ell,v,i)) \enspace .
+  \]
+  
+  
+  
+  % By property~\ref{plus_chunking_down}, at least one of these two children has a leaf-descendant in $f(v)\cap S^+_{i+1}$.  If $z_\ell$ has a leaf-descendant in $f(v)\cap S^+_{i+1}$ then the largest leaf-descendant of $z_\ell$ is in $f(v)\cap S^+_{i+1}$.  If $z_{\ell+1}$ has a leaf-descendant in $f(v)\cap S^+_{i+1}$ then the smallest 
+  
+  
+  
+  
+  % Therefore, at least one of $y_{j-1}$ or $y_{j+1}$ has a leaf-descendant in $f(v)$.    
+  
+  
+  
+  
+  
+  
+  % However with this, the set $S^+_{i+1}$ is defined so that the predecessor $x^-$ of $x$ (if $x\neq\min S^+i$) and the successor $x^+$ of $x$ (if $x\neq\max S^+_i$) are also in $S^+_{i+1}$.  Since $(v,i+1)\in V(G)$, $x(v)\in S_{i}\cap S_{i+1}$.  It follows that at least one of $x^-$ or $x^+$ is contained in $f(v)$.  
+  % Then $\sigma_{T_i}(x^-)$ can be obtained by appending $01^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma(v,i)=\sigma_{T_i}(x)$, for some $\ell_1,\ell_2\in O(\log n)$.  Similarly, $\sigma_{T_i}(x^+)$ can be obtained by appending $10^{\ell_2}$ to a length-$\ell_1$ prefix of $\sigma_{T_i}(x)$ for some $\ell_1,\ell_2\in O(\log n)$.  Thus, $\sigma(v,i)$ and the integers $\ell_1$ and $\ell_2$ are sufficient to construct $\sigma_{T_i}(x')$ for some $x'\in S_{i}\cap S_{i+1}$ with $x'\in f(v)$.  The transition code $\tau(x',i)$ is the sufficient to construct $\sigma(x',i+1)$.  By definition, $x(v,i+1)$ is a $T_{i+1}$-ancestor of $x'$, so $\sigma_{T_{i+1}}(x(v,i+1))=\sigma(v,i+1)$ can be recovered from $\sigma_{T_{i+1}}(x')$ and $\depth_{T_{i+1}}(x(v,i+1))$.
+  
+  % \pat{Continue here to describe the full transition code.}
   
   
 
-  % This gives the full transition code 
-  % \[  
-  %   \tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2^\star),\tau(x,i),\bin(\ell_3),\bin(\ell_4^\star)\rangle \enspace . 
-  % \]
-  % (A value of $\ell_2^\star>0$ indicates that the string $01^{\ell_2^\star-1}$ should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$ and a value of $\ell_2^\star=0$ indicates that nothing should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$.  The value of $\ell_4^\star$ is defined similiarly.)  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2^\star$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4^\star$ to compute $\sigma^+(v,i+1)$.
+  % % This gives the full transition code 
+  % % \[  
+  % %   \tau(v,i):=\langle \bin(\ell_1),\bin(\ell_2^\star),\tau(x,i),\bin(\ell_3),\bin(\ell_4^\star)\rangle \enspace . 
+  % % \]
+  % % (A value of $\ell_2^\star>0$ indicates that the string $01^{\ell_2^\star-1}$ should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$ and a value of $\ell_2^\star=0$ indicates that nothing should be appended after deleting the length $\ell_1$-suffix from $\sigma^+(v,i)$.  The value of $\ell_4^\star$ is defined similiarly.)  The function $J$ uses $\sigma^+(v,i)$, $\ell_1$, and $\ell_2^\star$ to compute $\sigma_{T_i}(x)$, then uses $\sigma_{T_i}(x)$ and $\tau(x,i)$ to compute $\sigma_{T_{i+1}}(x)$, and then uses $\sigma_{T_{i+1}}(x)$, $\ell_3$, and $\ell_4^\star$ to compute $\sigma^+(v,i+1)$.
 
 
-  % \pat{ Somewhere around here, we need to describe the changes in \cite{EJM23} to make this scheme orientable.  They move $x_{T_i}(v)$ closer to the root so that the signatures of all nodes in $X_{v,i}$ have lenghts that differ by at most $1$. }  
+  % % \pat{ Somewhere around here, we need to describe the changes in \cite{EJM23} to make this scheme orientable.  They move $x_{T_i}(v)$ closer to the root so that the signatures of all nodes in $X_{v,i}$ have lenghts that differ by at most $1$. }  
 
 
 
