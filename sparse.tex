@@ -1837,7 +1837,7 @@ Variants of the following result appear in several contexts, with different boun
 \end{lem}
 
 \begin{lem}\label{gk_labelling_precise}
-  For each fixed integer $k\ge 0$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(\sqrt{\log n})$, $g_0(n)\le 2^{\Oh(\sqrt{\log n})}$, and $g_2(n)\in \Oh(1)$.
+  For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(\sqrt{\log n} + k(n)\log\log n)$, $g_0(n)\le \exp(\Oh(\sqrt{\log n} + k(n)\log\log n))$, and $g_2(n)\in \Oh(1)$.
 \end{lem}
 
 \begin{proof}
@@ -2178,9 +2178,9 @@ Variants of the following result appear in several contexts, with different boun
   \[
      S_i := \{ x_f(v)-\epsilon j: v\in V_i, j\in\{0,\ldots,\delta(v,i)-1\}\}
   \]
-  where $\epsilon = 1/(6\omega(G))$. With this new definition of $S_1,\ldots,S_h$, everything proceeds exactly as before. For each $i\in[h]$, we define $S^+_i:= Q(S_i)$ so that $S^+_1,\ldots,S^+_h$ satisfy \ref{plus_superset}, \ref{plus_size}, and \ref{plus_chunking_down}. Note that $\sum_{i=1}^h |S_i| = \sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$, so $\sum_{i=1}^h |S^+_i| \le 3\omega(G)$ as well.
+  where $0< \epsilon < 1/(6\omega(G))$. With this new definition of $S_1,\ldots,S_h$, everything proceeds exactly as before. For each $i\in[h]$, we define $S^+_i:= Q(S_i)$ so that $S^+_1,\ldots,S^+_h$ satisfy \ref{plus_superset}, \ref{plus_size}, and \ref{plus_chunking_down}. Note that $\sum_{i=1}^h |S_i| = \sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$, so $\sum_{i=1}^h |S^+_i| \le 3\omega(G)$ as well.
 
-  The reason this works is that replacing each leaf $x_f(v)$ with a cluster of $\delta(v,i)$ leaves ensures that the subtree rooted at $x'_{B_i}(v)$ contains at least $\delta(v,i)\ge \omega((v,i))$.  This places a lower bound on the height of the subtree of $B_i$ rooted at $x'_{B_i}(v)$, which upper bounds the depth of $x_{B_i}(v)$.  We now make this precise.
+  The reason this works is that replacing each leaf $x_f(v)$ with a cluster of $\delta(v,i)$ leaves ensures that the subtree rooted at $x'_{B_i}(v)$ contains at least $\delta(v,i)\ge \omega((v,i))$ leaves.  This places a lower bound on the height of the subtree of $B_i$ rooted at $x'_{B_i}(v)$, which upper bounds the depth of $x_{B_i}(v)$.  We now make this precise.
 
   For each $i\in[h]$, let $S_i(v) := \{ x_f(v)-\epsilon j: j\in\{0,\ldots,\delta(v,i)-1\}\}$. Since $S_i(v) \subseteq f(v)\cap S_i \subseteq f(v)\cap S^+_i$, the node $x'_{B_i}(v) = \lca'_{B_i}(f(v)\cap S^+_i)$ is a $B_i$-ancestor of $\lca'_{B_i}(S_i(v))$. The node $\lca'_{B_i}(S_i(v))$ is an internal node of $B_i$ whose subtree contains all $\delta(v,i)$ leaves of $S_i(v)$. Because a subtree of height $H$ in a weight-balanced B-tree of parameter $a$ has at most $6a^H$ leaves, we must have $6a^H \ge \delta(v,i)$, which means $H \ge \log_a(\delta(v,i)/6)$. Therefore,
   \begin{align*}
