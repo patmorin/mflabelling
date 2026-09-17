@@ -1942,7 +1942,10 @@ Variants of the following result appear in several contexts, with different boun
     % \le (\log a)\cdot\depth_{B_i}(x) + O(\log_a n) 
     \le (\log a)\cdot\depth_{B_i}(x) + O(\sqrt{\log n})   \enspace .
   \]
-  For each $i\in[h]$ and each $v\in V_i$, define \defin{$x_{B_i}(v)$} as the lowest common $B_i$-ancestor $\lca_{B_i}(f(v)\cap S^+_i)$ of $f(v)\cap S^+_i$.  (The node $x_{B_i}(v)$ exists because $x_f(v)\in S_i\subseteq S^+_i$ and $x_f(v)\in f(v)$.)
+
+
+
+  For each $i\in[h]$ and each $v\in V_i$, define \defin{$x_{B_i}(v)$} as follows:  If $f(v)\cap S^+_i= \{x_f(v)\}$ then $x_{B_i}(v)=x_f(v)$.  Otherwise, $x_{B_i}(v)$ is the child of $\lca_{B_i}(f(v)\cap S^+_i)$ that has $x_f(v)$ as a leaf-descendant.  (The node $x_{B_i}(v)$ exists because $x_f(v)\in S_i\subseteq S^+_i$ and $x_f(v)\in f(v)$.)
   For each $i\in[h]$ and each $v\in V_i$, define the \defin{signature} $\mathdefin{\sigma(v,i)}:=\sigma_{B_i}(x_{B_i}(v))$.
   Then
   \begin{align}
@@ -1953,6 +1956,13 @@ Variants of the following result appear in several contexts, with different boun
     & \le \log |S^+_i| + \Oh(\log_a n + \log a) \\
     & = \log |S^+_i|+\Oh(\sqrt{\log n})
   \end{align}
+  The following is the critical property of the vertex signatures:
+  \begin{enumerate}[nosep,label=(P\arabic*)]\setcounter{enumi}{2}
+   \item For any two vertices $(v,i)$ and $(w,j)$ of $G$, $(\rho(i),\sigma(v,i),\varphi(v))=(\rho(j),\sigma(w,j),\varphi(w))$ if and only if $(v,i)=(w,j)$.
+  \end{enumerate}  
+  Indeed, since $\rho$ is an injective function $\rho(i)=\rho(j)$ if and only if $i=j$.  If $\sigma(v,i)=\sigma(w,i)$ then $y:=x_{B_i}(v)=x_{B_i}(w)$. We claim that this implies that $f(v)\cap f(w)\neq\emptyset$.  If $y$ is a leaf then, by definition $y\in f(v)\cap f(w)$.  Otherwise, $y$ has both $x_f(v)$ and $x_f(w)$ as leaf descendants.  Since $y$ is a child of $\lca_{B_i}(f(v)\cap S^+_i)$ and $x_f(v)=\max(f(v)\cap S^+_i)$, this implies that the smallest leaf descendant $\ell$ of $y$ is in $f(v)$.  Similarly, $\ell\in f(w)$. Thus, $\ell\in f(v)\cap f(w)$ and $f(v)\cap f(w)\neq\emptyset$.  Since $\varphi$ is a proper colouring of the intersection graph $I$, $\varphi(v)=\varphi(w)$ and $f(v)\cap f(w)\neq\emptyset$ if and only if $v=w$.
+
+  It is worth pointing out that $\sigma(v,i)$ is defined for many pairs $(v,i)$ that are not vertices of $G$, but is not necessarily defined for all vertices $(v,i)$ of $H\boxtimes P$.  We will make extensive use of the fact that $\sigma(v,i)$ is defined for each $v\in V_i$, which implies that $\sigma(v,i)$ is defined if any of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is a vertex of $G$.
 
 
 
@@ -1982,17 +1992,17 @@ Variants of the following result appear in several contexts, with different boun
 
   % For each $(v,i)\in V(G)$, the \defin{extended signature} \defin{$\sigma^+(v,i)$} is the signature in $\mathdefin{\Sigma_{v,i}}:=\{\sigma(w,i):w\in X_{v,i}\}$ of maximum length.  
   
-  Since $X_{v,i}\subseteq \{v\}\cup N^+_H(v)$, Property~\ref{intersection_subgraph} implies that $f(v)\subseteq f(w)$ for each $w\in X_{v,i}$.  Therefore, $(f(v)\cap S^+_i)\subseteq (f(w)\cap S^+_i)$, which implies that $x_{B_i}(w)=\lca_{B_i}(f(w)\cap S^+_i)$ is an ancestor of $x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$ in $B_i$.  Therefore, the root-to-$x_{B_i}(w)$ path in $B_i$ is a prefix of the root-to-$x_{B_i}(v)$ path in $B_i$, so $\sigma(w,i)$ is a prefix of $\sigma(v,i)$. In particular, $\sigma(w,i)$ is just the length-$|\sigma(w,i)|$ prefix of $\sigma(v,i)$. Equivalently, the first $\depth_{B_i}(x_{B_i}(w))$ integers that encode the path $P_{B_i}(x_{B_i}(v))$ encode the path $P_{B_i}(x_{B_i}(w))$. 
+  By Property~\ref{intersection_subgraph}, for each $w\in \{v\}\cup N^+_H(v)$, $f(v)\subseteq f(w)$.  Therefore, $(f(v)\cap S^+_j)\subseteq (f(w)\cap S^+_j)$ for any $j$, which implies that $\lca_{B_j}(f(w)\cap S^+_j)$ is an ancestor of $\lca_{B_j}(f(v)\cap S^+_j)$ in $B_j$. By definition, $x_{B_j}(w)$ is a child of $\lca_{B_j}(f(w)\cap S^+_j)$ (or the node itself if it is a leaf). Since $f(v)\subseteq f(w)$ and both intervals contain elements in $S^+_j$ (whenever $(v,j)$ and $(w,j)$ are vertices of $G$), the root-to-$\lca_{B_j}(f(w)\cap S^+_j)$ path is a common prefix of both $P_{B_j}(x_{B_j}(v))$ and $P_{B_j}(x_{B_j}(w))$. Therefore, $\sigma(w,j)$ consists of the prefix of $\sigma(v,j)$ of length $|\sigma(w,j)|-1$, followed by a single integer $c_{w,j} \in \{0, \ldots, 12a-1\}$. Thus, $\sigma(w,j)$ can be perfectly reconstructed from $\sigma(v,j)$ given its length $|\sigma(w,j)|$ and the integer $c_{w,j}$.
 
   \paragraph{\boldmath The adjacency list $\alpha(v,i)$:}
   For each $(v,i)\in V(G)$, define
   \begin{align*}
     \mathdefin{\alpha^{-}(v,i)}
-     & := \langle\; \langle |\sigma(w,i-1)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i-1)\in N_G((v,i)) \;\rangle   \\
+     & := \langle\; \langle |\sigma(w,i-1)|, c_{w,i-1}, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i-1)\in N_G((v,i)) \;\rangle   \\
     \mathdefin{\alpha^{0}(v,i)}
-     & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle               \\
+     & := \langle\; \langle |\sigma(w,i)|, c_{w,i}, \varphi(w)\rangle \mid w\in N^+_H(v),\; (w,i)\in N_G((v,i)) \;\rangle               \\
     \mathdefin{\alpha^+(v,i)}
-     & := \langle\; \langle |\sigma(w,i+1)|, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i+1)\in N_G((v,i)) \;\rangle \\
+     & := \langle\; \langle |\sigma(w,i+1)|, c_{w,i+1}, \varphi(w)\rangle \mid w\in \{v\}\cup N^+_H(v),\; (w,i+1)\in N_G((v,i)) \;\rangle \\
     \mathdefin{\alpha(v,i)}
      & := \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle        \enspace .
   \end{align*}
@@ -2005,7 +2015,7 @@ Variants of the following result appear in several contexts, with different boun
 
   In the first stage, we take $\sigma(v,i)$ onto $\sigma_{B_i}(\ell)$ for some leaf $\ell\in f(v)\cap S^+_{i}\cap S^+_{i+1}$ common to $B_i$ and $B_{i+1}$. At least one such leaf $\ell$ exists because $(v,i)\in V(G)$, so $v\in V_i\cap V_{i+1}$, and therefore $x_f(v)\in S_i\cap S_{i+1}\subseteq S^+_i\cap S^+_{i+1}$ is a leaf in $B_i$ and $B_{i+1}$. Let $y=x_{B_i}(v)$.  If $y$ is a leaf of $B_i$ then $y= x_f(v)$ because $x_f(v)\in S_i\subseteq S^+_i$ and $x_f(v)\in f(v)$.  In this case we can simply take $\ell:=y$ and we already have the signature $\sigma_{B_i}(\ell)=\sigma(v,i)$.  
   
-  Now suppose that $y=x_{B_i}(v)$ is not a leaf of $B_i$.  Let $z_1,\ldots,z_p$ be the children of $y$ in $B_{i}$. Since $x_f(v)\in S^+_i\cap f(v)$ and $y=\lca_{B_i}(S^+_i\cap f(v))$, $y$ is an ancestor of $x_f(v)$. Since $y$ is not a leaf of $B_i$, $x_f(v)$ is a leaf-descendant of some $B_i$-child $z_j$ of $y$ (including the possibility that $x_f(v)=z_j$).  If $j < p$ then all the leaf-descendants of $z_{j+1}$ are greater than $x_f(v)$.  Since $x_f(v)$ is the right endpoint of $f(v)$, $z_{j+1}$ has no leaf-descendant in $f(v)$.  Since $y=x_{B_i}(v)=\lca_{B_i}(f(v)\cap S^+_i)$, there are at least two $B_i$-children of $y$ that have a leaf-descendant in $f(v)\cap S^+_{i}$.  Therefore, $z_{j-1}$ has a leaf-descendant in $f(v)\cap S^+_{i}$.  Therefore, the smallest leaf-descendant $\ell'$ of $z_j$ is in $f(v)$.  The signature $\sigma_{B_i}(z_j)$ can be obtained from $\sigma_{B_i}(y)$ by appending the index of $z_j$ in the list of $y$'s $B_i$-children.  The signature $\sigma_{B_i}(\ell')$ can be obtained from $\sigma_{B_i}(z_j)$ by appending a sequence of $\height(B_i)-\depth_{B_i}(z_j)$ zeros. If $\ell'\in S^+_{i+1}$ then we take $\ell:=\ell'$ and we are done.  If $\ell'\not\in S^+_{i+1}$ then, by property~\ref{plus_chunking_down} of $S^+_1,\ldots,S^+_h$, the successor $\ell''$ of $\ell'$ in $S^+_i$ is in $S^+_{i+1}$.  In this case, we take $\ell:=\ell''$ and the signature $\sigma_{B_i}(\ell'')$ can be obtained from $\sigma_{B_i}(z_j)$ by appending a sequence of $\height(B_i)-\depth_{B_i}(z_j)-1$ zeros followed by a $1$.  In each case, the information needed to obtain $\sigma_{B_i}(\ell)$ can be recorded in $\Oh(\sqrt{\log n})$ bits.  Summarizing, there exists a universal function $J_1$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists $\ell\in f(v)\cap S^+_i\cap S^+_{i+1}$ and a bitstring $\overrightarrow{\tau}_1(v,\ell,i)$ of length $\Oh(\sqrt{\log n})$ such that $J_1(\sigma(v,i),\overrightarrow{\tau}_1(v,\ell,i))=\sigma_{B_i}(\ell)$.
+  Now suppose that $y=x_{B_i}(v)$ is not a leaf of $B_i$. Since $y$ is a child of $\lca_{B_i}(f(v)\cap S^+_i)$ and $x_f(v)=\max(f(v)\cap S^+_i)$, the smallest leaf-descendant $\ell'$ of $y$ is in $f(v)$. The signature $\sigma_{B_i}(\ell')$ can be obtained from $\sigma_{B_i}(y)$ by appending a sequence of $\height(B_i)-\depth_{B_i}(y)$ zeros. If $\ell'\in S^+_{i+1}$ then we take $\ell:=\ell'$ and we are done.  If $\ell'\not\in S^+_{i+1}$ then, by property~\ref{plus_chunking_down} of $S^+_1,\ldots,S^+_h$, the successor $\ell''$ of $\ell'$ in $S^+_i$ is in $S^+_{i+1}$.  In this case, we take $\ell:=\ell''$ and the signature $\sigma_{B_i}(\ell'')$ can be obtained from $\sigma_{B_i}(y)$ by appending a sequence of $\height(B_i)-\depth_{B_i}(y)-1$ zeros followed by a $1$.  In each case, the information needed to obtain $\sigma_{B_i}(\ell)$ can be recorded in $\Oh(\sqrt{\log n})$ bits.  Summarizing, there exists a universal function $J_1$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists $\ell\in f(v)\cap S^+_i\cap S^+_{i+1}$ and a bitstring $\overrightarrow{\tau}_1(v,\ell,i)$ of length $\Oh(\sqrt{\log n})$ such that $J_1(\sigma(v,i),\overrightarrow{\tau}_1(v,\ell,i))=\sigma_{B_i}(\ell)$.
 
   Second, we explain transition codes for leaves that are common to $B_i$ and $B_{i+1}$, which are exactly the elements of $S^+_i\cap S^+_{i+1}$.  Let $\ell \in S^+_{i}\cap S^+_{i+1}$.  By property~\ref{path_splice} of $B_1,\ldots,B_h$, the path $P_{B_{i+1}}(\ell)$ can be obtained by replacing a subpath $xyz$ in $P_{B_{i}}(\ell)$ with a subpath $xy'z$.  In terms of the signature function $\sigma$, this difference between $P_{B_i}(\ell)$ and $P_{B_{i+1}}(\ell)$ can be described by an $\Oh(\log\log_a n)$-bit integer that gives the location in $P_{B_i}(\ell)$ of the vertex $y$ being replaced and two $\lceil\log (12a)\rceil$-bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.  Although this is the only change to the root-to-$\ell$ path $P_{B_i}(\ell)$, there is an additional change to $\sigma_{B_i}(\ell)$ that needs to be recorded.  Let $p$ be the parent of $\ell$.  Then the set of children of $p$ in $B_i$ and the set of children of $p$ in $B_{i+1}$ are different.  There are $B_i$-children of $p$ in $S^+_{i}\setminus S^+_{i+1}$ that are not in $B_{i+1}$ and there are $B_{i+1}$-children of $p$ in $S^+_{i+1}\setminus S^+_i$ that are not in $B_i$.  Therefore, the last integer in $\sigma_{B_i}(\ell)$ may be different from the last integer in $\sigma_{B_{i+1}}(\ell)$ even though each of these describes the edge $p\ell$. When this occurs, it can also be described by a $\lceil \log(12a)\rceil$-bit integer, namely the last integer in $\sigma_{B_{i+1}}(\ell)$.  To summarize, there exists a universal function $J_2:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for each $i\in[h-1]$ and each $\ell\in S^+_{i}\cap S^+_{i+1}$, there exists a bitstring $\overrightarrow{\tau}_2(\ell,i)$ of length $\Oh(\sqrt{\log n})$ such that $\sigma_{B_{i+1}}(\ell)=J_2(\sigma_{B_i}(\ell),\overrightarrow{\tau}_2(\ell,i))$.  
 
@@ -2081,54 +2091,46 @@ Variants of the following result appear in several contexts, with different boun
 
     \item $\rho(i)=F(\rho(j),\overleftarrow{\pi}(j))$, in which case $i=j-1$ (so $j=i+1$).  This case is completely symmetric to the previous case: we may assume without loss of generality that $w\in N^+_H(v)$ and deduce that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $O(\exp(\Oh(\sqrt{\log n}+k\log k)))$.
   \end{enumerate} 
-    \pat{Continue here.}
+    \pat{Continue here.} 
 
     \paragraph{Clique labelling and identity testing:}
     Thus far, we have described a $g_0$-orientable $(\log n+O(\sqrt{\log n}))$-bit adjacency labelling scheme for $\mathcal{R}_k$ (for any fixed $k$).  Next we describe clique labels, the local identifiers, and the identity testing procedure that makes this into a strongly $g_0$-orientable unweighted $(g_1,g_2,g_3)$ mixed labelling scheme.
 
-    Let $K$ be a clique in $G^+$ and let $V_K:=\{v\mid (v,j)\in K\}$.%
-    % \footnote{The requirement that $K$ contains no dummy vertices is justified by the fact that we are only required to provide labels for cliques that exist in the original input graph $G^+$.}
-    Then $K\subseteq V_K\times\{i-1,i\}$  and $V_K\subseteq V_i$ for some $i\in\{2,\ldots,h\}$.  Define 
+    Let $K$ be a clique in $G^+$ and let $V_K:=\{v\mid (v,j)\in K\}$. Then $K\subseteq V_K\times\{i-1,i\}$  and $V_K\subseteq V_i$ for some $i\in\{2,\ldots,h\}$.  Define 
     \[
       \lambda_1(K):=\langle \rho(i), \overleftarrow{\pi}(i), \overrightarrow{\pi}(i)\rangle \enspace.
     \]    
-    Since $K$ is a clique in $G^+\subseteq H\boxtimes P$, $V_K$ is a clique in $H$.  Therefore $|V_K|\le 6(k+1)$ and there exists $v^*\in V_K$ such that $V_K\subseteq \{v^*\}\cup N^+_H(v^*)$.  Since $K\subseteq V_K\times\{i-1,1\}$, $|K|\le 12(k+1)$.  Furthermore, at least one of $(v^\star,i)$ or $(v^\star,i-1)$ is in $K$. Therefore $\sigma(v^\star, i)$ is defined.
-
-    % If $(v^*,i)\in K$ then $\delta(v^*,i)\ge \omega((v^*,i))$. If $(v^*,i)\not\in K$ then $(v^*,i-1)\in K$ and, by the definition of $\delta$, $\delta(v^*,i)\ge \omega((v^*,i-1))$.%
-    % \footnote{This is precisely the reason for the $\omega((v,i-1))$ term in the definition of $\delta(v,i)$.}
-    % In either case, $\delta(v^*,i)\ge\min_{(v,j)\in K}\omega((v,j))$.  Since $K$ contains no dummy vertices, $(v^*,i)$ is a (possibly dummy) vertex of $G^+$.  
-    
-    % Therefore, $\mu((v^*,i))=\langle \lambda_1(v^*,i),\lambda_2(v^*,i)\rangle$ is defined.  Furthermore, $X_{v^*,i}$ contains $V_K$.  To summarize, $\mu((v^*,i))$ is defined, and has length at most $\log n - \log\min_{(v,j)\in K}(\omega((v,j))) + \Oh(\sqrt{\log n})$.  Also, $\mu((v^*,i)))$ contains $\sigma^+(v^*,i)$, which contains $\sigma(w,i)$ as a prefix, for each $w\in V_K$.
-
-    We can now mimic the adjacency labelling.  Define
+    Since $K$ is a clique in $G^+\subseteq H\boxtimes P$, $V_K$ is a clique in $H$.  Therefore $|V_K|\le k+1$ and there exists $v_K\in V_K$ such that $V_K\subseteq \{v_K\}\cup N^+_H(v_K)$.  Since $K\subseteq V_K\times\{i-1,i\}$, $|K|\le 2(k+1) = 2k+2$.  Furthermore, at least one of $(v_K,i)$ or $(v_K,i-1)$ is in $K$. Therefore $\sigma(v_K, i)$ is defined.  We can now mimic the adjacency labelling.  Define
     \begin{align*}
       \alpha^-(K)
-       & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid (w,i-1)\in K \;\rangle \\
+       & := \langle\; \langle |\sigma(w,i-1)|, c_{w,i-1}, \varphi(w)\rangle \mid (w,i-1)\in K \;\rangle \\
       \alpha^0(K)
-       & := \langle\; \langle |\sigma(w,i)|, \varphi(w)\rangle \mid (w,i)\in K \;\rangle   \\
+       & := \langle\; \langle |\sigma(w,i)|, c_{w,i}, \varphi(w)\rangle \mid (w,i)\in K \;\rangle   \\
       \alpha(K)
        & := \langle\; \alpha^-(K),\; \alpha^0(K)  \;\rangle \enspace .
     \end{align*}
-    Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k\log\log n)$.  Define
+    Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k\log\log n)$.  By Property~\ref{clique_property}, for every $w \in V_K \subseteq \{v_K\} \cup N^+_H(v_K)$, $f(v_K) \subseteq f(w)$. As argued previously, this implies that $\sigma(w,i)$ is completely determined by the prefix of $\sigma(v_K,i)$ of length $|\sigma(w,i)|-1$ together with the integer $c_{w,i}$. No extended signature is needed. Define
     \[
-      \mu(K) := \langle\; \lambda_1(v^*,i),\; \sigma^+(v^*,i),\; \alpha(K) \;\rangle \enspace .
+      \mu(K) := \langle\; \lambda_1(K),\; \sigma(v_K,i),\; \overleftarrow{\tau}(v_K,i),\; \alpha(K) \;\rangle \enspace .
     \]
-    To see that $\mu$ is injective when restricted to cliques in $G^+$, suppose $\mu(K)=\mu(L)$ for two distinct cliques $K$ and $L$. 
-    Then their first parts match, which implies $i_K=i_L=i$ since the prefix-free code $\rho(i)$ inside $\lambda_1$ uniquely determines the $P$-coordinate $i$.
-    The cliques $K$ and $L$ also have the same signature $\sigma:=\sigma(v^*_K,i)=\sigma(v^*_L,i)$ and the same third part $\alpha(K)=\alpha(L)$.
-    The set of vertices in $K$ is uniquely determined by $i$, $\sigma(K)$, and $\alpha(K)$: For each entry $\langle |\sigma(w',i-1)|, \varphi(w') \rangle$ in $\alpha^-(K)$, the vertex $(w',i-1)$ is in $K$.
-    For each entry $\langle |\sigma(w',i)|, \varphi(w') \rangle$ in $\alpha^0(K)$, the vertex $(w',i)$ is in $K$. \pat{TODO: Write this preceding better.}
-    Since $\alpha(K)=\alpha(L)$, we conclude $K=L$. Thus $\mu$ is injective on cliques of $G^+$.
-
     Then,
     \begin{align}
       |\mu(K)|
-       & \le |\lambda_1(K)| + |\sigma(v^*,i)| + \Oh(k \log\log n) \\
-       & \le \log n - \log|S^+_i| + (\log a)\depth_{B_i}(x_{B_i}(v^*)) + \Oh(\log_a n+k\log\log n) \\
+       & \le |\lambda_1(K)| + |\sigma(v_K,i)| + \Oh(k \log\log n) \\
+       & \le \log n - \log|S^+_i| + (\log a)\depth_{B_i}(x_{B_i}(v_K)) + \Oh(\log_a n+k\log\log n) \\
        & \le \log n - \log|S^+_i| + (\log a)\height(B_i) + \Oh(\log_a n+k\log\log n) \\
        & \le \log n + \Oh(\log a+ \log_a n+k\log\log n) \\
        & \le \log n + \Oh(\sqrt{\log n})
     \end{align}
+
+    To see that $\mu$ is injective when restricted to cliques in $G^+$, suppose $\mu(K)=\mu(L)$ for two cliques $K$ and $L$ in $G^+$.
+    The bitstring $\lambda_1(K)$ completely determines $\rho(i)$ and $\rho(i-1)=F(\rho(i),\overleftarrow{\pi}(i))$.
+    The bitstrings $\sigma(v_K,i)$ and $\overleftarrow{\tau}(v_K,i)$ determine $\sigma(v_K,i-1)=J(\sigma(v_K,i), \overleftarrow{\tau}(v_K,i))$. The bitstrings $\sigma(v_K,i-1)$ and $\alpha^-(K)$ determine $\{(\sigma(w,i-1),\varphi(w)):(w,i-1)\in K\}$ because each $\sigma(w,i-1)$ is uniquely reconstructed from $\sigma(v_K,i-1)$, $|\sigma(w,i-1)|$, and $c_{w,i-1}$.  The bitstrings $\sigma(v_K,i)$ and $\alpha^0(K)$ determine $\{(\sigma(w,i),\varphi(w)):(w,i)\in K\}$ similarly.  Thus, $\mu(K)$ completely determines $\{(\rho(j),\sigma(w,j),\varphi(w)):(w,j)\in K\}$.  Since $\mu(K)=\mu(L)$, we have
+    \[
+      \{(\rho(j),\sigma(w,j),\varphi(w)):(w,j)\in K\} = \{(\rho(j),\sigma(w,j),\varphi(w)):(w,j)\in L\} \enspace .
+    \]
+    Since the triple $(\rho(j),\sigma(w,j),\varphi(w))$ is unique for each $(w,j)\in V(G)$, this implies that $K=L$.
+
     % For fixed $k$, $|\mu(K)|\le \log\omega(G) - \log\min_{(v,j)\in K}\omega((v,j)) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_3(n)\in\Oh(\sqrt{\log n})$.
 
     \paragraph{Local identifiers:}
@@ -2137,18 +2139,31 @@ Variants of the following result appear in several contexts, with different boun
 
     \paragraph{Identity testing:}
 
-    We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$, let $(u,j)\in K$, and let $(v,i')$ be a vertex of $G$.  Let $(v^*,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(K),\sigma(v^*,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1(K)$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i')$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
-    If $i'\in\{i-1,i\}$, then the tester locates the entry $\langle |\sigma(u,i)|,\varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(K,(u,j))$. The location of this entry also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately determine that $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ if $j\neq i'$.
-    If $j=i'$, then the tester computes $\sigma(u,i)$ using $\sigma(v^*,i)$ and $|\sigma(u,i)|$. Recall that $\lambda_2(v,i')=\langle \sigma(v,i'), \varphi(v),\alpha(v,i'),\tau(v,i')\rangle$.
+    We now describe the identity tester $I$.  Let $K$ be a clique in $G^+$, let $(u,j)\in K$, and let $(v,i')$ be a vertex of $G$.  Let $(v_K,i)$ be as in the description of $\mu(K)$, so that $K\subseteq V(H)\times\{i-1,i\}$ and therefore $j\in\{i-1,i\}$.   Given $\mu(K)=\langle\lambda_1(K),\sigma(v_K,i),\alpha(K)\rangle$, $\kappa(K,(u,j))$, and $\mu((v,i'))=\langle \lambda_1(v,i'),\lambda_2(v,i')\rangle$, the identity tester proceeds as follows. First, the tester examines $\lambda_1((v,i'))$ and $\lambda_1(K)$ to determine if $i'=i$ or $i'=i-1$.  If neither of these is the case, then $(u,j)\neq (v,i')$ so $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ since $j\in\{i-1,i\}$.
+    If $i'\in\{i-1,i\}$, then the tester locates the entry $\langle |\sigma(u,i)|, c_{u,i}, \varphi(u)\rangle$ in $\alpha(K)$ using $\kappa(K,(u,j))$. The location of this entry also determines whether $j=i-1$ or $j=i$.  Since the tester now knows the values of $j$ and $i'$, it can immediately determine that $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$ if $j\neq i'$.
+    If $j=i'$, then the tester computes $\sigma(u,i)$ using $\sigma(v_K,i)$, $|\sigma(u,i)|$, and $c_{u,i}$. Recall that $\lambda_2(v,i')=\langle \sigma(v,i'), \varphi(v), \alpha(v,i'), \overleftarrow{\tau}(v,i'), \overrightarrow{\tau}(v,i') \rangle$.
   There are now two cases to consider:
   \begin{itemize}
     \item If $i'=i$ then the tester checks if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.  If so, then $(v,i)=(u,i)$ and  $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=1$.  Otherwise, $I(\mu(K),\kappa(K,(u,j)),\mu((v,i'))):=0$.
-    \item If $i'=i-1$ then the tester computes $\sigma(v,i)=J(\sigma(v,i'),\tau(v,i'))$.  Again, the tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
+    \item If $i'=i-1$ then the tester computes $\sigma(v,i)=J(\sigma(v,i'),\overrightarrow{\tau}(v,i'))$.  Again, the tester concludes by checking if $(\sigma(v,i),\varphi(v))=(\sigma(u,i),\varphi(u))$.
   \end{itemize}
 
-  \paragraph{\boldmath Strong $g_0$-orientability:}  Let $\beta$, $\gamma$, and $\beta'$ be such that $I(\beta,\gamma,\beta')=1$.  Thus there exists and $n$-vertex graph $G^+\in\mathcal{G}$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$, such that $\mu(K)=\beta$, $\kappa(K,(u,j))=\gamma$, and $\mu(u,j)=\beta'$.  Then $\mu(K)$ and $\kappa(K,(u,j))$ determine $\sigma(u)$.
+  \paragraph{\boldmath Strong $g_0$-orientability:}  Let $\beta$, $\gamma$, and $\beta'$ be such that $I(\beta,\gamma,\beta')=1$.  Thus there exists an $n$-vertex graph $G^+\in\mathcal{G}$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$, such that $\mu(K)=\beta$, $\kappa(K,(u,j))=\gamma$, and $\mu((u,j))=\beta'$.
   
-  \pat{TODO still}
+  From $\beta$ and $\gamma$, the coordinate $j \in \{i-1, i\}$, the row code $\rho(j)$ (either $\rho(i)$ or $F(\rho(i), \overleftarrow{\pi}(i))$), and the pair $(\sigma(u,i), \varphi(u))$ are uniquely determined.
+  In $\beta' = \langle \lambda_1(u,j), \lambda_2(u,j) \rangle$:
+  \begin{itemize}
+    \item $\lambda_1(u,j)$: $\rho(j)$ is fixed, leaving at most $2^{\Oh(\log\log n)}$ choices for $(\overleftarrow{\pi}(j), \overrightarrow{\pi}(j))$.
+    \item $\lambda_2(u,j)$:
+      \begin{itemize}
+        \item If $j = i$: $\sigma(u,i)$ and $\varphi(u)$ are uniquely fixed; the remaining components $\alpha(u,i), \overleftarrow{\tau}(u,i), \overrightarrow{\tau}(u,i)$ have total length $\Oh(\sqrt{\log n} + k(\log k + \log\log n))$, giving at most $2^{\Oh(\sqrt{\log n})}$ choices.
+        \item If $j = i-1$: The tester computes $\sigma(u,i-1) = J(\sigma(u,i), \overleftarrow{\tau}(u,i))$ from $\beta$. For $\beta'$, the transition string $\overleftarrow{\tau}(u,i)$ computed in the graph mapping $\sigma(u,i) \to \sigma(u,i-1)$ has length $\Oh(\sqrt{\log n})$, meaning there are at most $2^{\Oh(\sqrt{\log n})}$ valid choices for $\sigma(u,i-1)$. The remaining components $\alpha(u,i-1), \overleftarrow{\tau}(u,i-1), \overrightarrow{\tau}(u,i-1)$ have total length $\Oh(\sqrt{\log n} + k(\log k + \log\log n))$. Thus, there are at most $2^{\Oh(\sqrt{\log n})}$ choices for $\lambda_2(u,j)$ overall.
+      \end{itemize} 
+  \end{itemize}
+  Thus, the number of accepted strings $\beta'$ is at most $2^{\Oh(\sqrt{\log n})} \le g_0(n)$, proving condition~(O4).
+
+  \paragraph{Simulating weights by multiplicity:}
+  By \cref{lem:nice_weights}, it suffices to consider nice weight functions $\omega: V(G) \to \N^+$ with $\omega(G) \le 4n$. We replace the uniform count $|V_i|$ by $\omega(V_i) := \sum_{(v,i) \in V(G)} \omega((v,i))$, and in each B-tree $B_i$, each vertex $v \in V_i$ is given weight $\omega(v,i)$. This yields the Kraft-type bounds $|\mu((v,i))| \le \log \omega(G) - \log \omega((v,i)) + \Oh(\sqrt{\log n})$ and $|\mu(K)| \le \log \omega(G) - \log \min_{u \in K} \omega(u) + \Oh(\sqrt{\log n})$. For fixed $k$, this satisfies the requirements $g_1(n), g_3(n) \in \Oh(\sqrt{\log n})$.
 
   This concludes the proof. 
 \end{proof}
