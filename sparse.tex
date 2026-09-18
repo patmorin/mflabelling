@@ -249,7 +249,7 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 
 
 
-% \subsection{Setup and Proof Overview}
+\subsection{Setup and Proof Overview}
 % \label{KeyTools}
 
 % In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices.   Let $G$ be a graph and $X\subseteq V(G)$. By $G[X]$ we denote the subgraph of $G$ induced on $X$. For other standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
@@ -261,20 +261,21 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 % \end{enumerate*}
 % We call the sets $B_x$ the \defin{bags} of the tree-decomposition and, for each edge $xy$ of $T$, $B_x\cap B_y$ is an \defin{adhesion} of the tree-decomposition.  When $T$ is rooted and $x$ is the parent of $y$, $B_x\cap B_y$ is the \defin{parent adhesion} of $y$. The \defin{parent adhesion} of the root of $T$ is the empty set. The \defin{home} of a vertex $v$ of $G$ is the unique $x\in V(T)$ such that $v\in B_x$ and $v$ is not in the parent-adhesion of $x$. The \defin{adhesion-width} of a tree-decomposition is the maximum size of an adhesion. For a tree-decomposition $\mathcal{T}:=(T,(B_x \mid x\in V(T)))$ of a graph $G$, for each  $x\in V(T)$, the \defin{torso} of $x$, denoted by \defin{$\torso{G}{\mathcal{T},B_x}$}, is the graph with vertex-set $B_x$ in which two distinct vertices $u$ and $v$ are adjacent if $uv \in E(G)$, or there exists $y \in N_T(x)$  such that $u,v \in B_x \cap B_y$.
 
-% The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
-% ${v=w}$ and ${xy \in E(B)}$, or
-% ${x=y}$ and ${vw \in E(A)}$, or
-% ${vw \in E(A)}$ and~${xy \in E(B)}$.
-% For an integer $k\geq 0$, let \defin{$\mathcal{R}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\mathcal{R}_k$, for any fixed $k$.
+The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
+${v=w}$ and ${xy \in E(B)}$, or
+${x=y}$ and ${vw \in E(A)}$, or
+${vw \in E(A)}$ and~${xy \in E(B)}$.
+For an integer $k\geq 0$, let \defin{$\mathcal{R}_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\mathcal{R}_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\mathcal{R}_k$ admits an efficient weighted mixed labelling scheme.
 
-% For any graph class $\mathcal{G}$, let \defin{$\mathcal{G}^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.  It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\mathcal{G}$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\mathcal{G}^{+a}$ (see \cref{sec:adding_apexes} for a more general result).  In particular, for any fixed $k,a\ge 0$, there exists a $(1+o(1))\log n$-bit adjacency labelling scheme for $\mathcal{R}_k^{+a}$. 
+For any graph class $\mathcal{G}$, let \defin{$\mathcal{G}^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\mathcal{G}$ for some $X\subseteq V(G)$ with $|X|\leq a$.  It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\mathcal{G}$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\mathcal{G}^{+a}$.  \Cref{add_apexes} shows that the same is true for efficient weighted mixed adjacency labelling schemes. 
 
-% Our starting point is the following variant of the Graph Minor Structure Theorem:
+Our starting point is the following variant of the Graph Minor Structure Theorem:
 
-% \begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
-%   \label{gmpst}
-%   For every proper minor-closed class $\mathcal{G}$ there exist integers $k,a\geq 0$ such that every graph in $\mathcal{G}$ has a tree-decomposition in which every torso is in $\mathcal{R}_k^{+a}$.
-% \end{thm}
+\begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
+  \label{gmpst}
+  For every proper minor-closed class $\mathcal{G}$ there exist integers $k,a\geq 0$ such that every graph in $\mathcal{G}$ has a tree-decomposition in which every torso is in $\mathcal{R}_k^{+a}$.
+\end{thm}
+
 
 % We now have enough background to sketch the proof of our main result.  We begin by describing natural approaches to the problem, where these approaches have issues, and then explain how we overcome these issues. By the above-mentioned results, it suffices to consider a graph class $\mathcal{G}$ with the following property:
 % For every $G\in\mathcal{G}$, there exists a tree-decomposition $\mathcal{T}:=(T,(B_x\mid x\in V(T)))$ of $G$ such that each torso of $\mathcal{T}$ comes from a monotone graph class $\mathcal{G}'$ that has a $((1+o(1))\log n)$-bit adjacency labelling scheme.  Let $A'$ be the adjacency tester for the labelling scheme on $\mathcal{G}'$. 
@@ -352,14 +353,14 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 % %We can now say what the weights are for. In a \emph{weighted} mixed labelling scheme, each vertex $v$ carries a positive weight $\omega(v)$ and vertex labels must satisfy the Kraft-type bound $|\mu(v)|\le\log\omega(G)-\log\omega(v)+o(\log n)$; heavier vertices thus receive shorter labels. When recursing on a tree-decomposition, we inflate the weight of each vertex according to the total weight hanging below it, which makes label lengths telescope along root-to-leaf paths. With this notion (defined formally in \cref{weighted_mixed_section}), our main technical result reads:
 
 
-% \begin{thm}\label{PlainRealMainTechnical}
-%   Let $\mathcal{G}$ be a hereditary graph class closed under taking disjoint union and admitting an efficient weighted mixed labelling scheme. Then, for any fixed integer $k\geq 0$, the class of graphs that have a tree-decomposition of adhesion-width at most $k$ whose torsos belong to $\mathcal{G}$ also admits an efficient weighted mixed labelling scheme.
-% \end{thm}
+\begin{thm}\label{PlainRealMainTechnical}
+  Let $\mathcal{G}$ be a hereditary graph class that admits an efficient weighted mixed labelling scheme. Then, for any fixed integer $k\geq 0$, the class of graphs that have a tree-decomposition of adhesion-width at most $k$ whose torsos belong to $\mathcal{G}$ also admits an efficient weighted mixed labelling scheme.
+\end{thm}
 
 % We can now say what the weights are for. For the recursion behind this theorem, plain mixed labelling schemes are not enough. We need a refinement in which each vertex $v$ carries a positive weight $\omega(v)$ and vertex labels satisfy the Kraft-type bound $|\mu(v)|\le\log\omega(V(G))-\log\omega(v)+o(\log n)$. Intuitively, weights let heavier vertices receive shorter labels; when recursing on a tree-decomposition, inflating the weight of a vertex according to the total weight hanging below it makes the label lengths telescope along root-to-leaf paths. This notion of a \defin{weighted mixed labelling scheme} (and the accompanying notion of \emph{efficiency}) is defined formally in \cref{weighted_mixed_section}.
 
 
-% A quantitative version of \cref{PlainRealMainTechnical} appears as \cref{RealMainTechnical} in \cref{sec:finalizing}.
+A quantitative version of \cref{PlainRealMainTechnical} appears as \cref{lem:the_big_one} in \cref{working_with_tree_decomps}.
 
 % \subsection{Paper Organization}
 
@@ -648,7 +649,7 @@ Here is a little intuition about these definitions. Function $g_1(n)$ measures h
 
 A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend this notion to graph classes.  Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:={(\mu_{G^+},\kappa_{G^+}):G\in\mathcal{G}, \omega:V(G)\to\R^+}$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\mathcal{G}$ for $(A,I)$.  An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{S}:={(\mu_G):G\in\mathcal{G}}$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
 
-It is straightforward to check that the subset $\mathcal{S}^-\subseteq \mathcal{S}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, is a $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$. We call $S^-$ the adjacency-labelling scheme \defin{induced} by $\mathcal{S}$.
+The subset $\mathcal{S}^-:=\{\mu_{G^+,G,\omega}: (\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})\in\mathcal{S},\; \mu:V(G)\to\{1\}\}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, is a $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$ that we call the adjacency-labelling scheme \defin{induced} by $\mathcal{S}$.
 Thus, the existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
@@ -670,7 +671,6 @@ for every $x\in S$,
 %\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
 (We emphasize that weights are required to be positive integers here, which will be important later on.)
 We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.
-
 Weak mixed labelling schemes and mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
@@ -705,14 +705,14 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
   If a graph class $\calG$ admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
 \end{obs}
 
-\begin{proof}
-  Let $(A,I)$ be the adjacency tester and identity tester for an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.
-  Let $G$ be an $n$-vertex graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\{1\}$ be the uniform weight function.  Then there exists a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
-  $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
-  For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ admits an injective $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$.
-\end{proof}
+% \begin{proof}
+%   Let $(A,I)$ be the adjacency tester and identity tester for an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.
+%   Let $G$ be an $n$-vertex graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\{1\}$ be the uniform weight function.  Then there exists a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
+%   $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
+%   For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ admits an injective $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$.
+% \end{proof}
 
-Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need a few definitions:  Let $\mathcal{G}$ be a graph class that admits an $f(n)$-bit adjacency labelling scheme using an adjacency tester $A$.  For each $n\in\N$ and each $n$-vertex $G\in\mathcal{G}$, let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency-labelling of $G$ for $A$.  Then $\mathcal{S}:=(\mu_G:G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency-labelling} of $\mathcal{G}$ for $A$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{S},A)$ is the graph whose vertex set is
+Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need a few definitions:  Let $\calG$ be a graph class and let $\mathcal{A}:=(\mu_G:G\in\mathcal{G})$ be an $f(n)$-bit \defin{adjacency-labelling} of $\mathcal{G}$ for $A$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{S},A)$ is the graph with vertex set
 \[
 V(U_n):=\left\{ \mu_G(v): G\in\mathcal{G}, v\in V(G) \right\}
 \]
@@ -721,9 +721,10 @@ and edge set
   E(U_n):=\left\{ \{\mu_G(v),\mu_G(v')\}: G\in\mathcal{G},\; v,v'\in V(G),\; A(\mu_G(v),\mu_G(v'))=1 \right\}
   \enspace.
 \]
-These definitions imply that, for any $n\in\N$ and any $n$-vertex graph $G\in\mathcal{G}$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_G(v):v\in V(G)\}]$.  We say that $(\mathcal{S},A)$ is \defin{$g_0$-sparse} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\mathcal{S},A)$ has at most $O(|V(U_n)|\cdot g_0(n))$ edges.
+These definitions imply that, for any $n\in\N$ and any $n$-vertex graph $G\in\mathcal{G}$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_G(v):v\in V(G)\}]$.  We say that $(\mathcal{S},A)$ is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\mathcal{S},A)$ has an orientation in which each vertex has outdegree at most $g_0(n)$.
 
-  We say that a weighted mixed labelling $\mathcal{S}$ of $\mathcal{G}$ for $(A,I)$ is \defin{$g_0$-sparse} if the induced adjacency labelling $\mathcal{S}^-$ of $\mathcal{G}$ for $A$ is $g_0$-sparse and, for each $n\in\N$, each $n$-vertex $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, each weight function $\omega:V(G)\to\R^+$, each clique $K$ in $G^+$ and each $u\in K$, 
+The extension of this definition to mixed labelling schemes is a bit harder to digest.  We first give a formal definition and then a less formal explanation.
+We say that a weighted mixed labelling $\mathcal{S}$ of $\mathcal{G}$ for $(A,I)$ is \defin{$g_0$-sparse} if the induced adjacency labelling $\mathcal{A}$ of $\mathcal{G}$ for $A$ is $g_0$-sparse and, for each $n\in\N$, each $n$-vertex $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, each weight function $\omega:V(G)\to\R^+$, each clique $K$ in $G^+$ and each $u\in K$, 
 \[
    \left|\left\{\bigcup_{H^+,H,\omega'}
     \begin{array}{cl}
@@ -733,7 +734,7 @@ These definitions imply that, for any $n\in\N$ and any $n$-vertex graph $G\in\ma
     \end{array}
     \right\}\right|\leq g_0(n)
 \]
-where $H^+$ ranges over all $H^+\in\calG$, $H$ ranges over all spanning subgraphs of $H^+$, $\omega'$ ranges over all weight functions on $V(H)$, and $(K',u')$ ranges over all cliques in $H^+$ and vertices in $K'$, respectively.  This is a lot to digest.  Slightly less formally:  If we fix an $n$-vertex $G^+\in\calG$, a spanning subgraph $G$ of $G^+$, a weight function $\omega:V(G)\to\R^+$, a clique $K$ in $G^+$, and a vertex $u\in K$, then this defines two strings $\beta:=\mu_{G^+,G,\omega}(K)$ and $\gamma:=\kappa_{G^+,G,\omega}(K,u)$.  The condition states that there should be at most $g_0(n)$ strings $\beta'$ such that $I(\beta,\gamma,\beta')=1$. The rather complicated expression above captures the fact that we need not consider all possible bitstrings $\beta'$. We only need to consider those bitstrings $\beta'$ that could arise from the mixed labelling $(\mu,\kappa)\in\mathcal{S}$ of some $(H^+,H,\omega)$ for $(A,I)$ and $H^+$ contains a clique $K'$ and a vertex $u'\in K'$ such that $\mu(K)=\beta$, $\kappa(K',u')=\gamma$ and $\mu(u')=\beta'$.
+where $H^+$ ranges over all $H^+\in\calG$, $H$ ranges over all spanning subgraphs of $H^+$, $\omega'$ ranges over all weight functions on $V(H)$, and $(K',u')$ ranges over all cliques in $H^+$ and vertices in $K'$, respectively.  Slightly less formally:  If we fix an $n$-vertex $G^+\in\calG$, a spanning subgraph $G$ of $G^+$, a weight function $\omega:V(G)\to\R^+$, a clique $K$ in $G^+$, and a vertex $u\in K$, then this defines two strings $\beta:=\mu_{G^+,G,\omega}(K)$ and $\gamma:=\kappa_{G^+,G,\omega}(K,u)$.  The condition states that there should be at most $g_0(n)$ strings $\beta'$ such that $I(\beta,\gamma,\beta')=1$. The rather complicated expression above captures the fact that we need not consider all possible bitstrings $\beta'$. We only need to consider those bitstrings $\beta'$ that could arise from the mixed labelling $(\mu,\kappa)\in\mathcal{S}$ of some $(H^+,H,\omega)$ and $H^+$ contains a clique $K'$ and a vertex $u'\in K'$ such that $\mu(K)=\beta$, $\kappa(K',u')=\gamma$ and $\mu(u')=\beta'$.
 
 
 
@@ -887,18 +888,24 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
 
-  \paragraph{\boldmath $g'_0$-orientability:}  Since the vertex labels and adjacency tester $A'$ are defined, we can now argue that the corresponding adjacency labelling scheme for the scheme we are describing is $g_0'$-orientable.  Fix $n\in\N$. For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $(\beta,\beta')$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  In the preceding discussion, we have only defined the value of $A'(\beta,\beta')$ for valid input pairs.  So that the function $A'$ is completely defined over $(\{0,1\}^{\le 2+\log n+g_1'(n)})^2$, we define $A'(\beta,\beta')=0$ if $(\beta,\beta')$ is not a valid input pair.
+  \paragraph{\boldmath $g'_0$-orientability:}  Since the vertex labels and adjacency tester $A'$ are defined, we can now argue that the induced adjacency labelling for the mixed labelling scheme we are describing is $g_0'$-orientable.  Fix $n\in\N$.  We will show that the $n$-universal graph $U_n$ defined by $(\mathcal{G}',A')$ has an orientation in which each vertex has outdegree at most $g'_0(n)$.  
+  
+  
+  
+  
+  % For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $\{\beta,\beta'\}$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  Then each edge $\beta\beta'$ in the universal graph $U_n$ corresponds to a valid input pair for which $A(\beta,\beta')=1$.
 
-  Let $(S^-_{\beta^-}:\beta^-\in\{0,1\}^{\le 2+\log n+g_1(n)})$ be a collection of subsets of $\{0,1\}^{\le 2+\log n+g_1(n)}$ that witness the fact that the corresponding adjacency labelling scheme is $g_0$-orientable.  We construct the sets $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ incrementally.  To begin, set $S_\beta=\emptyset$ for each $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$.  We then consider each valid input pair $(\beta,\beta')$ such that $A'(\beta,\beta')=1$.  By the definition of valid input pair, there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  Let $\{\beta,\beta'\}$ be an edge of the universal graph $U_n$.
+  % Let $\{\beta,\beta'\}$ be a valid input pair such that $A'(\beta,\beta')=1$.  
+  By the definition of $U_n$ there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
   \begin{enumerate}[nolistsep]
-    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.    Therefore $\mu^-(v')\in S^-_{\mu^-(v)}$ or $\mu^-(v)\in S^-_{\mu^-(v')}$.  Without loss of generality, assume that $\mu^-(v')\in S^-_{\mu^-(v)}$.  In this case, we add $\mu(v')=\beta'$ to the set $S_\beta$.
-    
-    The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that can trigger the addition of an element to $S_\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')
-    $ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $\beta'$ to $S_\beta$ this way is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
+    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g$-orientable, this gives an orientation of the edge  $\{\mu^-(v),\mu^-(v')\}$.  Without loss of generality, assume that this edge is oriented towards $\mu^-(v')$.  In this case, we orient the edge $\beta\beta'$ toward $\beta'$.
+        
+    The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that result in an edge being oriented away from $\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')$ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ such that $\beta\beta'$ is oriented from $\beta$ to $\beta'$ by this branch of the adjacency testing procedure is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
 
-    \item Otherwise, the adjacency tester deduces that at least one of $v$ or $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we add $\mu(v')=\beta'$ to the set $S_\beta$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in adding $\beta'$ to $S_\beta$.
+    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we orient the edge $\beta\beta'$ towards $\beta'$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in an edge being oriented away from $\beta$ by this branch of the adjacency testing procedure.
   \end{enumerate}
-  By definition $S_\beta\subseteq \{0,1\}^{\le 2+\log n+g_1'(n)}$, so the collection $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies \ref{orientable_a}.  We have argued above that, for each $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$, the number of $\beta'$ that are added to $S_\beta$ in this process is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}$, so $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies condition \ref{orientable_b} for $g'_0(n):=(g_0(n)+a)2^{a+1}$.  Since this process considers every valid input pair $(\beta,\beta')$ such that $A'(\beta,\beta')=1$, the collection $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ satisfies condition \ref{orientable_c}.
+  Therefore, for any fixed $\beta\in V(U_n)$, the out-degree of $\beta$ in this orientation of $U_n$ is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}=(g_0(n)+a)2^{a+1}=g_0'(n)$.  
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
@@ -955,7 +962,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \paragraph{\boldmath Strong $g'_0$-orientability:}
   To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0$-orientable.  That is, we need to show that for each $n\in\N$, each $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and each $k\in\{0,1\}^{\le g'_2(n)}$, there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^{\le 2+\log n+g'_1(n)}$ such that $I'(\beta,k,\beta')=1$.  So that the operation of $I'$ is well-defined over all inputs, we define $I'(\beta,k,\beta')=0$ if there is no instance $(G^+,G,\omega)$ such that, in the $(g_1',g_2',g_3')$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$, $G^+$ contains a clique $K$, $K$ contains a vertex $u$, and $G$ contains a vertex $v$ such that $\beta=\mu(K)$, $k=\kappa(K,u)$, and $\beta'=\mu(v)$.
 
-  Fix $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and $k\in\{0,1\}^{\le g'_2(n)}$.  If $I'(\beta,k,\beta')=1$ then there exists $(G^+,G,\omega)$ such that $K$ is a clique in $G^+$, $u\in K$, and $v\in V(G)$, $\beta=\mu(K)$, $k=\kappa(K,u)$, and $\beta'=\mu(v)$. Since $I(K,\mu(K,u),v)=I(\beta,k,\beta')=1$, $u=v$.  Thus, $u,v\in X$ or $u,v\in V(G-X)$.  If $u,v\in X$, then $\beta'=\mu(v)=\langle\sigma(v),c(v),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $\beta'$.  If $u,v\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(v)$ given $\beta$ and $k$.  Since $v\not\in K$, $\sigma(v)$ is a string of $\lceil\log(|\beta|+1)\rceil$ zeros.  Also $c(v)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $\beta'=\mu(v)=\langle \sigma(v), c(v), \mu^-(v) \rangle$ for which $I'(\beta,k,\beta')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $\beta'$ such that $I'(\beta,k,\beta')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
+  Let $n\in\N$.
+  Fix $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and $\gamma\in\{0,1\}^{\le g'_2(n)}$ and let $(\mu,\kappa)$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G^+,G,\omega)$ for $(A',I')$ such that there is clique $K$ in $G^+$ and a vertex $u\in K$ with $\mu(K)=\beta$ and $\kappa(K,u)=\gamma$.  Let $\beta'=\mu(u)$.If $u\in X$, then $\beta'=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $\beta'$.  If $u\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(u))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(u)$ given $\beta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|\beta|+1)\rceil$ zeros.  Also $c(u)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $\beta'=\mu(u)=\langle \sigma(u), c(u), \mu^-(u) \rangle$ for which $I'(\beta,\gamma,\beta')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $\beta'$ such that $I'(\beta,\gamma,\beta')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
 \end{proof}
 
 \input{newstuff} 
@@ -1798,7 +1806,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
 \begin{lem}
   \label{main_result_detailed}
-  Every proper minor-closed graph class $\mathcal{C}$  admits a $?$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
+  Every proper minor-closed graph class $\mathcal{C}$  admits a $\exp(O((\log n)^{3/4}))$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
 \end{lem}
 
 \begin{proof}
@@ -1806,18 +1814,18 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
   Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\mathcal{C}$.  
   % Let $\mathcal{D}$ be the class of graphs that have a tree-decomposition in which each torso is in $\mathcal{R}_k^{+a}$. By \cref{gmpst}, $\mathcal{C}\subseteq\mathcal{D}$.  
-  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\mathcal{R}_k^{+a}$ admits a strongly $?$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
+  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\mathcal{R}_k^{+a}$ admits a strongly $\exp(O(\sqrt{\log n}))$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
 
   % Let $\mathcal{Q}$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\mathcal{R}_k^{+a}$.  By \cref{disjoint_union_ii}, $\mathcal{Q}$ admits a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\mathcal{Q}$ is closed under disjoint union.  Also, by definition  $\mathcal{R}_k^{+a}\subseteq\mathcal{Q}$. Since $\mathcal{R}_k^{+a}$ is hereditary, $\mathcal{Q}$ is hereditary.
 
   Let $\mathcal{Q}$ be the class of graphs that have a tree-decomposition whose torsos are in $\mathcal{R}_k^{+a}$. The graphs in $\mathcal{R}_k^{+a}$ have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, each graph in $\mathcal{Q}'$ has a tree-decomposition of adhesion-width at most $2k+a+2$ whose torsos are in $\mathcal{R}_k^{+a}$.
 
-  By \cref{lem:the_big_one}, each graph in $\mathcal{Q}$ admits a $?$-orientable $f(n)$-bit adjacency labelling scheme with
+  By \cref{lem:the_big_one} with $b(n)=(\log n)^{3/4}$, each graph in $\mathcal{Q}$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with
   \[
     f(n) \le \log n +  g'_1(n) + \Oh\left(g'_2(n) + \sqrt{g'_3(n)\log n}
     + \sqrt{\frac{\log n}{g'_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
   \]
-  By the choice of $k$ and $a$, $\mathcal{C}\subseteq\mathcal{Q}$.  Therefore, $\mathcal{C}$ admits a $?$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
+  By the choice of $k$ and $a$, $\mathcal{C}\subseteq\mathcal{Q}$.  Therefore, $\mathcal{C}$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
 \end{proof}
 
 \section{Discussion}\label{conclusion}
