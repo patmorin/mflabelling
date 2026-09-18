@@ -89,19 +89,10 @@ Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Math
 \maketitle
 
 \begin{abstract}
-  % We show that every proper minor-closed class of graphs admits a $(1+o(1))\log_2 n$-bit adjacency labelling scheme. Equivalently, 
   We show that, for every fixed proper minor-closed graph class $\mathcal{G}$ and every positive integer $n$ there exists a graph $U_n$ with $n\cdot\exp(O((\log n)^{3/4}))\le n^{1+o(1)}$ vertices and edges such that every $n$-vertex graph in $\mathcal{G}$ is isomorphic to an induced subgraph of $U_n$.  
 
   This result generalizes and unifies the results of Dujmović, et al. (\textit{J. ACM} 2021) on induced-universal graphs and the results of Esperet, Joret, and Morin (\textit{J. London Math. Soc.} 2023) on subgraph-universal graphs from planar graphs to all proper minor-closed graph classes.
   It simultaneously improves the previous bounds for the number of vertices in induced-universal graphs (previously  $O(n^2)$ obtained as a corollary of a result of Devos et al. (\textit{J. Comb. Theory, Ser. {B}} 2004)) and a result of Gavoille and Labourel (\textit{ESA} 2007)) and  the number of edges in subgraph-universal graphs (previously  $O(n^{3/2})$ by Babai et al (\emph{Theory and Practice of Combinatorics} 1982)). For planar graphs, one of the subproblems we solve gives a small improvement to the result of Esperet et al, reducing the number of edges and vertices from $n\cdot\exp(O(\sqrt{\log n\log\log n}))$ to $n\cdot\exp(O(\sqrt{\log n}))$.
-  % Both results are optimal up to the lower order term. 
-  % the corresponding result for planar graphs and apex-minor-free classes (Esperet, Joret, Morin, \textit{J. London Math. Soc.} 2023) to all proper minor-closed classes.
-  % , answering the open question raised in that paper and anticipated earlier by Bonamy, Gavoille, and Pilipczuk (SODA 2020).
-%% and make progress towards a conjecture of Gavoille and Labourel (2007).
-%Moreover, for every fixed proper minor-closed class, the labels can be computed in polynomial time.
-
-
-
 \end{abstract}
 
 %\newpage
@@ -653,12 +644,12 @@ such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, e
           |\kappa(K, u)| \leq g_2(n).
         \]
 \end{enumerate}
-A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.
-
 Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
+A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend this notion to graph classes.  Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:={(\mu_{G^+},\kappa_{G^+}):G\in\mathcal{G}, \omega:V(G)\to\R^+}$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\mathcal{G}$ for $(A,I)$.  An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{S}:={(\mu_G):G\in\mathcal{G}}$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
 
-The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$ (see \cref{adj_labelling_from_mixed_labelling}, below).  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
+It is straightforward to check that the subset $\mathcal{S}^-\subseteq \mathcal{S}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, is a $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$. We call $S^-$ the adjacency-labelling scheme \defin{induced} by $\mathcal{S}$.
+Thus, the existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
   Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
@@ -670,7 +661,6 @@ The existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a 
 \end{proof}
 
 It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
-
 A weight function $\omega:S\to \N^+$ is \defin{nice} if
 for every $x\in S$,
 \[
@@ -679,19 +669,8 @@ for every $x\in S$,
 %\david{I interpret this definition as saying that the minimum weight is at least 1/4 of the average weight. Is there a more descriptive word than `nice'. In statistics, a dataset where the average is close to the minimum is `positively skewed' (or `right-skewed').}
 %\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
 (We emphasize that weights are required to be positive integers here, which will be important later on.)
-We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.  For adjacency labelling, weak mixed labelling schemes are sufficient, as the following lemma shows.
+We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.
 
-\begin{obs}\label{adj_labelling_from_mixed_labelling}
-  If a graph class $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
-\end{obs}
-
-\begin{proof}
-  Let $G$ be a graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\N^+$ be the weight function given by $\omega(v)=1$ for each $v\in V(G)$.  Then $\omega$ is a nice weight function.  Let $(A,I)$ be the adjacency tester and identity tester for a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme on $\calG$.  Then there is a mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
-  $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
-  For each pair $v,w\in V(G)$, $A(\mu(v),\mu(w))=1$ if and only if $v$ and $w$ are adjacent in $G$.  Thus $\calG$ admits an injective $f(n)$-bit adjacency labelling scheme with $f(n)=\log n+g_1(n)$ using adjacency testing function $A$.
-\end{proof}
-
-For a graph class $\calG$ that admits a weighted mixed labelling scheme, we call the adjacency labelling scheme implied by \cref{adj_labelling_from_mixed_labelling} the \defin{corresponding} adjacency labelling scheme. 
 Weak mixed labelling schemes and mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
@@ -701,12 +680,7 @@ Weak mixed labelling schemes and mixed labelling schemes are essentially equival
   If $\mathcal{G}$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\mathcal{G}$ admits a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
 \end{lem}
 \begin{proof}
-  Suppose that $\mathcal{G}$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
-  Let $A$ and $I$ be the corresponding adjacency and identity tester, respectively.
-  We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
-  Let $n\in \N^+$, let $G^+$ be an $n$-vertex graph in $\mathcal{G}$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to \R^+$ be an arbitrary weight function.
-  Let $\omega'$ be the function obtained by applying \cref{obs:nice} to $\omega$.
-  Thus, for every $v\in V(G)$,
+  Suppose that $\mathcal{G}$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Let $A$ and $I$ be the corresponding adjacency and identity tester, respectively. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $n\in \N^+$, let $G^+$ be an $n$-vertex graph in $\mathcal{G}$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to \R^+$ be an arbitrary weight function. Let $\omega'$ be the function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
   \[
     \log\omega'(V(G))-\log\omega'(v)\le\min\{\log n,\;\log\omega(G)-\log\omega(v)\}+2 \enspace.
   \]
@@ -724,23 +698,32 @@ Weak mixed labelling schemes and mixed labelling schemes are essentially equival
   It follows that $\mu$ and  $\kappa$ are the desired  mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.
 \end{proof}
 
-Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need a few definitions:  Let $\mathcal{G}$ be a graph class that admits an $f(n)$-bit adjacency labelling scheme using an adjacency tester $A$.  For each $n\in\N$ and each $n$-vertex $G\in\mathcal{G}$, let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency-labelling of $G$ for $A$.  Then $\mathcal{S}:=(\mu_G:G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency-labelling scheme} for $\mathcal{G}$ that uses $A$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{S},A)$ is the graph whose vertex set is
+
+If the ultimate goal is to obtain an adjacency labelling scheme, then an even weaker notion suffices. For a graph $G$, the function $\omega:V(G)\to\{1\}$ is called the \defin{uniform} weight function.  We then say that a class of graphs $\mathcal{G}$ admits an \defin{unweighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only   uniform weight functions are considered.
+
+\begin{obs}\label{adj_labelling_from_mixed_labelling}
+  If a graph class $\calG$ admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
+\end{obs}
+
+\begin{proof}
+  Let $(A,I)$ be the adjacency tester and identity tester for an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.
+  Let $G$ be an $n$-vertex graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\{1\}$ be the uniform weight function.  Then there exists a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
+  $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
+  For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ admits an injective $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$.
+\end{proof}
+
+Finally, in order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need a few definitions:  Let $\mathcal{G}$ be a graph class that admits an $f(n)$-bit adjacency labelling scheme using an adjacency tester $A$.  For each $n\in\N$ and each $n$-vertex $G\in\mathcal{G}$, let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency-labelling of $G$ for $A$.  Then $\mathcal{S}:=(\mu_G:G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency-labelling} of $\mathcal{G}$ for $A$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{S},A)$ is the graph whose vertex set is
 \[
 V(U_n):=\left\{ \mu_G(v): G\in\mathcal{G}, v\in V(G) \right\}
 \]
 and edge set
 \[
-  E(U_n):=\left\{ \{\beta,\beta'\}: G\in\mathcal{G},\; v,v'\in V(G),\; \mu_G(v)=\beta,\;\mu(v')=\beta',\; A(\beta,\beta')=1 \right\}
+  E(U_n):=\left\{ \{\mu_G(v),\mu_G(v')\}: G\in\mathcal{G},\; v,v'\in V(G),\; A(\mu_G(v),\mu_G(v'))=1 \right\}
   \enspace.
 \]
 These definitions imply that, for any $n\in\N$ and any $n$-vertex graph $G\in\mathcal{G}$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_G(v):v\in V(G)\}]$.  We say that $(\mathcal{S},A)$ is \defin{$g_0$-sparse} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\mathcal{S},A)$ has at most $O(|V(U_n)|\cdot g_0(n))$ edges.
 
-Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:={(\mu_{G^+},\kappa_{G^+}):G\in\mathcal{G}, \omega:V(G)\to\R^+}$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} for $\mathcal{G}$ that uses $(A,I)$. By considering only the subset of $\mathcal{S}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, we see that $\mathcal{S}$ contains a $(\log n+g_1(n))$-bit adjacency labelling scheme $\mathcal{S}^-$ for $A$.  
-
-
-
-We say that $\mathcal{S}$ is \defin{$g_0$-sparse} if $\mathcal{S}^-$ is $g_0$-sparse and, for each $n\in\N$, 
-each $n$-vertex $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, each weight function $\omega:V(G)\to\R^+$, each clique $K$ in $G^+$ and each $u\in K$, 
+  We say that a weighted mixed labelling $\mathcal{S}$ of $\mathcal{G}$ for $(A,I)$ is \defin{$g_0$-sparse} if the induced adjacency labelling $\mathcal{S}^-$ of $\mathcal{G}$ for $A$ is $g_0$-sparse and, for each $n\in\N$, each $n$-vertex $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, each weight function $\omega:V(G)\to\R^+$, each clique $K$ in $G^+$ and each $u\in K$, 
 \[
    \left|\left\{\bigcup_{H^+,H,\omega'}
     \begin{array}{cl}
@@ -750,12 +733,12 @@ each $n$-vertex $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, each w
     \end{array}
     \right\}\right|\leq g_0(n)
 \]
+where $H^+$ ranges over all $H^+\in\calG$, $H$ ranges over all spanning subgraphs of $H^+$, $\omega'$ ranges over all weight functions on $V(H)$, and $(K',u')$ ranges over all cliques in $H^+$ and vertices in $K'$, respectively.  This is a lot to digest.  Slightly less formally:  If we fix an $n$-vertex $G^+\in\calG$, a spanning subgraph $G$ of $G^+$, a weight function $\omega:V(G)\to\R^+$, a clique $K$ in $G^+$, and a vertex $u\in K$, then this defines two strings $\beta:=\mu_{G^+,G,\omega}(K)$ and $\gamma:=\kappa_{G^+,G,\omega}(K,u)$.  The condition states that there should be at most $g_0(n)$ strings $\beta'$ such that $I(\beta,\gamma,\beta')=1$. The rather complicated expression above captures the fact that we need not consider all possible bitstrings $\beta'$. We only need to consider those bitstrings $\beta'$ that could arise from the mixed labelling $(\mu,\kappa)\in\mathcal{S}$ of some $(H^+,H,\omega)$ for $(A,I)$ and $H^+$ contains a clique $K'$ and a vertex $u'\in K'$ such that $\mu(K)=\beta$, $\kappa(K',u')=\gamma$ and $\mu(u')=\beta'$.
 
 
 
 
-
-Let $(\mu,\kappa)$ be a mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.  Then 
+% Let $(\mu,\kappa)$ be a mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.  Then 
 
 
 
@@ -787,7 +770,7 @@ Let $(\mu,\kappa)$ be a mixed labelling and local identifier, respectively,  of 
 %   Since the adjacency labelling scheme is $g_0$-orientable there exists $(S_\beta:\beta\in\{0,1\}^{\le f(n)})$ satisfying conditions \ref{orientable_a}--\ref{orientable_c}.  Orient each edge $\beta\beta'$ of $U_n$ from $\beta$ to $\beta'$ so that $\beta'\in S_\beta$.  (If $\beta\in S_{\beta'}$ and $\beta'\in S_\beta$ then the edge $\beta\beta'$ can be oriented in either direction.)  Then, for each vertex $\beta$ of $U_n$, the out-degree of $\beta$ is at most $|S_\beta| \le g_0(n)$.  This implies that $|E(U_n)|\le |V(U_n)|\cdot g_0(n) = (2^{f(n)+1}-1)\cdot g_0(n)$.  
 % \end{proof}
 
-The preceding definition is useful for constructing sparse universal graphs from adjacency labelling schemes.  The last step in the proof of \cref{main_result_induced_universal_sparse} is the construction of a $g_0$-sparse labelling scheme for a graph class $\calG'$ that contains all $H$-minor-free graphs, for some fixed graph $H$.  The main property of $\calG'$ is that each graph in $\calG'$ has a tree-decomposition whose torsos belong to some simpler graph class $\calG$. To construct the labelling scheme for $\calG'$ we require that the graph class $\mathcal{G}$ has an efficient weighted mixed labelling scheme that satisfies the following definition:  A weighted $(g_1,g_2,g_3)$ mixed labelling scheme $\mathcal{S}$ for $(A,I)$ is \defin{$g_0$-sparse} if the
+% The preceding definition is useful for constructing sparse universal graphs from adjacency labelling schemes.  The last step in the proof of \cref{main_result_induced_universal_sparse} is the construction of a $g_0$-sparse labelling scheme for a graph class $\calG'$ that contains all $H$-minor-free graphs, for some fixed graph $H$.  The main property of $\calG'$ is that each graph in $\calG'$ has a tree-decomposition whose torsos belong to some simpler graph class $\calG$. To construct the labelling scheme for $\calG'$ we require that the graph class $\mathcal{G}$ has an efficient weighted mixed labelling scheme that satisfies the following definition:  A weighted $(g_1,g_2,g_3)$ mixed labelling scheme $\mathcal{S}$ for $(A,I)$ is \defin{$g_0$-sparse} if the
 
 
 % strongly $g_0$-orientable} if the corresponding $(\log n+g_1(n))$-bit adjacency labelling scheme is $g_0$-orientable and the identity tester $I$ satisfies the following additional property:
