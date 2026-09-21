@@ -1078,7 +1078,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \begin{proof}
   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$. Let $b:=b(n)$.
   By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a
-  \pat{We have to deal with the disconnected case.} tidy tree-decomposition $\mathdefin{\mathcal{T}}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G^+$ such that
+  \pat{We have to deal with the disconnected case, in which case we get a forest decomposition of $G^+$.} tidy tree-decomposition $\mathdefin{\mathcal{T}}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G^+$ such that
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
     \item\label{td_width} $\mathcal{T}$ has adhesion-width at most $3k$;
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
