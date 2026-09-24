@@ -1077,14 +1077,18 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 \begin{proof}
   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\R^+$ be a weight function. By \cref{lem:nice_weights}, we may assume that $\omega$ is nice so that $\min_{v\in V(G)}\omega(v)\ge 1$ and $\log\omega(G)\le \log n + O(1)$. Let $\mathcal{T}_0$ be a rooted tree-decomposition of $G^+$ witnessing that $G^+\in\mathcal{G}'$, so $\mathcal{T}_0$ has adhesion-width at most $k:=k(n)$. Let $b:=b(n)$.
-  By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a
-  \pat{We have to deal with the disconnected case, in which case we get a forest decomposition of $G^+$.} tidy tree-decomposition $\mathdefin{\mathcal{T}}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G^+$ such that
+  By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy forest-decomposition $\mathdefin{\mathcal{T}}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G^+$ such that
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
     \item\label{td_width} $\mathcal{T}$ has adhesion-width at most $3k$;
     \item each torso of $\mathcal{T}$ is in $\mathcal{G}^{+3k}$;
     \item\label{tprops_y0} there exists $Y_0\subseteq E(T)$ such that each component of $T-Y_0$ has at most $4b-1$ vertices and each root-to-leaf path in $T$ contains at most $\log_b n$ edges from $Y_0$.    
   \end{enumerate}
-  We will work with the tree-decomposition $\mathcal{T}$.  By \cref{add_apexes}, $\mathcal{G}^{+3k}$ admits a weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
+  Explicitly dealing with the case in which $T$ has more than one component (which occurs precisely when $G^+$ has more than one component) requires duplicating parts of the argument, so we first reduce to the case in which $T$ is connected, as follows.
+  % The forest $T$ has one component for each connected component of $G^+$. 
+  Let $T_1,\ldots,T_c$ be the components of $T$ and let $x_i$ be the root of $T_i$ for each $i\in\{1,\ldots,c\}$.  If $c>1$ then add a dummy vertex $v_0$ to $G^+$ with weight $\omega(v_0)=1$, and make $T$ into a tree by adding a root node $x_0$  with $B_{x_0}:=\{v_0\}$ and make $x_0$ adjacent to $x_i$ for each $i\in\{1,\ldots,c\}$.  Make $\mathcal{T}$ tidy by adding $v_0$ to $B_{x_i}$ for each $i\in\{1,\ldots,c\}$.  The addition of $v_0$  increases the total weight $\omega(G)$ by $1$ (but $\omega$ remains nice) and allows us to assume that $\mathcal{T}$ is a tidy tree-decomposition.   From this point on, we assume that $T$ is a tree, so $\calT$ is a tree-decomposition of $G^+$.
+  % Define the weight function $\omega_0:\{1,\ldots,c\}\to\N^+$ as $\omega_0(i):=\omega(\bigcup_{x\in V(T_i)}B_x)$.  Then $\sum_{i=1}^c\omega_0(i)=n$. Let $\rho_0:\{1,\ldots,c\}\to\{0,1\}^*$ be the prefix-free code obtained by applying \cref{shannon_fano_elias_code} to $S=\{1,\ldots,c\}$ with weight function $\omega_0$.  Then, $|\rho_0(i)|\le\log n - \log \omega(i) + O(1)$, for each $i\in[c]$. 
+  
+  By \cref{add_apexes}, $\mathcal{G}^{+3k}$ admits a weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
   \begin{align}
     \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
     \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
