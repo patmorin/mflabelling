@@ -125,6 +125,7 @@ for every two vertices $u$, $v$ in $G$,
     1 & \textrm{if $uv\in E(G)$}.
   \end{cases}
 \]
+(Such a function $\ell$ is called an \defin{adjacency labelling} of $G$ for $A$.) 
 In this paper we prove the following result. (All logarithms are in base $2$.)
 
 \begin{thm}
@@ -732,9 +733,9 @@ such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, e
           |\kappa(K, u)| \leq g_2(n).
         \]
 \end{enumerate}
-Here is a little intuition about these definitions. Function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. Function $g_2(n)$ is the length of the longest local identifier. Function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
+Here is a little intuition about these definitions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
-A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend this notion to graph classes.  Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:={(\mu_{G^+},\kappa_{G^+}):G\in\mathcal{G}, \omega:V(G)\to\R^+}$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\mathcal{G}$ for $(A,I)$.  An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{S}:={(\mu_G):G\in\mathcal{G}}$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
+A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend this notion to graph classes.  Let $\mathcal{G}$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\mathcal{G}$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:=((\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega}):G^+\in\mathcal{G},G\subseteq G^+, \omega:V(G)\to\R^+)$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\mathcal{G}$ for $(A,I)$.  An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{A}:=((\mu_G):G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
 
 
 \subsection{Basic Properties}
@@ -995,7 +996,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
         
     The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that result in an edge being oriented away from $\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')$ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ such that $\beta\beta'$ is oriented from $\beta$ to $\beta'$ by this branch of the adjacency testing procedure is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
 
-    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we orient the edge $\beta\beta'$ towards $\beta'$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^|X|$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in an edge being oriented away from $\beta$ by this branch of the adjacency testing procedure.
+    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we orient the edge $\beta\beta'$ towards $\beta'$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^{|X|}$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in an edge being oriented away from $\beta$ by this branch of the adjacency testing procedure.
   \end{enumerate}
   Therefore, for any fixed $\beta\in V(U_n)$, the out-degree of $\beta$ in this orientation of $U_n$ is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}=(g_0(n)+a)2^{a+1}=g_0'(n)$.  
 
@@ -1011,19 +1012,19 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \]
   To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. If $K\cap X \neq L\cap X$, then $c(K)\neq c(L)$, so $\mu(K)\neq \mu(L)$ because their first parts differ. Otherwise, $K\setminus X \neq L\setminus X$. If one is empty, say $K\subseteq X$, then $\mu(K)$ has one part while $\mu(L)$ has two parts, so $\mu(K)\neq\mu(L)$. If both are non-empty, then $\mu^-(K-X)\neq \mu^-(L-X)$ since $\mu^-$ is injective on cliques of $G^+-X$, which implies $\mu(K)\neq \mu(L)$.
 
-  If $K\not\subseteq X$, then
+  Next we bound the length of the clique labels.  First consider a clique $K\not\subseteq X$.  Then
+  \[
+    |\mu^-(K-X)| + b
+    \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n-|X|)+a
+    \textrm{by~\eqref{eq:split}}
+  \]
+  and therefore
   \begin{align*}
-    b+|\mu^-(K-X)|
-     & \le \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n-|X|)+a
-     & \textrm{by~\eqref{eq:split}}                                                                  \\
-     & \le \log n + 2 + g_3(n)+a
-     & \textrm{since $\omega$ is nice}                                                               \\
-     & \in\Oh(a) +\Oh(\log n) \enspace,
-    \intertext{and therefore}
     |\mu(K)|
-     & \le |\mu^-(K-X)|+b + \Oh(\lgg|\mu^-(K-X)|+\lgg b)
+     & \leq |\mu^-(K-X)|+b + \Oh(\lgg|\mu^-(K-X)|+\lgg b)
      & \text{by \eqref{encoding_cost}}                                                               \\
-     & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \mathcal{O}(a+\log\log n)\enspace.
+     & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \mathcal{O}(a+\log\log n) \\
+     & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g'_3(n) \enspace .
   \end{align*}
   If $K\subseteq X$, then $|\mu(K)| \le b + \Oh(\lgg b)$, which easily satisfies the same bound.
 
@@ -1038,7 +1039,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \]
   Note that $\kappa(K,u)$ is a concatenation, so it does not incur the encoding cost from \eqref{encoding_cost}. Thus,
   \[
-    |\kappa(K,u)|\le 1+ \max\{g_2(n), \lceil\log(a+1)\rceil\} \le g_2(n)+\Oh(\log a) \enspace.
+    |\kappa(K,u)|\le 1+ \max\{g_2(n), \lceil\log(a+1)\rceil\} \le g_2(n)+\Oh(\log a) \le g_2'(n) \enspace.
   \]
 
   \paragraph{Identity testing:}
@@ -1052,10 +1053,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
 
   \paragraph{\boldmath Strong $g'_0$-orientability:}
-  To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0$-orientable.  That is, we need to show that for each $n\in\N$, each $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and each $k\in\{0,1\}^{\le g'_2(n)}$, there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^{\le 2+\log n+g'_1(n)}$ such that $I'(\beta,k,\beta')=1$.  So that the operation of $I'$ is well-defined over all inputs, we define $I'(\beta,k,\beta')=0$ if there is no instance $(G^+,G,\omega)$ such that, in the $(g_1',g_2',g_3')$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$, $G^+$ contains a clique $K$, $K$ contains a vertex $u$, and $G$ contains a vertex $v$ such that $\beta=\mu(K)$, $k=\kappa(K,u)$, and $\beta'=\mu(v)$.
-
-  Let $n\in\N$.
-  Fix $\beta\in\{0,1\}^{\le 2+\log n+g'_3(n)}$ and $\gamma\in\{0,1\}^{\le g'_2(n)}$ and let $(\mu,\kappa)$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G^+,G,\omega)$ for $(A',I')$ such that there is clique $K$ in $G^+$ and a vertex $u\in K$ with $\mu(K)=\beta$ and $\kappa(K,u)=\gamma$.  Let $\beta'=\mu(u)$.If $u\in X$, then $\beta'=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $\beta'$.  If $u\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(u))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(u)$ given $\beta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|\beta|+1)\rceil$ zeros.  Also $c(u)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $\beta'=\mu(u)=\langle \sigma(u), c(u), \mu^-(u) \rangle$ for which $I'(\beta,\gamma,\beta')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $\beta'$ such that $I'(\beta,\gamma,\beta')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
+  To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0$-orientable.  Fix $n\in\N$, some $n$-vertex $G_0^+\in \mathcal{G}'$, some clique $K_0$ in $G_0^+$, some $u_0\in K_0$, some spanning subgraph $G_0$ of $G_0^+$, and some nice weight function $\omega_0:V(G)\to\N^+$.  Let $(\mu_0,\kappa_0)$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)$ for $(A',I')$. We need to show that there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^*$ such that there exists some $n$-vertex $G^+\in\calG$, some clique $K$ in $G^+$, some vertex $u\in K$ and some vertex $v\in V(G^+)$ and some $(\mu,\kappa)$ which is a $(g_1',g_2',g_3')$-mixed labelling of $(G^+,G,\omega)$ for $(A',I')$ such that $\mu(K)=\mu_0(K)$, $\kappa(K,u)=\kappa_0(K_0,u_0)$, $\mu(u)=\beta'$ and $I'(\mu(K),\kappa(K,u),\mu(v))=1$.
+  
+  Let $\beta=\mu_0(K_0)$ and let $k=\kappa_0(K_0,u_0)$.  Let $G^+,K,u,G,\omega,\beta'$ be as described above and let $X\subseteq V(G^+)$ be the set of vertices that witnesses $G^+\in \mathcal{G}'$ (so $G^+-X\in\calG$ and $|X|\le a:=a(n)$).  If $u\in X$, then $\beta'=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$ has length $\Oh(|X|)\subseteq O(a)$.  Thus, there are at most $2^{O(a)}$ such strings $\beta'$.  If $u\in V(G-X)$, then $I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(u))=1$.  Thus, there are at most $g_0(n)$ choices for $\mu^-(u)$ given $\beta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|\beta|+1)\rceil$ zeros.  Also $c(u)$ is a binary string of length $|X|$.  Thus, there are at most $g_0(n)\cdot 2^{|X|}$ choices for $\beta'=\mu(u)=\langle \sigma(u), c(u), \mu^-(u) \rangle$ for which $I'(\beta,\gamma,\beta')=1$.  Summing over $|X|$ from $0$ to $a$ shows that the number of $\beta'$ such that $I'(\beta,\gamma,\beta')=1$ is at most $(g_0(n)+a)\cdot 2^{a+1})$, as desired.
 \end{proof}
 
 
@@ -1356,30 +1356,46 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     Thus, we only need to consider the entries $\alpha(w,u)$ whose first bit is $1$, so $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, where $x'$ is the home of $u$ in $\mathcal{T}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\mu(v),\mu(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
 
-    \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus, so $v,w\not\in E(G)$, so $A'(v,w):=0$.
+    \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus $v,w\not\in E(G)$ so $A'(\mu(v),\mu(w)):=0$.
   \end{enumerate}
 
   \paragraph{\boldmath $g'_0$-orientability:}
 
-  Since the vertex labels and adjacency tester $A'$ are defined, we can now argue that the corresponding adjacency labelling scheme is $g_0'$-orientable.  Fix $n\in\N$. For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $(\beta,\beta')$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  In the preceding discussion, we have only defined the value of $A'(\beta,\beta')$ for valid input pairs.  So that the function $A'$ is completely defined over $(\{0,1\}^{\le 2+\log n+g_1'(n)})^2$, we define $A'(\beta,\beta')=0$ if $(\beta,\beta')$ is not a valid input pair.
+  
+  
+  
+  
+  % For each $n\in\N$, define the graph $U_n$ similarly, but with respect to the strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling scheme that uses $(A,I)$.  Thus, $U_n$ has an orientation in which each vertex has out-degree at most $g_0(n)$.  We must show that $U'_n$ has an orientation in which each vertex has out-degree at most $g_0'(n)$. Let $\beta:=\mu_0(v)$ and $\beta':=\mu_0(v')$ where $A'(\beta,\beta')=1$ and $(\mu_0,\kappa_0):=(\mu_{\tau_0},\kappa_{\tau_0})$ for some $n$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$ and some $v,v'\in V(G_0)$.  Thus $vv'\in E(G_0)$ and $\beta\beta'$ is an edge of $U'_n$.  
+  
+  
+  All that remains is to argue that the labelling scheme we have just defined  is $g_0'$-orientable.  For each $n\in\N$ and each $n$-vertex $G\in\cal G'$, let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Let $\mathcal{A}:=(\mu_G: G\in\mathcal{G}')$.  Fix $n\in\N$ and let $U'_n$ be the induced-universal graph for $n$-vertex graphs in $\calG'$ that comes from $\mathcal{A}$.  We must show that $U'_n$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
 
-  % Let $(S^-_{\beta^-}:\beta^-\in\{0,1\}^{\le 2+\log n+g_1(n)})$ be a collection of subsets of $\{0,1\}^{\le 2+\log n+g_1(n)}$ that witness the fact that the corresponding adjacency labelling scheme is $g_0$-orientable.  
+  Our argument relies on the fact that $\calG$ has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed-labelling scheme. We now remind the reader what this means. We say that $\tau:=(G^+,G,\omega)$ is a $(\calG,n)$-admissible triple if $G^+$ is an $n$-vertex graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.  For each $n\in\N$, let $\calT_n$ be the set of $(\calG,n)$-admissible triples.  For each $n\in\N$ and each $(\calG,n)$-admissible triple $\tau:=(G^+,G,\omega)\in\calT_n$, fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A,I)$.  Thus $\mathcal{S}:=((\mu_\tau,\kappa_\tau):n\in\N, \tau\in\calT_n))$ is a weighted $(g_1,g_2,g_3)$-mixed-labellings of $\calG$ for $(A,I)$.  For each $n\in\N$ let $U_n$ be the induced-universal graph for $n$-vertex graphs in $\calG$ defined by $\mathcal{S}$.  By assumption, $U_n$ has an orientation in which each vertex has out-degree at most $g_0(n)$, for each $n\in\N$.  Furthermore, for each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$ there are at most $g_0(n)$ binary strings $\zeta$ such that there exists a $(\calG,n)$-admissible tuple $\tau:=(G^+,G,\omega)$, a clique $K$ in $G^+$ and $u\in K$ such that $\mu_{\tau}(u)=\zeta$, $\mu_\tau(K)=\mu_{\tau_0}(K_0)$, $\kappa_{\tau}(K,u)=\kappa_{\tau_0}(K_0,u_0)$, and $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$.
 
-  We construct the sets $(S_\beta:\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)})$ incrementally.  To begin, set $S_\beta=\emptyset$ for each $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$.  We then consider each valid input pair $(\beta,\beta')$ such that $A'(\beta,\beta')=1$.  By the definition of valid input pair, there exists $(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that a mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Let $x$ be home node of $v$ in the tree-decomposition $\calT:=(T,(B_x:x\in V(T)))$ of $G^+$ used to compute the labelling of $(G^+,G,\omega)$ for $(A',I')$, and let $Y$, $F$, ETC be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
+  For each $n\in\N$ and each edge $\beta\beta'$ in $U'_n$ there exists
+  an $n$-vertex $G\in\calG'$ and and edge $vv'\in E(G)$ such that $\beta=\mu_G(v)$ and $\beta'=\mu_G(v')$. Let $\mu:=\mu_G$.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency test $A'(\mu_G(v),\mu_G(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x:x\in V(T)))$ be the tree-decomposition of $G^+$ used to define $(\mu_0,\kappa_0)$ and let $((\mu_x,\kappa_x):x\in V(T))$, $Y\subset E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
   \begin{enumerate}\setcounter{enumi}{-1}
-    \item $\id(x)=\id(x')$. Since $\id(x)=\id(x')$, $x=x'$ is also the home node of $v'$.  Then $1=A'(\mu(v),\mu(v'))=A(\mu_x(v),\mu_x(v'))$, so $\mu_x(v)\in S_{\mu_x(v')}$ or $\mu_x(v')\in S_{\mu_x(v)}$.  Assume without loss of generality that $\mu_x(v')\in S_{\mu_x(v)}$.  In this case, we add $\beta'$ to the set $S_\beta$.  
+    \item $\id(x)=\id(x')$. Since $\id(x)=\id(x')$, $x=x'$ is also the home node of $v'$.  Then $1=A'(\mu(v),\mu(v'))=A(\mu_x(v),\mu_x(v'))$.  Let $x=|B_x\setminus A_x|$.  Then $\mu_x(v)$ and $\mu_x(v')$ are vertices of the universal graph $U_{n_x}$.  Since $A(\mu_x(v),\mu_x(v'))=1$, these vertices are adjacent in $U_{n_x}$.  Since the mixed labelling scheme for $(A,I)$ is $g_0$-orientable, there is an orientation of $U_{n_x}$ of out-degree at most $g_0(n_x)\le g_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  Assume without loss of generality that $\mu_x(v')\in S_{\mu_x(v)}$.  In this case, we orient the edge $\beta\beta'$ of $U$ towards $\beta'$.
     
-    For fixed $\beta=\mu(v)$, the number of possible values of $\mu_x(v)$ is $|S_{\mu_x(v)}|\le g_0(n)$. By assumption, $\id(v)=\id(v')$ so there is only one choice for $\id(v')$.  If we fix the length $\ell$ of $\alpha(v')$, then the number of choices for $\alpha(v)$ is at most $2^\ell$.  Since $|\alpha(v')|\in O(k(h_3(n)+h_2(n)+\log b+\log\log n))$, summing over $\ell$ show that the number of choices $\beta'$ that result in adding $\beta'$ to $S_\beta$ in this case is at most $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
+    Therefore, the number of possible values for $\mu_x(v')$ is most $g_0(n)$. By assumption, $\id(v)=\id(v')$ so there is only one choice for $\id(v')$.  Since $|\alpha(v')|\in O(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n)\cdot\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
     
-    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case, we add $\beta'$ to $S_\beta$.  Since $x'$ is an ancestor of $x$ in $T$, $\id(C')$ is a prefix of $\id(C)$.  Thus, there are at most $O(\log_b n)$ choices for $\id(C')$.  Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  Then $\id(x')$ is obtained by adding the part $\rho_{C'}(x')$ to $\id(C')$.   Since $|\rho_{C'}(x')|\le 2\log b + O(\log\log n)$, there are at most $O(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $O(b^2\log^2 n)$ choices for $\id(x')$.  
+    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case we orient the edge $\beta\beta'$ towards $\beta'$.  Since $x'$ is an ancestor of $x$ in $T$, $\id(C')$ is a prefix of $\id(C)$ and is completely determined by $\id(C)$ and $\idx(C')$.  Furthermore, $\idx(C')$ is contained in $\alpha(v,v')$, which is one of the at most $k$ entries in $\alpha(v)$.  Thus, there are at most $k$ choices for $\id(C')$.  Then $\id(x')$ is obtained by appending $\rho_{C'}(x')$ to $\id(C')$. Since $|\rho_{C'}(x')|\le 2\log b + O(\log\log n)$, there are at most $O(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $O(k b^2\log n)$ choices for $\id(x')$. 
+    
+    Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  There are now two cases to consider.
     \begin{itemize}
-      \item If the first bit of $\alpha(v,v')$ is $0$, then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}(y')}\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$.  Since $x'$ is an ancestor of $x$, $\alpha(v)$ contains an entry $\alpha(v,v')=\langle 0,\bin(\idx(C)), \kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$.  Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot g_0(n))$ choices for $\mu_{x'}(v')$. 
+      \item If $\alpha(v,v')=\langle 0,\bin(\idx(C'),\kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$ then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$. By definition,  $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$. 
+      Since the labelling scheme $\mathcal{S}$ for $(A,I)$ is strongly $g_0$-orientable, there are at most $g_0(n)$ choices for $\mu_{x'}(v')$. 
 
-      \item If the first bit of $\alpha(v,v')$ is $1$, then the edge $x'y'$ is not in $Y$.  Since $x'y'\not\in Y=Y_0\cup Y_i$, $x'y'\not\in Y_1$.  Therefore $\omega(T_{y'})\ge \omega(T_x)/b$.  It follows that $|\mu_{x'}(v')|\in O(\log b + \log\log n)$.  Thus, there are at most $O(b\log n)$ choices for $\mu_{x'}(v')$.  
+      % Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot g_0(n))$ choices for $\mu_{x'}(v')$.  
+      \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y=Y_0\cup Y_1$.  Then the definition of $Y_1$ implies that $\omega(T_{y'})\ge \omega(T_{x'})/b$. Since $v'\in A_{y'}\setminus A_{x'}$, we have that $\delta(v')\ge \omega(T_{y'})/b\ge \omega(T_{x'})/b^2$.  It follows that $|\mu_{x'}(v')|\in O(\log b + \log\log n)$.  Thus, there are at most $O(b\log n)$ choices for $\mu_{x'}(v')$.  
     \end{itemize}
-    In either case, there are at most $O(b\log^2 n)$ choices for $\mu_{x'}(v')$. 
+
+    % Let $\tau_0:=(G_0^+,G_0,\omega_0)$ be an $n$-admissible triple and let $\beta=\mu_{\tau_0}(v_0)$ for some $v_0\in V(G_0)$.  Thus, $\beta$ is a vertex of $U'_n$.
+
+
+    In either case, there are at most $g_0(n)+O(b\log n)$ choices for $\mu_{x'}(v')$. 
     
-    Summarizing, there are at most $O(b^2\log^2 n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot g_0(n))\log_b n)\le g_0(n)\cdot\exp(O(\log b+\log\log n))$ choices for $\mu_{x'}(v')$.  There are at most $2^{|\alpha(v)|}\le \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v)$.  Thus, there are at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\beta'$ that result in adding $\beta'$ to $S_\beta$ in this case.
+    Summarizing, there are at most $O(k b^2\log n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot g_0(n))\log_b n)\le k\cdot g_0(n)\cdot\exp(O(\log b+\log\log n))$ choices for $\mu_{x'}(v')$.  There are at most $2^{|\alpha(v')|}\le \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. \qedhere
   \end{enumerate}
 \end{proof}  
 
@@ -1437,127 +1453,127 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
 
-\subsection{Disjoint Unions of Graphs}
-\label{sec:disjoint}
+% \subsection{Disjoint Unions of Graphs}
+% \label{sec:disjoint}
 
-\begin{lem}\label{disjoint_union_ii}
-  Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
-  Then $\mathcal{G}'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
-  \begin{align*}
-    g'_1(n)
-     & = g_1(n)+\Oh(\log\log n)\enspace,   \\
-    g'_3(n)
-     & = g_3(n)+\Oh(\log\log n) \enspace .
-  \end{align*}
-\end{lem}
+% \begin{lem}\label{disjoint_union_ii}
+%   Let $\mathcal{G}$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\mathcal{G}'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\mathcal{G}$.
+%   Then $\mathcal{G}'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
+%   \begin{align*}
+%     g'_1(n)
+%      & = g_1(n)+\Oh(\log\log n)\enspace,   \\
+%     g'_3(n)
+%      & = g_3(n)+\Oh(\log\log n) \enspace .
+%   \end{align*}
+% \end{lem}
 
-\begin{proof}
-  By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
+% \begin{proof}
+%   By~\cref{lem:nice_weights} it is enough to show that $\mathcal{G}'$ admits a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\mathcal{G}'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
 
-  Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
-  Thus, for each $v\in V(G)$,
-  \begin{equation}
-    \label{eq:nice}
-    \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
-  \end{equation}
-  By definition, $G^+:=\bigcup_{i=1}^m G^+_i$, where $G^+_1,\ldots,G^+_m$ are pairwise vertex-disjoint members of $\mathcal{G}$.
-  Therefore, $G:=\bigcup_{i=1}^m G_i$, where $G_i:=G[V(G^+_i)]$ is a spanning subgraph of $G^+_i$ for each $i\in[m]$.
+%   Let $G^+$ be an $n$-vertex graph in $\mathcal{G}'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
+%   Thus, for each $v\in V(G)$,
+%   \begin{equation}
+%     \label{eq:nice}
+%     \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
+%   \end{equation}
+%   By definition, $G^+:=\bigcup_{i=1}^m G^+_i$, where $G^+_1,\ldots,G^+_m$ are pairwise vertex-disjoint members of $\mathcal{G}$.
+%   Therefore, $G:=\bigcup_{i=1}^m G_i$, where $G_i:=G[V(G^+_i)]$ is a spanning subgraph of $G^+_i$ for each $i\in[m]$.
 
-  \paragraph{\boldmath The subgraph label $\rho(x)$:}
-  Let $\psi:[m]\to\N^+$ be the weight function defined by $\psi(i):=\omega(G_i)$ and observe that $\psi([m])=\omega(G)$ since $G_1,\ldots,G_m$ are pairwise vertex-disjoint.
-  Apply \cref{shannon_fano_elias_code} to the set $[m]$ with weight function $\psi$ to obtain a prefix-free code $\rho:[m]\to\{0,1\}^*$ such that for each $i\in[m]$,
-  \begin{equation}
-    \label{eq:pi}
-    |\rho(i)|\le\log \omega(G)-\log \omega(G_i)+3\enspace.
-  \end{equation}
-  For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(v):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G^+_i$, define $\rho(K):=\rho(i)$.
+%   \paragraph{\boldmath The subgraph label $\rho(x)$:}
+%   Let $\psi:[m]\to\N^+$ be the weight function defined by $\psi(i):=\omega(G_i)$ and observe that $\psi([m])=\omega(G)$ since $G_1,\ldots,G_m$ are pairwise vertex-disjoint.
+%   Apply \cref{shannon_fano_elias_code} to the set $[m]$ with weight function $\psi$ to obtain a prefix-free code $\rho:[m]\to\{0,1\}^*$ such that for each $i\in[m]$,
+%   \begin{equation}
+%     \label{eq:pi}
+%     |\rho(i)|\le\log \omega(G)-\log \omega(G_i)+3\enspace.
+%   \end{equation}
+%   For each $i\in[m]$ and each vertex $v$ of $G_i$, define $\rho(v):=\rho(i)$. For each $i\in[m]$ and each clique $K$ of $G^+_i$, define $\rho(K):=\rho(i)$.
 
-  \paragraph{\boldmath The sub-label $\mu_i(x)$:}
-  Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
-  For each $i\in[m]$,
-  let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G_i^+, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
-  Thus, for each $i\in[m]$ and each $v\in V(G_i)$,
-  \begin{align}
-    \label{eq:mu}
-    \begin{split}
-      |\mu_i(v)|
-       & \leq \log\omega(G_i) - \log\omega(v) + g_1(|V(G_i)|) \\
-       & \leq \log\omega(G_i) - \log\omega(v) + g_1(n)
-    \end{split}
-    \intertext{and for each clique $K$ in $G^+_i$,}
-    \begin{split}
-      |\mu_i(K)|
-       &
-      \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(|V(G_i)|) \\
-       & \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n).
-    \end{split}
-    \label{eq:mu-K}
-  \end{align}
-  For each $i\in[m]$, and each vertex $v$ of $G_i$, define $\mu'(v):=\mu_i(v)$.
-  For each $i\in[m]$, and each clique $K$ of $G^+_i$, define $\mu'(K):=\mu_i(K)$.
+%   \paragraph{\boldmath The sub-label $\mu_i(x)$:}
+%   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
+%   For each $i\in[m]$,
+%   let $(\mu_i,\kappa_i)$ be a mixed labelling of $(G_i^+, G_i,\omega_{|V(G_i)})$ for $(A,I)$.
+%   Thus, for each $i\in[m]$ and each $v\in V(G_i)$,
+%   \begin{align}
+%     \label{eq:mu}
+%     \begin{split}
+%       |\mu_i(v)|
+%        & \leq \log\omega(G_i) - \log\omega(v) + g_1(|V(G_i)|) \\
+%        & \leq \log\omega(G_i) - \log\omega(v) + g_1(n)
+%     \end{split}
+%     \intertext{and for each clique $K$ in $G^+_i$,}
+%     \begin{split}
+%       |\mu_i(K)|
+%        &
+%       \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(|V(G_i)|) \\
+%        & \leq \log\omega(G_i) - \log\min_{v\in K}(\omega(v)) + g_3(n).
+%     \end{split}
+%     \label{eq:mu-K}
+%   \end{align}
+%   For each $i\in[m]$, and each vertex $v$ of $G_i$, define $\mu'(v):=\mu_i(v)$.
+%   For each $i\in[m]$, and each clique $K$ of $G^+_i$, define $\mu'(K):=\mu_i(K)$.
 
-  \paragraph{\boldmath The vertex label $\mu(v)$:}
-  Let $A$ and $I$ denote the adjacency and identity testers, respectively, for the weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
-  For each $i\in[m]$ and each $v\in V(G_i)$, define
-  \[
-    \mu(v):=\langle \rho(v), \mu'(v) \rangle \enspace;
-  \]
-  thus
-  \begin{align*}
-    |\rho(v)| + |\mu_i(v)|
-     & \le \log\omega(G) -\log\omega(v)+3+g_1(n)                        &  & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},} \\
-     & \le \log n + 5 + g_1(n) = \mathcal{O}(\log n)                    &  & \textrm{by~\eqref{eq:nice},}
-    \intertext{and therefore}
-    |\mu(v)|
-     & \le |\rho(v)| + |\mu'(v)| + \Oh(\lgg |\rho(v)| + \lgg|\mu'(v)|)
-     & \text{by \eqref{encoding_cost}}                                                                                    \\
-     & \le \log\omega(G) -\log\omega(v)+g_1(n)+\Oh(\log\log n)\enspace.
-  \end{align*}
+%   \paragraph{\boldmath The vertex label $\mu(v)$:}
+%   Let $A$ and $I$ denote the adjacency and identity testers, respectively, for the weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\mathcal{G}$.
+%   For each $i\in[m]$ and each $v\in V(G_i)$, define
+%   \[
+%     \mu(v):=\langle \rho(v), \mu'(v) \rangle \enspace;
+%   \]
+%   thus
+%   \begin{align*}
+%     |\rho(v)| + |\mu_i(v)|
+%      & \le \log\omega(G) -\log\omega(v)+3+g_1(n)                        &  & \textrm{by~\eqref{eq:pi} and~\eqref{eq:mu},} \\
+%      & \le \log n + 5 + g_1(n) = \mathcal{O}(\log n)                    &  & \textrm{by~\eqref{eq:nice},}
+%     \intertext{and therefore}
+%     |\mu(v)|
+%      & \le |\rho(v)| + |\mu'(v)| + \Oh(\lgg |\rho(v)| + \lgg|\mu'(v)|)
+%      & \text{by \eqref{encoding_cost}}                                                                                    \\
+%      & \le \log\omega(G) -\log\omega(v)+g_1(n)+\Oh(\log\log n)\enspace.
+%   \end{align*}
 
-  \paragraph{Adjacency testing:} We now define an adjacency tester $A'$.
-  Given the labels $\mu(v)=\linebreak \langle\rho(v),\mu'(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w)\rangle$ for two vertices $v,w\in V(G)$, we compute $A'(\mu(v),\mu(w))$ as follows.
-  First $A'$ verifies if $\rho(v)=\rho(w)$.
-  If $\rho(v)\neq\rho(w)$, then $v$ and $w$ lie in different components of $G$, so they cannot be adjacent in $G$, and
-  we set $A'(\mu(v),\mu(w)):=0$.
-  If $\rho(v)=\rho(w)$, then $v$ and $w$ are both contained in the graph $G_i$, for some $i\in[m]$.  In this case
-  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu'(w)\rangle$.
-  In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu'(v), \mu'(w))$.
+%   \paragraph{Adjacency testing:} We now define an adjacency tester $A'$.
+%   Given the labels $\mu(v)=\linebreak \langle\rho(v),\mu'(v)\rangle$ and $\mu(w)=\langle\rho(w),\mu'(w)\rangle$ for two vertices $v,w\in V(G)$, we compute $A'(\mu(v),\mu(w))$ as follows.
+%   First $A'$ verifies if $\rho(v)=\rho(w)$.
+%   If $\rho(v)\neq\rho(w)$, then $v$ and $w$ lie in different components of $G$, so they cannot be adjacent in $G$, and
+%   we set $A'(\mu(v),\mu(w)):=0$.
+%   If $\rho(v)=\rho(w)$, then $v$ and $w$ are both contained in the graph $G_i$, for some $i\in[m]$.  In this case
+%   $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and $\mu(w)=\langle\rho(i),\mu'(w)\rangle$.
+%   In this case, we simply set $A'(\mu(v),\mu(w)) := A(\mu'(v), \mu'(w))$.
 
-  \paragraph{\boldmath The clique label $\mu(K)$:}
-  For each $i\in[m]$ and each clique $K$ in $G^+_i$, define
-  \[
-    \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
-  \]
-  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. Since $G^+$ is the disjoint union of $G^+_1,\ldots,G^+_m$, each clique is contained in exactly one component. If $K$ and $L$ are in different components $G^+_i$ and $G^+_j$, then $\rho(K)=\rho(i)\neq\rho(j)=\rho(L)$ since $\rho$ is a prefix-free code, so $\mu(K)\neq\mu(L)$. If they are in the same component $G^+_i$, then $\mu'(K)=\mu_i(K)\neq\mu_i(L)=\mu'(L)$ since $\mu_i$ is injective on cliques of $G^+_i$, which implies $\mu(K)\neq\mu(L)$.
+%   \paragraph{\boldmath The clique label $\mu(K)$:}
+%   For each $i\in[m]$ and each clique $K$ in $G^+_i$, define
+%   \[
+%     \mu(K):=\langle\rho(K), \mu'(K)\rangle \enspace ;
+%   \]
+%   To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. Since $G^+$ is the disjoint union of $G^+_1,\ldots,G^+_m$, each clique is contained in exactly one component. If $K$ and $L$ are in different components $G^+_i$ and $G^+_j$, then $\rho(K)=\rho(i)\neq\rho(j)=\rho(L)$ since $\rho$ is a prefix-free code, so $\mu(K)\neq\mu(L)$. If they are in the same component $G^+_i$, then $\mu'(K)=\mu_i(K)\neq\mu_i(L)=\mu'(L)$ since $\mu_i$ is injective on cliques of $G^+_i$, which implies $\mu(K)\neq\mu(L)$.
 
-  Thus,
-  \begin{align*}
-    |\rho(K)| + |\mu'(K)|
-     & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)                         \\
-     & \le \log n + 5 + g_3(n) = \mathcal{O}(\log n)                                    \\
-    \intertext{and therefore}
-    |\mu(K)|
-     & \le |\rho(K)| + |\mu'(K)| + \Oh(\lgg |\rho(K)| + \lgg|\mu'(K)|)
-     & \text{by \eqref{encoding_cost}}                                                  \\
-     & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+g_3(n)+\Oh(\log\log n) \enspace.
-  \end{align*}
+%   Thus,
+%   \begin{align*}
+%     |\rho(K)| + |\mu'(K)|
+%      & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+3+g_3(n)                         \\
+%      & \le \log n + 5 + g_3(n) = \mathcal{O}(\log n)                                    \\
+%     \intertext{and therefore}
+%     |\mu(K)|
+%      & \le |\rho(K)| + |\mu'(K)| + \Oh(\lgg |\rho(K)| + \lgg|\mu'(K)|)
+%      & \text{by \eqref{encoding_cost}}                                                  \\
+%      & \le \log\omega(G) -\log\min_{v\in K}(\omega(v))+g_3(n)+\Oh(\log\log n) \enspace.
+%   \end{align*}
 
-  \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
-  Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G^+_i$, and each $u\in K$. In particular,
-  \[
-    |\kappa(K,u)| \leq g_2(n).
-  \]
+%   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
+%   Define $\kappa(K,u) := \kappa_i(K,u)$ for each $i\in[m]$, each clique $K$ in $G^+_i$, and each $u\in K$. In particular,
+%   \[
+%     |\kappa(K,u)| \leq g_2(n).
+%   \]
 
-  \paragraph{Identity testing:}
-  Define an identity tester $I'$ as follows.
-  Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$, and some $v\in V(G)$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
-  If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case, 
-  $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
-  $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and
-  $\kappa(K,u)=\kappa_i(K,u)$.
-  In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu'(K),\kappa(K,u),\mu'(v))$.
-\end{proof}
+%   \paragraph{Identity testing:}
+%   Define an identity tester $I'$ as follows.
+%   Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, some $u\in K$, and some $v\in V(G)$, we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
+%   If $\rho(K)\neq\rho(v)$, then $K$ and $v$ lie in different components of $G$, so $v\not\in K$, and we set $I'(\mu(K),\kappa(K,u),\mu(v)):=0$.  If $\rho(K)=\rho(v)$, then $K$ and $v$ are contained in the same graph $G_i$ for some $i\in[m]$. In this case, 
+%   $\mu(K)=\langle\rho(i),\mu'(K)\rangle$,
+%   $\mu(v)=\langle\rho(i),\mu'(v)\rangle$, and
+%   $\kappa(K,u)=\kappa_i(K,u)$.
+%   In this case, we simply set $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu'(K),\kappa(K,u),\mu'(v))$.
+% \end{proof}
 
 % \subsection{Graphs with Skinny Tree-Decompositions}
 % \label{sec:skinny}
@@ -2341,7 +2357,7 @@ Variants of the following result appear in several contexts, with different boun
 \end{lem}
 
 \begin{lem}\label{gk_labelling_precise}
-  For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(\sqrt{\log n} + k(n)\log\log n)$, $g_0(n)\le \exp(\Oh(\sqrt{\log n} + k(n)\log\log n))$, and $g_2(n)\in \Oh(1)$.
+  For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\mathcal{R}_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_1(n),g_3(n)\in \Oh(k(n)\sqrt{\log n})$, $g_0(n)\le \exp(\Oh(k(n)\sqrt{\log n}))$, and $g_2(n)\in \Oh(1)$.
 \end{lem}
 
 \begin{proof}
@@ -2485,7 +2501,7 @@ Variants of the following result appear in several contexts, with different boun
     \mathdefin{\alpha(v,i)}
      & := \langle\; \alpha^-(v,i),\alpha^0(v,i),\alpha^+(v,i) \;\rangle        \enspace .
   \end{align*}
-  Since $|N^+_H(v)|\le 6k+5$ for each $v\in V(H)$, $|\alpha(v,i)|\in\Oh(k(\sqrt{\log n} + \log k + \log\log n))$.
+  Since $|N^+_H(v)|\le 6k+5$ for each $v\in V(H)$, $|\alpha(v,i)|\in\Oh(k\sqrt{\log n})$.
 
   \paragraph{\boldmath The transition codes $\overleftarrow{\tau}(v,i)$ and $\overrightarrow{\tau}(v,i)$:}
   The last (and critical) piece of the labelling schemes in \cite{dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler} is the notion of a \defin{transition code} that makes it possible to derive the signature $\sigma(v,i+1)$ (or $\sigma(v,i-1)$) from $\sigma(v,i)$ and a bitstring of length $\Oh(\sqrt{\log n})$. Formally, there is a universal function $J:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists a bitstring \defin{$\overrightarrow{\tau}(v,i)$} of length $\Oh(\sqrt{\log n})$ such that $J(\sigma(v,i),\overrightarrow{\tau}(v,i))=\sigma(v,i+1)$ (for $i=h$, let $\overrightarrow{\tau}(v,h):=\varepsilon$). Symmetrically, for each $(v,i)\in V(G)$ with $i\in\{2,\ldots,h\}$, there exists a bitstring \defin{$\overleftarrow{\tau}(v,i)$} of length $\Oh(\sqrt{\log n})$ such that $J(\sigma(v,i),\overleftarrow{\tau}(v,i))=\sigma(v,i-1)$ (for $i=1$, let $\overleftarrow{\tau}(v,1):=\varepsilon$).
@@ -2525,7 +2541,7 @@ Variants of the following result appear in several contexts, with different boun
   \[
     \mathdefin{\mu((v,i))} := \langle \lambda_1(v,i),\; \lambda_2(v,i) \rangle
   \]
-  which has length $\log n + \Oh(\sqrt{\log n})$, for fixed $k$.  (For $k$ that grows with $n$, $|\mu((v,i))|=\log n + \Oh(\sqrt{\log n} + k(\log k + \log\log n))$.)
+  which has length $\log n + \Oh(\sqrt{\log n})$, for fixed $k$.  (For $k$ that grows with $n$, $|\mu((v,i))|=\log n + \Oh(k\sqrt{\log n})$.)
 
   \paragraph{\boldmath Adjacency testing:}
 
@@ -2559,7 +2575,7 @@ Variants of the following result appear in several contexts, with different boun
     
     In this branch of the adjacency testing procedure, the tester examines (a subset of) the at most $6k+5$ entries in $\alpha^0(v,i)$ and (a subset of) the at most $6k+5$ entries in $\alpha^0(w,j)$. Since $w\in N^+_H(v)$ (therefore $v\not\in N^+_H(w)$), none of the entries in $\alpha^0(w,j)$ will match $v$.  More precisely, there is no entry $\langle|\sigma(v',j)|, c_{v',j}, \varphi(v')\rangle$ in $\alpha^0(w,j)$ such that $(\sigma(v',j),\varphi(v'))=(\sigma(v,i), \varphi(v))$.
     
-    Since $(v,i)(w,j)$ is an edge of $G$, the tester finds an entry $\langle |\sigma(w',i)|, c_{w',i}, \varphi(w')\rangle$ in $\alpha^0(v,i)$ with $(|\sigma(w',i)|, c_{w',i}, \varphi(w'))=(|\sigma(w,i)|, c_{w,i}, \varphi(w))$. The tester uses $|\sigma(w',i)|$, $c_{w',i}$, and $\sigma(v,i)$ to compute $\sigma(w',i)$ and finds that $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$.  For any fixed $\beta$, there are at most $6k+5$ values of $(\sigma(w,i),\varphi(w))$ that the tester accepts in this way. The total length of the remaining components $\alpha(w,j), \overleftarrow{\tau}(w,j), \overrightarrow{\tau}(w,j)$ of $\lambda_2(w,j)$ is $\Oh(\sqrt{\log n}+k(\log k + \log\log n))$.  The number of binary strings of this length is $\exp(\Oh(\sqrt{\log n}+k\log k))$.  Therefore, for fixed $\beta$, the number of bitstrings $\beta'$ that this branch of the adjacency testing procedure accepts is at most $\exp(\Oh(\sqrt{\log n}+k\log k))$.  Thus, for any fixed $\beta$, the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(\sqrt{\log n}+k\log k))$.
+    Since $(v,i)(w,j)$ is an edge of $G$, the tester finds an entry $\langle |\sigma(w',i)|, c_{w',i}, \varphi(w')\rangle$ in $\alpha^0(v,i)$ with $(|\sigma(w',i)|, c_{w',i}, \varphi(w'))=(|\sigma(w,i)|, c_{w,i}, \varphi(w))$. The tester uses $|\sigma(w',i)|$, $c_{w',i}$, and $\sigma(v,i)$ to compute $\sigma(w',i)$ and finds that $(\sigma(w',i),\varphi(w'))=(\sigma(w,i),\varphi(w))$.  For any fixed $\beta$, there are at most $6k+5$ values of $(\sigma(w,i),\varphi(w))$ that the tester accepts in this way. The total length of the remaining components $\alpha(w,j), \overleftarrow{\tau}(w,j), \overrightarrow{\tau}(w,j)$ of $\lambda_2(w,j)$ is $\Oh(k\sqrt{\log n})$.  The number of binary strings of this length is $\exp(\Oh(k\sqrt{\log n}))$.  Therefore, for fixed $\beta$, the number of bitstrings $\beta'$ that this branch of the adjacency testing procedure accepts is at most $\exp(\Oh(k\sqrt{\log n}))$.  Thus, for any fixed $\beta$, the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(k\sqrt{\log n}))$.
 
     \item $\rho(j)=F(\rho(i),\overleftarrow{\pi}(i))$, which implies that $j=i-1$.  Note that, in this case, $\rho(i)=F(\rho(j),\overrightarrow{\pi}(j))$.  Thus any choice of $\beta$ fixes $\rho(j)$ and any choice of $\beta'$ fixes $\rho(i)$.  
     
@@ -2567,9 +2583,9 @@ Variants of the following result appear in several contexts, with different boun
     
     In this branch of the adjacency testing procedure, the tester computes $\sigma(v,i-1)=J(\sigma(v,i),\overleftarrow{\tau}(v,i))$ and examines (a subset of) the entries in $\alpha^-(v,i)$ and computes $\sigma(w,i+1)=J(\sigma(w,i),\overrightarrow{\tau}(w,i))$ and examines (a subset of) the entries in $\alpha^+(w,i)$. Since $w\in N^+_H(v)$ (therefore $v\not\in N^+_H(w)$), none of the entries in $\alpha^+(w,j)$ will match $v$.  More precisely, there is no entry $\langle|\sigma(v',j+1)|, c_{v',j+1}, \varphi(v')\rangle$ in $\alpha^+(w,j)$ such that $(\sigma(v',j+1),\varphi(v'))=(\sigma(v,i), \varphi(v))$.
     
-    Since $(v,i)(w,j)$ is an edge of $G$ the tester finds an entry $\langle |\sigma(w',i-1)|, c_{w',i-1}, \varphi(w')\rangle$ in $\alpha^-(v,i)$ with $(|\sigma(w',i-1)|, c_{w',i-1}, \varphi(w'))=(|\sigma(w,j)|, c_{w,j}, \varphi(w))$. The tester uses $|\sigma(w',i-1)|$, $c_{w',i-1}$, and $\sigma(v,i-1)$ to compute $\sigma(w',i-1)$ and finds that $(\sigma(w',i-1),\varphi(w'))=(\sigma(w,j),\varphi(w))$.   Therefore, for any fixed $\beta$, this branch of the testing procedure will accept at most $6k+5$ different values of $\rho(j),\sigma(w,j),\varphi(w)$. The remaining components $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(w,j)$, $\overleftarrow{\tau}(w,j)$, and $\overrightarrow{\tau}(w,j)$ of $\mu(w,j)$ have total length $\Oh(\sqrt{\log n}+k(\log k + \log\log n))$. As in the previous case, we conclude that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(\sqrt{\log n}+k\log k))$.
+    Since $(v,i)(w,j)$ is an edge of $G$ the tester finds an entry $\langle |\sigma(w',i-1)|, c_{w',i-1}, \varphi(w')\rangle$ in $\alpha^-(v,i)$ with $(|\sigma(w',i-1)|, c_{w',i-1}, \varphi(w'))=(|\sigma(w,j)|, c_{w,j}, \varphi(w))$. The tester uses $|\sigma(w',i-1)|$, $c_{w',i-1}$, and $\sigma(v,i-1)$ to compute $\sigma(w',i-1)$ and finds that $(\sigma(w',i-1),\varphi(w'))=(\sigma(w,j),\varphi(w))$.   Therefore, for any fixed $\beta$, this branch of the testing procedure will accept at most $6k+5$ different values of $\rho(j),\sigma(w,j),\varphi(w)$. The remaining components $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(w,j)$, $\overleftarrow{\tau}(w,j)$, and $\overrightarrow{\tau}(w,j)$ of $\mu(w,j)$ have total length $\Oh(k\sqrt{\log n})$. As in the previous case, we conclude that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(k\sqrt{\log n}))$.
 
-    \item $\rho(i)=F(\rho(j),\overleftarrow{\pi}(j))$, in which case $i=j-1$ (so $j=i+1$).  This case is completely symmetric to the previous case: we may assume without loss of generality that $w\in N^+_H(v)$ and deduce that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(\sqrt{\log n}+k\log k))$.
+    \item $\rho(i)=F(\rho(j),\overleftarrow{\pi}(j))$, in which case $i=j-1$ (so $j=i+1$).  This case is completely symmetric to the previous case: we may assume without loss of generality that $w\in N^+_H(v)$ and deduce that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(k\sqrt{\log n}))$.
   \end{enumerate} 
 
     \paragraph{Clique labelling and identity testing:}
@@ -2588,7 +2604,7 @@ Variants of the following result appear in several contexts, with different boun
       \alpha(K)
        & := \langle\; \alpha^-(K),\; \alpha^0(K)  \;\rangle \enspace .
     \end{align*}
-    Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k(\sqrt{\log n}+\log\log n))$.  By Property~\ref{clique_property}, $f(v_K) \subseteq f(w)$ for each $w \in V_K$. As discussed above, this implies that $\sigma(w,i_K)$ is completely determined by the prefix of $\sigma(v_K,i_K)$ of length $|\sigma(w,i_K)|-1$ together with the integer $c_{w,i_K}$. No extended signature is needed. Define
+    Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k\sqrt{\log n})$.  By Property~\ref{clique_property}, $f(v_K) \subseteq f(w)$ for each $w \in V_K$. As discussed above, this implies that $\sigma(w,i_K)$ is completely determined by the prefix of $\sigma(v_K,i_K)$ of length $|\sigma(w,i_K)|-1$ together with the integer $c_{w,i_K}$. No extended signature is needed. Define
     \[
       \mu(K) := \langle\; \lambda_1(K),\; \sigma(v_K,i_K),\; \overleftarrow{\tau}(v_K,i_K),\; \alpha(K) \;\rangle \enspace .
     \]
@@ -2596,10 +2612,10 @@ Variants of the following result appear in several contexts, with different boun
     \begin{align}
       |\mu(K)|
        & \le |\lambda_1(K)| + |\sigma(v_K,i_K)| + |\overleftarrow{\tau}(v_K,i_K)| + \Oh(k(\sqrt{\log n} + \log\log n)) \\
-       & \le \log n - \log|S^+_{i_K}| + (\log a)\depth_{B_{i_K}}(x_{B_{i_K}}(v_K)) + \Oh(\log_a n + \sqrt{\log n} + k\log\log n) \\
-       & \le \log n - \log|S^+_{i_K}| + (\log a)\height(B_{i_K}) + \Oh(\sqrt{\log n} + k\log\log n) \\
-       & \le \log n + \Oh(\log a+ \log_a n + \sqrt{\log n} + k\log\log n) \\
-       & \le \log n + \Oh(\sqrt{\log n})
+       & \le \log n - \log|S^+_{i_K}| + (\log a)\depth_{B_{i_K}}(x_{B_{i_K}}(v_K)) + \Oh(\log_a n + k\sqrt{\log n}) \\
+       & \le \log n - \log|S^+_{i_K}| + (\log a)\height(B_{i_K}) + \Oh(k\sqrt{\log n}) \\
+       & \le \log n + \Oh(\log a+ \log_a n + k\sqrt{\log n}) \\
+       & \le \log n + \Oh(k\sqrt{\log n})
     \end{align}
 
     To see that $\mu$ is injective when restricted to cliques in $G^+$, suppose $\mu(K)=\mu(L)$ for two cliques $K$ and $L$ in $G^+$.
@@ -2631,11 +2647,11 @@ Variants of the following result appear in several contexts, with different boun
   \paragraph{\boldmath Strong $g_0$-orientability:}  Let $\beta$, $\gamma$, and $\beta'$ be such that $I(\beta,\gamma,\beta')=1$.  Thus there exists an $n$-vertex graph $G^+\in\mathcal{R}_k$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$, such that $\mu(K)=\beta$, $\kappa(K,(u,j))=\gamma$, and $\mu((u,j))=\beta'$.
 
   \begin{itemize}
-    \item If $\lambda_1(K)=\lambda_1(u,j)$ then $j=i_K$.  In this case, $\sigma(v_K,i_K)$, $\kappa(K,(u,j))$, and $\alpha(K)$ fix the values of $\sigma(u,i_K)=\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\alpha(u,i_K)$, $\overleftarrow{\tau}(u,i_K)$, $\overrightarrow{\tau}(u,i_K)$, which have a total length of $\Oh(\sqrt{\log n}+k\log\log n)$. Thus, there are at most $\exp(\Oh(\sqrt{\log n}+k\log\log n))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
+    \item If $\lambda_1(K)=\lambda_1(u,j)$ then $j=i_K$.  In this case, $\sigma(v_K,i_K)$, $\kappa(K,(u,j))$, and $\alpha(K)$ fix the values of $\sigma(u,i_K)=\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\alpha(u,i_K)$, $\overleftarrow{\tau}(u,i_K)$, $\overrightarrow{\tau}(u,i_K)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
 
-    \item If $\lambda_1(K)\neq\lambda_1(u,j)$ then $j=i_K-1$.  In this case $\rho(j)=F(\rho(i_K), \overleftarrow{\pi}(i_K))$ is fixed by $\lambda_1(K)$.  Then, $\sigma(v_K,j)=J(\sigma(v_K,i_K),\overleftarrow{\tau}(v_K,i_K))$, $\kappa(K,(u,j))$, and $\alpha(K)$ fix the values of $\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(u,j)$, $\overleftarrow{\tau}(u,j)$, $\overrightarrow{\tau}(u,j)$, which have a total length of $\Oh(\sqrt{\log n}+k\log\log n)$. Thus, there are at most $\exp(\Oh(\sqrt{\log n}+k\log\log n))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
+    \item If $\lambda_1(K)\neq\lambda_1(u,j)$ then $j=i_K-1$.  In this case $\rho(j)=F(\rho(i_K), \overleftarrow{\pi}(i_K))$ is fixed by $\lambda_1(K)$.  Then, $\sigma(v_K,j)=J(\sigma(v_K,i_K),\overleftarrow{\tau}(v_K,i_K))$, $\kappa(K,(u,j))$, and $\alpha(K)$ fix the values of $\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(u,j)$, $\overleftarrow{\tau}(u,j)$, $\overrightarrow{\tau}(u,j)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
   \end{itemize}
-  Thus, the number of strings $\beta'$ for which $I(\beta,\gamma,\beta')=1$ is at most $\exp(\sqrt{\log n}+k\log\log n)\le g_0(n)$.
+  Thus, the number of strings $\beta'$ for which $I(\beta,\gamma,\beta')=1$ is at most $\exp(k\sqrt{\log n})\le g_0(n)$.
 
   \paragraph{Simulating weights by multiplicity:}  Finally, we explain how to make the strongly $g_0$-orientable unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into a strongly $g_0$-orientable weighted mixed labelling scheme.  By \cref{lem:nice_weights} we may assume that the weight function $\omega:V(G)\to\mathbb{N}$ is nice, so $\min_{v\in V(G)}\omega(v) \ge 1$  and $\log\omega(G)\le \log n+ \Oh(1)$.
 
@@ -2671,25 +2687,25 @@ Variants of the following result appear in several contexts, with different boun
   Then, as in the unweighted case, the length of the label $\lambda_2(v,i)$ satisfies
   \begin{align*}
     |\lambda_2(v,i)|
-      & \le |\sigma(v,i)| + \Oh(\sqrt{\log n} + k\log\log n) \\
-      & \le \log |S^+_i|-\log \omega(v,i) + \Oh(\sqrt{\log n} + k\log\log n) \enspace .
+      & \le |\sigma(v,i)| + \Oh(k\sqrt{\log n}) \\
+      & \le \log |S^+_i|-\log \omega(v,i) + \Oh(k\sqrt{\log n}) \enspace .
   \end{align*}
   By the properties of the prefix-free code $\rho$, the length of $\rho(i)$ is bounded by $\log(\sum_{j=1}^h |S^+_j|) - \log|S^+_i| + \Oh(1) \le \log\omega(G) - \log|S^+_i| + \Oh(1)$. Thus, 
   $|\lambda_1(v,i)|\le \log\omega(G) - \log |S^+_i| + \Oh(\log\log n)$.  It follows that
   \begin{align*}
     |\mu(v,i)|
       & = |\lambda_1(v,i)|+|\lambda_2(v,i)| + \Oh(\log\log n) \\
-      & \le \log\omega(G) - \log |S^+_i| + \log |S^+_i|-\log \omega(v,i) + \Oh(\sqrt{\log n} + k(\log k+\log\log n)) \\
-      & = \log\omega(G) - \log\omega(v,i) + \Oh(\sqrt{\log n} + k\log\log n) \enspace .
+      & \le \log\omega(G) - \log |S^+_i| + \log |S^+_i|-\log \omega(v,i) + \Oh(k\sqrt{\log n}) \\
+      & = \log\omega(G) - \log\omega(v,i) + \Oh(k\sqrt{\log n}) \enspace .
   \end{align*}
   For any fixed $k$, $|\mu(v,i)| \le \log \omega(G)-\log \omega(v,i) + \Oh(\sqrt{\log n})$, satisfying the requirement $g_1(n)\in\Oh(\sqrt{\log n})$.
 
   For the clique label $\mu(K)$, we similarly obtain
   \begin{align*}
     |\mu(K)|
-     & \le |\lambda_1(K)| + |\sigma(v_K,i_K)| + \Oh(k \log\log n) \\
-     & \le \log\omega(G) - \log|S^+_{i_K}| + \log|S^+_{i_K}| - \log\omega(v_K,i_K) + \Oh(\sqrt{\log n} + k\log\log n) \\
-     & \le \log\omega(G) - \log\min_{u\in K}\omega(u) + \Oh(\sqrt{\log n} + k\log\log n) \enspace ,
+     & \le |\lambda_1(K)| + |\sigma(v_K,i_K)| + \Oh(k\sqrt{\log n}) \\
+     & \le \log\omega(G) - \log|S^+_{i_K}| + \log|S^+_{i_K}| - \log\omega(v_K,i_K) + \Oh(k\sqrt{\log n}) \\
+     & \le \log\omega(G) - \log\min_{u\in K}\omega(u) + \Oh(k\sqrt{\log n}) \enspace ,
   \end{align*}
   which satisfies the requirement $g_3(n)\in\Oh(\sqrt{\log n})$.
 \end{proof}
