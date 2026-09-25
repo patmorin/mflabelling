@@ -736,8 +736,8 @@ such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\mathcal{G}$, e
 Here is a little intuition about these definitions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
 A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend the notion mixed labelling to graph classes. Let $\calG$ be a graph class.  
-We say that $\tau:=(G^+,G,\omega)$ is a \defin{$(\calG,n)$-admissible triple} if $G^+$ is an $n$-vertex graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  For each $n\in\N$, let $\calT_n$ be the set of $(\calG,n)$-admissible triples.  For each $n\in\N$ and each $(\calG,n)$-admissible triple $\tau:=(G^+,G,\omega)\in\calT_n$, fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:=((\mu_\tau,\kappa_\tau):n\in\N, \tau\in\calT_n))$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed-labelling} of $\calG$ for $(A,I)$.  
-An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\mu_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{A}:=((\mu_G):G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
+We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  For any graph class $\calG$, let $\calT_\calG$ be the set of all $\calG$-admissible triples.  For each each $n\in\N$, let $\calT_{\calG,n}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G^+)=n\}$.  For each $\tau:=(G^+,G,\omega)\in\calT_\calG$,  fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A,I)$.  Then $\mathcal{S}:=((\mu_\tau,\kappa_\tau):n\in\N, \tau\in\calT_n))$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed-labelling} of $\calG$ for $(A,I)$.  
+An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\mathcal{G}$ let $\ell_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\mathcal{A}:=((\ell_G):G\in\mathcal{G})$ is an $f(n)$-bit \defin{adjacency labelling} of $\mathcal{G}$ for $A$.   
 
 % For each $n\in\N$ let $U_n$ be the induced-universal graph for $n$-vertex graphs in $\calG$ defined by $\mathcal{S}$.
 
@@ -749,8 +749,7 @@ An $f(n)$-bit adjacency labelling of $\mathcal{G}$ for $A$ is defined similarly:
 
 \subsection{Basic Properties}
 
-Let $\mathcal{S}$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling of a graph class $\mathcal{G}$ for $(A,I)$.
-The subset $\mathcal{A}:=\{\mu_{G^+,G,\omega}: (\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})\in\mathcal{S},\; \omega:V(G)\to\{1\}\}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, is a $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$ that we call the adjacency-labelling of $\calG$ \defin{induced} by $\mathcal{S}$. \pat{Careful here.  Different choices of $G^+$ may give different adjacency labellings of the same graph $G$. Do we need to pick one?  No, and we probably shouldn't because they could all appear.} Therefore, the existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling scheme for a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\mathcal{G}$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling scheme if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. The following lemma shows that any adjacency labelling scheme obtained this way is injective, which justifies \cref{main_result_induced_universal}.
+Let $\mathcal{S}$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling of a graph class $\mathcal{G}$ for $(A,I)$. The subset $\mathcal{A}:=\{\mu_{G^+,G,\omega}: (\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})\in\mathcal{S},\; \omega:V(G)\to\{1\}\}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, contains a $(\log n+g_1(n))$-bit adjacency labelling of $\mathcal{G}$ for $A$. Therefore, the existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling of a graph class $\mathcal{G}$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling for $\mathcal{G}$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\mathcal{G}$ admits an \defin{efficient} weighted mixed labelling if $\mathcal{G}$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling admits a $(1+o(1))\log n$-bit adjacency labelling. The following lemma shows that any adjacency labelling obtained this way is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
   Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
@@ -761,7 +760,7 @@ The subset $\mathcal{A}:=\{\mu_{G^+,G,\omega}: (\mu_{G^+,G,\omega},\kappa_{G^+,G
   $1=I(\mu(K),\kappa(K,v),\mu(v))=I(K,\kappa(K,v),\mu(w))=0$.
 \end{proof}
 
-It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labelling schemes.
+It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labellings.
 A weight function $\omega:S\to \N^+$ is \defin{nice} if
 for every $x\in S$,
 \[
@@ -770,8 +769,8 @@ for every $x\in S$,
 %\david{I interpret this definition as saying that the minimum weight is at least 1/4 of the average weight. Is there a more descriptive word than `nice'. In statistics, a dataset where the average is close to the minimum is `positively skewed' (or `right-skewed').}
 %\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
 (We emphasize that weights are required to be positive integers here, which will be important later on.)
-We then say that a class of graphs $\mathcal{G}$ admits a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only nice weight functions $\omega$ are considered.  A \defin{weak weighted $(g_1,g_2,g_3)$-mixed labelling} $\cal{S}$ for $(A,I)$ is defined analogously, but only considers $(\calG, n)$-admissible triples $(G^+,G,\omega)$ in which $\omega$ is nice.
-Weak mixed labelling schemes and mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
+We then say that a class of graphs $\mathcal{G}$ has a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labellings, but with the exception that only nice weight functions $\omega$ are considered.  
+Weak mixed labellings and mixed labellings are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
   \label{lem:nice_weights}
@@ -799,10 +798,10 @@ Weak mixed labelling schemes and mixed labelling schemes are essentially equival
 \end{proof}
 
 
-If the ultimate goal is to obtain an adjacency labelling scheme, then an even weaker notion suffices. For a graph $G$, the function $\omega:V(G)\to\{1\}$ is called the \defin{uniform} weight function.  We then say that a class of graphs $\mathcal{G}$ admits an \defin{unweighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, with the exception that only  uniform weight functions are considered.
+If the ultimate goal is to obtain an adjacency labellings, then an even weaker notion suffices. For a graph $G$, the function $\omega:V(G)\to\{1\}$ is called the \defin{uniform weight function}.  We then say that a class of graphs $\mathcal{G}$ has an \defin{unweighted $(g_1,g_2,g_3)$ mixed labelling} if $\mathcal{G}$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labellings, but with the exception that only uniform weight functions are considered.
 
 \begin{obs}\label{adj_labelling_from_mixed_labelling}
-  If a graph class $\calG$ admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
+  If a graph class $\calG$ has an unweighted $(g_1,g_2,g_3)$ mixed labelling, then it has an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
 \end{obs}
 
 % \begin{proof}
@@ -815,20 +814,28 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
 
 \subsection{Orientable Labelling Schemes}
 
-In order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need two additional definitions:  Let $\calG$ be a graph class and let $\mathcal{A}:=(\mu_G:G\in\mathcal{G})$ be an $f(n)$-bit \defin{adjacency-labelling} of $\mathcal{G}$ for $A$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{A},A)$ is the graph with vertex set
+In order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need two additional definitions.
+Let $\mathcal{S}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ be a weighted mixed labelling of a graph class $\calG$ for $(A,I)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\mathcal{S},A)$ is the graph with vertex set
 \[
-V(U_n):=\left\{ \mu_G(v): G\in\mathcal{G}, v\in V(G) \right\}
+V(U_n):=\left\{ \mu_\tau(v): (G^+,G,\omega)\in\calT_\calG,\; v\in V(G) \right\}
 \]
 and edge set
 \[
-  E(U_n):=\left\{ \{\mu_G(v),\mu_G(v')\}: G\in\mathcal{G},\; v,v'\in V(G),\; A(\mu_G(v),\mu_G(v'))=1 \right\}
+  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: (G^+,G,\omega)\in\calT_\calG, vv'\in E(G) \right\}
   \enspace.
 \]
-These definitions imply that, for any $n\in\N$ and any $n$-vertex graph $G\in\mathcal{G}$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_G(v):v\in V(G)\}]$.  We say that $(\mathcal{A},A)$ is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\mathcal{S},A)$ has an orientation in which each vertex has outdegree at most $g_0(n)$.
+These definitions imply that, for each $(\calG,n)$-admissible triple $\tau:=(G^+,G,\omega)$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  
+Since the graph $U_n$ defined above depends only on $A$ and the vertex labellings in $\mathcal{S}$, the same definition applies directly to any adjacency labelling $\mathcal{A}:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, the definitions imply that, for each $n\in\N$ and each $G\in\calG$, the $n$-universal graph $U_n$ defined by $(\mathcal{A},A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
 
-The definition of $g_0$-orientability for adjacancy  labellings has an obvious application.  It immediately implies that the $n$-universal graph $U_n$ has $|V(U_n)|\cdot g_0(n)$ edges.  The extension of this definition to mixed labelling schemes is a bit harder to digest and its utility is not immediately obvious. Therefore, so we give a formal definition followed by an informal explanation of how this property is used.  
+We say that $(\mathcal{S},A)$ (or $(\mathcal{A},A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\mathcal{S},A)$ (or $(\mathcal{A},A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$.  The definition of $g_0$-orientability has an obvious application.  It immediately implies that the $n$-universal graph $U_n$ has $|V(U_n)|\cdot g_0(n)$ edges.  We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, so we give a formal definition followed by an informal explanation of how this property is used.  
 
-Let $\mathcal{S}:=((\mu_\tau,\kappa_\tau):\text{$\tau$ is a $(\calG,n)$-admissible triple},n\in\N)$ be a mixed labelling of some graph class $\calG$ for $(A,I)$. Let $\mathcal{A}$ be the adjacency labelling of $\calG$ induced by $(\mathcal{S},A)$.  Then $(\mathcal{S},A,I)$ is \defin{$g_0$-orientable} if $(\mathcal{A},A)$ is $g_0$-orientable and for each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\zeta$ for which there exists a $(\calG,n)$-admissible tuple $\tau:=(G_1^+,G_1,\omega_1)$, a clique $K_1$ in $G_1^+$ and $u_1\in K_1$ such that 
+% Let $\mathcal{S}:=((\mu_\tau,\kappa_\tau):\text{$\tau$ is a $(\calG,n)$-admissible triple},n\in\N)$ be a mixed labelling of some graph class $\calG$ for $(A,I)$. 
+
+
+% Let $\mathcal{A}$ be the adjacency labelling of $\calG$ induced by $(\mathcal{S},A)$.  
+
+
+We say that $(\mathcal{S},A,I)$ is \defin{strongly $g_0$-orientable} if $(\mathcal{S},A)$ is $g_0$-orientable and for each $n\in\N$, each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\zeta$ for which there exists a $(\calG,n)$-admissible tuple $\tau:=(G_1^+,G_1,\omega_1)$, a clique $K_1$ in $G_1^+$ and $u_1\in K_1$ such that 
 \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
   \item $\mu_\tau(K_1)=\mu_{\tau_0}(K_0)$, 
   \item $\kappa_\tau(K_1,u_1)=\kappa_{\tau_0}(K_0,u_0)$, 
@@ -836,7 +843,8 @@ Let $\mathcal{S}:=((\mu_\tau,\kappa_\tau):\text{$\tau$ is a $(\calG,n)$-admissib
   \item $I(\mu_\tau(K_1),\kappa_\tau(K_1,u_1),\mu_\tau(u_1))=1$. 
 \end{enumerate}
 
-Slightly less formally:  If we fix a $(\calG, n)$-admissible tuple $\tau:=(G^+,G,\omega)$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\beta:=\mu_{G_0^+,G_0,\omega_0}(K_0)$ and $\gamma:=\kappa_{G_0^+,G_0,\omega_0}(K_0,u_0)$.  The condition states that there should be at most $g_0(n)$ strings $\zeta$ such that $I(\beta,\gamma,\zeta)=1$. We will use this to build an adjacency labelling $\mathcal{A}':=(\ell_G:G\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G\in\calG'$ containing an edge $vw$, $\ell_G(v)$ will contain the strings $\beta$ and $\gamma$ and $\ell_G(w)$ will contain the string $\zeta$.  By definition, the $n$-universal graph $U'_n$ defined by $(\mathcal{A}',A')$ contains the edge $e$ with endpoints $\ell_G(v)$ and $\ell_G(w)$ so we must choose an orientation $e$.  Before deducing that $vw\in E(G)$ and outputting $A'(\mu_G(v),\mu_G(w))=1$, the adjacency tester will verify that $I(\beta,\gamma,\zeta)=1$.  This ensures that, if we orient $e$ from $\ell_G(v)$ to $\ell_G(w)$ then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_G(v)$.  Slightly more carefully: for any fixed $\ell_G(v)$, this excecution path of the adjacency testing algorithm will not contribute more than $g_0(n)$ to the outdegree of $\ell_G(v)$, even when we consider all graphs $G'\in\calG'$ with an edge $v'w'$ such that $\ell_{G'}(v')=\ell_G(v)$.
+Less formally:  If we fix a $(\calG, n)$-admissible tuple $\tau:=(G^+,G,\omega)$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\beta:=\mu_{G_0^+,G_0,\omega_0}(K_0)$ and $\gamma:=\kappa_{G_0^+,G_0,\omega_0}(K_0,u_0)$.  The condition states that there should be at most $g_0(n)$ strings $\zeta$ such that $I(\beta,\gamma,\zeta)=1$. We will use $\mathcal{S}$ to build an adjacency labelling $\mathcal{A}':=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, $\ell_{G'}(v)$ will contain the strings $\beta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\zeta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
+By definition, the $n$-universal graph $U'_n$ defined by $(\mathcal{A}',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v'),\ell_{G'}(w'))=1$, the adjacency tester will verify that $I(\beta,\gamma,\zeta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$ then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
 
 
 \subsection{Adding Apex Vertices}
@@ -936,33 +944,6 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
 
 
-  \paragraph{\boldmath $g'_0$-orientability:}  Since the vertex labels and adjacency tester $A'$ are defined, we can fix an adjacency labelling $(\mathcal{A}',A')$ of $\calG'$ induced by the mixed labelling scheme we for $(A',I')$ we are defining. 
-  
-  For each subgraph $G$ of a graph $G^+\in\calG^{+a}$, fix one graph $G^+$ in $\calG^{+a}$ that contains $G$ as a subgraph.  For each $G^+\in \calG^{+a}$, choose a set $X_{G^+}$ of at most $a$ vertices such that $G^+-X_{G^+}\in\calG$. For each $n\in\N$ and each \pat{Continue here....}
-  
-  
-  
-  
-  We now argue that $(\mathcal{A}',A)$ is $g_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\mathcal{A}',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
-
-  Fix some $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling $\mathcal{S}$ of $\calG$ for $(A,I)$.  Let $\mathcal{A}$ be the  the adjacency labelling of $\calG$ induced by $\mathcal{S}$.  Then, for each $n_0,n\in\N$ with $n_0\le n$, the $n_0$-universal graph $U_{n_0}$ defined by $(\mathcal{A},A)$ has an orientation in which each vertex has out-degree at most $g_0(n_0)\le g_0(n)$.
-  
-  
-  
-  
-  % For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $\{\beta,\beta'\}$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  Then each edge $\beta\beta'$ in the universal graph $U_n$ corresponds to a valid input pair for which $A(\beta,\beta')=1$.
-
-  Let $\{\beta,\beta'\}$ be an edge of the universal graph $U'_n$.
-  % Let $\{\beta,\beta'\}$ be a valid input pair such that $A'(\beta,\beta')=1$.  
-  By the definition of $U'_n$ there exists a $(\calG^{+a},n)$-admissble tuple $\tau:=(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
-  \begin{enumerate}[nolistsep]
-    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g$-orientable, this gives an orientation of the edge  $\{\mu^-(v),\mu^-(v')\}$.  Without loss of generality, assume that this edge is oriented towards $\mu^-(v')$.  In this case, we orient the edge $\beta\beta'$ toward $\beta'$.
-        
-    The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that result in an edge being oriented away from $\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')$ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ such that $\beta\beta'$ is oriented from $\beta$ to $\beta'$ by this branch of the adjacency testing procedure is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
-
-    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we orient the edge $\beta\beta'$ towards $\beta'$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^{|X|}$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in an edge being oriented away from $\beta$ by this branch of the adjacency testing procedure.
-  \end{enumerate}
-  Therefore, for any fixed $\beta\in V(U_n)$, the out-degree of $\beta$ in this orientation of $U_n$ is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}=(g_0(n)+a)2^{a+1}=g_0'(n)$.  
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
@@ -1015,6 +996,33 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets 
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
+
+  \paragraph{\boldmath $g'_0$-orientability:}
+  Thus far, we have shown that for each $\calG^{+a}$-admissible triple $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ there exists a $(g'_1,g'_2,g'_3)$-mixed labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$.  
+  Even for a fixed $\tau:=(G^+,G,\omega)$, the labelling $(\mu_\tau,\kappa_\tau)$ is not necessarily unique since, for example, there may be two distinct sets $X_1,X_2\subseteq V(G^+)$, each of size at most $a$ such that $G^+-X_1\in\calG$ and $G^+-X_2\in\calG$.  Using $X=X_1$ to define $(\mu_\tau,\kappa_\tau)$ results in a different mixed labelling than using $X=X_2$. To deal with this, for each 
+  $G^+\in\calG^{+a}$, we fix some set 
+  $X(G^+)$ of at most $a$ vertices such that $G^+-X(G^+)\in\calG$.  Then, the 
+  labelling $(\mu_\tau,\kappa_\tau)$ of $\tau=(G^+,G,\omega)$ is defined with 
+  respect to the set $X=X(G^+)$.  
+  Let $\mathcal{S}':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ be the resulting weighted $(g_1',g_2',g_3')$-mixed labelling of $\calG^{+a}$ for $(A',I')$.
+  
+  We now show that $(\mathcal{S}',A)$ is $g_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\mathcal{S}',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$. Showing this will rely on the fact that $\calG$ has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling $\mathcal{S}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ for $(A,I)$. For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\mathcal{S},A)$.
+
+  Fix some $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling $\mathcal{S}$ of $\calG$ for $(A,I)$.   Then, for each $n_0,n\in\N$ with $n_0\le n$, the $n_0$-universal graph $U_{n_0}$ defined by $(\mathcal{S},A)$ has an orientation in which each vertex has out-degree at most $g_0(n_0)\le g_0(n)$.
+  
+  % For each $n$-vertex graph $G^+\in \mathcal{G}'$, each spanning subgraph $G$ of $G^+$, each nice weight function $\omega:V(G)\to\N^+$, we say that the weighted mixed-labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ \defin{realizes} each bitstring in the set $\{\mu(v):v\in V(G)\}$.  We say that a bitstring $\beta\in\{0,1\}^{\le 2+\log n+g_1'(n)}$ is a \emph{valid input} if $\beta$ is realized by some $(G^+,G,\omega)$.  We say that a pair of bitstrings $\{\beta,\beta'\}$ is a \emph{valid input pair} if $\beta$ and $\beta'$ are both realized by some $(G^+,G,\omega)$.  Then each edge $\beta\beta'$ in the universal graph $U_n$ corresponds to a valid input pair for which $A(\beta,\beta')=1$.
+
+  Let $\{\beta,\beta'\}$ be an edge of the universal graph $U'_n$.
+  % Let $\{\beta,\beta'\}$ be a valid input pair such that $A'(\beta,\beta')=1$.  
+  By the definition of $U'_n$ there exists a $(\calG^{+a},n)$-admissble tuple $\tau:=(G^+,G,\omega)$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X\subseteq V(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  \begin{enumerate}[nolistsep]
+    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g$-orientable, this gives an orientation of the edge  $\{\mu^-(v),\mu^-(v')\}$.  Without loss of generality, assume that this edge is oriented towards $\mu^-(v')$.  In this case, we orient the edge $\beta\beta'$ toward $\beta'$.
+        
+    The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$.  Thus, for a fixed $\beta$, there are at most $|S^-_{\sigma^-(v)}|\le g_0(n)$ choices of $\sigma^-(v')$ that result in an edge being oriented away from $\beta$ in this way, and this only happens when $v'\not\in X$ (otherwise we fall into case 2, below).  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$.  Furthermore $c(v')$ is a bit-vector of length $|X|$, so the number of choices for $c(v')$ is $2^{|X|}$. By summing over $|X|\in\{0,\ldots,a\}$ we deduce that the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ such that $\beta\beta'$ is oriented from $\beta$ to $\beta'$ by this branch of the adjacency testing procedure is at most $|S^-_{\sigma^-(v)}|\cdot \sum_{\ell=0}^a 2^{\ell}\le g_0(n)\cdot 2^{a+1}$.
+
+    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$. Without loss of generality, $v'\in X$.  In this case, we orient the edge $\beta\beta'$ towards $\beta'$.  Since $v'\in X$, $\mu(v')=\langle \sigma(v'),c(v'),\varepsilon\rangle$.  There are at most $|X|$ choices for $\sigma(v')$ and there are at most $2^{|X|}$ choices for $c(v')$.  By summing over $|X|\in\{1,\ldots,a\}$, we deduce that there are at most $\sum_{\ell=0}^a \ell 2^{\ell}\le a\cdot 2^{a+1}$ strings $\beta'=\langle\sigma(v'),c(v'),\mu^-(v')\rangle$ that result in an edge being oriented away from $\beta$ by this branch of the adjacency testing procedure.
+  \end{enumerate}
+  Therefore, for any fixed $\beta\in V(U_n)$, the out-degree of $\beta$ in this orientation of $U_n$ is at most $g_0(n)\cdot 2^{a+1}+a\cdot 2^{a+1}=(g_0(n)+a)2^{a+1}=g_0'(n)$.  
 
   \paragraph{\boldmath Strong $g'_0$-orientability:}
   To complete the proof we need to show that the weighted $(g'_1,g'_2,g'_3)$-mixed labelling scheme is strongly $g'_0$-orientable.  Fix $n\in\N$, some $n$-vertex $G_0^+\in \mathcal{G}'$, some clique $K_0$ in $G_0^+$, some $u_0\in K_0$, some spanning subgraph $G_0$ of $G_0^+$, and some nice weight function $\omega_0:V(G)\to\N^+$.  Let $(\mu_0,\kappa_0)$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)$ for $(A',I')$. We need to show that there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^*$ such that there exists some $n$-vertex $G^+\in\calG$, some clique $K$ in $G^+$, some vertex $u\in K$ and some vertex $v\in V(G^+)$ and some $(\mu,\kappa)$ which is a $(g_1',g_2',g_3')$-mixed labelling of $(G^+,G,\omega)$ for $(A',I')$ such that $\mu(K)=\mu_0(K)$, $\kappa(K,u)=\kappa_0(K_0,u_0)$, $\mu(u)=\beta'$ and $I'(\mu(K),\kappa(K,u),\mu(v))=1$.
