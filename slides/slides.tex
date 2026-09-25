@@ -23,6 +23,34 @@
   \newline for Proper Minor-Closed Graph Classes}
 \author[Dujmović \textit{et al}]{Vida Dujmović, Cyril Gavoille, Gwenaël Joret, \newline Piotr Micek, Pat Morin, David Wood}
 
+% START MACROS
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+% END MACROS
 \begin{document}
 
 \begin{frame}
@@ -80,12 +108,12 @@
     \framesubtitle{Labelling schemes for graph classes}
 
     \begin{itemize}
-        \item<+->A graph class $\mathcal{G}$ has an \emph{$f(n)$-bit labelling scheme} if \begin{itemize}
+        \item<+->A graph class $\calG$ has an \emph{$f(n)$-bit labelling scheme} if \begin{itemize}
             \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ such that
-            \item for each $n$-vertex $G\in\mathcal{G}$ there exists an adjacency labelling $\ell:V(G)\to\{0,1\}^{f(n)}$ of $G$ for $A$
+            \item for each $n$-vertex $G\in\calG$ there exists an adjacency labelling $\ell:V(G)\to\{0,1\}^{f(n)}$ of $G$ for $A$
         \end{itemize}
     \end{itemize}
-    \uncover<+->{Example: $\mathcal{G}:=\{Q_d:d\in \mathbb{N}\}$ (hypercubes)}
+    \uncover<+->{Example: $\calG:=\{Q_d:d\in \mathbb{N}\}$ (hypercubes)}
     \begin{center}
       \only<1-2>{\includegraphics[page=8]{figs/labelling-scheme}}%
       \only<+>{\includegraphics[page=5]{figs/labelling-scheme}}%
@@ -100,13 +128,13 @@
     \framesubtitle{Labelling schemes and universal graphs}
 
     \begin{itemize}
-        \item<+->\textbf{Theorem (Folklore):}  If a graph class $\mathcal{G}$ has an $f(n)$-bit \emph{injective} labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
+        \item<+->\textbf{Theorem (Folklore):}  If a graph class $\calG$ has an $f(n)$-bit \emph{injective} labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
         \begin{itemize}
             \item $|V(U_n)|=2^{f(n)}$
-            \item For each $n$-vertex $G\in\mathcal{G}$, $G$ appears as an induced subgraph of $U_n$
+            \item For each $n$-vertex $G\in\calG$, $G$ appears as an induced subgraph of $U_n$
         \end{itemize}
         \item<+->Proof: $V(U_n):=\{0,1\}^{f(n)}$, $E(U_n):=\{vw:A(v,w)=1\}$.
-        \item<+->$U_n$ is called an \emph{(induced) universal} graph for $n$-vertex members of $\mathcal{G}$.
+        \item<+->$U_n$ is called an \emph{(induced) universal} graph for $n$-vertex members of $\calG$.
     \end{itemize}
 \end{frame}
 
@@ -229,7 +257,7 @@
 
     \textbf{Definition:} $H$ is a \emph{minor} of $G$ if $H$ can be obtained from $G$ by deleting vertices and edges and contracting edges.\\[1ex]
 
-    \textbf{Definition:} A graph class $\mathcal{G}$ has \emph{product structure} if, for each $G\in\mathcal{G}$ there exists $H$, $\tw(H)=O(1)$, and a path $P$ such that $G\subseteq H\boxtimes P$\\[1ex]
+    \textbf{Definition:} A graph class $\calG$ has \emph{product structure} if, for each $G\in\calG$ there exists $H$, $\tw(H)=O(1)$, and a path $P$ such that $G\subseteq H\boxtimes P$\\[1ex]
 
     \begin{center}
         \begin{tabular}{llll} \hline
@@ -276,7 +304,7 @@
 \begin{frame}
   \frametitle{Tree decompositions}
 
-  $\mathcal{T}=(B_x:x\in V(T))$\\[1ex]
+  $\calT=(B_x:x\in V(T))$\\[1ex]
 
   \begin{center}
     \includegraphics[page=1,width=.9\textwidth]{figs/t_tprime}
@@ -370,7 +398,7 @@
 
 \begin{frame}
   \frametitle{Graphs with Short Tree Decompositions}
-  \textbf{Theorem:} If each $n$-vertex $G\in\mathcal{G}$ has a tree-decomposition of height $h=h(n)$ whose torsos come from a graph class $\mathcal{G}'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\mathcal{G}$ has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \mathcolor{red}{h(n)\cdot g_3(n)} + o(\log n)$
+  \textbf{Theorem:} If each $n$-vertex $G\in\calG$ has a tree-decomposition of height $h=h(n)$ whose torsos come from a graph class $\calG'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\calG$ has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \mathcolor{red}{h(n)\cdot g_3(n)} + o(\log n)$
 
 \begin{center}
   % \only<1>{\includegraphics[width=.9\textwidth]{figs/t_tprime}}
@@ -397,7 +425,7 @@
 \begin{frame}
   \frametitle{Graphs with Skinny Tree-Decompositions}
 
-  \textbf{Theorem:} If each $G\in\mathcal{G}$ has a $b$-skinny tree-decomposition whose torsos are in a class $\mathcal{G}'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme then $\mathcal{G}$ has a weighted $(g_1',g_2',g_3')$ mixed labelling scheme with \newline $g_i'(n)=g_i(n)+O(\log\log n + \log b)$.\\[1ex]
+  \textbf{Theorem:} If each $G\in\calG$ has a $b$-skinny tree-decomposition whose torsos are in a class $\calG'$ that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme then $\calG$ has a weighted $(g_1',g_2',g_3')$ mixed labelling scheme with \newline $g_i'(n)=g_i(n)+O(\log\log n + \log b)$.\\[1ex]
 
   \begin{center}
     \only<+>{\includegraphics[page=1,width=.9\textwidth]{figs/skinny}}%
@@ -423,7 +451,7 @@
   \frametitle{Review}
 
 
-  \textbf{Theorem:} If each $G\in\mathcal{G}$ has a tree-decomposition whose torsos are in a class $\mathcal{G}'$ that has an efficient mixed labelling scheme then $\mathcal{G}$ has an efficient mixed labelling scheme.\\[1ex]
+  \textbf{Theorem:} If each $G\in\calG$ has a tree-decomposition whose torsos are in a class $\calG'$ that has an efficient mixed labelling scheme then $\calG$ has an efficient mixed labelling scheme.\\[1ex]
 
   \textit{Proof:} Take the tree decomposition of $G$ and turn it into a decomposition of height $\log_b n$ whose torsos have $b$-skinny tree decompositions.\hfill{QED}
   \\[2ex]
