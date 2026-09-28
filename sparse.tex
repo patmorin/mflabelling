@@ -414,7 +414,7 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
 
 A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\calG$ is \defin{hereditary} if for every $G$ in $\calG$ every induced subgraph of $G$ is also in $\calG$. 
 % A  graph class $\calG$ is \defin{monotone} if for every $G\in\calG$, every subgraph of $G$ is in $\calG$.  
-A graph class $\calG$ is \defin{infinitely extendable} if, for each $n\in\N$, each $n$-vertex graph in $\calG$ is an induced subgraph of some $(n+1)$-vertex graph in $\calG$.  
+% A graph class $\calG$ is \defin{infinitely extendable} if, for each $n\in\N$, each $n$-vertex graph in $\calG$ is an induced subgraph of some $(n+1)$-vertex graph in $\calG$.  
 %A  graph class $\calG$ is \defin{minor-closed} if for every $G\in\calG$, every minor of $G$ is in $\calG$. A graph class $\calG$ is \defin{proper} if some graph is not in $\calG$.  
 %  A \defin{disjoint union} of two graphs $G$ and $H$ is a graph obtained from two vertex-disjoint copies of $G$ and $H$ with no edge in between. A class of graphs $\calC$ is \defin{closed under taking disjoint union} if for all $G,H$ in $\calC$, the disjoint union of $G$ and $H$ is also in $\calC$.
 
@@ -473,74 +473,74 @@ either $x$ has two children or $x$ has no children.
 A full binary tree $T$ is \defin{complete} if all the leaves of $T$ have the same depth in $T$.
 Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children then all the leaf descendants of the left child of $x$ precede all the leaf descendants of the right child of $x$.
 
-The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again later.
+% The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again later.
 
 \begin{lem}\label{shannon_fano_elias_tree}
-  Let $S$ be a linearly ordered set and let $\omega:S\to\N^+$. Then there exists a binary tree $T$ such that $S$ is the set of leaves of $T$,
+  Let $S$ be a linearly ordered set and let $\omega:S\to\R^+$. Then there exists a binary tree $T$ such that $S$ is the set of leaves of $T$,
   the linear order on $S$ agrees with the left-to-right-order of the leaves in $T$, and for each $x\in S$
   \[
-    \depth_{T}(x)\le \log\omega(S) - \log\omega(x) + 3 \enspace.
+    \depth_{T}(x)\le \log\omega(S) - \log\omega(x) + \Oh(1) \enspace.
   \]
 \end{lem}
 
-\begin{proof}
-  Let $h:=\lceil\log\omega(S)\rceil$.
-  Let $Q$ be the complete binary tree of height $h$, so with $2^h$ leaves.
-  For each $x\in S$, define the $\omega(x)$-element set
-  \[  S_{\omega}(x):=\set{(x,1),\,(x,2),\,\ldots\,,\,(x,\omega(x))}\]
-  and let $S_\omega:=\bigcup_{x\in S}S_{\omega}(x)$.  Then $|S_\omega|=\omega(S)$.  Treat $S_{\omega}$ as a linearly ordered set by using lexicographic order and rename the leftmost $\omega(S)$ leaves of $Q$, in order, with elements of $S_{\omega}$.
+% \begin{proof}
+%   Let $h:=\lceil\log\omega(S)\rceil$.
+%   Let $Q$ be the complete binary tree of height $h$, so with $2^h$ leaves.
+%   For each $x\in S$, define the $\omega(x)$-element set
+%   \[  S_{\omega}(x):=\set{(x,1),\,(x,2),\,\ldots\,,\,(x,\omega(x))}\]
+%   and let $S_\omega:=\bigcup_{x\in S}S_{\omega}(x)$.  Then $|S_\omega|=\omega(S)$.  Treat $S_{\omega}$ as a linearly ordered set by using lexicographic order and rename the leftmost $\omega(S)$ leaves of $Q$, in order, with elements of $S_{\omega}$.
 
-  Now for each $x\in S$, we are going to fix a node $r(x)$ in $Q$ such that
-  (1) all the leaves of $Q_{r(x)}$ lie in $S_{\omega}(x)$; and
-  (2) $Q_{r(x)}$ contains at least $\omega(x)/4$ leaves.
+%   Now for each $x\in S$, we are going to fix a node $r(x)$ in $Q$ such that
+%   (1) all the leaves of $Q_{r(x)}$ lie in $S_{\omega}(x)$; and
+%   (2) $Q_{r(x)}$ contains at least $\omega(x)/4$ leaves.
 
-  Let $x\in S$.
-  If $\omega(x)=1$ then define $r(x):=(x,1)$, which is a leaf of $Q$.
-  Clearly, (1) and (2) hold.
-  Now suppose that $\omega(x)\geq2$.
-  Consider the lowest common $Q$-ancestor $y$ of $S_{\omega}(x)$.
-  Thus, $y$ is an internal node of $Q$ and
-  both children of $y$ contain in their subtree a leaf in $S_{\omega}(x)$.
-  Since $S_{\omega}(x)$ is a set of consecutive leaves in $Q$,
-  all leaves of the left child $y'$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are rightmost in $Q_{y'}$ and
-  all leaves of the right child $y''$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are leftmost in $Q_{y''}$.
-  Let $z$ be the child of $y$ in $Q$ such that $Q_z$ has at least $\omega(x)/2$ leaves in $S_{\omega}(x)$ and let $S_z$ be the set of all such leaves.
-  Thus, $|S_z|\geq \omega(x)/2$.
-  Since the argument is completely symmetric in these cases, assume that $z$ is the left child of $y$.
-  Consider a path in $Q_z$ starting from $z$ and always taking an edge to the right child of the current node until we finish at a leaf.
-  Let $v$ be the first vertex of that path such that $Q_v$ has all leaves in $S_z$.
-  If $v=z$ then we set $r(x):=v$. Clearly (1) and (2) hold.
-  Suppose that $v\neq z$.
-  Let $u$ be the parent of $v$.
-  Since the set of leaves of $Q_u$ form an interval of rightmost leaves of $Q_z$ and since $Q_u$ contains a leaf not in $S_z$, we conclude that $Q_u$ contains all nodes in $S_z$ as leaves.
-  Therefore, $Q_v$ contains at least $|S_z|/2$ vertices of $S_z$ as leaves.
-  We set $r(x):=v$ and again (1) and (2) hold.
+%   Let $x\in S$.
+%   If $\omega(x)=1$ then define $r(x):=(x,1)$, which is a leaf of $Q$.
+%   Clearly, (1) and (2) hold.
+%   Now suppose that $\omega(x)\geq2$.
+%   Consider the lowest common $Q$-ancestor $y$ of $S_{\omega}(x)$.
+%   Thus, $y$ is an internal node of $Q$ and
+%   both children of $y$ contain in their subtree a leaf in $S_{\omega}(x)$.
+%   Since $S_{\omega}(x)$ is a set of consecutive leaves in $Q$,
+%   all leaves of the left child $y'$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are rightmost in $Q_{y'}$ and
+%   all leaves of the right child $y''$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are leftmost in $Q_{y''}$.
+%   Let $z$ be the child of $y$ in $Q$ such that $Q_z$ has at least $\omega(x)/2$ leaves in $S_{\omega}(x)$ and let $S_z$ be the set of all such leaves.
+%   Thus, $|S_z|\geq \omega(x)/2$.
+%   Since the argument is completely symmetric in these cases, assume that $z$ is the left child of $y$.
+%   Consider a path in $Q_z$ starting from $z$ and always taking an edge to the right child of the current node until we finish at a leaf.
+%   Let $v$ be the first vertex of that path such that $Q_v$ has all leaves in $S_z$.
+%   If $v=z$ then we set $r(x):=v$. Clearly (1) and (2) hold.
+%   Suppose that $v\neq z$.
+%   Let $u$ be the parent of $v$.
+%   Since the set of leaves of $Q_u$ form an interval of rightmost leaves of $Q_z$ and since $Q_u$ contains a leaf not in $S_z$, we conclude that $Q_u$ contains all nodes in $S_z$ as leaves.
+%   Therefore, $Q_v$ contains at least $|S_z|/2$ vertices of $S_z$ as leaves.
+%   We set $r(x):=v$ and again (1) and (2) hold.
 
-  Note that the set $\set{r(x) \mid x\in S}$ is a $Q$-antichain.
-  Indeed, if $x,y\in S$, $x\neq y$ and $r(x)$ is a $Q$-ancestor of  $r(y)$, then the leaves of $Q_{r(y)}$ are contained in the leaves of $Q_{r(x)}$ which by (1) implies that $Q_{r(x)}$ contains all nodes in $S_{\omega}(y)$ as leaves.
-  However, again by (1) all the leaves of $Q_{r(x)}$ lie in $S_{\omega}(x)$ which is disjoint from $S_{\omega}(y)$, a contradiction.
+%   Note that the set $\set{r(x) \mid x\in S}$ is a $Q$-antichain.
+%   Indeed, if $x,y\in S$, $x\neq y$ and $r(x)$ is a $Q$-ancestor of  $r(y)$, then the leaves of $Q_{r(y)}$ are contained in the leaves of $Q_{r(x)}$ which by (1) implies that $Q_{r(x)}$ contains all nodes in $S_{\omega}(y)$ as leaves.
+%   However, again by (1) all the leaves of $Q_{r(x)}$ lie in $S_{\omega}(x)$ which is disjoint from $S_{\omega}(y)$, a contradiction.
 
-  Let $x\in S$. Since $Q_{r(x)}$ contains at least $\omega(x)/4$ leaves, $\height(T_{r(x)}) \geq \log(\omega(x)/4) = \log\omega(x) - 2$. Finally,
-  \begin{align*}
-    \depth_Q(r(x))
-     & \le \height(Q)-\height(Q_{r(x)})                    \\
-     & \le \lceil\log\omega(S)\rceil - (\log\omega(x) - 2) \\
-     & \le \log\omega(S) - \log\omega(x) +3 \enspace.
-  \end{align*}
+%   Let $x\in S$. Since $Q_{r(x)}$ contains at least $\omega(x)/4$ leaves, $\height(T_{r(x)}) \geq \log(\omega(x)/4) = \log\omega(x) - 2$. Finally,
+%   \begin{align*}
+%     \depth_Q(r(x))
+%      & \le \height(Q)-\height(Q_{r(x)})                    \\
+%      & \le \lceil\log\omega(S)\rceil - (\log\omega(x) - 2) \\
+%      & \le \log\omega(S) - \log\omega(x) +3 \enspace.
+%   \end{align*}
 
-  Let $T:=\bigcup_{x\in S} P_Q(r(x))$.
-  Since $\set{r(x) \mid x\in S}$ is a $Q$-antichain,
-  we conclude that $\set{r(x)\mid x\in S}$ is the set of all leaves of $T$.
-  Identifying each leaf $r_x$ of $T$ with $x$ for each $x\in S$ gives the desired tree.
-\end{proof}
+%   Let $T:=\bigcup_{x\in S} P_Q(r(x))$.
+%   Since $\set{r(x) \mid x\in S}$ is a $Q$-antichain,
+%   we conclude that $\set{r(x)\mid x\in S}$ is the set of all leaves of $T$.
+%   Identifying each leaf $r_x$ of $T$ with $x$ for each $x\in S$ gives the desired tree.
+% \end{proof}
 
 A \defin{code} for a set $S$ is an injective function $\rho:S\to\{0,1\}^\star$. A code $\rho:S\to\{0,1\}^\star$ is \defin{prefix-free} if for all distinct $x,y\in S$, $\rho(x)$ is not a prefix of $\rho(y)$.
 In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string, which gives a prefix-free code for the leaves of $T$. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
 
 \begin{cor}\label{shannon_fano_elias_code}
-  Let $S$ be a linearly ordered set and let $\omega:S\to\N^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ such that:
+  Let $S$ be a linearly ordered set and let $\omega:S\to\R^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ such that:
   \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-    \item $|\rho(x)|\le \log\omega(S) - \log\omega(x)+3$ for each $x\in S$, and
+    \item $|\rho(x)|\le \log\omega(S) - \log\omega(x)+\Oh(1)$ for each $x\in S$, and
     \item $\rho(x)$ is lexicographically less than $\rho(y)$ for each $x,y\in S$ with $x< y$ in $S$.
   \end{enumerate}
 \end{cor}
@@ -887,7 +887,7 @@ By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains 
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\calG^{+a}$ is the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes} 
-  Let $\calG$ be an infinitely extendable class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
   Let $a\in\N^+$. Then $\calG^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
@@ -1111,14 +1111,15 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
 
-  By \cref{add_apexes}, $\calG^{+3k}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
+  For each $x\in V(T)$, the torso $\torso{G}{\calT,B_x}$ either belongs to $\calG^{+3k}$ (if $v_0\notin B_x$) or is obtained by adding the isolated vertex $v_0$ to a graph in $\calG^{+3k}$, in which case it belongs to $\calG^{+3k+1}$.
+  By \cref{add_apexes}, $\calG^{+3k+1}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
   \begin{align}
-    \mathdefin{h_0(n)} & = (2g_0(n) + 3k)8^{k} \\
+    \mathdefin{h_0(n)} & = (2g_0(n) + 3k + 1)2^{3k+1} \\
     \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
     \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
     \mathdefin{h_3(n)} & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
   \end{align} 
-  Let \defin{$A$} and \defin{$I$} be an adjacency tester and identity tester for this mixed labelling scheme. Let $\mathdefin{\calS}:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$-mixed labelling of $\calG$ for $(A,I)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
+  Let \defin{$A$} and \defin{$I$} be an adjacency tester and identity tester for this mixed labelling scheme. Let $\mathdefin{\calS}:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG^{+3k+1}}\}$ be a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$-mixed labelling of $\calG^{+3k+1}$ for $(A,I)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
 
   
   
@@ -1406,17 +1407,17 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  There are now two cases to consider.
     \begin{itemize}
       \item If $\alpha(v,v')=\langle 0,\bin(\idx(C'),\kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$ then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$. By definition,  $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$. 
-      Since the labelling $\calS$ of $\calG$ for $(A,I)$ is strongly $g_0$-orientable, there are at most $g_0(n)$ choices for $\mu_{x'}(v')$. 
+      Since the labelling $\calS$ of $\calG^{+3k+1}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
 
-      % Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot g_0(n))$ choices for $\mu_{x'}(v')$.  
+      % Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot h_0(n))$ choices for $\mu_{x'}(v')$.  
       \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y=Y_0\cup Y_1$.  Then the definition of $Y_1$ implies that $\omega(T_{y'})\ge \omega(T_{x'})/b$. Since $v'\in A_{y'}\setminus A_{x'}$, we have that $\delta(v')\ge \omega(T_{y'})/b\ge \omega(T_{x'})/b^2$.  It follows that $|\mu_{x'}(v')|\in O(\log b + \log\log n)$.  Thus, there are at most $O(b\log n)$ choices for $\mu_{x'}(v')$.  
     \end{itemize}
-    In either case, there are at most $g_0(n)+O(b\log n)$ choices for $\mu_{x'}(v')$. 
+    In either case, there are at most $h_0(n)+O(b\log n)$ choices for $\mu_{x'}(v')$. 
 
     % Let $\tau_0:=(G_0^+,G_0,\omega_0)$ be an $n$-admissible triple and let $\beta=\mu_{\tau_0}(v_0)$ for some $v_0\in V(G_0)$.  Thus, $\beta$ is a vertex of $U'_n$.
 
 
-    Summarizing, there are at most $O(k b^2\log n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot g_0(n))\log_b n)\le g_0(n)\cdot\exp(O(\log b+\log\log n))$ choices for $\mu_{x'}(v')$.  There are at most $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. 
+    Summarizing, there are at most $O(k b^2\log n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $O((b\log n+k\cdot h_0(n))\log_b n)\le g_0(n)\cdot\exp(O(k+\log b+\log\log n))$ choices for $\mu_{x'}(v')$ because $h_0(n) = (2g_0(n)+3k+1)2^{3k+1} \le g_0(n) \exp(O(k))$.  There are at most $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. 
   \end{enumerate}
   Thus, $U'_n$ has an orientation of out-degree at most $g'_0(n)\le g_0(n)\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  
 \end{proof}  
