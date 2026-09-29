@@ -142,7 +142,7 @@ $\calG$ is also in $\calG$, and it is \defin{proper} if it is not the class of a
 surface, linklessly embeddable graphs, knotlessly embeddable graphs and, for every fixed graph $X$, the class of graphs with no $X$-minor. Note that every proper minor-closed class is contained in the class of $K_t$-minor-free graphs for some fixed $t$.
 
 Let $\calG$ be a class of graphs and let $f:\N\to\N$ be a function.
-We say that $\calG$ admits an \defin{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\set{0,1}^*)^2\to\set{0,1}$ such that for all positive integers $n$, for every $n$-vertex graph $G\in\calG$, there exists a function $\ell: V(G)\to\set{0,1}^*$ such that
+We say that $\calG$ has an \defin{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\set{0,1}^*)^2\to\set{0,1}$ (called an \defin{adjacency tester}) such that for all positive integers $n$, for every $n$-vertex graph $G\in\calG$, there exists a function $\ell: V(G)\to\set{0,1}^*$ such that
 $|\ell(v)|\leq f(n)$ for each vertex $v$ in $G$, and such that
 for every two vertices $u$, $v$ in $G$,
 \[
@@ -156,7 +156,7 @@ In this paper we prove the following result. (All logarithms are in base $2$.)
 
 \begin{thm}
   \label{main_result}
-  Every proper minor-closed class of graphs admits
+  Every proper minor-closed class of graphs has
   a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
@@ -167,13 +167,13 @@ The proof of~\cref{main_result} is constructive. For every fixed proper minor-cl
 A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes and induced-universal graphs are essentially equivalent. A minor detail is that the labelling schemes need to be injective for the equivalence to hold but this is the case for those developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between the two notions.} of \cref{main_result} is the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs.
 
 \begin{cor}\label{main_result_induced_universal}
-  For every proper minor-closed class $\calG$, for every positive integer $n$,
+  For every proper minor-closed graph class $\calG$, for every positive integer $n$,
   there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex graph in $\calG$ is isomorphic to an induced subgraph of $U_n$.
 \end{cor}
 
 The labelling scheme provided by \cref{main_result} actually satisfies some additional conditions that not only imply \cref{main_result_induced_universal}, but they ensure that the universal graph $U$ is in fact sparse:
 \begin{thm}\label{main_result_induced_universal_sparse}
-    For every proper minor-closed class $\calG$, for every positive integer $n$,
+    For every proper minor-closed graph class $\calG$, for every positive integer $n$,
     there exists a graph $U_n$ with $n^{1+o(1)}$ vertices and $n^{1+o(1)}$ edges such that every $n$-vertex graph in $\calG$ is isomorphic to an induced subgraph of $U_n$.
   \end{thm}
   
@@ -243,7 +243,7 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 % %
 % There is a fascinating series of results improving on this simple scheme for
 % trees. In 1990, a result of \citet{chung:universal} about induced-universal
-% graphs implies that $n$-vertex trees admit an adjacency labelling scheme with
+% graphs implies that $n$-vertex trees have an adjacency labelling scheme with
 % labels of length $\log n + \log\log n + \Oh(1)$. In 2002, \citet{AR02} devised
 % an improved scheme with labels of length $\log n + \Oh(\log^* n)$. Finally, in
 % 2015, \citet{alstrup.dahlgaard.ea:optimal} gave a $(\log n + \Oh(1))$-bit
@@ -278,7 +278,7 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 
 
 
-% Finally we discuss the relationship between our result and the Implicit Graph Conjecture. A hereditary graph class is \defin{small} if it has $2^{O(n\log n)}$ labelled $n$-vertex graphs for all $n$. For example, every proper minor-closed graph class is small~\citep{NSTW06}. The Implicit Graph Conjecture~\citep{kannan.naor.ea:implicit} asserted that every small graph class admits an $O(\log n)$-bit adjacency labelling scheme. Proper minor-closed classes satisfy this conjecture, and indeed they admit labels of only $(1+o(1))\log n$ bits by \cref{main_result}. The conjecture in general was disproved by \citet{HH22}, who in fact showed there exist small graph classes for which every adjacency labelling scheme needs $\Omega(n^{1/2-\epsilon})$ bits. See \citep{Bonnet-etal-ICALP24,Bonnet-etal-SJC24,Alon24} for recent extensions. In light of the counterexamples of \cite{HH22}, it remains an interesting problem to determine which hereditary classes admit $O(\log n)$-bit, or even $(1+o(1))\log n$-bit, adjacency labelling schemes. Our result shows that excluding a fixed minor suffices for the strongest conclusion.
+% Finally we discuss the relationship between our result and the Implicit Graph Conjecture. A hereditary graph class is \defin{small} if it has $2^{O(n\log n)}$ labelled $n$-vertex graphs for all $n$. For example, every proper minor-closed graph class is small~\citep{NSTW06}. The Implicit Graph Conjecture~\citep{kannan.naor.ea:implicit} asserted that every small graph class has an $O(\log n)$-bit adjacency labelling scheme. Proper minor-closed classes satisfy this conjecture, and indeed they have labels of only $(1+o(1))\log n$ bits by \cref{main_result}. The conjecture in general was disproved by \citet{HH22}, who in fact showed there exist small graph classes for which every adjacency labelling scheme needs $\Omega(n^{1/2-\epsilon})$ bits. See \citep{Bonnet-etal-ICALP24,Bonnet-etal-SJC24,Alon24} for recent extensions. In light of the counterexamples of \cite{HH22}, it remains an interesting problem to determine which hereditary classes have $O(\log n)$-bit, or even $(1+o(1))\log n$-bit, adjacency labelling schemes. Our result shows that excluding a fixed minor suffices for the strongest conclusion.
 
 
 
@@ -299,9 +299,11 @@ The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, 
 ${v=w}$ and ${xy \in E(B)}$, or
 ${x=y}$ and ${vw \in E(A)}$, or
 ${vw \in E(A)}$ and~${xy \in E(B)}$.
-For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\calR_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\calR_k$ admits an efficient weighted mixed labelling scheme.
+For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  
+% The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\calR_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\calR_k$ has an efficient weighted mixed labelling scheme.
 
-For any graph class $\calG$, let \defin{$\calG^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.  It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\calG$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\calG^{+a}$.  \Cref{add_apexes} shows that the same is true for efficient weighted mixed adjacency labelling schemes. 
+For any graph class $\calG$, let \defin{$\calG^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.  
+% It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\calG$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\calG^{+a}$.  \Cref{add_apexes} shows that the same is true for efficient weighted mixed adjacency labelling schemes. 
 
 Our starting point is the following variant of the Graph Minor Structure Theorem:
 
@@ -334,7 +336,7 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 
 % \paragraph{Mixed labelling schemes:} An important contribution of the current work is to introduce a generalization of adjacency labelling schemes, called \defin{weighted mixed labelling schemes}, that attempts to solve both of these problems simultaneously. The weights play an important but technical role. For the simplicity of this overview we omit the role of the weights for now, speaking only of \emph{mixed labelling schemes}, and return to it at the end of the overview when stating our main technical result. The formal definition appears at the beginning of \cref{weighted_mixed_section}. Informally, a mixed labelling $\mu$ is defined for a pair of graphs $Q^+$ and $Q$, where $Q$ is a spanning subgraph of $Q^+$, and $\mu$ defines labels for both vertices and cliques of $Q^+$. The vertex labels assigned by $\mu$ are used with an adjacency tester $A$ for the spanning subgraph $Q$.  That is, for any two vertices $v$ and $w$ of $Q$, $A(\mu(v),\mu(w)) = 1$ if and only if $vw\in E(Q)$.  In addition to the vertex and clique labels, a mixed labelling assigns, for each clique $K$ of $Q^+$ and each vertex $u\in K$, a short \defin{local identifier} $\kappa(K,u)$ for $u$ in $K$. These clique, vertex, and local identifiers are used with an \defin{identity tester} $I$.  For any clique $K$ of $Q^+$, any vertex $u\in K$, and any vertex $v$ of $Q$, $I(\mu(K),\kappa(K,u),\mu(v))=1$ if and only if $v=u$.
 
-% Loosely speaking, a class admits an \emph{efficient} mixed labelling scheme if it admits a $(1+o(1))\log n$-bit mixed labelling scheme. This notion of efficiency is defined formally in the introduction to \cref{weighted_mixed_section}. \Cref{weighted_product_proof} shows that the adjacency labelling scheme for graphs in $\calR_k$ given by \citet{dujmovic.esperet.ea:adjacency} and its improvements by \citet{gawrychowski.janczewski:simpler} can be extended to give an efficient mixed labelling scheme for $\calR_k$.  \Cref{add_apexes} shows that the addition of apex vertices to obtain the class $\calR^{+a}_k$ can be accommodated by any mixed labelling scheme.  The resulting mixed labelling scheme has clique and vertex labels of length $\log n + \Oh(\sqrt{\log n})$ (see \cref{gk_labelling_precise}).
+% Loosely speaking, a class has an \emph{efficient} mixed labelling scheme if it has a $(1+o(1))\log n$-bit mixed labelling scheme. This notion of efficiency is defined formally in the introduction to \cref{weighted_mixed_section}. \Cref{weighted_product_proof} shows that the adjacency labelling scheme for graphs in $\calR_k$ given by \citet{dujmovic.esperet.ea:adjacency} and its improvements by \citet{gawrychowski.janczewski:simpler} can be extended to give an efficient mixed labelling scheme for $\calR_k$.  \Cref{add_apexes} shows that the addition of apex vertices to obtain the class $\calR^{+a}_k$ can be accommodated by any mixed labelling scheme.  The resulting mixed labelling scheme has clique and vertex labels of length $\log n + \Oh(\sqrt{\log n})$ (see \cref{gk_labelling_precise}).
 
 % Thus, for every proper minor-closed graph family $\calG$, every graph $G$ in $\calG$ has a tree-decomposition $\calT$ of bounded adhesion-width whose torsos come from a class that has an efficient mixed labelling scheme.  This is the only property of proper minor-closed graph classes that we use.
 
@@ -364,11 +366,11 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 
 % \paragraph{Short partition into skinny subtrees:}
 % To deal with the case where the tree $T$ in the tree-decomposition $\calT$ does not have small height, we partition the vertices of $T$ into a collection of subtrees such that each root to leaf path of $T$ intersects at most $1+\log_b n$ of these subtrees, for a carefully chosen value of $b$.  This is done in such a way that each subtree in the decomposition, rooted at its node closest to the root of $T$, is \defin{$b$-skinny}: it has at most $b$ nodes
-% at depth $i$ (measured from its own root), for each integer $i\ge 0$. This partition is described in \cref{b_skinny_decomp} in \cref{lowpw}. By treating each subtree as a single giant bag, this gives a tree-decomposition $\calT'$ of $G$ whose height is at most $\log_b n$, and in which each torso of $\calT'$  has a $b$-skinny tree-decomposition whose bags are bags of $\calT$. In particular, the torsos of this $b$-skinny tree-decomposition belong to the original class admitting an efficient mixed labelling scheme.  Note that at this point we do not yet know how to label the (typically large) bags of $\calT'$ themselves. That is the purpose of the next step.
+% at depth $i$ (measured from its own root), for each integer $i\ge 0$. This partition is described in \cref{b_skinny_decomp} in \cref{lowpw}. By treating each subtree as a single giant bag, this gives a tree-decomposition $\calT'$ of $G$ whose height is at most $\log_b n$, and in which each torso of $\calT'$  has a $b$-skinny tree-decomposition whose bags are bags of $\calT$. In particular, the torsos of this $b$-skinny tree-decomposition belong to the original class having an efficient mixed labelling scheme.  Note that at this point we do not yet know how to label the (typically large) bags of $\calT'$ themselves. That is the purpose of the next step.
 
 % \paragraph{Skinny tree-decompositions:} The last ingredient needed to complete the proof is a method of handling graphs
 % that have $b$-skinny tree-decompositions whose torsos belong to a graph class that
-% admits an efficient mixed labelling scheme.  To use our solution for short
+% has an efficient mixed labelling scheme.  To use our solution for short
 % tree-decompositions, we must show that such graphs have an efficient mixed
 % labelling scheme. To do this, we group the nodes of the tree-decomposition $T$
 % into layers $L_1,\ldots,L_p$, where $L_i$ contains all nodes of depth $i-1$.  For
@@ -387,14 +389,14 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 % %We can now say what the weights are for. In a \emph{weighted} mixed labelling scheme, each vertex $v$ carries a positive weight $\omega(v)$ and vertex labels must satisfy the Kraft-type bound $|\mu(v)|\le\log\omega(G)-\log\omega(v)+o(\log n)$; heavier vertices thus receive shorter labels. When recursing on a tree-decomposition, we inflate the weight of each vertex according to the total weight hanging below it, which makes label lengths telescope along root-to-leaf paths. With this notion (defined formally in \cref{weighted_mixed_section}), our main technical result reads:
 
 
-\begin{thm}\label{PlainRealMainTechnical}
-  Let $\calG$ be a hereditary graph class that admits an efficient weighted mixed labelling scheme. Then, for any fixed integer $k\geq 0$, the class of graphs that have a tree-decomposition of adhesion-width at most $k$ whose torsos belong to $\calG$ also admits an efficient weighted mixed labelling scheme.
-\end{thm}
+% \begin{thm}\label{PlainRealMainTechnical}
+%   Let $\calG$ be a hereditary graph class that has an efficient weighted mixed labelling scheme. Then, for any fixed integer $k\geq 0$, the class of graphs that have a tree-decomposition of adhesion-width at most $k$ whose torsos belong to $\calG$ also has an efficient weighted mixed labelling scheme.
+% \end{thm}
 
 % We can now say what the weights are for. For the recursion behind this theorem, plain mixed labelling schemes are not enough. We need a refinement in which each vertex $v$ carries a positive weight $\omega(v)$ and vertex labels satisfy the Kraft-type bound $|\mu(v)|\le\log\omega(V(G))-\log\omega(v)+o(\log n)$. Intuitively, weights let heavier vertices receive shorter labels; when recursing on a tree-decomposition, inflating the weight of a vertex according to the total weight hanging below it makes the label lengths telescope along root-to-leaf paths. This notion of a \defin{weighted mixed labelling scheme} (and the accompanying notion of \emph{efficiency}) is defined formally in \cref{weighted_mixed_section}.
 
 
-A quantitative version of \cref{PlainRealMainTechnical} appears as \cref{lem:the_big_one} in \cref{working_with_tree_decomps}.
+% A quantitative version of \cref{PlainRealMainTechnical} appears as \cref{lem:the_big_one} in \cref{working_with_tree_decomps}.
 
 % \subsection{Paper Organization}
 
@@ -418,13 +420,14 @@ A \defin{graph class} is a set of graphs closed under isomorphism. A graph class
 %A  graph class $\calG$ is \defin{minor-closed} if for every $G\in\calG$, every minor of $G$ is in $\calG$. A graph class $\calG$ is \defin{proper} if some graph is not in $\calG$.  
 %  A \defin{disjoint union} of two graphs $G$ and $H$ is a graph obtained from two vertex-disjoint copies of $G$ and $H$ with no edge in between. A class of graphs $\calC$ is \defin{closed under taking disjoint union} if for all $G,H$ in $\calC$, the disjoint union of $G$ and $H$ is also in $\calC$.
 
-If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is a tree-decomposition of $G$, then $(P,(B_x\mid x \in V(P)))$ is called a \defin{path-decomposition} of $G$, which we usually denote as $(B_1,\ldots,B_{|V(P)|})$.
+% If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is a tree-decomposition of $G$, then $(P,(B_x\mid x \in V(P)))$ is called a \defin{path-decomposition} of $G$, which we usually denote as $(B_1,\ldots,B_{|V(P)|})$.
 
 \subsection{Trees and Forests}
 
 For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
 
-Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
+Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
+% For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
 For a rooted tree $T$ and any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
 
@@ -443,9 +446,14 @@ Any rooted forest-decomposition $\calF:=(T,(B_x\mid x\in V(T)))$ can be made int
   \item repeatedly replacing an edge $yz$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
 \end{enumerate*} This transformation has the properties expressed in the following observation:
 \begin{obs}\label{tidy_forest}
-  Let $G$ be a graph and let $(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$. Then there exists a rooted forest $F'$ with $V(F')\subseteq V(F)$, $\height(F')\le\height(F)$, such that $\calF':=(F',(B_x\mid x\in V(F')))$ is a rooted tidy forest-decomposition of $G$ and every torso of $\calF'$ is a torso of $\calF$.
+  Let $G$ be a graph and let $(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$. Then there exists a rooted forest $F'$ with the following properties:
+  \begin{enumerate}[nosep,nolistsep,label=(\rm\alph*)] 
+    \item $V(F')\subseteq V(F)$; 
+    \item $V(P_{F'(x)})\subseteq V(P_F(x))$ for each $x\in V(F')$; and 
+    \item $\calF':=(F',(B_x\mid x\in V(F')))$ is a rooted tidy forest-decomposition of $G$ and every torso of $\calF'$ is a torso of $\calF$.
+  \end{enumerate}
 \end{obs}
-We make use of the fact that rooted tidy forest-decompositions remain tidy when we remove the root bags and their contents.  More precisely, let $\calF:=(F,(B_x\mid x\in V(F)))$ be a rooted tidy forest-decomposition of a graph $G$, let $R$ be the set of roots in $F$, let $B_R:=\bigcup_{r\in R}B_r$, and let $C_x:=B_x\setminus B_R$ for each $x\in V(F)$.  Then $(F-R,(C_x\mid x\in V(F-R)))$ is a rooted tidy rooted forest-decomposition of $G-B_R$.
+% We make use of the fact that rooted tidy forest-decompositions remain tidy when we remove the root bags and their contents.  More precisely, let $\calF:=(F,(B_x\mid x\in V(F)))$ be a rooted tidy forest-decomposition of a graph $G$, let $R$ be the set of roots in $F$, let $B_R:=\bigcup_{r\in R}B_r$, and let $C_x:=B_x\setminus B_R$ for each $x\in V(F)$.  Then $(F-R,(C_x\mid x\in V(F-R)))$ is a rooted tidy rooted forest-decomposition of $G-B_R$.
 
 \subsection{Weight Functions}
 
@@ -464,8 +472,6 @@ It will be convenient to place some upper bound on the Kraft ideal codeword leng
 \end{proof}
 
 \subsection{Shannon and Shannon--Fano--Elias Codes}
-
-A \defin{code} for a set $S$ is an injective function $\lambda:S\to\{0,1\}^*$ that maps each element in $S$ to a distinct binary string.  A code is \defin{prefix-free} if $\lambda(x)$ is not a prefix of $\lambda(y)$ for all distinct $x,y\in S$.
 
 A rooted tree $T$ is a \defin{binary tree} if each node of $T$ has at most two children among which at most one is the \defin{left child} and at most one is the \defin{right child}.
 A binary tree $T$ is \defin{full} if for every node $x$ of $T$,
@@ -538,10 +544,13 @@ A \defin{code} for a set $S$ is an injective function $\rho:S\to\{0,1\}^\star$. 
 In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string, which gives a prefix-free code for the leaves of $T$. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
 
 \begin{cor}\label{shannon_fano_elias_code}
-  Let $S$ be a linearly ordered set and let $\omega:S\to\R^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ such that:
-  \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-    \item $|\rho(x)|\le \log\omega(S) - \log\omega(x)+\Oh(1)$ for each $x\in S$, and
-    \item $\rho(x)$ is lexicographically less than $\rho(y)$ for each $x,y\in S$ with $x< y$ in $S$.
+  There exists a function $F:\{0,1\}^*\to\{0,1\}^*$ such that for every $n\in\N^+$, every set $S:=\{x_1,\ldots,x_n\}$, and every weight function $\omega:S\to\R^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ and functions $\overleftarrow{\pi}:S\to\{0,1\}^\star$, $\overrightarrow{pi}:S\to\{0,1\}^*$ such that:
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
+    \item $|\rho(x_i)|\le \log\omega(S) - \log\omega(x_i)+\Oh(1)$ for each $i\in[n]$, and
+    % \item $\rho(x_i)$ is lexicographically less than $\rho(x_j)$ for each $1\le i < j\le n$.
+    \item $|\overleftarrow{\pi}(x_i)|+|\overrightarrow{\pi}(x_i)|\in O(\log\log n)$ for each $i\in[n]$;
+    \item $F(\rho(x_i),\overleftarrow{\pi}(x_i))=\rho(x_{i-1})$ for each $i\in\{2,\ldots,n\}$; and    
+    \item $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i+1})$ for each $i\in\{1,\ldots,n-1\}$.    
   \end{enumerate}
 \end{cor}
 
@@ -655,6 +664,7 @@ In some cases, we include one or more non-negative integers as part of a multipa
 % In this section we the machinery needed to obtain an adjacency labelling scheme for any graph class $\calG'$
 % This appendix provides an alternative proof of \cref{main_result} that can be used to construct an induced-universal graph with $n^{1+o(1)}$ vertices and edges. Eventually, this will replace the use of \cref{skinny_labelling,small_height}.  This also eliminates the need for \cref{disjoint_union_ii,b_skinny_decomp,skinny_edges,low_pathwidth_separator}.
 
+In this section we develop some tools for manipulating tree-decompositions like those obtained from \cref{gmpst}.
 
 \begin{lem}\label{skinny_edges}
   Let $b>1$, let $T$ be a rooted tree with $n$ vertices and let $\omega:V(T)\to\mathbb{N}^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that
@@ -665,9 +675,9 @@ In some cases, we include one or more non-negative integers as part of a multipa
 \end{lem}
 
 \begin{proof}
-  The proof is by induction $|V(T)|$.  Let $Y_0$ be the set of edges $xy$ in $T$ where $\omega(T_y)\le \omega(T)/b< \omega(T_x)$.  Let $F_0:=T-Y_0$ and let $T_0,\ldots,T_{s}$ be the components of $F_0$, where $T_0$ is the component of $F_0$ that contains the root of $T$. Then, by the choice of $Y_0$, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(T_0)$.  Also, by the choice of $Y_0$, we have $\omega(T_i) \le \omega(T)/b$ for each $i\in[s]$.  If $Y_0$ is empty, we are done.  
-  
-  If $Y_0$ is not empty then $s=|Y_0|\ge 1$.  For each $i\in[s]$, apply induction on $T_i$ to obtain $Y_i\subseteq E(T_i)$.  Let $Y:=Y_0\cup\bigcup_{i=1}^s Y_i$.  Each component $C$ of $T-Y$ is either $T_0$ or a component of $T_i-Y_i$ for some $i\in[s]$.  In either case, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(C)$.  Furthermore, for each root-to-leaf path $P$ in $T$, $E(P)\subseteq E(T_0)\cup Y_0\cup E(T_i)$ for some $i\in[s]$.  Thus,
+  The proof is by induction $|V(T)|$.  Let $X_0:=\{x\in V(T):\omega(T_x)\ge \omega(T)/b\}$.  Then $T_0:=T[X_0]$ is a (connected) subtree of $T$ that includes the root of $T$.  If $X_0=V(T)$, then $Y_0=\emptyset$ and we are done.  Otherwise let $F_0:=T-X_0$ and let $T_0,\ldots,T_{s}$ be the components of $F_0$. By the choice of $X_0$, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(T_0)$.  Also by the choice of $X_0$, we have $\omega(T_i) \le \omega(T)/b$ for each $i\in[s]$.
+
+  For each $i\in[s]$, let $x_iy_i$ be the edge of $T$ between the root $y_i$ of $T_i$ and its $T$-parent $x_i \in V(T_0)$. Let $Y_0:=\{x_iy_i\mid i\in[s]\}$.  For each $i\in[s]$, apply induction on $T_i$ to obtain $Y_i\subseteq E(T_i)$.  Let $Y:=Y_0\cup\bigcup_{i=1}^s Y_i$.  Each component $C$ of $T-Y$ is either $T_0$ or a component of $T_i-Y_i$ for some $i\in[s]$.  In either case, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(C)$.  Furthermore, for each root-to-leaf path $P$ in $T$, $E(P)\subseteq E(T_0)\cup Y_0\cup E(T_i)$ for some $i\in[s]$.  Thus,
   \[  
     |E(P)\cap Y|
       \le |E(P)\cap Y_0| + |E(P)\cap E(T_i)|
@@ -709,9 +719,9 @@ The following lemma is well-known (see, for example \cite{}).
   \end{enumerate}
   Induction is on the number of vertices in $V(G-(B_\alpha\cup B_\beta))$.  To see that this is enough to establish the original lemma, we can attach leaves $\alpha$ and $\beta$ to $T$ to obtain $T'$, set $B_\alpha:=B_\beta:=\emptyset$, and apply the refined result to $(G,(T',(B_x\mid x\in V(T'))),\alpha,\beta)$ to obtain the desired tree decomposition $\calQ$ and set $Y$.
    
-  We now proceed with the inductive proof. Let $\omega: V(T)\to\N$ be defined by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$, where $A_x$ is the parent adhesion of $x$ in $\calT$.  Apply \cref{bag_separator} to $T-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$, for each component $C$ of $T-S_0$.  Let $T'$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $G_S:=G[\bigcup_{x\in S}B_x]$.
+  We now proceed with the inductive proof. Let $\omega: V(T)\to\N$ be defined by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$, where $A_x$ is the parent adhesion of $x$ in $\calT$.  Apply \cref{bag_separator} to $T-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$, for each component $C$ of $T-S_0$.  Let $T'$ be the minimum subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$. Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0|\le b-1$. Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $G_S:=G[\bigcup_{x\in S}B_x]$.  Let $C_1,\ldots,C_s$ be the components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$.  Observe that, for each $i\in[s]$, $|N_i|\in\{1,2\}$.
 
-  We create a tree $Q$ that contains the following subtree $Q_0$: Each node in $S$ will be a node of $Q_0$.  Let $C_1,\ldots,C_s$ be the components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$. If $|N_i|=2$, then we attach a node $v_i$ to $Q_0$ that is adjacent to both nodes in $N_i$. (If $|N_i|=1$, we do not add a node $v_i$ to $Q_0$.)  For each edge $xy\in E(T)$ with $x,y\in S$, we add the edge $xy$ to $Q_0$. This gives a tree $Q_0$ with $V(Q_0)\supseteq S$ and $|V(Q_0)|\le 2|S|-1\le 4b-1$.  We root $Q_0$ at $\alpha$ (which is possible, since $\alpha\in S\subseteq V(Q_0)$).
+  We create a tree $Q$ that contains the following subtree $Q_0$: Each node in $S$ will be a node of $Q_0$.   If $|N_i|=2$, then we attach a node $v_i$ to $Q_0$ that is adjacent to both nodes in $N_i$. (If $|N_i|=1$, we do not add a node $v_i$ to $Q_0$.)  For each edge $xy\in E(T)$ with $x,y\in S$, we add the edge $xy$ to $Q_0$. This gives a tree $Q_0$ with $V(Q_0)\supseteq S$ and $|V(Q_0)|\le 2|S|-1\le 4b-1$.  We root $Q_0$ at $\alpha$ (which is possible, since $\alpha\in S\subseteq V(Q_0)$).
   
   For each $x\in S$, set $C_x:=B_x$.  For each $i\in[s]$ with $|N_i|=2$, the contents of $C_{v_i}$ are chosen as follows: $C_{v_i}:=(B_{\alpha_i}\cap B_{x_i})\cup (B_{\beta_i}\cap B_{y_i})$ where $N_i=\{\alpha_i,\beta_i\}$ and $\{x_i\}=N_T(\alpha_i)\cap V(C_i)$ and $\{y_i\}=N_T(\beta_i)\cap V(C_i)$.  This gives a tree-decomposition $\calQ_0:=(Q_0,(C_x\mid x\in V(Q_0)))$ of $G_S$. For each $x\in V(Q_0)$, $\torso{G}{\calQ_0,C_x}$ is a torso of $\calT$ (if $x\in S$) or $C_x$ is the union of at most two adhesions of $\calT$ (if $x=v_i$ for some $i\in[s]$ with $|N_i|=2$). 
   
@@ -732,13 +742,14 @@ The following lemma is well-known (see, for example \cite{}).
   All that remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q)$.  For each $i\in[s]$ with $\omega(C_i)\ge 1$, every torso and adhesion of $\calT_i$ is also a torso or adhesion of $\calT$. Therefore, property \ref{req:subtree_torso_apex} is satisfied (by induction) for each $i\in[s]$ with $\omega(C_i)\ge 1$ and each $x\in V(Q_i)$.  What remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q_0)$. For each $x\in V(Q_0-S)$, $x=v_i$ for some $i\in[s]$ and $C_x$ is the union of at most three adhesions of $\calT$, which satisfies \ref{req:three_adhesions}.  For each $x\in S$, $\torso{G}{\calQ_0,C_x}-A_{\beta}$ is an induced subgraph of $\torso{G}{\calT,B_x}$.  The only danger is that $\torso{G}{\calQ,C_x}-A_\beta$ contains additional edges not present in $\torso{G}{\calQ_0,C_x}-A_{\beta}$.  However, each edge in $E(Q)\setminus E(Q_0)$ incident to $x$ comes from a pendant component $C_i$ and $e_i=x\alpha_i$.  In this case, the adhesion $C_x\cap C_{\alpha_i}=B_{a_i}\cap B_{x_i}$ is an adhesion of $\torso{G}{\calT,B_x}$.  Therefore, every edge in $\torso{G}{\calQ,C_x}-A_{\beta}$ is also an edge of $\torso{G}{\calT,B_x}$.
 \end{proof}
 
-\section{Weighted Mixed Labelling Schemes -- Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
+\section{Weighted Mixed Labelling Schemes}
 \label{weighted_mixed_section}
  
-This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. Let $\calG$ be a class of graphs. We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  Let \defin{$\calT_\calG$} be the set of all $\calG$-admissible triples. For each each $n\in\N$, let $\mathdefin{\calT_{\calG,\le n}}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G)|\le n\}$.
+% This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. 
+Let $\calG$ be a class of graphs. We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  Let \defin{$\calT_\calG$} be the set of all $\calG$-admissible triples. For each each $n\in\N$, let $\mathdefin{\calT_{\calG,\le n}}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G)|\le n\}$.
 
 Let $g_i:\N\to\R^+$ for each $i\in[3]$.
-The class  $\calG$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} of $\calG$ if there exists a pair $(A,I)$ with
+The class  $\calG$ has a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} of $\calG$ if there exists a pair $(A,I)$ with
 \begin{itemize}[nosep,nolistsep]
   \item $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
   \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
@@ -757,12 +768,12 @@ such that:
   \item\label{mls:clique_label_length} for every clique $K$ in $G^+$, $|\mu(K)|\le \log \omega(G) - \log(\min_{v\in K}(\omega(v))) + g_3(n)$;
   \item\label{mls:local_identifier_length}  for every clique $K$ in $G^+$ and every $u\in K$, $|\kappa(K, u)| \leq g_2(n)$.
 \end{enumerate}
-Here is a little intuition about these definitions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
+Here is a little intuition about the last three conditions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
 A pair $(\mu,\kappa)$ that satisfies \ref{mls:injective_on_cliques}, \ref{mls:adjacency_tester}, and \ref{mls:identity_tester} is called a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  If $(\mu,\kappa)$ additionally satisfies \ref{mls:vertex_label_length}, \ref{mls:clique_label_length}, and \ref{mls:local_identifier_length} then $(\mu,\kappa)$ is called a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  
 
-To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix a particular mixed labelling of each $\calG$-admissible triple.  A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling scheme} for a graph class $\calG$ is a triple $((\mu_\tau,\kappa_\tau)\mid \tau\in\calT_\calG)$ where $A$ is an adjacency tester, $I$ is an identity tester, and for each $\tau\in\calT_\calG$, $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$-mixed-labelling of $\tau$ for $(A,I)$.  A \defin{$f(n)$-bit adjacency labelling scheme} for $\calG$ is a pair $(\calA:=(\ell_G:G\in\calG),A)$ where $A$ is an adjacency tester and, for each $G\in\calG$, $\ell_G:V(G)\to\{0,1\}^*$ is an adjacency labelling of $G$ for $A$ with $|\ell_G(v)|\le f(|V(G)|)$ for all $v\in V(G)$.
-
+To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix a particular mixed labelling of each $\calG$-admissible triple.  
+A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling} of $\calG$ for $(A,I)$ is an indexed collection $\calS:=((A,I,(\mu_\tau,\kappa_\tau)):\tau\in\calT_\calG)$ where $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$-mixed-labelling of $\tau$ for $(A,I)$.  The triple $(\calS,A,I)$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed labelling scheme} for $\calG$.  Similar definitions apply to adjacency labelling schemes. A \defin{$f(n)$-bit adjacency labelling} of $\calG$ for $A$ is an indexed collection $(\calA:=(\ell_G:G\in\calG),A)$ where, for each $G\in\calG$,  $\ell_G$ is an adjacency labelling of $G$ for $A$ such that $|\ell_G(v)|\le f(n)$ for each $v\in V(G)$.  The pair $(\calA,A)$ is an \defin{adjacency labelling scheme} for $\calG$.
 % It is helpful to extend the notion mixed labelling to graph classes. Let $\calG$ be a graph class.
 
 
@@ -774,13 +785,13 @@ To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix 
 
 
 
-% Let $\calG$ be a graph class that admits a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\calG$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\calS:=((\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega}):G^+\in\calG,G\subseteq G^+, \omega:V(G)\to\R^+)$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$.  
+% Let $\calG$ be a graph class that has a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\calG$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\calS:=((\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega}):G^+\in\calG,G\subseteq G^+, \omega:V(G)\to\R^+)$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$.  
 
 
 
 \subsection{Basic Properties}
 
-Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling scheme for a graph class $\calG$. Let $\omega_1:$ be the \defin{uniform weight function} defined by $\omega_1(x):=1$ for all $x$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a subgraph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$ and let $\calA:=(\mu_{(G^+,G,\omega_1)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling admits a $(1+o(1))\log n$-bit adjacency labelling. 
+Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling scheme for a graph class $\calG$. Let $\omega_1:$ be the \defin{uniform weight function} defined by $\omega_1(x):=1$ for all $x$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a subgraph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$ and let $\calA:=(\mu_{(G^+,G,\omega_1)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ has an \defin{efficient} weighted mixed labelling if $\calG$ has a weighted $(g_1,g_2,g_3)$ mixed labelling with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that has an efficient weighted mixed labelling has a $(1+o(1))\log n$-bit adjacency labelling. 
 
 The following lemma shows that any adjacency labelling obtained from a mixed labelling scheme is injective, which justifies \cref{main_result_induced_universal}.
 
@@ -808,16 +819,16 @@ A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} scheme $(\calS,A,I)$ for
   \label{lem:nice_weights}
   Let $\calG$ be a class of graphs.
   Let $g_i:\N\to\R$ be functions for each $i\in[3]$.
-  If $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\calG$ admits a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
+  If $\calG$ has a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\calG$ has a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
 \end{lem}
 \begin{proof}
-  Suppose that $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Let $A$ and $I$ be the corresponding adjacency and identity tester, respectively. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $n\in \N^+$, let $G^+$ be an $n$-vertex graph in $\calG$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to \R^+$ be an arbitrary weight function. Let $\omega'$ be the function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
+  Let $(\calS,A,I)$ be a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $\tau=(G^+,G,\omega)\in\calT_\calG$ and let $n=|V(G)|$. Let $\omega'$ be the function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
   \[
     \log\omega'(V(G))-\log\omega'(v)\le\min\{\log n,\;\log\omega(G)-\log\omega(v)\}+2 \enspace.
   \]
   In particular, $\omega'$ is nice.
-  Hence, by our assumption, there is a mixed labelling $\mu$ of $(G^+,G,\omega')$ for $(A,I)$ and a local identifier $\kappa$ of $(G^+,G,\omega')$ for $(A,I)$.
-  Hence, for every $v\in V(G)$,
+  Therefore $\calS$ contains a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega')$ for $(A,I)$.
+  For every $v\in V(G)$,
   \[
     |\mu(v)| \leq \log \omega'(G) - \log\omega'(v) + g_1(n) \leq \log \omega(G) - \log\omega(v) + g_1(n) + 2\enspace,
   \]
@@ -826,7 +837,7 @@ A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} scheme $(\calS,A,I)$ for
     |\mu(K)|\le \log \omega'(G) - \log\min_{v\in K}(\omega'(v)) + g_3(n)
     \leq \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + 2\enspace.
   \]
-  It follows that $\mu$ and  $\kappa$ are the desired  mixed labelling and local identifier, respectively,  of $(G^+,G,\omega)$ for $(A,I)$.
+  It follows that $\mu$ and $\kappa$ are the desired mixed labelling and local identifier, respectively, of $(G^+,G,\omega)$ for $(A,I)$.
 \end{proof}
 
 
@@ -840,14 +851,14 @@ If the ultimate goal is to obtain an adjacency labellings, then an even weaker n
 %   Let $(A,I)$ be the adjacency tester and identity tester for an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.
 %   Let $G$ be an $n$-vertex graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\{1\}$ be the uniform weight function.  Then there exists a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
 %   $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
-%   For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ admits an injective $(\log n+g_1(n))$-bit adjacency labelling of $\calG$ for $A$.
+%   For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ has an injective $(\log n+g_1(n))$-bit adjacency labelling of $\calG$ for $A$.
 % \end{proof}
 
 
 \subsection{Orientable Labelling Schemes}
 
 In order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need two additional definitions.
-Let $\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ be a weighted mixed labelling of a graph class $\calG$ for $(A,I)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted mixed labelling scheme for a graph class $\calG$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
 \[
 V(U_n):=\left\{ \mu_\tau(v): \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
 \]
@@ -856,11 +867,11 @@ and edge set
   E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}, vv'\in E(G) \right\}
   \enspace.
 \]
-These definitions imply that, for each $n'\in\{0,\ldots,n\}$ and each $(\calG,n')$-admissible triple $\tau:=(G^+,G,\omega)$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. 
+These definitions imply that, for each $\tau:=(G^+,G,\omega)\in\calT_{\calG,{\le n}}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)
 
 Since the graph $U_n$ defined above depends only on $A$ and the vertex labellings in $\calS$, the same definition applies directly to any adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, the definitions imply that, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
 
-We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$.  The definition of $g_0$-orientability has an obvious application.  It immediately implies that the $n$-universal graph $U_n$ has $|V(U_n)|\cdot g_0(n)$ edges.  We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, so we give a formal definition followed by an informal explanation of how this property is used.  
+We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$.  The definition of $g_0$-orientability has an obvious application.  It immediately implies that the $n$-universal graph $U_n$ has $|V(U_n)|\cdot g_0(n)$ edges.  We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, we give a formal definition followed by an informal explanation of how this property is used.  
 
 % Let $\calS:=((\mu_\tau,\kappa_\tau):\text{$\tau$ is a $(\calG,n)$-admissible triple},n\in\N)$ be a mixed labelling of some graph class $\calG$ for $(A,I)$. 
 
@@ -868,16 +879,16 @@ We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for eac
 % Let $\calA$ be the adjacency labelling of $\calG$ induced by $(\calS,A)$.  
 
 
-We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and for each $n\in\N$, each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\zeta$ for which there exists a $(\calG,n)$-admissible tuple $\tau:=(G_1^+,G_1,\omega_1)$, a clique $K_1$ in $G_1^+$ and $u_1\in K_1$ such that 
+We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and for each $n\in\N$, each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a $(\calG,n)$-admissible triple $\tau:=(G^+,G,\omega)$, a clique $K$ in $G^+$ and $u\in K$ such that 
 \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-  \item $\mu_\tau(K_1)=\mu_{\tau_0}(K_0)$, 
-  \item $\kappa_\tau(K_1,u_1)=\kappa_{\tau_0}(K_0,u_0)$, 
-  \item $\mu_\tau(u_1)=\zeta$, and
-  \item $I(\mu_\tau(K_1),\kappa_\tau(K_1,u_1),\mu_\tau(u_1))=1$. 
+  \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$, 
+  \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$, 
+  \item $\mu_\tau(u)=\beta$, and
+  \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$. 
 \end{enumerate}
 
-Less formally:  If we fix a $(\calG, n)$-admissible tuple $\tau:=(G^+,G,\omega)$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\beta:=\mu_{\tau}(K_0)$ and $\gamma:=\kappa_{\tau}(K_0,u_0)$.  The condition states that there should be at most $g_0(n)$ strings $\zeta$ such that $I(\beta,\gamma,\zeta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an adjacency labelling $\calA':=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, $\ell_{G'}(v)$ will contain the strings $\beta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\zeta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
-By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v'),\ell_{G'}(w'))=1$, the adjacency tester will verify that $I(\beta,\gamma,\zeta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$ then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
+Less formally:  If we fix a $(\calG, n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there should be at most $g_0(n)$ strings $\beta$ such that $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an adjacency labelling $\calA':=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
+By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$ then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
 
 
 \subsection{Adding Apex Vertices}
@@ -886,8 +897,8 @@ By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains 
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\calG^{+a}$ is the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes} 
-  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
-  Let $a\in\N^+$. Then $\calG^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+  Let $\calG$ be a class of graphs that has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $a\in\N^+$. Then $\calG^{+a}$ has a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
      & = (2g_0(n) + a)2^{a} \enspace,  \\
@@ -901,20 +912,16 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \end{lem}
 
 \begin{proof}
-  By~\cref{lem:nice_weights} it is enough to show that $\calG^{+a}$ admits a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in \calG^{+a}$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
+  By~\cref{lem:nice_weights} it is enough to show that $\calG^{+a}$ has a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $\tau=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ where $\omega$ is nice.
+  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $\tau$.
 
-  Let $G^+$ be an $n$-vertex graph in $\calG^{+a}$.  Thus, there is a subset $X\subseteq V(G^+)$ of at most $a$ vertices such that $G^+-X\in\calG$.  Let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
-  Thus, for each $v\in V(G)$,
+  Let $n=|V(G)|$. Since $G^+\in\calG^{+a}$, there is a subset $X\subseteq V(G^+)$ of at most $a$ vertices such that $G^+-X\in\calG$.
+  Since $\omega$ is a nice weight function, for each $v\in V(G)$,
   \begin{equation}
     \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
   \end{equation}
 
-  Let $n\in \N^+$,
-  let $G^+$ be an $n$-vertex graph in $\calG^{+a}$,    let $G$ be a spanning subgraph of $G^+$,    and
-  let $\omega:V(G)\to\N^+$ be a nice weight function.
-
-  Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\calG$.  Let $\calS:=((\mu^-_\tau,\kappa^-_\tau):\tau\in\calT_\calG)$ be a mixed labelling of $\calG$ for $(A,I)$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.  By assumption, $U_n$ has an orientation with maximum out-degree $g_0(n)$.
+  Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.  By assumption, $U_n$ has an orientation with maximum out-degree $g_0(n)$.
   
   
   \paragraph{\boldmath The subgraph label $\mu^-$:}
@@ -1045,7 +1052,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   
 
   Let $\{\beta,\beta'\}$ be an edge of the universal graph $U'_n$.
-  By the definition of $U'_n$ there exists a $\calG^{+a}$-admissible tuple $\tau:=(G^+,G,\omega)$ with $|V(G)|\le n$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X=X(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  By the definition of $U'_n$ there exists a $\calG^{+a}$-admissible triple $\tau:=(G^+,G,\omega)$ with $|V(G)|\le n$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Then $G^+-X\in \cal{G}$ for the set $X=X(G^+)$ of at most $a$ apex vertices used to define $\mu(v)$ and $\mu(v')$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
   \begin{enumerate}[nolistsep]
     \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g_0$-orientable, this gives an orientation of the edge  $\{\mu^-(v),\mu^-(v')\}$.  Without loss of generality, assume that this edge is oriented towards $\mu^-(v')$.  In this case, we orient the edge $\beta\beta'$ toward $\beta'=\mu(v')$.
         
@@ -1056,14 +1063,14 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   Therefore, for any fixed $\beta\in V(U'_n)$, the out-degree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.  
 
   \paragraph{\boldmath Strong $g'_0$-orientability:}  All that remains is to show that $(\calS',A',I')$ is strongly $g'_0$-orientable.  
-  Let $(\mu_0,\kappa_0)\in\calS'$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)\in\calT_{\calG^{+a},n}$ for $(A',I')$, let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$.  We need to show that there are at most $g'_0(n)$ strings $\beta'\in\{0,1\}^*$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},n}$, some clique $K$ in $G^+$ and some $u\in K$ such that $\mu(K)=\mu_0(K_0)$, $\kappa(K,u)=\kappa_0(K_0,u_0)$, and $\mu(u)=\beta'$.  
+  Let $(\mu_0,\kappa_0)\in\calS'$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)\in\calT_{\calG^{+a},n}$ for $(A',I')$, let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$.  We need to show that there are at most $g'_0(n)$ strings $\beta\in\{0,1\}^*$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},n}$, some clique $K$ in $G^+$ and some $u\in K$ such that $\mu(K)=\mu_0(K_0)$, $\kappa(K,u)=\kappa_0(K_0,u_0)$, and $\mu(u)=\beta$.  
   
-  Let $\beta=\mu_0(K_0)$ and let $\Gamma=\kappa_0(K_0,u_0)$.  Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta'$ be as described above and let $X:=X(G^+)$. Since $\beta = \mu(K)$, either $\beta = \langle c(K) \rangle$ or $\beta = \langle c(K), \mu^-(K-X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\beta$ uniquely fixes $|X|$.
+  Let $\zeta=\mu_0(K_0)$ and let $\gamma=\kappa_0(K_0,u_0)$.  Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K-X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ uniquely fixes $|X|$.
   \begin{itemize}[nosep,nolistsep]
-    \item If $u\in X$, then $\beta'=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\Gamma = \kappa(K,u) = 1, \sigma(u)$, the string $\Gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\beta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta'$. 
-    \item If $u\in V(G-X)$, then $\beta'=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is defined by $\beta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is defined by $\Gamma$. Thus, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\beta$ and $\Gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\beta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta'=\mu_\tau(u)$ for which $I'(\beta,\Gamma,\beta')=1$.
+    \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1, \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$. 
+    \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is defined by $\zeta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is defined by $\gamma$. Thus, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ for which $I'(\zeta,\gamma,\beta)=1$.
   \end{itemize}
-  Therefore, the number of possible choices for $\beta'$ is at most $2^a+ g_0(n) 2^{a} \le (2g_0(n)+a)2^{a} = g'_0(n)$.  \qedhere
+  Therefore, the number of possible choices for $\beta$ is at most $2^a+ g_0(n) 2^{a} \le (2g_0(n)+a)2^{a} = g'_0(n)$.  \qedhere
 \end{proof}
 
 
@@ -1071,8 +1078,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
 \begin{lem}\label{lem:the_big_one}
-  Let $\calG$ be a hereditary class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\calG'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\calG$. 
-  Then $\calG'$ admits a $g'_0$-orientable $f(n)$-bit adjacency labelling scheme,
+  Let $\calG$ be a hereditary class of graphs that has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all $n\in\N$.  Let $\calG'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\calG$. 
+  Then $\calG'$ has a $g'_0$-orientable $f(n)$-bit adjacency labelling scheme,
   \begin{align*}
     g_0'(n) & = g_0(n)\cdot \exp(O(k(n)(g_3(n)+g_2(n)+k(n)+\log b(n)+\log\log n))) \\
     % g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
@@ -1088,19 +1095,20 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   % Let $\calS:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling of $\calG$ for some adjacency/identity tester pair $(A,I)$.  
   Let $G$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G$ witnessing that $G\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$. Let $b:=b(n)$.
-  By \cref{log_b_td} and \cref{tidy_forest}, we may assume there exists a tidy forest-decomposition $\mathdefin{\calT}:=\mathdefin{(T,(B_x\mid x\in V(T)))}$ of $G$ such that
+  By \cref{log_b_td}, we may assume there exists a tree-decomposition $\mathdefin{\calT_1}:=\mathdefin{(T_1,(B_x\mid x\in V(T_1)))}$ of $G$ such that
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
-    \item\label{td_width} $\calT$ has adhesion-width at most $3k$;
-    \item each torso of $\calT$ is in $\calG^{+3k}$;
-    \item\label{tprops_y0} there exists $Y_0\subseteq E(T)$ such that each component of $T-Y_0$ has at most $4b-1$ vertices and each root-to-leaf path in $T$ contains at most $\log_b n$ edges from $Y_0$.    
+    \item\label{td_width} $\calT_1$ has adhesion-width at most $3k$;
+    \item\label{torsos_in_G_plus_k} each torso of $\calT_1$ is in $\calG^{+3k}$;
+    \item\label{tprops_y0} there exists $Y_0\subseteq E(T_1)$ such that each component of $T_1-Y_0$ has at most $4b-1$ vertices and each root-to-leaf path in $T_1$ contains at most $\log_b n$ edges from $Y_0$.    
   \end{enumerate}
-  Explicitly dealing with the case in which $T$ has more than one component (which can occur when $G$ has more than one component) requires duplicating parts of the argument.  Instead, we reduce to the case in which $T$ is connected, as follows. Let $T_1,\ldots,T_c$ be the components of $T$ and let $x_i$ be the root of $T_i$ for each $i\in\{1,\ldots,c\}$.  If $c>1$ then add a dummy vertex $v_0$ to $G$, make $T$ into a tree by adding a root node $x_0$  with $B_{x_0}:=\{v_0\}$ and making $x_0$ adjacent to $x_i$ for each $i\in\{1,\ldots,c\}$.  Make $\calT$ tidy by adding $v_0$ to $B_{x_i}$ for each $i\in\{1,\ldots,c\}$.  The addition of $v_0$  increases the number of vertices in $G$ by $1$ and allows us to assume that $\calT$ is a tidy \emph{tree}-decomposition.   From this point on, we assume that $T$ is a tree, so that $\calT$ is a (tidy) tree-decomposition of $G$.
+  Apply \cref{tidy_forest} to $\calT_1$ to obtain a forest $F_1$ such that $\calF_1:=(F_1,(B_x:x\in V(F_1)))$ is a tidy forest decomposition of $G$. 
+  Explicitly dealing with the case in which $F_1$ has more than one component (which can occur when $G$ has more than one component) requires duplicating parts of the argument.  Instead, we reduce to the case in which $F_1$ is connected, as follows. Let $F_1^1,\ldots,F_1^c$ be the connected components of $F_1$ and let $x_i$ be the root of $F_1^i$ for each $i\in\{1,\ldots,c\}$.  Create a tree $T$ by adding adding a root node \defin{$x_0$} adjacent to $x_1,\ldots,x_c$.  Add a dummy vertex $v_0$ to $G$ and set $B_{x_0}:=\{v_0\}$. Then $\calT:=(T,B_x:x\in V(T))$ is a tree-decomposition of $G$.  We make $\calT$ tiday by adding $v_0$ to $B_{x_i}$, for each $i\in[c]$.  Define the set $Y_0'$ that contains the edge between $y$ and its $T$-parent, for each edge $xy\in Y_0$ where $x$ is the $T_1$-parent of $y$.  Then $T-Y_0'$ satsifies \ref{td_width}, \ref{torsos_in_G_plus_k} and \ref{tprops_y0} (with respect to the set $Y_0'$).   
 
-  Let \defin{$x_0$} be the root of $T$. For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\calT$. For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$. 
+  For each $x\in V(T_1)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\calT_1$. For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T_1)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T_1)=\sum_{x\in V(T_1)}\omega(x)=\omega(G)$, since $\{B_x\setminus A_x\mid x\in V(T_1)\}$ is a partition of $V(G)$.  For each $x\in V(T_1)$, let $\mathdefin{C_x}:=N_{T_1,x}(x)$ be the $T_1$-children of $x$. For each $x\in V(T_1)$, and each clique $K$ in $\torso{G}{\calT_1,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$. 
 
   Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega:V(T)\to\N^+$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega:V(G)\to\{1\}$ is nice).  Furthermore, for every pair of vertices $x,y$ in the same component of $T-Y_1$, we have $\omega(T_y)/b< \omega(T_x)<b\cdot\omega(T_y)$; equivalently  $|\log\omega(T_x)-\log\omega(T_y)|< \log b$. For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, if $\max_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$, then we say that $K$ is \defin{light} in $\calT$.  Observe that, if a clique $K$ in $\torso{G}{\calT,B_x}-A_x$ is light, then $\omega(T_y)\le \omega(T_x)/b$ for each $y\in C_K$.  In particular, this implies that the edge $xy\in Y_1$ for each $y\in C_K$.  
 
-  Let $\mathdefin{Y}:=Y_0\cup Y_1$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the vertex in $C$ of minimal $T$-depth (so $r(C)$ is the root of the tree $C$). Then $Y$ satisfies the following strengthening of \ref{tprops_y0}:
+  Let $\mathdefin{Y}:=Y_0'\cup Y_1$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the vertex in $C$ of minimal $T$-depth (so $r(C)$ is the root of the tree $C$). Then $Y$ satisfies the following strengthening of \ref{tprops_y0}:
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{3}
     \item\label{component_size} each component of $F$ has at most $4b-1$ vertices;
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
@@ -1111,7 +1119,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
   For each $x\in V(T)$, the torso $\torso{G}{\calT,B_x}$ either belongs to $\calG^{+3k}$ (if $v_0\notin B_x$) or is obtained by adding the isolated vertex $v_0$ to a graph in $\calG^{+3k}$, in which case it belongs to $\calG^{+3k+1}$.
-  By \cref{add_apexes}, $\calG^{+3k+1}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
+  By \cref{add_apexes}, $\calG^{+3k+1}$ has a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
   \begin{align}
     \mathdefin{h_0(n)} & = (2g_0(n) + 3k + 1)2^{3k+1} \\
     \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
@@ -1392,7 +1400,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   All that remains is to argue that the adjacency labelling scheme we have just described is $g_0'$-orientable.  For each $G\in\calG$, let $\ell_G:V(G)\to\{0,1\}^*$ be an adjacency labelling of $G$ for $A'$, as defined above. Let $\calA':=(\ell_G: G\in\calG)$.  We must show that, for each $n\in\N$, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
 
   % Our argument relies on the fact that $\calG$ has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed-labelling scheme.  Fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $\calS:=((\mu_\tau,\kappa_\tau):n\in\N,\text{$\tau$ is a $(\calG,n)$-admissible triple})$ of $\calG$ for $(A,I)$. Let $\calA$ be the adjacency labelling scheme induced by $\calS$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calA,A)$.  By assumption, $U_n$ has an orientation in which each vertex has out-degree at most $g_0(n)$.
-  % Furthermore, for each $(\calG,n)$-admissible triple $\tau_0:=(H_0^+,H_0,\omega_0)$, each clique $K_0$ in $H_0^+$, and each $u_0\in K_0$ there are at most $g_0(n)$ binary strings $\zeta$ such that there exists a $(\calG,n)$-admissible tuple $\tau:=(H_1^+,H_1,\omega_1)$, a clique $K_1$ in $H_1^+$ and $u_1\in K_1$ such that $\mu_{\tau}(u_1)=\zeta$, $\mu_\tau(K_1)=\mu_{\tau_0}(K_0)$, $\kappa_{\tau}(K_1,u_1)=\kappa_{\tau_0}(K_0,u_0)$, and $I(\mu_\tau(K_1),\kappa_\tau(K_1,u_1),\mu_\tau(u_1))=1$.
+  % Furthermore, for each $(\calG,n)$-admissible triple $\tau_0:=(H_0^+,H_0,\omega_0)$, each clique $K_0$ in $H_0^+$, and each $u_0\in K_0$ there are at most $g_0(n)$ binary strings $\zeta$ such that there exists a $(\calG,n)$-admissible triple $\tau:=(H_1^+,H_1,\omega_1)$, a clique $K_1$ in $H_1^+$ and $u_1\in K_1$ such that $\mu_{\tau}(u_1)=\zeta$, $\mu_\tau(K_1)=\mu_{\tau_0}(K_0)$, $\kappa_{\tau}(K_1,u_1)=\kappa_{\tau_0}(K_0,u_0)$, and $I(\mu_\tau(K_1),\kappa_\tau(K_1,u_1),\mu_\tau(u_1))=1$.
 
   For each $n\in\N$ and each edge $\beta\beta'$ in $U'_n$ there exists
   a graph $G\in\calG'$ with at most $n$ vertices and an edge $vv'\in E(G)$ such that $\beta=\ell_G(v)$ and $\beta'=\ell_G(v')$. Let $\ell:=\ell_G$.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency tester on the input pair $(\ell_G(v),\ell_G(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x:x\in V(T)))$ be the tree-decomposition of $G$ used to define $\ell_G$ and let $((\mu_x,\kappa_x):x\in V(T))$, $Y\subset E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
@@ -1479,8 +1487,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 % \label{sec:disjoint}
 
 % \begin{lem}\label{disjoint_union_ii}
-%   Let $\calG$ be a class of graphs that admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\calG'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\calG$.
-%   Then $\calG'$ admits a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
+%   Let $\calG$ be a class of graphs that has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R^+$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$. Let $\calG'$ be the class of graphs that can be formed by taking the union of a finite number of pairwise vertex-disjoint graphs in $\calG$.
+%   Then $\calG'$ has a weighted $(g'_1,g_2,g_3')$ mixed labelling scheme, where
 %   \begin{align*}
 %     g'_1(n)
 %      & = g_1(n)+\Oh(\log\log n)\enspace,   \\
@@ -1490,11 +1498,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 % \end{lem}
 
 % \begin{proof}
-%   By~\cref{lem:nice_weights} it is enough to show that $\calG'$ admits a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\calG'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
+%   By~\cref{lem:nice_weights} it is enough to show that $\calG'$ has a weak weighted $(g_1',g_2,g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $\tau=(G^+,G,\omega)\in\calT_{\calG'}$ where $\omega$ is nice.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $\tau$.
 
-%   Let $G^+$ be an $n$-vertex graph in $\calG'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.
-%   Thus, for each $v\in V(G)$,
+%   Let $n=|V(G)|$. Since $\omega$ is nice, for each $v\in V(G)$,
 %   \begin{equation}
 %     \label{eq:nice}
 %     \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
@@ -1605,10 +1612,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   Let $k:\N\to\N^+$ and $b:\N\to\R^+$ be functions with $k(n)\in\Oh(\log n)$ and with $b(n)>1$ for all $n$.
 %   Let $\calG'$ be the class of graphs consisting of, for each $n\in\N$, every $n$-vertex graph $G$ with a rooted $b(n)$-skinny tree-decomposition of adhesion-width at most $k(n)$ in which each torso is a member of $\calG$.
 %   Let $g_i:\N\to\R$ be a non-decreasing function with $g_i(n)\in \Oh(\log n)$ for each $i\in[3]$.
-%   Suppose that $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
+%   Suppose that $\calG$ has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
 %   %\david{move the two previous sentences to before ``Let $k:\N\to\N^+$''}
 %   %\vida{No. Because function $b$ is used in prevous sentence and defined in "Let $k:\N\to\N^+$" sentence}
-%   Then $\calG'$ admits a weighted $(g_1',g_2',g'_3)$ mixed labelling scheme, where
+%   Then $\calG'$ has a weighted $(g_1',g_2',g'_3)$ mixed labelling scheme, where
 %   \begin{align*}
 %     g'_1(n)
 %      & = g_1(n) + \Oh(k(n)\log b(n) + k(n) \log\log n)\enspace, \\
@@ -1620,10 +1627,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 % \end{lem}
 
 % \begin{proof}
-%   By~\cref{lem:nice_weights} it is enough to show that $\calG'$ admits a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\calG'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\N^+$ is a nice weight function.
-%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $(G^+,G,\omega)$.
+%   By~\cref{lem:nice_weights} it is enough to show that $\calG'$ has a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $\tau=(G^+,G,\omega)\in\calT_{\calG'}$ where $\omega$ is nice.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $\tau$.
 
-%   Let $G^+$ be an $n$-vertex graph in $\calG'$, let $G$ be a spanning subgraph of $G^+$, and let $\omega:V(G)\to\N^+$ be a nice weight function.  By definition, $G^+$ has a $b$-skinny tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ in which each torso belongs to $\calG$ and each adhesion has size at most $k$, for integers $b =\lfloor b(n)\rfloor$ and $k = k(n)$. Note that $b,k\geq1$.
+%   Let $n=|V(G)|$. By definition, $G^+$ has a $b$-skinny tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ in which each torso belongs to $\calG$ and each adhesion has size at most $k$, for integers $b =\lfloor b(n)\rfloor$ and $k = k(n)$. Note that $b,k\geq1$.
 
 %   Let $p:=\height(T)+1$.
 %   For each $i\in[p]$, let $B_i:=\bigcup_{x\in L_i(T)} B_x$.  Then $\calP:=(B_1,\ldots,B_p)$ is a path-decomposition of $G$ in which each adhesion has size at most $bk$.
@@ -1866,7 +1873,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %     \item $\height(T)\le h(n)$;
 %     \item for each node $x$ in $T$, the torso $\torso{G}{\calT,B_x}$ belongs to $\calG$.
 %   \end{enumerate}
-%   Let $g_i:\N\to\R^+$ be a non-decreasing function  with $g_i\in\Oh(\log n)$ for each $i\in[3]$. Suppose that $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Then $\calG'$ admits a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
+%   Let $g_i:\N\to\R^+$ be a non-decreasing function  with $g_i\in\Oh(\log n)$ for each $i\in[3]$. Suppose that $\calG$ has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme. Then $\calG'$ has a weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
 %   \begin{align*}
 %     g'_1(n)
 %      & = g_1(n)
@@ -1880,15 +1887,13 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 % \end{lem}
 
 % \begin{proof}
-%   We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $(G^+,G,\omega)$ where $G^+\in\calG'$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.
-%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular input tuple.
+%   We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $\tau=(G^+,G,\omega)\in\calT_{\calG'}$.
+%   Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $\tau$.
 
-%   The proof is by induction on a slightly more detailed statement. An \defin{instance} is a tuple $(n,h,k,G^+,G,\omega,\calF)$ with the following properties:
-%   $n$ is an integer,
+%   The proof is by induction on a slightly more detailed statement. An \defin{instance} is a tuple $(n,h,k,\tau,\calF)$ where $\tau=(G^+,G,\omega)\in\calT_{\calG'}$ and with the following properties:
+%   $n$ is an integer with $n\geq |V(G^+)|$,
 %   $h\le h(n)$ is a non-negative integer,
 %   $k=k(n)$ is a positive integer,
-%   $G^+\in\calG'$ with $n\geq |V(G^+)|$,
-%   $G$ is a spanning subgraph of $G^+$,
 %   $\omega:V(G)\to\N^+$
 %   is a weight function with
 %   \begin{equation}
@@ -1898,7 +1903,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   for each $v\in V(G)$, and
 %   $\calF:=(F,(B_x \mid x\in V(F)))$ is a rooted tidy forest-decomposition of $G^+$ having adhesion-width at most $k=k(n)$ and with $F$ of height at most $h$.
 
-%   Let $(n,h,k,G^+,G,\omega,\calF)$ be an instance.
+%   Let $(n,h,k,\tau,\calF)$ be an instance.
 %   For each $y\in V(F)$, let
 %   \[
 %     A_y:=\begin{cases}
@@ -1917,12 +1922,12 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   \begin{equation}
 %     |\mu(K)| \le \log\omega(G) - \log\min_{v\in K}(\omega(v)) + (h+1)\cdot(g_3(n) + \Oh(k+\log\log n))\enspace.\label{strong_clique}
 %   \end{equation}
-%   Given an integer $n$, an $n$-vertex graph $G^+\in\calG'$, a spanning subgraph $G$ of $G^+$, and a weight function $\omega:V(G)\to\R^+$, let $\calT=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\calT$ is in $\calG$. Let $\calF_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\calT$).  Let $(n_0,h_0,k_0,G^+,G,\omega_0,\calF_0)$ be an instance where $n_0:=n=|V(G)|$, $h_0:=h(n)$, $k_0:=k(n)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, $\calF_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\calT$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
+%   Given $\tau=(G^+,G,\omega)\in\calT_{\calG'}$, let $n=|V(G)|$ and let $\calT=(T,(B_x \mid x\in V(T)))$ be a rooted tree-decomposition of $G^+$ of adhesion-width at most $k(n)$ and with $\height(T)\leq h(n)$ and such that each torso of $\calT$ is in $\calG$. Let $\calF_0:=(F,(B_x \mid x\in V(F)))$ be a rooted tidy forest-decomposition of $G^+$ (obtained by applying \cref{tidy_forest} to $\calT$).  Let $(n_0,h_0,k_0,\tau_0,\calF_0)$ be an instance where $n_0:=n$, $h_0:=h(n)$, $k_0:=k(n)$, $\tau_0=(G^+,G,\omega_0)$, $\omega_0:V(G)\to\N^+$ is a nice weight function obtained by applying \cref{obs:nice} to $\omega$, and $\calF_0$ is a rooted tidy forest-decomposition obtained by applying \cref{tidy_forest} to $\calT$.  (The definition of $\omega_0$ satisfies \eqref{eq:short-td-nice-weights}, by \cref{obs:nice}.)
 %   By our inductive statement we obtain labelling functions $(\mu,\kappa)$ for $(A',I')$.
 %   The labels lengths are bounded in terms of $\omega_0$ which is enough because $\log\omega_0(G) - \log\omega_0(v) \leq \log\omega(G)-\log\omega(v)+2$, which follows from~\cref{obs:nice}.
 %   This will complete the proof of the lemma.
 
-%   We now begin the inductive proof. Let $(n,h,k,G^+,G,\omega,\calF)$ be an instance, where $\calF:=(F,(B_x\mid x\in V(F)))$.
+%   We now begin the inductive proof. Let $(n,h,k,\tau,\calF)$ be an instance with $\tau=(G^+,G,\omega)$ and where $\calF:=(F,(B_x\mid x\in V(F)))$.
 %   Let $(A,I)$ be the pair of adjacency and identity testers for a weighted $(g_1,g_2,g_3)$ mixed labelling scheme of $\calG$.  Let
 %   \[
 %     G^\star:= \cup\set{\torso{G^+}{\calF,B_z}\mid z \in V(F)}\enspace.
@@ -2241,10 +2246,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   Let $k\in\N$.
 %   Let $\calG'$ be the class of graphs consisting of, for each $n\in\N$,  every $n$-vertex graph $G$ that has a tree-decomposition of adhesion-width at most $k$ in which each torso is a member of $\calG$.
 %   Let $g_i:\N\to\R^+$ be a non-decreasing function with $g_i\in\Oh(\log n)$ for each $i\in[3]$.
-%   Suppose that $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
+%   Suppose that $\calG$ has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme.
 %   %\david{I suggest we put the previous two sentences prior to ``Let $k\in\N$.''} 
 %   %\vida{No because $k$ is used in previous sentence}
-%   Then $\calG'$ admits a weighted $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
+%   Then $\calG'$ has a weighted $(g_1'',g_2'',g_3'')$ mixed labelling scheme, where
 %   \begin{align*}
 %     g''_1(n)
 %      & = g_1(n) + \Oh(g_2(n)) + \Oh\left(\sqrt{g_3(n)\log n}\right) + \Oh\left(\sqrt{\frac{\log n}{g_3(n)}}\log\log n\right) \enspace , \\
@@ -2311,48 +2316,37 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
 \begin{lem}
   \label{main_result_detailed}
-  Every proper minor-closed graph class $\calC$  admits a $\exp(O((\log n)^{3/4}))$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
+  Every proper minor-closed graph class $\calC$  has a $\exp(O((\log n)^{3/4}))$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
 \end{lem}
 
 \begin{proof}
-  % We show that $\calC$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\calC$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
+  % We show that $\calC$ has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\calC$ has an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
 
   Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\calC$.  
   % Let $\calD$ be the class of graphs that have a tree-decomposition in which each torso is in $\calR_k^{+a}$. By \cref{gmpst}, $\calC\subseteq\calD$.  
-  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\calR_k^{+a}$ admits a strongly $\exp(O(\sqrt{\log n}))$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
+  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\calR_k^{+a}$ has a strongly $\exp(O(\sqrt{\log n}))$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
 
-  % Let $\calQ$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\calR_k^{+a}$.  By \cref{disjoint_union_ii}, $\calQ$ admits a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\calQ$ is closed under disjoint union.  Also, by definition  $\calR_k^{+a}\subseteq\calQ$. Since $\calR_k^{+a}$ is hereditary, $\calQ$ is hereditary.
+  % Let $\calQ$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\calR_k^{+a}$.  By \cref{disjoint_union_ii}, $\calQ$ has a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\calQ$ is closed under disjoint union.  Also, by definition  $\calR_k^{+a}\subseteq\calQ$. Since $\calR_k^{+a}$ is hereditary, $\calQ$ is hereditary.
 
   Let $\calQ$ be the class of graphs that have a tree-decomposition whose torsos are in $\calR_k^{+a}$. The graphs in $\calR_k^{+a}$ have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, each graph in $\calQ'$ has a tree-decomposition of adhesion-width at most $2k+a+2$ whose torsos are in $\calR_k^{+a}$.
 
-  By \cref{lem:the_big_one} with $b(n)=(\log n)^{3/4}$, each graph in $\calQ$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with
+  By \cref{lem:the_big_one} with $b(n)=(\log n)^{3/4}$, each graph in $\calQ$ has a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with
   \[
     f(n) \le \log n +  g'_1(n) + \Oh\left(g'_2(n) + \sqrt{g'_3(n)\log n}
     + \sqrt{\frac{\log n}{g'_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
   \]
-  By the choice of $k$ and $a$, $\calC\subseteq\calQ$.  Therefore, $\calC$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
+  By the choice of $k$ and $a$, $\calC\subseteq\calQ$.  Therefore, $\calC$ has a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
 \end{proof}
 
 \section{Discussion}\label{conclusion}
 
-We conclude with a brief discussion about constants and computational complexity.  The constant $a$ in \cref{gmpst} is surprisingly small. Suppose that some graph $X$ is not in $\calG$, where $X-A$ is planar for some non-empty set $A\subseteq V(X)$. Then Theorem~42 in \citep{dujmovic.joret.ea:planar} (which employs the structure theorem of \citet{DvoTho}) shows that \cref{gmpst} holds with $a=|A|-1$. For example, if $K_t$ is not in $\calG$, then \cref{gmpst} holds with $a=\max\{t-5,0\}$. Moreover, using the recent polynomial bounds in the Graph Minor Structure Theorem by \citet{gorsky2025polynomial}, in \cref{gmpst} one can obtain polynomial bounds on $k$ and $a$ (as a function of the excluded minor). However, it is open whether one can simultaneously get the above optimal bound on $a$ and a polynomial bound on $k$. \citet[Conjecture~18.9]{gorsky2025polynomial} conjecture this is possible (also see the discussion in \citep{GSW26}).
+\pat{This needs to be rewritten}
+% We conclude with a brief discussion about constants and computational complexity.  The constant $a$ in \cref{gmpst} is surprisingly small. Suppose that some graph $X$ is not in $\calG$, where $X-A$ is planar for some non-empty set $A\subseteq V(X)$. Then Theorem~42 in \citep{dujmovic.joret.ea:planar} (which employs the structure theorem of \citet{DvoTho}) shows that \cref{gmpst} holds with $a=|A|-1$. For example, if $K_t$ is not in $\calG$, then \cref{gmpst} holds with $a=\max\{t-5,0\}$. Moreover, using the recent polynomial bounds in the Graph Minor Structure Theorem by \citet{gorsky2025polynomial}, in \cref{gmpst} one can obtain polynomial bounds on $k$ and $a$ (as a function of the excluded minor). However, it is open whether one can simultaneously get the above optimal bound on $a$ and a polynomial bound on $k$. \citet[Conjecture~18.9]{gorsky2025polynomial} conjecture this is possible (also see the discussion in \citep{GSW26}).
 
-We now explain why the proof of \cref{main_result} is constructive and that there is a polynomial time encoder.  The only difficult part of this process is finding the decomposition described by the Graph Minor Product Structure Theorem (\cref{gmpst}).  \citet{dujmovic.joret.ea:planar} show how to obtain this decomposition in polynomial time, given the structural decomposition in the original Robertson-Seymour Graph Minor Structure Theorem. Finding the Robertson-Seymour decomposition is complicated, but polynomial time algorithms exist \cite{kawarabayashi2018flat,kawarabayashi2020new,gorsky2025polynomial,demaine2005algorithmic}.  Together, these give the parameters $k$ and $a$, the tree-decomposition $\calT:=(T, (B_x:x\in V(T)))$ of $G$ and the embedding of each torso of $\calT$ into a graph in $\calR_k^{+a}$. The adjacency labelling scheme in \cite{dujmovic.esperet.ea:adjacency} and its modification to weighted mixed labellings in \cref{weighted_product_proof} are easily implemented in polynomial time just from their definitions.  Thus, for any torso of $\calT$, the mixed labelling of any subgraph of the torso and any set of cliques in the torso can be computed in polynomial time.  The partition of $T$ into skinny subtrees and the corresponding contracted tree $T'$ and tree-decomposition $\calT'$ are easily obtained (even in linear time).  The labelling of each torso of $\calT'$ given in \cref{skinny_labelling} requires only computing  alphabetic codes (\cref{shannon_fano_elias_tree,shannon_fano_elias_code}) as well as weighted mixed labellings on subgraphs of torsos of $\calT$.  The final vertex label $\mu(v)$ for a vertex of $G$ is then obtained by following the path from the root of $T'$ to the home of $v$ in $\calT'$ and concatenating a sequence of clique labels, the vertex label for $v$ in its home torso, and at most $k$ local identifiers.
+% We now explain why the proof of \cref{main_result} is constructive and that there is a polynomial time encoder.  The only difficult part of this process is finding the decomposition described by the Graph Minor Product Structure Theorem (\cref{gmpst}).  \citet{dujmovic.joret.ea:planar} show how to obtain this decomposition in polynomial time, given the structural decomposition in the original Robertson-Seymour Graph Minor Structure Theorem. Finding the Robertson-Seymour decomposition is complicated, but polynomial time algorithms exist \cite{kawarabayashi2018flat,kawarabayashi2020new,gorsky2025polynomial,demaine2005algorithmic}.  Together, these give the parameters $k$ and $a$, the tree-decomposition $\calT:=(T, (B_x:x\in V(T)))$ of $G$ and the embedding of each torso of $\calT$ into a graph in $\calR_k^{+a}$. The adjacency labelling scheme in \cite{dujmovic.esperet.ea:adjacency} and its modification to weighted mixed labellings in \cref{weighted_product_proof} are easily implemented in polynomial time just from their definitions.  Thus, for any torso of $\calT$, the mixed labelling of any subgraph of the torso and any set of cliques in the torso can be computed in polynomial time.  The partition of $T$ into skinny subtrees and the corresponding contracted tree $T'$ and tree-decomposition $\calT'$ are easily obtained (even in linear time).  The labelling of each torso of $\calT'$ given in \cref{skinny_labelling} requires only computing  alphabetic codes (\cref{shannon_fano_elias_tree,shannon_fano_elias_code}) as well as weighted mixed labellings on subgraphs of torsos of $\calT$.  The final vertex label $\mu(v)$ for a vertex of $G$ is then obtained by following the path from the root of $T'$ to the home of $v$ in $\calT'$ and concatenating a sequence of clique labels, the vertex label for $v$ in its home torso, and at most $k$ local identifiers.
 
 
-Finally, we note that \cref{PlainRealMainTechnical} applies beyond proper
-minor-closed classes. Recall that, for fixed $k$, $\calR_k$ consists of
-the graphs isomorphic to subgraphs of $H\boxtimes P$ for some graph $H$ of
-treewidth at most $k$ and some path $P$. This class is hereditary, closed
-under taking disjoint union, and admits an efficient weighted mixed labelling
-scheme (\cref{gk_labelling_precise}), so \cref{PlainRealMainTechnical} applies
-to it. Moreover, for suitable $k=k(p)$, $\calR_k$ contains every
-$p$-planar graph (graphs that can be drawn in the plane with at most $p$
-crossings per edge)~\citep{dujmovic.morin.ea:graph}, and more generally every
-$p$-matching-planar graph~\citep{DBLP:journals/corr/abs-2507-22395} (graphs that have a drawing in the plane such that, for every edge $e$, every
-matching among the edges crossing $e$ has size at most $p$). Note that these classes are not minor-closed. Consequently, for all fixed $p$ and $q$, the class of graphs admitting a tree-decomposition of adhesion-width at most $q$ in which every
-torso is $p$-matching-planar (again a class that is not minor-closed)
- admits a $(1+o(1))\log n$-bit adjacency labelling scheme.
+% Finally, we note that \cref{PlainRealMainTechnical} applies beyond proper minor-closed classes. Recall that, for fixed $k$, $\calR_k$ consists of the graphs isomorphic to subgraphs of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and some path $P$. This class is hereditary, closed under taking disjoint union, and has an efficient weighted mixed labelling scheme (\cref{gk_labelling_precise}), so \cref{PlainRealMainTechnical} applies to it. Moreover, for suitable $k=k(p)$, $\calR_k$ contains every $p$-planar graph (graphs that can be drawn in the plane with at most $p$ crossings per edge)~\citep{dujmovic.morin.ea:graph}, and more generally every $p$-matching-planar graph~\citep{DBLP:journals/corr/abs-2507-22395} (graphs that have a drawing in the plane such that, for every edge $e$, every matching among the edges crossing $e$ has size at most $p$). Note that these classes are not minor-closed. Consequently, for all fixed $p$ and $q$, the class of graphs having a tree-decomposition of adhesion-width at most $q$ in which every torso is $p$-matching-planar (again a class that is not minor-closed) has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 
 
 \section*{Acknowledgement} 
@@ -2379,7 +2373,7 @@ Variants of the following result appear in several contexts, with different boun
 \end{lem}
 
 \begin{lem}\label{gk_labelling_precise}
-  For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\calR_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where
+  For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\calR_{k}$ has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where
   \begin{align*}
   g_0(n)&\le \exp(\Oh(k(n)\sqrt{\log n})) \enspace ,\\
   g_1(n)&\in \Oh(k(n)\sqrt{\log n}) \enspace ,\\
@@ -2394,7 +2388,7 @@ Variants of the following result appear in several contexts, with different boun
   \cref{gk_labelling_precise} is establishing several results at once, using combinations of techniques from \cite{dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler,EJM23} and \cref{low_height_tree_decomp}.  Thus, we present the proof in stages.
   We begin by describing a $(\log n+O(\sqrt{\log n}))$-bit adjacency labelling scheme for $\calR_k$ that uses an adjacency tester $A$.  Next we describe clique labels, local identifiers, and an identity tester $I$ that, along with the adjacency-labelling for $A$ give an unweighted strongly $g_0$-orientable $(g_1,g_2,g_3)$ mixed labelling scheme.  Finally, we show how to make this into a weighted strongly $g_0$-orientable $(g_1,g_2,g_3)$ mixed labelling scheme using the trick of \emph{simulating weight by multiplicity}.
 
-  As usual, we first describe the format of the labels before describing the operation of the adjacency tester $A$. Let $G^+$ be an $n$-vertex graph in $\calR_k$ and let $G$ be a spanning subgraph of $G^+$.  Thus, $G^+$ and $G$ are subgraphs of $H\boxtimes P$, where $H$ is a graph of treewidth at most $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$.  Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$. We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$ for each $i\in[h]$ (and therefore $h\le n$) and that each vertex of $H$ appears as the $H$-coordinate of at least one vertex of $G$ (and therefore $|V(H)|\le n$). The label of each vertex $(v,i)$ of $G$ has two parts. The first part, $\lambda_1(v,i)$ is determined by the $P$-coordinate, $i$. The second part, $\lambda_2(v,i)$, is obtained from a labelling of $H[V_i]$ (where $V_i$ is defined below), so it represents the $H$-coordinate, $v$.
+  As usual, we first describe the format of the labels before describing the operation of the adjacency tester $A$. Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$ and let $n=|V(G)|$. (For now we assume $\omega(v)=1$ for all $v\in V(G)$.) Thus, $G^+$ and $G$ are subgraphs of $H\boxtimes P$, where $H$ is a graph of treewidth at most $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$.  Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$. We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$ for each $i\in[h]$ (and therefore $h\le n$) and that each vertex of $H$ appears as the $H$-coordinate of at least one vertex of $G$ (and therefore $|V(H)|\le n$). The label of each vertex $(v,i)$ of $G$ has two parts. The first part, $\lambda_1(v,i)$ is determined by the $P$-coordinate, $i$. The second part, $\lambda_2(v,i)$, is obtained from a labelling of $H[V_i]$ (where $V_i$ is defined below), so it represents the $H$-coordinate, $v$.
 
   By \cref{low_height_tree_decomp}, $H$ has a rooted binary tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\in \Oh(\log n)$.   For each $x\in V(T)$, add edges to $H$ so that $B_x$ becomes a clique.  Order the vertices of $H$ such that a vertex $v<w$ if the home of $v$ in $\calT$ is a $T$-ancestor of the home of $w$ in $\calT$. If $v$ and $w$ have the same home in $\calT$ then the relative order of $v$ and $w$ is unimportant.  For each $w\in V(H)$, let $N^+_H(w)=\{v\in N_H(w)\mid v < w\}$.  Then $|N^+_H(w)|\le 6k+5$ since $v\in N^+_H(w)$ implies that $v\in B_x\setminus\{w\}$ where $x$ is the home of $w$ in $\calT$.  Note that, for each clique $K$ in $H$, $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$.
 
@@ -2448,8 +2442,8 @@ Variants of the following result appear in several contexts, with different boun
 
   \paragraph{\boldmath The row label $\lambda_1$:}
   With the sets $S^+_1,\ldots,S^+_h$ described, we can now discuss $\lambda_1$.
-  The first part of $\lambda_1(v,i)$ is obtained by applying \cref{shannon_fano_elias_code} to the set $[h]$ using the weight function defined by $i \mapsto |S^+_i|$. This gives a prefix-free code $\mathdefin{\rho}:[h]\to\{0,1\}^*$ where, by \cref{shannon_fano_elias_code} and Property~\ref{plus_size} of $S^+_1,\ldots,S^+_h$, $|\rho(i)|\le \log(\sum_{i=1}^h |S^+_i|) - \log|S^+_i| + \Oh(1)\le \log n - \log|S^+_i| + \Oh(1)$ for each $i\in[h]$.
-  For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\overleftarrow{\pi}(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\overleftarrow{\pi}(i)$ (for $i=1$, let $\overleftarrow{\pi}(1):=\varepsilon$).  For each $i\in[h-1]$, a string $\mathdefin{\overrightarrow{\pi}(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i+1)$ can be derived from $\rho(i)$ and $\overrightarrow{\pi}(i)$ (for $i=h$, let $\overrightarrow{\pi}(h):=\varepsilon$).  Formally, there exists a universal function $F:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $F(\rho(i),\overleftarrow{\pi}(i))=\rho(i-1)$ for each $i\in\{2,\ldots,h\}$ and $F(\rho(i),\overrightarrow{\pi}(i))=\rho(i+1)$ for each $i\in[h-1]$.\footnote{Under normal circumstances, the string $\overrightarrow{\pi}(i)$ is never used by the adjacency tester or the identity tester.  The only reason to include $\overrightarrow{\pi}(i)$ in $\lambda_1(v,i)$ is to establish that our schemes are $g_0$-orientable. Roughly speaking, $\overrightarrow{\pi}(i)$ is relevant only when considering the output of $A(\beta,\beta')$ for certain bitstrings $\beta$ and $\beta'$ that do not correspond to the vertex labels of any pair of vertices in any graph $G\in\calR_k$.}
+  The first part of $\lambda_1(v,i)$ is obtained by applying \cref{shannon_fano_elias_code} to the set $[h]$ using the weight function defined by $i \mapsto |S^+_i|$ to obtain a prefix-free code $\rho:[h]\to\{0,1\}^*$ and functions $\overleftarrow{\pi}:[h]\to\{0,1\}^*$ and $\overrightarrow{\pi}:[h]\to\{0,1\}^*$. By \cref{shannon_fano_elias_code} and Property~\ref{plus_size} of $S^+_1,\ldots,S^+_h$, $|\rho(i)|\le \log(\sum_{i=1}^h |S^+_i|) - \log|S^+_i| + \Oh(1)\le \log n - \log|S^+_i| + \Oh(1)$ for each $i\in[h]$.
+  % For each $i\in\{2,\ldots,h\}$, a string $\mathdefin{\overleftarrow{\pi}(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i-1)$ can be derived from $\rho(i)$ and $\overleftarrow{\pi}(i)$ (for $i=1$, let $\overleftarrow{\pi}(1):=\varepsilon$).  For each $i\in[h-1]$, a string $\mathdefin{\overrightarrow{\pi}(i)}$ of length $\Oh(\log\log n)$ is computed so that $\rho(i+1)$ can be derived from $\rho(i)$ and $\overrightarrow{\pi}(i)$ (for $i=h$, let $\overrightarrow{\pi}(h):=\varepsilon$).  Formally, there exists a universal function $F:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $F(\rho(i),\overleftarrow{\pi}(i))=\rho(i-1)$ for each $i\in\{2,\ldots,h\}$ and $F(\rho(i),\overrightarrow{\pi}(i))=\rho(i+1)$ for each $i\in[h-1]$.\footnote{Under normal circumstances, the string $\overrightarrow{\pi}(i)$ is never used by the adjacency tester or the identity tester.  The only reason to include $\overrightarrow{\pi}(i)$ in $\lambda_1(v,i)$ is to establish that our schemes are $g_0$-orientable. Roughly speaking, $\overrightarrow{\pi}(i)$ is relevant only when considering the output of $A(\beta,\beta')$ for certain bitstrings $\beta$ and $\beta'$ that do not correspond to the vertex labels of any pair of vertices in any graph $G\in\calR_k$.}
 
 
   Then
@@ -2650,7 +2644,7 @@ Variants of the following result appear in several contexts, with different boun
   \end{itemize}
 
 
-  \paragraph{Simulating weights by multiplicity:}  Finally, we explain how to make the unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into (a strongly $g_0$-orientable) weighted mixed labelling scheme.  Let $(G^+,G,\omega)$ be an $\calR_k$-admissible triple.  By \cref{lem:nice_weights} we may assume that the weight function $\omega:V(G)\to\mathbb{N}$ is nice, so $\min_{v\in V(G)}\omega(v) \ge 1$  and $\log\omega(G)\le \log n+ \Oh(1)$.
+  \paragraph{Simulating weights by multiplicity:}  Finally, we explain how to make the unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into (a strongly $g_0$-orientable) weighted mixed labelling scheme.  Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$.  By \cref{lem:nice_weights} we may assume that the weight function $\omega:V(G)\to\mathbb{N}$ is nice, so $\min_{v\in V(G)}\omega(v) \ge 1$  and $\log\omega(G)\le \log n+ \Oh(1)$.
 
   The only modification is in the definition of the sets $S_1,\ldots,S_h$. Define $\omega(v,i)=0$ for each $(v,i)\in (V(H)\times\{0,\ldots,h+1\})\setminus V(G)$.  For each $i\in[h]$ and each $v\in V_i$, define $\delta(v,i) = \omega(v,i-1)+\omega(v,i)+\omega(v,i+1)$.  For each $i\in[h]$ and each $v\in V_i$, at least one of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is in $V(G)$, so $\delta(v,i) \ge 1$. Furthermore, $\sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ since each vertex $(v,i)$ of $G$ contributes $\omega(v,i)$ to $\delta(v,j)$ for at most three values of $j$. Fix $\epsilon \in (0,1/(6\omega(G))]$. For each $i\in\{1,\ldots,h\}$, define 
   \[
@@ -2709,7 +2703,7 @@ Variants of the following result appear in several contexts, with different boun
   \end{align*}
   which satisfies the requirement $g_3(n)\in\Oh(k\sqrt{\log n})$.
 
-  \paragraph{\boldmath $g_0$-Orientability:}  For each $\calR_k$-admissible triple $\tau:=(G^+,G,\omega)$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above. Let $\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calR_k})$ of $\calR_k$ for $(A,I)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A,I)$.  We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$. 
+  \paragraph{\boldmath $g_0$-Orientability:}  For each $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above. Let $\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calR_k})$ of $\calR_k$ for $(A,I)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A,I)$.  We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$. 
 
   Let $\beta\beta'$ be an edge of $U_n$.  Thus, there exists an $\calR_k$-admissible triple $\tau:=(G^+,G,\omega)$ with $|V(G)|\le n$ and an edge $e$ of $G$ such that $\mu_\tau((v,i))=\beta$ and $\mu_\tau((w,j))=\beta'$.  Since $G^+\in\calR_k$, there exists a graph $H$ of treewidth at most $k$ and an integer $h$ such that $G^+$ is a subgraph of $H\boxtimes P$ where $P:=1,\ldots,h$ is a path graph.  Let $\calT$ and $N^+_H$ be defined as above.  Since $(v,i)(w,j):=e$ is an edge of $G$, $|j-i|\le 1$.  Since $e\in E(G)$, $A(\mu_\tau((v,i)),\mu_\tau((w,j)))=1$. By the definition of $A$, one of the following three cases occurs:
   \begin{enumerate}
@@ -2729,13 +2723,13 @@ Variants of the following result appear in several contexts, with different boun
 
     \item $\rho(i)=F(\rho(j),\overleftarrow{\pi}(j))$, in which case $i=j-1$ (so $j=i+1$).  This case is completely symmetric to the previous case: we may assume without loss of generality that $w\in N^+_H(v)$ and deduce that for any fixed $\beta$ the number of edges of $U_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $\exp(\Oh(k\sqrt{\log n}))$.
   \end{enumerate} 
-
-  \paragraph{\boldmath Strong $g_0$-orientability:}  Let $\tau_0:=(G^+_0,G_0,\omega_0)$ be an $\calR_k$-admissible triple with $|V(G_0)|\le n$.  Let $(\mu_0,\kappa_0):=(\mu_{\tau_0}, \kappa_{\tau_0})$ be the mixed labelling of $\tau_0$ for $(A,I)$. Let $K_0$ be a clique in $G^+_0$ and let $(u_0,j_0)\in K_0$.  Let $\beta:=\mu_0(K_0)$ and $\gamma:=\kappa_0(K_0,(u_0,j_0))$.  We must upper bound the number of strings $\beta'$ such that there exists a $\calR_k$-admissible triple $\tau:=(G^+,G,\omega)$ with $|V(G)|\le n$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$ such that $\mu(K)=\beta$, $\kappa_\tau(K,(u,j))=\gamma$, and $\mu_\tau((u,j))=\beta'$.  Let $\beta'$ be such a string and let $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$. By the definition of identity tester $I$, one of the following cases applies:
+  
+  \paragraph{\boldmath Strong $g_0$-orientability:}  Let $\tau_0=(G^+_0,G_0,\omega_0)\in\calT_{\calR_k}$ with $|V(G_0)|\le n$.  Let $(\mu_0,\kappa_0):=(\mu_{\tau_0}, \kappa_{\tau_0})$ be the mixed labelling of $\tau_0$ for $(A,I)$. Let $K_0$ be a clique in $G^+_0$ and let $(u_0,j_0)\in K_0$.  Let $\zeta:=\mu_0(K_0)$ and $\gamma:=\kappa_0(K_0,(u_0,j_0))$.  We must upper bound the number of strings $\beta$ such that there exists a $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$ with $|V(G)|\le n$, a clique $K$ in $G^+$ and a vertex $(u,j)\in K$ such that $\mu(K)=\zeta$, $\kappa_\tau(K,(u,j))=\gamma$, and $\mu_\tau((u,j))=\beta$.  Let $\beta$ be such a string and let $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$. By the definition of identity tester $I$, one of the following cases applies:
 
   \begin{itemize}
-    \item If $\lambda_1(K)=\lambda_1(u,j)$ then $j=i_K$.  In this case, the strings $\sigma(v_K,i_K)$, $\kappa(K,(u,j))$, and $\alpha(K)$ defined by $\beta$ fix the values of $\sigma(u,i_K)=\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\alpha(u,i_K)$, $\overleftarrow{\tau}(u,i_K)$, $\overrightarrow{\tau}(u,i_K)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
+    \item If $\lambda_1(K)=\lambda_1(u,j)$ then $j=i_K$.  In this case, the strings $\sigma(v_K,i_K)$, $\kappa(K,(u,j))$, and $\alpha(K)$ defined by $\zeta$ fix the values of $\sigma(u,i_K)=\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\alpha(u,i_K)$, $\overleftarrow{\tau}(u,i_K)$, $\overrightarrow{\tau}(u,i_K)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta$ such that this branch of the identity testing procedure outputs $1$.
 
-    \item If $\lambda_1(K)\neq\lambda_1(u,j)$ then $j=i_K-1$.  In this case $\rho(j)=F(\rho(i_K), \overleftarrow{\pi}(i_K))$ is fixed by $\lambda_1(K)$, which is defined by $\beta$.  Then the strings $\sigma(v_K,j)=J(\sigma(v_K,i_K),\overleftarrow{\tau}(v_K,i_K))$, $\kappa(K,(u,j))$, and $\alpha(K)$ contained in $\beta$ and $\gamma$ fix the values of $\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(u,j)$, $\overleftarrow{\tau}(u,j)$, $\overrightarrow{\tau}(u,j)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta'$ such that this branch of the identity testing procedure outputs $1$.
+    \item If $\lambda_1(K)\neq\lambda_1(u,j)$ then $j=i_K-1$.  In this case $\rho(j)=F(\rho(i_K), \overleftarrow{\pi}(i_K))$ is fixed by $\lambda_1(K)$, which is defined by $\zeta$.  Then the strings $\sigma(v_K,j)=J(\sigma(v_K,i_K),\overleftarrow{\tau}(v_K,i_K))$, $\kappa(K,(u,j))$, and $\alpha(K)$ contained in $\zeta$ and $\gamma$ fix the values of $\sigma(u,j)$ and $\varphi(u)$.  The remaining parts of $\mu(u,j)$ are $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(u,j)$, $\overleftarrow{\tau}(u,j)$, $\overrightarrow{\tau}(u,j)$, which have a total length of $\Oh(k\sqrt{\log n})$. Thus, there are at most $\exp(\Oh(k\sqrt{\log n}))$ bitstrings $\beta$ such that this branch of the identity testing procedure outputs $1$.
   \end{itemize}
   Thus, $(\calS, A,I)$ is strongly $g_0$-orientable.
 \end{proof}
