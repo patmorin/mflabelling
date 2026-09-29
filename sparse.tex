@@ -735,42 +735,40 @@ The following lemma is well-known (see, for example \cite{}).
 \section{Weighted Mixed Labelling Schemes -- Proof of \texorpdfstring{\cref{PlainRealMainTechnical}}{Theorem \ref*{PlainRealMainTechnical}}}
 \label{weighted_mixed_section}
  
-This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. Let $\calG$ be a class of graphs.
+This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. Let $\calG$ be a class of graphs. We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  Let \defin{$\calT_\calG$} be the set of all $\calG$-admissible triples. For each each $n\in\N$, let $\mathdefin{\calT_{\calG,\le n}}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G)|\le n\}$.
+
 Let $g_i:\N\to\R^+$ for each $i\in[3]$.
 The class  $\calG$ admits a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} of $\calG$ if there exists a pair $(A,I)$ with
 \begin{itemize}[nosep,nolistsep]
   \item $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}); and
   \item $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester})
 \end{itemize}
-such that for every $n\in\N^+$, every $n$-vertex graph $G^+$ in $\calG$, every spanning subgraph $G$ of $G^+$, and every weight function $\omega:V(G)\to \R^+$, there exists a function $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ and a function $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ such that:
-\begin{enumerate}[nosep,nolistsep,label=(\roman*)]
-  \item For all pairs of distinct cliques $K$ and $L$ in $G^+$, $\mu(K)\neq\mu(L)$;
-  \item For all $u,v\in V(G)$,
-        \[
-          \textrm{$A(\mu(u),\mu(v))=1$ if and only if $uv\in E(G)$;}
-        \]
-  \item For every clique $K$ in $G^+$, $u\in K$, $v\in V(G)$,
-        \[
-          \textrm{$I(\mu(K),\kappa(K, u),\mu(v))=1$ if and only if $u=v$;}
-        \]
-  \item for every $v\in V(G)$,
-        \[
-          |\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n);
-        \]
-  \item for every clique $K$ in $G^+$,
-        \[
-          |\mu(K)|\le \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n);
-        \]
-  \item  for every clique $K$ in $G^+$ and $u\in K$,
-        \[
-          |\kappa(K, u)| \leq g_2(n).
-        \]
+such that for every $n\in\N^+$ and every $(G^+,G,\omega)\in\calT_{\calG,\le n}$, there exist functions
+\begin{itemize}[nosep,nolistsep]
+  \item $\mu: V(G)\cup \{K\mid \text{$K$ is a clique in $G^+$}\} \to \set{0,1}^*$ (the \defin{mixed labelling function}) and 
+  \item $\kappa:\{(K, u)\mid \text{$K$ is a clique in $G^+$}, u\in K\}\to \set{0,1}^*$ (the \defin{local identifier function})
+\end{itemize} 
+such that:
+\begin{enumerate}[nosep,nolistsep,label=(M\arabic*)]
+  \item\label{mls:injective_on_cliques} for all pairs of distinct cliques $K$ and $L$ in $G^+$, $\mu(K)\neq\mu(L)$;
+  \item\label{mls:adjacency_tester} for all $u,v\in V(G)$, $A(\mu(u),\mu(v))=1$ if and only if $uv\in E(G)$;
+  \item\label{mls:identity_tester} for every clique $K$ in $G^+$, every $u\in K$, and every $v\in V(G)$, $I(\mu(K),\kappa(K, u),\mu(v))=1$ if and only if $u=v$;
+  \item\label{mls:vertex_label_length} for every $v\in V(G)$, $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n)$;
+  \item\label{mls:clique_label_length} for every clique $K$ in $G^+$, $|\mu(K)|\le \log \omega(G) - \log(\min_{v\in K}(\omega(v))) + g_3(n)$;
+  \item\label{mls:local_identifier_length}  for every clique $K$ in $G^+$ and every $u\in K$, $|\kappa(K, u)| \leq g_2(n)$.
 \end{enumerate}
 Here is a little intuition about these definitions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's Inequality \cite{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}(\omega(v))$.
 
-A pair $(\mu,\kappa)$ that satisfies the first two conditions is a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  A pair $(\mu,\kappa)$ that satisfies all these conditions is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  It is helpful to extend the notion mixed labelling to graph classes. Let $\calG$ be a graph class.  
-We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  For any graph class $\calG$, let $\calT_\calG$ be the set of all $\calG$-admissible triples.  For each each $n\in\N$, let $\calT_{\calG,n}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G^+)\le n\}$.  For each $\tau:=(G^+,G,\omega)\in\calT_\calG$,  fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A,I)$.  Then $\calS:=((\mu_\tau,\kappa_\tau):n\in\N, \tau\in\calT_n))$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed-labelling} of $\calG$ for $(A,I)$.  
-An $f(n)$-bit adjacency labelling of $\calG$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\calG$ let $\ell_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\calA:=((\ell_G):G\in\calG)$ is an $f(n)$-bit \defin{adjacency labelling} of $\calG$ for $A$.   
+A pair $(\mu,\kappa)$ that satisfies \ref{mls:injective_on_cliques}, \ref{mls:adjacency_tester}, and \ref{mls:identity_tester} is called a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  If $(\mu,\kappa)$ additionally satisfies \ref{mls:vertex_label_length}, \ref{mls:clique_label_length}, and \ref{mls:local_identifier_length} then $(\mu,\kappa)$ is called a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  
+
+To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix a particular mixed labelling of each $\calG$-admissible triple.  A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling scheme} for a graph class $\calG$ is a triple $((\mu_\tau,\kappa_\tau)\mid \tau\in\calT_\calG)$ where $A$ is an adjacency tester, $I$ is an identity tester, and for each $\tau\in\calT_\calG$, $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$-mixed-labelling of $\tau$ for $(A,I)$.  A \defin{$f(n)$-bit adjacency labelling scheme} for $\calG$ is a pair $(\calA:=(\ell_G:G\in\calG),A)$ where $A$ is an adjacency tester and, for each $G\in\calG$, $\ell_G:V(G)\to\{0,1\}^*$ is an adjacency labelling of $G$ for $A$ with $|\ell_G(v)|\le f(|V(G)|)$ for all $v\in V(G)$.
+
+% It is helpful to extend the notion mixed labelling to graph classes. Let $\calG$ be a graph class.
+
+
+
+% For each each $n\in\N$, let $\calT_{\calG,n}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G^+)\le n\}$.  For each $\tau:=(G^+,G,\omega)\in\calT_\calG$,  fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A,I)$.  Then $\calS:=((\mu_\tau,\kappa_\tau):n\in\N, \tau\in\calT_n))$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed-labelling} of $\calG$ for $(A,I)$.  
+% An $f(n)$-bit adjacency labelling of $\calG$ for $A$ is defined similarly:  For each $n\in\N$, each $n$-vertex $G\in\calG$ let $\ell_G:V(G)\to\{0,1\}^{\le f(n)}$ be an adjacency labelling of $G$ for $A$.  Then $\calA:=((\ell_G):G\in\calG)$ is an $f(n)$-bit \defin{adjacency labelling} of $\calG$ for $A$.   
 
 % For each $n\in\N$ let $U_n$ be the induced-universal graph for $n$-vertex graphs in $\calG$ defined by $\calS$.
 
@@ -782,7 +780,9 @@ An $f(n)$-bit adjacency labelling of $\calG$ for $A$ is defined similarly:  For 
 
 \subsection{Basic Properties}
 
-Let $\calS$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling of a graph class $\calG$ for $(A,I)$. The subset $\calA:=\{\mu_{G^+,G,\omega}: (\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})\in\calS,\; \omega:V(G)\to\{1\}\}$ corresponding to uniform weight functions $\omega:V(G)\to\{1\}$, contains a $(\log n+g_1(n))$-bit adjacency labelling of $\calG$ for $A$. Therefore, the existence of a weighted $(g_1(n),\cdot,\cdot)$ mixed labelling of a graph class $\calG$ immediately implies the existence of a $(\log n+g_1(n))$-bit adjacency labelling for $\calG$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling admits a $(1+o(1))\log n$-bit adjacency labelling. The following lemma shows that any adjacency labelling obtained this way is injective, which justifies \cref{main_result_induced_universal}.
+Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling scheme for a graph class $\calG$. Let $\omega_1:$ be the \defin{uniform weight function} defined by $\omega_1(x):=1$ for all $x$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a subgraph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$ and let $\calA:=(\mu_{(G^+,G,\omega_1)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling admits a $(1+o(1))\log n$-bit adjacency labelling. 
+
+The following lemma shows that any adjacency labelling obtained from a mixed labelling scheme is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
   Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
@@ -802,8 +802,7 @@ for every $x\in S$,
 %\david{I interpret this definition as saying that the minimum weight is at least 1/4 of the average weight. Is there a more descriptive word than `nice'. In statistics, a dataset where the average is close to the minimum is `positively skewed' (or `right-skewed').}
 %\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
 (We emphasize that weights are required to be positive integers here, which will be important later on.)
-We then say that a class of graphs $\calG$ has a \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} if $\calG$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labellings, but with the exception that only nice weight functions $\omega$ are considered.  
-Weak mixed labellings and mixed labellings are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
+A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} scheme $(\calS,A,I)$ for a graph $\calG$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, but with the exception that only nice weight functions $\omega$ are considered.  Weak mixed labellings and mixed labellings are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
   \label{lem:nice_weights}
@@ -850,11 +849,11 @@ If the ultimate goal is to obtain an adjacency labellings, then an even weaker n
 In order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need two additional definitions.
 Let $\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ be a weighted mixed labelling of a graph class $\calG$ for $(A,I)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
 \[
-V(U_n):=\left\{ \mu_\tau(v): n'\in\{0,\ldots,n\}, \tau:=(G^+,G,\omega)\in\calT_{\calG,n'},\; v\in V(G) \right\}
+V(U_n):=\left\{ \mu_\tau(v): \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
 \]
 and edge set
 \[
-  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: n'\in\{0,\ldots,n\}, \tau:=(G^+,G,\omega)\in\calT_{\calG,n'}, vv'\in E(G) \right\}
+  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}, vv'\in E(G) \right\}
   \enspace.
 \]
 These definitions imply that, for each $n'\in\{0,\ldots,n\}$ and each $(\calG,n')$-admissible triple $\tau:=(G^+,G,\omega)$, $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. 
