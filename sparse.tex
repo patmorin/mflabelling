@@ -283,7 +283,7 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 
 
 
-\subsection{Setup and Proof Overview}
+% \subsection{Setup and Proof Overview}
 % \label{KeyTools}
 
 % In this paper, all graphs are finite, simple, and undirected.  For a graph $G$, \defin{$V(G)$} denotes the vertex-set of $G$, \defin{$E(G)$} denotes the edge-set of $G$.  A \defin{clique} in a graph is a non-empty set of pairwise adjacent vertices.   Let $G$ be a graph and $X\subseteq V(G)$. By $G[X]$ we denote the subgraph of $G$ induced on $X$. For other standard graph theory terms, we refer the reader to the textbook by \citet{diestel:graph}.
@@ -294,23 +294,6 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 %   \item for each edge $uv$ in $G$, there exists $x\in V(T)$ such that $u,v\in B_x$.
 % \end{enumerate*}
 % We call the sets $B_x$ the \defin{bags} of the tree-decomposition and, for each edge $xy$ of $T$, $B_x\cap B_y$ is an \defin{adhesion} of the tree-decomposition.  When $T$ is rooted and $x$ is the parent of $y$, $B_x\cap B_y$ is the \defin{parent adhesion} of $y$. The \defin{parent adhesion} of the root of $T$ is the empty set. The \defin{home} of a vertex $v$ of $G$ is the unique $x\in V(T)$ such that $v\in B_x$ and $v$ is not in the parent-adhesion of $x$. The \defin{adhesion-width} of a tree-decomposition is the maximum size of an adhesion. For a tree-decomposition $\calT:=(T,(B_x \mid x\in V(T)))$ of a graph $G$, for each  $x\in V(T)$, the \defin{torso} of $x$, denoted by \defin{$\torso{G}{\calT,B_x}$}, is the graph with vertex-set $B_x$ in which two distinct vertices $u$ and $v$ are adjacent if $uv \in E(G)$, or there exists $y \in N_T(x)$  such that $u,v \in B_x \cap B_y$.
-
-The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
-${v=w}$ and ${xy \in E(B)}$, or
-${x=y}$ and ${vw \in E(A)}$, or
-${vw \in E(A)}$ and~${xy \in E(B)}$.
-For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  
-% The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\calR_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\calR_k$ has an efficient weighted mixed labelling scheme.
-
-For any graph class $\calG$, let \defin{$\calG^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.  
-% It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\calG$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\calG^{+a}$.  \Cref{add_apexes} shows that the same is true for efficient weighted mixed adjacency labelling schemes. 
-
-Our starting point is the following variant of the Graph Minor Structure Theorem:
-
-\begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
-  \label{gmpst}
-  For every proper minor-closed class $\calG$ there exist integers $k,a\geq 0$ such that every graph in $\calG$ has a tree-decomposition in which every torso is in $\calR_k^{+a}$.
-\end{thm}
 
 
 % We now have enough background to sketch the proof of our main result.  We begin by describing natural approaches to the problem, where these approaches have issues, and then explain how we overcome these issues. By the above-mentioned results, it suffices to consider a graph class $\calG$ with the following property:
@@ -414,7 +397,8 @@ Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} 
 
 
 
-A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\calG$ is \defin{hereditary} if for every $G$ in $\calG$ every induced subgraph of $G$ is also in $\calG$. 
+A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\calG$ is \defin{hereditary} if for every $G$ in $\calG$ every induced subgraph of $G$ is also in $\calG$. For a graph class $\calG$ and a non-negative integer $a$, define \defin{$\calG^{+a}$} as the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
+
 % A  graph class $\calG$ is \defin{monotone} if for every $G\in\calG$, every subgraph of $G$ is in $\calG$.  
 % A graph class $\calG$ is \defin{infinitely extendable} if, for each $n\in\N$, each $n$-vertex graph in $\calG$ is an induced subgraph of some $(n+1)$-vertex graph in $\calG$.  
 %A  graph class $\calG$ is \defin{minor-closed} if for every $G\in\calG$, every minor of $G$ is in $\calG$. A graph class $\calG$ is \defin{proper} if some graph is not in $\calG$.  
@@ -426,34 +410,78 @@ A \defin{graph class} is a set of graphs closed under isomorphism. A graph class
 
 For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
 
-Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  (When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
+Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. 
+For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. 
+% We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  
+(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
 % For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
 For a rooted tree $T$ and any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
 
-\subsection{Tree-Decompositions and Forest-Decompositions}
+\subsection{Forest-Decompositions and Tree-Decompositions}
 
-It will be convenient to work with forest-decompositions, which are the natural generalization of a tree-decomposition that allow the graph indexing the bags to be a forest.  Specifically, $(F,(B_x\mid x\in V(F))$ is a \defin{forest-decomposition} of a graph $G$ if $F$ is a forest, for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$, and for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is connected.  A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest.  A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
+It will be convenient to work briefly with forest-decompositions, which are the natural generalization of tree-decomposition that allow the graph indexing the bags to be a forest.  A \defin{forest-decomposition} of a graph $G$ is a pair $\calF:=(F,(B_x\mid x\in V(F))$ where $F$ is a forest and $(B_x\mid x\in V(F))$ is a collection of subsets of $V(G)$ indexed by the vertices of $F$ such that  
+\begin{enumerate*}
+  \item for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$ and
+  \item for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is a connected subgraph with at least one node.
+\end{enumerate*}  
+When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest.  
+
+A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
 \begin{enumerate*}[label=(\arabic*)]
-  \item $B_x\neq\emptyset$ for each $x\in V(F)$;
-  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with an $F$-parent $x$; and
-  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ with $F$-parent $y$ and $F$-grandparent $x$.
+  \item $B_x\neq\emptyset$ for each $x\in V(F)$;  
+  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ whose $F$-parent is $x$; and
+  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ whose $F$-parent is $y$ and whose $F$-grandparent is $x$.
 \end{enumerate*}
-Any rooted forest-decomposition $\calF:=(T,(B_x\mid x\in V(T)))$ can be made into a rooted tidy forest-decomposition by
-\begin{enumerate*}[label=(\arabic*)]
-  \item removing every node $x$ of $T$ with $B_x=\emptyset$,
-  \item removing every edge $xy$ of $T$ with $B_x\cap B_y=\emptyset$, and
-  \item repeatedly replacing an edge $yz$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
-\end{enumerate*} This transformation has the properties expressed in the following observation:
-\begin{obs}\label{tidy_forest}
-  Let $G$ be a graph and let $(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$. Then there exists a rooted forest $F'$ with the following properties:
+
+
+
+\begin{lem}\label{tidy_forest}
+  Let $\calG$ be a graph class, let $G$ be a graph and let $\calF:=(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$ with the property that each torso of $\calF$ is a graph in $\calG$. Then there exists a graph $G'$ with an isolated vertex $v_0$ such that $G'-v_0=G$, a tree $T$ with root $x_0$, and a tidy rooted tree-decomposition $\calT:=(T,(C_x\mid x\in V(T)))$ of $G'$ that has the following properties:
   \begin{enumerate}[nosep,nolistsep,label=(\rm\alph*)] 
-    \item $V(F')\subseteq V(F)$; 
-    \item $V(P_{F'(x)})\subseteq V(P_F(x))$ for each $x\in V(F')$; and 
-    \item $\calF':=(F',(B_x\mid x\in V(F')))$ is a rooted tidy forest-decomposition of $G$ and every torso of $\calF'$ is a torso of $\calF$.
+    \item\label{tidy_vertex_subset} $V(T)\subseteq V(F) \cup \{x_0\}$ and $C_{x_0}=\{v_0\}$; 
+    \item\label{tidy_path_subset} $V(P_{T(x)})\subseteq V(P_F(x)) \cup \{x_0\}$ for each $x\in V(T) \setminus \{x_0\}$; and 
+    \item\label{tidy_tree_decomposition} $C_x\subseteq B_x\cup\{v_0\}$ for each $x\in V(T)$.
+    \item\label{adhesion} for each edge $xy$ of $T$, $C_x\cap C_y=B_x\cap B_y$ (if $x,y\in V(F)$) or $C_x\cap C_y=\{v_0\}$ (if $x=x_0$ or $y=x_0$).
   \end{enumerate}
-\end{obs}
+\end{lem}
+
+\begin{proof}
+  First, we make the forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ tidy in three steps:
+  \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
+    \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
+    \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
+    \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
+  \end{enumerate} 
+  Let $\calF'=(F',(B'_x\mid x\in V(F')))$ be the resulting tidy forest-decomposition.  Note that each torso of $\calF'$ is a torso of $\calF$, so each torso of $\calF'$ is in $\calG$.  Create the tree $T$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F'$.  Set $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, set $C_{x'}:=B'_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $T$, set $C_x:=B'_x$.  Then $\calT:=(T,(C_x\mid x\in V(T)))$ is a tidy rooted tree-decomposition of $G'$ that satisfies \ref{tidy_vertex_subset}, \ref{tidy_path_subset}, \ref{tidy_tree_decomposition}, and \ref{adhesion}.
+\end{proof}
+
+
+
 % We make use of the fact that rooted tidy forest-decompositions remain tidy when we remove the root bags and their contents.  More precisely, let $\calF:=(F,(B_x\mid x\in V(F)))$ be a rooted tidy forest-decomposition of a graph $G$, let $R$ be the set of roots in $F$, let $B_R:=\bigcup_{r\in R}B_r$, and let $C_x:=B_x\setminus B_R$ for each $x\in V(F)$.  Then $(F-R,(C_x\mid x\in V(F-R)))$ is a rooted tidy rooted forest-decomposition of $G-B_R$.
+
+\subsection{Graph Product Structure}
+
+The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
+${v=w}$ and ${xy \in E(B)}$, or
+${x=y}$ and ${vw \in E(A)}$, or
+${vw \in E(A)}$ and~${xy \in E(B)}$.
+For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  
+Our starting point is the following variant of the Graph Minor Structure Theorem:
+% The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\calR_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\calR_k$ has an efficient weighted mixed labelling scheme.
+
+% For any graph class $\calG$, let \defin{$\calG^{+a}$} be the class of graphs $G$ such that $G-X$ is in $\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.  
+% It is a simple exercise to show that any $(1+o(1))\log n$-bit adjacency labelling scheme for a graph class $\calG$ implies the existence of a $(1+o(1))\log n$-bit adjacency labelling scheme for $\calG^{+a}$.  \Cref{add_apexes} shows that the same is true for efficient weighted mixed adjacency labelling schemes. 
+
+
+\begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
+  \label{gmpst}
+  For every proper minor-closed class $\calG$ there exist integers $k,a\geq 0$ such that every graph in $\calG$ has a tree-decomposition in which every torso is in $\calR_k^{+a}$.
+\end{thm}
+
+
+
+
 
 \subsection{Weight Functions}
 
@@ -546,13 +574,22 @@ In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon-Fan
 \begin{cor}\label{shannon_fano_elias_code}
   There exists a function $F:\{0,1\}^*\to\{0,1\}^*$ such that for every $n\in\N^+$, every set $S:=\{x_1,\ldots,x_n\}$, and every weight function $\omega:S\to\R^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ and functions $\overleftarrow{\pi}:S\to\{0,1\}^\star$, $\overrightarrow{pi}:S\to\{0,1\}^*$ such that:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \item $|\rho(x_i)|\le \log\omega(S) - \log\omega(x_i)+\Oh(1)$ for each $i\in[n]$, and
+    \item\label{sfec_len} $|\rho(x_i)|\le \log\omega(S) - \log\omega(x_i)+\Oh(1)$ for each $i\in[n]$, and
     % \item $\rho(x_i)$ is lexicographically less than $\rho(x_j)$ for each $1\le i < j\le n$.
-    \item $|\overleftarrow{\pi}(x_i)|+|\overrightarrow{\pi}(x_i)|\in O(\log\log n)$ for each $i\in[n]$;
-    \item $F(\rho(x_i),\overleftarrow{\pi}(x_i))=\rho(x_{i-1})$ for each $i\in\{2,\ldots,n\}$; and    
+    \item\label{sfec_prev} $|\overleftarrow{\pi}(x_i)|+|\overrightarrow{\pi}(x_i)|\in O(\log\log n)$ for each $i\in[n]$;
+    \item\label{sfec_next} $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i-1})$ for each $i\in\{2,\ldots,n\}$; and    
     \item $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i+1})$ for each $i\in\{1,\ldots,n-1\}$.    
   \end{enumerate}
 \end{cor}
+
+\begin{proof}
+  Let $\omega'$ be the weight function obtained by applying \cref{obs:nice} to $\omega$.  Then $\log\omega'(S)\le\log n+ O(1)$ and $\log\omega(x_i)\ge 0$. for each $i\in[n]$.
+  The prefix-free code $\rho$ is obtained by applying \cref{shannon_fano_elias_tree} to $S$ with weight function $\omega'$ to obtain a tree $T$ and then encoding each root-to-leaf path in $T$ with a bitstring as described above.  This gives a code $\rho$ that satisfies \ref{sfec_len}.
+  
+  Fix $i\in[n]$.  Let $y_0,y_1,\ldots,y_\ell$ be the path from $y_0:=r(x_i)$ to $y_\ell=x_{i-1}$ in $T$.  Let $j$ be such that $y_j=\lca_T(x_i,x_{i-1})$.  Then $y_{j+1}$ is the left child of $y_j$ and $y_{j+k+1}$ is the right child of $y_{j+k}$ for each $k\in\{0,\ldots,\ell-j-1\}$.  Thus, $\rho(x_{i-1})$ is the prefix of $\rho(x_i)$ of length $\depth_T(y_j)$, followed by a $0$ bit, followed by a string of $1$ bits of length $\ell-j-1$.  We set $\overleftarrow{\pi}(x_i):=\langle 0, \bin(j), \bin(\ell-j-1)\rangle$.  Since $j <\ell$ and $\ell\le 2\height(T)\in O(\log n)$, $\overleftarrow{\pi}(x_i)$ has length $O(\log\log n)$.  The code $\overrightarrow{\pi}(x_i)$ is defined similarly using the path from $y_0=r(x_i)$ to $y_\ell=x_{i+1}$ in $T$.  Then $\overrightarrow{\pi}(x_i):=\langle 1, \bin(j), \bin(\ell-j-1)\rangle$.  
+
+  The operation of $F$ is now obvious.  Given the arguments $\rho(x_i)$ and $\langle a,\bin(b),\bin(c)\rangle$, $F$ checks the value of $a\in\{0,1\}$.  If $a=0$ then it removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $0,1^{c}$ to obtain $\rho(x_{i-1})$.  If $a=1$, $F$ removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $1,0^{c}$ to obtain $\rho(x_{i+1})$. 
+\end{proof}
 
 \subsection{On Multipart Labels}
 \label{multipart}
@@ -2316,7 +2353,7 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 
 \begin{lem}
   \label{main_result_detailed}
-  Every proper minor-closed graph class $\calC$  has a $\exp(O((\log n)^{3/4}))$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
+  Every proper minor-closed graph class $\calC$ has a $\exp(O((\log n)^{3/4}))$-strongly orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
 \end{lem}
 
 \begin{proof}
