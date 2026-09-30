@@ -323,7 +323,7 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 
 % Thus, for every proper minor-closed graph family $\calG$, every graph $G$ in $\calG$ has a tree-decomposition $\calT$ of bounded adhesion-width whose torsos come from a class that has an efficient mixed labelling scheme.  This is the only property of proper minor-closed graph classes that we use.
 
-\pat{Much of what follows will have to be rewritten and is commented out for now.}
+% \pat{Much of what follows will have to be rewritten and is commented out for now.}
 
 % \paragraph{A solution for short tree-decompositions:}
 % We now describe a first attempt to use mixed labelling schemes to simultaneously address the questions of determining if two vertices of $G$ have the same home and testing adjacency between two vertices of $G$ with different homes.  We begin by constructing a mixed labelling $\mu_x$ for the pair of graphs $\torso{G}{\calT,B_x}-A_x$ and $G[B_x]-A_x$, for each $x\in V(T)$.  Then, the label $\mu(v)$ for a vertex $v$ in $G$ has the form
@@ -421,11 +421,13 @@ For a rooted tree $T$ and any set $S\subseteq V(T)$, the \defin{lowest common $T
 \subsection{Forest-Decompositions and Tree-Decompositions}
 
 It will be convenient to work briefly with forest-decompositions, which are the natural generalization of tree-decomposition that allow the graph indexing the bags to be a forest.  A \defin{forest-decomposition} of a graph $G$ is a pair $\calF:=(F,(B_x\mid x\in V(F))$ where $F$ is a forest and $(B_x\mid x\in V(F))$ is a collection of subsets of $V(G)$ indexed by the vertices of $F$ such that  
-\begin{enumerate*}
+\begin{enumerate*}[label=(\roman*)]
   \item for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$ and
   \item for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is a connected subgraph with at least one node.
 \end{enumerate*}  
-When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest.  
+When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest. For each edge $xy$ of $F$, $B_x\cap B_y$ is called an \defin{adhesion} of $\calF$ and we say that this adhesion is incident to $x$ and $y$.  For each $x\in V(F)$, the graph \defin{$\torso{G}{\calF,B_x}$} obtained from $G[B_x]$ by adding edges so that each adhesion incident to $x$ becomes a clique is called the \defin{torso} of $\calF$ at $x$. For a root node $x\in V(F)$, the \defin{parent adhesion} of $x$ is the empty set. If a non-root node $y\in V(F)$ has parent $x$, the \defin{parent adhesion} of $y$ is $B_x\cap B_y$.  The \defin{adhesion width} of $\calF$ is the size of its largest adhesion (or zero if $\calF$ has no edges).
+
+
 
 A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
 \begin{enumerate*}[label=(\arabic*)]
@@ -810,7 +812,7 @@ Here is a little intuition about the last three conditions. The function $g_1(n)
 A pair $(\mu,\kappa)$ that satisfies \ref{mls:injective_on_cliques}, \ref{mls:adjacency_tester}, and \ref{mls:identity_tester} is called a \defin{mixed labelling} of $(G^+,G)$ for $(A,I)$.  If $(\mu,\kappa)$ additionally satisfies \ref{mls:vertex_label_length}, \ref{mls:clique_label_length}, and \ref{mls:local_identifier_length} then $(\mu,\kappa)$ is called a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  
 
 To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix a particular mixed labelling of each $\calG$-admissible triple.  
-A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling} of $\calG$ for $(A,I)$ is an indexed collection $\calS:=((A,I,(\mu_\tau,\kappa_\tau)):\tau\in\calT_\calG)$ where $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$-mixed-labelling of $\tau$ for $(A,I)$.  The triple $(\calS,A,I)$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed labelling scheme} for $\calG$.  Similar definitions apply to adjacency labelling schemes. A \defin{$f(n)$-bit adjacency labelling} of $\calG$ for $A$ is an indexed collection $(\calA:=(\ell_G:G\in\calG),A)$ where, for each $G\in\calG$,  $\ell_G$ is an adjacency labelling of $G$ for $A$ such that $|\ell_G(v)|\le f(n)$ for each $v\in V(G)$.  The pair $(\calA,A)$ is an \defin{adjacency labelling scheme} for $\calG$.
+A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling} of $\calG$ for $(A,I)$ is an indexed collection $\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ where $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$-mixed-labelling of $\tau$ for $(A,I)$, for each $\tau\in\calT_\calG$.  The triple $(\calS,A,I)$ is called a \defin{weighted $(g_1,g_2,g_3)$-mixed labelling scheme} for $\calG$.  Similar definitions apply to adjacency labelling schemes. An \defin{$f(n)$-bit adjacency labelling} of $\calG$ for $A$ is an indexed collection $\calA:=(\ell_G:G\in\calG)$ where, for each $G\in\calG$,  $\ell_G$ is an adjacency labelling of $G$ for $A$ and $|\ell_G(v)|\le f(|V(G)|)$ for each $v\in V(G)$.  The pair $(\calA,A)$ is an \defin{adjacency labelling scheme} for $\calG$.
 % It is helpful to extend the notion mixed labelling to graph classes. Let $\calG$ be a graph class.
 
 
@@ -990,7 +992,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \sigma(u) :=
     \begin{cases}
       \textrm{$\lceil\log(b+1)\rceil$-bit binary representation of $i$} & \textrm{if $u\in X$ and $u=u_i$,} \\
-      \textrm{$\lceil\log(b+1)\rceil$ zero bits}                        & \textrm{if $u\in V(G)-X$.}
+      \textrm{$\lceil\log(b+1)\rceil$ zero bits}                        & \textrm{if $u\in V(G)\setminus X$.}
     \end{cases}
   \]
 
@@ -1031,21 +1033,21 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \mu(K):=
     \begin{cases}
       \langle c(K) \rangle           & \text{if $K\subseteq X$,} \\
-      \langle c(K),\mu^-(K-X)\rangle & \text{otherwise.}
+      \langle c(K),\mu^-(K\setminus X)\rangle & \text{otherwise.}
     \end{cases}
   \]
-  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. If $K\cap X \neq L\cap X$, then $c(K)\neq c(L)$, so $\mu(K)\neq \mu(L)$ because their first parts differ. Otherwise, $K\setminus X \neq L\setminus X$. If one is empty, say $K\subseteq X$, then $\mu(K)$ has one part while $\mu(L)$ has two parts, so $\mu(K)\neq\mu(L)$. If both are non-empty, then $\mu^-(K-X)\neq \mu^-(L-X)$ since $\mu^-$ is injective on cliques of $G^+-X$, which implies $\mu(K)\neq \mu(L)$.
+  To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. If $K\cap X \neq L\cap X$, then $c(K)\neq c(L)$, so $\mu(K)\neq \mu(L)$ because their first parts differ. Otherwise, $K\setminus X \neq L\setminus X$. If one is empty, say $K\subseteq X$, then $\mu(K)$ has one part while $\mu(L)$ has two parts, so $\mu(K)\neq\mu(L)$. If both are non-empty, then $\mu^-(K\setminus X)\neq \mu^-(L\setminus X)$ since $\mu^-$ is injective on cliques of $G^+-X$, which implies $\mu(K)\neq \mu(L)$.
 
   Next we bound the length of the clique labels.  First consider a clique $K\not\subseteq X$.  Then
   \[
-    |\mu^-(K-X)| + b
+    |\mu^-(K\setminus X)| + b
     \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n-|X|)+a
     \textrm{by~\eqref{eq:split}}
   \]
   and therefore
   \begin{align*}
     |\mu(K)|
-     & \leq |\mu^-(K-X)|+b + \Oh(\lgg|\mu^-(K-X)|+\lgg b)
+     & \leq |\mu^-(K\setminus X)|+b + \Oh(\lgg|\mu^-(K\setminus X)|+\lgg b)
      & \text{by \eqref{encoding_cost}}                                                               \\
      & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \calO(a+\log\log n) \\
      & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g'_3(n) \enspace .
@@ -1057,7 +1059,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \[
     \kappa(K,u) :=
     \begin{cases}
-      0,\kappa^-(K-X,u) & \text{if $u\not\in X$,} \\
+      0,\kappa^-(K\setminus X,u) & \text{if $u\not\in X$,} \\
       1,\sigma(u)       & \text{if $u\in X$.}
     \end{cases}
   \]
@@ -1072,8 +1074,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   First by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
   If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1,\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
-  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K-X)$. The tester extracts this second part and sets 
-  $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K-X),\kappa^-(K-X,u),\mu^-(v))$.
+  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K\setminus X)$. The tester extracts this second part and sets 
+  $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
 
   \paragraph{\boldmath $g'_0$-orientability:}
@@ -1097,12 +1099,12 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     \item Otherwise, the adjacency tester deduces that at least one of $v$ or $v'$ is in $X$. If exactly one is in $X$, we orient the edge towards the vertex in $X$. If both are in $X$, we break symmetry by orienting towards the one with the lexicographically larger label. Suppose the edge is oriented towards $\beta'=\mu(v')$ and $v'\in X$. Since $v'\in X$, $\beta'=\langle \sigma(v'),c(v'),\varepsilon\rangle$. There are at most $|X|$ choices for $\sigma(v')$ and $2^{|X|}$ choices for $c(v')$. Again, $|X|$ is fixed by the length of $c(v)$ in $\beta$, so the number of strings $\beta'$ oriented away from $\beta$ is at most $|X| 2^{|X|} \leq a 2^{a}$.
   \end{enumerate}
-  Therefore, for any fixed $\beta\in V(U'_n)$, the out-degree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.  
+  Therefore, for any fixed $\beta\in V(U'_n)$, the out-degree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.   
 
   \paragraph{\boldmath Strong $g'_0$-orientability:}  All that remains is to show that $(\calS',A',I')$ is strongly $g'_0$-orientable.  
   Let $(\mu_0,\kappa_0)\in\calS'$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)\in\calT_{\calG^{+a},n}$ for $(A',I')$, let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$.  We need to show that there are at most $g'_0(n)$ strings $\beta\in\{0,1\}^*$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},n}$, some clique $K$ in $G^+$ and some $u\in K$ such that $\mu(K)=\mu_0(K_0)$, $\kappa(K,u)=\kappa_0(K_0,u_0)$, and $\mu(u)=\beta$.  
   
-  Let $\zeta=\mu_0(K_0)$ and let $\gamma=\kappa_0(K_0,u_0)$.  Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K-X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ uniquely fixes $|X|$.
+  Let $\zeta=\mu_0(K_0)$ and let $\gamma=\kappa_0(K_0,u_0)$.  Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K\setminus X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ uniquely fixes $|X|$.
   \begin{itemize}[nosep,nolistsep]
     \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1, \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$. 
     \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is defined by $\zeta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is defined by $\gamma$. Thus, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ for which $I'(\zeta,\gamma,\beta)=1$.
