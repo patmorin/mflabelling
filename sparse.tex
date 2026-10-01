@@ -1187,35 +1187,40 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   We will define an adjacency tester $A'$ and an adjacency labelling $(\calA:=\ell_G:G\in\calG'))$ of $\calG'$ for $A'$.  Since it is impractical to describe the operation of $A'$ without first describing the format of the labels given as arguments to $A'$, we begin by describing the construction of an adjacency labelling $\ell:V(G)\to\{0,1\}^*:=\ell_G$ for a graph $G_0\in\calG'$.
 
   % Let $\calS:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling of $\calG$ for some adjacency/identity tester pair $(A,I)$.  
-  Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$ and each torso of $\calT_0$ belongs to $\calG$. Let $b:=b(n)$.  Let $\calT:=(T,(B_x\mid x\in V(T)))$ and $Y\subseteq E(T)$ be the result of applying \cref{all_singing_all_dancing} to the tree-decomposition $\calT_0$ of $G_0$. Let $x_0$ be the root of $T$.  Define $A_{x_0}:=\emptyset$ and, for each $x\in V(T)\setminus\{x_0\}$ let $A_x$ be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_x}-A_x$ is either a $1$-vertex graph (if $x=x_0$) or an induced subgraph of a torso of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ is in $\calG$), or its vertex set is contained in the union of at most $3$ adhesions of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ has at most $3k$ vertices).  In each case, $\torso{G}{\calT,B_x}-A_x\in\calG^{+3k}$.
+  Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$ and each torso of $\calT_0$ belongs to $\calG$. Let $b:=b(n)$.  Let $\calT:=(T,(B_x\mid x\in V(T)))$ and $Y\subseteq E(T)$ be the result of applying \cref{all_singing_all_dancing} to the tree-decomposition $\calT_0$ of $G_0$. Let $x_0$ be the root of $T$.  
+  
+  
+  Define $A_{x_0}:=\emptyset$ and, for each $x\in V(T)\setminus\{x_0\}$ let $A_x$ be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_x}-A_x$ is either a $1$-vertex graph (if $x=x_0$) or an induced subgraph of a torso of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ is in $\calG$), or its vertex set is contained in the union of at most $3$ adhesions of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ has at most $3k$ vertices).  In each case, $\torso{G}{\calT,B_x}-A_x\in\calG^{+3k}$.
   
 
-  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$, so each $y\in C_x$ is contained in $C_K$ for exactly one clique $K$ in $\torso{G}{\calT,B_x}-A_x$.  
+  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is a nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$.  Therefore, each $y\in C_x$ is contained in $C_K$ for exactly one clique $K=A_y\setminus A_x$ in $\torso{G}{\calT,B_x}-A_x$.  
   
 
-  \pat{Add a transition here.} 
-  
-  Let $F:=T-Y$.
+  Let $F:=T-Y$.  Properties 
+  \ref{req:root_bag}, 
+  \ref{req:height}, 
+  \ref{req:subtree_size} 
+  \ref{req:same_size}, 
+  \ref{req:subtree_torso_apex}, 
+  of \cref{all_singing_all_dancing} translate to the following properties of $\calT$, $Y$, and $F$.
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
-    \item\label{td_width} $\calT$ has adhesion-width at most $3k$;
-    \item\label{torsos_in_G_plus_k} for each $x\in V(T)$, 
-    $\torso{G}{\calT,B_x}-A_x\in \calG^{+3k}$.
+    \item\label{td_width} $\calT$ has adhesion-width at most $3k+1$;
+    \item\label{torsos_in_G_plus_k} for each $x\in V(T)$; 
+    $\torso{G}{\calT,B_x}-A_x\in \calG^{+3k}$;
     \item\label{tprops_y0} each component of $F$ has at most $4b-1$ nodes 
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
-    \item\label{light_clique_buster} for each $x\in V(F)$, and each light clique $K$ in $\torso{G}{\calT,B_x}-A_x$, the component of $F$ that contains $x$ is different than the component of $F$ that contains $y$, for each $y\in C_K$; and
-    \item\label{y_on_path} each root-to-leaf path $P$ in $T$ has $|E(P)\cap Y|\le 2\log_b n+\Oh(1)$; equivalently, $P\cap F$ has at most $2\log_b n + \Oh(1)$ components.
+    \item\label{light_clique_buster} for each $x\in V(F)$, each light clique $K$ in $\torso{G}{\calT,B_x}-A_x$, and each $y\in C_K$, $xy\in Y$; and
+    \item\label{y_on_path} each root-to-leaf path $P$ in $T$ contains at most $2\log_b n +\Oh(1)$ edges in $Y$.
   \end{enumerate}
 
-
-
-  For each $x\in V(T)$, the torso $\torso{G}{\calT,B_x}$ belongs to $\calG^{+3k+1}$ (by \ref{torsos_in_G_plus_k}).  By \cref{add_apexes}, $\calG^{+3k+1}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme $(\mathdefin{\calS}:=\mathdefin{(\mu_\tau,\kappa_\tau)}:\tau\in\calT_{\calG^{+3k+1}})$ with 
+  By \cref{add_apexes}, $\calG^{+3k}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme $(\mathdefin{\calS}:=\mathdefin{(\mu_\tau,\kappa_\tau)}:\tau\in\calT_{\calG^{+3k}})$ with 
   \begin{align}
     \mathdefin{h_0(n)} & = (2g_0(n) + 3k + 1)2^{3k+1} \\
     \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
     \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
     \mathdefin{h_3(n)} & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
   \end{align} 
-  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
+  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$. 
 
   
   
