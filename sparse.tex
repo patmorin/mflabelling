@@ -429,35 +429,6 @@ When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposit
 
 
 
-A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
-\begin{enumerate*}[label=(\arabic*)]
-  \item $B_x\neq\emptyset$ for each $x\in V(F)$;  
-  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ whose $F$-parent is $x$; and
-  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ whose $F$-parent is $y$ and whose $F$-grandparent is $x$.
-\end{enumerate*}
-
-
-
-\begin{lem}\label{tidy_forest}
-  Let $\calG$ be a graph class, let $G$ be a graph and let $\calF:=(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$ with the property that each torso of $\calF$ is a graph in $\calG$. Then there exists a graph $G'$ with an isolated vertex $v_0$ such that $G'-v_0=G$, a tree $T$ with root $x_0$, and a tidy rooted tree-decomposition $\calT:=(T,(C_x\mid x\in V(T)))$ of $G'$ that has the following properties:
-  \begin{enumerate}[nosep,nolistsep,label=(\rm\alph*)] 
-    \item\label{tidy_vertex_subset} $V(T)\subseteq V(F) \cup \{x_0\}$ and $C_{x_0}=\{v_0\}$; 
-    \item\label{tidy_path_subset} $V(P_{T(x)})\subseteq V(P_F(x)) \cup \{x_0\}$ for each $x\in V(T) \setminus \{x_0\}$; and 
-    \item\label{tidy_tree_decomposition} $C_x\subseteq B_x\cup\{v_0\}$ for each $x\in V(T)$.
-    \item\label{adhesion} for each edge $xy$ of $T$, $C_x\cap C_y=B_x\cap B_y$ (if $x,y\in V(F)$) or $C_x\cap C_y=\{v_0\}$ (if $x=x_0$ or $y=x_0$).
-  \end{enumerate}
-\end{lem}
-
-\begin{proof}
-  First, we make the forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ tidy in three steps:
-  \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
-    \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
-    \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
-    \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
-  \end{enumerate} 
-  Let $\calF'=(F',(B'_x\mid x\in V(F')))$ be the resulting tidy forest-decomposition.  Note that each torso of $\calF'$ is a torso of $\calF$, so each torso of $\calF'$ is in $\calG$.  Create the tree $T$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F'$.  Set $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, set $C_{x'}:=B'_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $T$, set $C_x:=B'_x$.  Then $\calT:=(T,(C_x\mid x\in V(T)))$ is a tidy rooted tree-decomposition of $G'$ that satisfies \ref{tidy_vertex_subset}, \ref{tidy_path_subset}, \ref{tidy_tree_decomposition}, and \ref{adhesion}.
-\end{proof}
-
 
 
 % We make use of the fact that rooted tidy forest-decompositions remain tidy when we remove the root bags and their contents.  More precisely, let $\calF:=(F,(B_x\mid x\in V(F)))$ be a rooted tidy forest-decomposition of a graph $G$, let $R$ be the set of roots in $F$, let $B_R:=\bigcup_{r\in R}B_r$, and let $C_x:=B_x\setminus B_R$ for each $x\in V(F)$.  Then $(F-R,(C_x\mid x\in V(F-R)))$ is a rooted tidy rooted forest-decomposition of $G-B_R$.
@@ -494,7 +465,7 @@ It will be convenient to place some upper bound on the Kraft ideal codeword leng
 \[
   \log \omega'(S) - \log \omega'(x) \leq \log |S| + 2\enspace.
 \]
-(Note nice weight functions always assign positive integer weights.)
+(Note that nice weight functions always assign positive integer weights.)
 
 \begin{obs}\label{obs:nice}
   For every weight function $\omega:S\to\R^+$, there exists a nice weight function $\omega':S\to\N^+$ such that $\log\omega'(S)-\log\omega'(x)\le\min\{\log|S|,\;\log\omega(S)-\log\omega(x)\}+2$, for each $x\in S$.
@@ -504,6 +475,8 @@ It will be convenient to place some upper bound on the Kraft ideal codeword leng
   By dividing every weight by $\min_{x\in S}\omega(x)$ we may assume, without loss of generality, that $\omega(x)\ge 1$ for each $x\in S$, since this does not change the value of the right-hand side in the inequality.
   For each $x\in S$, define $\omega'(x):=\ceil{\max\{\omega(S)/|S|,\; \omega(x)\}}$.  Then $\omega'(S)<\sum_{x\in S}(\omega(S)/|S|+\omega(x)+1)= 2\omega(S)+|S|\le 3\omega(S)$.  For each $x\in S$, the inequality $\omega'(x)\ge \omega(x)$ implies that $\log\omega'(S)-\log\omega'(x)\le\log \omega(S)-\log\omega(x)+\log 3$ and the inequality $\omega'(x)\ge \omega(S)/|S|$ implies that $\log\omega'(S)-\log\omega'(x)\le \log\omega(S)-\log(\omega(S)/|S|) + \log 3 = \log|S| + \log 3$.
 \end{proof}
+
+
 
 \subsection{Shannon and Shannon--Fano--Elias Codes}
 
@@ -707,7 +680,12 @@ In some cases, we include one or more non-negative integers as part of a multipa
 % In this section we the machinery needed to obtain an adjacency labelling scheme for any graph class $\calG'$
 % This appendix provides an alternative proof of \cref{main_result} that can be used to construct an induced-universal graph with $n^{1+o(1)}$ vertices and edges. Eventually, this will replace the use of \cref{skinny_labelling,small_height}.  This also eliminates the need for \cref{disjoint_union_ii,b_skinny_decomp,skinny_edges,low_pathwidth_separator}.
 
+
+
+
+
 In this section we develop some tools for manipulating tree-decompositions like those obtained from \cref{gmpst}.
+
 
 \begin{lem}\label{skinny_edges}
   Let $b>1$, let $T$ be a rooted tree with $n$ vertices and let $\omega:V(T)\to\mathbb{N}^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that
@@ -785,6 +763,78 @@ The following lemma is well-known (see, for example \cite{}).
   All that remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q)$.  For each $i\in[s]$ with $\omega(C_i)\ge 1$, every torso and adhesion of $\calT_i$ is also a torso or adhesion of $\calT$. Therefore, property \ref{req:subtree_torso_apex} is satisfied (by induction) for each $i\in[s]$ with $\omega(C_i)\ge 1$ and each $x\in V(Q_i)$.  What remains is to verify that \ref{req:subtree_torso_apex} holds for each $x\in V(Q_0)$. For each $x\in V(Q_0-S)$, $x=v_i$ for some $i\in[s]$ and $C_x$ is the union of at most three adhesions of $\calT$, which satisfies \ref{req:three_adhesions}.  For each $x\in S$, $\torso{G}{\calQ_0,C_x}-A_{\beta}$ is an induced subgraph of $\torso{G}{\calT,B_x}$.  The only danger is that $\torso{G}{\calQ,C_x}-A_\beta$ contains additional edges not present in $\torso{G}{\calQ_0,C_x}-A_{\beta}$.  However, each edge in $E(Q)\setminus E(Q_0)$ incident to $x$ comes from a pendant component $C_i$ and $e_i=x\alpha_i$.  In this case, the adhesion $C_x\cap C_{\alpha_i}=B_{a_i}\cap B_{x_i}$ is an adhesion of $\torso{G}{\calT,B_x}$.  Therefore, every edge in $\torso{G}{\calQ,C_x}-A_{\beta}$ is also an edge of $\torso{G}{\calT,B_x}$.
 \end{proof}
 
+
+
+A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
+\begin{enumerate*}[label=(\arabic*)]
+  \item $B_x\neq\emptyset$ for each $x\in V(F)$;  
+  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ whose $F$-parent is $x$; and
+  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ whose $F$-parent is $y$ and whose $F$-grandparent is $x$.
+\end{enumerate*}
+
+
+
+% \begin{lem}\label{tidy_forest}
+%   Let $G$ be a graph and let $\calF:=(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$ with the property that each torso of $\calF$ is a graph in $\calG$. Then there exists a graph $G'$ with an isolated vertex $v_0$ such that $G'-v_0=G$, a tree $T$ with root $x_0$, and a tidy rooted tree-decomposition $\calT:=(T,(C_x\mid x\in V(T)))$ of $G'$ that has the following properties:
+%   \begin{enumerate}[nosep,nolistsep,label=(\rm\alph*)] 
+%     \item\label{tidy_vertex_subset} $V(T)\subseteq V(F) \cup \{x_0\}$ and $C_{x_0}=\{v_0\}$; 
+%     \item\label{tidy_path_subset} $V(P_{T(x)})\subseteq V(P_F(x)) \cup \{x_0\}$ for each $x\in V(T) \setminus \{x_0\}$; and 
+%     \item\label{tidy_tree_decomposition} $C_x\subseteq B_x\cup\{v_0\}$ for each $x\in V(T)$.
+%     \item\label{adhesion} for each edge $xy$ of $T$, $C_x\cap C_y=B_x\cap B_y$ (if $x,y\in V(F)$) or $C_x\cap C_y=\{v_0\}$ (if $x=x_0$ or $y=x_0$).
+%   \end{enumerate}
+% \end{lem}
+
+% \begin{proof}
+%   First, we make the forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ tidy in three steps:
+%   \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
+%     \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
+%     \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
+%     \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
+%   \end{enumerate} 
+%   Let $\calF'=(F',(B'_x\mid x\in V(F')))$ be the resulting tidy forest-decomposition.  Note that each torso of $\calF'$ is a torso of $\calF$, so each torso of $\calF'$ is in $\calG$.  Create the tree $T$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F'$.  Set $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, set $C_{x'}:=B'_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $T$, set $C_x:=B'_x$.  Then $\calT:=(T,(C_x\mid x\in V(T)))$ is a tidy rooted tree-decomposition of $G'$ that satisfies \ref{tidy_vertex_subset}, \ref{tidy_path_subset}, \ref{tidy_tree_decomposition}, and \ref{adhesion}.
+% \end{proof}
+
+
+
+\begin{lem}\label{all_singing_all_dancing}
+  Let $G_0$ be an $n$-vertex graph  and let $\calT$ be a tree-decomposition of $G_0$.  Then, for any integer $b\ge 2$,  there exists a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$, a tidy rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ rooted at $x_0\in V(Q)$, and a subset of edges $Y\subseteq E(Q)$ with the following properties:
+  \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
+    \item\label{req:root_bag} $C_{x_0}=\{v_0\}$;
+    \item\label{req:height} each root-to-leaf path in $Q$ contains at most $2\log_b n + 1$ edges of $Y$;
+    \item\label{req:subtree_size} each connected component of $Q-Y$ has at most $4b-1$ vertices;
+    \item\label{req:same_size} for each component $C$ and each $x,y\in V(C)$, $|\bigcup_{z\in V(T_x)} C_z|\le b|\bigcup_{z\in V(T_y)} C_z|$;
+    \item\label{req:subtree_torso_apex} for each $x\in V(Q)$, at least one of the following holds: 
+    \begin{itemize}[nosep,nolistsep]
+      \item\label{req:three_adhesions} $C_x\setminus\{v_0\}$ is contained in the union of at most three adhesions of $\calT$; or
+      \item\label{req:adhesion_torso} there exists an adhesion $A$ of $\calT$ such that $\torso{G}{\calQ,C_x}-(A\cup\{v_0\})$ is an induced subgraph of some torso of $\calT$.
+    \end{itemize}
+  \end{enumerate}
+\end{lem}
+
+
+\begin{proof}
+  Let $\calT_0:=(T_0,(B_x\mid x\in V(T_0)))$ and $Y_0\subseteq E(T_0)$ be the tree-decomposition of $G_0$ obtained by applying \cref{log_b_td} to the tree-decomposition $\calT$.  Thus, each torso of $\calT_0$ satisfies \ref{req:subtree_torso_apex}.    
+  First, we make the tree-decomposition $\calT_0$ into a tidy rooted forest-decomposition in three steps:
+  \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
+    \item Remove every node $x$ of $T_0$ with $B_x=\emptyset$.
+    \item Remove every edge $xy$ of $T_0$ with $B_x\cap B_y=\emptyset$.
+    \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.  If the edge $yz$ is in $Y_0$, replace $yz$ with $xz$ in $Y_0$.
+  \end{enumerate} 
+  Let $\calF=(F,(B_x\mid x\in V(F)))$ be the resulting tidy forest-decomposition and let $Y_1$ be the resulting subset of $E(F)$.  (For each $x\in V(F)$, the bag $B_x$ is well-defined since $V(F)\subseteq V(T_0)$.) 
+  Note that each torso of $\calF$ is a torso of $\calT_0$. This construction gives an injective mapping from each edge $xy\in Y_1$ to an edge $x'y\in Y_0$ with the following property: for each $x\in V(F)$, $P_{F}(x)$ contains $xy\in Y_1$ if and only if $P_{T_0}(x)$ contains $x'y$. It follows that, for any connected component $C$ of $F-Y_1$, $V(C)\subseteq V(C_0)$ for some component $C_0$ of $T_0-Y_0$.  Therefore $|V(C)|\le |V(C_0)|\le 4b-1$.
+
+  Let $Q$ be the tree obtained from $F$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F$. Let $Y_2:=Y_1\cup \{x_0x'\mid x'\text{ is a root of }F\}$. Then each component of $Q-Y_2$ has at most $4b-1$ nodes.
+  
+  Let $G$ be the graph obtained by adding an isolated vertex $v_0$ to $G_0$.  Define $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, define $C_{x'}:=B_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $Q$, define $C_x:=B_x$.  Then $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a tidy rooted tree-decomposition of $G$ that satisfies \ref{req:root_bag} and \ref{req:subtree_torso_apex}.
+
+  Let $A_{x_0}:=\emptyset$ and, for each edge $x\in V(Q-x_0)$, let $A_x$ be the parent adhesion of $x$ in $\calQ$.  For each $x\in V(Q)$, define $\omega(x):=|B_x\setminus A_x|$.  Since $\calQ$ is tidy, $\omega(x)\ge 1$ for each $x\in V(Q)$, so $\omega:V(T)\to\N^+$ is a weight function.  Let $Y_3\subseteq E(Q)$ be the set of edges obtained by applying \cref{skinny_edges} to $Q$ with the weight function $\omega$.  Then, for each component $C$ of $Q-Y_3$ and each $x,y\in V(C)$, we have   
+  \[
+      \textstyle \left|\bigcup_{z\in V(T_x)}C_z\right|=\omega(T_x)\le b\omega(T_y)=b\left|\bigcup_{z\in V(T_y)}C_z\right| \enspace .
+  \]
+  Let $Y:=Y_2\cup Y_3$.  Then $\calQ$ and $Y$ satisfy \ref{req:subtree_size} and \ref{req:same_size}.  Each root-to-leaf path in $Q$ contains one edge incident to $x_0$, at most $\log_b n$ edges from $Y_2$ and at most $\log_b n$ edges from $Y_3$.  Thus, $\calQ$ and $Y$ satisfy \ref{req:height}.
+\end{proof}
+
+
 \section{Weighted Mixed Labelling Schemes}
 \label{weighted_mixed_section}
  
@@ -829,6 +879,8 @@ A \defin{weighted $(g_1,g_2,g_3)$-mixed labelling} of $\calG$ for $(A,I)$ is an 
 
 
 % Let $\calG$ be a graph class that has a weighted $(g_1,g_2,g_3)$-mixed labelling scheme using an adjacency tester $A$ and an identity tester $I$.  For each $G^+\in\calG$, each spanning subgraph $G$ of $G^+$, and each weight function $\omega:V(G)\to\R^+$, let $(\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega})$ be a weighted $(g_1,g_2,g_3)$-mixed labelling of $(G^+,G,\omega)$ for $(A,I)$.  Then $\calS:=((\mu_{G^+,G,\omega},\kappa_{G^+,G,\omega}):G^+\in\calG,G\subseteq G^+, \omega:V(G)\to\R^+)$ is a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$.  
+
+
 
 
 
