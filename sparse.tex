@@ -950,20 +950,19 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \end{lem}
 
 \begin{proof}
-  By~\cref{lem:nice_weights} it is enough to show that $\calG^{+a}$ has a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a mixed labelling $(\mu,\kappa)$ for any $\tau=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ where $\omega$ is nice.
-  Since it is not possible to describe $A'$ and $I'$ without knowing the contents of the labels, we first describe how to compute $\mu$ and $\kappa$ for a particular $\tau$.
+  Let $(\calS:=((\mu^-_\tau,\kappa^-_\tau):\tau\in\calT_\calG)),A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
 
-  Let $n=|V(G)|$. Since $G^+\in\calG^{+a}$, there is a subset $X\subseteq V(G^+)$ of at most $a$ vertices such that $G^+-X\in\calG$.
-  Since $\omega$ is a nice weight function, for each $v\in V(G)$,
-  \begin{equation}
-    \log\omega(G)-\log\omega(v)\le\log n + 2\enspace.
-  \end{equation}
+  By~\cref{lem:nice_weights} it is enough to show that $\calG^{+a}$ has a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a strongly $g_0$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.  So that we can fix a specific labelling $(\mu_\tau,\kappa_\tau)$ for each $\calG^{+a}$-admissible triple $\tau=(G^+,G,\omega)$ we first choose, for each $G^+\in\calG^{+a}$, a specific set $X(G^+)\subseteq V(G^+)$ with $|X(G^+)|\le a$ such that $G^+-X(G^+)\in\calG$.
 
-  Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.  By assumption, $U_n$ has an orientation with maximum out-degree $g_0(n)$.
+  Let $\tau:=(G^+,G,\omega)$ be a nicely-weighted $\calG^{+a}$-admissible triple, let $X:=X(G^+)$, and let $n:=|V(G)|$. Since $\omega$ is a nice weight function, $\log\omega(G)-\log\omega(v)\le\log n + 2$ for each $v\in V(G)$. We will describe the weighted mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $\tau$ for $(A',I')$. 
+  
+  
+
+
   
   
   \paragraph{\boldmath The subgraph label $\mu^-$:}
-  Let $(\mu^-,\kappa^-):=(\mu^-_\tau,\kappa^-_\tau)$ where $\tau:=(G^+-X,G-X,\omega_{|V(G-X)})$.  Thus, $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
+  By the definition of $X$, $\tau^-:=(G^+-X,G-X,\omega_{|V(G-X|)})$ is a $\calG$-admissible triple with $|V(G-X)|\le n$.   Let $(\mu^-,\kappa^-):=(\mu^-_{\tau^-},\kappa^-_{\tau^-})$.  Thus $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
   For each $v\in V(G-X)$,
   \begin{align}
     \begin{split}
@@ -1077,14 +1076,15 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
 
+  This completes the description of the adjacency tester $A'$, the identity tester $I'$, and of the weighted $(g_1',g_2',g_3')$-mixed labelling $(\mu_\tau,\kappa_\tau):=(\mu,\kappa)$ of $\tau=(G^+,G,\omega)$ for $(A',I')$. Since $\tau$ is an arbitrary nicely-weighted $\calG^{+a}$-admissible triple, this completes the description of the weighted $(g_1',g_2',g_3')$-mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of  $\calG^{+a}$ for $(A',I')$.
+
   \paragraph{\boldmath $g'_0$-orientability:}
-  Thus far, we have shown that for each $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ there exists a $(g'_1,g'_2,g'_3)$-mixed labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$.  
-  Even for a fixed $\tau:=(G^+,G,\omega)$, the labelling $(\mu_\tau,\kappa_\tau)$ is not necessarily unique since, for example, there may be two distinct sets $X_1,X_2\subseteq V(G^+)$, each of size at most $a$ such that $G^+-X_1\in\calG$ and $G^+-X_2\in\calG$.  Using $X=X_1$ to define $(\mu_\tau,\kappa_\tau)$ results in a different mixed labelling than using $X=X_2$. To deal with this, for each 
-  $G^+\in\calG^{+a}$, we fix some set 
-  $X(G^+)$ of at most $a$ vertices such that $G^+-X(G^+)\in\calG$.  Then, the 
-  labelling $(\mu_\tau,\kappa_\tau)$ of $\tau=(G^+,G,\omega)$ is defined with 
-  respect to the set $X=X(G^+)$.  
-  Let $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ be the resulting weighted $(g_1',g_2',g_3')$-mixed labelling of $\calG^{+a}$ for $(A',I')$.
+  % Thus far, we have shown that for each $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ there exists a $(g'_1,g'_2,g'_3)$-mixed labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$.  
+  % Even for a fixed $\tau:=(G^+,G,\omega)$, the labelling $(\mu_\tau,\kappa_\tau)$ is not necessarily unique since, for example, there may be two distinct sets $X_1,X_2\subseteq V(G^+)$, each of size at most $a$ such that $G^+-X_1\in\calG$ and $G^+-X_2\in\calG$.  Using $X=X_1$ to define $(\mu_\tau,\kappa_\tau)$ results in a different mixed labelling than using $X=X_2$. To deal with this, for each 
+  % $G^+\in\calG^{+a}$, we fix some set 
+  % $X(G^+)$ of at most $a$ vertices such that $G^+-X(G^+)\in\calG$.  Then, the 
+  % labelling $(\mu_\tau,\kappa_\tau)$ of $\tau=(G^+,G,\omega)$ is defined with 
+  % respect to the set $X=X(G^+)$.  
   
   We now show that $(\calS',A')$ is $g'_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\calS',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$. 
   % This relies on the fact that $U_n$, the $n$-universal graph for $\calG$ defined by $(\calS,A)$, has an orientation in which each vertex has out-degree at most $g_0(n)$.  
@@ -1130,7 +1130,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \end{lem}
 
 \begin{proof}
-  Let $g_0,g_1,g_2,g_3$, $\calG$, $\calG'$, $k$, and $b$ be as given in the statement of the lemma.  We will define an adjacency tester $A'$ for $\calG'$.  However, it is impractical to describe the operation of $A'$ without first describing the format of the labels given as arguments to $A'$, so we begin by describing the construction of an adjacency labelling $\ell:V(G)\to\{0,1\}^*$ for a graph $G\in\calG'$.
+  Let $g_0,g_1,g_2,g_3$, $\calG$, $\calG'$, $k$, and $b$ be as given in the statement of the lemma.   
+  %  Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)),A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
+  We will define an adjacency tester $A'$ and an adjacency labelling $(\calA:=\ell_G:G\in\calG'))$ of $\calG'$ for $A'$.  Since it is impractical to describe the operation of $A'$ without first describing the format of the labels given as arguments to $A'$, we begin by describing the construction of an adjacency labelling $\ell:V(G)\to\{0,1\}^*:=\ell_G$ for a graph $G_0\in\calG'$.
 
   % Let $\calS:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling of $\calG$ for some adjacency/identity tester pair $(A,I)$.  
   Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$. Let $b:=b(n)$.
@@ -1140,22 +1142,26 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \item\label{torsos_in_G_plus_k_0} each torso of $\calT_1$ is in $\calG^{+3k}$;
     \item\label{tprops_y0_0} there exists $Y^1_0\subseteq E(T_1)$ such that each component of $T_1-Y^1_0$ has at most $4b-1$ nodes and each root-to-leaf path in $T_1$ has at most $\log_b n$ edges in $Y^1_0$.    
   \end{enumerate}
-  Apply \cref{tidy_forest} to $\calT_1$ to obtain a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$ and a tidy tree-decomposition $\calT:=(T,(B_x:x\in V(T))$ of $G$ satisfying the conditions of \cref{tidy_forest}.
-  Let $Y'$ be the set of edges $xy$ in $Y^1_0$ where $y$ is a $T_1$-child of $x$ and $y\in V(T)$.  For each such edge $e:=xy$, let $e':=x'y$ where $x'$ is the $T$-parent of $y$.  (This is well-defined because the only node of $T$ without a $T$-parent is $x_0$, which is not a node of $T_1$.)  Let $Y_0:=\{e':e\in Y'\}$. Each adhesion of $\calT$ is also an adhesion of $\calT_1$, so by \ref{td_width_0}
+  Apply \cref{tidy_forest} to $\calT_1$ to obtain a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$ and a tidy tree-decomposition $\calT:=(T,(B_x:x\in V(T))$ of $G$ satisfying the conditions of \cref{tidy_forest}. Each adhesion of $\calT$ is also an adhesion of $\calT_1$, so by \ref{td_width_0}
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
     \item\label{td_width} $\calT$ has adhesion-width at most $3k$;
   \end{enumerate}  
-  For each $x\in V(T)\setminus\{x_0\}$, $\torso{G}{\calT,B_x}-v_0=\torso{G}{\calT_1,B^1_x}$ is a torso of $\calT_1$, so by \ref{torsos_in_G_plus_k_0}  
+  For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_{x}}-A_x$ is an induced subgraph of a torso of $\calT_0$, or $\torso{G}{\calT,B_{x}}-A_x$ is a $1$-vertex graph (if $x=x_0$).  Since $\calG$ is hereditary, $\calG^{+3k}$ is also hereditary.  This, the fact that $k\ge 1$, and \ref{torsos_in_G_plus_k_0} implies that 
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{1}
-    \item\label{torsos_in_G_plus_k} each torso of $\calT$ is in $\calG^{+{3k+1}}$;
+    \item\label{torsos_in_G_plus_k} for each $x\in V(T)$, 
+    $\torso{G}{\calT,B_x}-A_x\in \calG^{+3k}$.
   \end{enumerate}
-  Condition~\ref{tidy_path_subset} of \cref{tidy_forest} implies that the sequence of vertices on each root-to-leaf path in $T$ begins with $x_0$ followed by a subsequence of vertices on a root-to-leaf path in $T_1$, so by \ref{tprops_y0_0}
+  Let $Y'$ be the set that contains every pair $(x,y)$ such that $xy\in Y^1_0$, $y$ is a $T_1$-child of $x$, and $y\in V(T)$.  For each $(x,y)\in Y'$, let $x'$ be the $T$-parent of $y$.  (This is well-defined because the only node of $T$ without a $T$-parent is $x_0$, which is not a node of $T_1$.)  Let $Y_0:=\{x'y:(x,y)\in Y'\}\cup\{x_0x:x\in N_T(x_0)\}$.  Thus $Y_0\subseteq E(T)$.  
+  
+  We claim that each component of $T-Y_0$ has at most $4b-1$ nodes.  This is clearly true for the component containing $x_0$, which has only one node.  Let $C$ be a non-trivial component of $T-Y_0-x_0$, let $r(C)$ be the root of $C$, and let $C_1$ be the component of $T_1-Y^1_0$ that contains $r(C)$.  By \ref{tprops_y0_0}, $|V(C)|\le b-1$.  Condition~\ref{tidy_path_subset} of \cref{tidy_forest} implies that the sequence of vertices on each root-to-leaf path in $T$ begins with $x_0$ followed by a subsequence of vertices on some root-to-leaf path in $T_1$.  Thus, for any node $x\in V(C)\setminus\{r(C)\}$, the path $P_1$ from $r(C)$ to $x$ in $T_1$ contains every vertex of the path $P$ from $r(C)$ to $x$ in $C$. Let $xy$ be an edge of $P_1$ where $y$ is a $T_1$-child of $x$.  Then $xy\not\in Y^1_0$ since, if it were, the edge $x'y$ would be in $Y_0$, where $x'$ is the $T$-parent of $y$. This would imply that $r(C)$ and $x$ were in different components of $T-Y_0$.  Thus, every node $x\in V(C)\setminus\{r(C)\}$ is also a node of $C_1$.  Therefore, $|V(C)|\le |V(C_1)|\le b-1$.
+
+  Let $P$ be a path in $T$ from $x_0$ to some leaf $z$ and let $P_1$ be the root-to-$z$ path in $T_1$.  For each edge $x'y\in Y_0$ where $x'$ is the $T$-parent of $y$, either $x'=x_0$ or $xy\in Y^1_0$ is an edge of $P_1$.  $P$ contains at most $1$ edge incident to $x_0$ and $P_1$ contains at most $\log_b n$ edges of $Y^1_0$.  Thus, by \cref{tprops_y0_0}, 
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{2}
     \item\label{tprops_y0} each component of $T-Y_0$ has at most $4b-1$ nodes and each root-to-leaf path in $T$ has at most $\log_b n+1$ edges in $Y_0$.
   \end{enumerate}
   We describe an adjacency labelling $\ell$ of $G$, rather than a labelling of $G_0$. This is sufficient since, for each $v,w\in V(G_0)$, $vw\in E(G)$ if and only if $vw\in E(G_0)$.
 
-  For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\calT$. For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\cap A_x\neq\emptyset$ for each $y\in C_x$, so each $y\in C_x$ is contained in $C_K$ for exactly one clique $K$ in $\torso{G}{\calT,B_x}-A_x$.
+  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\cap A_x\neq\emptyset$ for each $y\in C_x$, so each $y\in C_x$ is contained in $C_K$ for exactly one clique $K$ in $\torso{G}{\calT,B_x}-A_x$.
 
   Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega:V(T)\to\N^+$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega:V(G)\to\{1\}$ is nice).  Furthermore, for every pair of vertices $x,y$ in the same component of $T-Y_1$, we have $\omega(T_y)/b< \omega(T_x)<b\cdot\omega(T_y)$; equivalently  $|\log\omega(T_x)-\log\omega(T_y)|< \log b$. For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, if $\max_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$, then we say that $K$ is \defin{light} in $\calT$.  Observe that, if a clique $K$ in $\torso{G}{\calT,B_x}-A_x$ is light, then $\omega(T_y)\le \omega(T_x)/b$ for each $y\in C_K$.  In particular, this implies that $xy\in Y_1$ for each $y\in C_K$.  
 
@@ -1169,15 +1175,14 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
 
-  For each $x\in V(T)$, the torso $\torso{G}{\calT,B_x}$ either belongs to $\calG^{+3k}$ (if $v_0\notin B_x$) or is obtained by adding the isolated vertex $v_0$ to a graph in $\calG^{+3k}$, in which case it belongs to $\calG^{+3k+1}$.
-  By \cref{add_apexes}, $\calG^{+3k+1}$ has a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme with 
+  For each $x\in V(T)$, the torso $\torso{G}{\calT,B_x}$ belongs to $\calG^{+3k+1}$ (by \ref{torsos_in_G_plus_k}).  By \cref{add_apexes}, $\calG^{+3k+1}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme $(\mathdefin{\calS}:=\mathdefin{(\mu_\tau,\kappa_\tau)}:\tau\in\calT_{\calG^{+3k+1}})$ with 
   \begin{align}
     \mathdefin{h_0(n)} & = (2g_0(n) + 3k + 1)2^{3k+1} \\
     \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
     \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
     \mathdefin{h_3(n)} & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
   \end{align} 
-  Let \defin{$A$} and \defin{$I$} be an adjacency tester and identity tester for this mixed labelling scheme. Let $\mathdefin{\calS}:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG^{+3k+1}}\}$ be a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$-mixed labelling of $\calG^{+3k+1}$ for $(A,I)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
+  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
 
   
   
