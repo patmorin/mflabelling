@@ -1189,54 +1189,20 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   % Let $\calS:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling of $\calG$ for some adjacency/identity tester pair $(A,I)$.  
   Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$ and each torso of $\calT_0$ belongs to $\calG$. Let $b:=b(n)$.  Let $\calT:=(T,(B_x\mid x\in V(T)))$ and $Y\subseteq E(T)$ be the result of applying \cref{all_singing_all_dancing} to the tree-decomposition $\calT_0$ of $G_0$. Let $x_0$ be the root of $T$.  Define $A_{x_0}:=\emptyset$ and, for each $x\in V(T)\setminus\{x_0\}$ let $A_x$ be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_x}-A_x$ is either a $1$-vertex graph (if $x=x_0$) or an induced subgraph of a torso of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ is in $\calG$), or its vertex set is contained in the union of at most $3$ adhesions of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ has at most $3k$ vertices).  In each case, $\torso{G}{\calT,B_x}-A_x\in\calG^{+3k}$.
   
-  
-  
-  
-  
-  is in $\calG^+$. 
-  
-  
-  By \cref{all_singing_all_dancing}, there exists a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$ and a tree-decomposition 
+
+  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$, so each $y\in C_x$ is contained in $C_K$ for exactly one clique $K$ in $\torso{G}{\calT,B_x}-A_x$.  
   
 
-
-
-
-
-  By \cref{log_b_td}, we may assume there exists a tree-decomposition $\mathdefin{\calT_1}:=\mathdefin{(T_1,(B^1_x\mid x\in V(T_1)))}$ of $G_0$ and $Y^1_0\subseteq E(T_1)$ such that
-  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*')]
-    \item\label{td_width_0} $\calT_1$ has adhesion-width at most $3k$;
-    \item\label{torsos_in_G_plus_k_0} each torso of $\calT_1$ is in $\calG^{+3k}$;
-    \item\label{tprops_y0_0} there exists $Y^1_0\subseteq E(T_1)$ such that each component of $T_1-Y^1_0$ has at most $4b-1$ nodes and each root-to-leaf path in $T_1$ has at most $\log_b n$ edges in $Y^1_0$.    
-  \end{enumerate}
-  Apply \cref{tidy_forest} to $\calT_1$ to obtain a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$ and a tidy tree-decomposition $\calT:=(T,(B_x:x\in V(T))$ of $G$ satisfying the conditions of \cref{tidy_forest}. Each adhesion of $\calT$ is also an adhesion of $\calT_1$, so by \ref{td_width_0}
+  \pat{Add a transition here.} 
+  
+  Let $F:=T-Y$.
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
     \item\label{td_width} $\calT$ has adhesion-width at most $3k$;
-  \end{enumerate}  
-  For each $x\in V(T)$, let \defin{$A_x$} be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_{x}}-A_x$ is an induced subgraph of a torso of $\calT_0$, or $\torso{G}{\calT,B_{x}}-A_x$ is a $1$-vertex graph (if $x=x_0$).  Since $\calG$ is hereditary, $\calG^{+3k}$ is also hereditary.  This, the fact that $k\ge 1$, and \ref{torsos_in_G_plus_k_0} implies that 
-  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{1}
     \item\label{torsos_in_G_plus_k} for each $x\in V(T)$, 
     $\torso{G}{\calT,B_x}-A_x\in \calG^{+3k}$.
-  \end{enumerate}
-  Let $Y'$ be the set that contains every pair $(x,y)$ such that $xy\in Y^1_0$, $y$ is a $T_1$-child of $x$, and $y\in V(T)$.  For each $(x,y)\in Y'$, let $x'$ be the $T$-parent of $y$.  (This is well-defined because the only node of $T$ without a $T$-parent is $x_0$, which is not a node of $T_1$.)  Let $Y_0:=\{x'y:(x,y)\in Y'\}\cup\{x_0x:x\in N_T(x_0)\}$.  Thus $Y_0\subseteq E(T)$.  
-  
-  We claim that each component of $T-Y_0$ has at most $4b-1$ nodes.  This is clearly true for the component containing $x_0$, which has only one node.  Let $C$ be a non-trivial component of $T-Y_0-x_0$, let $r(C)$ be the root of $C$, and let $C_1$ be the component of $T_1-Y^1_0$ that contains $r(C)$.  By \ref{tprops_y0_0}, $|V(C)|\le b-1$.  Condition~\ref{tidy_path_subset} of \cref{tidy_forest} implies that the sequence of vertices on each root-to-leaf path in $T$ begins with $x_0$ followed by a subsequence of vertices on some root-to-leaf path in $T_1$.  Thus, for any node $x\in V(C)\setminus\{r(C)\}$, the path $P_1$ from $r(C)$ to $x$ in $T_1$ contains every vertex of the path $P$ from $r(C)$ to $x$ in $C$. Let $xy$ be an edge of $P_1$ where $y$ is a $T_1$-child of $x$.  Then $xy\not\in Y^1_0$ since, if it were, the edge $x'y$ would be in $Y_0$, where $x'$ is the $T$-parent of $y$. This would imply that $r(C)$ and $x$ were in different components of $T-Y_0$.  Thus, every node $x\in V(C)\setminus\{r(C)\}$ is also a node of $C_1$.  Therefore, $|V(C)|\le |V(C_1)|\le b-1$.
-
-  Let $P$ be a path in $T$ from $x_0$ to some leaf $z$ and let $P_1$ be the root-to-$z$ path in $T_1$.  For each edge $x'y\in Y_0$ where $x'$ is the $T$-parent of $y$, either $x'=x_0$ or $xy\in Y^1_0$ is an edge of $P_1$.  $P$ contains at most $1$ edge incident to $x_0$ and $P_1$ contains at most $\log_b n$ edges of $Y^1_0$.  Thus, by \cref{tprops_y0_0}, 
-  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{2}
-    \item\label{tprops_y0} each component of $T-Y_0$ has at most $4b-1$ nodes and each root-to-leaf path in $T$ has at most $\log_b n+1$ edges in $Y_0$.
-  \end{enumerate}
-  We describe an adjacency labelling $\ell$ of $G$, rather than a labelling of $G_0$. This is sufficient since, for each $v,w\in V(G_0)$, $vw\in E(G)$ if and only if $vw\in E(G_0)$.
-
-  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\cap A_x\neq\emptyset$ for each $y\in C_x$, so each $y\in C_x$ is contained in $C_K$ for exactly one clique $K$ in $\torso{G}{\calT,B_x}-A_x$.
-
-  Let \defin{$Y_1$} be the set of edges of $T$ obtained by applying \cref{skinny_edges} to $T$ with parameter $b$ and weight function $\omega:V(T)\to\N^+$. Thus, every root-to-leaf path in $T$ contains at most $\log_b \omega(T)=\log_b\omega(G)\le\log_b n+\Oh(1)$ edges of $Y_1$ (since $\omega:V(G)\to\{1\}$ is nice).  Furthermore, for every pair of vertices $x,y$ in the same component of $T-Y_1$, we have $\omega(T_y)/b< \omega(T_x)<b\cdot\omega(T_y)$; equivalently  $|\log\omega(T_x)-\log\omega(T_y)|< \log b$. For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, if $\max_{y\in C_K}\omega(T_y)\le \omega(T_x)/b$, then we say that $K$ is \defin{light} in $\calT$.  Observe that, if a clique $K$ in $\torso{G}{\calT,B_x}-A_x$ is light, then $\omega(T_y)\le \omega(T_x)/b$ for each $y\in C_K$.  In particular, this implies that $xy\in Y_1$ for each $y\in C_K$.  
-
-  Let $\mathdefin{Y}:=Y_0\cup Y_1$ and let $\mathdefin{F}:=T-Y$, so $F$ is a rooted spanning forest of $T$. For each component $C$ of $F$, let \defin{$r(C)$} be the vertex in $C$ of minimal $T$-depth (so $r(C)$ is the root of the tree $C$). Then $Y$ satisfies the following strengthening of \ref{tprops_y0}:
-  \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]\setcounter{enumi}{3}
-    \item\label{component_size} each component of $F$ has at most $4b-1$ vertices;
+    \item\label{tprops_y0} each component of $F$ has at most $4b-1$ nodes 
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
-    \item\label{light_clique_buster} for each $x\in V(F)$, and each light clique $K$ in $\torso{G}{\calT,B_x}-A_x$, the component of $F$ than contains $x$ is different than the component of $F$ that contains $y$, for each $y\in C_K$; and
+    \item\label{light_clique_buster} for each $x\in V(F)$, and each light clique $K$ in $\torso{G}{\calT,B_x}-A_x$, the component of $F$ that contains $x$ is different than the component of $F$ that contains $y$, for each $y\in C_K$; and
     \item\label{y_on_path} each root-to-leaf path $P$ in $T$ has $|E(P)\cap Y|\le 2\log_b n+\Oh(1)$; equivalently, $P\cap F$ has at most $2\log_b n + \Oh(1)$ components.
   \end{enumerate}
 
