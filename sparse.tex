@@ -132,24 +132,17 @@ Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Math
 \bigskip
 \section{Introduction}
 
-Let $\calG$ be a set of graphs. A graph $U_n$ is \defin{$n$-universal} for $\calG$ if it ``contains'' every $n$-vertex graph in $\calG$.  Here, the word ``contains'' can take on at least two meanings.  A graph $U_n$ is \defin{$n$-subgraph-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some subgraph of $U_n$.  A graph $U_n$ is \defin{$n$-induced-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some \emph{induced} subgraph of $U_n$.
+Let $\calG$ be a set of graphs. A graph $U_n$ is \defin{$n$-universal} for $\calG$ if it ``contains'' every $n$-vertex graph in $\calG$.  Here, the word ``contains'' can take on at least two meanings.  A graph $U_n$ is \defin{$n$-subgraph-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some subgraph of $U_n$.  A graph $U_n$ is \defin{$n$-induced-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some \emph{induced} subgraph of $U_n$.  These two notions of universality have traditionally been treated as two separate concepts that are quantified with different quality measures.  
 
+Clearly an $n$-subgraph-universal graph must have at least $n$ vertices and the complete graph $K_n$ contains every $n$-vertex graph as a subgraph. Thus, for every $n\in\N$, $K_n$ is an $n$-vertex graph that is $n$-subgraph-universal for the set of all graphs.  Thus, research on subgraph-universal graphs has focused on finding $n$-universal graphs with as few edges as possible, with a focus on cases where $\calG$ is is a sparse class of graphs, such as trees, planar graphs, or $K_t$-minor-free graphs for some fixed $t$.  This topic of research has a long and interesting history, dating back to [.....]  Notable results include [....]
 
-Traditionally, induced-universal graphs and subgraph-universal graphs were separate concepts with different quality measures.  Clearly an $n$-universal graph must have at least $n$ vertices and the complete graph $K_n$ contains every $n$-vertex graph as a subgraph. Thus, for every $n\in\N$, $K_n$ is an $n$-vertex graph that is $n$-subgraph-universal for the set of all graphs.  Thus, research on subgraph-universal graphs has focused on finding $n$-universal graphs with as few edges as possible.  
+In the induced-universal setting, the graph that contains the vertex-disjoint union of all $n$-vertex graphs in $\calG$ is $n$-universal, but this graph generally has an enormous number of vertices.\footnote{More precisely, let $\calG_n$ be the set of all $n$-vertex graphs in $\calG$. The universal graph is constructed by choosing one representative graph $G$ from each isomorphism class of $\calG_n$, and then taking the vertex-disjoint union of all such graphs.}  Thus, the research on induced-universal graphs has generally focused on finding graphs with as few vertices as possible.  The suject of induced-universal graphs also has a long history, especially in computer science where it appears under the notion of adjacency labelling schemes (discussed below).  Notable results include [....]
 
+In a recent work, \citet{EJM23} showed that, for the class of planar graphs, there exists $n$-induced-universal graph with $n^{1+o(1)}$ vertices \emph{and edges}.  Their work is based on a construction of $n$-induced universal graphs with $n^{1+o(1)}$ vertices for planar graphs due to \citet{dujmovic.esperet.ea:adjacency}.  The current work extends these results to all proper minor-closed graph classes.  In the special case of planar graphs it also gives a (small) quantitative improvement on the number of edges and vertices in the constructions.
 
+% In the current work, we extend this result by proving that, for every proper minor-closed class of graphs $\calG$, there exists an $n$-induced-universal graph with $n\cdot\exp((\log n)^{3/4})$ vertices and edges.  As part of our construction we also obtain an $n$-subgraph universal graph for planar graphs with $n \exp(O(\sqrt{\log n}))$ vertices and edges. 
 
-
-
-\pat{Maybe start with the two kinds of universal graphs...}
-
-
-A graph $H$ is a \defin{minor} of a graph $G$ if a graph isomorphic to $H$ can
-be obtained from a subgraph of $G$ by contracting edges. A class of graphs
-$\calG$ is \defin{minor-closed} if every minor of every graph in
-$\calG$ is also in $\calG$, and it is \defin{proper} if it is not the class of all graphs. Examples of proper proper minor-closed graph classes include planar graphs, graphs of treewidth at most $k$, graphs embeddable in a fixed
-surface, linklessly embeddable graphs, knotlessly embeddable graphs and, for every fixed graph $X$, the class of graphs with no $X$-minor. Note that every proper minor-closed class is contained in the class of $K_t$-minor-free graphs for some fixed $t$.
-
+As mentioned above, induced-universal graphs are closely related to adjacency labelling schemes, which we now explain.
 Let $\calG$ be a class of graphs and let $f:\N\to\N$ be a function.
 We say that $\calG$ has an \defin{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\set{0,1}^*)^2\to\set{0,1}$ (called an \defin{adjacency tester}) such that for all positive integers $n$, for every $n$-vertex graph $G\in\calG$, there exists a function $\ell: V(G)\to\set{0,1}^*$ such that
 $|\ell(v)|\leq f(n)$ for each vertex $v$ in $G$, and such that
@@ -161,7 +154,12 @@ for every two vertices $u$, $v$ in $G$,
   \end{cases}
 \]
 (Such a function $\ell$ is called an \defin{adjacency labelling} of $G$ for $A$.) 
-In this paper we prove the following result. (All logarithms are in base $2$.)
+
+A graph $H$ is a \defin{minor} of a graph $G$ if a graph isomorphic to $H$ can
+be obtained from a subgraph of $G$ by contracting edges. A class of graphs
+$\calG$ is \defin{minor-closed} if every minor of every graph in
+$\calG$ is also in $\calG$, and it is \defin{proper} if it is not the class of all graphs. Examples of proper proper minor-closed graph classes include planar graphs, graphs of treewidth at most $k$, graphs embeddable in a fixed
+surface, linklessly embeddable graphs, knotlessly embeddable graphs and, for every fixed graph $X$, the class of graphs with no $X$-minor. Note that every proper minor-closed class is contained in the class of $K_t$-minor-free graphs for some fixed $t$.  In this paper we prove the following result. (All logarithms are in base $2$.)
 
 \begin{thm}
   \label{main_result}
@@ -169,9 +167,7 @@ In this paper we prove the following result. (All logarithms are in base $2$.)
   a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
-Note that all the dependence on the fixed proper minor-closed class in~\cref{main_result} is in the $o(\log n)$ term. Also, \cref{main_result} is optimal up to the $o(\log n)$ term,
-which is $\Oh\left((\log n)^{3/4}\right)$.
-The proof of~\cref{main_result} is constructive. For every fixed proper minor-closed class $\calG$, there is a polynomial-time algorithm that takes a graph $G\in\calG$ as input and constructs the labelling $\ell:V(G)\to\{0,1\}^*$.
+Note that all the dependence on the fixed proper minor-closed class in~\cref{main_result} is in the $o(\log n)$ term. Also, \cref{main_result} is optimal up to the $o(\log n)$ term, which is $\Oh\left((\log n)^{3/4}\right)$. The proof of~\cref{main_result} is constructive. For every fixed proper minor-closed class $\calG$, there is a polynomial-time algorithm that takes a graph $G\in\calG$ as input and constructs the labelling $\ell:V(G)\to\{0,1\}^*$.We prove \cref{main_result} by introducing and studying a strengthening of adjacency labelling schemes called weighted mixed labelling schemes.
 
 A consequence\footnote{In fact, the viewpoints of adjacency labelling schemes and induced-universal graphs are essentially equivalent. A minor detail is that the labelling schemes need to be injective for the equivalence to hold but this is the case for those developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between the two notions.} of \cref{main_result} is the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs.
 
@@ -184,20 +180,11 @@ The labelling scheme provided by \cref{main_result} actually satisfies some addi
 \begin{thm}\label{main_result_induced_universal_sparse}
     For every proper minor-closed graph class $\calG$, for every positive integer $n$,
     there exists a graph $U_n$ with $n^{1+o(1)}$ vertices and $n^{1+o(1)}$ edges such that every $n$-vertex graph in $\calG$ is isomorphic to an induced subgraph of $U_n$.
-  \end{thm}
-  
-  The current paper is the full version of conference paper \cite{dujmovic.gavoille.ea:adjacency_minor}, which only establishes \cref{main_result}/\cref{main_result_induced_universal}.  In order to establish \cref{main_result_induced_universal_sparse}, the labelling scheme in \cite{dujmovic.gavoille.ea:adjacency_minor} has been modified significantly.  In particular, the labelling scheme in the current paper no longer partitions  a tree-decomposition into $b$-skinny subtrees.  Instead, the proof of \cref{lem:the_big_one} (the technical core of the current paper) performs a partition into subtrees of size $O(b)$ with the property that, within a single subtree, the nodes have weights that differ by a factor of at most $O(b)$.
+\end{thm}
 
+We establish \cref{main_result_induced_universal_sparse} by introducing a notion of \emph{orientable} (mixed or adjacency) labelling schemes and showing that, if an adjacency labelling scheme satisfies this definition of orientability then the resulting induced-universal graph is sparse.
 
-
-
-
-
-
-
-
-
-
+The current paper is the full version of conference paper \cite{dujmovic.gavoille.ea:adjacency_minor}, which only establishes \cref{main_result}/\cref{main_result_induced_universal}.  In order to establish \cref{main_result_induced_universal_sparse}, the labelling scheme in \cite{dujmovic.gavoille.ea:adjacency_minor} has been modified significantly. In particular, the labelling scheme in the current paper no longer partitions  a tree-decomposition into $b$-skinny subtrees.  Instead, the proof of \cref{lem:the_big_one} (the technical core of the current paper) performs a partition into subtrees of size $O(b)$ with the property that, within a single subtree, the nodes have weights that differ by a factor of at most $O(b)$.  Part of our proof requires that we devise a mixed labelling scheme for a generalization of planar graphs. As in \cite{EJM23}, we do this by modifying the adjacency-labelling scheme in \cite{dujmovic.esperet.ea:adjacency}, which is based on the Product Structure Theorem for planar graphs \cite{dujmovic.joret.ea:planar}.  The modifications we use are different from those in \cite{EJM23} and actually lead to a simplification of the original adjacency labelling scheme from \cite{dujmovic.joret.ea:planar}.
 
 
 
