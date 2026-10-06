@@ -2508,6 +2508,9 @@ Variants of the following result appear in several contexts, with different boun
 
 \pat{If we can make a short proof, we could consider proving this ourselves.  I think the leading constant should be $3$, with an argument something like (but simpler than) the proof of \cref{log_b_td}\\
 \includegraphics[height=.5\textheight]{images/PXL_20260924_141848204.jpg}}
+
+\vida{Let's not forget to see if this gives a induced universal graph for trees with $O(n \log n)$ edges which is optimal even for subgraph universal graphs (and a similar result with $\log^t n$ term in case of treewidth-$t$ graphs).  $\log^{O(t^2)} n$ result follows from EMJ proof and it does not give  $O(n \log n)$ for trees but rather $O(n polylog n)$ }
+
 \begin{lem}[\protect{\cite[Lemma~7]{chatterjee.ibsen-jensen.ea:optimal}}]\label{low_height_tree_decomp}
   Let $H$ be an $n$-vertex graph of treewidth at most $k$. Then $H$ has a rooted binary tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\in \Oh(\log n)$.
 \end{lem}
