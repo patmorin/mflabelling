@@ -726,11 +726,11 @@ In some cases, we include one or more non-negative integers as parts of a multip
 
 
 
-In this section we develop some tools for manipulating tree-decompositions like those obtained from \cref{gmpst}.
+In this section, we develop some tools for manipulating tree-decompositions like those obtained from \cref{gmpst}.
 
 
 \begin{lem}\label{skinny_edges}
-  Let $b>1$, let $T$ be a rooted tree with $n$ vertices and let $\omega:V(T)\to\mathbb{N}^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that
+  Let $b>1$, let $T$ be a rooted tree, and let $\omega:V(T)\to\N^+$ be a weight function.  Then there exists $Y\subseteq E(T)$ such that
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)] 
     \item each root-to-leaf path in $T$ contains at most $\log_b \omega(T)$ edges in $Y$; and
     \item $\omega(T_y)\le b\cdot\omega(T_x)$ for any two vertices $x,y$ in the same component of $T-Y$.
@@ -738,14 +738,19 @@ In this section we develop some tools for manipulating tree-decompositions like 
 \end{lem}
 
 \begin{proof}
-  The proof is by induction $|V(T)|$.  Let $X_0:=\{x\in V(T):\omega(T_x)\ge \omega(T)/b\}$.  Then $T_0:=T[X_0]$ is a (connected) subtree of $T$ that includes the root of $T$.  If $X_0=V(T)$, then $Y_0=\emptyset$ and we are done.  Otherwise let $F_0:=T-X_0$ and let $T_0,\ldots,T_{s}$ be the components of $F_0$. By the choice of $X_0$, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(T_0)$.  Also by the choice of $X_0$, we have $\omega(T_i) \le \omega(T)/b$ for each $i\in[s]$.
+  The proof is by induction on $|V(T)|$.  Let $X_0:=\{x\in V(T):\omega(T_x)\ge \omega(T)/b\}$.  Since the root $r$ of $T$ satisfies $\omega(T_r)=\omega(T)>\omega(T)/b$ (as $b>1$) and every ancestor of a vertex in $X_0$ is also in $X_0$, the induced subgraph $T_0:=T[X_0]$ is a connected subtree of $T$ containing $r$.  If $X_0=V(T)$, then setting $Y:=\emptyset$ satisfies the lemma: each root-to-leaf path contains $0 \le \log_b\omega(T)$ edges of $Y$ (since $\omega(T)\ge 1$), and for any $x,y\in V(T)$, $\omega(T_y)\le \omega(T)\le b\cdot\omega(T_x)$ by the definition of $X_0$.
 
-  For each $i\in[s]$, let $x_iy_i$ be the edge of $T$ between the root $y_i$ of $T_i$ and its $T$-parent $x_i \in V(T_0)$. Let $Y_0:=\{x_iy_i\mid i\in[s]\}$.  For each $i\in[s]$, apply induction on $T_i$ to obtain $Y_i\subseteq E(T_i)$.  Let $Y:=Y_0\cup\bigcup_{i=1}^s Y_i$.  Each component $C$ of $T-Y$ is either $T_0$ or a component of $T_i-Y_i$ for some $i\in[s]$.  In either case, $\omega(x)\le b\cdot\omega(y)$ for each $x,y\in V(C)$.  Furthermore, for each root-to-leaf path $P$ in $T$, $E(P)\subseteq E(T_0)\cup Y_0\cup E(T_i)$ for some $i\in[s]$.  Thus,
+  Otherwise, let $F_0:=T-X_0$ and let $T_1,\ldots,T_s$ be the connected components of $F_0$.  By the definition of $X_0$, for any $x,y\in V(T_0)$ we have $\omega(T_y)\le\omega(T)\le b\cdot\omega(T_x)$.  Furthermore, for each $i\in[s]$, the component $T_i$ is the subtree $T_{y_i}$ rooted at the child $y_i\notin X_0$ of some vertex $x_i\in V(T_0)$, so $\omega(T_i)<\omega(T)/b$.  Since $r\in X_0$, each component $T_i$ satisfies $|V(T_i)|<|V(T)|$.  Applying induction to each $T_i$ with weight function $\omega|_{V(T_i)}$ yields an edge set $Y_i\subseteq E(T_i)$.
+
+  Let $Y_0:=\{x_iy_i\mid i\in[s]\}$ and let $Y:=Y_0\cup\bigcup_{i=1}^s Y_i$.  Each component $C$ of $T-Y$ is either $T_0$ or a component of $T_i-Y_i$ for some $i\in[s]$.  In the former case, $\omega(T_y)\le b\cdot\omega(T_x)$ for all $x,y\in V(T_0)$ as established above.  In the latter case, since $(T_i)_z = T_z$ for every $z\in V(T_i)$, the inductive hypothesis implies $\omega(T_y)\le b\cdot\omega(T_x)$ for all $x,y\in V(C)$.  This establishes condition~(b).
+
+  Finally, let $P$ be a root-to-leaf path in $T$.  If $P$ is contained entirely in $T_0$, then $E(P)\cap Y = \emptyset$, so $|E(P)\cap Y| = 0 \le \log_b\omega(T)$.  Otherwise, $P$ leaves $T_0$ via a unique edge $x_iy_i\in Y_0$ into some component $T_i$, and the suffix $P_i := P\cap T_i$ is a root-to-leaf path in $T_i$.  By induction, $|E(P_i)\cap Y_i|\le\log_b\omega(T_i)$.  Therefore,
   \[  
     |E(P)\cap Y|
-      \le |E(P)\cap Y_0| + |E(P)\cap E(T_i)|
-      \le 1+\log_b\omega(T_i)\le 1+\log_b(\omega(T)/b)
-      =\log_b\omega(T) \enspace . \qedhere 
+      = |E(P)\cap Y_0| + |E(P_i)\cap Y_i|
+      \le 1+\log_b\omega(T_i)
+      < 1+\log_b(\omega(T)/b)
+      = \log_b\omega(T) \enspace . \qedhere 
   \]
 \end{proof}
 
