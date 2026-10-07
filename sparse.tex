@@ -442,37 +442,32 @@ Next is the main technical core of the paper, \cref{lem:the_big_one}, which esta
 
 Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} be the set of all positive integers.  For $p\in\N^+$, let $\mathdefin{[p]} := \set{1,\dots,p}$. 
 
-In this paper, each graph $G$ we consider is a simple graph with vertex set denoted by $V(G)$ and edge set denoted by $E(G)$. For an edge of $G$ with endpoints $v$ and $w$ we use the shorthand notation $vw$ instead of $\{v,w\}$ for the edge, with occasional exceptions.  A subset $K$ of vertices of $G$ is a \defin{clique} in $G$ if $vw\in E(G)$ for each $\{v,w\}\in\binom{K}{2}$.
+In this paper, each graph $G$ we consider is a simple graph with vertex set denoted by $V(G)$ and edge set denoted by $E(G)$. For an edge of $G$ with endpoints $v$ and $w$, we use the shorthand notation $vw$ instead of $\{v,w\}$ for the edge, with occasional exceptions.  For a graph $G$ and a vertex $v$ of $G$, $\mathdefin{N_G(v)}:=\{w\in V(G):vw\in E(G)\}$ is the \defin{(open) neighbourhood} of $v$ in $G$.  For any set $S$, \defin{$G[S]$} is the graph with vertex set $\mathdefin{V(G[S])}:=S\cap V(G)$ and edge set $\mathdefin{E(G[S])}:=\{vw\in E(G):v,w\in S\}$, which we call the subgraph of $G$ \defin{induced} by $V(G)\cap S$.  For any set $S$, $G-S:=G[V(G)\setminus S]$. For any $R\subseteq E(G)$, $G-R$ is the graph with vertex set $V(G)$ and edge set $E(G)\setminus R$. A non-empty subset $K$ of vertices of $G$ is a \defin{clique} in $G$ if $vw\in E(G)$ for each $\{v,w\}\in\binom{K}{2}$.  
 
-A \defin{graph class} is a set of graphs closed under isomorphism. A graph class  $\calG$ is \defin{hereditary} if for every $G$ in $\calG$ every induced subgraph of $G$ is also in $\calG$. For a graph class $\calG$ and a non-negative integer $a$, define \defin{$\calG^{+a}$} as the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
-
-% A  graph class $\calG$ is \defin{monotone} if for every $G\in\calG$, every subgraph of $G$ is in $\calG$.  
-% A graph class $\calG$ is \defin{infinitely extendable} if, for each $n\in\N$, each $n$-vertex graph in $\calG$ is an induced subgraph of some $(n+1)$-vertex graph in $\calG$.  
-%A  graph class $\calG$ is \defin{minor-closed} if for every $G\in\calG$, every minor of $G$ is in $\calG$. A graph class $\calG$ is \defin{proper} if some graph is not in $\calG$.  
-%  A \defin{disjoint union} of two graphs $G$ and $H$ is a graph obtained from two vertex-disjoint copies of $G$ and $H$ with no edge in between. A class of graphs $\calC$ is \defin{closed under taking disjoint union} if for all $G,H$ in $\calC$, the disjoint union of $G$ and $H$ is also in $\calC$.
-
-% If $G$ is a graph, $P$ is a path and $(P,(B_x\mid x \in V(P)))$ is a tree-decomposition of $G$, then $(P,(B_x\mid x \in V(P)))$ is called a \defin{path-decomposition} of $G$, which we usually denote as $(B_1,\ldots,B_{|V(P)|})$.
+A \defin{graph class} is a set of graphs closed under isomorphism. A graph class $\calG$ is \defin{hereditary} if, for every $G\in\calG$, every induced subgraph of $G$ is also in $\calG$. For a graph class $\calG$ and a nonnegative integer $a$, define \defin{$\calG^{+a}$} as the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \subsection{Trees and Forests}
 
-For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.    A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$ where $T$ is the component of $F$ that contains $x$.
+For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.  A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$, where $T$ is the component of $F$ that contains $x$.
 
-Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_T(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a vertex in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$),  the vertex $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is a \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. 
-For each edge $xy$ of $F$ where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. 
+Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_F(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a node in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$), the node $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is an \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. 
+For each edge $xy$ of $F$, where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. 
 % We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  
-(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$, as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
+(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$ as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
 % For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
-For a rooted tree $T$ and any set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
+For a rooted tree $T$ and any non-empty set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
 
 \subsection{Forest-Decompositions and Tree-Decompositions}
 
-It will be convenient to work briefly with forest-decompositions, which are the natural generalization of tree-decomposition that allow the graph indexing the bags to be a forest.  A \defin{forest-decomposition} of a graph $G$ is a pair $\calF:=(F,(B_x\mid x\in V(F))$ where $F$ is a forest and $(B_x\mid x\in V(F))$ is a collection of subsets of $V(G)$ indexed by the vertices of $F$ such that  
+It will be convenient to work briefly with forest-decompositions, which are the natural generalization of tree-decompositions, allowing the graph indexing the bags to be a forest.  A \defin{forest-decomposition} of a graph $G$ is a pair $\calF:=(F,(B_x\mid x\in V(F)))$, where $F$ is a forest and $(B_x\mid x\in V(F))$ is a collection of subsets of $V(G)$ indexed by the nodes of $F$ such that  
 \begin{enumerate*}[label=(\roman*)]
-  \item for each edge $vw$ of $G$ there exists $x\in V(F)$ with $v,w\in B_x$ and
-  \item for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is a connected subgraph with at least one node.
+  \item for each edge $vw$ of $G$, there exists $x\in V(F)$ with $v,w\in B_x$; and
+  \item for each vertex $v$ of $G$, $F[\{x\in V(F)\mid v\in B_x\}]$ is non-empty and connected.
 \end{enumerate*}  
-When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest. For each edge $xy$ of $F$, $B_x\cap B_y$ is called an \defin{adhesion} of $\calF$ and we say that this adhesion is incident to $x$ and $y$.  For each $x\in V(F)$, the graph \defin{$\torso{G}{\calF,B_x}$} obtained from $G[B_x]$ by adding edges so that each adhesion incident to $x$ becomes a clique is called the \defin{torso} of $\calF$ at $x$. For a root node $x\in V(F)$, the \defin{parent adhesion} of $x$ is the empty set. If a non-root node $y\in V(F)$ has parent $x$, the \defin{parent adhesion} of $y$ is $B_x\cap B_y$.  The \defin{adhesion width} of $\calF$ is the size of its largest adhesion (or zero if $\calF$ has no edges).
+The sets $B_x$ are called the \defin{bags} of $\calF$. When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. The \defin{width} of a tree-decomposition $(T,(B_x\mid x\in V(T)))$ is $\max_{x\in V(T)}|B_x|-1$. The \defin{treewidth} of a graph $G$, denoted $\mathdefin{\tw(G)}$, is the minimum width of a tree-decomposition of $G$. 
+
+A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest. For each edge $xy$ of $F$, $B_x\cap B_y$ is called an \defin{adhesion} of $\calF$, and we say that this adhesion is incident to $x$ and $y$.  For each $x\in V(F)$, the graph \defin{$\torso{G}{\calF,B_x}$} obtained from $G[B_x]$ by adding edges so that each adhesion incident to $x$ becomes a clique is called the \defin{torso} of $\calF$ at $x$. For a root node $x\in V(F)$, the \defin{parent adhesion} of $x$ is the empty set. If a non-root node $y\in V(F)$ has parent $x$, the \defin{parent adhesion} of $y$ is $B_x\cap B_y$. When $\calF$ is rooted, the \defin{home} (or \defin{home node}) of a vertex $v\in V(G)$ is the unique node $x\in V(F)$ such that $v\in B_x$ and $v$ is not in the parent adhesion of $x$.  The \defin{adhesion-width} of $\calF$ is the size of its largest adhesion (or zero if $\calF$ has no edges).
 
 
 
@@ -482,11 +477,11 @@ When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. A forest-decomposit
 
 \subsection{Graph Product Structure}
 
-The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
+The \defin{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex set ${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
 ${v=w}$ and ${xy \in E(B)}$, or
 ${x=y}$ and ${vw \in E(A)}$, or
 ${vw \in E(A)}$ and~${xy \in E(B)}$.
-For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ with treewidth at most $k$ and for some path $P$.  
+For an integer $k\geq 0$, let \defin{$\calR_{k}$} be the class of graphs isomorphic to a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and some path $P$.  
 Our starting point is the following variant of the Graph Minor Structure Theorem:
 % The main result of \citet{dujmovic.esperet.ea:adjacency} is a $(1+o(1))\log n$-bit adjacency labelling scheme for the class $\calR_k$, for any fixed $k$. \cref{gk_labelling_precise} extends this result to show that $\calR_k$ has an efficient weighted mixed labelling scheme.
 
@@ -496,7 +491,7 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 
 \begin{thm}[\protect Graph Minor Product Structure Theorem~\citep{dujmovic.joret.ea:planar}]
   \label{gmpst}
-  For every proper minor-closed class $\calG$ there exist integers $k,a\geq 0$ such that every graph in $\calG$ has a tree-decomposition in which every torso is in $\calR_k^{+a}$.
+  For every proper minor-closed class $\calG$, there exist integers $k,a\geq 0$ such that every graph in $\calG$ has a tree-decomposition in which every torso is in $\calR_k^{+a}$.
 \end{thm}
 
 
