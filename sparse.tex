@@ -755,14 +755,20 @@ In this section, we develop some tools for manipulating tree-decompositions like
 \end{proof}
 
 
-The following lemma is well-known (see, for example \cite{}).
+The following lemma is a standard weighted separator theorem for trees; we include its short proof for completeness.
 
 \begin{lem}\label{bag_separator}
   Let $T$ be a tree and let $\omega:V(T)\to\R^+$ be a weight function.  Then, for any $b\in\N^+$, there exists $S\subseteq V(T)$ with $|S|\le b-1$ such that $\omega(C)\le \omega(T)/b$ for each component $C$ of $T-S$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. Let $x\in V(T)$ be such that $\omega(T_x) \ge \omega(T)/b$ but $\omega(T_y) < \omega(T)/b$ for each child $y$ of $x$.  Then $T-x$ has at most one component $T_0$ with $\omega(T_0) > \omega(T)/b$.  If no such component exists, then $S:=\{x\}$ satisfies the requirements of the lemma and we are done.  Otherwise, the component $T_0$ has $\omega(T_0)\le (1-1/b)\omega(T)$.  Applying induction on $T_0$ with the weight function $\omega|_{V(T_0)}$ and $b-1$ yields a set $S_0$ of size at most $b-2$ such that $\omega(C)\le\omega(T_0)/(b-1)\le \omega(T)/b$ for each component $C$ of $T_0-S_0$.  The set $S:=S_0\cup\{x\}$ satisfies the requirements of the lemma.
+  The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma since $T$ is the only component of $T-S$.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. The set $\{v\in V(T):\omega(T_v)\ge \omega(T)/b\}$ contains the root of $T$ and is therefore non-empty. Let $x$ be a vertex in this set of maximum $T$-depth. Then $\omega(T_x)\ge\omega(T)/b$, while $\omega(T_y)<\omega(T)/b$ for each child $y$ of $x$.
+
+  The components of $T-x$ consist of the subtrees $T_y$ for each child $y$ of $x$ (each having weight $\omega(T_y)<\omega(T)/b$), and possibly the component $T_0 := T-V(T_x)$ containing the parent of $x$. If $\omega(T_0)\le \omega(T)/b$ (or if $T_0$ does not exist), then $S:=\{x\}$ satisfies the lemma since $|S|=1\le b-1$ and every component of $T-x$ has weight at most $\omega(T)/b$.
+
+  Otherwise, $\omega(T_0)>\omega(T)/b$. Since $\omega(T_x)\ge\omega(T)/b$, we have $\omega(T_0)=\omega(T)-\omega(T_x)\le (1-1/b)\omega(T) = \frac{b-1}{b}\omega(T)$. Applying induction to the tree $T_0$ with weight function $\omega|_{V(T_0)}$ and parameter $b-1$ yields a set $S_0\subseteq V(T_0)$ of size at most $b-2$ such that each component $C$ of $T_0-S_0$ satisfies $\omega(C)\le \frac{\omega(T_0)}{b-1}\le \frac{\omega(T)}{b}$.
+
+  We define $S:=S_0\cup\{x\}$, so $|S|\le (b-2)+1 = b-1$. Each component of $T-S$ is either a component of $T_0-S_0$ (which has weight at most $\omega(T)/b$ by the inductive hypothesis) or one of the subtrees $T_y$ for a child $y$ of $x$ (which has weight $\omega(T_y)<\omega(T)/b$). Thus, $S$ satisfies the requirements of the lemma.
 \end{proof}
 
 \begin{lem}\label{log_b_td}
