@@ -503,7 +503,7 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 For a non-empty set $S$, a \defin{weight function} over $S$ is a function $\omega:S\to\R^+$. For $X\subseteq S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in X}\omega(x)$.  When $S:=V(G)$ is the vertex-set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\omega(V(H))$.
 
 Let $\omega:S\to\R^+$ be a weight function.  For each $x\in S$, the \defin{(Kraft) ideal codeword length} for $x$ is $\log\omega(S)-\log\omega(x)$.
-It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight, $\omega(S)$ to minimum weight $\min_{x\in S}(\omega(x))$.  A weight function $\omega':S\to \N^+$ is \defin{nice} if for every $x\in S$,
+It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight $\omega(S)$ to minimum weight $\min_{x\in S}\omega(x)$.  A weight function $\omega':S\to \N^+$ is \defin{nice} if for every $x\in S$,
 \[
   \log \omega'(S) - \log \omega'(x) \leq \log |S| + 2\enspace.
 \]
@@ -514,7 +514,7 @@ It will be convenient to place some upper bound on the Kraft ideal codeword leng
 \end{obs}
 
 \begin{proof}
-  By dividing every weight by $\min_{x\in S}\omega(x)$ we may assume, without loss of generality, that $\omega(x)\ge 1$ for each $x\in S$, since this does not change the value of the right-hand side in the inequality.
+  By dividing every weight by $\min_{x\in S}\omega(x)$, we may assume, without loss of generality, that $\omega(x)\ge 1$ for each $x\in S$, since this does not change the value of the right-hand side in the inequality.
   For each $x\in S$, define $\omega'(x):=\ceil{\max\{\omega(S)/|S|,\; \omega(x)\}}$.  Then $\omega'(S)<\sum_{x\in S}(\omega(S)/|S|+\omega(x)+1)= 2\omega(S)+|S|\le 3\omega(S)$.  For each $x\in S$, the inequality $\omega'(x)\ge \omega(x)$ implies that $\log\omega'(S)-\log\omega'(x)\le\log \omega(S)-\log\omega(x)+\log 3$ and the inequality $\omega'(x)\ge \omega(S)/|S|$ implies that $\log\omega'(S)-\log\omega'(x)\le \log\omega(S)-\log(\omega(S)/|S|) + \log 3 = \log|S| + \log 3$.
 \end{proof}
 
@@ -526,7 +526,7 @@ A rooted tree $T$ is a \defin{binary tree} if each node of $T$ has at most two c
 A binary tree $T$ is \defin{full} if for every node $x$ of $T$,
 either $x$ has two children or $x$ has no children.
 A full binary tree $T$ is \defin{complete} if all the leaves of $T$ have the same depth in $T$.
-Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children then all the leaf descendants of the left child of $x$ precede all the leaf descendants of the right child of $x$.
+Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children, then all the leaf descendants of the left child of $x$ precede all the leaf descendants of the right child of $x$.
 
 % The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again later.
 
@@ -589,49 +589,49 @@ Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-rig
 %   Identifying each leaf $r_x$ of $T$ with $x$ for each $x\in S$ gives the desired tree.
 % \end{proof}
 
-A \defin{code} for a set $S$ is an injective function $\rho:S\to\{0,1\}^\star$. A code $\rho:S\to\{0,1\}^\star$ is \defin{prefix-free} if for all distinct $x,y\in S$, $\rho(x)$ is not a prefix of $\rho(y)$.
-In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon-Fano-Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string, which gives a prefix-free code for the leaves of $T$. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
+A \defin{code} for a set $S$ is an injective function $\rho:S\to\{0,1\}^*$. A code $\rho:S\to\{0,1\}^*$ is \defin{prefix-free} if for all distinct $x,y\in S$, $\rho(x)$ is not a prefix of $\rho(y)$.
+In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon--Fano--Elias coding scheme, as we now explain.  By assigning each edge $e$ of a binary tree $T$ a $0$ or $1$ depending on whether $e$ joins a parent to its left or right child, we obtain an encoding of each root-to-leaf path in $T$ as a binary string, which gives a prefix-free code for the leaves of $T$. Doing this with the tree from \cref{shannon_fano_elias_tree}, we obtain the following.
 
 \begin{cor}\label{shannon_fano_elias_code}
-  There exists a function $F:\{0,1\}^*\to\{0,1\}^*$ such that for every $n\in\N^+$, every set $S:=\{x_1,\ldots,x_n\}$, and every weight function $\omega:S\to\R^+$.  Then there exists a prefix-free code $\rho:S\to \{0,1\}^\star$ for $S$ and functions $\overleftarrow{\pi}:S\to\{0,1\}^\star$, $\overrightarrow{pi}:S\to\{0,1\}^*$ such that:
+  There exists a function $F:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every $n\in\N^+$, every set $S:=\{x_1,\ldots,x_n\}$, and every weight function $\omega:S\to\R^+$, there exists a prefix-free code $\rho:S\to \{0,1\}^*$ for $S$ and functions $\overleftarrow{\pi}:S\to\{0,1\}^*$, $\overrightarrow{\pi}:S\to\{0,1\}^*$ such that:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
-    \item\label{sfec_len} $|\rho(x_i)|\le \log\omega(S) - \log\omega(x_i)+\Oh(1)$ for each $i\in[n]$, and
+    \item\label{sfec_len} $|\rho(x_i)|\le \log\omega(S) - \log\omega(x_i)+\Oh(1)$ for each $i\in[n]$;
     % \item $\rho(x_i)$ is lexicographically less than $\rho(x_j)$ for each $1\le i < j\le n$.
-    \item\label{sfec_prev} $|\overleftarrow{\pi}(x_i)|+|\overrightarrow{\pi}(x_i)|\in O(\log\log n)$ for each $i\in[n]$;
-    \item\label{sfec_next} $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i-1})$ for each $i\in\{2,\ldots,n\}$; and    
-    \item $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i+1})$ for each $i\in\{1,\ldots,n-1\}$.    
+    \item\label{sfec_size} $|\overleftarrow{\pi}(x_i)|+|\overrightarrow{\pi}(x_i)|\in O(\log\log n)$ for each $i\in[n]$;
+    \item\label{sfec_prev} $F(\rho(x_i),\overleftarrow{\pi}(x_i))=\rho(x_{i-1})$ for each $i\in\{2,\ldots,n\}$; and    
+    \item\label{sfec_next} $F(\rho(x_i),\overrightarrow{\pi}(x_i))=\rho(x_{i+1})$ for each $i\in\{1,\ldots,n-1\}$.    
   \end{enumerate}
 \end{cor}
 
 \begin{proof}
-  Let $\omega':S\to\N^+$ be the nice weight function obtained by applying \cref{obs:nice} to $\omega$.  Then $\log\omega'(S)\le\log n+ O(1)$ and $\log\omega(x_i)\ge 0$. for each $i\in[n]$.
+  Let $\omega':S\to\N^+$ be the nice weight function obtained by applying \cref{obs:nice} to $\omega$.  Then $\log\omega'(S)\le\log n+ O(1)$ and $\log\omega'(x_i)\ge 0$ for each $i\in[n]$.
   The prefix-free code $\rho$ is obtained by applying \cref{shannon_fano_elias_tree} to $S$ with weight function $\omega'$ to obtain a tree $T$ and then encoding each root-to-leaf path in $T$ with a bitstring as described above.  This gives a code $\rho$ that satisfies \ref{sfec_len}.
   
-  Fix $i\in[n]$.  Let $y_0,y_1,\ldots,y_\ell$ be the path from $y_0:=r(x_i)$ to $y_\ell=x_{i-1}$ in $T$.  Let $j$ be such that $y_j=\lca_T(x_i,x_{i-1})$.  Then $y_{j+1}$ is the left child of $y_j$ and $y_{j+k+1}$ is the right child of $y_{j+k}$ for each $k\in\{0,\ldots,\ell-j-1\}$.  Thus, $\rho(x_{i-1})$ is the prefix of $\rho(x_i)$ of length $\depth_T(y_j)$, followed by a $0$ bit, followed by a string of $1$ bits of length $\ell-j-1$.  We set $\overleftarrow{\pi}(x_i):=\langle 0, \bin(j), \bin(\ell-j-1)\rangle$.  Since $j <\ell$ and $\ell\le 2\height(T)\in O(\log n)$, $\overleftarrow{\pi}(x_i)$ has length $O(\log\log n)$.  The code $\overrightarrow{\pi}(x_i)$ is defined similarly using the path from $y_0=r(x_i)$ to $y_\ell=x_{i+1}$ in $T$.  Then $\overrightarrow{\pi}(x_i):=\langle 1, \bin(j), \bin(\ell-j-1)\rangle$.  
+  Fix $i\in[n]$.  Let $y_0,y_1,\ldots,y_\ell$ be the path from $y_0:=x_i$ to $y_\ell:=x_{i-1}$ in $T$.  Let $j$ be such that $y_j=\lca_T(x_i,x_{i-1})$.  Then $y_{j+1}$ is the left child of $y_j$ and $y_k$ is the right child of $y_{k-1}$ for each $k\in\{j+2,\ldots,\ell\}$.  Thus, $\rho(x_{i-1})$ is the prefix of $\rho(x_i)$ of length $\depth_T(y_j)$, followed by a $0$ bit, followed by a string of $1$ bits of length $\ell-j-1$.  We set $\overleftarrow{\pi}(x_i):=\langle 0, \bin(j), \bin(\ell-j-1)\rangle$.  Since $j <\ell$ and $\ell\le 2\height(T)\in O(\log n)$, $\overleftarrow{\pi}(x_i)$ has length $O(\log\log n)$.  The code $\overrightarrow{\pi}(x_i)$ is defined similarly using the path from $y_0:=x_i$ to $y_\ell:=x_{i+1}$ in $T$.  Then $\overrightarrow{\pi}(x_i):=\langle 1, \bin(j), \bin(\ell-j-1)\rangle$.  
 
-  The operation of $F$ is now obvious.  Given the arguments $\rho(x_i)$ and $\langle a,\bin(b),\bin(c)\rangle$, $F$ checks the value of $a\in\{0,1\}$.  If $a=0$ then it removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $0,1^{c}$ to obtain $\rho(x_{i-1})$.  If $a=1$, $F$ removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $1,0^{c}$ to obtain $\rho(x_{i+1})$. 
+  The operation of $F$ is now obvious.  Given the arguments $\rho(x_i)$ and $\langle a,\bin(b),\bin(c)\rangle$, $F$ checks the value of $a\in\{0,1\}$.  If $a=0$, then it removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $01^c$ to obtain $\rho(x_{i-1})$.  If $a=1$, then $F$ removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $10^c$ to obtain $\rho(x_{i+1})$. 
 \end{proof}
 
 \subsection{On Multipart Labels}
 \label{multipart}
 
-In many cases, a label (a bitstring) will have a variable number of parts (also bitstrings), of varying lengths.  We write this as $s:=\langle s_1,\ldots,s_p\rangle$, where each of $s_1,\ldots,s_p$ is a (possibly empty) bitstring.  The concatenation of $s_1,\ldots,s_p$, has length
+In many cases, a label (a bitstring) consists of a sequence of parts (also bitstrings) of varying lengths, $s_1,\ldots,s_p$, where each $s_i$ may be empty.  The naive concatenation of $s_1,\ldots,s_p$ has length
 \[
-  \textstyle |s|=|s_1,\ldots,s_p|=\sum_{i=1}^p|s_p| \enspace .
+  \textstyle \sum_{i=1}^p|s_i| \enspace .
 \]
-This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$ it must know the number of parts, $p$, and (at least $p-1$ of) the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_{p}|$ and prepending these to $s$. This is most easily done using Elias' code $\gamma:\N^+\to\{0,1\}^*$ for positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ with $|\gamma(x)|\le 2\lfloor \log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).} In our application $s_i$ may have zero length and $p$ may even be equal to zero, so that the codeword for each $x\in\N$ is $\gamma(x+1)$ and has length $2\floor{\log (x+1)}+1$.
+This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$, it must know the number of parts $p$ and (at least $p-1$ of) the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_p|$ and prepending these to the concatenation. This is most easily done using Elias' $\gamma$-code $\gamma:\N^+\to\{0,1\}^*$ for positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ of length $|\gamma(x)|= 2\lfloor \log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).} In our application, each part $s_i$ may have zero length and $p$ may even be equal to zero, so we encode each $x\in\N$ using $\gamma(x+1)$, which has length $2\floor{\log (x+1)}+1$.
 In this way, we obtain a self-delimiting encoding of $s_1,\ldots,s_p$ as
-\[  \mathdefin{\langle s_1,\ldots,s_p\rangle}:=\gamma(p+1),\gamma(|s_1|+1),\ldots,\gamma(|s_p|+1),s_1,\ldots,s_p \enspace ,
+\[  \mathdefin{\langle s_1,\ldots,s_p\rangle}:=\gamma(p+1)\circ\gamma(|s_1|+1)\circ\cdots\circ\gamma(|s_p|+1)\circ s_1\circ\cdots\circ s_p \enspace ,
 \]
-which has length
+where $\circ$ denotes string concatenation (and $\langle\rangle:=\gamma(1)$ when $p=0$). This encoding has length
 \begin{equation}
   |\langle s_1,\ldots,s_p\rangle| = \textstyle\sum_{i=1}^p|s_i|+\Oh(\lgg p) + \Oh(\sum_{i=1}^p\lgg|s_i|) \enspace , \label{encoding_cost}
 \end{equation}
-where $\mathdefin{\lgg x} := \log\max\{2,x\}$ (just so that $\lgg(x)$ is defined and $\lgg(x)\ge 1$ for each $x\in\N$).    The bits of $\langle s_1,\ldots,s_p\rangle$ that come from $s_1,\ldots,s_p$ are called the \defin{payload} bits and the remaining bits are called the \defin{bookkeeping} bits of $\langle s_1,\ldots,s_p\rangle$.
+where $\mathdefin{\lgg x} := \log\max\{2,x\}$ (so that $\lgg x$ is defined and $\lgg x\ge 1$ for each $x\in\N$).  The bits of $\langle s_1,\ldots,s_p\rangle$ that come from $s_1,\ldots,s_p$ are called the \defin{payload} bits and the remaining bits are called the \defin{bookkeeping} bits of $\langle s_1,\ldots,s_p\rangle$.
 In our setting it will always be the case that $p\in o(\log n)$ and we will use \cref{obs:nice} to ensure that $|s_i|\in \Oh(\log n)$ for each $i\in[p]$.
-Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$  is $\Oh(p\log\log n)$.
+Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$ is $\Oh(1 + p\log\log n)$.
 
-In some cases, we include one or more non-negative integers as part of a multipart label.  When we include $d\in\N$ as part of a label this way, we are actually including the $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} of $d$.  For the sake of readability, we write this as $\langle s_1,d,s_2,\ldots\rangle$ rather than $\langle s_1,\bin(d),s_2,\ldots\rangle$. \label{bin_d}
+In some cases, we include one or more non-negative integers as parts of a multipart label.  When we include $d\in\N$ as part of a label, we include its $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} (so $\bin(0)=\varepsilon$).
 
 
 
