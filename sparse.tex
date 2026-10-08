@@ -929,99 +929,93 @@ A \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$ is an 
 
 \subsection{Basic Properties}
 
-Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted $(g_1,g_2,g_3)$-mixed-labelling scheme for a graph class $\calG$. Let $\omega_1:$ be the \defin{uniform weight function} defined by $\omega_1(x):=1$ for all $x$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a graph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$ and let $\calA:=(\mu_{(G^+,G,\omega_1)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling scheme if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. 
+Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$. For any graph $G$, let $\omega_1:V(G)\to\{1\}$ be the \defin{uniform weight function} defined by $\omega_1(v):=1$ for all $v\in V(G)$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a graph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$, and let $\mathdefin{\calA}:=(\mu_{(G^+,G,\omega_1)|V(G)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling scheme if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. 
 
-The following lemma shows that any adjacency labelling obtained from a mixed labelling scheme is injective, which justifies \cref{main_result_induced_universal}.
+An adjacency labelling $\ell$ of a graph $G$ is \defin{injective} if $\ell(u)\neq\ell(v)$ for all distinct $u,v\in V(G)$. An adjacency labelling scheme $(\calA,A)$ for $\calG$ is \defin{injective} if $\ell_G$ is injective for each $G\in\calG$. The following lemma shows that any adjacency labelling obtained from a mixed labelling scheme is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
-  Let $(\mu,\kappa)$ be a mixed labelling of some $(G^+,G,\omega)$ for some $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
+  Let $(\mu,\kappa)$ be a mixed labelling of $(G^+,G)$ for $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
 \end{lem}
 
 \begin{proof}
-  Suppose, for the sake of contradiction, that there exists distinct $v,w\in V(G)$ such that $\mu(v)=\mu(w)$. Since  $K:=\{v\}$ is a clique in $G^+$, this immediately leads to the contradiction
-  $1=I(\mu(K),\kappa(K,v),\mu(v))=I(K,\kappa(K,v),\mu(w))=0$.
+  Suppose, for the sake of contradiction, that there exist distinct $v,w\in V(G)$ such that $\mu(v)=\mu(w)$. Since $K:=\{v\}$ is a clique in $G^+$, \ref{mls:identity_tester} implies that $I(\mu(K),\kappa(K,v),\mu(v))=1$ and $I(\mu(K),\kappa(K,v),\mu(w))=0$. Since $\mu(v)=\mu(w)$, this immediately leads to the contradiction
+  \[
+    1 = I(\mu(K),\kappa(K,v),\mu(v)) = I(\mu(K),\kappa(K,v),\mu(w)) = 0 \enspace. \qedhere
+  \]
 \end{proof}
 
-It will actually be convenient to consider a slightly weaker notion of weighted $(g_1,g_2,g_3)$ mixed labellings.
-%\david{I interpret this definition as saying that the minimum weight is at least 1/4 of the average weight. Is there a more descriptive word than `nice'. In statistics, a dataset where the average is close to the minimum is `positively skewed' (or `right-skewed').}
-%\vida{I prefer not to do this for SODA but we should discuss it for the journal version}
-(We emphasize that weights are required to be positive integers here, which will be important later on.)
-A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling} scheme $(\calS,A,I)$ for a graph $\calG$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, but with the exception that only nice weight functions $\omega$ are considered.  Weak mixed labellings and mixed labellings are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
+It will actually be convenient to consider a slightly weaker notion of weighted mixed labelling schemes.
+A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} $(\calS,A,I)$ for a graph class $\calG$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, with the exception that $\calS$ only contains mixed labellings for triples $(G^+,G,\omega)\in\calT_\calG$ in which $\omega$ is a nice weight function. (Recall from \cref{obs:nice} that nice weight functions take values in $\N^+$, which will be important later on.) We say that $\calG$ \defin{admits} a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme if such a scheme exists. Weak mixed labelling schemes and weighted mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
   \label{lem:nice_weights}
   Let $\calG$ be a class of graphs.
-  Let $g_i:\N\to\R$ be functions for each $i\in[3]$.
+  Let $g_i:\N\to\R$ for each $i\in[3]$.
   If $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\calG$ admits a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
 \end{lem}
 \begin{proof}
-  Let $(\calS,A,I)$ be a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $\tau=(G^+,G,\omega)\in\calT_\calG$ and let $n=|V(G)|$. Let $\omega'$ be the function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
+  Let $(\calS,A,I)$ be a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $\tau=(G^+,G,\omega)\in\calT_\calG$ and let $n:=|V(G)|$. Let $\omega'$ be the nice weight function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
   \[
-    \log\omega'(V(G))-\log\omega'(v)\le\min\{\log n,\;\log\omega(G)-\log\omega(v)\}+2 \enspace.
+    \log\omega'(G)-\log\omega'(v)\le\min\{\log n,\;\log\omega(G)-\log\omega(v)\}+2 \enspace.
   \]
-  In particular, $\omega'$ is nice.
-  Therefore $\calS$ contains a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega')$ for $(A,I)$.
-  For every $v\in V(G)$,
+  Therefore, $\calS$ contains a weighted $(g_1,g_2,g_3)$ mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega')$ for $(A,I)$.
+  Conditions \ref{mls:injective_on_cliques}--\ref{mls:identity_tester} depend only on $G^+$ and $G$, so they hold for $(\mu,\kappa)$. For every $v\in V(G)$, \ref{mls:vertex_label_length} gives
   \[
-    |\mu(v)| \leq \log \omega'(G) - \log\omega'(v) + g_1(n) \leq \log \omega(G) - \log\omega(v) + g_1(n) + 2\enspace,
+    |\mu(v)| \leq \log \omega'(G) - \log\omega'(v) + g_1(n) \leq \log \omega(G) - \log\omega(v) + g_1(n) + 2\enspace.
   \]
-  and  for every clique $K$ in $G^+$,
+  For every clique $K$ in $G^+$, if $x\in K$ minimizes $\omega'(x)$, then $\log\omega'(G)-\log\omega'(x) \le \log\omega(G)-\log\omega(x)+2 \le \log\omega(G)-\log\min_{v\in K}\omega(v)+2$, and thus by \ref{mls:clique_label_length},
   \[
-    |\mu(K)|\le \log \omega'(G) - \log\min_{v\in K}(\omega'(v)) + g_3(n)
-    \leq \log \omega(G) - \log\min_{v\in K}(\omega(v)) + g_3(n) + 2\enspace.
+    |\mu(K)|\le \log \omega'(G) - \log\min_{v\in K}\omega'(v) + g_3(n)
+    \leq \log \omega(G) - \log\min_{v\in K}\omega(v) + g_3(n) + 2\enspace.
   \]
-  It follows that $\mu$ and $\kappa$ are the desired mixed labelling and local identifier, respectively, of $(G^+,G,\omega)$ for $(A,I)$.
+  Finally, \ref{mls:local_identifier_length} gives $|\kappa(K,u)|\le g_2(n)$ for every clique $K$ in $G^+$ and every $u\in K$. It follows that $(\mu,\kappa)$ is a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling of $(G^+,G,\omega)$ for $(A,I)$. Setting $(\mu_\tau,\kappa_\tau) := (\mu,\kappa)$ for each $\tau\in\calT_\calG$, the indexed collection $\mathdefin{\calS'}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ yields the desired weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme $(\calS',A,I)$ for $\calG$.
 \end{proof}
 
 
-If the ultimate goal is to obtain an adjacency labellings, then an even weaker notion suffices. For a graph $G$, the function $\omega:V(G)\to\{1\}$ is called the \defin{uniform weight function}.  We then say that a class of graphs $\calG$ \defin{admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme} if $\calG$ satisfies the definition given above for weighted $(g_1,g_2,g_3)$ mixed labelling schemes, but with the exception that only uniform weight functions are considered.
+If the ultimate goal is to obtain an adjacency labelling scheme, then an even weaker notion suffices. Recall that $\omega_1:V(G)\to\{1\}$ denotes the uniform weight function. We say that a class of graphs $\calG$ \defin{admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme} $(\calS,A,I)$ if $\calS$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, with the exception that $\calS$ only contains mixed labellings for triples $(G^+,G,\omega_1)\in\calT_\calG$ in which $\omega_1$ is the uniform weight function.
 
 \begin{obs}\label{adj_labelling_from_mixed_labelling}
   If a graph class $\calG$ admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
 \end{obs}
-
-% \begin{proof}
-%   Let $(A,I)$ be the adjacency tester and identity tester for an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.
-%   Let $G$ be an $n$-vertex graph in $\calG$, let $G^+:=G$, and let $\omega:V(G)\to\{1\}$ be the uniform weight function.  Then there exists a $(g_1,g_2,g_3)$-mixed labelling $(\mu,\kappa)$ of $(G^+,G,\omega)$ for $(A,I)$.  By \cref{injective_vertex_labels}, the restriction of $\mu$ to $V(G)$ is injective.  For each $v\in V(G)$, 
-%   $|\mu(v)| \leq \log \omega(G) - \log\omega(v) + g_1(n) = \log n + g_1(n)$.
-%   For each pair $v,w\in V(G)$, property~1 of mixed labelling schemes implies that $A(\mu(v),\mu(w))=1$ if and only if $vw\in E(G)$.  Thus $\calG$ has an injective $(\log n+g_1(n))$-bit adjacency labelling of $\calG$ for $A$.
-% \end{proof}
+\begin{proof}
+  Let $(\calS,A,I)$ be an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. For each $G\in\calG$, let $\tau := (G, G, \omega_1)$, where $\omega_1:V(G)\to\{1\}$ is the uniform weight function, and let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ in $\calS$. By \ref{mls:adjacency_tester}, $\ell_G := \mu_{\tau|V(G)}$ is an adjacency labelling of $G$ for $A$. For $n:=|V(G)|$, \ref{mls:vertex_label_length} implies that for each $v\in V(G)$,
+  \[
+    |\ell_G(v)| \le \log\omega_1(G) - \log\omega_1(v) + g_1(n) = \log n + g_1(n) \enspace.
+  \]
+  By \cref{injective_vertex_labels}, $\ell_G$ is injective. Thus, $(\calA, A)$ is an injective $(\log n + g_1(n))$-bit adjacency labelling scheme for $\calG$, where $\mathdefin{\calA} := (\ell_G : G\in\calG)$.
+\end{proof}
 
 
 \subsection{Orientable Labelling Schemes}
 
-In order to establish \cref{main_result_induced_universal_sparse} which promises sparse universal graphs, we need two additional definitions.
-Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG),A,I)$ be a weighted mixed labelling scheme for a graph class $\calG$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+In order to establish \cref{main_result_induced_universal_sparse}, which promises sparse universal graphs, we need two additional definitions.
+Let $(\calS,A,I)$ be a weighted mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
 \[
-V(U_n):=\left\{ \mu_\tau(v): \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
+V(U_n):=\left\{ \mu_\tau(v): \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
 \]
 and edge set
 \[
-  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}, vv'\in E(G) \right\}
+  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; vv'\in E(G) \right\}
   \enspace.
 \]
-These definitions imply that, for each $\tau:=(G^+,G,\omega)\in\calT_{\calG,{\le n}}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)
+These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)
 
-Since the graph $U_n$ defined above depends only on $A$ and the vertex labellings in $\calS$, the same definition applies directly to any adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, the definitions imply that, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
+Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
 
-We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$.  The definition of $g_0$-orientability has an obvious application.  It immediately implies that the $n$-universal graph $U_n$ has $|V(U_n)|\cdot g_0(n)$ edges.  We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, we give a formal definition followed by an informal explanation of how this property is used.  
+We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$. A weighted mixed labelling scheme $(\calS,A,I)$ is \defin{$g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable. This definition immediately implies that the $n$-universal graph $U_n$ has at most $|V(U_n)|\cdot g_0(n)$ edges. We say that a graph class $\calG$ \defin{admits a $g_0$-orientable weighted mixed labelling scheme} if such a scheme exists (and similarly for adjacency labelling schemes).
 
-% Let $\calS:=((\mu_\tau,\kappa_\tau):\text{$\tau$ is a $(\calG,n)$-admissible triple},n\in\N)$ be a mixed labelling of some graph class $\calG$ for $(A,I)$. 
-
-
-% Let $\calA$ be the adjacency labelling of $\calG$ induced by $(\calS,A)$.  
-
-
-We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and for each $n\in\N$, each $(\calG,n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a $(\calG,n)$-admissible triple $\tau:=(G^+,G,\omega)$, a clique $K$ in $G^+$ and $u\in K$ such that 
+We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, we give a formal definition followed by an informal explanation of how this property is used.  
+We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and, for each $n\in\N$, each triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a triple $\tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that 
 \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
   \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$, 
   \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$, 
   \item $\mu_\tau(u)=\beta$, and
   \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$. 
 \end{enumerate}
+We say that $\calG$ \defin{admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if such a scheme exists.
 
-Less formally:  If we fix a $(\calG, n)$-admissible triple $\tau_0:=(G_0^+,G_0,\omega_0)$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there should be at most $g_0(n)$ strings $\beta$ such that $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an adjacency labelling $\calA':=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
-By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$ then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
+Less formally: If we fix a triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there are at most $g_0(n)$ strings $\beta\in V(U_n)$ for which there exists a matching triple that certifies $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an adjacency labelling $\mathdefin{\calA'}:=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, the vertex label $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
+By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$, then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
 
 
 \subsection{Adding Apex Vertices}
@@ -2492,13 +2486,14 @@ We now prove our main result, \cref{main_result}, with an explicit lower order t
 \section*{Acknowledgement} 
 This work was initiated during the Ninth Annual Workshop on Geometry and Graphs (v2), held January 21--28, 2022, at the Bellairs Research Institute of McGill University.  The authors are thankful to the other organizers and participants for providing a stimulating research environment.
 
-\section*{Statement on AI Use}
+\section*{Research History and Statement on AI Use}
 
-The results in this paper are the product of years of work by the authors, all of whom have been thinking about adjacency-labelling and sparse universal graphs since at least February 2020, when the work on planar graphs resulting in publication \cite{dujmovic.esperet.ea:adjacency} began at the Eighth Workshop on Geometry and Graphs.  (One of the authors, Cyril Gavoille has been working on these problems since at least 2007.)  The work on adjacency labelling for proper-minor closed graph families began at the 2022 workshop mentioned above and several of the ideas in the paper (using weights to deal with an unbalanced tree-decomposition and using clique labels as a mean of navigating a tree-decomposition) come from that week.  The final ideas (decomposition into skinny subtrees and a mixed labelling scheme for skinny subtrees) needed to complete the adjacency labelling scheme for proper-minor-closed graph classes that resulted in publication \cite{dujmovic.gavoille.ea:adjacency_minor} were obtained while David~Wood was visiting Vida~Dujmović and Pat~Morin in Ottawa in February~2026.  The ideas leading to sparse induced-universal graphs were obtained while Vida~Dujmović and Pat~Morin were visiting Piotr~Micek in Kraków in June 2026.
+The results in this paper are the product of years of work by the authors, all of whom have been thinking about adjacency-labelling and sparse universal graphs since at least February 2020, when the work on planar graphs resulting in publication \cite{dujmovic.esperet.ea:adjacency} began at the Eighth Workshop on Geometry and Graphs.  The work on adjacency labelling for proper-minor closed graph families began at the 2022 workshop mentioned above and several of the ideas in the paper (using weights to deal with an unbalanced tree-decomposition and using clique labels as a mean of navigating a tree-decomposition) come from that week.  The final ideas (decomposition into skinny subtrees and a mixed labelling scheme for skinny subtrees) needed to complete the adjacency labelling scheme for proper-minor-closed graph classes that resulted in publication \cite{dujmovic.gavoille.ea:adjacency_minor} were obtained during visits to Ottawa and Kraków in 2026.  The revision history is visible at \url{https://github.com/patmorin/mflabelling}.
 
-Piotr~Micek gave a talk about adjacency labelling for proper minor-closed graph classes at the MATRIX Workshop on Global Structure and Geometry of Graphs in Creswick, Australia in April 2026.  Pat~Morin gave a similar talk at at the Jagiellonian TCS Seminar in June 2026.  Vida~Dujmović gave a talk about sparse induced-universal graphs for proper minor-closed graph classes at the 11th Polish Combinatorial Conference in September 2026. 
+Piotr~Micek gave a talk about adjacency labelling for proper minor-closed graph classes at the MATRIX Workshop on Global Structure and Geometry of Graphs in Creswick, Australia in April 2026. Pat~Morin gave a similar talk at the Jagiellonian TCS Seminar in June 2026.  Vida~Dujmović gave a talk about sparse induced-universal graphs for proper minor-closed graph classes at the 11th Polish Combinatorial Conference in September 2026.
 
 Every line of \LaTeX\ in this paper was written by the authors. One of the authors, Pat~Morin, used an AI-enabled text editor (Antigravity IDE with Gemini) to proofread the manuscript and suggest corrections for minor errors.  The final version was checked and approved by all authors.
+
 
 \setlength{\bibsep}{0.3ex plus 0.1ex minus 0.1ex}
 \bibliographystyle{plainurlnat}
@@ -2531,7 +2526,7 @@ When the adjacency tester deduces that $vw\in E(G)$ because $w$ is a parent of $
 \begin{lem}\label{gk_labelling_precise}
   For any non-decreasing function $k:\N\to\N$ with $k(n)\in o(\log n)$, the graph class $\calR_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where
   \begin{align*}
-  g_0(n)&\le \exp(\Oh(k(n)\sqrt{\log n})) \enspace ,\\
+  g_0(n)&\le \exp(\Oh(k(n)\sqrt{\log n})) \enspace ,\\ 
   g_1(n)&\in \Oh(k(n)\sqrt{\log n}) \enspace ,\\
   g_2(n)&\in \Oh(1) \enspace ,\\
   g_3(n)&\in \Oh(k(n)\sqrt{\log n}) \enspace .
