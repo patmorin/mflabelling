@@ -53,6 +53,7 @@
 \DeclareMathOperator{\tw}{tw}
 \DeclareMathOperator{\pw}{pw}
 \DeclareMathOperator{\lca}{lca}
+\DeclareMathOperator{\parent}{p}
 \DeclareMathOperator{\lgg}{\hat{lg}}
 \DeclareMathOperator{\bin}{bin}
 \DeclareMathOperator{\dist}{dist}
@@ -451,9 +452,9 @@ A \defin{graph class} is a set of graphs closed under isomorphism. A graph class
 For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.  A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$, where $T$ is the component of $F$ that contains $x$.
 
 Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_F(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a node in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$), the node $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is an \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. 
-For each edge $xy$ of $F$, where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$ and $y$ is an \defin{$F$-child} of $x$. 
+For each edge $xy$ of $F$, where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$, denoted \defin{$\parent_F(y)$}, and $y$ is an \defin{$F$-child} of $x$. 
 % We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain}, if there are no distinct $x,y\in S$ such that $x$ is a $F$-ancestor of $y$.  
-(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child.) We treat each subgraph $F'\subseteq F$ as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
+(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child, and write $\parent(y)$ for $\parent_F(y)$.) We treat each subgraph $F'\subseteq F$ as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
 % For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
 For a rooted tree $T$ and any non-empty set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
@@ -467,7 +468,7 @@ It will be convenient to work briefly with forest-decompositions, which are the 
 \end{enumerate*}  
 The sets $B_x$ are called the \defin{bags} of $\calF$. When $F$ is a tree, $\calF$ is a \defin{tree-decomposition}. The \defin{width} of a tree-decomposition $(T,(B_x\mid x\in V(T)))$ is $\max_{x\in V(T)}|B_x|-1$. The \defin{treewidth} of a graph $G$, denoted $\mathdefin{\tw(G)}$, is the minimum width of a tree-decomposition of $G$. 
 
-A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest. For each edge $xy$ of $F$, $B_x\cap B_y$ is called an \defin{adhesion} of $\calF$, and we say that this adhesion is incident to $x$ and $y$.  For each $x\in V(F)$, the graph \defin{$\torso{G}{\calF,B_x}$} obtained from $G[B_x]$ by adding edges so that each adhesion incident to $x$ becomes a clique is called the \defin{torso} of $\calF$ at $x$. For a root node $x\in V(F)$, the \defin{parent adhesion} of $x$ is the empty set. If a non-root node $y\in V(F)$ has parent $x$, the \defin{parent adhesion} of $y$ is $B_x\cap B_y$. When $\calF$ is rooted, the \defin{home} (or \defin{home node}) of a vertex $v\in V(G)$ is the unique node $x\in V(F)$ such that $v\in B_x$ and $v$ is not in the parent adhesion of $x$.  The \defin{adhesion-width} of $\calF$ is the size of its largest adhesion (or zero if $\calF$ has no edges).
+A forest-decomposition is \defin{rooted} if it is indexed by a rooted forest. For each edge $xy$ of $F$, $B_x\cap B_y$ is called an \defin{adhesion} of $\calF$, and we say that this adhesion is incident to $x$ and $y$.  For each $x\in V(F)$, the graph \defin{$\torso{G}{\calF,B_x}$} obtained from $G[B_x]$ by adding edges so that each adhesion incident to $x$ becomes a clique is called the \defin{torso} of $\calF$ at $x$. For a root node $x\in V(F)$, the \defin{parent adhesion} of $x$ is the empty set. For a non-root node $y\in V(F)$, the \defin{parent adhesion} of $y$ is $B_{\parent_F(y)}\cap B_y$. When $\calF$ is rooted, the \defin{home} (or \defin{home node}) of a vertex $v\in V(G)$ is the unique node $x\in V(F)$ such that $v\in B_x$ and $v$ is not in the parent adhesion of $x$.  The \defin{adhesion-width} of $\calF$ is the size of its largest adhesion (or zero if $\calF$ has no edges).
 
 
 
@@ -764,7 +765,7 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
 \begin{proof}
   The proof is by induction on $b$.  If $b=1$, then $S:=\emptyset$ satisfies the requirements of the lemma since $T$ is the only component of $T-S$.  Now assume $b\ge 2$. Root $T$ at an arbitrary vertex. The set $\{v\in V(T):\omega(T_v)\ge \omega(T)/b\}$ contains the root of $T$ and is therefore non-empty. Let $x$ be a vertex in this set of maximum $T$-depth. Then $\omega(T_x)\ge\omega(T)/b$, while $\omega(T_y)<\omega(T)/b$ for each child $y$ of $x$.
 
-  The components of $T-x$ consist of the subtrees $T_y$ for each child $y$ of $x$ (each having weight $\omega(T_y)<\omega(T)/b$), and possibly the component $T_0 := T-V(T_x)$ containing the parent of $x$. If $\omega(T_0)\le \omega(T)/b$ (or if $T_0$ does not exist), then $S:=\{x\}$ satisfies the lemma since $|S|=1\le b-1$ and every component of $T-x$ has weight at most $\omega(T)/b$.
+  The components of $T-x$ consist of the subtrees $T_y$ for each child $y$ of $x$ (each having weight $\omega(T_y)<\omega(T)/b$), and possibly the component $T_0 := T-V(T_x)$ containing the parent $\parent(x)$ of $x$. If $\omega(T_0)\le \omega(T)/b$ (or if $T_0$ does not exist), then $S:=\{x\}$ satisfies the lemma since $|S|=1\le b-1$ and every component of $T-x$ has weight at most $\omega(T)/b$.
 
   Otherwise, $\omega(T_0)>\omega(T)/b$. Since $\omega(T_x)\ge\omega(T)/b$, we have $\omega(T_0)=\omega(T)-\omega(T_x)\le (1-1/b)\omega(T) = \frac{b-1}{b}\omega(T)$. Applying induction to the tree $T_0$ with weight function $\omega|_{V(T_0)}$ and parameter $b-1$ yields a set $S_0\subseteq V(T_0)$ of size at most $b-2$ such that each component $C$ of $T_0-S_0$ satisfies $\omega(C)\le \frac{\omega(T_0)}{b-1}\le \frac{\omega(T)}{b}$.
 
@@ -784,6 +785,7 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   \end{enumerate}
 \end{lem}
 
+\noindent\pat{TODO: Reread this proof.}
 \begin{proof}
   The proof is by induction, with a slightly more general inductive hypothesis. An inductive instance $(G,\calT, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of $G$, and two (not necessarily distinct) leaves $\alpha,\beta$ of $T$ such that $|V(G)\setminus (B_\alpha\cup B_\beta)|\ge 1$.  We will produce a rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ that satisfies all the requirements of the lemma as well as the following conditions, the first of which is a strengthening of \ref{req:height_0}:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]\setcounter{enumi}{3}
@@ -793,7 +795,7 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   \end{enumerate}
   The induction is on the quantity $n-|B_\alpha\cup B_\beta| = |V(G)\setminus (B_\alpha\cup B_\beta)|$.  To see that this suffices to establish the lemma for an $n$-vertex graph $G$, we can attach two new leaves $\alpha$ and $\beta$ to $T$ to obtain $T'$, set $B_\alpha:=B_\beta:=\emptyset$ (with incident adhesions $A_\alpha=A_\beta=\emptyset$), and apply the refined result to $(G,(T',(B_x\mid x\in V(T'))),\alpha,\beta)$ to obtain the desired rooted tree-decomposition $\calQ$ and edge set $Y$.
    
-  We now proceed with the inductive proof.  Root $T$ at $\alpha$.  For each $x\in V(T)\setminus\{\alpha\}$, let $A_x:=B_x\cap B_{p(x)}$ be the parent adhesion of $x$ in $\calT$, and set $A_\alpha:=\emptyset$.  Define the weight function $\omega: V(T)\to\N$ by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$.  Since each vertex in $V(G)\setminus (B_\alpha\cup B_\beta)$ belongs to $B_x\setminus A_x$ for a unique node $x\in V(T)$, we have $\omega(T) = n-|B_\alpha\cup B_\beta|$.
+  We now proceed with the inductive proof.  Root $T$ at $\alpha$.  For each $x\in V(T)\setminus\{\alpha\}$, let $A_x:=B_x\cap B_{\parent(x)}$ be the parent adhesion of $x$ in $\calT$, and set $A_\alpha:=\emptyset$.  Define the weight function $\omega: V(T)\to\N$ by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$.  Since each vertex in $V(G)\setminus (B_\alpha\cup B_\beta)$ belongs to $B_x\setminus A_x$ for a unique node $x\in V(T)$, we have $\omega(T) = n-|B_\alpha\cup B_\beta|$.
 
   Apply \cref{bag_separator} to the tree $T-\{\alpha,\beta\}$ with weight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$ for each component $C$ of $T-S_0$.  Let $T'$ be the minimum subtree of $T$ spanning $S_0\cup\{\alpha,\beta\}$.  Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0|\le b-1$.  Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $G_S:=G[\bigcup_{x\in S}B_x]$.  Let $C_1,\ldots,C_s$ be the components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$.  Since every branching node of $T'$ belongs to $S_1\subseteq S$, no component $C_i$ can have three or more neighbors in $S$, so $|N_i|\in\{1,2\}$ for each $i\in[s]$.
 
@@ -821,49 +823,27 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   Thus, property \ref{req:height_prime_0} holds.
 
   Finally, we verify property \ref{req:subtree_torso_apex_0}.  For each $i\in[s]$ with $\omega(C_i)\ge 1$ and each $x\in V(Q_i)$, every torso and adhesion of $\calT_i$ is also a torso or adhesion of $\calT$, so \ref{req:subtree_torso_apex_0} holds by the inductive hypothesis.  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$; its bag $C_{v_i}$ is $(B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})$, plus possibly $A_\beta$, which is the union of at most three adhesions of $\calT$, satisfying \ref{req:three_adhesions_0}.  For each $x\in S$, the adhesion $A_\beta$ was added to $C_x$ (if $x$ is on the path from $\beta$ to $\alpha$), so $C_x\setminus A_\beta \subseteq B_x$.  Every neighbor of $x$ in $Q$ is either in $Q_0$ (where the adhesion is an adhesion of $\calT$ incident to $B_x$) or connected via an edge $e_i = x\alpha_i$ for some $C_i$ with $|N_i|=1$ and $x=a_i$, in which case the adhesion $C_x\cap C_{\alpha_i} = B_{a_i}\cap B_{x_i}$ is also an adhesion of $\calT$ incident to $B_x$.  Therefore, every clique edge of $\torso{G}{\calQ,C_x}-A_\beta$ is present in $\torso{G}{\calT,B_x}$, so $\torso{G}{\calQ,C_x}-A_\beta$ is an induced subgraph of the torso $\torso{G}{\calT,B_x}$, satisfying \ref{req:adhesion_torso_0}.
-  \pat{Reread this proof.}
 \end{proof}
 
 
 
-A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{tidy} if
+A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is \defin{tidy} if
 \begin{enumerate*}[label=(\arabic*)]
   \item $B_x\neq\emptyset$ for each $x\in V(F)$;  
-  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ whose $F$-parent is $x$; and
-  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ whose $F$-parent is $y$ and whose $F$-grandparent is $x$.
+  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with $x=\parent_F(y)$; and
+  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ with $y=\parent_F(z)$ and $x=\parent_F(y)$.
 \end{enumerate*}
 
-
-
-% \begin{lem}\label{tidy_forest}
-%   Let $G$ be a graph and let $\calF:=(F,(B_x\mid x\in V(F)))$ be a forest-decomposition of $G$ with the property that each torso of $\calF$ is a graph in $\calG$. Then there exists a graph $G'$ with an isolated vertex $v_0$ such that $G'-v_0=G$, a tree $T$ with root $x_0$, and a tidy rooted tree-decomposition $\calT:=(T,(C_x\mid x\in V(T)))$ of $G'$ that has the following properties:
-%   \begin{enumerate}[nosep,nolistsep,label=(\rm\alph*)] 
-%     \item\label{tidy_vertex_subset} $V(T)\subseteq V(F) \cup \{x_0\}$ and $C_{x_0}=\{v_0\}$; 
-%     \item\label{tidy_path_subset} $V(P_{T(x)})\subseteq V(P_F(x)) \cup \{x_0\}$ for each $x\in V(T) \setminus \{x_0\}$; and 
-%     \item\label{tidy_tree_decomposition} $C_x\subseteq B_x\cup\{v_0\}$ for each $x\in V(T)$.
-%     \item\label{adhesion} for each edge $xy$ of $T$, $C_x\cap C_y=B_x\cap B_y$ (if $x,y\in V(F)$) or $C_x\cap C_y=\{v_0\}$ (if $x=x_0$ or $y=x_0$).
-%   \end{enumerate}
-% \end{lem}
-
-% \begin{proof}
-%   First, we make the forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ tidy in three steps:
-%   \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
-%     \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
-%     \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
-%     \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.
-%   \end{enumerate} 
-%   Let $\calF'=(F',(B'_x\mid x\in V(F')))$ be the resulting tidy forest-decomposition.  Note that each torso of $\calF'$ is a torso of $\calF$, so each torso of $\calF'$ is in $\calG$.  Create the tree $T$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F'$.  Set $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, set $C_{x'}:=B'_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $T$, set $C_x:=B'_x$.  Then $\calT:=(T,(C_x\mid x\in V(T)))$ is a tidy rooted tree-decomposition of $G'$ that satisfies \ref{tidy_vertex_subset}, \ref{tidy_path_subset}, \ref{tidy_tree_decomposition}, and \ref{adhesion}.
-% \end{proof}
-
-
-
 \begin{lem}\label{all_singing_all_dancing}
-  Let $G_0$ be an $n$-vertex graph  and let $\calT$ be a tree-decomposition of $G_0$.  Then, for any integer $b\ge 2$,  there exists a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$, a tidy rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ rooted at $x_0\in V(Q)$, and a subset of edges $Y\subseteq E(Q)$ with the following properties:
+  Let $G_0$ be an $n$-vertex graph and let $\calT$ be a tree-decomposition of $G_0$.  Then, for any integer $b\ge 2$, there exists a graph $G$ with an isolated vertex $v_0$ such that $G-v_0=G_0$, a tidy rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ rooted at $x_0\in V(Q)$, and a subset of edges $Y\subseteq E(Q)$ with the following properties:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
     \item\label{req:root_bag} $C_{x_0}=\{v_0\}$;
-    \item\label{req:height} each root-to-leaf path in $Q$ contains at most $2\log_b n + 1$ edges of $Y$;
+    \item\label{req:height} each root-to-leaf path in $Q$ contains at most $2\log_b(n+1) + 1$ edges of $Y$;
     \item\label{req:subtree_size} each connected component of $Q-Y$ has at most $4b-1$ vertices;
-    \item\label{req:same_size} for each component $C$ and each $x,y\in V(C)$, $|\bigcup_{z\in V(T_x)} C_z|\le b|\bigcup_{z\in V(T_y)} C_z|$;
+    \item\label{req:same_size} letting $A_x$ denote the parent adhesion of $x$ in $\calQ$ (with $A_{x_0}:=\emptyset$), for each connected component $C$ of $Q-Y$ and each $x,y\in V(C)$,
+    \[
+      \textstyle \left|\bigcup_{z\in V(Q_x)} (C_z\setminus A_z)\right| \le b \left|\bigcup_{z\in V(Q_y)} (C_z\setminus A_z)\right| \enspace ;
+    \]
     \item\label{req:subtree_torso_apex} for each $x\in V(Q)$, at least one of the following holds: 
     \begin{itemize}[nosep,nolistsep]
       \item\label{req:three_adhesions} $C_x\setminus\{v_0\}$ is contained in the union of at most three adhesions of $\calT$; or
@@ -872,27 +852,29 @@ A rooted forest-decomposition $(F,(B_x\mid x\in V(F))$ of a graph $G$ is \defin{
   \end{enumerate}
 \end{lem}
 
+\noindent\pat{TODO: Reread this proof.}
 
 \begin{proof}
   Let $\calT_0:=(T_0,(B_x\mid x\in V(T_0)))$ and $Y_0\subseteq E(T_0)$ be the tree-decomposition of $G_0$ obtained by applying \cref{log_b_td} to the tree-decomposition $\calT$.  Thus, each torso of $\calT_0$ satisfies \ref{req:subtree_torso_apex}.    
-  First, we make the tree-decomposition $\calT_0$ into a tidy rooted forest-decomposition in three steps:
+  First, we transform $\calT_0$ into a tidy rooted forest-decomposition in four steps:
   \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
     \item Remove every node $x$ of $T_0$ with $B_x=\emptyset$.
     \item Remove every edge $xy$ of $T_0$ with $B_x\cap B_y=\emptyset$.
-    \item Repeatedly replace an edge $yz$ of $F$ with the edge $xz$ if $B_z\cap B_y=B_x\cap B_y$ and $x$ is the parent of $y$.  If the edge $yz$ is in $Y_0$, replace $yz$ with $xz$ in $Y_0$.
+    \item Repeatedly replace an edge $yz$ with the edge $xz$ if $B_z\cap B_y\subseteq B_y\cap B_x$ and $x=\parent(y)$. If the edge $yz$ is in $Y_0$, replace $yz$ with $xz$ in $Y_0$.
+    \item Repeatedly remove every leaf $y$ with $B_y\subseteq B_{\parent(y)}$.
   \end{enumerate} 
   Let $\calF=(F,(B_x\mid x\in V(F)))$ be the resulting tidy forest-decomposition and let $Y_1$ be the resulting subset of $E(F)$.  (For each $x\in V(F)$, the bag $B_x$ is well-defined since $V(F)\subseteq V(T_0)$.) 
-  Note that each torso of $\calF$ is a torso of $\calT_0$. This construction gives an injective mapping from each edge $xy\in Y_1$ to an edge $x'y\in Y_0$ with the following property: for each $x\in V(F)$, $P_{F}(x)$ contains $xy\in Y_1$ if and only if $P_{T_0}(x)$ contains $x'y$. It follows that, for any connected component $C$ of $F-Y_1$, $V(C)\subseteq V(C_0)$ for some component $C_0$ of $T_0-Y_0$.  Therefore $|V(C)|\le |V(C_0)|\le 4b-1$.
+  Note that each torso of $\calF$ is a torso of $\calT_0$. For each non-root node $y\in V(F)$, let $\parent_F(y)$ and $\parent_{T_0}(y)$ denote its parents in $F$ and $T_0$, respectively; then $\parent_F(y)y\in Y_1$ if and only if $\parent_{T_0}(y)y\in Y_0$. Since the ancestors of any node $v\in V(F)$ in $F$ form a subset of its ancestors in $T_0$, the edges of $Y_1$ on $P_F(v)$ correspond injectively to a subset of the edges of $Y_0$ on $P_{T_0}(v)$. It follows that, for any connected component $C$ of $F-Y_1$, $V(C)\subseteq V(C_0)$ for some component $C_0$ of $T_0-Y_0$.  Therefore $|V(C)|\le |V(C_0)|\le 4b-1$.
 
   Let $Q$ be the tree obtained from $F$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F$. Let $Y_2:=Y_1\cup \{x_0x'\mid x'\text{ is a root of }F\}$. Then each component of $Q-Y_2$ has at most $4b-1$ nodes.
   
   Let $G$ be the graph obtained by adding an isolated vertex $v_0$ to $G_0$.  Define $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, define $C_{x'}:=B_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $Q$, define $C_x:=B_x$.  Then $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a tidy rooted tree-decomposition of $G$ that satisfies \ref{req:root_bag} and \ref{req:subtree_torso_apex}.
 
-  Let $A_{x_0}:=\emptyset$ and, for each edge $x\in V(Q-x_0)$, let $A_x$ be the parent adhesion of $x$ in $\calQ$.  For each $x\in V(Q)$, define $\omega(x):=|B_x\setminus A_x|$.  Since $\calQ$ is tidy, $\omega(x)\ge 1$ for each $x\in V(Q)$, so $\omega:V(T)\to\N^+$ is a weight function.  Let $Y_3\subseteq E(Q)$ be the set of edges obtained by applying \cref{skinny_edges} to $Q$ with the weight function $\omega$.  Then, for each component $C$ of $Q-Y_3$ and each $x,y\in V(C)$, we have   
+  Let $A_{x_0}:=\emptyset$ and, for each vertex $x\in V(Q\setminus\{x_0\})$, let $A_x$ be the parent adhesion of $x$ in $\calQ$.  For each $x\in V(Q)$, define $\omega(x):=|C_x\setminus A_x|$.  Since $\calQ$ is tidy, $\omega(x)\ge 1$ for each $x\in V(Q)$, so $\omega:V(Q)\to\N^+$ is a weight function with total weight $\omega(Q)=\sum_{x\in V(Q)}|C_x\setminus A_x|=|V(G)|=n+1$.  Let $Y_3\subseteq E(Q)$ be the set of edges obtained by applying \cref{skinny_edges} to $Q$ with the weight function $\omega$.  Then, for each component $C$ of $Q-Y_3$ and each $x,y\in V(C)$, we have   
   \[
-      \textstyle \left|\bigcup_{z\in V(T_x)}C_z\right|=\omega(T_x)\le b\cdot\omega(T_y)=b\left|\bigcup_{z\in V(T_y)}C_z\right| \enspace .
+      \textstyle \left|\bigcup_{z\in V(Q_x)}(C_z\setminus A_z)\right|=\omega(Q_x)\le b\cdot\omega(Q_y)=b\left|\bigcup_{z\in V(Q_y)}(C_z\setminus A_z)\right| \enspace .
   \]
-  Let $Y:=Y_2\cup Y_3$.  Then $\calQ$ and $Y$ satisfy \ref{req:subtree_size} and \ref{req:same_size}.  Each root-to-leaf path in $Q$ contains one edge incident to $x_0$, at most $\log_b n$ edges in $Y_2$ and at most $\log_b n$ edges in $Y_3$.  Thus, each root-to-leaf path in $Q$ contains at most $2\log_b n+1$ edges in $Y$, so $Q$ and $Y$ satisfy \ref{req:height}.
+  Let $Y:=Y_2\cup Y_3$.  Then $\calQ$ and $Y$ satisfy \ref{req:subtree_size} and \ref{req:same_size}.  Each root-to-leaf path in $Q$ contains at most $1+\log_b n$ edges in $Y_2$ and at most $\log_b(n+1)$ edges in $Y_3$.  Thus, each root-to-leaf path in $Q$ contains at most $1 + \log_b n + \log_b(n+1) \le 2\log_b(n+1)+1$ edges in $Y$, so $Q$ and $Y$ satisfy \ref{req:height}.
 \end{proof}
 
 
@@ -1408,7 +1390,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   since $y'\in C^-_u$ for each $u\in K$.
 
   \paragraph{\boldmath The outer-tree codes $\tau(C,D)$:}
-  Let $C$ and $D$ be two components of $F$ such that some edge $xy\in Y$ joins them, with $x\in V(C)$, $y\in V(D)$ and $x$ being the $T$-parent of $y$. Thus $y=r(D)$ is the root of component $D$. Then we define
+  Let $C$ and $D$ be two components of $F$ such that some edge $xy\in Y$ joins them, with $x\in V(C)$, $y\in V(D)$ and $x=\parent_T(y)$. Thus $y=r(D)$ is the root of component $D$. Then we define
   \[
      \mathdefin{\tau(C,D)}:= \langle\rho_C(x), \mu_x(A_y\setminus A_x), \rho_{A_y\setminus A_x}(y)\rangle \enspace .
   \]
@@ -2554,7 +2536,7 @@ When the adjacency tester deduces that $vw\in E(G)$ because $w$ is a parent of $
   g_2(n)&\in \Oh(1) \enspace ,\\
   g_3(n)&\in \Oh(k(n)\sqrt{\log n}) \enspace .
 \end{align*}
-\end{lem}
+\end{lem} 
 
 \begin{proof}
   % We begin by reviewing the adjacency labelling scheme for $\calR_k$ in \cite{dujmovic.esperet.ea:adjacency}.  We then describe the modifications made in \cite{EJM23} to make this scheme $g_0$-orientable.  Finally, we describe the how this scheme can be extended to obtain a strongly $g_0$-orientable weighted mixed labelling scheme for the class $\calR_k$. 
@@ -2659,7 +2641,7 @@ When the adjacency tester deduces that $vw\in E(G)$ because $w$ is a parent of $
   \]
 
 
-  For each $i\in [h]$ and each $S\subseteq S^+_i$, define \defin{$\lca'_{B_i}(S)$} as the maximum depth non-leaf node in $B_i$ that contains all elements of $S$ in its subtree. (Equivalently, $\lca'_{B_i}(S)=\lca_{B_i}(S)$ if $\lca_{B_i}(S)$ is not a leaf of $B_i$, otherwise $\lca'_{B_i}(S)$ is the parent of $\lca_{B_i}(S)$.) For each $i\in[h]$ and each $v\in V_i$, define $\mathdefin{x'_{B_i}(v)}:=\lca'_{B_i}(f(v)\cap S^+_i)$ and define \defin{$x_{B_i}(v)$} as the child of $x'_{B_i}(v)$ that has $x_f(v)$ as a leaf-descendant.   
+  For each $i\in [h]$ and each $S\subseteq S^+_i$, define \defin{$\lca'_{B_i}(S)$} as the maximum depth non-leaf node in $B_i$ that contains all elements of $S$ in its subtree. (Equivalently, $\lca'_{B_i}(S)=\lca_{B_i}(S)$ if $\lca_{B_i}(S)$ is not a leaf of $B_i$, otherwise $\lca'_{B_i}(S)=\parent_{B_i}(\lca_{B_i}(S))$.) For each $i\in[h]$ and each $v\in V_i$, define $\mathdefin{x'_{B_i}(v)}:=\lca'_{B_i}(f(v)\cap S^+_i)$ and define \defin{$x_{B_i}(v)$} as the child of $x'_{B_i}(v)$ that has $x_f(v)$ as a leaf-descendant.   
   (The node $x'_{B_i}(v)$ exists because $x_f(v)\in S_i\subseteq S^+_i$ and $x_f(v)\in f(v)$ and $x_{B_i}(v)$ exists because $x'_{B_i}(v)$ is a non-leaf node.)  We make use of the following property of this definition:
   \begin{enumerate}[nosep,label=(P\arabic*)]\setcounter{enumi}{2}
     \item\label{smallest_in} For each $i\in[h]$ and each $v\in V_i$, the smallest leaf-descendant of $x_{B_i}(v)$ is contained in $f(v)$.
@@ -2708,7 +2690,7 @@ When the adjacency tester deduces that $vw\in E(G)$ because $w$ is a parent of $
   
   Now suppose that $y:=x_{B_i}(v)$ is not a leaf of $B_i$. By \ref{smallest_in}, the smallest leaf-descendant $\ell'$ of $y$ is in $f(v)$.   The signature $\sigma_{B_i}(\ell')$ can be obtained from $\sigma_{B_i}(y)=\sigma(v,i)$ by appending a sequence of $\lceil\log(12a)\rceil(\height(B_i)-\depth_{B_i}(y))$ zeros. If $\ell'\in S^+_{i+1}$ then we take $\ell:=\ell'$ and we are done.  If $\ell'\not\in S^+_{i+1}$ then $\ell'<x_f(v)$ and, by property~\ref{plus_chunking_down} of $S^+_1,\ldots,S^+_h$, the successor $\ell''$ of $\ell'$ in $S^+_i$ is in $S^+_{i+1}$.  In this case, we take $\ell:=\ell''$ and the signature $\sigma_{B_i}(\ell'')$ can be obtained from $\sigma_{B_i}(y)$ by appending a sequence of $\lceil\log(12a)\rceil(\height(B_i)-\depth_{B_i}(y))-1$ zeros followed by a $1$.  In each case, the information needed to obtain $\sigma_{B_i}(\ell)$ can be recorded in $\Oh(\log{\log n})$ bits.  Summarizing, there exists a universal function $J_1$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists $\ell\in f(v)\cap S^+_i\cap S^+_{i+1}$ and a bitstring $\overrightarrow{\tau}_1(v,\ell,i)$ of length $\Oh(\log{\log n})$ such that $J_1(\sigma(v,i),\overrightarrow{\tau}_1(v,\ell,i))=\sigma_{B_i}(\ell)$.
 
-  In the second step we take $\sigma_{B_i}(\ell)$ onto $\sigma_{B_{i+1}}(\ell)$.  By property~\ref{path_splice} of $B_1,\ldots,B_h$, the path $P_{B_{i+1}}(\ell)$ can be obtained by replacing a subpath $xyz$ in $P_{B_{i}}(\ell)$ with a subpath $xy'z$.  In terms of the signature function $\sigma$, this difference between $P_{B_i}(\ell)$ and $P_{B_{i+1}}(\ell)$ can be described by an $O(\log\log n)$-bit encoding of $\depth_{B_i}(x)$ and two $\lceil\log (12a)\rceil$-bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.  Although this is the only change to the root-to-$\ell$ path $P_{B_i}(\ell)$, there is an additional change to $\sigma_{B_i}(\ell)$ that needs to be recorded.  Let $p$ be the parent of $\ell$.  Then the set of children of $p$ in $B_i$ and the set of children of $p$ in $B_{i+1}$ are different.  There are $B_i$-children of $p$ in $S^+_{i}\setminus S^+_{i+1}$ that are not in $B_{i+1}$ and there are $B_{i+1}$-children of $p$ in $S^+_{i+1}\setminus S^+_i$ that are not in $B_i$.  Therefore, the last integer in $\sigma_{B_i}(\ell)$ may be different from the last integer in $\sigma_{B_{i+1}}(\ell)$ even though each of these describes the edge $p\ell$. When this occurs, it can also be described by a $\lceil \log(12a)\rceil$-bit integer, namely the last integer in $\sigma_{B_{i+1}}(\ell)$.  To summarize, there exists a universal function $J_2:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for each $i\in[h-1]$ and each $\ell\in S^+_{i}\cap S^+_{i+1}$, there exists a bitstring $\overrightarrow{\tau}_2(\ell,i)$ of length $\Oh(\log{\log n})$ such that $\sigma_{B_{i+1}}(\ell)=J_2(\sigma_{B_i}(\ell),\overrightarrow{\tau}_2(\ell,i))$.  
+  In the second step we take $\sigma_{B_i}(\ell)$ onto $\sigma_{B_{i+1}}(\ell)$.  By property~\ref{path_splice} of $B_1,\ldots,B_h$, the path $P_{B_{i+1}}(\ell)$ can be obtained by replacing a subpath $xyz$ in $P_{B_{i}}(\ell)$ with a subpath $xy'z$.  In terms of the signature function $\sigma$, this difference between $P_{B_i}(\ell)$ and $P_{B_{i+1}}(\ell)$ can be described by an $O(\log\log n)$-bit encoding of $\depth_{B_i}(x)$ and two $\lceil\log (12a)\rceil$-bit integers that give the index of $y'$ in the list of children of $x$ and the index of $z$ in the list of children of $y'$.  Although this is the only change to the root-to-$\ell$ path $P_{B_i}(\ell)$, there is an additional change to $\sigma_{B_i}(\ell)$ that needs to be recorded.  Let $p:=\parent_{B_i}(\ell)$ be the parent of $\ell$.  Then the set of children of $p$ in $B_i$ and the set of children of $p$ in $B_{i+1}$ are different.  There are $B_i$-children of $p$ in $S^+_{i}\setminus S^+_{i+1}$ that are not in $B_{i+1}$ and there are $B_{i+1}$-children of $p$ in $S^+_{i+1}\setminus S^+_i$ that are not in $B_i$.  Therefore, the last integer in $\sigma_{B_i}(\ell)$ may be different from the last integer in $\sigma_{B_{i+1}}(\ell)$ even though each of these describes the edge $p\ell$. When this occurs, it can also be described by a $\lceil \log(12a)\rceil$-bit integer, namely the last integer in $\sigma_{B_{i+1}}(\ell)$.  To summarize, there exists a universal function $J_2:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for each $i\in[h-1]$ and each $\ell\in S^+_{i}\cap S^+_{i+1}$, there exists a bitstring $\overrightarrow{\tau}_2(\ell,i)$ of length $\Oh(\log{\log n})$ such that $\sigma_{B_{i+1}}(\ell)=J_2(\sigma_{B_i}(\ell),\overrightarrow{\tau}_2(\ell,i))$.  
 
   In the third and final step, we take $\sigma_{B_{i+1}}(\ell)$ onto $\sigma(v,i+1)$.  Since $\ell\in f(v)\cap S^+_{i+1}$, the node $x'_{B_{i+1}}(v)$ is a $B_{i+1}$-ancestor of $\ell$.  Therefore, the node $x_{B_{i+1}}(v)$ can be obtained from $\sigma_{B_{i+1}}(\ell)$, $\depth_{B_{i+1}}(x_{B_{i+1}}(v))$, and $\lceil\log(12a)\rceil$-bit integer $c_{v,i+1}$ that gives the index of $x_{B_{i+1}}(v)$ in the list of children of $x'_{B_{i+1}}(v)$.   Formally, there exists a universal function $J_3$ such that, for each $(v,i)\in V(G)$ with $i< h$, there exists a bitstring $\overrightarrow{\tau}_3(v,i)$ of length $\Oh(\sqrt{\log n})$ such that $J_3(\sigma_{B_{i+1}}(\ell),\overrightarrow{\tau}_3(v,i))=\sigma(v,i+1)$.
   
