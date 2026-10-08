@@ -1024,7 +1024,7 @@ By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains 
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\calG^{+a}$ is the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes} 
-  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_i:\N\to\R$ is a non-decreasing function  with $g_i(n)\in \Oh(\log n)$ for each $i\in\{0,1,2,3\}$.
+  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0:\N\to\R$ is a function, and $g_1,g_2,g_3:\N\to\R$ are non-decreasing functions with $g_1(n),g_3(n)\in \Oh(\log n)$.
   Let $a\in\N^+$. Then $\calG^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
@@ -1039,20 +1039,15 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \end{lem}
 
 \begin{proof}
-  Let $(\calS:=((\mu^-_\tau,\kappa^-_\tau):\tau\in\calT_\calG)),A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
+  Let $(\calS,A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, where $\calS:=((\mu^-_\tau,\kappa^-_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
 
-  By~\cref{lem:nice_weights} it is enough to show that $\calG^{+a}$ admits a weak weighted $(g_1',g_2',g_3')$ mixed labelling scheme. We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a strongly $g_0$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.  So that we can fix a specific labelling $(\mu_\tau,\kappa_\tau)$ for each $\calG^{+a}$-admissible triple $\tau=(G^+,G,\omega)$ we first choose, for each $G^+\in\calG^{+a}$, a specific set $X(G^+)\subseteq V(G^+)$ with $|X(G^+)|\le a$ such that $G^+-X(G^+)\in\calG$.
+  By~\cref{lem:nice_weights}, it is enough to show that $\calG^{+a}$ admits a weak weighted $(g_1'-2,g_2',g_3'-2)$ mixed labelling scheme (the additive constants in \cref{lem:nice_weights} are absorbed into the $\Oh(a)$ terms). We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a strongly $g'_0$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling $\mathdefin{\calS'}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.  To fix a specific labelling $(\mu_\tau,\kappa_\tau)$ for each $\calG^{+a}$-admissible triple $\tau=(G^+,G,\omega)$, we first choose, for each $G^+\in\calG^{+a}$, a specific set $X(G^+)\subseteq V(G^+)$ with $|X(G^+)|\le a$ such that $G^+-X(G^+)\in\calG$.
 
-  Let $\tau:=(G^+,G,\omega)$ be a nicely-weighted $\calG^{+a}$-admissible triple, let $X:=X(G^+)$, and let $n:=|V(G)|$. Since $\omega$ is a nice weight function, $\log\omega(G)-\log\omega(v)\le\log n + 2$ for each $v\in V(G)$. We will describe the weighted mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $\tau$ for $(A',I')$. 
-  
-  
+  Let $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ be a triple with a nice weight function $\omega$, let $X:=X(G^+)$, and let $n:=|V(G)|$. Since $\omega$ is a nice weight function, $\log\omega(G)-\log\omega(v)\le\log n + 2$ for each $v\in V(G)$. We will describe the weighted mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $\tau$ for $(A',I')$. 
 
-
-  
-  
   \paragraph{\boldmath The subgraph label $\mu^-$:}
-  By the definition of $X$, $\tau^-:=(G^+-X,G-X,\omega_{|V(G-X|)})$ is a $\calG$-admissible triple with $|V(G-X)|\le n$.   Let $(\mu^-,\kappa^-):=(\mu^-_{\tau^-},\kappa^-_{\tau^-})$.  Thus $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
-  For each $v\in V(G-X)$,
+  By the definition of $X$, $\tau^-:=(G^+-X,G-X,\omega_{|V(G-X)})$ is a $\calG$-admissible triple with $|V(G-X)|\le n$.   Let $(\mu^-,\kappa^-):=(\mu^-_{\tau^-},\kappa^-_{\tau^-})$.  Thus, $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
+  For each $v\in V(G-X)$, since $g_1$ is non-decreasing,
   \begin{align}
     \begin{split}
       |\mu^-(v)|
@@ -1061,20 +1056,20 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \end{split}
     \label{eq:mu-}
   \end{align}
-  and for each clique $K$ in $G-X$,
+  and for each clique $K$ in $G^+-X$, since $g_3$ is non-decreasing,
   \begin{align}
     \label{eq:split}
     \begin{split}
       |\mu^-(K)|
-       & \le \log\omega(G-X)-\log\min_{v\in K}(\omega(v))+g_3(|V(G-X)|)  \\
-       & \le \log\omega(G)-\log\min_{v\in K}(\omega(v))+g_3(n) \enspace.
+       & \le \log\omega(G-X)-\log\min_{v\in K}\omega(v)+g_3(|V(G-X)|)  \\
+       & \le \log\omega(G)-\log\min_{v\in K}\omega(v)+g_3(n) \enspace.
     \end{split}
   \end{align}
   Extend the domain of $\mu^-$ to include the vertices in $X$ by defining $\mu^-(v):=\varepsilon$ (the empty string), for each $v\in X$.
 
   \paragraph{\boldmath The apex identifier $\sigma(u)$:}
   Fix a linear ordering $u_1,\ldots,u_{b}$ of the vertices in $X$.  By definition, $b\le a$.
-  For each $u\in V(G)$ define
+  For each $u\in V(G)$, define
   \[
     \sigma(u) :=
     \begin{cases}
@@ -1098,20 +1093,18 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
      & \in\Oh(a+\log n)\enspace,
     \intertext{and therefore}
     |\mu(v)|
-     & \leq |\sigma(v)|+a+|\mu^-(v)| +\calO(\lgg |\sigma(v)|+\lgg a+\lgg |\mu^-(v)|) & \text{by \eqref{encoding_cost}} \\
-     & \leq \log\omega(G) - \log\omega(v)+g_1(n) + \calO(a+\log\log n) \enspace .
+     & \leq |\sigma(v)|+a+|\mu^-(v)| +\Oh(\lgg |\sigma(v)|+\lgg a+\lgg |\mu^-(v)|) & \text{by \eqref{encoding_cost}} \\
+     & \leq \log\omega(G) - \log\omega(v)+g_1(n) + \Oh(a+\log\log n) \enspace .
   \end{align*}
 
   \paragraph{Adjacency testing:}
   We now describe the adjacency tester $A'$.
   Given the labels $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$ and $\mu(w)=\langle \sigma(w),c(w),\mu^-(w)\rangle$ for two vertices $v$ and $w$ of $G$,
   $A'$ works as follows.
-  First by checking the values of $\sigma(v)$ and $\sigma(w)$ we check if $v$ and/or $w$ lie in $X$.
-  If at least one of them, say $v$, is in $X$, then $v=u_i$ for some $i\in[b]$ and $\sigma(v)$ encodes the value of $i$.  In this case,
-  we set $A'(\mu(v),\mu(w))$ to be the $i$-th bit of $c(w)$.
-  If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w))=A(\mu^-(v),\mu^-(w))$.
-
-
+  First, by checking the values of $\sigma(v)$ and $\sigma(w)$, the tester checks if $v$ and/or $w$ lie in $X$.
+  If $\sigma(v)$ encodes an index $i\in[b]$, we return the $i$-th bit of $c(w)$ (which indicates whether $wu_i = wv \in E(G)$).
+  Otherwise, if $\sigma(w)$ encodes an index $j\in[b]$, we return the $j$-th bit of $c(v)$ (which indicates whether $vu_j = vw \in E(G)$).
+  If neither $v$ nor $w$ is in $X$, then $A'(\mu(v),\mu(w)):=A(\mu^-(v),\mu^-(w))$.
 
   \paragraph{\boldmath The clique label $\mu(K)$:}
   For each clique $K$ in $G^+$, let $c(K)$ be a $b$-bit string whose $i$-th bit indicates if $u_i\in K$.
@@ -1125,29 +1118,28 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \]
   To see that $\mu$ is injective when restricted to cliques, consider two distinct cliques $K$ and $L$ in $G^+$. If $K\cap X \neq L\cap X$, then $c(K)\neq c(L)$, so $\mu(K)\neq \mu(L)$ because their first parts differ. Otherwise, $K\setminus X \neq L\setminus X$. If one is empty, say $K\subseteq X$, then $\mu(K)$ has one part while $\mu(L)$ has two parts, so $\mu(K)\neq\mu(L)$. If both are non-empty, then $\mu^-(K\setminus X)\neq \mu^-(L\setminus X)$ since $\mu^-$ is injective on cliques of $G^+-X$, which implies $\mu(K)\neq \mu(L)$.
 
-  Next we bound the length of the clique labels.  First consider a clique $K\not\subseteq X$.  Then
+  Next, we bound the length of the clique labels. First consider a clique $K\not\subseteq X$. Since $K\setminus X \subseteq K$, we have $\min_{v\in K\setminus X}\omega(v) \ge \min_{v\in K}\omega(v)$, so by~\eqref{eq:split},
   \[
     |\mu^-(K\setminus X)| + b
-    \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n-|X|)+a
-    \textrm{by~\eqref{eq:split}}
+    \leq \log\omega(G)-\log\min_{v\in K}\omega(v) + g_3(n-|X|)+a \enspace,
   \]
   and therefore
   \begin{align*}
     |\mu(K)|
      & \leq |\mu^-(K\setminus X)|+b + \Oh(\lgg|\mu^-(K\setminus X)|+\lgg b)
      & \text{by \eqref{encoding_cost}}                                                               \\
-     & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g_3(n) + \calO(a+\log\log n) \\
-     & \leq \log\omega(G)-\log\min_{v\in K}(\omega(v)) + g'_3(n) \enspace .
+     & \leq \log\omega(G)-\log\min_{v\in K}\omega(v) + g_3(n) + \Oh(a+\log\log n) \\
+     & \leq \log\omega(G)-\log\min_{v\in K}\omega(v) + g'_3(n) \enspace .
   \end{align*}
-  If $K\subseteq X$, then $|\mu(K)| \le b + \Oh(\lgg b)$, which easily satisfies the same bound.
+  If $K\subseteq X$, then $|\mu(K)| \le b + \Oh(\lgg b) \le a + \Oh(\log a) \le g'_3(n) \le \log\omega(G)-\log\min_{v\in K}\omega(v) + g'_3(n)$ since $\omega(G) \ge \min_{v\in K}\omega(v) \ge 1$.
 
   \paragraph{\boldmath The local identifier $\kappa(K,u)$:}
   For each clique $K$ in $G^+$ and each $u\in K$, define
   \[
     \kappa(K,u) :=
     \begin{cases}
-      0,\kappa^-(K\setminus X,u) & \text{if $u\not\in X$,} \\
-      1,\sigma(u)       & \text{if $u\in X$.}
+      0 \circ \kappa^-(K\setminus X,u) & \text{if $u\not\in X$,} \\
+      1 \circ \sigma(u)                & \text{if $u\in X$.}
     \end{cases}
   \]
   Note that $\kappa(K,u)$ is a concatenation, so it does not incur the encoding cost from \eqref{encoding_cost}. Thus,
@@ -1159,44 +1151,36 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   We now describe the identity tester $I'$.
   Given $\mu(K)$, $\kappa(K,u)$, and $\mu(v)$ for some clique $K$ in $G^+$, $u\in K$, and $v\in V(G)$,
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
-  First by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
-  If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1,\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
+  First, by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
+  If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1\circ\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
   If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K\setminus X)$. The tester extracts this second part and sets 
-  $I'(\mu(K),\kappa(K,u),\mu(v)) = I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))$.
-  Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) =0$.
+  $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))$.
+  Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) := 0$.
 
-  This completes the description of the adjacency tester $A'$, the identity tester $I'$, and of the weighted $(g_1',g_2',g_3')$-mixed labelling $(\mu_\tau,\kappa_\tau):=(\mu,\kappa)$ of $\tau=(G^+,G,\omega)$ for $(A',I')$. Since $\tau$ is an arbitrary nicely-weighted $\calG^{+a}$-admissible triple, this completes the description of the weighted $(g_1',g_2',g_3')$-mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of  $\calG^{+a}$ for $(A',I')$.
+  This completes the description of the adjacency tester $A'$, the identity tester $I'$, and the weighted $(g_1',g_2',g_3')$ mixed labelling $(\mu_\tau,\kappa_\tau):=(\mu,\kappa)$ of $\tau=(G^+,G,\omega)$ for $(A',I')$. Since $\tau$ is an arbitrary nicely weighted $\calG^{+a}$-admissible triple, this completes the description of the weighted $(g_1',g_2',g_3')$ mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.
 
   \paragraph{\boldmath $g'_0$-orientability:}
-  % Thus far, we have shown that for each $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ there exists a $(g'_1,g'_2,g'_3)$-mixed labelling $(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$.  
-  % Even for a fixed $\tau:=(G^+,G,\omega)$, the labelling $(\mu_\tau,\kappa_\tau)$ is not necessarily unique since, for example, there may be two distinct sets $X_1,X_2\subseteq V(G^+)$, each of size at most $a$ such that $G^+-X_1\in\calG$ and $G^+-X_2\in\calG$.  Using $X=X_1$ to define $(\mu_\tau,\kappa_\tau)$ results in a different mixed labelling than using $X=X_2$. To deal with this, for each 
-  % $G^+\in\calG^{+a}$, we fix some set 
-  % $X(G^+)$ of at most $a$ vertices such that $G^+-X(G^+)\in\calG$.  Then, the 
-  % labelling $(\mu_\tau,\kappa_\tau)$ of $\tau=(G^+,G,\omega)$ is defined with 
-  % respect to the set $X=X(G^+)$.  
-  
-  We now show that $(\calS',A')$ is $g'_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\calS',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$. 
-  % This relies on the fact that $U_n$, the $n$-universal graph for $\calG$ defined by $(\calS,A)$, has an orientation in which each vertex has out-degree at most $g_0(n)$.  
-  We now explain how to choose the orientation for an arbitrary edge $\{\beta,\beta'\}$ of $U'_n$.   By the definition of $U'_n$ there exists a $\calG^{+a}$-admissible triple $\tau:=(G^+,G,\omega)$ with $|V(G)|\le n$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Let $X:=X(G^+)$, so  $G^+-X\in \cal{G}$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  We now show that $(\calS',A')$ is $g'_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\calS',A')$ has an orientation in which each vertex has outdegree at most $g'_0(n)$. 
+  We now explain how to choose the orientation for an arbitrary edge $\{\beta,\beta'\}$ of $U'_n$.   By the definition of $U'_n$, there exists a triple $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},\le n}$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Let $X:=X(G^+)$, so $G^+-X\in \cal{G}$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
   \begin{enumerate}
-    \item If neither of $v$ nor $v'$ is in $X$ then  $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g_0$-orientable, this gives an orientation of the edge  $\{\mu^-(v),\mu^-(v')\}$ in the $n$-universal graph $U_n$ defined by $(\calS,A)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v)$, then we orient $\{\beta,\beta'\}$ towards $\beta=\mu(v)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v')$, then we orient $\{\beta,\beta'\}$ towards $\beta'=\mu(v')$. 
+    \item If neither $v$ nor $v'$ is in $X$, then $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g_0$-orientable, this gives an orientation of the edge $\{\mu^-(v),\mu^-(v')\}$ in the $n$-universal graph $U_n$ defined by $(\calS,A)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v)$, then we orient $\{\beta,\beta'\}$ towards $\beta=\mu(v)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v')$, then we orient $\{\beta,\beta'\}$ towards $\beta'=\mu(v')$. 
     
     Fix a vertex $\beta$ in $U'_n$.  
     We now argue that this branch of the adjacency testing procedure orients at most $g_0(n)\cdot 2^a$ edges away from $\beta$, over all choices of $\beta'$.  The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$. Importantly, $c(v)$ is a bit-vector of length exactly $|X|$, so $\beta$ strictly fixes $|X|$. Each edge oriented away from $\beta$ by this branch of the adjacency testing procedure corresponds to an edge oriented away from $\mu^-(v)$ in $U_n$.    Since $\beta$ includes $\mu^-(v)$, there are at most $g_0(n)$ choices of $\mu^-(v')$ that result in an edge being oriented away from $\beta$ in this way.  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$, and $c(v')$ is a bit-vector of length $|X|$, leaving $2^{|X|}$ choices for $c(v')$.  Thus, the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ for which the edge $\{\beta,\beta'\}$ is oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n) 2^{|X|} \leq g_0(n) 2^{a}$.
 
-    \item Otherwise, the adjacency tester deduces that at least one of $v$ nor $v'$ is in $X$.  If both $\{v,v'\}\subseteq X$ then we orient $\{\beta,\beta'\}$ towards the lexicographically larger string.  If $\{v,v'\}\cap\{x\}=\{v\}$ then we orient $\{\beta,\beta'\}$ towards $\beta$. If $\{v,v'\}\cap X=\{v'\}$ then we orient $\{\beta,\beta'\}$ towards $\beta'$.
+    \item Otherwise, at least one of $v$ or $v'$ is in $X$.  If both $v,v'\in X$, then we orient $\{\beta,\beta'\}$ towards the lexicographically larger string.  If $\{v,v'\}\cap X=\{v\}$, then we orient $\{\beta,\beta'\}$ towards $\beta$. If $\{v,v'\}\cap X=\{v'\}$, then we orient $\{\beta,\beta'\}$ towards $\beta'$.
 
-    Fix a vertex $\beta$ in $U'_n$.  We now argue that this branch of the adjacency testing procedure orients at most a $a2^{a}$ edges away from $\beta$. Then this corresponds to a case in which $v'\in X$, so $\beta'=\langle \sigma(v'),c(v'),\varepsilon\rangle$. There are at most $|X|$ choices for $\sigma(v')$ and $2^{|X|}$ choices for $c(v')$. Again, $|X|$ is fixed by the length of $c(v)$ in $\beta$, so the number of strings $\beta'$ oriented away from $\beta$ is at most $|X|\cdot 2^{|X|} \leq a 2^{a}$.
+    Fix a vertex $\beta$ in $U'_n$.  We now argue that this branch of the adjacency testing procedure orients at most $a 2^{a}$ edges away from $\beta$. This corresponds to a case in which $v'\in X$, so $\beta'=\langle \sigma(v'),c(v'),\varepsilon\rangle$. There are at most $|X|$ choices for $\sigma(v')$ and $2^{|X|}$ choices for $c(v')$. Again, $|X|$ is fixed by the length of $c(v)$ in $\beta$, so the number of strings $\beta'$ oriented away from $\beta$ is at most $|X|\cdot 2^{|X|} \leq a 2^{a}$.
   \end{enumerate}
-  Therefore, for any fixed $\beta\in V(U'_n)$, the out-degree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.   
+  Therefore, for any fixed $\beta\in V(U'_n)$, the outdegree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.   
 
   \paragraph{\boldmath Strong $g'_0$-orientability:}  All that remains is to show that $(\calS',A',I')$ is strongly $g'_0$-orientable.  
-  Let $(\mu_0,\kappa_0)\in\calS'$ be a $(g_1',g_2',g_3')$-mixed labelling of $(G_0^+,G_0,\omega_0)\in\calT_{\calG^{+a},n}$ for $(A',I')$, let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$. Let $\zeta:=\mu_{\tau_0}(K_0)$ and let $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.   We need to show that there are at most $g'_0(n)$ strings $\beta\in\{0,1\}^*$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},n}$, some clique $K$ in $G^+$ and some $u\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,u)=\gamma$, and $\mu_\tau(u)=\beta$.  
+  Let $\tau_0 := (G_0^+, G_0, \omega_0) \in \calT_{\calG^{+a}, \le n}$, and let $(\mu_{\tau_0},\kappa_{\tau_0})\in\calS'$ be the mixed labelling of $\tau_0$ for $(A',I')$. Let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$. Let $\zeta:=\mu_{\tau_0}(K_0)$ and let $\gamma:=\kappa_{\tau_0}(K_0,u_0)$. We need to show that there are at most $g'_0(n)$ strings $\beta\in V(U'_n)$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},\le n}$, some clique $K$ in $G^+$, and some $u\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,u)=\gamma$, and $\mu_\tau(u)=\beta$.  
   
-   Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$.  Let $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K\setminus X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ fixes $|X|$.
+  Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$.  Let $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K\setminus X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ fixes $|X|$.
   \begin{itemize}[nosep,nolistsep]
-    \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1, \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$. 
-    \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is defined by $\zeta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is defined by $\gamma$. Since $(\calS,A,I)$ is strongly $g_0$-orientable, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ for which $I'(\zeta,\gamma,\beta)=1$.
+    \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1 \circ \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$. 
+    \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is extracted from $\zeta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is extracted from $\gamma$. Since $(\calS,A,I)$ is strongly $g_0$-orientable and $|V(G-X)| \le n$, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ for which $I'(\zeta,\gamma,\beta)=1$.
   \end{itemize}
   Therefore, the number of possible choices for $\beta$ is at most $2^a+ g_0(n) 2^{a} \le (2g_0(n)+a)2^{a} = g'_0(n)$.  \qedhere
 \end{proof}
