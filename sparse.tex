@@ -986,7 +986,7 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
 \end{proof}
 
 
-\subsection{Orientable Labelling Schemes}
+\subsection{Orientable Labelling Schemes}\label{sec:orientable}
 
 In order to establish \cref{main_result_induced_universal_sparse}, which promises sparse universal graphs, we need two additional definitions.
 Let $(\calS,A,I)$ be a weighted mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
@@ -1187,34 +1187,25 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
 
 \subsection{Tree-Decompositions: Combining via Clique-Sums}
-
-
 \begin{lem}\label{lem:the_big_one}
-  Let $\calG$ be a hereditary class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\N^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all integers $n\ge 4$.  Let $\calG'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\calG$. 
-  Then $\calG'$ admits a $g'_0$-orientable $f(n)$-bit adjacency labelling scheme,
+  Let $\calG$ be a hereditary class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme where $g_i:\N\to\R^+$ is a non-decreasing function for each $i\in\{0,1,2,3\}$ and $g_i(n)\in\Oh(\log n)$ for each $i\in\{1,2,3\}$. Let $k,b:\N\to\R$ be non-decreasing functions with $2\le b(n)\le n/2$ and $1\le k(n)\le \log n$ for all integers $n\ge 4$.  Let $\calG'$ be the graph class that consists of, for each $n\in\N$, every $n$-vertex graph $G$ that has a rooted tree-decomposition of adhesion-width at most $k(n)$ whose torsos belong to $\calG$. 
+  Then $\calG'$ admits a $g'_0$-orientable $f(n)$-bit adjacency labelling scheme with
   \begin{align*}
-    g_0'(n) & = g_0(n)\cdot \exp(O(k(n)(g_3(n)+g_2(n)+k(n)+\log b(n)+\log\log n))) \\
-    % g_1'(n) & = g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
-    % & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n )) \\
-    % g_2'(n) & = g_2(n) + g_3(n) + \Oh(k(n) + \log b(n) + \log\log n)  \\
-    % g_3'(n) & = \Oh\left((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n\right)  \enspace .
+    g_0'(n) & = g_0(n)\cdot \exp(\Oh(k(n)(g_3(n)+g_2(n)+k(n)+\log b(n)+\log\log n))) \\
     f(n) & = \log n + g_1(n) + \Oh((g_3(n)+k(n)+\log\log n)\cdot \log_{b(n)} n) \\
     & \quad + \Oh(k(n)\cdot (g_3(n)+g_2(n) + k(n) + \log b(n) + \log\log n ))   \end{align*}
 \end{lem}
 
 \begin{proof}
   Let $g_0,g_1,g_2,g_3$, $\calG$, $\calG'$, $k$, and $b$ be as given in the statement of the lemma.   
-  %  Let $(\calS:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)),A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$.  Let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
-  We will define an adjacency tester $A'$ and an adjacency labelling $(\calA:=\ell_G:G\in\calG'))$ of $\calG'$ for $A'$.  Since it is impractical to describe the operation of $A'$ without first describing the format of the labels given as arguments to $A'$, we begin by describing the construction of an adjacency labelling $\ell:V(G)\to\{0,1\}^*:=\ell_G$ for a graph $G_0\in\calG'$.
+  We will define an adjacency tester $A'$ and an adjacency labelling $\mathdefin{\calA'}:=(\ell_{G_0}:G_0\in\calG')$ of $\calG'$ for $A'$.  Since it is impractical to describe the operation of $A'$ without first describing the format of the labels given as arguments to $A'$, we begin by describing the construction of an adjacency labelling $\ell_{G_0}:V(G_0)\to\{0,1\}^*$ for an arbitrary graph $G_0\in\calG'$.
 
-  % Let $\calS:=\{(\mu_\tau,\kappa_\tau)\mid \tau \in \calT_{\calG}\}$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed labelling of $\calG$ for some adjacency/identity tester pair $(A,I)$.  
-  Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$ and each torso of $\calT_0$ belongs to $\calG$. Let $b:=b(n)$.  Let $\calT:=(T,(B_x\mid x\in V(T)))$ and $Y\subseteq E(T)$ be the result of applying \cref{all_singing_all_dancing} to the tree-decomposition $\calT_0$ of $G_0$. Let $x_0$ be the root of $T$.  
+  Let $G_0$ be an $n$-vertex graph in $\calG'$ and let $\calT_0$ be a rooted tree-decomposition of $G_0$ witnessing that $G_0\in\calG'$, so $\calT_0$ has adhesion-width at most $k:=k(n)$ and each torso of $\calT_0$ belongs to $\calG$. Let $b:=b(n)$.  Let $G$, $\calT:=(T,(B_x\mid x\in V(T)))$, and $Y\subseteq E(T)$ be the result of applying \cref{all_singing_all_dancing} to the tree-decomposition $\calT_0$ of $G_0$, so that $G$ has an isolated vertex $v_0$ with $G-v_0=G_0$, $B_{x_0}=\{v_0\}$, and $\calT$ is a tidy rooted tree-decomposition of $G$ with root $x_0$.  
   
-  
-  Define $A_{x_0}:=\emptyset$ and, for each $x\in V(T)\setminus\{x_0\}$ let $A_x$ be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_x}-A_x$ is either a $1$-vertex graph (if $x=x_0$) or an induced subgraph of a torso of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ is in $\calG$), or its vertex set is contained in the union of at most $3$ adhesions of $\calT_0$ (so $\torso{G}{\calT,B_x}-A_x$ has at most $3k$ vertices).  In each case, $\torso{G}{\calT,B_x}-A_x\in\calG^{+3k}$.
+  Define $A_{x_0}:=\emptyset$ and, for each $x\in V(T)\setminus\{x_0\}$, let $A_x$ be the parent adhesion of $x$ in $\calT$.  For each $x\in V(T)$, $\torso{G}{\calT,B_x}-A_x$ is either a $1$-vertex graph (if $x=x_0$), can be made into an induced subgraph of a torso of $\calT_0$ by deleting at most one adhesion of $\calT_0$ (so at most $k$ vertices), or its vertex set is contained in the union of at most $3$ adhesions of $\calT_0$ (so it has at most $3k$ vertices).  In each case, $\torso{G}{\calT,B_x}-A_x\in\calG^{+3k}$.
   
 
-  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is a nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$.  Therefore, each $y\in C_x$ is contained in $C_K$ for exactly one clique $K=A_y\setminus A_x$ in $\torso{G}{\calT,B_x}-A_x$.  
+  For each $v\in V(G)$, let $\mathdefin{\omega(v)}:=1$ and note that $\omega:V(G)\to\{1\}$ is a nice weight function. For each $x\in V(T)$, let $\mathdefin{\omega(x)}:=\omega(B_x\setminus A_x)$. Then $\omega(T)=\sum_{x\in V(T)}\omega(x)=\omega(G)=n+1$, since $\{B_x\setminus A_x\mid x\in V(T)\}$ is a partition of $V(G)$.  For each $x\in V(T)$, let $\mathdefin{C_x}:=N_{T_x}(x)$ be the set of $T$-children of $x$. For each $x\in V(T)$, and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C_K}:=\{y\in C_x\mid A_y\setminus A_x=K\}$.  Since $\calT$ is tidy, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$.  Therefore, each $y\in C_x$ is contained in $C_K$ for exactly one clique $K=A_y\setminus A_x$ in $\torso{G}{\calT,B_x}-A_x$. We say that $K$ is \defin{light} if $\sum_{y\in C_K}\omega(T_y) < \omega(T_x)/b$, and is \defin{non-light} otherwise.
   
 
   Let $F:=T-Y$.  Properties 
@@ -1223,23 +1214,23 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \ref{req:subtree_size} 
   \ref{req:same_size}, 
   \ref{req:subtree_torso_apex}, 
-  of \cref{all_singing_all_dancing} translate to the following properties of $\calT$, $Y$, and $F$.
+  of \cref{all_singing_all_dancing} translate to the following properties of $\calT$, $Y$, and $F$:
   \begin{enumerate}[nosep,nolistsep,label=(P\arabic*)]
-    \item\label{td_width} $\calT$ has adhesion-width at most $3k+1$;
-    \item\label{torsos_in_G_plus_k} for each $x\in V(T)$; 
+    \item\label{td_width} $\calT$ has adhesion-width at most $3k$;
+    \item\label{torsos_in_G_plus_k} for each $x\in V(T)$, 
     $\torso{G}{\calT,B_x}-A_x\in \calG^{+3k}$;
-    \item\label{tprops_y0}\label{component_size} each component of $F$ has at most $4b-1$ nodes 
+    \item\label{component_size} each component of $F$ has at most $4b-1$ nodes;
     \item\label{no_fast_shrink} for any two nodes $x,y$ in the same component of $F$, $|\log\omega(T_x)-\log\omega(T_y)|\le\log b$;
     \item\label{light_clique_buster} for each $x\in V(F)$, each light clique $K$ in $\torso{G}{\calT,B_x}-A_x$, and each $y\in C_K$, $xy\in Y$; and
     \item\label{y_on_path} each root-to-leaf path $P$ in $T$ contains at most $2\log_b n +\Oh(1)$ edges in $Y$.
   \end{enumerate}
 
-  By \cref{add_apexes}, $\calG^{+3k}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme $(\mathdefin{\calS}:=\mathdefin{(\mu_\tau,\kappa_\tau)}:\tau\in\calT_{\calG^{+3k}})$ with 
+  By \cref{add_apexes}, $\calG^{+3k}$ admits a strongly $h_0$-orientable weighted $(h_1,h_2,h_3)$ mixed labelling scheme $\mathdefin{\calS}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+3k}})$ with 
   \begin{align}
-    \mathdefin{h_0(n)} & = (2g_0(n) + 3k + 1)2^{3k+1} \\
-    \mathdefin{h_1(n)} & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
-    \mathdefin{h_2(n)} & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
-    \mathdefin{h_3(n)} & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
+    h_0(n) & = (2g_0(n) + 3k)2^{3k} \\
+    h_1(n) & = g_1(n) + \Oh(k(n)+\log\log n) \label{h1_td} \\ 
+    h_2(n) & = g_2(n) + \Oh(\log k(n) + \log\log n) \label{h2_td} \\ 
+    h_3(n) & = g_3(n) + \Oh(k(n) + \log\log n) \enspace \label{h3_td} . 
   \end{align} 
   For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$. 
 
@@ -1247,7 +1238,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   
   \paragraph{\boldmath The weight function $\delta$:} 
 
-  We now define a weight function $\delta:V(G)\to\N^+$ and, for each $x\in V(T)$, we define $\delta(x)=\delta(B_x\setminus A_x)$.  This weight function is designed so that, for any node $x\in V(T)$, $\tfrac{1}{4b}\omega(T_x)\le \delta(x)\le 3k\omega(T_x)$.  In fact, the upper bound will have an even stronger property:  For each component $C$ of $F$, $\delta(C)\le 6k\omega(T_{r(C)})$.  
+  We now define a weight function $\delta:V(G)\to\R^+$ and, for each $x\in V(T)$, we define $\delta(x)=\delta(B_x\setminus A_x)$.  This weight function is designed so that, for any node $x\in V(T)$, $\tfrac{1}{4b}\omega(T_x)\le \delta(x)\le 3k\omega(T_x)$.  In fact, the upper bound will have an even stronger property:  For each component $C$ of $F$, $\delta(C)\le 6k\omega(T_{r(C)})$.  
   
   
   For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in C_x\mid xy\in Y\}$ and let $\mathdefin{C^+_x}:=C_x\setminus C^-_x$.  For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C^-_K}:=C_K\cap C^-_x$ and let $\mathdefin{C^+_K}:=C_K\cap C^+_x$. For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in C_x\mid v\in A_y\}$, let $\mathdefin{C^-_v}:=C_v\cap C^-_x$ and let $\mathdefin{C^+_v}:=C_v\cap C^+_x$.  
@@ -1270,8 +1261,8 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \end{equation}
   Since $\calT$ is a tidy tree-decomposition, $A_y\setminus A_x\neq\emptyset$ for each $y\in C_x$, and thus every $y \in C_x$ appears in $C_v$ for at least one $v \in B_x \setminus A_x$.  Therefore
   \begin{equation}
-    \delta(x) = \omega(x) + \sum_{y\in C^-_x} \omega(T_y) + \tfrac{1}{4b}\sum_{y\in C^+_x} \omega(T_y)
-    \ge \tfrac{1}{4b}\omega(T_x) \enspace \label{delta_y_lower_bound}
+    \delta(x) = \sum_{v\in B_x\setminus A_x}\delta(v) \ge \omega(x) + \sum_{y\in C^-_x} \omega(T_y) + \tfrac{1}{4b}\sum_{y\in C^+_x} \omega(T_y)
+    \ge \tfrac{1}{4b}\omega(T_x) \enspace \label{delta_x_lower_bound}
   \end{equation}
   for each $x\in V(T)$.
 
@@ -1312,15 +1303,15 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \le \log (6k\cdot\omega(T_{r(C)})) - \log \delta(x) + 3 
         & \text{(by \eqref{omega_trC_lower_bound})} \nonumber \\
       & = \log\omega(T_{r(C)}) - \log\delta(x) + \Oh(\log\log n) 
-        & \text{(since $k\in O(\log n)$)} \nonumber \\
+        & \text{(since $k\in \Oh(\log n)$)} \nonumber \\
       & \le \log\omega(T_{r(C)}) - \log(\omega(T_x)/(4b)) + \Oh(\log\log n) 
-        & \text{(by \eqref{delta_y_lower_bound})} \nonumber \\
+        & \text{(by \eqref{delta_x_lower_bound})} \nonumber \\
       & \le \log\omega(T_{r(C)}) - \log(\omega(T_{r(C)})/(4b^2)) + \Oh(\log\log n) 
         & \text{(by property~\ref{no_fast_shrink} of $F$)} \nonumber \\
       & \le 2\log b + \Oh(\log\log n)  .  \label{rho_C_bound_2logb}
   \end{align}
 
-  \paragraph{\boldmath The inner-node labelling $\mu_x$:}  For each $x\in V(T)$, let \defin{$(\mu_x,\kappa_x):=(\mu_\tau,\kappa_\tau)$} where $\tau$ is the $\calG^{+3k+1}$-admissible triple $(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$.  Then, for each $x\in V(T)$, 
+  \paragraph{\boldmath The inner-node labelling $\mu_x$:}  For each $x\in V(T)$, let $\mathdefin{(\mu_x,\kappa_x)}:=(\mu_\tau,\kappa_\tau)$ where $\tau$ is the $\calG^{+3k}$-admissible triple $(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$.  Then, for each $x\in V(T)$, 
   \begin{equation}
     |\mu_x(v)|\le \log\delta(x)-\log\delta(v) + h_1(n)
       \label{mu_x_v_upper_bound}
@@ -1339,7 +1330,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     & \text{(by definition of $\delta$)} \nonumber \\
     & \ge \tfrac{1}{4b}\sum_{y\in C_K} \omega(T_y)  
     & \text{(since $C_K\subseteq C_u$ for all $u\in K$)} \nonumber \\
-    & > \omega(T_x)/(4b^2) 
+    & \ge \omega(T_x)/(4b^2) 
     & \text{(since $K$ is not light).} \label{nonlight_clique_delta_lower_bound}
   \end{align}
 
@@ -1359,8 +1350,6 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \begin{align}
     |\rho_K(y)|
       & \le 
-      % \log\omega(C^-_K) - \log\omega(T_y) + 3 \nonumber \\
-      % & = 
       \textstyle\log\left(\sum_{y'\in C^-_K}\omega(T_{y'})\right) - \log\omega(T_y) + 3 \nonumber \\
       & \le \log(\min_{u\in K}\delta(u)) - \log\omega(T_y) + 3
       \label{rho_K_y_upper_bound}
@@ -1474,7 +1463,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
      & \quad + \Oh((h_3(n)+\log\log n)\log_b n) \\
      & \quad + \Oh(k\cdot(h_3(n) + h_2(n) + \log b + \log\log n) ) \enspace ,
   \end{align*}
-  which satisfies the requirement for $g_1'(n)$.
+  which satisfies the bound on $f(n)$.
 
 
   \paragraph{\boldmath The adjacency tester $A'$:} We now describe the adjacency tester $A':\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$ which takes two labels $\ell(v)$ and $\ell(w)$ and returns $1$ if and only if $vw\in E(G)$.  Suppose $v\in B_x\setminus A_x$ and $w\in B_y\setminus A_y$ for some $x,y\in V(T)$.  Then $\ell(v)=\langle \id(x), \mu_x(v), \alpha(v)\rangle$ and $\ell(w)=\langle \id(y), \mu_y(w), \alpha(w)\rangle$.  The adjacency tester begins by comparing $\id(x)$ and $\id(y)$.  If $\id(x)=\id(y)$ then $x=y$, since $\id:V(T)\to\{0,1\}^*$ is injective.  In this case $v,w\in B_x\setminus A_x$,  and $vw\in E(G)$ if and only if $vw\in E(G[B_x\setminus A_x])$.  In this case, the tester returns $A'(\ell(v),\ell(w)):=A(\mu_x(v),\mu_y(w))$.  
@@ -1484,9 +1473,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \item If $\id(C)\neq\id(D)$ but $\id(C)$ is a prefix of $\id(D)$, then the only way in which $v$ and $w$ can be adjacent is if $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$.  To check if this is the case, the adjacency tester 
     examines each entry $\alpha(w,u)$ in $\alpha(w)$ and tests if $u=v$.  If it finds such an entry, then $vw=uw\in E(G)$, so $A'(\ell(v),\ell(w)):=1$. If no such entry is found, $A'(\ell(v),\ell(w)):=0$. All that remains is to explain how $A'$ tests if $v=u$ for some entry $\alpha(w,u)$ in $\alpha(w)$. An entry $\alpha(w,u)$ can have one of two forms, which are distinguished by their first bit.
     \begin{itemize}
-      \item If $\alpha(w,u)=\langle 0,\bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$. Furthermore $x'y'\in Y$, so $y'$ is in a different component $D'\neq C'$ of $F$ than $x'$. Then, the first $\idx(C')+1$ parts of $\id(D)$ is $\id(D')=\id(C')\circ\tau(C',D')$. The last component of $\id(D')$ is $\tau(C',D')=\langle\rho_C(x'),\mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Therefore, the tester can extract $\id(C')$ and $\id(x')=\id(C')\circ\rho_C(x')$ using $\id(D)$ and $\idx(C')$.  After doing this, the tester checks if $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$, since $\id:V(T)\to\{0,1\}^*$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$ (the first argument to $I(\cdot,\cdot,\cdot)$ comes from $\tau(C',D')$, the second from $\alpha(w,u)$ and the third from $\ell(v)=\langle\id(x),\mu_x(v),\alpha(v)\rangle$).  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+      \item If $\alpha(w,u)=\langle 0,\bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$. Furthermore $x'y'\in Y$, so $y'$ is in a different component $D'\neq C'$ of $F$ than $x'$. Then, the first $\idx(C')+1$ parts of $\id(D)$ are $\id(D')=\id(C')\circ\tau(C',D')$. The last part of $\id(D')$ is $\tau(C',D')=\langle\rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}), \rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Therefore, the tester can extract $\id(C')$ and $\id(x')=\id(C')\circ\rho_{C'}(x')$ using $\id(D)$ and $\idx(C')$.  After doing this, the tester checks if $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$, since $\id:V(T)\to\{0,1\}^*$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$ (the first argument to $I(\cdot,\cdot,\cdot)$ comes from $\tau(C',D')$, the second from $\alpha(w,u)$ and the third from $\ell(v)=\langle\id(x),\mu_x(v),\alpha(v)\rangle$).  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
       
-      \item If $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ is $\id(C')$.  The tester computes $\id(x')=\id(C')\circ\rho_{C'}(x')$.  After doing this, the tester checks if $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$ (the first and second arguments to to $I(\cdot,\cdot,\cdot)$ come from $\alpha(w,u)$ and the third comes from $\ell(v)=\langle\id(x),\mu_x(v),\alpha(v)\rangle$).  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$. 
+      \item If $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ are $\id(C')$.  The tester computes $\id(x')=\id(C')\circ\rho_{C'}(x')$.  After doing this, the tester checks if $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$ (the first and second arguments to $I(\cdot,\cdot,\cdot)$ come from $\alpha(w,u)$ and the third comes from $\ell(v)=\langle\id(x),\mu_x(v),\alpha(v)\rangle$).  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$. 
     \end{itemize}
     \item if $\id(C)\neq\id(D)$ but $\id(D)$ is a prefix of $\id(C)$, then the tester proceeds exactly as in the previous case, but swapping the roles of $v$ and $w$. 
     \item if $\id(C)=\id(D)$ then $C=D$ and $x$ and $y$ are in the same component of $F$.  In this case, there are two ways in which $v$ and $w$ can be adjacent:  Either $x$ is a $T$-ancestor of $y$ and $v\in N_G(w)\cap A_y$ or $y$ is a $T$-ancestor of $x$ and $w\in N_G(v)$.  Case 1, above explains how to test the former and Case 2 explains how to test the latter.
@@ -1495,12 +1484,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     The tester tests each entry $\alpha(w,u)$ in $\alpha(w)$.  There are two possibilities, that are distinguished by the first bit of $\alpha(w,u)$.
 
     \begin{itemize}
-      % \item If $x$ is a $T$-ancestor of $y$ then the path from $x$ to $y$ in $T$ contains no edge of $y$, since $C=D$.  
-      
-
       \item If $\alpha(w,u)=\langle 0,\bin(\idx(C')), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the edge $x'y'\in Y$, so $x'$ and $y'$ are in different components of $F$.  In particular, $C'\neq C$, so $x'\neq x$.  Thus $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$.
 
-      \item If $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ gives $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
+      \item If $\alpha(w,u)=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, u)\rangle$, then $u\in B_{x'}\setminus A_{x'}$ and $C'$ is the component of $F$ that contains $x'$.  In this case, the first $\idx(C')$ parts of $\id(y)$ give $\id(C')$.  Then $\id(x')=\id(C')\circ\rho_{C'}(x')$.  The tester first checks that $\id(x')=\id(x)$.  If not, then $x'\neq x$ and $u\neq v$ since $u\in B_{x'}\setminus A_{x'}$ and $v\in B_x\setminus A_x$. If $\id(x')=\id(x)$ then $x'=x$ since $\id$ is injective.  In this case, the tester can check if $u=v$ by checking if $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'}, u), \mu_{x}(v))=1$.  If so, then $v=u\in N_G(w)$ so the tester outputs $A'(\ell(v),\ell(w)):=1$.  If not, the tester continues with the next entry (if any) in $\alpha(w)$.
     \end{itemize}
 
     \item if neither $\id(C)$ nor $\id(D)$ is a prefix of the other then no node in $C$ is a $T$-ancestor of a node in $D$ and no node in $D$ is a $T$-ancestor of a node in $C$.  Thus $x$ is not a $T$-ancestor of $y$ and $y$ is not a $T$-ancestor of $x$.  Thus $v,w\not\in E(G)$ so $A'(\ell(v),\ell(w)):=0$.
@@ -1508,40 +1494,29 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{\boldmath $g'_0$-orientability:}
 
-  
-  
-  
-  
-  All that remains is to argue that the adjacency labelling scheme we have just described is $g_0'$-orientable.  For each $G\in\calG$, let $\ell_G:V(G)\to\{0,1\}^*$ be an adjacency labelling of $G$ for $A'$, as defined above. Let $\calA':=(\ell_G: G\in\calG)$.  We must show that, for each $n\in\N$, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
-
-  % Our argument relies on the fact that $\calG$ has a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$-mixed-labelling scheme.  Fix some weighted $(g_1,g_2,g_3)$-mixed-labelling $\calS:=((\mu_\tau,\kappa_\tau):n\in\N,\text{$\tau$ is a $(\calG,n)$-admissible triple})$ of $\calG$ for $(A,I)$. Let $\calA$ be the adjacency labelling scheme induced by $\calS$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calA,A)$.  By assumption, $U_n$ has an orientation in which each vertex has out-degree at most $g_0(n)$.
-  % Furthermore, for each $(\calG,n)$-admissible triple $\tau_0:=(H_0^+,H_0,\omega_0)$, each clique $K_0$ in $H_0^+$, and each $u_0\in K_0$ there are at most $g_0(n)$ binary strings $\zeta$ such that there exists a $(\calG,n)$-admissible triple $\tau:=(H_1^+,H_1,\omega_1)$, a clique $K_1$ in $H_1^+$ and $u_1\in K_1$ such that $\mu_{\tau}(u_1)=\zeta$, $\mu_\tau(K_1)=\mu_{\tau_0}(K_0)$, $\kappa_{\tau}(K_1,u_1)=\kappa_{\tau_0}(K_0,u_0)$, and $I(\mu_\tau(K_1),\kappa_\tau(K_1,u_1),\mu_\tau(u_1))=1$.
+  All that remains is to argue that the adjacency labelling scheme we have just described is $g_0'$-orientable.  For each $G_0\in\calG'$, let $\ell_{G_0}:V(G_0)\to\{0,1\}^*$ be the adjacency labelling of $G_0$ for $A'$ defined above (by restricting $\ell$ to $V(G_0)=V(G)\setminus\{v_0\}$). Let $\calA':=(\ell_{G_0}: G_0\in\calG')$.  We must show that, for each $n\in\N$, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
 
   For each $n\in\N$ and each edge $\beta\beta'$ in $U'_n$ there exists
-  a graph $G\in\calG'$ with at most $n$ vertices and an edge $vv'\in E(G)$ such that $\beta=\ell_G(v)$ and $\beta'=\ell_G(v')$. Let $\ell:=\ell_G$.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency tester on the input pair $(\ell_G(v),\ell_G(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x:x\in V(T)))$ be the tree-decomposition of $G$ used to define $\ell_G$ and let $((\mu_x,\kappa_x):x\in V(T))$, $Y\subset E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
+  a graph $G_0\in\calG'$ with at most $n$ vertices and an edge $vv'\in E(G_0)$ such that $\beta=\ell_{G_0}(v)$ and $\beta'=\ell_{G_0}(v')$. Let $\ell:=\ell_G$ where $G$ is the graph obtained from $G_0$ as above.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency tester on the input pair $(\ell_{G_0}(v),\ell_{G_0}(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G_0$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x\mid x\in V(T)))$ be the tree-decomposition of $G$ used to define $\ell_G$ and let $((\mu_x,\kappa_x)\mid x\in V(T))$, $Y\subseteq E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
   \begin{enumerate}\setcounter{enumi}{-1}
-    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x:=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta_{B_x\setminus A_x})$ is $\calG^{+3k+1}$-admissible and, since $v_0 \in B_{x_0}\setminus A_{x_0}$, $G[B_x]-A_x$ has $|B_x\setminus A_x|\le n$ vertices. Thus, $\mu_x(v)$ and $\mu_x(v')$ are vertices of the universal graph $U_{n}$ for $(\calS,A)$.  Since $A(\mu_x(v),\mu_x(v'))=1$, these vertices are adjacent in $U_{n}$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of out-degree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U$ towards $\beta'$.
+    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x:=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$ is $\calG^{+3k}$-admissible and, since $v_0 \in B_{x_0}\setminus A_{x_0}$, $G[B_x]-A_x$ has $|B_x\setminus A_x|\le n$ vertices. Thus, $\mu_x(v)$ and $\mu_x(v')$ are vertices of the universal graph $U_{n}$ for $(\calS,A)$.  Since $A(\mu_x(v),\mu_x(v'))=1$, these vertices are adjacent in $U_{n}$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of out-degree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U'_n$ towards $\beta'$.
     
-    We now bound the maximum contribution to the out-degree of $\beta$ from this case. When $\id(x)=\id(x')$ and $U_n$ orients $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$, the number of possible values for $\mu_{x'}(v')$ is at most $h_0(n)$.   Since $|\alpha(v')|\in O(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
+    We now bound the maximum contribution to the out-degree of $\beta$ from this case. When $\id(x)=\id(x')$ and $U_n$ orients $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$, the number of possible values for $\mu_{x'}(v')$ is at most $h_0(n)$.   Since $|\alpha(v')|\in \Oh(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
     
-    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case we orient the edge $\beta\beta'$ towards $\beta'$.  Since $x'$ is an ancestor of $x$ in $T$, $\id(C')$ is a prefix of $\id(C)$ and is completely determined by $\id(C)$ and $\idx(C')$.  Furthermore, $\idx(C')$ is contained in $\alpha(v,v')$, which is one of the at most $3k$ entries in $\alpha(v)$.  Thus, there are at most $3k$ choices for $\id(C')$.  Then $\id(x')$ is obtained by appending $\rho_{C'}(x')$ to $\id(C')$. Since $|\rho_{C'}(x')|\le 2\log b + O(\log\log n)$, there are at most $O(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $O(k b^2\log n)$ choices for $\id(x')$. 
+    \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  Assume without loss of generality that $x'$ is a $T$-ancestor of $x$.  In this case we orient the edge $\beta\beta'$ towards $\beta'$.  Since $x'$ is a $T$-ancestor of $x$, $\id(C')$ is a prefix of $\id(C)$ and is completely determined by $\id(C)$ and $\idx(C')$.  Furthermore, $\idx(C')$ is contained in $\alpha(v,v')$, which is one of the at most $3k$ entries in $\alpha(v)$.  Thus, there are at most $3k$ choices for $\id(C')$.  Then $\id(x')$ is obtained by appending $\rho_{C'}(x')$ to $\id(C')$. Since $|\rho_{C'}(x')|\le 2\log b + \Oh(\log\log n)$, there are at most $\Oh(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $\Oh(k b^2\log n)$ choices for $\id(x')$. 
     
     Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  There are now two cases to consider.
     \begin{itemize}
-      \item If $\alpha(v,v')=\langle 0,\bin(\idx(C')),\kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$ then the edge $x'y'$ is in $Y$.  Let $D$ be the component of $T-Y$ that contains $y'$.  Then $\id(D)$ is a prefix of $\id(C)$ and the last part of $\id(D)$ is $\tau(C',D)=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$. By definition,  $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$. 
-      Since the labelling $\calS$ of $\calG^{+3k+1}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
+      \item If $\alpha(v,v')=\langle 0,\bin(\idx(C')),\kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$ then the edge $x'y'$ is in $Y$.  Let $D'$ be the component of $T-Y$ that contains $y'$.  Then $\id(D')$ is a prefix of $\id(C)$ and the last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$. By definition,  $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$. 
+      Since the labelling $\calS$ of $\calG^{+3k}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
 
-      % Since $\alpha(v)$ has at most $k$ entries and $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'), v)=1$ there are at most $\Oh(k\cdot h_0(n))$ choices for $\mu_{x'}(v')$.  
-      \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y=Y_0\cup Y_1$.  Since $v'\in A_{y'}\setminus A_{x'}$, by definition $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$.  Since the labelling $\calS$ of $\calG^{+3k+1}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. \pat{check if these cases can be merged.}
+      \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y$.  Since $v'\in A_{y'}\setminus A_{x'}$, by definition $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$.  Since the labelling $\calS$ of $\calG^{+3k}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
     \end{itemize}
     In either case, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
 
-    % Let $\tau_0:=(G_0^+,G_0,\omega_0)$ be an $n$-admissible triple and let $\beta=\mu_{\tau_0}(v_0)$ for some $v_0\in V(G_0)$.  Thus, $\beta$ is a vertex of $U'_n$.
-
-
-    Summarizing, there are at most $O(k b^2\log n)\le\exp(O(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $h_0(n) = (2g_0(n)+3k+1)2^{3k+1} \le g_0(n) \exp(O(k))$ choices for $\mu_{x'}(v')$.  There are at most $\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot \exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. 
+    Summarizing, there are at most $\Oh(k b^2\log n)\le\exp(\Oh(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $h_0(n) = (2g_0(n)+3k)2^{3k} \le g_0(n) \exp(\Oh(k))$ choices for $\mu_{x'}(v')$.  There are at most $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot \exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. 
   \end{enumerate}
-  Thus, $U'_n$ has an orientation of out-degree at most $g'_0(n)\le g_0(n)\exp(O(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  
+  Thus, $U'_n$ has an orientation of out-degree at most $g'_0(n)\le g_0(n)\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  
 \end{proof}  
 
 
@@ -2428,30 +2403,35 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 \section{Proof of \texorpdfstring{\cref{main_result,main_result_induced_universal_sparse}}{Theorem \ref*{main_result}} with Explicit Bounds}
 \label{proof_main_result}
 
-We now prove our main result, \cref{main_result}, with an explicit lower order term.
+We now prove our main results, \cref{main_result,main_result_induced_universal_sparse}, with explicit lower order terms.
 
 \begin{lem}
   \label{main_result_detailed}
-  Every proper minor-closed graph class $\calC$ admits a $\exp(O((\log n)^{3/4}))$-strongly orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
+  Every proper minor-closed graph class $\calC$ admits an $\exp(\Oh((\log n)^{3/4}))$-orientable $(\log n + \Oh\big((\log n)^{3/4}\big))$-bit adjacency labelling scheme.
 \end{lem}
 
 \begin{proof}
-  % We show that $\calC$ has a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_1(n) \in \Oh((\log n)^{3/4})$. By the definition of mixed labelling schemes, this implies that $\calC$ has an $f(n)$-bit adjacency labelling scheme with $f(n)\le\log n + \Oh((\log n)^{3/4})$.
-
   Let $k,a\geq 0$ be integers given by \cref{gmpst} for the class $\calC$.  
-  % Let $\calD$ be the class of graphs that have a tree-decomposition in which each torso is in $\calR_k^{+a}$. By \cref{gmpst}, $\calC\subseteq\calD$.  
-  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\calR_k^{+a}$ admits a strongly $\exp(O(\sqrt{\log n}))$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
+  Since $\calR_k$ is hereditary, $\calR_k^{+a}$ is also hereditary.
+  By \cref{add_apexes} and \cref{gk_labelling_precise}, $\calR_k^{+a}$ admits a strongly $\exp(\Oh(\sqrt{\log n}))$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where $g'_1(n),g'_3(n)\in \Oh(\sqrt{\log n})$ and $g'_2(n)\in \Oh(\log\log n)$.
 
-  % Let $\calQ$ consist of every graph that can be formed by the disjoint union of a finite number of graphs in $\calR_k^{+a}$.  By \cref{disjoint_union_ii}, $\calQ$ has a weighted $(g''_1,g_2'',g_3'')$ mixed labelling scheme with $g''_1(n),g''_3(n)\in \Oh(\sqrt{\log n})$ and $g''_2(n)\in \Oh(\log\log n)$.   By definition, $\calQ$ is closed under disjoint union.  Also, by definition  $\calR_k^{+a}\subseteq\calQ$. Since $\calR_k^{+a}$ is hereditary, $\calQ$ is hereditary.
+  Let $\calQ$ be the class of graphs that have a tree-decomposition whose torsos are in $\calR_k^{+a}$. The graphs in $\calR_k^{+a}$ have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, each graph in $\calQ$ has a rooted tree-decomposition of adhesion-width at most $k':=2k+a+2$ whose torsos are in $\calR_k^{+a}$.
 
-  Let $\calQ$ be the class of graphs that have a tree-decomposition whose torsos are in $\calR_k^{+a}$. The graphs in $\calR_k^{+a}$ have maximum clique size at most $2k+a+2$. Since each adhesion of a tree-decomposition is a clique in some torso, each graph in $\calQ'$ has a tree-decomposition of adhesion-width at most $2k+a+2$ whose torsos are in $\calR_k^{+a}$.
+  By \cref{lem:the_big_one} with $b(n)=2^{(\log n)^{3/4}}$, $\calQ$ admits an $\exp(\Oh((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with
+  \begin{align*}
+    f(n) 
+      & \le \log n + g'_1(n) + \Oh\big((g'_3(n) + k' + \log\log n)\log_{b(n)} n \\ & \quad {} + k'(g'_3(n) + g'_2(n) + k' + \log b(n) + \log\log n)\big) \\
+      & = \log n + \Oh((\log n)^{3/4}) \enspace.
+  \end{align*}
+  By the choice of $k$ and $a$, $\calC\subseteq\calQ$.  Therefore, $\calC$ admits an $\exp(\Oh((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
+\end{proof}
 
-  By \cref{lem:the_big_one} with $b(n)=(\log n)^{3/4}$, $\calQ$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with
-  \[
-    f(n) \le \log n +  g'_1(n) + \Oh\left(g'_2(n) + \sqrt{g'_3(n)\log n}
-    + \sqrt{\frac{\log n}{g'_3(n)}}\log\log n\right) = \Oh((\log n)^{3/4}) \enspace.
-  \]
-  By the choice of $k$ and $a$, $\calC\subseteq\calQ$.  Therefore, $\calC$ admits a $\exp(O((\log n)^{3/4}))$-orientable $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4})$.
+Together with \cref{sec:orientable}, \cref{main_result_detailed} immediately yields our main results:
+
+\begin{proof}[Proof of \cref{main_result,main_result_induced_universal,main_result_induced_universal_sparse}]
+  Let $\calC$ be a proper minor-closed graph class. By \cref{main_result_detailed}, $\calC$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4}) = (1+o(1))\log n$. This proves \cref{main_result}.
+
+  Furthermore, this scheme is $g_0'(n)$-orientable with $g_0'(n) \le \exp(\Oh((\log n)^{3/4})) = n^{o(1)}$. For each $n\in\N$, the $n$-universal graph $U_n$ defined by this scheme has $|V(U_n)| \le 2^{f(n)+1} = n\cdot 2^{\Oh((\log n)^{3/4})} = n^{1+o(1)}$ vertices. By orientability, $U_n$ has an orientation with maximum out-degree at most $g_0'(n)$, so $|E(U_n)| \le |V(U_n)|\cdot g_0'(n) \le n^{1+o(1)}\cdot n^{o(1)} = n^{1+o(1)}$ edges. Since every $n$-vertex graph in $\calC$ is isomorphic to an induced subgraph of $U_n$, this completes the proof of \cref{main_result_induced_universal,main_result_induced_universal_sparse}.
 \end{proof}
 
 % \section{Discussion}\label{conclusion}
