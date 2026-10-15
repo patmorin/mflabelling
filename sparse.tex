@@ -827,7 +827,20 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   \]
   Thus, property \ref{req:height_prime_0} holds.
 
-  Finally, we verify property \ref{req:subtree_torso_apex_0}.  For each $i\in[s]$ with $m_i\ge 1$ and each $x\in V(Q_i)$, every torso and adhesion of $\calT_i$ is also a torso or adhesion of $\calT$, so \ref{req:subtree_torso_apex_0} holds by the inductive hypothesis.  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$; its bag $C_{v_i}$ is $(B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})$, plus possibly $A_\beta$, which is the union of at most three adhesions of $\calT$, satisfying \ref{req:three_adhesions_0}.\pat{Continue here, checking the previous sentence.}  For each $x\in S$, the adhesion $A_\beta$ was added to $C_x$ (if $x$ is on the path from $\beta$ to $\alpha$), so $C_x\setminus A_\beta \subseteq B_x$.  Every neighbor of $x$ in $Q$ is either in $Q_0$ (where the adhesion is an adhesion of $\calT$ incident to $B_x$) or connected via an edge $e_i = x\alpha_i$ for some $C_i$ with $|N_i|=1$ and $x=a_i$, in which case the adhesion $C_x\cap C_{\alpha_i} = B_{a_i}\cap B_{x_i}$ is also an adhesion of $\calT$ incident to $B_x$.  Therefore, every clique edge of $\torso{G}{\calQ,C_x}-A_\beta$ is present in $\torso{G}{\calT,B_x}$, so $\torso{G}{\calQ,C_x}-A_\beta$ is an induced subgraph of the torso $\torso{G}{\calT,B_x}$, satisfying \ref{req:adhesion_torso_0}.
+  Finally, we verify property \ref{req:subtree_torso_apex_0}.  First we consider the torsos of $\calQ$ at vertices $x\in S$.  Let $x$ be a vertex in $S$, so $x\in V(T)\cap V(Q)$ and $C_x\subseteq B_x\cup B_\beta$.  We claim that $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$.  Let $xy$ be an edge of $Q$ incident to $x$. There are three possibilties:
+  \begin{itemize}[nosep,nolistsep]
+    \item If $y\in S$ then $xy$ is an edge of $T$. Then $C_x\cap C_y\setminus B_\beta=B_x\cap B_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
+    \item If $y=v_i$ for some $i\in[s]$ with $|N_i|=2$ and $m_i>0$, then $x\in\{a_i,b_i\}$. Without loss of generality, suppose $x=a_i$.  Then $C_x\cap C_y\setminus B_\beta=B_{a_i}\cap V(G_i)\setminus B_\beta$ is an adhesion of $\calT$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
+    \item If $xy=e_i=a_i\alpha_i$ for some $i\in[s]$ with $|N_i|=1$ and $m_i>0$, then $C_x\cap C_y\setminus B_\beta = B_{a_i}\cap V(G_i)\setminus B_\beta$ is an adhesion of $\calT$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.    
+  \end{itemize}
+  Thus, for each $x\in S$, $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$, so $x$ satisfies the second condition of \ref{req:adhesion_torso_0}.
+
+  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$ and $m_i>0$.  Then $C_x=C_{v_i}\subseteq (B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})\cup B_\beta$ is contained the union of at most three adhesions of $\calT$ so $x$ satisfies the first condition of \ref{req:three_adhesions_0}.
+
+  Lastly, for each $x\in V(Q)\setminus V(Q_0)$, there are two possiblities:
+  \begin{itemize}[nosep,nolistsep]
+    \item $x=\alpha_i$ for some $i\in[s]$ with $m_i>0$.  Then, by the inductive hypothesis (specifically, property \ref{req:adhesion_pairs_0}) we have $C_{\alpha_i}=B_{\alpha_i}\cup B_{\beta_i}$.
+    \item $x$ is an non-root node of $Q_i$ for some $i\in[s]$ with $m_i>0$.  By the inductive hypothesis $x$ satisfies \ref{req:adhesion_torso_0} with respect to $G_i$, $\calT_i$, $\calQ_i$.  Every adhesion of $\calT_i$ is an adhesion of $\calT$.  For each $y\in C_i=V(T_i)\setminus\{\alpha_i,\beta_i\}$, the torso $\torso{G_i}{\calT_i,B_y}$ is a torso of $\calT$.  Thus $x$ satisfies \ref{req:adhesion_torso_0} with respect to $G$, $\calT$, and $\calQ$.
 \end{proof}
 
 
