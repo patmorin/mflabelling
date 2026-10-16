@@ -506,19 +506,30 @@ Our starting point is the following variant of the Graph Minor Structure Theorem
 For a non-empty set $S$, a \defin{pseudoweight function} over $S$ is a function $\omega:S\to\R^{\ge 0}$.  A \defin{weight function} is a pseudoweight function that assigns strictly positive weights (i.e., $\omega(x)>0$ for each $x\in S$).  For $X\subseteq S$, we use the shorthand $\mathdefin{\omega(X)}:=\sum_{x\in X}\omega(x)$.  When $S:=V(G)$ is the vertex-set of a graph $G$ and $H$ is a subgraph of $G$, we use the shorthand $\mathdefin{\omega(H)}:=\omega(V(H))$.
 
 Let $\omega:S\to\R^+$ be a weight function.  For each $x\in S$, the \defin{(Kraft) ideal codeword length} for $x$ is $\log\omega(S)-\log\omega(x)$.
-It will be convenient to place some upper bound on the Kraft ideal codeword length or, equivalently, on the ratio of total weight $\omega(S)$ to minimum weight $\min_{x\in S}\omega(x)$.  A weight function $\omega':S\to \N^+$ is \defin{nice} if for every $x\in S$,
+It will be convenient to bound the total weight as well as the Kraft ideal codeword lengths. A weight function $\omega:S\to\N^+$ is \defin{nice} if $\omega(S)\le 2|S|$. In particular, a nice weight function satisfies
 \[
-  \log \omega'(S) - \log \omega'(x) \leq \log |S| + 2\enspace.
+  \log\omega(S)-\log\omega(x)\le\log|S|+1
 \]
-(Note that nice weight functions always assign positive integer weights.)
+for every $x\in S$.
 
 \begin{obs}\label{obs:nice}
-  For every weight function $\omega:S\to\R^+$, there exists a nice weight function $\omega':S\to\N^+$ such that $\log\omega'(S)-\log\omega'(x)\le\min\{\log|S|,\;\log\omega(S)-\log\omega(x)\}+2$, for each $x\in S$.
+  For every weight function $\omega:S\to\R^+$, there exists a nice weight function $\omega':S\to\N^+$ such that $\log\omega'(S)-\log\omega'(x)\le\min\{\log|S|,\;\log\omega(S)-\log\omega(x)\}+1$, for each $x\in S$. If $\omega$ is positive integer-valued, then $\omega'(x)\le\omega(x)$ for each $x\in S$, and hence $\omega'(S)\le\omega(S)$.
 \end{obs}
 
 \begin{proof}
-  By dividing every weight by $\min_{x\in S}\omega(x)$, we may assume, without loss of generality, that $\omega(x)\ge 1$ for each $x\in S$, since this does not change the value of the right-hand side in the inequality.
-  For each $x\in S$, define $\omega'(x):=\ceil{\max\{\omega(S)/|S|,\; \omega(x)\}}$.  Then $\omega'(S)<\sum_{x\in S}(\omega(S)/|S|+\omega(x)+1)= 2\omega(S)+|S|\le 3\omega(S)$.  For each $x\in S$, the inequality $\omega'(x)\ge \omega(x)$ implies that $\log\omega'(S)-\log\omega'(x)\le\log \omega(S)-\log\omega(x)+\log 3$ and the inequality $\omega'(x)\ge \omega(S)/|S|$ implies that $\log\omega'(S)-\log\omega'(x)\le \log\omega(S)-\log(\omega(S)/|S|) + \log 3 = \log|S| + \log 3$.
+  Let $m:=|S|$ and $W:=\omega(S)$. For each $x\in S$, define
+  \[
+    \omega'(x):=\left\lceil\frac{m\omega(x)}{W}\right\rceil\enspace.
+  \]
+  Then $\omega'(x)\ge 1$ for each $x\in S$ and
+  \[
+    m\le\omega'(S)<\sum_{x\in S}\left(\frac{m\omega(x)}{W}+1\right)=2m\enspace,
+  \]
+  so $\omega'$ is nice. Since $\omega'(x)\ge 1$ and $\omega'(x)\ge m\omega(x)/W$, we obtain
+  \[
+    \frac{\omega'(S)}{\omega'(x)}\le\min\left\{2m,\;\frac{2W}{\omega(x)}\right\}\enspace.
+  \]
+  Taking logarithms proves the claimed bound. Finally, if $\omega$ is positive integer-valued, then $W\ge m$, so $m\omega(x)/W\le\omega(x)$. Since $\omega(x)$ is an integer, $\omega'(x)=\ceil{m\omega(x)/W}\le\omega(x)$ for each $x\in S$.
 \end{proof}
 
 
@@ -988,7 +999,7 @@ We say that $\calG$ \defin{admits} a weak weighted $(g_1,g_2,g_3)$ mixed labelli
   If $\calG$ admits a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme, then $\calG$ admits a weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme.
 \end{lem}
 \begin{proof}
-  Let $(\calS,A,I)$ be a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $\tau=(G^+,G,\omega)\in\calT_\calG$ and let $n:=|V(G)|$. Let $\omega'$ be the nice weight function obtained by applying \cref{obs:nice} to $\omega$. Thus, for every $v\in V(G)$,
+  Let $(\calS,A,I)$ be a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. We will use the same pair $(A, I)$ for our weighted $(g_1+2,g_2,g_3+2)$ mixed labelling scheme. Let $\tau=(G^+,G,\omega)\in\calT_\calG$ and let $n:=|V(G)|$. Let $\omega'$ be the nice weight function defined by $\omega'(v):=\ceil{n\omega(v)/\omega(G)}$ for each $v\in V(G)$, as in the proof of \cref{obs:nice}. Thus, for every $v\in V(G)$,
   \[
     \log\omega'(G)-\log\omega'(v)\le\min\{\log n,\;\log\omega(G)-\log\omega(v)\}+2 \enspace.
   \]
@@ -1063,6 +1074,15 @@ Less formally, fix a clique label $\zeta$ and a local identifier $\gamma$ that o
 Our construction will construct an adjacency labelling scheme $(\calA',A')$ for a graph class $\calG'$. The graphs in $\calG'$ will contain subgraphs that are in some class $\calG$ that admits a weighted mixed labelling scheme $(\calS,A,I)$.  In our constructions, a vertex label $\ell_{G'}(v)$ may contain $\zeta$ and $\gamma$, while the label of a neighbour $w$ contains a corresponding vertex label $\beta$. If every edge handled in this way has a witness as above, then fixing $\ell_{G'}(v)$ leaves at most $g_0(n)$ choices for $\beta$. If, for each such $\beta$, there are at most $M(n)$ possible complete labels $\ell_{G'}(w)$, then orienting these edges from $\ell_{G'}(v)$ towards $\ell_{G'}(w)$ contributes at most $g_0(n)\cdot M(n)$ to the outdegree of $\ell_{G'}(v)$. Here $M(n)$ accounts for the fact that $\beta$ is only \emph{part} of the vertex label $\ell_{G'}(w)$. There may be up to $M(n)$ vertex labels $\ell_{G'}(w)$ that include $\beta$.
 
 
+
+The definitions of $U_n$, $g_0$-orientability, and strong $g_0$-orientability also apply to weak weighted mixed labelling schemes, with all triples restricted to nice triples in $\calT'_{\calG,\le n}$.
+
+\begin{obs}\label{obs:normalization_orientability}
+  The construction in \cref{lem:nice_weights} preserves $g_0$-orientability and strong $g_0$-orientability.
+\end{obs}
+\begin{proof}
+  Let $(\calS,A,I)$ be a weak weighted mixed labelling scheme and let $(\calS',A,I)$ be the weighted mixed labelling scheme constructed in \cref{lem:nice_weights}. Fix $n\in\N$. For every $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$, the construction assigns to $\tau$ the labelling in $\calS$ of $\tau'=(G^+,G,\omega')$, where $\omega'(v)=\ceil{|V(G)|\omega(v)/\omega(G)}$. By \cref{obs:nice}, $\tau'$ is nice and $\omega'(G)\le\omega(G)\le n$, so $\tau'\in\calT'_{\calG,\le n}$. Consequently, the $n$-universal graph defined by $(\calS',A)$ is a subgraph of the one defined by $(\calS,A)$, and any orientation of the latter restricts to an orientation of the former with no larger outdegrees. Similarly, every occurrence of a clique label, local identifier, and vertex label in $\calS'$ on a triple in $\calT'_{\calG,\le n}$ also occurs in $\calS$ on a nice triple in the same set. Thus, the bound required for strong $g_0$-orientability is preserved as well.
+\end{proof}
 
 \subsection{Adding Apex Vertices}
 \label{sec:adding_apexes}
@@ -2808,7 +2828,7 @@ Variants of the following result appear in several contexts, with different boun
   \end{itemize}
 
 
-  \paragraph{Simulating weights by multiplicity:}  Finally, we explain how to make the unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into (a strongly $g_0$-orientable) weighted mixed labelling scheme.  Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$.  By \cref{lem:nice_weights} we may assume that the weight function $\omega:V(G)\to\mathbb{N}$ is nice, so $\min_{v\in V(G)}\omega(v) \ge 1$  and $\log\omega(G)\le \log n+ \Oh(1)$.
+  \paragraph{Simulating weights by multiplicity:} Finally, we explain how to make the unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into a strongly $g_0$-orientable weighted mixed labelling scheme. By \cref{lem:nice_weights,obs:normalization_orientability}, it suffices to construct a strongly $g_0$-orientable weak weighted mixed labelling scheme; the additive constants in the vertex and clique label lengths are absorbed into $g_1$ and $g_3$. Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$ be a nice triple and let $n:=|V(G)|$. Thus, $\omega:V(G)\to\N^+$ and $n\le\omega(G)\le 2n$, so $\log\omega(G)\le\log n+1$.
 
   The only modification needed is in the definition of the sets $S_1,\ldots,S_h$. Define $\omega(v,i)=0$ for each $(v,i)\in (V(H)\times\{0,\ldots,h+1\})\setminus V(G)$.  For each $i\in[h]$ and each $v\in V_i$, define $\delta(v,i) = \omega(v,i-1)+\omega(v,i)+\omega(v,i+1)$.  For each $i\in[h]$ and each $v\in V_i$, at least one of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is in $V(G)$, so $\delta(v,i) \ge 1$. Furthermore, $\sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ since each vertex $(v,i)$ of $G$ contributes $\omega(v,i)$ to $\delta(v,j)$ for at most three values of $j$. Fix $\epsilon \in (0,1/(6\omega(G))]$. For each $i\in\{1,\ldots,h\}$, define 
   \[
@@ -2868,9 +2888,9 @@ Variants of the following result appear in several contexts, with different boun
   which satisfies the requirement $g_3(n)\in\Oh(k\sqrt{\log n})$.
 
   \paragraph{\boldmath $g_0$-orientability:}  
-  For each $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS:=((\mu_\tau,\kappa_\tau)\mid \tau\in\calT_{\calR_k})$ be the mixed labelling scheme of $\calR_k$ for $(A,I)$. Fix $n\in\N$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$. We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.
+  For each nice triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS$ be the indexed collection of these labellings over all nice triples in $\calT_{\calR_k}$. Then $(\calS,A,I)$ is a weak weighted mixed labelling scheme for $\calR_k$. Fix $n\in\N$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$, using only nice triples in $\calT'_{\calR_k,\le n}$. For every such triple, $|V(G)|\le\omega(G)\le n$ and $\sum_i|S_i^+|\in\Oh(\omega(G))\subseteq\Oh(n)$. Consequently, the bounds on the lengths of the auxiliary label components established above are uniform over these triples, with $n$ now denoting the universal-graph parameter rather than the order of a particular graph. We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.
 
-  Let $\beta\beta'$ be an edge of $U_n$. Then there exists a triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k,\le n}$ and an edge $e=(v,i)(w,j)\in E(G)$ such that $\beta=\mu_\tau(v,i)$ and $\beta'=\mu_\tau(w,j)$. Since $G^+\in\calR_k$, $G^+$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and path $P=(1,\ldots,h)$. Since $(v,i)(w,j)\in E(G)$, we have $|i-j|\le 1$. In $H$, the ancestor ordering $<$ of $\calT$ is a strict partial order. Exactly one of the following holds for the pair of vertices $(v,i)$ and $(w,j)$:
+  Let $\beta\beta'$ be an edge of $U_n$. Then there exists a nice triple $\tau=(G^+,G,\omega)\in\calT'_{\calR_k,\le n}$ and an edge $e=(v,i)(w,j)\in E(G)$ such that $\beta=\mu_\tau(v,i)$ and $\beta'=\mu_\tau(w,j)$. Since $G^+\in\calR_k$, $G^+$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and path $P=(1,\ldots,h)$. Since $(v,i)(w,j)\in E(G)$, we have $|i-j|\le 1$. In $H$, the ancestor ordering $<$ of $\calT$ is a strict partial order. Exactly one of the following holds for the pair of vertices $(v,i)$ and $(w,j)$:
   \begin{itemize}[nosep,nolistsep]
     \item $v\neq w$: then either $w < v$ (so $w\in N^+_H(v)$) or $v < w$ (so $v\in N^+_H(w)$). We orient the edge $\beta\beta'$ towards the endpoint whose $H$-coordinate is smaller in $<$. That is, if $w\in N^+_H(v)$, we orient $\beta\beta'$ towards $\beta'$; if $v\in N^+_H(w)$, we orient $\beta\beta'$ towards $\beta$.
     \item $v = w$: then $i\neq j$ and $|i-j|=1$. We orient the edge $\beta\beta'$ towards the endpoint with smaller $P$-coordinate. That is, if $j=i-1$, we orient $\beta\beta'$ towards $\beta'$; if $i=j-1$, we orient $\beta\beta'$ towards $\beta$.
@@ -2887,13 +2907,19 @@ Variants of the following result appear in several contexts, with different boun
   Across all three cases, there are at most $(6k+5)+(6k+6)+(6k+5) = 18k+16$ choices for the prefix $\langle \rho(j), \sigma(w,j), \varphi(w)\rangle$ of $\beta'$. The remaining components of $\beta'$, namely $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(w,j)$, $\overleftarrow{\tau}(w,j)$, and $\overrightarrow{\tau}(w,j)$, have total length $\Oh(k\sqrt{\log n})$, so there are at most $\exp(\Oh(k\sqrt{\log n}))$ choices for these components. Thus, the number of edges oriented away from $\beta$ is at most $(18k+16)\cdot \exp(\Oh(k\sqrt{\log n})) = \exp(\Oh(k\sqrt{\log n})) = g_0(n)$.
 
   \paragraph{\boldmath Strong $g_0$-orientability:}  
-  All that remains is to show that $(\calS,A,I)$ is strongly $g_0$-orientable. Fix $n\in\N$. Let $\tau_0=(G^+_0,G_0,\omega_0)\in\calT_{\calR_k,\le n}$, let $(\mu_0,\kappa_0):=(\mu_{\tau_0}, \kappa_{\tau_0})$, let $K_0$ be a clique in $G^+_0$, and let $(u_0,j_0)\in K_0$. Define $\zeta:=\mu_0(K_0)$ and $\gamma:=\kappa_0(K_0,(u_0,j_0))$. We must upper bound the number of strings $\beta$ for which there exists a triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k,\le n}$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,(u,j))=\gamma$, $\mu_\tau(u,j)=\beta$, and $I(\zeta,\gamma,\beta)=1$. Let $\beta$ be such a string. The local identifier $\gamma$ indexes an entry in $\alpha(K) = \langle \alpha^-(K), \alpha^0(K)\rangle$, which gives $|\sigma(u,j)|$, $c_{u,j}$, $\varphi(u)$, and whether $j=i_K$ or $j=i_K-1$:
+  All that remains is to show that $(\calS,A,I)$ is strongly $g_0$-orientable. Fix $n\in\N$. Let $\tau_0=(G^+_0,G_0,\omega_0)\in\calT'_{\calR_k,\le n}$ be a nice triple, let $(\mu_0,\kappa_0):=(\mu_{\tau_0}, \kappa_{\tau_0})$, let $K_0$ be a clique in $G^+_0$, and let $(u_0,j_0)\in K_0$. Define $\zeta:=\mu_0(K_0)$ and $\gamma:=\kappa_0(K_0,(u_0,j_0))$. We must upper bound the number of strings $\beta$ for which there exists a nice triple $\tau=(G^+,G,\omega)\in\calT'_{\calR_k,\le n}$, a clique $K$ in $G^+$, and a vertex $(u,j)\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,(u,j))=\gamma$, $\mu_\tau(u,j)=\beta$, and $I(\zeta,\gamma,\beta)=1$. Let $\beta$ be such a string. The local identifier $\gamma$ indexes an entry in $\alpha(K) = \langle \alpha^-(K), \alpha^0(K)\rangle$, which gives $|\sigma(u,j)|$, $c_{u,j}$, $\varphi(u)$, and whether $j=i_K$ or $j=i_K-1$:
   \begin{itemize}[nosep,nolistsep] 
     \item If $j=i_K$, then $\lambda_1(u,j)=\lambda_1(K)$ is completely determined by $\zeta$. The string $\sigma(v_K,i_K)$ extracted from $\zeta$ together with $|\sigma(u,i_K)|$ and $c_{u,i_K}$ uniquely determines $\sigma(u,i_K)=\sigma(u,j)$. Along with $\varphi(u)$, the prefix $\langle \lambda_1(u,j), \sigma(u,j), \varphi(u)\rangle$ of $\beta$ is fixed. The remaining components $\alpha(u,j), \overleftarrow{\tau}(u,j), \overrightarrow{\tau}(u,j)$ of $\beta$ have total length $\Oh(k\sqrt{\log n})$. Thus there are at most $\exp(\Oh(k\sqrt{\log n}))$ such strings $\beta$.
 
     \item If $j=i_K-1$, then $\rho(j)=F(\rho(i_K),\overleftarrow{\pi}(i_K))$ is determined by $\lambda_1(K)$. The tester computes $\sigma(v_K,i_K-1)=J(\sigma(v_K,i_K),\overleftarrow{\tau}(v_K,i_K))$ using the strings $\sigma(v_K,i_K)$ and $\overleftarrow{\tau}(v_K,i_K)$ extracted from $\zeta$. Together with $|\sigma(u,j)|$ and $c_{u,j}$ from $\gamma$, this uniquely determines $\sigma(u,j)$. Along with $\varphi(u)$, the prefix $\langle \rho(j), \sigma(u,j), \varphi(u)\rangle$ of $\beta$ is fixed. The remaining components of $\beta$, namely $\overleftarrow{\pi}(j)$, $\overrightarrow{\pi}(j)$, $\alpha(u,j)$, $\overleftarrow{\tau}(u,j)$, and $\overrightarrow{\tau}(u,j)$, have total length $\Oh(k\sqrt{\log n})$. Thus there are at most $\exp(\Oh(k\sqrt{\log n}))$ such strings $\beta$.
   \end{itemize}
-  In either case, the number of choices for $\beta$ is at most $\exp(\Oh(k\sqrt{\log n})) = g_0(n)$. Therefore, $(\calS,A,I)$ is strongly $g_0$-orientable. \qedhere
+  In either case, the number of choices for $\beta$ is at most $\exp(\Oh(k\sqrt{\log n})) = g_0(n)$. Therefore, $(\calS,A,I)$ is strongly $g_0$-orientable.
+
+  To obtain the full weighted scheme, for each $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, assign the labelling in $\calS$ of $(G^+,G,\widehat\omega)$, where
+  \[
+    \widehat\omega(v):=\ceil{\frac{|V(G)|\omega(v)}{\omega(G)}}\enspace.
+  \]
+  By \cref{lem:nice_weights}, this increases the vertex and clique label-length bounds by at most $2$. If $\tau\in\calT'_{\calR_k,\le n}$, then $\widehat\omega(G)\le\omega(G)\le n$ by \cref{obs:nice}. Hence, by \cref{obs:normalization_orientability}, the full weighted scheme is strongly $g_0$-orientable with the same function $g_0$. This proves \cref{gk_labelling_precise}. \qedhere
 \end{proof}
 
 Let $\calH_k$ be the class of graphs of treewidth at most $k$.  \citet{EJM23} show that, for each fixed $k\in\N^+$ and each $n\in\N$, $\calH_k$ has an $n$-induced-universal graph with $n(\log n)^{\Oh(k^2)}$ vertices and edges.
