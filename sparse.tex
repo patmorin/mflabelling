@@ -1036,9 +1036,9 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
 In order to establish \cref{main_result_induced_universal_sparse}, which promises sparse universal graphs, we need two additional definitions.
 Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, let
 \[
-  \mathdefin{\calT'_{\calG,\le n}}:=\left\{(G^+,G,\omega)\in\calT_{\calG,\le n}: \omega:V(G)\to\N^+,\; \omega(G)\le n\right\}.
+  \mathdefin{\calT'_{\calG,\le n}}:=\left\{(G^+,G,\omega)\in\calT_{\calG,\le n}: \omega:V(G)\to\N^+,\; \omega(G)\le 2n\right\}.
 \]
-The triples in $\calT'_{\calG,\le n}$ need not be nice: their total weight is bounded by $n$, which may be much larger than their number of vertices. The \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+The triples in $\calT'_{\calG,\le n}$ need not be nice: their total weight is bounded by $2n$, which may be much larger than their number of vertices. The \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
 \[
 V(U_n):=\left\{ \mu_\tau(v): \tau = (G^+,G,\omega)\in\calT'_{\calG,\le n},\; v\in V(G) \right\}
 \]
@@ -1047,12 +1047,12 @@ and edge set
   E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau = (G^+,G,\omega)\in\calT'_{\calG,\le n},\; vv'\in E(G) \right\}
   \enspace.
 \]
-These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT'_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Taking uniform weights, we see that $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)  Note that $U_n$ is finite. Indeed, for each $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$ and each $v\in V(G)$, we have $\omega(v)\ge 1$ and $\omega(G)\le n$, so
+These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT'_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Taking uniform weights, we see that $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)  Note that $U_n$ is finite. Indeed, for each $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$ and each $v\in V(G)$, we have $\omega(v)\ge 1$ and $\omega(G)\le 2n$, so
 \[
   |\mu_\tau(v)|\le \log\omega(G)-\log\omega(v)+g_1(|V(G)|)
-  \le \log n+\max_{1\le m\le n}g_1(m)\enspace.
+  \le \log n+1+\max_{1\le m\le n}g_1(m)\enspace.
 \]
-If $g_1$ is non-decreasing, this bound is at most $\log n+g_1(n)$.
+If $g_1$ is non-decreasing, this bound is at most $\log n+1+g_1(n)$.
 
 Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any injective adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.
 
@@ -1081,7 +1081,7 @@ The definitions of $U_n$, $g_0$-orientability, and strong $g_0$-orientability al
   The construction in \cref{lem:nice_weights} preserves $g_0$-orientability and strong $g_0$-orientability.
 \end{obs}
 \begin{proof}
-  Let $(\calS,A,I)$ be a weak weighted mixed labelling scheme and let $(\calS',A,I)$ be the weighted mixed labelling scheme constructed in \cref{lem:nice_weights}. Fix $n\in\N$. For every $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$, the construction assigns to $\tau$ the labelling in $\calS$ of $\tau'=(G^+,G,\omega')$, where $\omega'(v)=\ceil{|V(G)|\omega(v)/\omega(G)}$. By \cref{obs:nice}, $\tau'$ is nice and $\omega'(G)\le\omega(G)\le n$, so $\tau'\in\calT'_{\calG,\le n}$. Consequently, the $n$-universal graph defined by $(\calS',A)$ is a subgraph of the one defined by $(\calS,A)$, and any orientation of the latter restricts to an orientation of the former with no larger outdegrees. Similarly, every occurrence of a clique label, local identifier, and vertex label in $\calS'$ on a triple in $\calT'_{\calG,\le n}$ also occurs in $\calS$ on a nice triple in the same set. Thus, the bound required for strong $g_0$-orientability is preserved as well.
+  Let $(\calS,A,I)$ be a weak weighted mixed labelling scheme and let $(\calS',A,I)$ be the weighted mixed labelling scheme constructed in \cref{lem:nice_weights}. Fix $n\in\N$. For every $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$, the construction assigns to $\tau$ the labelling in $\calS$ of $\tau'=(G^+,G,\omega')$, where $\omega'(v)=\ceil{|V(G)|\omega(v)/\omega(G)}$. By \cref{obs:nice}, $\tau'$ is nice and $\omega'(G)\le\omega(G)\le 2n$, so $\tau'\in\calT'_{\calG,\le n}$. Consequently, the $n$-universal graph defined by $(\calS',A)$ is a subgraph of the one defined by $(\calS,A)$, and any orientation of the latter restricts to an orientation of the former with no larger outdegrees. Similarly, every occurrence of a clique label, local identifier, and vertex label in $\calS'$ on a triple in $\calT'_{\calG,\le n}$ also occurs in $\calS$ on a nice triple in the same set. Thus, the bound required for strong $g_0$-orientability is preserved as well.
 \end{proof}
 
 \subsection{Adding Apex Vertices}
@@ -1089,7 +1089,7 @@ The definitions of $U_n$, $g_0$-orientability, and strong $g_0$-orientability al
 
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\calG^{+a}$ is the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
-\begin{lem}\label{add_apexes} 
+\begin{lem}\label{add_apexes}
   Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0:\N\to\R$ is a function, and $g_1,g_2,g_3:\N\to\R$ are non-decreasing functions with $g_1(n),g_3(n)\in \Oh(\log n)$.
   Let $a\in\N^+$. Then $\calG^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
@@ -1104,15 +1104,15 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \end{align*}
 \end{lem}
 
-\begin{proof}
+\begin{proof} 
   Let $(\calS,A,I)$ be a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, where $\calS:=((\mu^-_\tau,\kappa^-_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, let $U_n$ be the $n$-universal graph defined by $(\calS,A)$.
 
-  By~\cref{lem:nice_weights}, it is enough to show that $\calG^{+a}$ admits a weak weighted $(g_1'-2,g_2',g_3'-2)$ mixed labelling scheme (the additive constants in \cref{lem:nice_weights} are absorbed into the $\Oh(a)$ terms). We will describe an adjacency tester $A'$ and an identity tester $I'$ for which we can construct a strongly $g'_0$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling $\mathdefin{\calS'}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.  To fix a specific labelling $(\mu_\tau,\kappa_\tau)$ for each $\calG^{+a}$-admissible triple $\tau=(G^+,G,\omega)$, we first choose, for each $G^+\in\calG^{+a}$, a specific set $X(G^+)\subseteq V(G^+)$ with $|X(G^+)|\le a$ such that $G^+-X(G^+)\in\calG$.
+  By \cref{lem:nice_weights,obs:normalization_orientability}, it suffices to construct a strongly $g'_0$-orientable weak weighted mixed labelling scheme with the claimed asymptotic label-length bounds. The additive constants needed to extend it to arbitrary weights are absorbed into the $\Oh(a)$ terms in $g'_1$ and $g'_3$. We will describe testers $A'$ and $I'$ and construct a mixed labelling $(\mu_\tau,\kappa_\tau)$ for each nice triple $\tau\in\calT_{\calG^{+a}}$. Let $\calS'$ be the indexed collection of these labellings over all nice triples.   To fix a specific labelling $(\mu_\tau,\kappa_\tau)$ for each nice $\calG^{+a}$-admissible triple $\tau=(G^+,G,\omega)$, we first choose, for each $G^+\in\calG^{+a}$, a specific set $X(G^+)\subseteq V(G^+)$ with $|X(G^+)|\le a$ such that $G^+-X(G^+)\in\calG$.
 
-  Let $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ be a triple with a nice weight function $\omega$, let $X:=X(G^+)$, and let $n:=|V(G)|$. Since $\omega$ is a nice weight function, $\log\omega(G)-\log\omega(v)\le\log n + 2$ for each $v\in V(G)$. We will describe the weighted mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $\tau$ for $(A',I')$. 
+  Let $\tau:=(G^+,G,\omega)\in\calT_{\calG^{+a}}$ be a triple with a nice weight function $\omega$, let $X:=X(G^+)$, and let $n:=|V(G)|$. Since $\omega$ is nice, $\omega(G)\le 2n$ and $\log\omega(G)-\log\omega(v)\le\log n + 1$ for each $v\in V(G)$. We will describe the weighted mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $\tau$ for $(A',I')$.
 
   \paragraph{\boldmath The subgraph label $\mu^-$:}
-  By the definition of $X$, $\tau^-:=(G^+-X,G-X,\omega_{|V(G-X)})$ is a $\calG$-admissible triple with $|V(G-X)|\le n$.   Let $(\mu^-,\kappa^-):=(\mu^-_{\tau^-},\kappa^-_{\tau^-})$.  Thus, $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
+  If $G-X$ is non-empty, then by the definition of $X$, $\tau^-:=(G^+-X,G-X,\omega_{|V(G-X)})$ is a $\calG$-admissible triple with $|V(G-X)|\le n$.   Let $(\mu^-,\kappa^-):=(\mu^-_{\tau^-},\kappa^-_{\tau^-})$.  Thus, $(\mu^-,\kappa^-)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $(G^+-X, G-X,\omega_{|V(G-X)})$ for $(A,I)$.
   For each $v\in V(G-X)$, since $g_1$ is non-decreasing,
   \begin{align}
     \begin{split}
@@ -1131,6 +1131,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
        & \le \log\omega(G)-\log\min_{v\in K}\omega(v)+g_3(n) \enspace.
     \end{split}
   \end{align}
+  If $G-X$ is empty, no labelling from $\calS$ is needed; take $\mu^-$ and $\kappa^-$ to have empty domains.
   Extend the domain of $\mu^-$ to include the vertices in $X$ by defining $\mu^-(v):=\varepsilon$ (the empty string), for each $v\in X$.
 
   \paragraph{\boldmath The apex identifier $\sigma(u)$:}
@@ -1149,12 +1150,12 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   \[
     \mu(v):=\langle \sigma(v),c(v),\mu^-(v) \rangle \enspace .
   \]
-  For each $v\in V(G)$,
+  For $v\notin X$, \eqref{eq:mu-} bounds $|\mu^-(v)|$; for $v\in X$, $|\mu^-(v)|=0$. Therefore, for each $v\in V(G)$,
   \begin{align*}
     |\sigma(v)|+b+|\mu^-(v)|
-     & \le \lceil\log(b+1)\rceil + b +\log\omega(G-X) - \log\omega(v)+g_1(n-|X|)           & \textrm{by~\eqref{eq:mu-}}      \\
+     & \le \lceil\log(b+1)\rceil + b +\log\omega(G) - \log\omega(v)+g_1(n) \\
      & \le\log\omega(G) - \log\omega(v)+g_1(n)+2a                                                                            \\
-     & \le \log n + g_1(n)+2a+2
+     & \le \log n + g_1(n)+2a+1
      & \textrm{since $\omega$ is nice}                                                                                       \\
      & \in\Oh(a+\log n)\enspace,
     \intertext{and therefore}
@@ -1219,36 +1220,38 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   we compute $I'(\mu(K),\kappa(K,u),\mu(v))$ as follows.
   First, by examining $\sigma(v)$ and the first bit of $\kappa(K,u)$, the tester determines whether $v\in X$ and whether $u\in X$.
   If $u,v\in X$, then $I'(\mu(K),\kappa(K,u),\mu(v))=1$ if $\kappa(K,u)=1\circ\sigma(v)$, and $I'(\mu(K),\kappa(K,u),\mu(v))=0$ otherwise.
-  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K\setminus X)$. The tester extracts this second part and sets 
+  If $u,v\not\in X$, then since $u\in K$ we have that $K\not\subseteq X$, which means $\mu(K)$ has a second part $\mu^-(K\setminus X)$. The tester extracts this second part and sets
   $I'(\mu(K),\kappa(K,u),\mu(v)) := I(\mu^-(K\setminus X),\kappa^-(K\setminus X,u),\mu^-(v))$.
   Otherwise, one of $u$ or $v$ is in $X$ and the other is not, so $u\neq v$ and we set $I'(\mu(K),\kappa(K,u),\mu(v)) := 0$.
 
-  This completes the description of the adjacency tester $A'$, the identity tester $I'$, and the weighted $(g_1',g_2',g_3')$ mixed labelling $(\mu_\tau,\kappa_\tau):=(\mu,\kappa)$ of $\tau=(G^+,G,\omega)$ for $(A',I')$. Since $\tau$ is an arbitrary nicely weighted $\calG^{+a}$-admissible triple, this completes the description of the weighted $(g_1',g_2',g_3')$ mixed labelling $\calS':=((\mu_\tau,\kappa_\tau):\tau\in\calT_{\calG^{+a}})$ of $\calG^{+a}$ for $(A',I')$.
+  This completes the description of the adjacency tester $A'$, the identity tester $I'$, and the weighted $(g_1',g_2',g_3')$ mixed labelling $(\mu_\tau,\kappa_\tau):=(\mu,\kappa)$ of $\tau=(G^+,G,\omega)$ for $(A',I')$. Since $\tau$ is an arbitrary nice $\calG^{+a}$-admissible triple, this completes the construction of the weak weighted mixed labelling scheme $(\calS',A',I')$.
 
   \paragraph{\boldmath $g'_0$-orientability:}
-  We now show that $(\calS',A')$ is $g'_0$-orientable.  Fix $n\in\N$.  We must show that the $n$-universal graph $U'_n$ defined by $(\calS',A')$ has an orientation in which each vertex has outdegree at most $g'_0(n)$. 
-  We now explain how to choose the orientation for an arbitrary edge $\{\beta,\beta'\}$ of $U'_n$.   By the definition of $U'_n$, there exists a triple $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},\le n}$ and vertices $v,v'\in V(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Let $X:=X(G^+)$, so $G^+-X\in \cal{G}$.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
+  We now show that $(\calS',A')$ is $g'_0$-orientable.  Fix $n\in\N$. Fix an orientation of $U_n$ with maximum outdegree at most $g_0(n)$.  We must show that the $n$-universal graph $U'_n$ defined by $(\calS',A')$ has an orientation in which each vertex has outdegree at most $g'_0(n)$.
+  We now explain how to choose the orientation for an arbitrary edge $\{\beta,\beta'\}$ of $U'_n$.   By the definition of $U'_n$, there exists a nice triple $\tau:=(G^+,G,\omega) \in \calT'_{\calG^{+a},\le n}$ and an edge $vv'\in E(G)$ such that the mixed labelling $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$ of $(G^+,G,\omega)$ for $(A',I')$ has $\mu(v)=\beta$ and $\mu(v')=\beta'$.  Let $X:=X(G^+)$, so $G^+-X\in \cal{G}$. If $G-X$ is non-empty, its restricted weight function remains positive integer-valued, $|V(G-X)|\le n$, and $\omega(G-X)\le\omega(G)\le 2n$. Thus, $\tau^-\in\calT'_{\calG,\le n}$, even though $\tau^-$ need not be nice.  By the definition of the adjacency tester $A'$, exactly one of the following two cases applies:
   \begin{enumerate}
-    \item If neither $v$ nor $v'$ is in $X$, then $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  Since $A$ is $g_0$-orientable, this gives an orientation of the edge $\{\mu^-(v),\mu^-(v')\}$ in the $n$-universal graph $U_n$ defined by $(\calS,A)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v)$, then we orient $\{\beta,\beta'\}$ towards $\beta=\mu(v)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v')$, then we orient $\{\beta,\beta'\}$ towards $\beta'=\mu(v')$. 
-    
-    Fix a vertex $\beta$ in $U'_n$.  
+    \item If neither $v$ nor $v'$ is in $X$, then $A'(\beta,\beta')=A(\mu^-(v),\mu^-(v'))=1$.  The triple $\tau^-$ witnesses this edge in $U_n$. Use the fixed orientation of $\{\mu^-(v),\mu^-(v')\}$ in $U_n$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v)$, then we orient $\{\beta,\beta'\}$ towards $\beta=\mu(v)$. If $\{\mu^-(v),\mu^-(v')\}$ is oriented towards $\mu^-(v')$, then we orient $\{\beta,\beta'\}$ towards $\beta'=\mu(v')$.
+
+    Fix a vertex $\beta$ in $U'_n$.
     We now argue that this branch of the adjacency testing procedure orients at most $g_0(n)\cdot 2^a$ edges away from $\beta$, over all choices of $\beta'$.  The bitstring $\beta$ determines the label $\mu(v)=\langle \sigma(v),c(v),\mu^-(v)\rangle$. Importantly, $c(v)$ is a bit-vector of length exactly $|X|$, so $\beta$ strictly fixes $|X|$. Each edge oriented away from $\beta$ by this branch of the adjacency testing procedure corresponds to an edge oriented away from $\mu^-(v)$ in $U_n$.    Since $\beta$ includes $\mu^-(v)$, there are at most $g_0(n)$ choices of $\mu^-(v')$ that result in an edge being oriented away from $\beta$ in this way.  Since $v'\not\in X$, $\sigma(v')$ is a sequence of $0$s of length $\lceil \log (|X|+1)\rceil$, and $c(v')$ is a bit-vector of length $|X|$, leaving $2^{|X|}$ choices for $c(v')$.  Thus, the number of possible strings $\beta'=\langle \sigma(v'),c(v'),\mu^-(v')\rangle$ for which the edge $\{\beta,\beta'\}$ is oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $g_0(n) 2^{|X|} \leq g_0(n) 2^{a}$.
 
     \item Otherwise, at least one of $v$ or $v'$ is in $X$.  If both $v,v'\in X$, then we orient $\{\beta,\beta'\}$ towards the lexicographically larger string.  If $\{v,v'\}\cap X=\{v\}$, then we orient $\{\beta,\beta'\}$ towards $\beta$. If $\{v,v'\}\cap X=\{v'\}$, then we orient $\{\beta,\beta'\}$ towards $\beta'$.
 
     Fix a vertex $\beta$ in $U'_n$.  We now argue that this branch of the adjacency testing procedure orients at most $a 2^{a}$ edges away from $\beta$. This corresponds to a case in which $v'\in X$, so $\beta'=\langle \sigma(v'),c(v'),\varepsilon\rangle$. There are at most $|X|$ choices for $\sigma(v')$ and $2^{|X|}$ choices for $c(v')$. Again, $|X|$ is fixed by the length of $c(v)$ in $\beta$, so the number of strings $\beta'$ oriented away from $\beta$ is at most $|X|\cdot 2^{|X|} \leq a 2^{a}$.
   \end{enumerate}
-  Therefore, for any fixed $\beta\in V(U'_n)$, the outdegree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.   
+  Therefore, for any fixed $\beta\in V(U'_n)$, the outdegree of $\beta$ in this orientation of $U'_n$ is at most $g_0(n) 2^{a} + a 2^{a} = (g_0(n)+a)2^{a} \leq g_0'(n)$.
 
-  \paragraph{\boldmath Strong $g'_0$-orientability:}  All that remains is to show that $(\calS',A',I')$ is strongly $g'_0$-orientable.  
-  Let $\tau_0 := (G_0^+, G_0, \omega_0) \in \calT_{\calG^{+a}, \le n}$, and let $(\mu_{\tau_0},\kappa_{\tau_0})\in\calS'$ be the mixed labelling of $\tau_0$ for $(A',I')$. Let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$. Let $\zeta:=\mu_{\tau_0}(K_0)$ and let $\gamma:=\kappa_{\tau_0}(K_0,u_0)$. We need to show that there are at most $g'_0(n)$ strings $\beta\in V(U'_n)$ such that there exists some $\tau:=(G^+,G,\omega) \in \calT_{\calG^{+a},\le n}$, some clique $K$ in $G^+$, and some $u\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,u)=\gamma$, and $\mu_\tau(u)=\beta$.  
-  
+  \paragraph{\boldmath Strong $g'_0$-orientability:}  All that remains is to show that $(\calS',A',I')$ is strongly $g'_0$-orientable.
+  Let $\tau_0 := (G_0^+, G_0, \omega_0) \in \calT'_{\calG^{+a}, \le n}$ be a nice triple, and let $(\mu_{\tau_0},\kappa_{\tau_0})\in\calS'$ be the mixed labelling of $\tau_0$ for $(A',I')$. Let $K_0$ be a clique in $G_0^+$ and let $u_0\in K_0$. Let $\zeta:=\mu_{\tau_0}(K_0)$ and let $\gamma:=\kappa_{\tau_0}(K_0,u_0)$. We need to show that there are at most $g'_0(n)$ strings $\beta\in V(U'_n)$ such that there exists a nice triple $\tau:=(G^+,G,\omega) \in \calT'_{\calG^{+a},\le n}$, some clique $K$ in $G^+$, and some $u\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,u)=\gamma$, and $\mu_\tau(u)=\beta$.
+
   Let $\tau:=(G^+,G,\omega)$, $K$, $u$, and $\beta$ be as described above and let $X:=X(G^+)$.  Let $(\mu,\kappa):=(\mu_\tau,\kappa_\tau)$. Since $\zeta = \mu(K)$, either $\zeta = \langle c(K) \rangle$ or $\zeta = \langle c(K), \mu^-(K\setminus X)\rangle$. In both cases, $c(K)$ is a bit-vector of length $|X|$, so $\zeta$ fixes $|X|$.
   \begin{itemize}[nosep,nolistsep]
-    \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1 \circ \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$. 
-    \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_\tau^-(u)\rangle$, and $I(\mu_\tau^-(K\setminus X),\kappa_\tau^-(K\setminus X,u),\mu_\tau^-(u))=1$.  The string $\mu_\tau^-(K\setminus X)$ is extracted from $\zeta$ and the string $\kappa^-_{\tau}(K\setminus X,u)$ is extracted from $\gamma$. Since $(\calS,A,I)$ is strongly $g_0$-orientable and $|V(G-X)| \le n$, there are at most $g_0(n)$ choices for $\mu_\tau^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ for which $I'(\zeta,\gamma,\beta)=1$.
+    \item If $u\in X$, then $\beta=\mu(u)=\langle\sigma(u),c(u),\varepsilon\rangle$. Since $\gamma = \kappa(K,u) = 1 \circ \sigma(u)$, the string $\gamma$ determines $\sigma(u)$. There are $2^{|X|}$ choices for $c(u)$. Because $|X|$ is fixed by $\zeta$, there are at most $2^{|X|} \le 2^a$ such strings $\beta$.
+    \item If $u\in V(G-X)$, then $\beta=\langle \sigma(u),c(u),\mu_{\tau^-}^-(u)\rangle$, and $I(\mu_{\tau^-}^-(K\setminus X),\kappa_{\tau^-}^-(K\setminus X,u),\mu_{\tau^-}^-(u))=1$.  The string $\mu_{\tau^-}^-(K\setminus X)$ is extracted from $\zeta$ and the string $\kappa^-_{\tau^-}(K\setminus X,u)$ is extracted from $\gamma$. Here $\tau^-\in\calT'_{\calG,\le n}$, since $|V(G-X)|\le n$ and $\omega(G-X)\le\omega(G)\le 2n$. The triple $\tau^-$, the clique $K\setminus X$, and the vertex $u$ witness the occurrence of these three strings in $\calS$. Since $(\calS,A,I)$ is strongly $g_0$-orientable, there are at most $g_0(n)$ choices for $\mu_{\tau^-}^-(u)$ given $\zeta$ and $\gamma$.  Since $u\not\in X$, $\sigma(u)$ is a string of $\lceil\log(|X|+1)\rceil$ zeros.  The bit-vector $c(u)$ is an arbitrary binary string of length $|X|$. Because $|X|$ is fixed by $\zeta$, there are at most $g_0(n)\cdot 2^{|X|} \le g_0(n) 2^a$ choices for $\beta=\mu_\tau(u)$ arising from such witnesses.
   \end{itemize}
-  Therefore, the number of possible choices for $\beta$ is at most $2^a+ g_0(n) 2^{a} \le (2g_0(n)+a)2^{a} = g'_0(n)$.  \qedhere
+  Therefore, the number of possible choices for $\beta$ is at most $2^a+ g_0(n) 2^{a} \le (2g_0(n)+a)2^{a} = g'_0(n)$.
+
+  Finally, extend $(\calS',A',I')$ to all $\calG^{+a}$-admissible triples by assigning to $(G^+,G,\omega)$ its labelling for the normalized weights $\widehat\omega(v):=\ceil{|V(G)|\omega(v)/\omega(G)}$. By \cref{lem:nice_weights}, the vertex and clique label-length bounds increase by at most $2$, which is absorbed into the stated $\Oh(a)$ terms. By \cref{obs:normalization_orientability}, the resulting full weighted scheme remains strongly $g'_0$-orientable. \qedhere
 \end{proof}
 
 
@@ -1378,7 +1381,20 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
       & \le 2\log b + \Oh(\log\log n)  .  \label{rho_C_bound_2logb}
   \end{align}
 
-  \paragraph{\boldmath The inner-node labelling $\mu_x$:}  For each $x\in V(T)$, let $\mathdefin{(\mu_x,\kappa_x)}:=(\mu_\tau,\kappa_\tau)$ where $\tau$ is the $\calG^{+3k}$-admissible triple $(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$.  Then, for each $x\in V(T)$, 
+  \paragraph{\boldmath The inner-node labelling $\mu_x$:} The next part of our labelling involves a mixed labelling $(\mu_x,\kappa_x)$ of $\tau_x:=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\hat{\delta}_x)$ for each $x\in V(T)$.  Here $\hat{\delta}_x$ is a nice weight function on $B_x\setminus A_x$ that is closely related to $\delta|_{B_x\setminus A_x}$. The only reason for the (distracting) introduction of $\widehat\delta_x$ is that later, we will make use of the fact that $(\calS,A,I)$ is $g_0$-strongly orientable.  In particular, the $n$-universal graph $U_n$ defined by $(\calS,A)$ has an orientation of maximum outdegree $g_0(n)$. For this to be useful, we require that the label $\mu_x(v)$ assigned to each vertex $v\in B_x\setminus A_x$ correspond to a vertex in $U_n$, and this is only guaranteed if $\tau_x\in \calT'_{\calG,\le n}$. This is why we require $\widehat\delta_x$ to be nice.
+  
+  For each $x\in V(T)$, let $m_x:=|B_x\setminus A_x|$ and define the weight function $\widehat\delta_x:B_x\setminus A_x\to\N^+$ by
+  \[
+    \widehat\delta_x(v):=\left\lceil\frac{m_x\delta(v)}{\delta(x)}\right\rceil\enspace.
+  \]
+  As in the proof of \cref{obs:nice}, $\widehat\delta_x$ is nice, $\widehat\delta_x(B_x\setminus A_x)<2m_x$, and
+  \[
+    \log\widehat\delta_x(B_x\setminus A_x)-\log\widehat\delta_x(v)
+    \le\log\delta(x)-\log\delta(v)+1\enspace
+  \]
+  for each $v\in B_x\setminus A_x$.
+  Let $\tau_x:=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\widehat\delta_x)$ and let $\mathdefin{(\mu_x,\kappa_x)}:=(\mu_{\tau_x},\kappa_{\tau_x})$. The root bag has $m_{x_0}=1$, and every other set $B_x\setminus A_x$ excludes $v_0$, so $m_x\le n$ for each $x\in V(T)$. Thus, $\tau_x\in\calT'_{\calG^{+3k},\le n}$.  Increasing the $\Oh(\log\log n)$ terms $h_1$ and $h_3$ by $1$ preserves \cref{h1_td,h3_td}, so we obtain, for each $x\in V(T)$,
+
   \begin{equation}
     |\mu_x(v)|\le \log\delta(x)-\log\delta(v) + h_1(n)
       \label{mu_x_v_upper_bound}
@@ -1566,7 +1582,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   For each $n\in\N$ and each edge $\beta\beta'$ in $U'_n$ there exists
   a graph $G_0\in\calG'$ with at most $n$ vertices and an edge $vv'\in E(G_0)$ such that $\beta=\ell_{G_0}(v)$ and $\beta'=\ell_{G_0}(v')$. Let $\ell:=\ell_G$ where $G$ is the graph obtained from $G_0$ as above.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency tester on the input pair $(\ell_{G_0}(v),\ell_{G_0}(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G_0$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x\mid x\in V(T)))$ be the tree-decomposition of $G$ used to define $\ell_G$ and let $((\mu_x,\kappa_x)\mid x\in V(T))$, $Y\subseteq E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
   \begin{enumerate}\setcounter{enumi}{-1}
-    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x:=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\delta|_{B_x\setminus A_x})$ is $\calG^{+3k}$-admissible and, since $v_0 \in B_{x_0}\setminus A_{x_0}$, $G[B_x]-A_x$ has $|B_x\setminus A_x|\le n$ vertices. Thus, $\mu_x(v)$ and $\mu_x(v')$ are vertices of the universal graph $U_{n}$ for $(\calS,A)$.  Since $A(\mu_x(v),\mu_x(v'))=1$, these vertices are adjacent in $U_{n}$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of out-degree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U'_n$ towards $\beta'$.
+    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\widehat\delta_x)$ belongs to $\calT'_{\calG^{+3k},\le n}$: its graph has $m_x\le n$ vertices and its positive integer weights sum to less than $2m_x\le 2n$. Since $vv'\in E(G[B_x]-A_x)$, this triple witnesses that $\mu_x(v)\mu_x(v')$ is an edge of the universal graph $U_n$ for $(\calS,A)$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of out-degree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U'_n$ towards $\beta'$.
     
     We now bound the maximum contribution to the out-degree of $\beta$ from this case. When $\id(x)=\id(x')$ and $U_n$ orients $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$, the number of possible values for $\mu_{x'}(v')$ is at most $h_0(n)$.   Since $|\alpha(v')|\in \Oh(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
     
@@ -1575,9 +1591,9 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     Let $y'$ be the $T$-child of $x'$ that is on the path in $T$ from $x'$ to $x$.  There are now two cases to consider.
     \begin{itemize}
       \item If $\alpha(v,v')=\langle 0,\bin(\idx(C')),\kappa_{x'}(A_{y'}\setminus A_{x'},v')\rangle$ then the edge $x'y'$ is in $Y$.  Let $D'$ be the component of $T-Y$ that contains $y'$.  Then $\id(D')$ is a prefix of $\id(C)$ and the last part of $\id(D')$ is $\tau(C',D')=\langle \rho_{C'}(x'),\mu_{x'}(A_{y'}\setminus A_{x'}),\rho_{A_{y'}\setminus A_{x'}}(y')\rangle$.  Since $vv'\in E(G)$, and $x'$ is the home node of $v'$ in $\calT$, $v'\in A_{y'}\setminus A_{x'}$. By definition,  $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$. 
-      Since the labelling $\calS$ of $\calG^{+3k}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
+      The triple $\tau_{x'}\in\calT'_{\calG^{+3k},\le n}$, together with the clique $A_{y'}\setminus A_{x'}$ and vertex $v'$, witnesses the occurrence of this clique label, local identifier, and vertex label. Since $(\calS,A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$ for each fixed clique label and local identifier.
 
-      \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y$.  Since $v'\in A_{y'}\setminus A_{x'}$, by definition $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$.  Since the labelling $\calS$ of $\calG^{+3k}$ for $(A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
+      \item If $\alpha(v,v')=\langle 1, \bin(\idx(C')), \rho_{C'}(x'), \mu_{x'}(A_{y'}\setminus A_{x'}), \kappa_{x'}(A_{y'}\setminus A_{x'}, v')\rangle$ then the edge $x'y'$ is not in $Y$.  Since $v'\in A_{y'}\setminus A_{x'}$, by definition $I(\mu_{x'}(A_{y'}\setminus A_{x'}),\kappa_{x'}(A_{y'}\setminus A_{x'},v'),\mu_{x'}(v'))=1$.  The triple $\tau_{x'}\in\calT'_{\calG^{+3k},\le n}$, together with the clique $A_{y'}\setminus A_{x'}$ and vertex $v'$, witnesses the occurrence of this clique label, local identifier, and vertex label. Since $(\calS,A,I)$ is strongly $h_0$-orientable, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$ for each fixed clique label and local identifier.
     \end{itemize}
     In either case, there are at most $h_0(n)$ choices for $\mu_{x'}(v')$. 
 
@@ -2888,7 +2904,7 @@ Variants of the following result appear in several contexts, with different boun
   which satisfies the requirement $g_3(n)\in\Oh(k\sqrt{\log n})$.
 
   \paragraph{\boldmath $g_0$-orientability:}  
-  For each nice triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS$ be the indexed collection of these labellings over all nice triples in $\calT_{\calR_k}$. Then $(\calS,A,I)$ is a weak weighted mixed labelling scheme for $\calR_k$. Fix $n\in\N$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$, using only nice triples in $\calT'_{\calR_k,\le n}$. For every such triple, $|V(G)|\le\omega(G)\le n$ and $\sum_i|S_i^+|\in\Oh(\omega(G))\subseteq\Oh(n)$. Consequently, the bounds on the lengths of the auxiliary label components established above are uniform over these triples, with $n$ now denoting the universal-graph parameter rather than the order of a particular graph. We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.
+  For each nice triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS$ be the indexed collection of these labellings over all nice triples in $\calT_{\calR_k}$. Then $(\calS,A,I)$ is a weak weighted mixed labelling scheme for $\calR_k$. Fix $n\in\N$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$, using only nice triples in $\calT'_{\calR_k,\le n}$. For every such triple, $|V(G)|\le n$ and $\omega(G)\le 2n$ and $\sum_i|S_i^+|\in\Oh(\omega(G))\subseteq\Oh(n)$. Consequently, the bounds on the lengths of the auxiliary label components established above are uniform over these triples, with $n$ now denoting the universal-graph parameter rather than the order of a particular graph. We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.
 
   Let $\beta\beta'$ be an edge of $U_n$. Then there exists a nice triple $\tau=(G^+,G,\omega)\in\calT'_{\calR_k,\le n}$ and an edge $e=(v,i)(w,j)\in E(G)$ such that $\beta=\mu_\tau(v,i)$ and $\beta'=\mu_\tau(w,j)$. Since $G^+\in\calR_k$, $G^+$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and path $P=(1,\ldots,h)$. Since $(v,i)(w,j)\in E(G)$, we have $|i-j|\le 1$. In $H$, the ancestor ordering $<$ of $\calT$ is a strict partial order. Exactly one of the following holds for the pair of vertices $(v,i)$ and $(w,j)$:
   \begin{itemize}[nosep,nolistsep]
@@ -2919,7 +2935,7 @@ Variants of the following result appear in several contexts, with different boun
   \[
     \widehat\omega(v):=\ceil{\frac{|V(G)|\omega(v)}{\omega(G)}}\enspace.
   \]
-  By \cref{lem:nice_weights}, this increases the vertex and clique label-length bounds by at most $2$. If $\tau\in\calT'_{\calR_k,\le n}$, then $\widehat\omega(G)\le\omega(G)\le n$ by \cref{obs:nice}. Hence, by \cref{obs:normalization_orientability}, the full weighted scheme is strongly $g_0$-orientable with the same function $g_0$. This proves \cref{gk_labelling_precise}. \qedhere
+  By \cref{lem:nice_weights}, this increases the vertex and clique label-length bounds by at most $2$. If $\tau\in\calT'_{\calR_k,\le n}$, then $\widehat\omega(G)\le\omega(G)\le 2n$ by \cref{obs:nice}. Hence, by \cref{obs:normalization_orientability}, the full weighted scheme is strongly $g_0$-orientable with the same function $g_0$. This proves \cref{gk_labelling_precise}. \qedhere
 \end{proof}
 
 Let $\calH_k$ be the class of graphs of treewidth at most $k$.  \citet{EJM23} show that, for each fixed $k\in\N^+$ and each $n\in\N$, $\calH_k$ has an $n$-induced-universal graph with $n(\log n)^{\Oh(k^2)}$ vertices and edges.
