@@ -1023,33 +1023,45 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
 \subsection{Orientable Labelling Schemes}\label{sec:orientable}
 
 In order to establish \cref{main_result_induced_universal_sparse}, which promises sparse universal graphs, we need two additional definitions.
-Let $(\calS,A,I)$ be a weak weighted mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, let
 \[
-V(U_n):=\left\{ \mu_\tau(v): \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
+  \mathdefin{\calT'_{\calG,\le n}}:=\left\{(G^+,G,\omega)\in\calT_{\calG,\le n}: \omega:V(G)\to\N^+,\; \omega(G)\le n\right\}.
+\]
+The triples in $\calT'_{\calG,\le n}$ need not be nice: their total weight is bounded by $n$, which may be much larger than their number of vertices. The \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+\[
+V(U_n):=\left\{ \mu_\tau(v): \tau = (G^+,G,\omega)\in\calT'_{\calG,\le n},\; v\in V(G) \right\}
 \]
 and edge set
 \[
-  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; vv'\in E(G) \right\}
+  E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau = (G^+,G,\omega)\in\calT'_{\calG,\le n},\; vv'\in E(G) \right\}
   \enspace.
-\] 
-These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)  Note that $U_n$ is finite because $(\calS,A,I)$ is a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme.  In particular, since $\calS$ only labels nice admissible triples $\tau=(G^+,G,\omega)$, the length of any vertex label $\mu_\tau(v)$ is at most $\log\omega(G)+g_1(n)\le \log n+g_1(n)+O(1)$. 
+\]
+These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT'_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Taking uniform weights, we see that $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)  Note that $U_n$ is finite. Indeed, for each $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$ and each $v\in V(G)$, we have $\omega(v)\ge 1$ and $\omega(G)\le n$, so
+\[
+  |\mu_\tau(v)|\le \log\omega(G)-\log\omega(v)+g_1(|V(G)|)
+  \le \log n+\max_{1\le m\le n}g_1(m)\enspace.
+\]
+If $g_1$ is non-decreasing, this bound is at most $\log n+g_1(n)$.
 
-Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any injective adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
+Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any injective adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.
 
-We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$. A weak weighted mixed labelling scheme $(\calS,A,I)$ is \defin{$g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable. This definition immediately implies that the $n$-universal graph $U_n$ has at most $|V(U_n)|\cdot g_0(n)$ edges. We say that a graph class $\calG$ \defin{admits a $g_0$-orientable weighted mixed labelling scheme} if such a scheme exists (and similarly for adjacency labelling schemes).
+Let $g_0:\N\to\R^{\ge 0}$.
+We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$. A weighted mixed labelling scheme $(\calS,A,I)$ is \defin{$g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable. This definition immediately implies that the $n$-universal graph $U_n$ has at most $|V(U_n)|\cdot g_0(n)$ edges. We say that a graph class $\calG$ \defin{admits a $g_0$-orientable weighted mixed labelling scheme} if such a scheme exists (and similarly for adjacency labelling schemes).
 
-We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, we give a formal definition followed by an informal explanation of how this property is used.  
-We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and, for each $n\in\N$, each nice triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a triple $\tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that 
+To control the number of edges when combining mixed labellings, we also need to bound the number of vertex labels associated with a fixed clique label and local identifier. This motivates the following strengthening of orientability.
+We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and, for each $n\in\N$, each triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT'_{\calG,\le n}$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a triple $\tau:=(G^+,G,\omega)\in\calT'_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that
 \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-  \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$; 
-  \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$; and 
+  \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$;
+  \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$; and
   \item $\mu_\tau(u)=\beta$.
-  % \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$. 
+  % \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$.
 \end{enumerate}
 We say that $\calG$ \defin{admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if such a scheme exists.
 
-Less formally: If we fix a nice triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there are at most $g_0(n)$ strings $\beta\in V(U_n)$ for which there exists a matching triple that certifies $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an $f(n)$-bit adjacency labelling $\mathdefin{\calA'}:=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, the vertex label $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
-By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$, then this choice of orientation will not contribute more than $g_0(n)\cdot 2^{f(n)-|\beta|}$ to the outdegree of $\ell_{G'}(v)$.  (The expression $2^{f(n)-|\beta|}$ accounts for the fact that $\ell_{G'}(w)$ contains additional bits beyond the bits defined by $\beta$.) Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)\cdot 2^{f(n)-|\beta|}$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
+Less formally, fix a clique label $\zeta$ and a local identifier $\gamma$ that occur together in a triple in $\calT'_{\calG,\le n}$. Strong $g_0$-orientability guarantees that at most $g_0(n)$ distinct vertex labels $\beta$ occur with this same pair: there must be a triple $\tau=(G^+,G,\omega)\in\calT'_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that $\mu_\tau(K)=\zeta$, $\kappa_\tau(K,u)=\gamma$, and $\mu_\tau(u)=\beta$. Any such occurrence implies that $I(\zeta,\gamma,\beta)=1$.
+
+Our construction will construct an adjacency labelling scheme $(\calA',A')$ for a graph class $\calG'$. The graphs in $\calG'$ will contain subgraphs that are in some class $\calG$ that admits a weighted mixed labelling scheme $(\calS,A,I)$.  In our constructions, a vertex label $\ell_{G'}(v)$ may contain $\zeta$ and $\gamma$, while the label of a neighbour $w$ contains a corresponding vertex label $\beta$. If every edge handled in this way has a witness as above, then fixing $\ell_{G'}(v)$ leaves at most $g_0(n)$ choices for $\beta$. If, for each such $\beta$, there are at most $M(n)$ possible complete labels $\ell_{G'}(w)$, then orienting these edges from $\ell_{G'}(v)$ towards $\ell_{G'}(w)$ contributes at most $g_0(n)\cdot M(n)$ to the outdegree of $\ell_{G'}(v)$. Here $M(n)$ accounts for the fact that $\beta$ is only \emph{part} of the vertex label $\ell_{G'}(w)$. There may be up to $M(n)$ vertex labels $\ell_{G'}(w)$ that include $\beta$.
+
 
 
 \subsection{Adding Apex Vertices}
