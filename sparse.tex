@@ -779,7 +779,7 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]
     \item\label{req:height_0} each root-to-leaf path in $Q$ contains at most $\log_b n$ edges of $Y$;
     \item\label{req:subtree_size_0} each connected component of $Q-Y$ has at most $4b-1$ vertices;
-    \item\label{req:subtree_torso_apex_0} for each $x\in V(Q)$, at least one of the following holds: 
+    \item\label{req:subtree_torso_apex_0} for each $x\in V(Q)$, at least one of the following holds:
     \begin{itemize}[nosep,nolistsep]
       \item\label{req:three_adhesions_0} $C_x$ is contained in the union of at most three adhesions of $\calT$; or
       \item\label{req:adhesion_torso_0} $\torso{G}{\calQ,C_x}-A$ is a subgraph of some torso of $\calT$, where $A=\emptyset$ or $A$ is an adhesion of $\calT$.
@@ -790,59 +790,70 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
 \pat{Note that `induced' was dropped from \ref{req:adhesion_torso_0}}
 
 \begin{proof}
-  The proof is by induction, with a slightly more general inductive hypothesis. An inductive instance $(G,\calT, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of $G$, and two (not necessarily distinct) leaves $\alpha,\beta$ of $T$ such that $B_\alpha = A_\alpha$ and $B_\beta = A_\beta$ (where $A_\alpha$ and $A_\beta$ are the adhesions incident to $\alpha$ and $\beta$, respectively) and $|V(G)\setminus (B_\alpha\cup B_\beta)|\ge 1$.  We will produce a rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ that satisfies all the requirements of the lemma as well as the following conditions, the first of which is a strengthening of \ref{req:height_0}:
+  The proof is by induction, with a generalized inductive hypothesis. An inductive instance $(G,\calT, \alpha, \beta)$ involves a graph $G$, a tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of $G$, and two (not necessarily distinct) leaves $\alpha,\beta$ of $T$ such that each of $B_\alpha$ and $B_\beta$ equals the adhesion of $\calT$ incident to $\alpha$ and $\beta$ respectively, and $|V(G)\setminus (B_\alpha\cup B_\beta)|\ge 1$.  We will produce a rooted tree-decomposition $\calQ:=(Q,(C_x\mid x\in V(Q)))$ of $G$ and $Y\subseteq E(Q)$ that satisfies all the requirements of the lemma as well as the following conditions, the first of which is a strengthening of \ref{req:height_0}:
   \begin{enumerate}[nosep,nolistsep,label=\rm(\alph*)]\setcounter{enumi}{3}
-    \item\label{req:height_prime_0} each root-to-leaf path in $Q$ contains at most $\log_b(n-|B_\alpha\cup B_\beta|)$ edges of $Y$; 
+    \item\label{req:height_prime_0} each root-to-leaf path in $Q$ contains at most $\log_b(n-|B_\alpha\cup B_\beta|)$ edges of $Y$;
     \item\label{req:root_0} $\alpha\in V(Q)$ and $\alpha$ is the root of $Q$; and
-    \item\label{req:adhesion_pairs_0} $C_\alpha=A_\alpha\cup A_\beta$.
+    \item\label{req:adhesion_pairs_0} $C_\alpha=B_\alpha\cup B_\beta$.
   \end{enumerate}
-  The induction is on the quantity $n-|B_\alpha\cup B_\beta| = |V(G)\setminus (B_\alpha\cup B_\beta)|$.  To see that this suffices to establish the lemma for an $n$-vertex graph $G$, we can attach two new leaves $\alpha$ and $\beta$ to $T$ to obtain $T'$, set $B_\alpha:=B_\beta:=\emptyset$ (with incident adhesions $A_\alpha=A_\beta=\emptyset$), and apply the refined result to $(G,(T',(B_x\mid x\in V(T'))),\alpha,\beta)$ to obtain the desired rooted tree-decomposition $\calQ$ and edge set $Y$.
-   
+  The induction is on the quantity $n-|B_\alpha\cup B_\beta| = |V(G)\setminus (B_\alpha\cup B_\beta)|$.  To see that this suffices to establish the lemma for an $n$-vertex graph $G$, we can attach two new leaves $\alpha$ and $\beta$ to $T$ to obtain $T'$, set $B_\alpha:=B_\beta:=\emptyset$ (so their incident adhesions are empty), and apply the refined result to $(G,(T',(B_x\mid x\in V(T'))),\alpha,\beta)$ to obtain the desired rooted tree-decomposition $\calQ$ and edge set $Y$.
+
   We now proceed with the inductive proof.  Root $T$ at $\alpha$ so that $\calT$ is a rooted tree-decomposition of $G$.  For each $x\in V(T)\setminus\{\alpha\}$, let $A_x$ be the parent adhesion of $x$ in $\calT$, and set $A_\alpha:=\emptyset$.  Define the pseudoweight function $\omega: V(T)\to\N$ by $\omega(x):=|B_x\setminus (A_x\cup B_\alpha\cup B_\beta)|$.  Since each vertex in $V(G)\setminus (B_\alpha\cup B_\beta)$ belongs to $B_x\setminus A_x$ for exactly one node $x\in V(T)$, we have $\omega(T) = n-|B_\alpha\cup B_\beta|$.
 
-  Apply \cref{bag_separator} to the tree $T$ with pseudoweight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$ for each component $C$ of $T-S_0$.  
-  % Since $\omega(\alpha)=\omega(\beta)=0$, we may assume that $S_0\cap\{\alpha,\beta\}=\emptyset$.  
-  Let $T'$ be the vertex-minimal subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$.  Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0\cup\{\alpha,\beta\}|-2\le b-1$.  Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $G_S:=G[\bigcup_{x\in S}B_x]$.  Let $C_1,\ldots,C_s$ be the connected components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$.  Since every branching node of $T'$ belongs to $S_1\subseteq S$, no component $C_i$ can have three or more neighbors in $S$, so $|N_i|\in\{1,2\}$ for each $i\in[s]$.  For each $i\in[s]$, write $N_i:=\{a_i,b_i\}$ (where $a_i=b_i$ if $|N_i|=1$).
+  Apply \cref{bag_separator} to the tree $T$ with pseudoweight function $\omega$ to obtain a set $S_0$ of at most $b-1$ nodes of $T$ such that $\omega(C)\le\omega(T)/b=(n-|B_\alpha\cup B_\beta|)/b$ for each component $C$ of $T-S_0$.
+  % Since $\omega(\alpha)=\omega(\beta)=0$, we may assume that $S_0\cap\{\alpha,\beta\}=\emptyset$.
+  Let $T'$ be the vertex-minimal subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$.  Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0\cup\{\alpha,\beta\}|-2\le b-1$.  Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $C_1,\ldots,C_s$ be the connected components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$.  Since every branching node of $T'$ belongs to $S_1\subseteq S$, no component $C_i$ can have three or more neighbors in $S$, so $|N_i|\in\{1,2\}$ for each $i\in[s]$.  For each $i\in[s]$, write $N_i:=\{a_i,b_i\}$ (where $a_i=b_i$ if $|N_i|=1$).
 
-  For each $i\in S$, let $G_i:=G[\bigcup_{x\in V(C_i)}B_x]$ and let $m_i:=|V(G_i)\setminus (B_{a_i}\cup B_{b_i})|$.    We construct a tree $Q_0$ as follows: $V(Q_0)$ contains all nodes of $S$.  For each $i\in[s]$ such that $|N_i|=2$ and $m_i>0$, we add a node $v_i$ to $Q_0$ adjacent to both nodes in $N_i$.  For each edge $xy\in E(T)$ with $x,y\in S$, we add the edge $xy$ to $Q_0$.  Since each component $C_i$ with $|N_i|=2$ corresponds to a path in $T'$ between two nodes in $S$, $Q_0$ is a tree with $V(Q_0)\supseteq S$ and $|V(Q_0)|\le 2|S|-1\le 4b-1$.  We root $Q_0$ at $\alpha$.  
-  
-  For each $x\in S$, set $C_x:=B_x$.  For each $i\in[s]$ with $|N_i|=2$ and $m_i>0$, set $C_{v_i}:=(B_{a_i}\cup B_{b_i})\cap V(G_i)$.  To ensure property \ref{req:adhesion_pairs_0}, we add the vertices in $B_\beta$ to $C_x$ for each $x$ on the path from $\beta$ to $\alpha$ in $Q_0$.  This completes the definition of the bags $C_x$ for all $x\in V(Q_0)$.  Then $\calQ_0:=(Q_0,(C_x\mid x\in V(Q_0)))$ is a tree-decomposition of $G_S:=G[\bigcup_{x\in S}B_x]$.
-  
-  For each $i\in[s]$ such that $m_i>0$, we construct a tree-decomposition of $G_i$ as follows:
+  For each $i\in[s]$, let $G_i:=G[\bigcup_{x\in V(C_i)}B_x]$ and let $m_i:=|V(G_i)\setminus (B_{a_i}\cup B_{b_i})|$.  Observe that  $m_i\le\omega(C_i)\le\omega(T)/b$ for each $i\in [s]$. For each $i\in[s]$, let $\{x_i\}=N_T(a_i)\cap V(C_i)$ and  $\{y_i\}:=N_T(b_i)\cap V(C_i)$ so that $x_i$ and $y_i$ are the unique neighbours in $C_i$ of $a_i$ and $b_i$, respectively (possibly $x_i=y_i$). Since $\calT$ is a tree-decomposition,
+    $B_{a_i}\cap V(G_i)=B_{a_i}\cap B_{x_i}$ and $B_{b_i}\cap V(G_i)=B_{b_i}\cap B_{y_i}$.
+
+  We construct a tree $Q_0$ as follows: $V(Q_0)$ contains all nodes of $S$.  For each $i\in[s]$ such that $|N_i|=2$, we add a node $v_i$ and edges $a_iv_i$ and $b_iv_i$ to $Q_0$. 
+  % For each $i\in[s]$ such that $|N_i|=2$ and $m_i=0$, we add the edge $a_ib_i$ to $Q_0$. 
+  For each edge $xy\in E(T)$ with $x,y\in S$, we add the edge $xy$ to $Q_0$.  Since each component $C_i$ with $|N_i|=2$ corresponds to a path in $T'$ between two nodes in $S$, $Q_0$ is a tree with $V(Q_0)\supseteq S$ and $|V(Q_0)|\le 2|S|-1\le 4b-1$.  We root $Q_0$ at $\alpha$.
+
+  For each $x\in S$, set $C_x:=B_x$.  For each $i\in[s]$ with $|N_i|=2$, set $C_{v_i}:=(B_{a_i}\cup B_{b_i})\cap V(G_i)$.  To ensure property \ref{req:adhesion_pairs_0}, we add the vertices in $B_\beta$ to $C_x$ for each $x$ on the path from $\beta$ to $\alpha$ in $Q_0$.  This completes the definition of the bags $C_x$ for all $x\in V(Q_0)$.  Then $\calQ_0:=(Q_0,(C_x\mid x\in V(Q_0)))$ is a tree-decomposition of $G_S:=G[\bigcup_{x\in S}B_x]$.
+
+  If $m_i=0$, then $V(G_i)\subseteq B_{a_i}$ when $|N_i|=1$, and $V(G_i)\subseteq C_{v_i}$ when $|N_i|=2$. Thus all vertices and edges of $G_i$ are covered by a single bag of $\calQ_0$, and no recursive call is needed for this component.  For each $i\in[s]$ such that $m_i>0$, we construct a tree-decomposition of $G_i$ as follows. 
+  % In each case the number of vertices outside the two boundary bags is exactly $m_i$. Since $0<m_i\le\omega(T)/b<\omega(T)$, the inductive hypothesis applies:
+
   \begin{itemize}
-    \item If $|N_i|=1$, say $N_i=\{a_i\}$, then there is a unique node $x_i\in V(C_i)$ adjacent to $a_i$ in $T$. Let $T_i$ be the tree obtained from $C_i$ by adding a new leaf $\alpha_i=\beta_i$ adjacent to $x_i$, and set $B_{\alpha_i}:=B_{a_i}\cap B_{x_i}$.  Then $\calT_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  Apply induction to the instance $(G_i,\calT_i,\alpha_i,\beta_i)$.
-    \item If $|N_i|=2$ then there are nodes $x_i,y_i\in V(C_i)$ (possibly $x_i=y_i$) with $a_i x_i, b_i y_i\in E(T)$. Let $T_i$ be the tree obtained from $C_i$ by adding new leaves $\alpha_i$ adjacent to $x_i$ and $\beta_i$ adjacent to $y_i$, and set $B_{\alpha_i}:=B_{a_i}\cap V(G_i)$ and $B_{\beta_i}:=B_{b_i}\cap V(G_i)$.  Then $\calT_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  Apply induction to the instance $(G_i,\calT_i,\alpha_i,\beta_i)$.
+    \item If $|N_i|=1$ (so $N_i=\{a_i\}$) then $x_i\in V(C_i)$ is adjacent to $a_i$ in $T$. Let $T_i$ be the tree obtained from $C_i$ by adding a new leaf $\alpha_i=\beta_i$ adjacent to $x_i$, and set $B_{\alpha_i}:=B_{a_i}\cap B_{x_i}$.  Then $\calT_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  Apply induction to the instance $(G_i,\calT_i,\alpha_i,\beta_i)$.
+    \item If $|N_i|=2$ then $x_i,y_i\in V(C_i)$ are the unique neighbours of $a_i$ and $b_i$ in $C_i$ (possibly $x_i=y_i$). Let $T_i$ be the tree obtained from $C_i$ by adding new leaves $\alpha_i$ adjacent to $x_i$ and $\beta_i$ adjacent to $y_i$, and set $B_{\alpha_i}:=B_{a_i}\cap B_{x_i}$ and $B_{\beta_i}:=B_{b_i}\cap B_{y_i}$.  Then $\calT_i:=(T_i, (B_x\mid x\in V(T_i)))$ is a tree-decomposition of $G_i$.  Apply induction to the instance $(G_i,\calT_i,\alpha_i,\beta_i)$.
   \end{itemize}
-  In either case, induction yields a rooted tree-decomposition $\calQ_i:=(Q_i,(C_x\mid x\in V(Q_i)))$ of $G_i$ with root $\alpha_i$, and an edge set $Y_i\subseteq E(Q_i)$.  By \ref{req:adhesion_pairs_0}, the root bag $C_{\alpha_i}$ contains $A_{\alpha_i}\cup A_{\beta_i}$.  
-  
-  
-  We now construct the tree $Q$ from $Q_0$ and $\{Q_i\mid m_i\ge 1\}$.  For each $i\in[s]$ such that $m_i>0$ and $|N_i|=2$, let $e_i:=v_i\alpha_i$. For each $i\in[s]$ such that $m_i>0$ and  $|N_i|=1$, let $e_i:=a_i\alpha_i$.
-  Then $V(Q):=V(Q_0)\cup \bigcup_{i: m_i\ge 1} V(Q_i)$ and $E(Q):=E(Q_0)\cup \bigcup_{i: m_i\ge 1} (E(Q_i) \cup \{e_i\})$.  Define $Y := \bigcup_{i: m_i\ge 1} (Y_i \cup \{e_i\})$.  Since $V(G_S)\cap V(G_i)= A_{\alpha_i}\cup A_{\beta_i} = C_{\alpha_i}$, $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a valid rooted tree-decomposition of $G$ with root $\alpha$, satisfying \ref{req:root_0} and \ref{req:adhesion_pairs_0}.
+  In either case, induction yields a rooted tree-decomposition $\calQ_i:=(Q_i,(C_x\mid x\in V(Q_i)))$ of $G_i$ with root $\alpha_i$, and an edge set $Y_i\subseteq E(Q_i)$.  By \ref{req:adhesion_pairs_0}, the root bag satisfies $C_{\alpha_i}=B_{\alpha_i}\cup B_{\beta_i}$.
+
+
+  We now construct the tree $Q$ from $Q_0$ and $\{Q_i\mid m_i\ge 1\}$.   
+  For each $i\in[s]$ such that $m_i>0$ and  $|N_i|=1$, let $e_i:=a_i\alpha_i$.
+  For each $i\in[s]$ such that $m_i>0$ and $|N_i|=2$, let $e_i:=v_i\alpha_i$.
+  Then $V(Q):=V(Q_0)\cup \bigcup_{i: m_i\ge 1} V(Q_i)$ and $E(Q):=E(Q_0)\cup \bigcup_{i: m_i\ge 1} (E(Q_i) \cup \{e_i\})$.  Define $Y := \bigcup_{i: m_i\ge 1} (Y_i \cup \{e_i\})$.  Since $V(G_S)\cap V(G_i)=B_{\alpha_i}\cup B_{\beta_i}=C_{\alpha_i}$ and $C_{\alpha_i}\subseteq C_{a_i}$ (when $|N_i|=1$) or $C_{\alpha_i}\subseteq C_{v_i}$ (when $|N_i|=2$), $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a valid rooted tree-decomposition of $G$ with root $\alpha$, satisfying \ref{req:root_0} and \ref{req:adhesion_pairs_0}.
 
   Because each edge $e_i$ belongs to $Y$, the connected components of $Q-Y$ are precisely $Q_0$ and the connected components of $Q_i-Y_i$ for each $i$ with $m_i\ge 1$.  Since $|V(Q_0)|\le 4b-1$ and each component of $Q_i-Y_i$ has at most $4b-1$ vertices by induction, property \ref{req:subtree_size_0} holds.
 
-  Any root-to-leaf path in $Q$ consists of a path in $Q_0$ followed by at most one edge $e_i$ and a root-to-leaf path in $Q_i$ for some $i$ with $m_i\ge 1$.  Since $E(Q_0)\cap Y=\emptyset$, the number of edges of $Y$ on this path is at most:
+  Any root-to-leaf path in $Q$ consists of a path in $Q_0$ followed by at most one edge $e_i$ and a root-to-leaf path in $Q_i$ for some $i$ with $m_i\ge 1$.  A path contained in $Q_0$ uses no edges of $Y$. Otherwise, since $E(Q_0)\cap Y=\emptyset$, the number of edges of $Y$ on the path is at most:
   \[
     1 + \log_b(|V(G_i)| - |B_{\alpha_i}\cup B_{\beta_i}|) \le 1 + \log_b\omega(C_i) \le 1 + \log_b((n-|B_\alpha\cup B_\beta|)/b) = \log_b(n-|B_\alpha\cup B_\beta|) \enspace .
   \]
   Thus, property \ref{req:height_prime_0} holds.
 
-  Finally, we verify property \ref{req:subtree_torso_apex_0}.  First we consider the torsos of $\calQ$ at vertices $x\in S$.  Let $x$ be a vertex in $S$, so $x\in V(T)\cap V(Q)$ and $C_x\subseteq B_x\cup B_\beta$.  We claim that $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$.  Let $xy$ be an edge of $Q$ incident to $x$. There are three possibilties:
+  Finally, we verify property \ref{req:subtree_torso_apex_0}.  First we consider the torsos of $\calQ$ at vertices $x\in S$.  Let $x$ be a vertex in $S$, so $x\in V(T)\cap V(Q_0)$ and $C_x\subseteq B_x\cup B_\beta$.  We claim that $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$.  Let $xy$ be an edge of $Q$ incident to $x$. There are three possibilities:
   \begin{itemize}[nosep,nolistsep]
-    \item If $y\in S$ then $xy$ is an edge of $T$. Then $C_x\cap C_y\setminus B_\beta=B_x\cap B_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
-    \item If $y=v_i$ for some $i\in[s]$ with $|N_i|=2$ and $m_i>0$, then $x\in\{a_i,b_i\}$. Without loss of generality, suppose $x=a_i$.  Then $C_x\cap C_y\setminus B_\beta=B_{a_i}\cap V(G_i)\setminus B_\beta$ is an adhesion of $\calT$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
-    \item If $xy=e_i=a_i\alpha_i$ for some $i\in[s]$ with $|N_i|=1$ and $m_i>0$, then $C_x\cap C_y\setminus B_\beta = B_{a_i}\cap V(G_i)\setminus B_\beta$ is an adhesion of $\calT$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.    
+    \item If $y\in S$ then $C_x\subseteq B_x\cup B_\beta$ and $C_y\subseteq B_y\cup B_\beta$.  Then $C_x\cap C_y\setminus B_\beta=B_x\cap B_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
+    % \item If $y\in S$ and $xy$ is not an edge of $T$ then $\{x,y\}=\{a_i,b_i\}$ for some $i\in[s]$ with $|N_i|=2$ and $m_i=0$.  Then $C_x\cap C_y\setminus B_\beta=B_x\cap B_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
+    \item If $y=v_i$ for some $i\in[s]$ with $|N_i|=2$, then $x\in\{a_i,b_i\}$. Without loss of generality, suppose $x=a_i$.  Then $C_x\cap C_y\setminus B_\beta=B_{a_i}\cap V(G_i)\setminus B_\beta$ is contained in the original adhesion $B_{a_i}\cap B_{x_i}$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
+    \item If $xy=e_i=a_i\alpha_i$ for some $i\in[s]$ with $|N_i|=1$ and $m_i>0$, then $C_x\cap C_y\setminus B_\beta = B_{a_i}\cap V(G_i)\setminus B_\beta$ is contained in the original adhesion $B_{a_i}\cap B_{x_i}$ incident to $x$.  Thus $C_x\cap C_y\setminus B_\beta$ is a clique in both $\torso{G}{\calQ,C_x}-B_\beta$ and $\torso{G}{\calT,B_x}-B_\beta$.
   \end{itemize}
-  Thus, for each $x\in S$, $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$, so $x$ satisfies the second condition of \ref{req:adhesion_torso_0}.
+  Thus, for each $x\in S$, $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$, so $x$ satisfies the second alternative of property~\ref{req:adhesion_torso_0}, since $B_\beta$ is an adhesion of $\calT$.
 
-  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$ and $m_i>0$.  Then $C_x=C_{v_i}\subseteq (B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})\cup B_\beta$ is contained the union of at most three adhesions of $\calT$ so $x$ satisfies the first condition of \ref{req:three_adhesions_0}.
+  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$.  Then $C_x=C_{v_i}\subseteq (B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})\cup B_\beta$ is contained in the union of at most three adhesions of $\calT$ so $x$ satisfies the first alternative of property~\ref{req:three_adhesions_0}.
 
-  Lastly, for each $x\in V(Q)\setminus V(Q_0)$, there are two possiblities:
+  Lastly, for each $x\in V(Q)\setminus V(Q_0)$, there are two possibilities:
   \begin{itemize}[nosep,nolistsep]
-    \item $x=\alpha_i$ for some $i\in[s]$ with $m_i>0$.  Then, by the inductive hypothesis (specifically, property \ref{req:adhesion_pairs_0}) we have $C_{\alpha_i}=B_{\alpha_i}\cup B_{\beta_i}$.
-    \item $x$ is an non-root node of $Q_i$ for some $i\in[s]$ with $m_i>0$.  By the inductive hypothesis $x$ satisfies \ref{req:adhesion_torso_0} with respect to $G_i$, $\calT_i$, $\calQ_i$.  Every adhesion of $\calT_i$ is an adhesion of $\calT$.  For each $y\in C_i=V(T_i)\setminus\{\alpha_i,\beta_i\}$, the torso $\torso{G_i}{\calT_i,B_y}$ is a torso of $\calT$.  Thus $x$ satisfies \ref{req:adhesion_torso_0} with respect to $G$, $\calT$, and $\calQ$.
+    \item $x=\alpha_i$ for some $i\in[s]$ with $m_i>0$. By \ref{req:adhesion_pairs_0}, $C_{\alpha_i}=B_{\alpha_i}\cup B_{\beta_i}$. Each of $B_{\alpha_i}$ and $B_{\beta_i}$ is an adhesion of $\calT$, so $x$ satisfies the first alternative of property~\ref{req:three_adhesions_0}.
+    \item $x$ is a non-root node of $Q_i$ for some $i\in[s]$ with $m_i>0$.  By induction, $x$ satisfies \ref{req:subtree_torso_apex_0} with respect to $G_i$, $\calT_i$, and $\calQ_i$. 
+    By definition, $\torso{G_i}{\calT_i,B_y}=\torso{G}{\calT,B_y}$ for each $y\in V(C_i)$, and every adhesion of $\calT_i$ is an adhesion of $\calT$, and $\torso{G_i}{\calQ_i,C_x}=\torso{G}{\calQ,C_x}$. Therefore, $x$ also satisfies \ref{req:adhesion_torso_0} with respect to $G$, $\calT$, and $\calQ$. \qedhere
+  \end{itemize}
 \end{proof}
-
 
 
 A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is \defin{tidy} if
@@ -865,26 +876,29 @@ A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is
     \item\label{req:subtree_torso_apex} for each $x\in V(Q)$, at least one of the following holds: 
     \begin{itemize}[nosep,nolistsep]
       \item\label{req:three_adhesions} $C_x\setminus\{v_0\}$ is contained in the union of at most three adhesions of $\calT$; or
-      \item\label{req:adhesion_torso} there exists an adhesion $A$ of $\calT$ such that $\torso{G}{\calQ,C_x}-(A\cup\{v_0\})$ is an induced subgraph of some torso of $\calT$.
+      \item\label{req:adhesion_torso} $\torso{G}{\calQ,C_x}-(A\cup\{v_0\})$ is a subgraph of some torso of $\calT$, where $A=\emptyset$ or $A$ is an adhesion of $\calT$.
     \end{itemize}
   \end{enumerate}
 \end{lem}
 
-\noindent\pat{TODO: Reread this proof.}
 
 \begin{proof}
   Let $\calT_0:=(T_0,(B_x\mid x\in V(T_0)))$ and $Y_0\subseteq E(T_0)$ be the tree-decomposition of $G_0$ obtained by applying \cref{log_b_td} to the tree-decomposition $\calT$.  Thus, each torso of $\calT_0$ satisfies \ref{req:subtree_torso_apex}.    
-  First, we transform $\calT_0$ into a tidy rooted forest-decomposition in four steps:
+  First, we transform $\calT_0$ and $Y_0$ into a tidy rooted forest-decomposition $\calF=(F,(B_x\mid x\in V(F)))$ and $Y_1\subseteq E(F)$ in four steps:
   \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
-    \item Remove every node $x$ of $T_0$ with $B_x=\emptyset$.
-    \item Remove every edge $xy$ of $T_0$ with $B_x\cap B_y=\emptyset$.
-    \item Repeatedly replace an edge $yz$ with the edge $xz$ if $B_z\cap B_y\subseteq B_y\cap B_x$ and $x=\parent(y)$. If the edge $yz$ is in $Y_0$, replace $yz$ with $xz$ in $Y_0$.
+    \item Initially, set $F:=T_0$ and $Y_1:=Y_0$.
+    \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
+    \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
+    \item Repeatedly replace an edge $yz\in E(F)$ with the edge $xz$ if $x$ is the $F$-parent of $y$, $y$ is the $F$-parent of $z$, and $B_z\cap B_y\subseteq B_x$. 
+    
+    If the edge $yz$ is in $Y_1$, replace $yz$ with $xz$ in $Y_1$.  
+    
+    If the edge $xy$ is in $Y_1$ add the edge $xz$ to $Y_1$ (and leave $xy$ in $Y_1$)
     \item Repeatedly remove every leaf $y$ with $B_y\subseteq B_{\parent(y)}$.
   \end{enumerate} 
-  Let $\calF=(F,(B_x\mid x\in V(F)))$ be the resulting tidy forest-decomposition and let $Y_1$ be the resulting subset of $E(F)$.  (For each $x\in V(F)$, the bag $B_x$ is well-defined since $V(F)\subseteq V(T_0)$.) 
-  Note that each torso of $\calF$ is a torso of $\calT_0$. For each non-root node $y\in V(F)$, let $\parent_F(y)$ and $\parent_{T_0}(y)$ denote its parents in $F$ and $T_0$, respectively; then $\parent_F(y)y\in Y_1$ if and only if $\parent_{T_0}(y)y\in Y_0$. Since the ancestors of any node $v\in V(F)$ in $F$ form a subset of its ancestors in $T_0$, the edges of $Y_1$ on $P_F(v)$ correspond injectively to a subset of the edges of $Y_0$ on $P_{T_0}(v)$. It follows that, for any connected component $C$ of $F-Y_1$, $V(C)\subseteq V(C_0)$ for some component $C_0$ of $T_0-Y_0$.  Therefore $|V(C)|\le |V(C_0)|\le 4b-1$.
-
-  Let $Q$ be the tree obtained from $F$ by introducing a vertex $x_0$ and adding an edge between $x_0$ and $x'$ for each root $x'$ of $F$. Let $Y_2:=Y_1\cup \{x_0x'\mid x'\text{ is a root of }F\}$. Then each component of $Q-Y_2$ has at most $4b-1$ nodes.
+  Let $\calF=(F,(B_x\mid x\in V(F)))$ be the resulting tidy forest-decomposition.  (For each $x\in V(F)$, the bag $B_x$ is well-defined since $V(F)\subseteq V(T_0)$.) 
+  Note that each torso of $\calF$ is a subgraph of a torso of $\calT_0$.
+  Furthermore, for any node $z\in V(F)$, the $F$-ancestors of $z$ form a subset of the $T_0$-ancestors of $z$.  Furthermore, if $x$ is both an $F$-ancestor and $T_0$-ancestor of $z$ then the path from $x$ to $z$ in $F$ contains an edge in $Y_1$ if and only if the path from $x$ to $z$ in $T_0$ contains an edge in $Y_0$. Therefore, for any connected component $C$ of $F-Y_1$, $V(C)\subseteq V(C_0)$ for some component $C_0$ of $T_0-Y_0$.  Thus $|V(C)|\le |V(C_0)|\le 4b-1$ for each component $C$ of $F-Y_1$.  Let $Q$ be the tree obtained from $F$ by introducing a vertex $x_0$ and adding an edge $x_0x'$ for each root $x'$ of $F$. Let $Y_2:=Y_1\cup \{x_0x'\mid x'\text{ is a root of }F\}$. Then each component of $Q-Y_2$ has at most $4b-1$ nodes.
   
   Let $G$ be the graph obtained by adding an isolated vertex $v_0$ to $G_0$.  Define $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, define $C_{x'}:=B_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $Q$, define $C_x:=B_x$.  Then $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a tidy rooted tree-decomposition of $G$ that satisfies \ref{req:root_bag} and \ref{req:subtree_torso_apex}.
 
@@ -892,7 +906,7 @@ A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is
   \[
       \textstyle \left|\bigcup_{z\in V(Q_x)}(C_z\setminus A_z)\right|=\omega(Q_x)\le b\cdot\omega(Q_y)=b\left|\bigcup_{z\in V(Q_y)}(C_z\setminus A_z)\right| \enspace .
   \]
-  Let $Y:=Y_2\cup Y_3$.  Then $\calQ$ and $Y$ satisfy \ref{req:subtree_size} and \ref{req:same_size}.  Each root-to-leaf path in $Q$ contains at most $1+\log_b n$ edges in $Y_2$ and at most $\log_b(n+1)$ edges in $Y_3$.  Thus, each root-to-leaf path in $Q$ contains at most $1 + \log_b n + \log_b(n+1) \le 2\log_b(n+1)+1$ edges in $Y$, so $Q$ and $Y$ satisfy \ref{req:height}.
+  Let $Y:=Y_2\cup Y_3$.  Since each component of $Q-Y$ is contained in a component of $Q-Y_2$ and in a component of $Q-Y_3$, the pair $(\calQ,Y)$ satisfies \ref{req:subtree_size} and \ref{req:same_size}.  Each root-to-leaf path in $Q$ contains at most $1+\log_b n$ edges in $Y_2$ and at most $\log_b(n+1)$ edges in $Y_3$.  Thus, each root-to-leaf path in $Q$ contains at most $1 + \log_b n + \log_b(n+1) \le 2\log_b(n+1)+1$ edges in $Y$, so $(\calQ,Y)$ satisfies \ref{req:height}.
 \end{proof}
 
 
@@ -900,7 +914,7 @@ A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is
 \label{weighted_mixed_section}
  
 % This section defines weighted mixed labelling schemes and proves our main technical result, namely \cref{PlainRealMainTechnical}. 
-Let $\calG$ be a class of graphs. We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  Let \defin{$\calT_\calG$} be the set of all $\calG$-admissible triples. For each $n\in\N$, let $\mathdefin{\calT_{\calG,\le n}}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G)|\le n\}$.
+Let $\calG$ be a class of graphs. We say that $\tau:=(G^+,G,\omega)$ is a \defin{$\calG$-admissible triple} if $G^+$ is a graph in $\calG$ with at least one vertex, $G$ is a spanning subgraph of $G^+$, and $\omega:V(G)\to\R^+$ is a weight function.  Let \defin{$\calT_\calG$} be the set of all $\calG$-admissible triples. For each $n\in\N$, let $\mathdefin{\calT_{\calG,\le n}}:=\{(G^+,G,\omega)\in\calT_\calG:|V(G)|\le n\}$.
 
 Let $g_i:\N\to\R$ for each $i\in[3]$.
 Let $A:(\{0,1\}^*)^2\to\{0,1\}$ (the \defin{adjacency tester}) and $I:(\{0,1\}^*)^3\to\{0,1\}$ (the \defin{identity tester}).
@@ -924,7 +938,7 @@ If $(\mu,\kappa)$ additionally satisfies the length bounds
 \end{enumerate}
 then $(\mu,\kappa)$ is called a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $(G^+,G,\omega)$ for $(A,I)$.  
 
-Here is a little intuition about the last three conditions. The function $g_1(n)$ measures how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's inequality \citep{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ measures how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}\omega(v)$.
+Here is a little intuition about the last three conditions. The function $g_1(n)$ bounds how much the length of a vertex label exceeds the ideal value $\log \omega(G) - \log\omega(v)$ that appears in Kraft's inequality \citep{Kraft1949}. The function $g_2(n)$ is the length of the longest local identifier. The function $g_3(n)$ bounds how much the length of a clique label exceeds the Kraft-like quantity $\log\omega(G)-\log\min_{v\in K}\omega(v)$.
 
 To prove \cref{main_result_induced_universal_sparse}, it will be helpful to fix a particular mixed labelling of each $\calG$-admissible triple.  
 A \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$ is an indexed collection $\mathdefin{\calS}:=((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$ where $(\mu_\tau,\kappa_\tau)$ is a weighted $(g_1,g_2,g_3)$ mixed labelling of $\tau$ for $(A,I)$, for each $\tau\in\calT_\calG$.  The triple $(\calS,A,I)$ is called a \defin{weighted $(g_1,g_2,g_3)$ mixed labelling scheme} for $\calG$. We say that $\calG$ \defin{admits} a weighted $(g_1,g_2,g_3)$ mixed labelling scheme if such a triple $(\calS,A,I)$ exists.  Similar definitions apply to adjacency labelling schemes. An \defin{$f(n)$-bit adjacency labelling} of $\calG$ for $A$ is an indexed collection $\mathdefin{\calA}:=(\ell_G:G\in\calG)$ where, for each $G\in\calG$,  $\ell_G$ is an adjacency labelling of $G$ for $A$ and $|\ell_G(v)|\le f(|V(G)|)$ for each $v\in V(G)$.  The pair $(\calA,A)$ is an \defin{$f(n)$-bit adjacency labelling scheme} for $\calG$.
@@ -946,13 +960,14 @@ A \defin{weighted $(g_1,g_2,g_3)$ mixed labelling} of $\calG$ for $(A,I)$ is an 
 
 
 \subsection{Basic Properties}
+\label{basic_properties}
 
-Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$. For any graph $G$, let $\omega_1:V(G)\to\{1\}$ be the \defin{uniform weight function} defined by $\omega_1(v):=1$ for all $v\in V(G)$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a graph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$, and let $\mathdefin{\calA}:=(\mu_{(G^+,G,\omega_1)|V(G)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling scheme if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. 
+Let $(\calS,A,I)$ be a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$. For any graph $G$, let $\omega_1:V(G)\to\{1\}$ be the \defin{uniform weight function} defined by $\omega_1(v):=1$ for all $v\in V(G)$.  Let $\calG^-$ be the class of all spanning subgraphs of graphs in $\calG$. For each $G\in\calG^-$, choose a graph $G^+\in\calG$ such that $G$ is a spanning subgraph of $G^+$, and let $\mathdefin{\calA}:=(\mu_{(G^+,G,\omega_1)}|_{V(G)}:G\in\calG^-)$. Then $(\calA,A)$ is a $(\log n+g_1(n))$-bit adjacency labelling scheme for $\calG^-$.  Thus, we are interested in the case where $g_1(n)\in o(\log n)$. We say that a graph class $\calG$ admits an \defin{efficient} weighted mixed labelling scheme if $\calG$ admits a weighted $(g_1,g_2,g_3)$ mixed labelling scheme with $g_i(n)\in o(\log n)$ for each $i\in [3]$. So any graph class that admits an efficient weighted mixed labelling scheme admits a $(1+o(1))\log n$-bit adjacency labelling scheme. 
 
 An adjacency labelling $\ell$ of a graph $G$ is \defin{injective} if $\ell(u)\neq\ell(v)$ for all distinct $u,v\in V(G)$. An adjacency labelling scheme $(\calA,A)$ for $\calG$ is \defin{injective} if $\ell_G$ is injective for each $G\in\calG$. The following lemma shows that any adjacency labelling obtained from a mixed labelling scheme is injective, which justifies \cref{main_result_induced_universal}.
 
 \begin{lem}\label{injective_vertex_labels}
-  Let $(\mu,\kappa)$ be a mixed labelling of $(G^+,G)$ for $(A,I)$. Then the restriction $\mu_{|V(G)}$ of $\mu$ to $V(G)$ is injective.
+  Let $G^+$ be a graph with at least one vertex, let $G$ be a spanning subgraph of $G^+$, and let $(\mu,\kappa)$ be a mixed labelling of $(G^+,G)$ for $(A,I)$ where $A$ is an adjacency tester and $I$ is an identity tester. Then the restriction $\mu|_{V(G)}$ of $\mu$ to $V(G)$ is injective.
 \end{lem}
 
 \begin{proof}
@@ -962,8 +977,9 @@ An adjacency labelling $\ell$ of a graph $G$ is \defin{injective} if $\ell(u)\ne
   \]
 \end{proof}
 
-It will actually be convenient to consider a slightly weaker notion of weighted mixed labelling schemes.
-A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} $(\calS,A,I)$ for a graph class $\calG$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, with the exception that $\calS$ only contains mixed labellings for triples $(G^+,G,\omega)\in\calT_\calG$ in which $\omega$ is a nice weight function. (Recall from \cref{obs:nice} that nice weight functions take values in $\N^+$, which will be important later on.) We say that $\calG$ \defin{admits} a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme if such a scheme exists. Weak mixed labelling schemes and weighted mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
+It will actually be convenient to consider a slightly weaker notion of weighted mixed labelling schemes.  A $\calG$-admissible triple $(G^+,G,\omega)$ is \defin{nice} if $\omega:V(G)\to\N^+$ is a nice weight function.  A \defin{weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme} $(\calS,A,I)$ for a graph class $\calG$ satisfies all the conditions of a weighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$, with the exception that $\calS$ only contains mixed labellings for nice triples $(G^+,G,\omega)\in\calT_\calG$. 
+% (Recall from \cref{obs:nice} that nice weight functions take values in $\N^+$, which will be important later on.) 
+We say that $\calG$ \defin{admits} a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme if such a scheme exists. Weak mixed labelling schemes and weighted mixed labelling schemes are essentially equivalent, as shown by the following lemma. This will allow us to only consider nice weight functions in the proofs.
 
 \begin{lem}
   \label{lem:nice_weights}
@@ -996,7 +1012,7 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
   If a graph class $\calG$ admits an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme, then it admits an injective $f(n)$-bit adjacency labelling scheme where $f(n)=\log n+g_1(n)$.
 \end{obs}
 \begin{proof}
-  Let $(\calS,A,I)$ be an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. For each $G\in\calG$, let $\tau := (G, G, \omega_1)$, where $\omega_1:V(G)\to\{1\}$ is the uniform weight function, and let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ in $\calS$. By \ref{mls:adjacency_tester}, $\ell_G := \mu_{\tau|V(G)}$ is an adjacency labelling of $G$ for $A$. For $n:=|V(G)|$, \ref{mls:vertex_label_length} implies that for each $v\in V(G)$,
+  Let $(\calS,A,I)$ be an unweighted $(g_1,g_2,g_3)$ mixed labelling scheme for $\calG$. For each non-empty graph $G\in\calG$, let $\tau := (G, G, \omega_1)$, where $\omega_1:V(G)\to\{1\}$ is the uniform weight function, and let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ in $\calS$. By \ref{mls:adjacency_tester}, $\ell_G := \mu_{\tau}|_{V(G)}$ is an adjacency labelling of $G$ for $A$. For $n:=|V(G)|$, \ref{mls:vertex_label_length} implies that for each $v\in V(G)$,
   \[
     |\ell_G(v)| \le \log\omega_1(G) - \log\omega_1(v) + g_1(n) = \log n + g_1(n) \enspace.
   \]
@@ -1007,7 +1023,7 @@ If the ultimate goal is to obtain an adjacency labelling scheme, then an even we
 \subsection{Orientable Labelling Schemes}\label{sec:orientable}
 
 In order to establish \cref{main_result_induced_universal_sparse}, which promises sparse universal graphs, we need two additional definitions.
-Let $(\calS,A,I)$ be a weighted mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
+Let $(\calS,A,I)$ be a weak weighted mixed labelling scheme for a graph class $\calG$, where $\calS = ((\mu_\tau,\kappa_\tau):\tau\in\calT_\calG)$.  For each $n\in\N$, the \defin{$n$-universal graph} $U_n$ defined by $(\calS,A)$ is the graph with vertex set
 \[
 V(U_n):=\left\{ \mu_\tau(v): \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; v\in V(G) \right\}
 \]
@@ -1015,25 +1031,25 @@ and edge set
 \[
   E(U_n):=\left\{ \{\mu_\tau(v),\mu_\tau(v')\}: \tau = (G^+,G,\omega)\in\calT_{\calG,\le n},\; vv'\in E(G) \right\}
   \enspace.
-\]
-These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)
+\] 
+These definitions imply that, for each $\tau = (G^+,G,\omega)\in\calT_{\calG,\le n}$, the graph $G$ is isomorphic to the induced subgraph $U_n[\{\mu_\tau(v):v\in V(G)\}]$.  Thus, $U_n$ contains every graph $G\in\calG$ with at most $n$ vertices as an induced subgraph. (In fact, $U_n$ contains every subgraph of every at-most-$n$-vertex graph in $\calG$, even if $\calG$ itself is not closed under taking subgraphs.)  Note that $U_n$ is finite because $(\calS,A,I)$ is a weak weighted $(g_1,g_2,g_3)$ mixed labelling scheme.  In particular, since $\calS$ only labels nice admissible triples $\tau=(G^+,G,\omega)$, the length of any vertex label $\mu_\tau(v)$ is at most $\log\omega(G)+g_1(n)\le \log n+g_1(n)+O(1)$. 
 
-Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
+Since the graph $U_n$ defined above depends only on the vertex labellings in $\calS$ (and not on clique labels or local identifiers), the same definition applies directly to any injective adjacency labelling $\calA:=(\ell_G:G\in\calG)$ of $\calG$ for $A$. In this case, for each $n\in\N$ and each $G\in\calG$ with at most $n$ vertices, the $n$-universal graph $U_n$ defined by $(\calA,A)$ has an induced subgraph $U_n[\{\ell_G(v):v\in V(G)\}]$ that is isomorphic to $G$.  
 
-We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$. A weighted mixed labelling scheme $(\calS,A,I)$ is \defin{$g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable. This definition immediately implies that the $n$-universal graph $U_n$ has at most $|V(U_n)|\cdot g_0(n)$ edges. We say that a graph class $\calG$ \defin{admits a $g_0$-orientable weighted mixed labelling scheme} if such a scheme exists (and similarly for adjacency labelling schemes).
+We say that $(\calS,A)$ (or $(\calA,A)$) is \defin{$g_0$-orientable} if, for each $n\in\N$, the $n$-universal graph $U_n$ defined by $(\calS,A)$ (or $(\calA,A)$) has an orientation in which each vertex has outdegree at most $g_0(n)$. A weak weighted mixed labelling scheme $(\calS,A,I)$ is \defin{$g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable. This definition immediately implies that the $n$-universal graph $U_n$ has at most $|V(U_n)|\cdot g_0(n)$ edges. We say that a graph class $\calG$ \defin{admits a $g_0$-orientable weighted mixed labelling scheme} if such a scheme exists (and similarly for adjacency labelling schemes).
 
 We now present a strengthening of this definition that is a bit harder to digest and whose utility is not immediately obvious. Therefore, we give a formal definition followed by an informal explanation of how this property is used.  
-We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and, for each $n\in\N$, each triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a triple $\tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that 
+We say that $(\calS,A,I)$ is \defin{strongly $g_0$-orientable} if $(\calS,A)$ is $g_0$-orientable and, for each $n\in\N$, each nice triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, each clique $K_0$ in $G_0^+$, and each $u_0\in K_0$, there are at most $g_0(n)$ binary strings $\beta$ for which there exists a triple $\tau:=(G^+,G,\omega)\in\calT_{\calG,\le n}$, a clique $K$ in $G^+$, and a vertex $u\in K$ such that 
 \begin{enumerate}[nosep,nolistsep,label=(\alph*)]
-  \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$, 
-  \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$, 
-  \item $\mu_\tau(u)=\beta$, and
-  \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$. 
+  \item $\mu_\tau(K)=\mu_{\tau_0}(K_0)$; 
+  \item $\kappa_\tau(K,u)=\kappa_{\tau_0}(K_0,u_0)$; and 
+  \item $\mu_\tau(u)=\beta$.
+  % \item $I(\mu_\tau(K),\kappa_\tau(K,u),\mu_\tau(u))=1$. 
 \end{enumerate}
 We say that $\calG$ \defin{admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme} if such a scheme exists.
 
-Less formally: If we fix a triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there are at most $g_0(n)$ strings $\beta\in V(U_n)$ for which there exists a matching triple that certifies $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an adjacency labelling $\mathdefin{\calA'}:=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, the vertex label $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
-By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$, then this choice of orientation will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$.  Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
+Less formally: If we fix a nice triple $\tau_0:=(G_0^+,G_0,\omega_0)\in\calT_{\calG,\le n}$, a clique $K_0$ in $G_0^+$, and a vertex $u_0\in K_0$, then this defines two strings $\zeta:=\mu_{\tau_0}(K_0)$ and $\gamma:=\kappa_{\tau_0}(K_0,u_0)$.  The condition states that there are at most $g_0(n)$ strings $\beta\in V(U_n)$ for which there exists a matching triple that certifies $I(\zeta,\gamma,\beta)=1$.  In our proof of \cref{main_result_induced_universal_sparse}, we will use $\calS$ to build an $f(n)$-bit adjacency labelling $\mathdefin{\calA'}:=(\ell_{G'}:G'\in\calG')$ of a graph class $\calG'$ related to $\calG$ for some adjacency tester $A'$. In some cases, for a graph $G'\in\calG'$ containing an edge $vw$, the vertex label $\ell_{G'}(v)$ will contain the strings $\zeta$ and $\gamma$ and $\ell_{G'}(w)$ will contain the string $\beta$.  (This may occur because $G\in\calG$ is a subgraph of $G'\in\calG'$ and $vw\in E(G)$.)
+By definition, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ contains the edge $e$ with endpoints $\ell_{G'}(v)$ and $\ell_{G'}(w)$. We must choose an orientation of $e$.  Before deducing that $vw\in E(G')$ and outputting $A'(\ell_{G'}(v),\ell_{G'}(w))=1$, the adjacency tester will verify that $I(\zeta,\gamma,\beta)=1$.  This ensures that, if we orient $e$ from $\ell_{G'}(v)$ to $\ell_{G'}(w)$, then this choice of orientation will not contribute more than $g_0(n)\cdot 2^{f(n)-|\beta|}$ to the outdegree of $\ell_{G'}(v)$.  (The expression $2^{f(n)-|\beta|}$ accounts for the fact that $\ell_{G'}(w)$ contains additional bits beyond the bits defined by $\beta$.) Slightly more carefully: for any fixed $\ell_{G'}(v)\in V(U_n')$, this execution path of the adjacency testing algorithm $A'$ will not contribute more than $g_0(n)\cdot 2^{f(n)-|\beta|}$ to the outdegree of $\ell_{G'}(v)$, even when we consider all graphs $G''\in\calG'$ having an edge $v'w'$ such that $\ell_{G''}(v')=\ell_{G'}(v)$.
 
 
 \subsection{Adding Apex Vertices}
