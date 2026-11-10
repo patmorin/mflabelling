@@ -4,8 +4,6 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[inline]{enumitem}
-\usepackage[normalem]{ulem}
-\usepackage{nicefrac}% Cyril
 
 \usepackage{mathtools}  % for \DeclarePairedDelimiter
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
@@ -51,12 +49,10 @@
 \DeclareMathOperator{\height}{height}
 \DeclareMathOperator{\depth}{depth}
 \DeclareMathOperator{\tw}{tw}
-\DeclareMathOperator{\pw}{pw}
 \DeclareMathOperator{\lca}{lca}
 \DeclareMathOperator{\parent}{p}
 \DeclareMathOperator{\lgg}{\hat{lg}}
 \DeclareMathOperator{\bin}{bin}
-\DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\idx}{idx}
 
 %\newcommand{\Oh}{\calO}
@@ -138,7 +134,7 @@ Piotr Micek\footnote{Department of Theoretical Computer Science, Faculty of Math
 
 Let $\calG$ be a graph class (i.e., a set of graphs closed under isomorphism). A graph $U_n$ is \defin{$n$-universal} for $\calG$ if it ``contains'' every $n$-vertex graph in $\calG$.  Here, the word ``contains'' can take on at least two meanings.  A graph $U_n$ is \defin{$n$-subgraph-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some subgraph of $U_n$.  A graph $U_n$ is \defin{$n$-induced-universal} for $\calG$ if every $n$-vertex graph in $\calG$ is isomorphic to some \emph{induced} subgraph of $U_n$.  These two notions of universality have largely been treated as separate concepts evaluated by different quality measures. A notable exception is an early work by \citet{chung:universal} that we discuss below.
 
-Clearly, an $n$-subgraph-universal graph must have at least $n$ vertices, and the complete graph $K_n$ contains every $n$-vertex graph as a subgraph. Thus, for every $n\in\N$, $K_n$ is an $n$-vertex graph that is $n$-subgraph-universal for the set of all graphs. Consequently, research on subgraph-universal graphs has focused on minimizing the number of edges, especially when $\calG$ is a sparse class of graphs, such as trees, planar graphs, or $K_t$-minor-free graphs for some fixed $t$.  This line of research has a long and interesting history, dating back to the work of \citet{chung.graham.ea:on} in 1978.  Notable results include subgraph-universal graphs with $\Oh(n\log n)$ edges for trees and outerplanar graphs \cite{chung.graham.ea:on,chung:universal,kaul.kim.ea:universal}, $\Oh(n)$ edges for bounded-degree trees \cite{bhatt.chung.ea:universal}, $\Oh(kn \log (n/k+1))$ edges for graphs of treewidth at most $k$ \cite{kaul.kim.ea:universal}, and $n^{1+o(1)}$ edges for planar graphs \cite{EJM23}.
+Clearly, an $n$-subgraph-universal graph must have at least $n$ vertices, and the complete graph $K_n$ contains every $n$-vertex graph as a subgraph. Thus, for every positive integer $n$, $K_n$ is an $n$-vertex graph that is $n$-subgraph-universal for the set of all graphs. Consequently, research on subgraph-universal graphs has focused on minimizing the number of edges, especially when $\calG$ is a sparse class of graphs, such as trees, planar graphs, or $K_t$-minor-free graphs for some fixed $t$.  This line of research has a long and interesting history, dating back to the work of \citet{chung.graham.ea:on} in 1978.  Notable results include subgraph-universal graphs with $\Oh(n\log n)$ edges for trees and outerplanar graphs \cite{chung.graham.ea:on,chung:universal,kaul.kim.ea:universal}, $\Oh(n)$ edges for bounded-degree trees \cite{bhatt.chung.ea:universal}, $\Oh(kn \log (n/k+1))$ edges for graphs of treewidth at most $k$ \cite{kaul.kim.ea:universal}, and $n^{1+o(1)}$ edges for planar graphs \cite{EJM23}.
 
 In the induced-universal setting, the vertex-disjoint union of all $n$-vertex graphs in $\calG$ is $n$-induced-universal, but this graph generally has an enormous number of vertices.\footnote{More precisely, let $\calG_n$ be the set of all $n$-vertex graphs in $\calG$. The universal graph is constructed by choosing one representative graph $G$ from each isomorphism class of $\calG_n$, and then taking the vertex-disjoint union of all such graphs.}  Thus, research on induced-universal graphs has focused on finding graphs with as few vertices as possible.  The subject of induced-universal graphs also has a long history, especially in computer science where it appears under the notion of adjacency labelling schemes (discussed below).  Notable results include induced-universal graphs with $\Oh(n)$ vertices for trees \cite{alstrup.dahlgaard.ea:optimal}, $n(\log(n/k))^{\Oh(k)}$ vertices for graphs of treewidth at most $k$ \cite{gavoille.labourel:shorter}, and a series of results leading to induced-universal graphs for planar graphs having $n\cdot\exp(\Oh(\sqrt{\log n}))$ vertices \cite{kannan.naor.ea:implicit,gavoille.labourel:shorter,chung:universal,spinrad:efficient,BGP22,dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler}.
 
@@ -154,9 +150,9 @@ This dichotomy persisted until 2023, when \citet{EJM23} showed that, for the cla
 \subsection{New Results}
 
 As mentioned above, induced-universal graphs are closely related to adjacency labelling schemes.  The results in this paper and the techniques used to obtain them are best described using the language of adjacency labelling schemes, which we now define.
-Let $\calG$ be a class of graphs and let $f:\N^+\to\R^+$ be a function.
+Let $\calG$ be a class of graphs and let $f:\N^+\to\R^+$ be a function (where $\N^+$ and $\R^+$ denote the sets of positive integers and positive real numbers, respectively).
 We say that $\calG$ admits an \defin{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\set{0,1}^*)^2\to\set{0,1}$ (called an \defin{adjacency tester}) such that for all positive integers $n$, for every $n$-vertex graph $G\in\calG$, there exists a function $\ell: V(G)\to\set{0,1}^*$ such that
-$|\ell(v)|\leq f(n)$ for each vertex $v$ in $G$, and such that
+$|\ell(v)|\leq f(n)$ for each vertex $v$ in $G$ (where $|\alpha|$ denotes the length of a binary string $\alpha$), and such that
 for every two vertices $u$, $v$ in $G$,
 \[
   A(\ell(u),\ell(v))=\begin{cases}
@@ -180,7 +176,7 @@ surface, linklessly embeddable graphs, knotlessly embeddable graphs, and, for ev
 
 Note that all the dependence on the fixed proper minor-closed class in~\cref{main_result} is in the $o(\log n)$ term. Furthermore, \cref{main_result} is optimal up to the lower-order term; in our construction, this $o(\log n)$ term is $\Oh\left((\log n)^{3/4}\right)$. The proof of~\cref{main_result} is constructive: for every fixed proper minor-closed class $\calG$, there is a polynomial-time algorithm that takes a graph $G\in\calG$ as input and constructs the labelling $\ell:V(G)\to\{0,1\}^*$. We prove \cref{main_result} by introducing and studying a strengthening of adjacency labelling schemes called (weighted) mixed labelling schemes.
 
-An adjacency labelling scheme for a class of graphs $\calG$ that uses an adjacency tester $A$ can be used to construct an $n$-induced-universal graph for $\calG$ having $\Oh(2^{f(n)})$ vertices, as follows:  We take $U_n$ to be the graph with vertex set $V(U_n):=\{0,1\}^{\le f(n)}$ and edge set $E(U_n):=\{\alpha\beta: \alpha, \beta \in V(U_n),\; \alpha\neq\beta, \text{ and } A(\alpha,\beta)=1\}$.  For any $n$-vertex graph $G\in\calG$, there exists an adjacency labelling $\ell_G:V(G)\to\{0,1\}^{\le f(n)}$ of $G$ for $A$.  Then $U_n[\{\ell_G(v):v\in V(G)\}]$ is an induced subgraph of $U_n$ that is isomorphic to $G$.\footnote{A minor detail is that the labelling $\ell_G$ needs to be injective, for each $G\in\calG$.  This is the case for the adjacency labelling schemes developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between adjacency labelling schemes and induced-universal graphs.} Thus, \cref{main_result} implies the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs.
+An adjacency labelling scheme for a class of graphs $\calG$ that uses an adjacency tester $A$ can be used to construct an $n$-induced-universal graph for $\calG$ having $\Oh(2^{f(n)})$ vertices, as follows:  We take $U_n$ to be the graph with vertex set $V(U_n):=\{0,1\}^{\le f(n)}$ (the set of binary strings of length at most $f(n)$) and edge set $E(U_n):=\{\alpha\beta: \alpha, \beta \in V(U_n),\; \alpha\neq\beta, \text{ and } A(\alpha,\beta)=1\}$.  For any $n$-vertex graph $G\in\calG$, there exists an adjacency labelling $\ell_G:V(G)\to\{0,1\}^{\le f(n)}$ of $G$ for $A$.  Then $U_n[\{\ell_G(v):v\in V(G)\}]$ is an induced subgraph of $U_n$ that is isomorphic to $G$.\footnote{A minor detail is that the labelling $\ell_G$ needs to be injective, for each $G\in\calG$.  This is the case for the adjacency labelling schemes developed in this paper. See~\cite[Section~2.1]{spinrad:efficient} for more details on the connection between adjacency labelling schemes and induced-universal graphs.} Thus, \cref{main_result} implies the existence of induced-universal graphs with a near-linear number of vertices for $n$-vertex graphs belonging to a fixed proper minor-closed class of graphs.
 
 \begin{cor}\label{main_result_induced_universal}
   For every proper minor-closed graph class $\calG$, for every positive integer $n$,
@@ -226,7 +222,7 @@ After these definitions, this section proves a relatively easy result (\cref{add
 
 Next is the main technical core of the paper, \cref{lem:the_big_one}, which establishes that the class $\calG'$ of graphs having tree-decompositions whose torsos come from a graph family $\calG$ that admits an efficient orientable weighted mixed labelling scheme admits an efficient orientable adjacency labelling scheme. Any such class $\calG'$ therefore has $n$-induced-universal graphs with $n^{1+o(1)}$ vertices and edges.  
 
-\item \cref{proof_main_result} combines the ingredients from the previous two sections with an efficient orientable weighted mixed labelling scheme for the class $\calR_k$ of product-structured graphs (\cref{gk_labelling_precise}) in order to prove the main results of the paper, \cref{main_result} and \cref{main_result_induced_universal_sparse}.  Briefly: for any proper minor-closed graph family $\calG$, \cref{gmpst} states that each graph in $\calG$ has a tree-decomposition whose torsos belong to $\calR_k^{+a}$, for some fixed $k$ and $a$.  By \cref{gk_labelling_precise,add_apexes}, $\calR_k^{+a}$ admits an efficient orientable weighted mixed labelling scheme.  By \cref{lem:the_big_one}, $\calG$ admits an efficient orientable adjacency labelling scheme.  The resulting adjacency labelling scheme implies \cref{main_result} and the fact that this scheme is orientable implies \cref{main_result_induced_universal_sparse}.
+\item \cref{proof_main_result} combines the ingredients from the previous two sections with an efficient orientable weighted mixed labelling scheme for the class $\calR_k$ of product-structured graphs (\cref{gk_labelling_precise}) in order to prove the main results of the paper, \cref{main_result,main_result_induced_universal,main_result_induced_universal_sparse}.  Briefly: for any proper minor-closed graph family $\calG$, \cref{gmpst} states that each graph in $\calG$ has a tree-decomposition whose torsos belong to $\calR_k^{+a}$, for some fixed $k$ and $a$.  By \cref{gk_labelling_precise,add_apexes}, $\calR_k^{+a}$ admits an efficient orientable weighted mixed labelling scheme.  By \cref{lem:the_big_one}, $\calG$ admits an efficient orientable adjacency labelling scheme.  The resulting adjacency labelling scheme implies \cref{main_result,main_result_induced_universal} and the fact that this scheme is orientable implies \cref{main_result_induced_universal_sparse}.
 
 \item \cref{weighted_product_proof} establishes \cref{gk_labelling_precise}, the existence of an efficient orientable weighted mixed labelling scheme for $\calR_k$.  In addition to its application in proving \cref{main_result,main_result_induced_universal_sparse}, \cref{gk_labelling_precise} immediately implies \cref{product_version}. This result is left until the appendix because it requires a complete review and simplification of the adjacency labelling scheme in \citet{dujmovic.esperet.ea:adjacency} and its improvement by \citet{gawrychowski.janczewski:simpler}.
 
@@ -445,23 +441,23 @@ At the end of this appendix, we point out that this simplification leads to $n$-
 
 \section{Building blocks}\label{building_blocks}
 
-Let \defin{$\N$} be the set of all nonnegative integers, and let \defin{$\N^+$} be the set of all positive integers.  For $p\in\N^+$, let $\mathdefin{[p]} := \set{1,\dots,p}$. 
+Let \defin{$\N$} be the set of all nonnegative integers, let \defin{$\N^+$} be the set of all positive integers, let \defin{$\R^+$} be the set of all positive real numbers, and let \defin{$\R^{\ge 0}$} be the set of all nonnegative real numbers.  For $p\in\N$, let $\mathdefin{[p]} := \set{1,\dots,p}$ (with $[0]:=\emptyset$).  We denote by \defin{$\set{0,1}^*$} the set of all finite binary strings, by \defin{$|\alpha|$} the length (number of bits) of a binary string $\alpha\in\set{0,1}^*$, by \defin{$\varepsilon$} the empty string (the unique binary string of length $0$), and, for $x\in\R^{\ge 0}$, by \defin{$\set{0,1}^{\le x}$} the set of binary strings of length at most $x$.
 
-In this paper, each graph $G$ we consider is a simple graph with vertex set denoted by $V(G)$ and edge set denoted by $E(G)$. For an edge of $G$ with endpoints $v$ and $w$, we use the shorthand notation $vw$ instead of $\{v,w\}$ for the edge, with occasional exceptions.  For a graph $G$ and a vertex $v$ of $G$, $\mathdefin{N_G(v)}:=\{w\in V(G):vw\in E(G)\}$ is the \defin{(open) neighbourhood} of $v$ in $G$.  For any set $S$, \defin{$G[S]$} is the graph with vertex set $\mathdefin{V(G[S])}:=S\cap V(G)$ and edge set $\mathdefin{E(G[S])}:=\{vw\in E(G):v,w\in S\}$, which we call the subgraph of $G$ \defin{induced} by $V(G)\cap S$.  For any set $S$, $G-S:=G[V(G)\setminus S]$. For any $R\subseteq E(G)$, $G-R$ is the graph with vertex set $V(G)$ and edge set $E(G)\setminus R$. A non-empty subset $K$ of vertices of $G$ is a \defin{clique} in $G$ if $vw\in E(G)$ for each $\{v,w\}\in\binom{K}{2}$.  
+In this paper, each graph $G$ we consider is a simple graph with vertex set denoted by $V(G)$ and edge set denoted by $E(G)$. For an edge of $G$ with endpoints $v$ and $w$, we use the shorthand notation $vw$ instead of $\{v,w\}$ for the edge, with occasional exceptions.  For a graph $G$ and a vertex $v$ of $G$, $\mathdefin{N_G(v)}:=\{w\in V(G):vw\in E(G)\}$ is the \defin{(open) neighbourhood} of $v$ in $G$; for a subset $X\subseteq V(G)$, $\mathdefin{N_G(X)}:=(\bigcup_{v\in X}N_G(v))\setminus X$.  For any set $S$, \defin{$G[S]$} is the graph with vertex set $\mathdefin{V(G[S])}:=S\cap V(G)$ and edge set $\mathdefin{E(G[S])}:=\{vw\in E(G):v,w\in S\}$, which we call the subgraph of $G$ \defin{induced} by $V(G)\cap S$.  For any set $S$, $G-S:=G[V(G)\setminus S]$; for a single vertex $v$, we write $G-v$ as shorthand for $G-\{v\}$. For any $R\subseteq E(G)$, $G-R$ is the graph with vertex set $V(G)$ and edge set $E(G)\setminus R$. A non-empty subset $K$ of vertices of $G$ is a \defin{clique} in $G$ if $vw\in E(G)$ for each $\{v,w\}\in\binom{K}{2}$.  
 
-A \defin{graph class} is a set of graphs closed under isomorphism. A graph class $\calG$ is \defin{hereditary} if, for every $G\in\calG$, every induced subgraph of $G$ is also in $\calG$. A graph class $\calG$ is \defin{monotone} if, for every $G\in\calG$, every subgraph of $G$ is also in $\calG$. For a graph class $\calG$ and a nonnegative integer $a$, define \defin{$\calG^{+a}$} as the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$. Note that if $\calG$ is monotone, then $\calG^{+a}$ is also monotone.
+A \defin{graph class} is a set of graphs closed under isomorphism. A graph class $\calG$ is \defin{monotone} if, for every $G\in\calG$, every subgraph of $G$ is also in $\calG$. For a graph class $\calG$ and a nonnegative integer $a$, define \defin{$\calG^{+a}$} as the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$ (the vertices in $X$ are sometimes called \defin{apex vertices}). Note that if $\calG$ is monotone, then $\calG^{+a}$ is also monotone.
 
 \subsection{Trees and Forests}
 
-For a rooted tree $T$ with root $r\in V(T)$ and a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r$.  A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$, where $T$ is the component of $F$ that contains $x$.
+For a rooted tree $T$, we denote the root of $T$ by \defin{$r(T)$}. For a node $x$ of $T$, define \defin{$P_T(x)$} to be the path in $T$ from $x$ to $r(T)$.  A \defin{forest} $F$ is a graph (possibly disconnected) each of whose components is a tree.  If each component of a forest $F$ is a rooted tree, then $F$ is a \defin{rooted} forest. For a node $x$ in a rooted forest $F$, let $\mathdefin{P_F(x)}:=P_T(x)$, where $T$ is the component of $F$ that contains $x$.
 
 Let $F$ be a rooted forest.  For each $x\in V(F)$, the \defin{$F$-depth} of $x$, denoted \defin{$\depth_F(x)$}, is the number of edges in $P_F(x)$. The \defin{height} of $F$, denoted $\mathdefin{\height(F)}:=\max_{x\in V(F)}\depth_F(x)$, is the maximum $F$-depth of a node in $F$. For each $y\in V(F)$ and each $x\in V(P_F(y))$ (including $y$), the node $x$ is an \defin{$F$-ancestor} of $y$ and $y$ is an \defin{$F$-descendant} of $x$.  For each $x\in V(F)$, \defin{$F_x$} denotes the subtree of $F$ induced by all $F$-descendants of $x$. 
 For each edge $xy$ of $F$, where $x$ is an $F$-ancestor of $y$, we say that $x$ is the \defin{$F$-parent} of $y$, denoted \defin{$\parent_F(y)$}, and $y$ is an \defin{$F$-child} of $x$. 
 We say that a set $S\subseteq V(F)$ is an \defin{$F$-antichain} if there are no distinct $x,y\in S$ such that $x$ is an $F$-ancestor of $y$.  
-(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child, and write $\parent(y)$ for $\parent_F(y)$.) We treat each subgraph $F'\subseteq F$ as a rooted forest in which each component $T$ of $F'$ is rooted at the node of $T$ having minimum $F$-depth.  
+(When there is no danger of ambiguity, we may drop the leading $F$- from $F$-depth, $F$-ancestor, $F$-descendant, $F$-parent, and $F$-child, and write $\parent(y)$ for $\parent_F(y)$.) We treat each subgraph $F'\subseteq F$ as a rooted forest in which each component $T$ of $F'$ is rooted at the node $r(T)$ of $T$ having minimum $F$-depth.  
 % For each $i\in\N^+$, the \defin{$i$-th layer} of $F$ is $\mathdefin{L_i(F)}:=\{x\in V(F):\depth_F(x)=i-1\}$. Thus, $L_1(F)$ is the set of roots of components of $F$.
 
-For a rooted tree $T$ and any non-empty set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth.
+For a rooted tree $T$ and any non-empty set $S\subseteq V(T)$, the \defin{lowest common $T$-ancestor} of $S$, denoted \defin{$\lca_T(S)$}, is the node in $\bigcap_{x\in S} V(P_T(x))$ of maximum $T$-depth (for two nodes $x,y\in V(T)$, we also write $\lca_T(x,y)$ for $\lca_T(\{x,y\})$).
 
 \subsection{Forest-Decompositions and Tree-Decompositions}
 
@@ -536,13 +532,35 @@ for every $x\in S$.
 
 
 
+\subsection{On Multipart Labels}
+\label{multipart}
+
+In many cases, a label (a bitstring) consists of a sequence of parts (also bitstrings) of varying lengths, $s_1,\ldots,s_p$, where each $s_i$ may be empty.  The naive concatenation of $s_1,\ldots,s_p$ has length
+\[
+  \textstyle \sum_{i=1}^p|s_i| \enspace .
+\]
+This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$, it must know the number of parts $p$ and (at least $p-1$ of) the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_p|$ and prepending these to the concatenation. This is most easily done using Elias' $\gamma$-code $\gamma:\N^+\to\{0,1\}^*$ for positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ of length $|\gamma(x)|= 2\lfloor \log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).} In our application, each part $s_i$ may have zero length and $p$ may even be equal to zero, so we encode each $x\in\N$ using $\gamma(x+1)$, which has length $2\floor{\log (x+1)}+1$.
+In this way, we obtain a self-delimiting encoding of $s_1,\ldots,s_p$ as
+\[  \mathdefin{\langle s_1,\ldots,s_p\rangle}:=\gamma(p+1)\circ\gamma(|s_1|+1)\circ\cdots\circ\gamma(|s_p|+1)\circ s_1\circ\cdots\circ s_p \enspace ,
+\]
+where $\circ$ denotes string concatenation (and $\langle\rangle:=\gamma(1)$ when $p=0$). This encoding has length
+\begin{equation}
+  |\langle s_1,\ldots,s_p\rangle| = \textstyle\sum_{i=1}^p|s_i|+\Oh(\lgg p) + \Oh(\sum_{i=1}^p\lgg|s_i|) \enspace , \label{encoding_cost}
+\end{equation}
+where $\mathdefin{\lgg x} := \log\max\{2,x\}$ (so that $\lgg x$ is defined and $\lgg x\ge 1$ for each $x\in\N$).  The bits of $\langle s_1,\ldots,s_p\rangle$ that come from $s_1,\ldots,s_p$ are called the \defin{payload} bits and the remaining bits are called the \defin{bookkeeping} bits of $\langle s_1,\ldots,s_p\rangle$.
+In our setting it will always be the case that $p\in o(\log n)$ and we will use \cref{obs:nice} to ensure that $|s_i|\in \Oh(\log n)$ for each $i\in[p]$.
+Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$ is $\Oh(1 + p\log\log n)$.
+
+In some cases, we include one or more non-negative integers as parts of a multipart label.  When we include $d\in\N$ as part of a label, we include its $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} (so $\bin(0)=\varepsilon$).
+
+
 \subsection{Shannon and Shannon--Fano--Elias Codes}
 
 A rooted tree $T$ is a \defin{binary tree} if each node of $T$ has at most two children among which at most one is the \defin{left child} and at most one is the \defin{right child}.
 A binary tree $T$ is \defin{full} if for every node $x$ of $T$,
 either $x$ has two children or $x$ has no children.
 A full binary tree $T$ is \defin{complete} if all the leaves of $T$ have the same depth in $T$.
-Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children, then all the leaf descendants of the left child of $x$ precede all the leaf descendants of the right child of $x$.
+Let $T$ be a binary tree. There is a natural ordering, called \defin{left-to-right ordering}, of the leaves of $T$, such that for every node $x$, if $x$ has two children, then all the leaf-descendants of the left child of $x$ precede all the leaf-descendants of the right child of $x$.
 
 The following result is a variant of Alphabetic Binary Trees. Similar results (with the constant $3$ replaced by $2$) are well-known and there are several proofs \cite{knuth:art_iii,mehlhorn:nearly,gilbert.moore:variable_length}. We provide a proof of the weaker statement here because it illustrates a simple but powerful technique---\defin{simulating weight by multiplicity}---that we will use again in \cref{weighted_product_proof}.
 
@@ -570,7 +588,7 @@ The following result is a variant of Alphabetic Binary Trees. Similar results (w
   Clearly, (1) and (2) hold.
   Now suppose that $\omega(x)\geq2$.
   Consider the lowest common $Q$-ancestor $y$ of $S_{\omega}(x)$.
-  Thus, $y$ is an internal node of $Q$ and each child of $y$ has leaf-descendant in $S_{\omega}(x)$.
+  Thus, $y$ is an internal node of $Q$ and each child of $y$ has a leaf-descendant in $S_{\omega}(x)$.
   Since $S_{\omega}(x)$ is a set of consecutive leaves in $Q$,
   all leaves of the left child $y'$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are rightmost in $Q_{y'}$ and
   all leaves of the right child $y''$ of $y$ in $Q$ that are in $S_{\omega}(x)$ are leftmost in $Q_{y''}$.
@@ -628,27 +646,6 @@ In coding theory, \cref{shannon_fano_elias_tree} is the basis of the Shannon--Fa
 
   The operation of $F$ is now obvious.  Given the arguments $\rho(x_i)$ and $\langle a,\bin(b),\bin(c)\rangle$, $F$ checks the value of $a\in\{0,1\}$.  If $a=0$, then it removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $01^c$ to obtain $\rho(x_{i-1})$.  If $a=1$, then $F$ removes the suffix of length $b$ from $\rho(x_i)$ and appends the string $10^c$ to obtain $\rho(x_{i+1})$. 
 \end{proof}
-
-\subsection{On Multipart Labels}
-\label{multipart}
-
-In many cases, a label (a bitstring) consists of a sequence of parts (also bitstrings) of varying lengths, $s_1,\ldots,s_p$, where each $s_i$ may be empty.  The naive concatenation of $s_1,\ldots,s_p$ has length
-\[
-  \textstyle \sum_{i=1}^p|s_i| \enspace .
-\]
-This ignores the important issue that, in order for a decoder to extract the individual parts $s_1,\ldots,s_p$, it must know the number of parts $p$ and (at least $p-1$ of) the lengths $|s_1|,\ldots,|s_p|$.  We handle this by encoding the value of $p$ and the lengths $|s_1|,\ldots,|s_p|$ and prepending these to the concatenation. This is most easily done using Elias' $\gamma$-code $\gamma:\N^+\to\{0,1\}^*$ for positive integers, in which each $x\in\N^+$ is encoded by a self-delimiting binary string $\gamma(x)$ of length $|\gamma(x)|= 2\lfloor \log x  \rfloor  + 1$ \cite{elias:universal}.\footnote{For each $x\in\N^+$, $\gamma(x)$ consists of $\lfloor\log x\rfloor$ 0 bits, followed by the binary representation of $x$ (which begins with a $1$ bit and has length $\lfloor\log x\rfloor+1$).} In our application, each part $s_i$ may have zero length and $p$ may even be equal to zero, so we encode each $x\in\N$ using $\gamma(x+1)$, which has length $2\floor{\log (x+1)}+1$.
-In this way, we obtain a self-delimiting encoding of $s_1,\ldots,s_p$ as
-\[  \mathdefin{\langle s_1,\ldots,s_p\rangle}:=\gamma(p+1)\circ\gamma(|s_1|+1)\circ\cdots\circ\gamma(|s_p|+1)\circ s_1\circ\cdots\circ s_p \enspace ,
-\]
-where $\circ$ denotes string concatenation (and $\langle\rangle:=\gamma(1)$ when $p=0$). This encoding has length
-\begin{equation}
-  |\langle s_1,\ldots,s_p\rangle| = \textstyle\sum_{i=1}^p|s_i|+\Oh(\lgg p) + \Oh(\sum_{i=1}^p\lgg|s_i|) \enspace , \label{encoding_cost}
-\end{equation}
-where $\mathdefin{\lgg x} := \log\max\{2,x\}$ (so that $\lgg x$ is defined and $\lgg x\ge 1$ for each $x\in\N$).  The bits of $\langle s_1,\ldots,s_p\rangle$ that come from $s_1,\ldots,s_p$ are called the \defin{payload} bits and the remaining bits are called the \defin{bookkeeping} bits of $\langle s_1,\ldots,s_p\rangle$.
-In our setting it will always be the case that $p\in o(\log n)$ and we will use \cref{obs:nice} to ensure that $|s_i|\in \Oh(\log n)$ for each $i\in[p]$.
-Thus, the number of bookkeeping bits in $\langle s_1,\ldots,s_p\rangle$ is $\Oh(1 + p\log\log n)$.
-
-In some cases, we include one or more non-negative integers as parts of a multipart label.  When we include $d\in\N$ as part of a label, we include its $\ceil{\log(d+1)}$-bit binary representation \defin{$\bin(d)$} (so $\bin(0)=\varepsilon$).
 
 
 
@@ -819,7 +816,7 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   % Since $\omega(\alpha)=\omega(\beta)=0$, we may assume that $S_0\cap\{\alpha,\beta\}=\emptyset$.
   Let $T'$ be the vertex-minimal subtree of $T$ that spans $S_0\cup\{\alpha,\beta\}$.  Let $S_1$ be the set of nodes of $T'$ that have degree at least $3$ in $T'$.  Then $|S_1|\le |S_0\cup\{\alpha,\beta\}|-2\le b-1$.  Let $S:=S_0\cup S_1\cup\{\alpha,\beta\}$, so $|S|\le 2b$.  Let $C_1,\ldots,C_s$ be the connected components of $T-S$.  For each $i\in[s]$, let $N_i:=N_T(V(C_i))$.  Since every branching node of $T'$ belongs to $S_1\subseteq S$, no component $C_i$ can have three or more neighbors in $S$, so $|N_i|\in\{1,2\}$ for each $i\in[s]$.  For each $i\in[s]$, write $N_i:=\{a_i,b_i\}$ (where $a_i=b_i$ if $|N_i|=1$).
 
-  For each $i\in[s]$, let $G_i:=G[\bigcup_{x\in V(C_i)}B_x]$ and let $m_i:=|V(G_i)\setminus (B_{a_i}\cup B_{b_i})|$.  Observe that  $m_i\le\omega(C_i)\le\omega(T)/b$ for each $i\in [s]$. For each $i\in[s]$, let $\{x_i\}=N_T(a_i)\cap V(C_i)$ and  $\{y_i\}:=N_T(b_i)\cap V(C_i)$ so that $x_i$ and $y_i$ are the unique neighbours in $C_i$ of $a_i$ and $b_i$, respectively (possibly $x_i=y_i$). Since $\calT$ is a tree-decomposition,
+  For each $i\in[s]$, let $G_i:=G[\bigcup_{x\in V(C_i)}B_x]$ and let $m_i:=|V(G_i)\setminus (B_{a_i}\cup B_{b_i})|$.  Observe that  $m_i\le\omega(C_i)\le\omega(T)/b$ for each $i\in [s]$. For each $i\in[s]$, let $\{x_i\}:=N_T(a_i)\cap V(C_i)$ and  $\{y_i\}:=N_T(b_i)\cap V(C_i)$ so that $x_i$ and $y_i$ are the unique neighbours in $C_i$ of $a_i$ and $b_i$, respectively (possibly $x_i=y_i$). Since $\calT$ is a tree-decomposition,
     $B_{a_i}\cap V(G_i)=B_{a_i}\cap B_{x_i}$ and $B_{b_i}\cap V(G_i)=B_{b_i}\cap B_{y_i}$.
 
   We construct a tree $Q_0$ as follows: $V(Q_0)$ contains all nodes of $S$.  For each $i\in[s]$ such that $|N_i|=2$, we add a node $v_i$ and edges $a_iv_i$ and $b_iv_i$ to $Q_0$. 
@@ -862,22 +859,21 @@ The following lemma is a standard weighted separator theorem for trees; we inclu
   \end{itemize}
   Thus, for each $x\in S$, $\torso{G}{\calQ,C_x}-B_\beta$ is a subgraph of $\torso{G}{\calT,B_x}-B_\beta$, so $x$ satisfies the second alternative of property~\ref{req:adhesion_torso_0}, since $B_\beta$ is an adhesion of $\calT$.
 
-  For each $x\in V(Q_0\setminus S)$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$.  Then $C_x=C_{v_i}\subseteq (B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})\cup B_\beta$ is contained in the union of at most three adhesions of $\calT$ so $x$ satisfies the first alternative of property~\ref{req:three_adhesions_0}.
+  For each $x\in V(Q_0)\setminus S$, $x=v_i$ for some $i\in[s]$ with $|N_i|=2$.  Then $C_x=C_{v_i}\subseteq (B_{a_i}\cap B_{x_i})\cup (B_{b_i}\cap B_{y_i})\cup B_\beta$ is contained in the union of at most three adhesions of $\calT$ so $x$ satisfies the first alternative of property~\ref{req:three_adhesions_0}.
 
   Lastly, for each $x\in V(Q)\setminus V(Q_0)$, there are two possibilities:
   \begin{itemize}[nosep,nolistsep]
     \item $x=\alpha_i$ for some $i\in[s]$ with $m_i>0$. By \ref{req:adhesion_pairs_0}, $C_{\alpha_i}=B_{\alpha_i}\cup B_{\beta_i}$. Each of $B_{\alpha_i}$ and $B_{\beta_i}$ is an adhesion of $\calT$, so $x$ satisfies the first alternative of property~\ref{req:three_adhesions_0}.
     \item $x$ is a non-root node of $Q_i$ for some $i\in[s]$ with $m_i>0$.  By induction, $x$ satisfies \ref{req:subtree_torso_apex_0} with respect to $G_i$, $\calT_i$, and $\calQ_i$. 
-    By definition, $\torso{G_i}{\calT_i,B_y}=\torso{G}{\calT,B_y}$ for each $y\in V(C_i)$, and every adhesion of $\calT_i$ is an adhesion of $\calT$, and $\torso{G_i}{\calQ_i,C_x}=\torso{G}{\calQ,C_x}$. Therefore, $x$ also satisfies \ref{req:adhesion_torso_0} with respect to $G$, $\calT$, and $\calQ$. \qedhere
+    By definition, $\torso{G_i}{\calT_i,B_y}=\torso{G}{\calT,B_y}$ for each $y\in V(C_i)$, and every adhesion of $\calT_i$ is an adhesion of $\calT$, and $\torso{G_i}{\calQ_i,C_x}=\torso{G}{\calQ,C_x}$. Therefore, $x$ also satisfies \ref{req:subtree_torso_apex_0} with respect to $G$, $\calT$, and $\calQ$. \qedhere
   \end{itemize}
 \end{proof}
 
 
-A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is \defin{tidy} if
+Let $\calF:=(F,(B_x\mid x\in V(F)))$ be a rooted forest decomposition of a graph $G$ and, for each $x\in V(F)$, let $A_x$ denote the parent adhesion of $x$. We say that $\calF$ is \defin{tidy} if
 \begin{enumerate*}[label=(\arabic*)]
-  \item $B_x\neq\emptyset$ for each $x\in V(F)$;  
-  \item $B_y\not\subseteq B_x$ for each $y\in V(F)$ with $x=\parent_F(y)$; and
-  \item $B_z \cap B_y \not\subseteq B_y\cap B_x$ for each $z\in V(F)$ with $y=\parent_F(z)$ and $x=\parent_F(y)$.
+  \item $B_x\setminus A_x\neq\emptyset$ for each $x\in V(F)$; and
+  \item $A_y\setminus A_x\neq\emptyset$ for each non-root $y\in V(F)$ with $x=\parent_F(y)$.
 \end{enumerate*}
 
 \begin{lem}\label{all_singing_all_dancing}
@@ -905,14 +901,14 @@ A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is
   First, we transform $\calT_0$ and $Y_0$ into a tidy rooted forest-decomposition $\calF=(F,(B_x\mid x\in V(F)))$ and $Y_1\subseteq E(F)$ in five steps:
   \begin{enumerate}[nosep,nolistsep,label=(\arabic*)]
     \item Initially, set $F:=T_0$ and $Y_1:=Y_0$.
-    \item Remove every node $x$ of $F$ with $B_x=\emptyset$.
-    \item Remove every edge $xy$ of $F$ with $B_x\cap B_y=\emptyset$.
+    \item Remove every node $x$ of $F$ with $B_x=\emptyset$ (along with any incident edges in $F$ and $Y_1$).
+    \item Remove every edge $xy$ of $F$ (and $Y_1$) with $B_x\cap B_y=\emptyset$.
     \item Repeatedly replace an edge $yz\in E(F)$ with the edge $xz$ if $x$ is the $F$-parent of $y$, $y$ is the $F$-parent of $z$, and $B_z\cap B_y\subseteq B_x$. 
     
     If the edge $yz$ is in $Y_1$, replace $yz$ with $xz$ in $Y_1$.  
     
     If the edge $xy$ is in $Y_1$, add the edge $xz$ to $Y_1$ (and leave $xy$ in $Y_1$).
-    \item Repeatedly remove every leaf $y$ with $B_y\subseteq B_{\parent(y)}$.
+    \item Repeatedly remove every leaf $y$ of $F$ with $B_y\subseteq B_{\parent(y)}$ (along with the edge $\parent(y)y$ from $F$ and $Y_1$). (Note that any non-root node $y$ with $B_y\subseteq B_{\parent(y)}$ has $B_z\cap B_y\subseteq B_y\subseteq B_{\parent(y)}$ for each child $z$ of $y$, so $y$ loses all its children in step~(4) and is removed in step~(5).)
   \end{enumerate} 
   Let $\calF=(F,(B_x\mid x\in V(F)))$ be the resulting tidy forest-decomposition.  (For each $x\in V(F)$, the bag $B_x$ is well-defined since $V(F)\subseteq V(T_0)$.) 
   Note that each torso of $\calF$ is a subgraph of a torso of $\calT_0$.
@@ -921,7 +917,7 @@ A rooted forest-decomposition $\calF:=(F,(B_x\mid x\in V(F)))$ of a graph $G$ is
   
   Let $G$ be the graph obtained by adding an isolated vertex $v_0$ to $G_0$.  Define $C_{x_0}:=\{v_0\}$. For each child $x'$ of $x_0$, define $C_{x'}:=B_{x'}\cup\{v_0\}$.  For each other vertex $x$ in $Q$, define $C_x:=B_x$.  Then $\calQ:=(Q,(C_x\mid x\in V(Q)))$ is a tidy rooted tree-decomposition of $G$ that satisfies \ref{req:root_bag} and \ref{req:subtree_torso_apex}. Moreover, for each root $x'$ of $F$, the adhesion on $x_0x'$ is $C_{x_0}\cap C_{x'}=\{v_0\}$, while for every other edge $xy\in E(Q)$, $C_x\cap C_y = B_x\cap B_y$ is an adhesion of $\calF$ (and hence of $\calT_0$). By \cref{log_b_td}\ref{req:adhesion_width_0}, each adhesion of $\calT_0$ is contained in the union of at most two adhesions of $\calT$. Therefore, $\calQ$ satisfies \ref{req:adhesion_width}.
 
-  Let $A_{x_0}:=\emptyset$ and, for each vertex $x\in V(Q\setminus\{x_0\})$, let $A_x$ be the parent adhesion of $x$ in $\calQ$.  For each $x\in V(Q)$, define $\omega(x):=|C_x\setminus A_x|$.  Since $\calQ$ is tidy, $\omega(x)\ge 1$ for each $x\in V(Q)$, so $\omega:V(Q)\to\N^+$ is a weight function with total weight $\omega(Q)=\sum_{x\in V(Q)}|C_x\setminus A_x|=|V(G)|=n+1$.  Let $Y_3\subseteq E(Q)$ be the set of edges obtained by applying \cref{skinny_edges} to $Q$ with the weight function $\omega$.  Then, for each component $C$ of $Q-Y_3$ and each $x,y\in V(C)$, we have   
+  Let $A_{x_0}:=\emptyset$ and, for each vertex $x\in V(Q)\setminus\{x_0\}$, let $A_x$ be the parent adhesion of $x$ in $\calQ$.  For each $x\in V(Q)$, define $\omega(x):=|C_x\setminus A_x|$.  Since $\calQ$ is tidy, $\omega(x)\ge 1$ for each $x\in V(Q)$, so $\omega:V(Q)\to\N^+$ is a weight function with total weight $\omega(Q)=\sum_{x\in V(Q)}|C_x\setminus A_x|=|V(G)|=n+1$.  Let $Y_3\subseteq E(Q)$ be the set of edges obtained by applying \cref{skinny_edges} to $Q$ with the weight function $\omega$.  Then, for each component $C$ of $Q-Y_3$ and each $x,y\in V(C)$, we have   
   \[
       \textstyle \left|\bigcup_{z\in V(Q_x)}(C_z\setminus A_z)\right|=\omega(Q_x)\le b\cdot\omega(Q_y)=b\left|\bigcup_{z\in V(Q_y)}(C_z\setminus A_z)\right| \enspace .
   \]
@@ -1099,7 +1095,7 @@ The definitions of $U_n$, $g_0$-orientability, and strong $g_0$-orientability al
 The next lemma shows how a mixed labelling scheme can accommodate the addition of apex vertices. Recall that $\calG^{+a}$ is the class of graphs $G$ such that $G-X\in\calG$ for some $X\subseteq V(G)$ with $|X|\leq a$.
 
 \begin{lem}\label{add_apexes}
-  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0:\N\to\R$ is a function, and $g_1,g_2,g_3:\N\to\R$ are non-decreasing functions with $g_1(n),g_3(n)\in \Oh(\log n)$.
+  Let $\calG$ be a class of graphs that admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where $g_0:\N\to\R^{\ge 0}$ is a function, and $g_1,g_2,g_3:\N\to\R^{\ge 0}$ are non-decreasing functions with $g_1(n),g_3(n)\in \Oh(\log n)$.
   Let $a\in\N^+$. Then $\calG^{+a}$ admits a strongly $g_0'$-orientable weighted $(g'_1,g'_2,g'_3)$ mixed labelling scheme, where
   \begin{align*}
     g_0'(n)
@@ -1141,7 +1137,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     \end{split}
   \end{align}
   If $G-X$ is empty, no labelling from $\calS$ is needed; take $\mu^-$ and $\kappa^-$ to have empty domains.
-  Extend the domain of $\mu^-$ to include the vertices in $X$ by defining $\mu^-(v):=\varepsilon$ (the empty string), for each $v\in X$.
+  Extend the domain of $\mu^-$ to include the vertices in $X$ by defining $\mu^-(v):=\varepsilon$ for each $v\in X$.
 
   \paragraph{\boldmath The apex identifier $\sigma(u)$:}
   Fix a linear ordering $u_1,\ldots,u_{b}$ of the vertices in $X$.  By definition, $b\le a$.
@@ -1322,7 +1318,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
   We now define a weight function $\delta:V(G)\to\R^+$ and, for each $x\in V(T)$, we define $\delta(x)=\delta(B_x\setminus A_x)$.  This weight function is designed so that, for any node $x\in V(T)$, $\tfrac{1}{4b}\omega(T_x)\le \delta(x)\le 3k\omega(T_x)$.  In fact, the upper bound will have an even stronger property:  For each component $C$ of $F$, $\delta(C)\le 6k\omega(T_{r(C)})$.  
   
   
-  For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in C_x\mid xy\in Y\}$ and let $\mathdefin{C^+_x}:=C_x\setminus C^-_x$.  For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C^-_K}:=C_K\cap C^-_x$ and let $\mathdefin{C^+_K}:=C_K\cap C^+_x$. For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in C_x\mid v\in A_y\}$, let $\mathdefin{C^-_v}:=C_v\cap C^-_x$ and let $\mathdefin{C^+_v}:=C_v\cap C^+_x$.  
+  For each $x\in V(T)$, let $\mathdefin{C^-_x}:=\{y\in C_x\mid xy\in Y\}$ and let $\mathdefin{C^+_x}:=C_x\setminus C^-_x$.  For each $x\in V(T)$ and each clique $K$ in $\torso{G}{\calT,B_x}-A_x$, let $\mathdefin{C^-_K}:=C_K\cap C^-_x$. For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, let $\mathdefin{C_v}:=\{y\in C_x\mid v\in A_y\}$, let $\mathdefin{C^-_v}:=C_v\cap C^-_x$ and let $\mathdefin{C^+_v}:=C_v\cap C^+_x$.  
   
   For each $x\in V(T)$ and each $v\in B_x\setminus A_x$, define 
   \[
@@ -1549,7 +1545,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
     & \le 3k\cdot(h_3(n) + h_2(n) + \Oh(\log b+\log\log n) ) \enspace ,
     & \text{(by property~\ref{td_width} of $\calT$)}
   \end{align*}
-  and 
+  and, by \cref{id_x_bound,mu_x_v_upper_bound} and since $\delta(v)\ge\omega(v)$,
   \begin{align*}
     |\ell(v)| & \le |\id(x)| + |\mu_x(v)| + |\alpha(v)| + \Oh(\log\log n) \\
      & \le \log \omega(G) - \log \omega(v) + h_1(n) + \Oh((h_3(n)+\log\log n)\log_b n) + |\alpha(v)| \\
@@ -1589,14 +1585,14 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
   \paragraph{\boldmath $g'_0$-orientability:}
 
-  All that remains is to argue that the adjacency labelling scheme we have just described is $g_0'$-orientable.  For each $G_0\in\calG'$, let $\ell_{G_0}:V(G_0)\to\{0,1\}^*$ be the adjacency labelling of $G_0$ for $A'$ defined above (by restricting $\ell$ to $V(G_0)=V(G)\setminus\{v_0\}$). Let $\calA':=(\ell_{G_0}: G_0\in\calG')$.  We must show that, for each $n\in\N^+$, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ has an orientation in which each vertex has out-degree at most $g'_0(n)$.
+  All that remains is to argue that the adjacency labelling scheme we have just described is $g_0'$-orientable.  For each $G_0\in\calG'$, let $\ell_{G_0}:V(G_0)\to\{0,1\}^*$ be the adjacency labelling of $G_0$ for $A'$ defined above (by restricting $\ell$ to $V(G_0)=V(G)\setminus\{v_0\}$). Let $\calA':=(\ell_{G_0}: G_0\in\calG')$.  We must show that, for each $n\in\N^+$, the $n$-universal graph $U'_n$ defined by $(\calA',A')$ has an orientation in which each vertex has outdegree at most $g'_0(n)$.
 
   For each $n\in\N^+$ and each edge $\beta\beta'$ in $U'_n$ there exists
   a graph $G_0\in\calG'$ with at most $n$ vertices and an edge $vv'\in E(G_0)$ such that $\beta=\ell_{G_0}(v)$ and $\beta'=\ell_{G_0}(v')$. Let $\ell:=\ell_G$ where $G$ is the graph obtained from $G_0$ as above.  We now explain how to choose the orientation of the edge $\beta\beta'$ by examining the operation of the adjacency tester on the input pair $(\ell_{G_0}(v),\ell_{G_0}(v'))$.\footnote{Although this doesn't happen, it would not matter if the orientation of $\beta\beta'$ depended on the choice of $G_0$, since we will argue that the number of edges oriented away from a fixed $\beta$ by each branch of the adjacency testing algorithm is at most $g_0'(n)$.} Let $\calT:=(T,(B_x\mid x\in V(T)))$ be the tree-decomposition of $G$ used to define $\ell_G$ and let $((\mu_x,\kappa_x)\mid x\in V(T))$, $Y\subseteq E(T)$ and $F=T-Y$ be defined as above.  Let $x$ be the home node of $v$ in $\calT$, let $x'$ be the home node of $v'$ in $\calT$, let $C$ be the component of $F$ that contains $x$ and let $C'$ be the component of $F$ that contains $x'$.  By the definition of the adjacency tester $A'$, exactly one of the following cases applies:
   \begin{enumerate}\setcounter{enumi}{-1}
-    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\widehat\delta_x)$ belongs to $\calT'_{\calG^{+3k},\le n}$: its graph has $m_x\le n$ vertices and its positive integer weights sum to less than $2m_x\le 2n$. Since $vv'\in E(G[B_x]-A_x)$, this triple witnesses that $\mu_x(v)\mu_x(v')$ is an edge of the universal graph $U_n$ for $(\calS,A)$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of out-degree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U'_n$ towards $\beta'$.
+    \item $\id(x)=\id(x')$. In this case $x=x'$ since $\id:V(T)\to\{0,1\}^*$ is injective.  Thus, $v,v'\in B_x\setminus A_x$.  Then $1=A'(\ell(v),\ell(v'))=A(\mu_x(v),\mu_x(v'))$.    The triple $\tau_x=(\torso{G}{\calT,B_x}-A_x,G[B_x]-A_x,\widehat\delta_x)$ belongs to $\calT'_{\calG^{+3k},\le n}$: its graph has $m_x\le n$ vertices and its positive integer weights sum to less than $2m_x\le 2n$. Since $vv'\in E(G[B_x]-A_x)$, this triple witnesses that $\mu_x(v)\mu_x(v')$ is an edge of the universal graph $U_n$ for $(\calS,A)$.  Since the mixed labelling scheme for $(A,I)$ is $h_0$-orientable, there is an orientation of $U_{n}$ of outdegree at most $h_0(n)$.  Without loss of generality, suppose that this orientation orients the edge $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$.  In this case, we orient the edge $\beta\beta'$ of $U'_n$ towards $\beta'$.
     
-    We now bound the maximum contribution to the out-degree of $\beta$ from this case. When $\id(x)=\id(x')$ and $U_n$ orients $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$, the number of possible values for $\mu_{x'}(v')$ is at most $h_0(n)$.   Since $|\alpha(v')|\in \Oh(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
+    We now bound the maximum contribution to the outdegree of $\beta$ from this case. When $\id(x)=\id(x')$ and $U_n$ orients $\mu_x(v)\mu_x(v')$ towards $\mu_x(v')$, the number of possible values for $\mu_{x'}(v')$ is at most $h_0(n)$.   Since $|\alpha(v')|\in \Oh(k(h_3(n)+h_2(n)+\log b+\log\log n))$, the number of possible values for $\alpha(v')$ is at most  $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.
     
     \item $\id(x)\neq\id(x')$.  In this case, $x\neq x'$.  Since $vv'\in E(G)$, one of $x$ or $x'$ is a $T$-ancestor of the other.  We orient the edge $\beta\beta'$ towards the endpoint whose home node is an ancestor of the other's home node; that is, if $x'$ is a $T$-ancestor of $x$, we orient the edge $\beta\beta'$ towards $\beta'$. Consequently, an edge is oriented away from $\beta$ towards $\beta'$ only when the home node $x'$ of $\beta'$ is an ancestor of $x$.  Since $x'$ is a $T$-ancestor of $x$, $\id(C')$ is a prefix of $\id(C)$ and is completely determined by $\id(C)$ and $\idx(C')$.  Furthermore, $\idx(C')$ is contained in $\alpha(v,v')$, which is one of the at most $3k$ entries in $\alpha(v)$.  Thus, there are at most $3k$ choices for $\id(C')$.  Then $\id(x')$ is obtained by appending $\rho_{C'}(x')$ to $\id(C')$. Since $|\rho_{C'}(x')|\le 2\log b + \Oh(\log\log n)$, there are at most $\Oh(b^2\log n)$ choices for $\rho_{C'}(x')$.  Thus, there are at most $\Oh(k b^2\log n)$ choices for $\id(x')$. 
     
@@ -1611,7 +1607,7 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 
     Summarizing, there are at most $\Oh(k b^2\log n)\le\exp(\Oh(\log b+\log\log n))$ choices for $\id(x')$.  There are at most $h_0(n) = (2g_0(n)+3k)2^{3k} \le g_0(n) \exp(\Oh(k))$ choices for $\mu_{x'}(v')$.  There are at most $\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$ choices for $\alpha(v')$.  Thus, the number of edges of $U'_n$ incident to $\beta$ that are oriented away from $\beta$ by this branch of the adjacency testing procedure is at most $h_0(n)\cdot \exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$. 
   \end{enumerate}
-  Thus, $U'_n$ has an orientation of out-degree at most $g'_0(n)\le g_0(n)\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  
+  Thus, $U'_n$ has an orientation of outdegree at most $g'_0(n)\le g_0(n)\exp(\Oh(k(h_3(n)+h_2(n)+\log b+\log\log n)))$.  
 \end{proof}  
 
 
@@ -2495,10 +2491,10 @@ The next lemma shows how a mixed labelling scheme can accommodate the addition o
 %   Therefore, all the torsos of $\calQ$ are in the class $\calB$ and therefore $G$ is in the class $\calC$.  This completes the proof of the lemma.
 % \end{proof}
 
-\section{Proof of \texorpdfstring{\cref{main_result,main_result_induced_universal_sparse,product_version}}{Theorems \ref*{main_result}, \ref*{main_result_induced_universal_sparse}, and \ref*{product_version}} with Explicit Bounds}
+\section{Proof of \texorpdfstring{\cref{main_result,main_result_induced_universal,main_result_induced_universal_sparse,product_version}}{Theorems \ref*{main_result}, \ref*{main_result_induced_universal_sparse}, and \ref*{product_version}, and Corollary \ref*{main_result_induced_universal}} with Explicit Bounds}
 \label{proof_main_result}
 
-We now prove our main results, \cref{main_result,main_result_induced_universal_sparse}, with explicit lower order terms.  We rely on the following lemma, which we prove in \cref{weighted_product_proof}.
+We now prove our main results, \cref{main_result,main_result_induced_universal,main_result_induced_universal_sparse,product_version}, with explicit lower order terms.  We rely on the following lemma, which we prove in \cref{weighted_product_proof}.
 \begin{lem}\label{gk_labelling_precise}
   For any fixed integer $k\ge 0$, the graph class $\calR_{k}$ admits a strongly $g_0$-orientable weighted $(g_1,g_2,g_3)$ mixed labelling scheme, where
   \begin{align*}
@@ -2537,7 +2533,7 @@ Together with \cref{sec:orientable}, \cref{main_result_detailed} immediately yie
 \begin{proof}[Proof of \cref{main_result,main_result_induced_universal,main_result_induced_universal_sparse}]
   Let $\calC$ be a proper minor-closed graph class. By \cref{main_result_detailed}, $\calC$ admits an $f(n)$-bit adjacency labelling scheme with $f(n)=\log n + \Oh((\log n)^{3/4}) = (1+o(1))\log n$. This proves \cref{main_result}.
 
-  Furthermore, this scheme is $g_0'(n)$-orientable with $g_0'(n) \le \exp(\Oh((\log n)^{3/4})) = n^{o(1)}$. For each $n\in\N^+$, the $n$-universal graph $U_n$ defined by this scheme has $|V(U_n)| \le 2^{f(n)+1} = n\cdot 2^{\Oh((\log n)^{3/4})} = n^{1+o(1)}$ vertices. By orientability, $U_n$ has an orientation with maximum out-degree at most $g_0'(n)$, so $|E(U_n)| \le |V(U_n)|\cdot g_0'(n) \le n^{1+o(1)}\cdot n^{o(1)} = n^{1+o(1)}$ edges. Since every $n$-vertex graph in $\calC$ is isomorphic to an induced subgraph of $U_n$, this completes the proof of \cref{main_result_induced_universal,main_result_induced_universal_sparse}.
+  Furthermore, this scheme is $g_0'(n)$-orientable with $g_0'(n) \le \exp(\Oh((\log n)^{3/4})) = n^{o(1)}$. For each $n\in\N^+$, the $n$-universal graph $U_n$ defined by this scheme has $|V(U_n)| \le 2^{f(n)+1} = n\cdot 2^{\Oh((\log n)^{3/4})} = n^{1+o(1)}$ vertices. By orientability, $U_n$ has an orientation with maximum outdegree at most $g_0'(n)$, so $|E(U_n)| \le |V(U_n)|\cdot g_0'(n) \le n^{1+o(1)}\cdot n^{o(1)} = n^{1+o(1)}$ edges. Since every $n$-vertex graph in $\calC$ is isomorphic to an induced subgraph of $U_n$, this completes the proof of \cref{main_result_induced_universal,main_result_induced_universal_sparse}.
 \end{proof}
 
 \begin{proof}[Proof of \cref{product_version}]
@@ -2546,8 +2542,6 @@ Together with \cref{sec:orientable}, \cref{main_result_detailed} immediately yie
 
 \section{Discussion}\label{conclusion}
 
-% \pat{This needs to be rewritten}
-% \pat{Actually, fuck it, who needs a conclusion?}
 We conclude with a brief discussion about constants, computational complexity, and extensions beyond minor-closed classes.  The constant $a$ in \cref{gmpst} is surprisingly small. Suppose that some graph $X$ is not in $\calG$, where $X-A$ is planar for some non-empty set $A\subseteq V(X)$. Then Theorem~42 in \citep{dujmovic.joret.ea:planar} (which employs the structure theorem of \citet{DvoTho}) shows that \cref{gmpst} holds with $a=|A|-1$. For example, if $K_t$ is not in $\calG$, then \cref{gmpst} holds with $a=\max\{t-5,0\}$. Moreover, using the recent polynomial bounds in the Graph Minor Structure Theorem by \citet{gorsky2025polynomial}, in \cref{gmpst} one can obtain polynomial bounds on $k$ and $a$ (as a function of the excluded minor). However, it is open whether one can simultaneously get the above optimal bound on $a$ and a polynomial bound on $k$. \citet[Conjecture~18.9]{gorsky2025polynomial} conjecture this is possible (also see the discussion in \citep{GSW26}).
 
 We now explain why the proof of \cref{main_result} is constructive and yields a polynomial-time labelling algorithm.  The only difficult part of this process is finding the decomposition described by the Graph Minor Product Structure Theorem (\cref{gmpst}).  \citet{dujmovic.joret.ea:planar} show how to obtain this decomposition in polynomial time, given the structural decomposition in the original Robertson--Seymour Graph Minor Structure Theorem. Finding the Robertson--Seymour decomposition is complicated, but polynomial-time algorithms exist \cite{kawarabayashi2018flat,kawarabayashi2020new,gorsky2025polynomial,demaine2005algorithmic}.  Together, these give the parameters $k$ and $a$, the tree-decomposition $\calT_0$ of $G_0$, and the embedding of each torso of $\calT_0$ into a graph in $\calR_k^{+a}$. The adjacency labelling scheme in \cite{dujmovic.esperet.ea:adjacency} and its modification to weighted mixed labellings in \cref{weighted_product_proof,add_apexes} are easily implemented in polynomial time directly from their definitions.  The transformation of $\calT_0$ into the tidy rooted tree-decomposition $\calT=(T,(B_x\mid x\in V(T)))$ and edge set $Y\subseteq E(T)$ in \cref{all_singing_all_dancing} (via \cref{skinny_edges,bag_separator,log_b_td}) also runs in polynomial time.  Finally, the construction in \cref{lem:the_big_one} requires only computing the weight function $\delta$, alphabetic prefix-free codes (\cref{shannon_fano_elias_tree,shannon_fano_elias_code}), and weighted mixed labellings on the modified torsos $\torso{G}{\calT,B_x}-A_x\in\calR_k^{+a+3k'}$, and then assembling each vertex label $\ell(v)=\langle\id(x),\mu_x(v),\alpha(v)\rangle$ from the root-to-$x$ path in $T$.
@@ -2579,7 +2573,7 @@ Every line of \LaTeX\ in this paper was written by the authors. One of the autho
 
 In this appendix, we modify the labelling scheme of \citet{dujmovic.esperet.ea:adjacency} and its improvements by \citet{gawrychowski.janczewski:simpler} in order to show the existence of a strongly $g_0$-orientable efficient weighted mixed labelling scheme for $\calR_k$ mentioned in \cref{weighted_mixed_section}.  In addition to mixing results from \cite{dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler}, we obtain a further simplification using logarithmic height tree-decompositions (see \cref{low_height_tree_decomp}, below).  This not only simplifies the labelling schemes from \cite{dujmovic.esperet.ea:adjacency,gawrychowski.janczewski:simpler}, but also produces a sparse induced-universal graph without requiring any of the additional machinery used by \citet{EJM23}.  
 
-Variants of the following result appear in several contexts, with different bounds for the width of the tree-decomposition and the height of the tree $T$. For example, \citet{bodlaender.hagerup:parallel} use a similar result in the context of parallel algorithms and \citet{jain.tewari:space} use a similar result in the context of space-efficient algorithms. The result cited here is due to \citet{chatterjee.ibsen-jensen.ea:optimal}. 
+A rooted tree-decomposition $(T,(B_x\mid x\in V(T)))$ is a \defin{binary tree-decomposition} if $T$ is a binary tree. Variants of the following result appear in several contexts, with different bounds for the width of the tree-decomposition and the height of the tree $T$. For example, \citet{bodlaender.hagerup:parallel} use a similar result in the context of parallel algorithms and \citet{jain.tewari:space} use a similar result in the context of space-efficient algorithms. The result cited here is due to \citet{chatterjee.ibsen-jensen.ea:optimal}. 
 
 % \vida{Let's not forget to see if this gives a induced universal graph for trees with $O(n \log n)$ edges which is optimal even for subgraph universal graphs (and a similar result with $\log^t n$ term in case of treewidth-$t$ graphs).  $\log^{O(t^2)} n$ result follows from EMJ proof and it does not give  $O(n \log n)$ for trees but rather $O(n polylog n)$ }
 
@@ -2603,7 +2597,7 @@ Variants of the following result appear in several contexts, with different boun
   Since $\calR_0\subseteq\calR_1$, we may assume without loss of generality that $k\ge 1$; we may also assume that $n\ge 2$, since for $n=1$ the bounds hold trivially.
   As usual, we first describe the format of the labels before describing the operation of the adjacency tester $A$. Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$ and let $n=|V(G)|$. (For now we assume $\omega(v)=1$ for all $v\in V(G)$.) Thus, $G^+$ and $G$ are subgraphs of $H\boxtimes P$, where $H$ is a graph of treewidth at most $k$ and $P$ is a path. Without loss of generality, assume that $P=(1,2,\dots,h)$, with $h\le n$.  Each vertex of $G$ is a pair $(v,i)$ with an \defin{$H$-coordinate} $v\in V(H)$ and a \defin{$P$-coordinate} $i\in V(P)$. We may assume, without loss of generality, that $G$ contains at least one vertex with $P$-coordinate $i$ for each $i\in[h]$ (and therefore $h\le n$) and that each vertex of $H$ appears as the $H$-coordinate of at least one vertex of $G$ (and therefore $|V(H)|\le n$). The label of each vertex $(v,i)$ of $G$ has two parts. The first part, $\lambda_1(v,i)$, is determined by the $P$-coordinate, $i$. The second part, $\lambda_2(v,i)$, is obtained from a labelling of $H[V_i]$ (where $V_i$ is defined below), so it represents the $H$-coordinate, $v$.
 
-  By \cref{low_height_tree_decomp}, $H$ has a rooted binary tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\in \Oh(\log n)$.   For each $x\in V(T)$, add edges to $H$ so that $B_x$ becomes a clique. (Note that for any clique $K$ in $G^+$, its projection onto $V(H)$ is a clique in the original treewidth-$k$ graph $H$ before adding these edges, and therefore has size at most $k+1$.)  Order the vertices of $H$ such that $v<w$ if the home of $v$ in $\calT$ is a strict $T$-ancestor of the home of $w$ in $\calT$. (If $v$ and $w$ have the same home node, resolve their order arbitrarily.) For each $w\in V(H)$, let $N^+_H(w)=\{v\in N_H(w)\mid v < w\}$.  Then $|N^+_H(w)|\le 6k+5$ since $v\in N^+_H(w)$ implies that $v\in B_x\setminus\{w\}$ where $x$ is the home of $w$ in $\calT$.  Note that, for each clique $K$ in $H$, $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$. 
+  By \cref{low_height_tree_decomp}, $H$ has a rooted binary tree-decomposition $\calT:=(T,(B_x\mid x\in V(T)))$ of width at most $6k+5$ in which $\height(T)\in \Oh(\log n)$.   For each $x\in V(T)$, add edges to $H$ so that $B_x$ becomes a clique. (Note that for any clique $K$ in $G^+$, its projection onto $V(H)$ is a clique in the original treewidth-$k$ graph $H$ before adding these edges, and therefore has size at most $k+1$.)  Define a strict partial order $<$ on $V(H)$ such that $v<w$ if the home of $v$ in $\calT$ is a strict $T$-ancestor of the home of $w$ in $\calT$ (resolving ties arbitrarily for vertices with the same home node). For each $w\in V(H)$, let $N^+_H(w)=\{v\in N_H(w)\mid v < w\}$.  Then $|N^+_H(w)|\le 6k+5$ since $v\in N^+_H(w)$ implies that $v\in B_x\setminus\{w\}$ where $x$ is the home of $w$ in $\calT$.  Note that, for each clique $K$ in $H$, $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$. 
 
   \paragraph{\boldmath Mapping $V(H)$ onto intervals:}
   The first step in \cite{dujmovic.esperet.ea:adjacency} is an idea used (at least implicitly) by \citet{gavoille.labourel:shorter} in their labelling scheme for bounded-treewidth graphs.  Here we refine this idea using \cref{low_height_tree_decomp}.
@@ -2614,29 +2608,29 @@ Variants of the following result appear in several contexts, with different boun
     \item\label{thin} For each $p\in \R$, $|\{v\in V(H):p\in f(v)\}|\le ck\log n$. 
   \end{enumerate}
 
-  The existence of such a mapping $f$ is easily established by a recursive procedure that takes a node $x$ of $T$ and an interval $[a,b]$ where $a$ and $b$ are integers with $b-a+1=2|\bigcup_{y\in V(T_x)} (B_y\setminus A_y)|$. Let $v_1,\ldots,v_r$ be the vertices in $B_x\setminus A_x$ ordered so that $v_1< \cdots< v_r$.  Then $f(v_i)=[a+i-1,b-i+1]$ for each $i\in\{1,\ldots,r\}$.  If $x$ has a left child $x_1$ then let $n_1:=|\bigcup_{y\in V(T_{x_1})} (B_y\setminus A_y)|$. If $x$ has no left child, then $n_1:=0$.  The procedure is then applied recursively on the left child $x_1$ of $x$ (if any) with the interval $[a+r,m]$ and the procedure is then applied recursively to the right child $x_2$ of $x$ (if any) with the interval $[m+1,b-r]$, where $m:=a+r+2n_1-1$.  Initially, the procedure is called with $[a,b]=[1,2|V(H)|]$ and $x$ as the root of $T$.
+  The existence of such a mapping $f$ is easily established by a recursive procedure that takes a node $x$ of $T$ and an interval $[a,b]$ where $a$ and $b$ are integers with $b-a+1=2|\bigcup_{y\in V(T_x)} (B_y\setminus A_y)|$, where $A_y$ denotes the parent adhesion of $y$ in $\calT$. Let $v_1,\ldots,v_r$ be the vertices in $B_x\setminus A_x$ ordered so that $v_1< \cdots< v_r$.  Then $f(v_i)=[a+i-1,b-i+1]$ for each $i\in\{1,\ldots,r\}$.  If $x$ has a left child $x_1$ then let $n_1:=|\bigcup_{y\in V(T_{x_1})} (B_y\setminus A_y)|$. If $x$ has no left child, then $n_1:=0$.  The procedure is then applied recursively on the left child $x_1$ of $x$ (if any) with the interval $[a+r,m]$ and the procedure is then applied recursively to the right child $x_2$ of $x$ (if any) with the interval $[m+1,b-r]$, where $m:=a+r+2n_1-1$.  Initially, the procedure is called with $[a,b]=[1,2|V(H)|]$ and $x$ as the root of $T$.
 
   Let $G_f$ be the interval intersection graph with vertex-set $V(G_f):=V(H)$ and edge-set $E(G_f):=\{vw\in\binom{V(H)}{2}:f(v)\cap f(w)\neq\emptyset\}$.
   Property~\ref{intersection_subgraph} implies that $H$ is a subgraph of $G_f$. Property~\ref{thin} implies that $G_f$ has no clique larger than $ck\log n$, for some fixed constant $c$.
   The graph $G_f$ has a proper colouring $\mathdefin{\varphi}:V(H)\to[\lfloor ck\log n\rfloor]$ \cite{gilmore.hoffman:characterization}.
   The label for each vertex $(v,i)$ of $G$ will include the $\Oh(\log (k\log n))$-bit integer $\varphi(v)$.
 
-  \paragraph{\boldmath Mapping $V(H)$ onto points:}
-  For each vertex $v$ of $H$, let $x_f(v)$ be the right endpoint of the interval $f(v)$. Property~\ref{nested_or_disjoint} then implies:
+  Since every clique $K$ in $H$ satisfies $K\subseteq N^+_H(w)\cup\{w\}$ for some $w\in K$, Property~\ref{intersection_subgraph} implies:
   \begin{enumerate}[nosep,label=(I\arabic*)]\setcounter{enumi}{3}
     \item\label{clique_property} Let $K$ be a clique in $H$.  Then there exists $w\in K$ such that $K\setminus\{w\}\subseteq N^+_H(w)$ and $f(w)\subset f(v)$ for each $v\in K\setminus\{w\}$.  
   \end{enumerate}
   Property \ref{clique_property} is a crucial difference between the scheme we describe here and the labelling schemes of \citet{dujmovic.esperet.ea:adjacency} and that of \citet{gavoille.labourel:shorter} on which it is based.  In essence, it ensures that the ancestor-descendant relationships in $T$ are consistent with containment relationships in the interval representation.  This simultaneously simplifies the labelling scheme and makes it $g_0$-orientable without requiring additional tricks used by \citet{EJM23}.\footnote{Specifically, Property~\ref{clique_property} completely eliminates the need for the extended signature $\sigma^+(v,i)$ of a vertex $(v,i)$ of $G$.  This allows for a number of simplifications.  Furthermore, the difference in length between $\sigma^+(v,i)$ and the signature $\sigma(v,i)$ is the main reason that the adjacency labelling scheme in \cite{dujmovic.esperet.ea:adjacency} is not $n^{o(1)}$-orientable, so this modification almost immediately yields a universal graph with $n^{1+o(1)}$ edges.}
   
 
-  \paragraph{\boldmath Treating $G$ as a sequence of graphs:}
+  \paragraph{\boldmath Treating $G$ as a sequence of graphs and mapping $V(H)$ onto points:}
   The next idea in \cite{dujmovic.esperet.ea:adjacency} is to treat $V(G)$ as a sequence of vertex subsets of $H$.
   For each $i\in[h]$, let $V_i:=\{v\in V(H): \{(v,i-1),(v,i),(v,i+1)\}\cap V(G)\neq\emptyset \}$.    Each vertex $(v,i)$ of $G$ contributes a vertex to at most three sets $V_{i-1}$, $V_{i}$ and $V_{i+1}$, so $\sum_{i=1}^h |V_i|\le 3n$.  For each vertex $(v,i)$ of $G$, define the set $\mathdefin{X_{v,i}}:= \{v\}\cup (V_i\cap N^+_H(v))$.  In our labelling scheme, the label of $(v,i)$ will include enough information to identify the vertices in $N_G((v,i))\cap (X_{v,i}\times\{i-1,i,i+1\})$.  The following property shows that this is sufficient to cover every edge of $G$:
-  \begin{enumerate}[label=(P\arabic*),nosep,nolistsep]
+  \begin{enumerate}[label=(Q\arabic*),nosep,nolistsep]
     \item \label{obs:x_v_i_sufficient}
       For each edge $(v,i)(w,j)$ of $G$ with $w\in N^+_H(v)$, we have that $w\in X_{v,i}$.
   \end{enumerate}
 
+  For each vertex $v$ of $H$, let \defin{$x_f(v)$} be the right endpoint of the interval $f(v)$.
   Let $S_0:=S_{h+1}:=\emptyset$ and,
   for each $i\in[h]$, let $\mathdefin{S_i}:=\{x_f(v):v\in V_i\cup V_{i-1}\}$.
   Note that $S_i$ is a set of integers, for each $i\in[h]$.
@@ -2648,7 +2642,7 @@ Variants of the following result appear in several contexts, with different boun
     % \item\label{plus_ratio} there is a constant $c>0$ such that
           % $1/c\le |S^+_i|/|S^+_{i+1}|\le c$, for each $i\in[h-1]$;
     \item\label{plus_chunking_down} for each $i\in\{1,\ldots,h-1\}$, for each $t\in[q]$, and for each set of $t$ consecutive elements of  $S^+_i$, at least $t-1$ of these elements are in $S^+_{i+1}$; and 
-    % \item\label{plus_chunking_up} for each $i\in\{2,\ldots,h\}$, for each $t\in[q]$, and for each set of $t$ consecutive elements of $S^+_i$, at least $t-1$ of these elements are in $S^+_{i-1}$.     
+    \item\label{plus_chunking_up} for each $i\in\{2,\ldots,h\}$, for each $t\in[q]$, and for each set of $t$ consecutive elements of $S^+_i$, at least $t-1$ of these elements are in $S^+_{i-1}$.     
   \end{enumerate}
   We remark that the contents of the sets $S^+_1,\ldots,S^+_h$ are entirely determined by the contents of the sets $S_1,\ldots,S_h$.
   (Formally, the sequence $S^+_1,\ldots,S^+_h$ is the result of applying a function $Q:(2^\R)^*\to (2^\R)^*$ whose input is a sequence of finite sets of real numbers and whose output is a sequence of finite sets of real numbers. The function $Q$ is universal; it does not depend on $H$, $P$, or $G$.)
@@ -2683,7 +2677,7 @@ Variants of the following result appear in several contexts, with different boun
   
 
   We use a sequence of weight-balanced B-trees, $B_1,\ldots,B_h$, where the leaves of $B_i$ store the values in $S^+_i$.  The implementation details of these B-trees are not important here. What is important is that the transformation from $B_i$ to $B_{i+1}$ is performed by a rebalancing operation that is applied only to nodes of depth $d_i$.  Rebalancing a node $x$ of depth $d_i$ involves replacing the children $y_1,\ldots,y_p$ of $x$ with children $y_1',\ldots,y_m'$ and redistributing the set of children of $y_1,\ldots,y_p$ so that they become children of $y_1',\ldots,y'_m$.  Therefore, the set of grandchildren of $x$ in $B_i$ is the same as the set of grandchildren of $x$ in $B_{i+1}$ (but the path in $B_i$ from $x$ to a grandchild $z$ is different from the path in $B_{i+1}$ from $x$ to $z$).  This has the following important consequence:
-  \begin{enumerate}[nosep,label=(P\arabic*)]\setcounter{enumi}{1}
+  \begin{enumerate}[nosep,label=(Q\arabic*)]\setcounter{enumi}{1}
     \item\label{path_splice} For each $i\in[h-1]$ and each $\ell\in S^+_{i}\cap S^+_{i+1}$, the root-to-$\ell$ path $P_{B_{i}}(\ell)$ in $B_{i}$ and the root-to-$\ell$ path $P_{B_{i+1}}(\ell)$ in $B_{i+1}$ differ by at most a single vertex.  More precisely, a subpath $xyz$ in $P_{B_{i}}(\ell)$ can be replaced by a subpath $xy'z$ to give $P_{B_{i+1}}(\ell)$.%
     \footnote{There are two exceptions. Occasionally, $P_{B_{i+1}}(\ell)$ is obtained by removing the first vertex of $P_{B_{i}}(\ell)$ or by adding a vertex at the beginning of $P_{B_{i}}(\ell)$. Since these exceptions are distracting and easily handled, we ignore them here.}
   \end{enumerate}
@@ -2700,7 +2694,7 @@ Variants of the following result appear in several contexts, with different boun
 
   For each $i\in [h]$ and each $S\subseteq S^+_i$, define \defin{$\lca'_{B_i}(S)$} as the maximum depth non-leaf node in $B_i$ that contains all elements of $S$ in its subtree. (Equivalently, $\lca'_{B_i}(S)=\lca_{B_i}(S)$ if $\lca_{B_i}(S)$ is not a leaf of $B_i$, otherwise $\lca'_{B_i}(S)=\parent_{B_i}(\lca_{B_i}(S))$.) For each $i\in[h]$ and each $v\in V_i$, define $\mathdefin{x'_{B_i}(v)}:=\lca'_{B_i}(f(v)\cap S^+_i)$ and define \defin{$x_{B_i}(v)$} as the child of $x'_{B_i}(v)$ that has $x_f(v)$ as a leaf-descendant.   
   (The node $x'_{B_i}(v)$ exists because $x_f(v)\in S_i\subseteq S^+_i$ and $x_f(v)\in f(v)$ and $x_{B_i}(v)$ exists because $x'_{B_i}(v)$ is a non-leaf node.)  We make use of the following property of this definition:
-  \begin{enumerate}[nosep,label=(P\arabic*)]\setcounter{enumi}{2}
+  \begin{enumerate}[nosep,label=(Q\arabic*)]\setcounter{enumi}{2}
     \item\label{smallest_in} For each $i\in[h]$ and each $v\in V_i$, the smallest leaf-descendant of $x_{B_i}(v)$ is contained in $f(v)$.
   \end{enumerate}
   For each $i\in[h]$ and each $v\in V_i$, define the \defin{signature} $\mathdefin{\sigma(v,i)}:=\sigma_{B_i}(x_{B_i}(v))$.
@@ -2714,7 +2708,7 @@ Variants of the following result appear in several contexts, with different boun
     & = \log |S^+_i|+\Oh(\sqrt{\log n}) \enspace .
   \end{align*}
   The following is the critical property of the vertex signatures:
-  \begin{enumerate}[nosep,label=(P\arabic*)]\setcounter{enumi}{3}
+  \begin{enumerate}[nosep,label=(Q\arabic*)]\setcounter{enumi}{3}
    \item For any two vertices $(v,i)$ and $(w,j)$ of $G$, $(\rho(i),\sigma(v,i),\varphi(v))=(\rho(j),\sigma(w,j),\varphi(w))$ if and only if $(v,i)=(w,j)$.
   \end{enumerate}  
   Indeed, since $\rho$ is an injective function $\rho(i)=\rho(j)$ if and only if $i=j$.  If $\sigma(v,i)=\sigma(w,i)$ then $y:=x_{B_i}(v)=x_{B_i}(w)$. By \ref{smallest_in}, $f(v)$ and $f(w)$ each contain the smallest leaf-descendant of $y$, so $f(v)\cap f(w)\neq\emptyset$.   Since $\varphi$ is a proper colouring of the intersection graph $G_f$, $\varphi(v)=\varphi(w)$ and $f(v)\cap f(w)\neq\emptyset$ if and only if $v=w$.
@@ -2722,7 +2716,7 @@ Variants of the following result appear in several contexts, with different boun
   We make use of the fact that $\sigma(v,i)$ is defined for many pairs $(v,i)$ that are not vertices of $G$ (but not necessarily all vertices of $H\boxtimes P$).  We make use of the fact that, for each $i\in[h]$ and each $v\in V_i$, $\sigma(v,i)$ is defined, which implies that $\sigma(v,i)$ is defined if any of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is a vertex of $G$.
 
   Let $(v,i)$ and $(w,j)$ be two vertices of $G$ such that $w\in \{v\}\cup N^+_H(v)$ and $|j-i|\le 1$.  Since $|j-i|\le 1$, $x'_{B_j}(v)$, $x_{B_j}(v)$, and $\sigma(v,j)$ are all defined.  By Property~\ref{intersection_subgraph},  $f(v)\subseteq f(w)$.  Therefore  $x'_{B_j}(w)$ is a $B_j$-ancestor of $x'_{B_j}(v)$ and of its child $x_{B_j}(v)$.
-  Therefore, $\sigma_{B_j}(x'_{B_j}(w))$ is a prefix of $\sigma(v,j)=\sigma_{B_j}(x_{B_j}(v))$.  Since $x_{B_j}(w)$ is a child of $x_{B_j}'(w)$, this implies that $\sigma(w,j)$ consists of a prefix of $\sigma(v,j)$ possibly followed by the $\lceil\log(12a)\rceil$-bit representation of $c_{w,j}$, where $c_{w,j}\in\{0,\ldots,12a-1\}$ is the index of $x_{B_j}(w)$ in the list of children of $x'_{B_j}(w)$.  To summarize, it is possible to construct $\sigma(w,j)$ given $\sigma(v,j)$, $|\sigma(w,j)|$, and $c_{w,j}$.
+  Therefore, $\sigma_{B_j}(x'_{B_j}(w))$ is a prefix of $\sigma(v,j)=\sigma_{B_j}(x_{B_j}(v))$.  Since $x_{B_j}(w)$ is a child of $x_{B_j}'(w)$, this implies that $\sigma(w,j)$ consists of a prefix of $\sigma(v,j)$ followed by the $\lceil\log(12a)\rceil$-bit representation of $c_{w,j}$, where $c_{w,j}\in\{0,\ldots,12a-1\}$ is the index of $x_{B_j}(w)$ in the list of children of $x'_{B_j}(w)$.  To summarize, it is possible to construct $\sigma(w,j)$ given $\sigma(v,j)$, $|\sigma(w,j)|$, and $c_{w,j}$.
 
   \paragraph{\boldmath The adjacency list $\alpha(v,i)$:}
   For each $(v,i)\in V(G)$, define
@@ -2759,7 +2753,7 @@ Variants of the following result appear in several contexts, with different boun
   \[
      J(\sigma(v,i),\overrightarrow{\tau}(v,i)) := J_3(J_2(J_1(\sigma(v,i), \overrightarrow{\tau}_1(v,\ell,i)), \overrightarrow{\tau}_2(\ell, i)), \overrightarrow{\tau}_3(v,i)) = \sigma(v,i+1) \enspace .
   \]
-  As mentioned  above, the transition code $\overleftarrow{\tau}(v,i)$, also of length $O(\sqrt{\log n})$, is defined by a symmetric three part code, so that $J(\sigma(v,i),\overleftarrow{\tau}(v,i)) = \sigma(v,i-1)$.
+  As mentioned above, the backward transition code $\overleftarrow{\tau}(v,i)$, also of length $O(\sqrt{\log n})$, is defined symmetrically (using property~\ref{plus_chunking_up} in place of~\ref{plus_chunking_down}) so that $J(\sigma(v,i),\overleftarrow{\tau}(v,i)) = \sigma(v,i-1)$.
 
 %   In the preceding discussion there is a symmetry between $B_i$ and $B_{i+1}$.  For each $(v,i)\in V(G)$ with $i\in\{2,\ldots,h\}$, $v\in V_{i-1}\cap V_i$ and hence $x_f(v)\in S^+_{i-1}\cap S^+_i$.  For each $\ell\in S^+_{i-1}\cap S^+_i$, the root-to-$\ell$ paths $P_{B_{i-1}}(\ell)$ and $P_{B_i}(\ell)$ differ by replacing a single vertex.  Thus, exactly the same three-stage argument shows that there exists a bitstring $\overleftarrow{\tau}(v,i) := \langle \overleftarrow{\tau}_1(v,\ell,i), \overleftarrow{\tau}_2(\ell, i), \overleftarrow{\tau}_3(v,i)\rangle$ of length $\Oh(\sqrt{\log n})$ such that $J(\sigma(v,i),\overleftarrow{\tau}(v,i))=\sigma(v,i-1)$, where 
 %   \[
@@ -2816,7 +2810,7 @@ Variants of the following result appear in several contexts, with different boun
     \alpha(K)
       & := \langle\; \alpha^-(K),\; \alpha^0(K)  \;\rangle \enspace .
   \end{align*}
-  Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k\sqrt{\log n})$.  By Property~\ref{clique_property}, $f(v_K) \subseteq f(w)$ for each $w \in V_K$. As discussed above, this implies that $\sigma(w,i_K)$ is completely determined by $\sigma(v_K,i_K)$, $|\sigma(w,i_K)|$, and the integer $c_{w,i_K}$ (specifically, by the prefix of $\sigma(v_K,i_K)$ of length $|\sigma(w,i_K)|-1$ together with $c_{w,i_K}$). Define
+  Since $|K|\le 2k+2$, $|\alpha(K)|\in\Oh(k\sqrt{\log n})$.  By Property~\ref{clique_property}, $f(v_K) \subseteq f(w)$ for each $w \in V_K$. As discussed above, this implies that $\sigma(w,i_K)$ is completely determined by $\sigma(v_K,i_K)$, $|\sigma(w,i_K)|$, and the integer $c_{w,i_K}$ (specifically, by the prefix of $\sigma(v_K,i_K)$ of length $|\sigma(w,i_K)|-\lceil\log(12a)\rceil$ together with $c_{w,i_K}$). Define
   \[
     \mu(K) := \langle\; \lambda_1(K),\; \sigma(v_K,i_K),\; \overleftarrow{\tau}(v_K,i_K),\; \alpha(K) \;\rangle \enspace .
   \]
@@ -2859,11 +2853,11 @@ Variants of the following result appear in several contexts, with different boun
 
   \paragraph{Simulating weights by multiplicity:} Finally, we explain how to make the unweighted $(g_1,g_2,g_3)$ mixed labelling scheme described so far into a strongly $g_0$-orientable weighted mixed labelling scheme. By \cref{lem:nice_weights,obs:normalization_orientability}, it suffices to construct a strongly $g_0$-orientable weak weighted mixed labelling scheme; the additive constants in the vertex and clique label lengths are absorbed into $g_1$ and $g_3$. Let $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$ be a nice triple and let $n:=|V(G)|$. Thus, $\omega:V(G)\to\N^+$ and $n\le\omega(G)\le 2n$, so $\log\omega(G)\le\log n+1$.
 
-  The only modification needed is in the definition of the sets $S_1,\ldots,S_h$. Define $\omega(v,i)=0$ for each $(v,i)\in (V(H)\times\{0,\ldots,h+1\})\setminus V(G)$.  For each $i\in[h]$ and each $v\in V_i$, define $\delta(v,i) = \omega(v,i-1)+\omega(v,i)+\omega(v,i+1)$.  For each $i\in[h]$ and each $v\in V_i$, at least one of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is in $V(G)$, so $\delta(v,i) \ge 1$. Furthermore, $\sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ since each vertex $(v,i)$ of $G$ contributes $\omega(v,i)$ to $\delta(v,j)$ for at most three values of $j$. Fix $\epsilon \in (0,1/(6\omega(G))]$. For each $i\in\{1,\ldots,h\}$, define 
+  The only modification needed is in the definition of the sets $S_1,\ldots,S_h$. Define $\omega(v,i):=0$ for each $(v,i)\in (V(H)\times\{0,\ldots,h+1\})\setminus V(G)$.  For each $i\in[h]$ and each $v\in V_i$, define $\delta(v,i) := \omega(v,i-1)+\omega(v,i)+\omega(v,i+1)$.  For each $i\in[h]$ and each $v\in V_i$, at least one of $(v,i-1)$, $(v,i)$, or $(v,i+1)$ is in $V(G)$, so $\delta(v,i) \ge 1$. Furthermore, $\sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ since each vertex $(v,i)$ of $G$ contributes $\omega(v,i)$ to $\delta(v,j)$ for at most three values of $j$. Fix $\epsilon \in (0,1/(6\omega(G))]$. For each $i\in\{1,\ldots,h\}$, define 
   \[
      S_i := \{ x_f(v)-\epsilon j: v\in V_i, j\in\{0,\ldots,\delta(v,i)-1\}\} \enspace .
   \]
-  With this new definition of $S_1,\ldots,S_h$, everything proceeds exactly as described above. For each $i\in[h]$, we define $S^+_i:= Q(S_i)$ so that $S^+_1,\ldots,S^+_h$ satisfy properties \ref{plus_superset}, \ref{plus_size}, and \ref{plus_chunking_down}. Note that $\sum_{i=1}^h |S_i| = \sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ so, by property~\ref{plus_size}, $\sum_{i=1}^h |S^+_i| \in \Oh(\omega(G))$.
+  With this new definition of $S_1,\ldots,S_h$, everything proceeds exactly as described above. We define $(S^+_1,\ldots,S^+_h):= Q(S_1,\ldots,S_h)$ so that $S^+_1,\ldots,S^+_h$ satisfy properties \ref{plus_superset}--\ref{plus_chunking_up}. Note that $\sum_{i=1}^h |S_i| = \sum_{i\in[h]}\sum_{v\in V_i}\delta(v,i) \le 3\omega(G)$ so, by property~\ref{plus_size}, $\sum_{i=1}^h |S^+_i| \in \Oh(\omega(G))$.
 
   Before going further, we give an intuitive explanation of why this works.
   Replacing each leaf $x_f(v)$ in $B_i$ with a cluster of $\delta(v,i)$ leaves ensures that the subtree of $B_i$ rooted at $x'_{B_i}(v)$ contains at least $\delta(v,i)\ge \omega(v,i)$ leaves.  This places a lower bound on the height of the subtree of $B_i$ rooted at $x'_{B_i}(v)$.  Since $x_{B_i}(v)$ is a child of $x'_{B_i}(v)$, this places a lower bound on the height of the subtree of $B_i$ rooted at $x_{B_i}(v)$.  Since the height of $B_i$ is $\log_a |S^+_i| + \Oh(1)$, the lower bound on the height of the subtree rooted at $x_{B_i}(v)$ upper bounds the depth of $x_{B_i}(v)$ in $B_i$.  We now make this precise.
@@ -2917,7 +2911,7 @@ Variants of the following result appear in several contexts, with different boun
   which satisfies the requirement $g_3(n)\in\Oh(k\sqrt{\log n})$.
 
   \paragraph{\boldmath $g_0$-orientability:}  
-  For each nice triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS$ be the indexed collection of these labellings over all nice triples in $\calT_{\calR_k}$. Then $(\calS,A,I)$ is a weak weighted mixed labelling scheme for $\calR_k$. Fix $n\in\N^+$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$, using only nice triples in $\calT'_{\calR_k,\le n}$. For every such triple, $|V(G)|\le n$ and $\omega(G)\le 2n$ and $\sum_i|S_i^+|\in\Oh(\omega(G))\subseteq\Oh(n)$. Consequently, the bounds on the lengths of the auxiliary label components established above are uniform over these triples, with $n$ now denoting the universal-graph parameter rather than the order of a particular graph. We now describe an orientation of $U_n$ in which each vertex has out-degree at most $g_0(n)$.
+  For each nice triple $\tau=(G^+,G,\omega)\in\calT_{\calR_k}$, let $(\mu_\tau,\kappa_\tau)$ be the mixed labelling of $\tau$ for $(A,I)$ described above, and let $\calS$ be the indexed collection of these labellings over all nice triples in $\calT_{\calR_k}$. Then $(\calS,A,I)$ is a weak weighted mixed labelling scheme for $\calR_k$. Fix $n\in\N^+$, and let $U_n$ be the $n$-universal graph defined by $(\calS,A)$, using only nice triples in $\calT'_{\calR_k,\le n}$. For every such triple, $|V(G)|\le n$ and $\omega(G)\le 2n$ and $\sum_i|S_i^+|\in\Oh(\omega(G))\subseteq\Oh(n)$. Consequently, the bounds on the lengths of the auxiliary label components established above are uniform over these triples, with $n$ now denoting the universal-graph parameter rather than the order of a particular graph. We now describe an orientation of $U_n$ in which each vertex has outdegree at most $g_0(n)$.
 
   Let $\beta\beta'$ be an edge of $U_n$. Then there exists a nice triple $\tau=(G^+,G,\omega)\in\calT'_{\calR_k,\le n}$ and an edge $e=(v,i)(w,j)\in E(G)$ such that $\beta=\mu_\tau(v,i)$ and $\beta'=\mu_\tau(w,j)$. Since $G^+\in\calR_k$, $G^+$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth at most $k$ and path $P=(1,\ldots,h)$. Since $(v,i)(w,j)\in E(G)$, we have $|i-j|\le 1$. In $H$, the ancestor ordering $<$ of $\calT$ is a strict partial order. Exactly one of the following holds for the pair of vertices $(v,i)$ and $(w,j)$:
   \begin{itemize}[nosep,nolistsep]
@@ -2925,7 +2919,7 @@ Variants of the following result appear in several contexts, with different boun
     \item $v = w$: then $i\neq j$ and $|i-j|=1$. We orient the edge $\beta\beta'$ towards the endpoint with smaller $P$-coordinate. That is, if $j=i-1$, we orient $\beta\beta'$ towards $\beta'$; if $i=j-1$, we orient $\beta\beta'$ towards $\beta$.
   \end{itemize}
 
-  We now bound the maximum contribution to the out-degree of $\beta$ from this orientation rule. An edge incident to $\beta=\mu_\tau(v,i)$ is oriented away from $\beta$ towards $\beta'=\mu_\tau(w,j)$ only when $w\in N^+_H(v)$ (with $j\in\{i-1,i,i+1\}$) or when $w=v$ and $j=i-1$. In every such case, $w\in \{v\}\cup N^+_H(v)$, so $(w,j)$ corresponds to an entry in $\alpha(v,i)$. We consider the three cases corresponding to the operation of the adjacency tester $A(\beta,\beta')$:
+  We now bound the maximum contribution to the outdegree of $\beta$ from this orientation rule. An edge incident to $\beta=\mu_\tau(v,i)$ is oriented away from $\beta$ towards $\beta'=\mu_\tau(w,j)$ only when $w\in N^+_H(v)$ (with $j\in\{i-1,i,i+1\}$) or when $w=v$ and $j=i-1$. In every such case, $w\in \{v\}\cup N^+_H(v)$, so $(w,j)$ corresponds to an entry in $\alpha(v,i)$. We consider the three cases corresponding to the operation of the adjacency tester $A(\beta,\beta')$:
   \begin{enumerate}
     \item $i=j$: In this case, the edge is oriented away from $\beta$ only if $w\in N^+_H(v)$. The tester examines the at most $6k+5$ entries in $\alpha^0(v,i)$ and finds the entry $\langle |\sigma(w,i)|, c_{w,i}, \varphi(w)\rangle$. Using $\sigma(v,i)$ and this entry, $\sigma(w,i)$ and $\varphi(w)$ are uniquely determined. Since $\beta$ fixes $\lambda_1(v,i)=\lambda_1(w,j)$, the prefix $\langle \lambda_1(w,j), \sigma(w,j), \varphi(w)\rangle$ of $\beta'$ is fixed by $\beta$ and the entry. There are at most $6k+5$ such entries.
     
@@ -2993,7 +2987,7 @@ We finish this appendix by remarking that this can be improved using the ideas a
   To verify correctness, suppose the first condition holds. The entry $\langle|\sigma(w)|,\varphi(w)\rangle$ in $\alpha(v)$ certifies the existence of some $u\in N^+_G(v)$ such that $|\sigma(u)|=|\sigma(w)|$ and $\varphi(u)=\varphi(w)$. Since both $\sigma(u)$ and $\sigma(w)$ are prefixes of $\sigma(v)$ of the same length, $\sigma(u)=\sigma(w)$. Together with $\varphi(u)=\varphi(w)$, this implies $u=w$, so $w\in N^+_G(v)$ and $vw\in E(G)$. The second case is symmetric. Conversely, if $vw\in E(G)$, then either $w\in N^+_G(v)$ (satisfying the first condition) or $v\in N^+_G(w)$ (satisfying the second condition).
 
   To see that the scheme is $g_0$-orientable, let $U_n$ be the $n$-universal graph defined by this scheme. For each edge $e=\{\beta,\beta'\}\in E(U_n)$, there exists some graph $G\in\calH_k$ with at most $n$ vertices and an edge $vw\in E(G)$ such that $\beta=\ell_G(v)$ and $\beta'=\ell_G(w)$. If $w\in N^+_G(v)$, orient $e$ towards $\beta'$; if $v\in N^+_G(w)$, orient $e$ towards $\beta$ (breaking ties arbitrarily if different graphs witness opposite orientations).
-  Now consider any vertex $\beta=\langle \sigma,\varphi,\alpha\rangle\in V(U_n)$. An edge is oriented away from $\beta$ towards $\beta'$ only if $\beta'$ corresponds to an in-neighbour $w\in N^+_G(v)$ for some witness graph. For each such neighbour, $\alpha$ contains an entry $\langle s,c\rangle=\langle|\sigma(w)|,\varphi(w)\rangle$. This entry completely determines the prefix $\langle \sigma(w),\varphi(w)\rangle$ of $\beta'$, where $\sigma(w)$ is the prefix of $\sigma$ of length $s$ and $\varphi(w)=c$. The only remaining component of $\beta'$ is $\alpha(w)$, which has length at most $c'k\log\log n$ for some constant $c'>0$. Thus, there are at most $2^{c'k\log\log n} = (\log n)^{c'k}$ choices for $\alpha(w)$. Since $\alpha$ contains at most $6k+5$ entries, the number of edges oriented away from $\beta$ in $U_n$ is at most $(6k+5)(\log n)^{c'k} \le (\log n)^{ck}$ for an absolute constant $c>0$. Therefore, the scheme is $g_0$-orientable with $g_0(n)\in\Oh((\log n)^{ck})$.
+  Now consider any vertex $\beta=\langle \sigma,\varphi,\alpha\rangle\in V(U_n)$. An edge is oriented away from $\beta$ towards $\beta'$ only if $\beta'$ corresponds to an in-neighbour $w\in N^+_G(v)$ for some witness graph. For each such neighbour, $\alpha$ contains an entry $\langle s,c\rangle=\langle|\sigma(w)|,\varphi(w)\rangle$. This entry completely determines the prefix $\langle \sigma(w),\varphi(w)\rangle$ of $\beta'$, where $\sigma(w)$ is the prefix of $\sigma$ of length $s$ and $\varphi(w)=c$. The only remaining component of $\beta'$ is $\alpha(w)$, which has length at most $c'k\log\log n$ for some constant $c'>0$. Thus, there are at most $2^{c'k\log\log n} = (\log n)^{c'k}$ choices for $\alpha(w)$. Since $\alpha$ contains at most $6k+5$ entries, the number of edges oriented away from $\beta$ in $U_n$ is at most $(6k+5)(\log n)^{c'k} \in \Oh((\log n)^{ck})$ for an absolute constant $c>0$. Therefore, the scheme is $g_0$-orientable with $g_0(n)\in\Oh((\log n)^{ck})$.
 \end{proof}
 
 \begin{cor}\label{cor:treewidth_universal}
